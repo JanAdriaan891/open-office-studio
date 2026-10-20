@@ -1,6 +1,6 @@
 # Open Office Studio
 
-Een kantooromgeving voor tekstverwerking, rekenbladen en presentaties.
+Open-source kantoortoepassingen van het OpenAEC-ecosysteem voor tekstverwerking, rekenbladen en presentaties.
 
 ## Modules
 
