@@ -1,4 +1,4 @@
-# Bestandsformaten in 0.4.0
+# Bestandsformaten in 0.4.1
 
 DOCX, XLSX en PPTX werken rechtstreeks in de editors. De andere onderstaande invoerextensies hebben een lokale conversieroute in de desktopversie. Daarvoor moet LibreOffice afzonderlijk geïnstalleerd zijn. Een catalogusvermelding betekent dat conversie geprobeerd kan worden; niet dat iedere variant getest of verliesvrij is.
 

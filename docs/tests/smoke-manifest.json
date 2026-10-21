@@ -38,6 +38,19 @@
       "url": "https://raw.githubusercontent.com/spannm/jackcess/dc2cf92100d2c3468548d96dc4c3c8325eb35810/src/test/resources/data/V2007/common1V2007.accdb",
       "licentie": "https://github.com/spannm/jackcess/tree/dc2cf92100d2c3468548d96dc4c3c8325eb35810",
       "sha256": "c2c3352c71aa3985bd620a322521eb9f67391cbb19ba9fefc376a24575896df7"
+    },
+    {
+      "id": "jackcess-6121fc34bed66f15e836e8130cd9489184e7a384",
+      "bron": "spannm/jackcess",
+      "revisie": "dc2cf92100d2c3468548d96dc4c3c8325eb35810",
+      "pad": "src/test/resources/data/V1997/compIndexV1997.mdb",
+      "naam": "compIndexV1997.mdb",
+      "extensie": "mdb",
+      "grootte": 81920,
+      "gitSha": "6121fc34bed66f15e836e8130cd9489184e7a384",
+      "url": "https://raw.githubusercontent.com/spannm/jackcess/dc2cf92100d2c3468548d96dc4c3c8325eb35810/src/test/resources/data/V1997/compIndexV1997.mdb",
+      "licentie": "https://github.com/spannm/jackcess/tree/dc2cf92100d2c3468548d96dc4c3c8325eb35810",
+      "sha256": "4fc5df33437e4f8c55075ef6e4d17e9654fe7ff4ba83b3ceb0f3b7f4202d530e"
     }
   ]
 }

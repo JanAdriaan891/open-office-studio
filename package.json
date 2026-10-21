@@ -1,6 +1,6 @@
 {
   "name": "@openaec/office-studio",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "private": true,
   "type": "module",
   "packageManager": "pnpm@11.25.0",
@@ -36,6 +36,7 @@
     "fflate": "0.8.3",
     "lucide-react": "^0.468.0",
     "mdb-reader": "3.2.0",
+    "process": "0.11.10",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "stream-browserify": "3.0.0"

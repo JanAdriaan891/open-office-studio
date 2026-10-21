@@ -17,7 +17,7 @@ De Node-parserproef las 79 van 82 openbare databases. Drie bestanden met complex
 
 Geen databasebewerkingen, query-uitvoering, relaties, formulieren, rapporten, gekoppelde tabellen of ODB-ondersteuning. VBA-extractie en VBA-uitvoering ontbreken. SQL- en BAS-downloads zijn uitsluitend beschikbaar voor de ingebouwde voorbeelden. De richting blijft een databaseomgeving zoals LibreOffice Base; deze versie is daarvan slechts het begin.
 
-De browser-GUI van de nieuwe parser moet nog afzonderlijk worden afgetest. Een geslaagde parser- of buildproef vervangt dat niet.
+De [browserproef van 0.4.1](../../docs/tests/2026-10-21-browser.md) heeft echte MDB/ACCDB-tabellen, typen, filters, CSV, foutbehoud en paginering gecontroleerd. Deze proef vond een ontbrekende browseradapter; die is hersteld. Native dialogen en schone installaties blijven afzonderlijke controles.
 
 ## Opbouw
 

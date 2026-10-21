@@ -41,8 +41,19 @@ export function AccessStudio({
   const [donker, setDonker] = useState(false);
   const invoer = useRef<HTMLInputElement>(null);
   const lezer = useRef<DatabaseClient | null>(null);
+  const inlezen = useRef<DatabaseClient | null>(null);
+  const actief = useRef(true);
   const [paginaStart, setPaginaStart] = useState(0);
-  useEffect(() => () => lezer.current?.sluit(), []);
+  useEffect(() => {
+    actief.current = true;
+    return () => {
+      actief.current = false;
+      inlezen.current?.sluit();
+      lezer.current?.sluit();
+      inlezen.current = null;
+      lezer.current = null;
+    };
+  }, []);
   const object = sessie?.objecten.find((item) => item.id === selectie);
   const rijen =
     object?.rijen?.filter((rij) =>
@@ -83,14 +94,17 @@ export function AccessStudio({
   async function kiesObject(id: string, start = 0) {
     setSelectie(id);
     setZoeken("");
-    setPaginaStart(start);
     setFout("");
     const client = lezer.current;
-    if (!client) return;
+    if (!client) {
+      setPaginaStart(start);
+      return;
+    }
     setBezig(true);
     try {
       const tabel = await client.tabel(id, start);
-      if (lezer.current === client)
+      if (lezer.current === client) {
+        setPaginaStart(start);
         setSessie((huidig) =>
           huidig
             ? {
@@ -101,6 +115,7 @@ export function AccessStudio({
               }
             : huidig,
         );
+      }
     } catch (error) {
       if (lezer.current === client)
         setFout("Deze tabel kon niet worden gelezen: " + String(error));
@@ -203,9 +218,15 @@ export function AccessStudio({
           if (!bestand) return;
           setBezig(true);
           setFout("");
-          const client = new DatabaseClient();
+          let client: DatabaseClient | null = null;
           try {
+            client = new DatabaseClient();
+            inlezen.current = client;
             const nieuw = await client.open(bestand);
+            if (!actief.current) {
+              client.sluit();
+              return;
+            }
             lezer.current?.sluit();
             lezer.current = client;
             setSessie(nieuw);
@@ -213,14 +234,16 @@ export function AccessStudio({
             setZoeken("");
             setPaginaStart(0);
           } catch (error) {
-            client.sluit();
-            setFout(
-              error instanceof Error
-                ? error.message
-                : "Bestand kon niet worden gelezen.",
-            );
+            client?.sluit();
+            if (actief.current)
+              setFout(
+                error instanceof Error
+                  ? error.message
+                  : "Bestand kon niet worden gelezen.",
+              );
           } finally {
-            setBezig(false);
+            if (inlezen.current === client) inlezen.current = null;
+            if (actief.current) setBezig(false);
           }
         }}
       />

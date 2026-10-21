@@ -24,6 +24,7 @@ import { StartScherm, modules } from "./StartScherm";
 import { DocumentOpslag, type BewaarUitkomst } from "./opslag";
 import { VerlaatDialoog } from "./VerlaatDialoog";
 import { controleerPakket } from "./pakketcontrole";
+import { version } from "../package.json";
 import {
   bestandstypen,
   bestandssoort,
@@ -479,7 +480,7 @@ export function OfficeStudio() {
                 : gewijzigd
                   ? "Niet-opgeslagen wijzigingen"
                   : "Gereed"
-              : "Ontwikkelversie 0.4"}
+              : `Ontwikkelversie ${version}`}
             {bestand && <kbd>Ctrl+S</kbd>}
           </span>
         </footer>

@@ -16,6 +16,11 @@ for (const pad of process.argv.slice(2)) {
       "data:text/javascript," +
         encodeURIComponent(`
     import { parentPort } from 'node:worker_threads';
+    // De productiebundel moet zijn eigen browserhulpmiddelen leveren.
+    globalThis.Buffer = undefined;
+    globalThis.process = undefined;
+    globalThis.global = undefined;
+    globalThis.setImmediate = undefined;
     globalThis.self = { postMessage: (bericht) => parentPort.postMessage(bericht) };
     await import(${JSON.stringify(moduleUrl)});
     parentPort.on('message', (data) => self.onmessage({data}));
