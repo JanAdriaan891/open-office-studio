@@ -2,29 +2,37 @@
 
 Open-source kantoortoepassingen van het OpenAEC-ecosysteem voor tekstverwerking, rekenbladen en presentaties.
 
-![OpenAEC Office Studio: lichte werkruimte met Writer, Calc en Presentatie](docs/screenshots/start.jpg)
+![OpenAEC Office Studio: lichte werkruimte met Writer, Calc en Presentatie](docs/screenshots/start-0.4.1.jpg)
 
 ## In beeld
 
 Werkelijke schermafbeeldingen van de lokale productiebuild, met de eigen [voorbeeldbestanden](docs/voorbeelden). De interface heeft een gedeelde ribbon, contextuele opdrachten en een lokaal bestandsmenu. Deze beelden tonen de ontwikkelversie; ze zijn geen verklaring van volledige formaatcompatibiliteit.
 
+Beelden bijgewerkt naar productiefrontend 0.4.1.
+
 ### Open Writer Studio
 
 Paginaweergave met tekstopmaak, alineastijlen en documentnavigatie.
 
-![Writer: ontwerpnotitie met Nederlandse ribbon, koppen en navigatie](docs/screenshots/writer.jpg)
+![Writer: ontwerpnotitie met Nederlandse ribbon, koppen en navigatie](docs/screenshots/writer-0.4.1.jpg)
 
 ### Open Excel Calc Studio
 
 Rekenblad met formulebalk, rij- en kolomkoppen, celopmaak en berekende materiaaltotalen.
 
-![Calc: materiaaloverzicht met formules en opgemaakte cellen](docs/screenshots/calc.jpg)
+![Calc: materiaaloverzicht met formules en opgemaakte cellen](docs/screenshots/calc-0.4.1.jpg)
 
 ### Open Presentatie Studio
 
 Dia’s, vormen, tekst en sprekersnotities in één werkruimte.
 
-![Presentatie: ontwerpvisie met dia-overzicht en sprekersnotities](docs/screenshots/presentatie.jpg)
+![Presentatie: ontwerpvisie met dia-overzicht en sprekersnotities](docs/screenshots/presentatie-0.4.1.jpg)
+
+### Open Access Studio — experimenteel
+
+Een echt openbaar ACCDB-testbestand, lokaal en alleen lezen, met kolomtypen en paginering. Query’s, formulieren en VBA ontbreken nog.
+
+![Access: echte ACCDB-tabellen met typen en geladen rijen](docs/screenshots/access-0.4.1.jpg)
 
 ## Modules
 
