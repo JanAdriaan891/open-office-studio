@@ -1,0 +1,185 @@
+:root {
+  font-family: Inter, sans-serif;
+  font-synthesis: none;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
+button,
+input {
+  font: inherit;
+}
+.office-actions button,
+.office-home button {
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 6px;
+}
+h1,
+h2,
+h3 {
+  font-family: "Space Grotesk", sans-serif;
+}
+p {
+  line-height: 1.65;
+}
+.office-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+}
+.office button:focus-visible {
+  outline: 3px solid #f59e0b;
+  outline-offset: 2px;
+}
+.office {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #fafaf9;
+  color: #36363e;
+}
+.office-header {
+  flex-shrink: 0;
+  background: #36363e;
+  color: #fafaf9;
+  height: 54px;
+}
+.office-header strong span {
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: #f59e0b;
+  margin-left: 15px;
+}
+.office-header > span {
+  font-size: 12px;
+  color: #d6d3d1;
+}
+.office-actions {
+  --surface: #fff;
+  --border: #e7e5e4;
+  --text: #36363e;
+  flex-shrink: 0;
+  padding: 10px 24px;
+  display: flex;
+  border-bottom: 1px solid #e7e5e4;
+}
+.office-actions button {
+  border: 1px solid #e7e5e4;
+  background: #fff;
+  color: #36363e;
+}
+.office-actions > span {
+  margin-left: auto;
+  font-size: 13px;
+}
+.office-home {
+  display: block;
+  width: 100%;
+  max-width: 1250px;
+  margin: 0 auto;
+  padding: 65px 40px;
+  min-height: 0;
+  overflow: auto;
+}
+.office-home h1 {
+  font-size: 48px;
+}
+.office-home > p {
+  color: #57534e;
+}
+.office-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin: 36px 0;
+}
+.office-cards button {
+  display: block;
+  text-align: left;
+  padding: 30px;
+  background: white;
+  border: 1px solid #e7e5e4;
+  border-radius: 12px;
+  color: #36363e;
+}
+.office-cards button:hover {
+  border-color: #d97706;
+  box-shadow: 0 8px 24px #36363e0d;
+}
+.office-cards svg {
+  color: #d97706;
+}
+.office-cards h2 {
+  font-size: 23px;
+  line-height: 1.4;
+}
+.office-cards p {
+  font-size: 14px;
+  color: #57534e;
+}
+.office-cards strong {
+  display: block;
+  font-size: 13px;
+  margin-top: 28px;
+}
+.office-note {
+  font-size: 13px;
+  max-width: 800px;
+}
+.office-home > button {
+  margin-top: 20px;
+  border: 1px solid #e7e5e4;
+  background: white;
+  color: #57534e;
+}
+.office-editor {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.office-editor > div {
+  flex: 1;
+  min-height: 0;
+}
+.office-message {
+  background: #fff7ed;
+  border-left: 3px solid #d97706;
+  padding: 12px 24px;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+.office-loading {
+  padding: 30px;
+}
+.office > .access-app {
+  overflow: auto;
+  min-height: 0;
+  flex: 1;
+}
+@media (max-width: 800px) {
+  .office-cards {
+    grid-template-columns: 1fr;
+  }
+  .office-home {
+    padding: 25px;
+  }
+  .office-home h1 {
+    font-size: 34px;
+  }
+  .office-actions {
+    flex-wrap: wrap;
+  }
+  .office-header > span {
+    display: none;
+  }
+}

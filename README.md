@@ -4,13 +4,15 @@ Open-source kantoortoepassingen van het OpenAEC-ecosysteem voor tekstverwerking,
 
 ## Modules
 
-- **Documenten** — teksten schrijven, opmaken en opslaan.
-- **Rekenbladen** — tabellen, formules en grafieken maken.
-- **Presentaties** — dia’s maken, vormgeven en presenteren.
+- **Open Writer Studio** — teksten schrijven, opmaken en opslaan.
+- **Open Excel Calc Studio** — tabellen, formules en grafieken maken.
+- **Open Presentatie Studio** — dia’s maken, vormgeven en presenteren.
+
+- **Open Access Studio** — bestaande databases en VBA-bron verkennen.
 
 ## Status
 
-De repository bevat de projectindeling, een [onderzoek naar de browserroute](docs/onderzoek/README.md) en een controleprogramma voor bestandsbehoud. De toepassingen zijn hier nog niet geïmplementeerd. Bestaande editors in de Y-app vormen het startpunt.
+Een lokale React-werkruimte met drie aangesloten kantoorengines en een Tauri-desktopbasis is beschikbaar. Nieuw, openen en opslaan als zijn aangesloten; voor Access is er alleen een voorbeeldopzet. De suite is nog een ontwikkelprototype. Zie het [testverslag](docs/tests/2026-10-21.md) voor bewezen functionaliteit en ontbrekende releasecontroles.
 
 ## Opbouw
 
@@ -20,8 +22,8 @@ De repository bevat de projectindeling, een [onderzoek naar de browserroute](doc
 
 ## Eerste ontwikkelstappen
 
-1. Een gedeelde werkruimte met een modulekiezer maken.
-2. Per module een eenvoudige editor en lokaal opslaan toevoegen.
+1. Nederlandse editorbediening en de functionele acceptatieproeven afronden.
+2. Native opslag, herstel en installers op alle doelplatformen testen.
 3. Import en export van gangbare documentformaten uitwerken.
 
 ## Onderzoek
@@ -40,3 +42,15 @@ python3 -m unittest discover -s tests -v
 ```
 
 Zie de [testmatrix](docs/onderzoek/testmatrix.md) voor het vergelijken van DOCX-, XLSX- en PPTX-pakketten.
+
+## Desktopontwikkeling
+
+- [Functionele eisen en vergelijking met WordCraft en andere editors](docs/ontwerp/functionele-lat.md).
+- `pnpm dev`: lokale kantooromgeving.
+- `pnpm build`: TypeScript en productiebuild.
+- `pnpm test`: adapter- en exportcontroles.
+
+- `pnpm test:engines`: documenten wijzigen, opslaan en opnieuw openen met de echte engines.
+- `pnpm desktop:dev`: Tauri-desktopomgeving.
+- `pnpm desktop:build`: native pakket voor het huidige platform.
+- [Testverslag en resterend werk](docs/tests/2026-10-21.md).
