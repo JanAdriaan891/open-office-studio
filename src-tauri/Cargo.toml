@@ -1,6 +1,6 @@
 [package]
 name = "open-office-studio"
-version = "0.3.0"
+version = "0.3.1"
 description = "Lokale OpenAEC-kantooromgeving"
 edition = "2021"
 

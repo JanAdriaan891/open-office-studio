@@ -21,6 +21,7 @@ import type { Soort } from "./editors";
 import { AccessStudio } from "../packages/access/src/AccessStudio";
 import "./office.css";
 import { StartScherm, modules } from "./StartScherm";
+import { DocumentOpslag, type BewaarUitkomst } from "./opslag";
 const Editor = lazy(() => import("./editors"));
 type Bestand = { id: number; naam: string; soort: Soort; bytes: Uint8Array };
 class EditorGrens extends Component<{ children: ReactNode }, { fout: string }> {
@@ -48,19 +49,21 @@ export function OfficeStudio() {
     [gereed, setGereed] = useState(false);
   const input = useRef<HTMLInputElement>(null),
     serialiseer = useRef<(() => Promise<Uint8Array>) | null>(null),
-    versie = useRef(0),
-    bezigRef = useRef(false),
-    serialiseerBezig = useRef(false);
-  const registreer = useCallback((fn: (() => Promise<Uint8Array>) | null) => {
-    serialiseer.current = fn;
-    setGereed(!!fn);
-  }, []);
-  function bewerkt() {
-    versie.current++;
-    setGewijzigd(true);
+    bezigRef = useRef(false);
+  const opslag = useRef(new DocumentOpslag()).current;
+  const registreer = useCallback(
+    (fn: (() => Promise<Uint8Array>) | null) => {
+      if (bestand?.id !== opslag.documentId) return;
+      serialiseer.current = fn;
+      setGereed(!!fn);
+    },
+    [bestand?.id, opslag],
+  );
+  function bewerkt(id: number) {
+    if (opslag.wijzig(id)) setGewijzigd(true);
   }
   async function verlaten() {
-    if (!gewijzigd) return true;
+    if (!opslag.gewijzigd) return true;
     if ("__TAURI_INTERNALS__" in window) {
       const { invoke } = await import("@tauri-apps/api/core");
       return invoke<boolean>("bevestig_verlaten");
@@ -70,6 +73,7 @@ export function OfficeStudio() {
     );
   }
   async function kiesBestand() {
+    if (bezigRef.current) return;
     if (await verlaten()) input.current?.click();
   }
   useEffect(() => {
@@ -83,69 +87,66 @@ export function OfficeStudio() {
   }, [gewijzigd]);
   useEffect(() => {
     const sluit = (e: BeforeUnloadEvent) => {
-      if (gewijzigd) {
+      if (opslag.gewijzigd) {
         e.preventDefault();
         e.returnValue = "";
       }
     };
     window.addEventListener("beforeunload", sluit);
     return () => window.removeEventListener("beforeunload", sluit);
-  }, [gewijzigd]);
-  async function bewaarBytes(bytes: Uint8Array, opslagVersie = versie.current) {
-    if (!bestand || bezigRef.current) return;
-    bezigRef.current = true;
-    setBezig(true);
-    const v = opslagVersie;
-    try {
-      if ("__TAURI_INTERNALS__" in window) {
-        const { invoke } = await import("@tauri-apps/api/core");
-        const pad = await invoke<string | null>("bewaar_kopie", {
-          naam: bestand.naam,
-          bytes: Array.from(bytes),
-        });
-        if (!pad) {
-          setMelding("Opslaan geannuleerd.");
-          return;
-        }
-        setMelding("Opgeslagen: " + pad);
-        if (versie.current === v) setGewijzigd(false);
-      } else {
-        const url = URL.createObjectURL(
-          new Blob([new Uint8Array(bytes)], {
-            type: "application/octet-stream",
-          }),
-        );
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = bestand.naam;
-        document.body.append(a);
-        a.click();
-        a.remove();
-        setTimeout(() => URL.revokeObjectURL(url), 60000);
-        setMelding(
-          "Download aangevraagd. Controleer het bestand in je downloads.",
-        );
-      }
-    } catch (e) {
-      setMelding("Opslaan mislukt: " + String(e));
-    } finally {
-      bezigRef.current = false;
-      setBezig(false);
+  }, [opslag]);
+  async function bewaarKopie(
+    naam: string,
+    bytes: Uint8Array,
+  ): Promise<BewaarUitkomst> {
+    if ("__TAURI_INTERNALS__" in window) {
+      const { invoke } = await import("@tauri-apps/api/core");
+      const pad = await invoke<string | null>("bewaar_kopie", {
+        naam,
+        bytes: Array.from(bytes),
+      });
+      return pad ? { status: "opgeslagen", pad } : { status: "geannuleerd" };
+    } else {
+      const url = URL.createObjectURL(
+        new Blob([new Uint8Array(bytes)], {
+          type: "application/octet-stream",
+        }),
+      );
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = naam;
+      document.body.append(a);
+      a.click();
+      a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 60000);
+      return { status: "download" };
     }
   }
   async function opslaan() {
-    if (!serialiseer.current || bezigRef.current || serialiseerBezig.current)
-      return;
-    serialiseerBezig.current = true;
+    const serialiseerDocument = serialiseer.current;
+    if (!bestand || !serialiseerDocument || bezigRef.current) return;
+    bezigRef.current = true;
     setBezig(true);
     try {
-      const v = versie.current;
-      const bytes = await serialiseer.current();
-      await bewaarBytes(bytes, v);
-    } catch (e) {
-      setMelding("Opslaan mislukt: " + String(e));
+      const resultaat = await opslag.opslaan(serialiseerDocument, (bytes) =>
+        bewaarKopie(bestand.naam, bytes),
+      );
+      if (resultaat.status === "mislukt" && resultaat.actueel) {
+        setMelding("Opslaan mislukt: " + resultaat.fout);
+      }
+      if (resultaat.status === "afgerond" && resultaat.actueel) {
+        const uitkomst = resultaat.uitkomst;
+        setMelding(
+          uitkomst.status === "opgeslagen"
+            ? "Opgeslagen: " + uitkomst.pad
+            : uitkomst.status === "geannuleerd"
+              ? "Opslaan geannuleerd."
+              : "Download aangevraagd. Controleer het bestand in je downloads.",
+        );
+        if (resultaat.schoon) setGewijzigd(false);
+      }
     } finally {
-      serialiseerBezig.current = false;
+      bezigRef.current = false;
       setBezig(false);
     }
   }
@@ -159,7 +160,7 @@ export function OfficeStudio() {
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "o") {
         e.preventDefault();
         e.stopImmediatePropagation();
-        if (!bezig) void kiesBestand();
+        if (!bezigRef.current) void kiesBestand();
       }
       if (e.key === "Escape" && bestandsmenu && (bestand || access))
         setBestandsmenu(false);
@@ -167,30 +168,29 @@ export function OfficeStudio() {
     window.addEventListener("keydown", toetsen, true);
     return () => window.removeEventListener("keydown", toetsen, true);
   });
-  async function open(soort: Soort, naam: string, bytes: Uint8Array) {
+  function open(soort: Soort, naam: string, bytes: Uint8Array) {
     serialiseer.current = null;
     setGereed(false);
-    versie.current = 0;
+    const id = opslag.wissel();
     setGewijzigd(false);
     setMelding("");
     setAccess(false);
     setBestandsmenu(false);
-    setBestand({ id: Date.now(), soort, naam, bytes });
+    setBestand({ id, soort, naam, bytes });
   }
   async function nieuw(soort: Soort) {
-    if (!(await verlaten())) return;
+    if (bezigRef.current) return;
+    bezigRef.current = true;
     setBezig(true);
     try {
+      if (!(await verlaten())) return;
       const r = await fetch(`/templates/nieuw.${soort}`);
       if (!r.ok) throw new Error("Sjabloon niet beschikbaar");
-      await open(
-        soort,
-        `Naamloos.${soort}`,
-        new Uint8Array(await r.arrayBuffer()),
-      );
+      open(soort, `Naamloos.${soort}`, new Uint8Array(await r.arrayBuffer()));
     } catch (e) {
       setMelding(String(e));
     } finally {
+      bezigRef.current = false;
       setBezig(false);
     }
   }
@@ -279,6 +279,7 @@ export function OfficeStudio() {
           const file = e.target.files?.[0];
           e.target.value = "";
           if (!file) return;
+          if (bezigRef.current) return;
           const ext = file.name.split(".").pop()?.toLowerCase();
           if (!["docx", "xlsx", "pptx"].includes(ext ?? "")) {
             setMelding("Kies een DOCX-, XLSX- of PPTX-bestand.");
@@ -290,9 +291,10 @@ export function OfficeStudio() {
             );
             return;
           }
+          bezigRef.current = true;
           setBezig(true);
           try {
-            await open(
+            open(
               ext as Soort,
               file.name,
               new Uint8Array(await file.arrayBuffer()),
@@ -301,6 +303,7 @@ export function OfficeStudio() {
           } catch (error) {
             setMelding("Openen mislukt: " + String(error));
           } finally {
+            bezigRef.current = false;
             setBezig(false);
           }
         }}
@@ -324,10 +327,10 @@ export function OfficeStudio() {
                 soort={bestand.soort}
                 bytes={bestand.bytes}
                 naam={bestand.naam}
-                gewijzigd={bewerkt}
+                gewijzigd={() => bewerkt(bestand.id)}
                 fout={(e) => setMelding(e.message)}
                 registreer={registreer}
-                opgeslagen={(b) => void bewaarBytes(b)}
+                opslaan={() => void opslaan()}
                 bestandsmenu={() => setBestandsmenu(true)}
                 inactief={bestandsmenu}
               />
@@ -352,7 +355,11 @@ export function OfficeStudio() {
             bewaar={bestand && gereed ? () => void opslaan() : undefined}
             access={() =>
               void (async () => {
+                if (bezigRef.current) return;
                 if (!(await verlaten())) return;
+                opslag.wissel();
+                serialiseer.current = null;
+                setGereed(false);
                 setBestand(null);
                 setAccess(true);
                 setBestandsmenu(false);

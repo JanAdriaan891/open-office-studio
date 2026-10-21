@@ -22,7 +22,7 @@ export interface EditorProps {
   gewijzigd: () => void;
   fout: (f: Error) => void;
   registreer: (opslaan: (() => Promise<Uint8Array>) | null) => void;
-  opgeslagen: (bytes: Uint8Array) => void;
+  opslaan: () => void;
   bestandsmenu: () => void;
   inactief: boolean;
 }
@@ -112,8 +112,8 @@ export default function OfficeEditor(props: EditorProps) {
           showFileOpen={false}
           showHelpMenu={false}
           downloadOnSave={false}
-          onSave={(b) => {
-            if (!exporteren.current) props.opgeslagen(new Uint8Array(b));
+          onSave={() => {
+            if (!exporteren.current) props.opslaan();
           }}
           onChange={props.gewijzigd}
           onError={props.fout}
@@ -148,7 +148,7 @@ export default function OfficeEditor(props: EditorProps) {
             fileName={props.naam}
             onReady={gereedXlsx}
             onChange={props.gewijzigd}
-            onSave={props.opgeslagen}
+            onSave={props.opslaan}
             i18n={calcNl}
             className="office-calc"
             readOnly={props.inactief}
@@ -168,7 +168,7 @@ export default function OfficeEditor(props: EditorProps) {
         onReady={gereedPptx}
         onChange={props.gewijzigd}
         onError={props.fout}
-        onSave={props.opgeslagen}
+        onSave={props.opslaan}
         i18n={diaNl}
         className="office-presentatie"
         readOnly={props.inactief}
