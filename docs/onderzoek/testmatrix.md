@@ -2,10 +2,13 @@
 
 ## Corpus
 
-Er zijn nog geen praktijkbestanden beschikbaar in deze repository. Onderstaande
-gevallen zijn selectiecriteria, geen uitgevoerde editorproeven. Bewaar toegestane
-lokale bestanden onder `.local/corpus/` (genegeerd door Git). Gebruik neutrale
-bestandsnamen; verwijder persoonsgegevens ook uit metadata en opmerkingen.
+De oorspronkelijke selectiecriteria hieronder blijven de lat voor volledige
+inhouds- en weergavecontrole. Inmiddels is een openbaar corpus van 1.566
+bestanden getest; zie het [corpusverslag](../tests/2026-10-21-formaten.md)
+voor bronnen, exacte revisies, uitkomsten en grenzen. Die engineproeven
+vervangen de onderstaande visuele en functionele acceptatieproeven niet.
+Bewaar fixtures onder `.local/corpus/` (genegeerd door Git); commit geen
+privébestanden of documentinhoud in rapporten.
 
 | ID | Formaat | Vereiste kenmerken | Bewerking |
 |---|---|---|---|
