@@ -27,7 +27,7 @@ jobs:
           python-version: "3.12"
       - name: Linux-bouwafhankelijkheden
         if: runner.os == 'Linux'
-        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends libwebkit2gtk-4.1-dev libgtk-3-dev libayatana-appindicator3-dev librsvg2-dev patchelf libreoffice-writer libreoffice-calc libreoffice-impress poppler-utils
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends libwebkit2gtk-4.1-dev libgtk-3-dev libayatana-appindicator3-dev librsvg2-dev patchelf squashfs-tools libreoffice-writer libreoffice-calc libreoffice-impress poppler-utils
       - run: pnpm install --frozen-lockfile
       - run: pnpm test
       - run: python -m unittest discover -s tests -v
@@ -65,6 +65,12 @@ jobs:
       - name: macOS-pakket bouwen
         if: runner.os == 'macOS'
         run: pnpm desktop:build --bundles dmg
+      - name: Linux-installers werkelijk uitpakken en controleren
+        if: runner.os == 'Linux'
+        run: python scripts/controleer-installers.py --platform linux --rapport .local/pakketcontrole-Linux.json
+      - name: Windows-installer werkelijk uitpakken en controleren
+        if: runner.os == 'Windows'
+        run: python scripts/controleer-installers.py --platform windows --rapport .local/pakketcontrole-Windows.json
       - uses: actions/upload-artifact@v4
         with:
           name: open-office-studio-${{ runner.os }}
@@ -73,4 +79,12 @@ jobs:
             src-tauri/target/release/bundle/**/*.AppImage
             src-tauri/target/release/bundle/**/*.exe
             src-tauri/target/release/bundle/**/*.dmg
+          if-no-files-found: error
+      - name: Pakketrapport bewaren
+        if: runner.os != 'macOS'
+        uses: actions/upload-artifact@v4
+        with:
+          name: pakketcontrole-${{ runner.os }}
+          path: .local/pakketcontrole-*.json
+          include-hidden-files: true
           if-no-files-found: error

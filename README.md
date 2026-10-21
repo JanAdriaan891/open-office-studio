@@ -52,6 +52,8 @@ De [corpusproef](docs/tests/2026-10-21-formaten.md) gebruikt 1.566 openbare best
 
 De ontwikkeling met screenshots staat in [pull request #9](https://github.com/OpenAEC-Foundation/open-office-studio/pull/9). De [bouwcontroles](https://github.com/JanAdriaan891/open-office-studio/actions/workflows/desktop.yml) maken pakketten voor Windows x64, Linux x64 en macOS ARM64. Een geslaagde build vervangt geen installatie- en gebruikerstest.
 
+De [downloadbare testreleases](https://github.com/JanAdriaan891/open-office-studio/releases) bevatten een Windows-installer, Linux-DEB/AppImage, macOS-ARM64-DMG en SHA256SUMS. Vanaf 0.4.2 pakt de bouwstraat de Windows- en Linux-installers ook uit: zij controleert de programma-architectuur, WebView2, Linux-bibliotheken en snelkoppelingen. Dit is nog geen schone installatie of native bedieningstest.
+
 ## Opbouw
 
 - `packages/documenten` — tekstverwerking.
@@ -91,4 +93,5 @@ Zie de [testmatrix](docs/onderzoek/testmatrix.md) voor het vergelijken van DOCX-
 - `pnpm test:engines`: documenten wijzigen, opslaan en opnieuw openen met de echte engines.
 - `pnpm desktop:dev`: Tauri-desktopomgeving.
 - `pnpm desktop:build`: native pakket voor het huidige platform.
+- `python scripts/controleer-installers.py --platform linux --rapport .local/pakketcontrole-Linux.json`: gebouwde DEB en AppImage controleren; vereist Python 3.11+, dpkg, squashfs-tools en ldd. Gebruik op Windows `--platform windows` met 7-Zip voor de NSIS-installer en de gebundelde WebView2-bestanden.
 - [Testverslag en resterend werk](docs/tests/2026-10-21.md).

@@ -81,6 +81,49 @@ fn stop(kind: &mut std::process::Child) {
     let _ = kind.kill();
     let _ = kind.wait();
 }
+
+fn voer_uit(opdracht: &mut Command, tijdslimiet: Duration) -> Result<(), String> {
+    #[cfg(unix)]
+    {
+        use std::os::unix::process::CommandExt;
+        opdracht.process_group(0);
+    }
+    #[cfg(windows)]
+    {
+        use std::os::windows::process::CommandExt;
+        opdracht.creation_flags(0x08000000);
+    }
+    let mut kind = opdracht
+        .spawn()
+        .map_err(|e| format!("Conversie kon niet starten: {e}"))?;
+    let start = Instant::now();
+    loop {
+        match kind.try_wait() {
+            Ok(Some(status)) if status.success() => return Ok(()),
+            Ok(Some(status)) => {
+                let code = status
+                    .code()
+                    .map(|code| format!("procescode {code}"))
+                    .unwrap_or_else(|| "proces afgebroken".into());
+                return Err(format!(
+                    "De conversie is mislukt ({code}). Het origineel is behouden."
+                ));
+            }
+            Ok(None) if start.elapsed() < tijdslimiet => {
+                std::thread::sleep(Duration::from_millis(30))
+            }
+            Ok(None) => {
+                stop(&mut kind);
+                return Err("De conversie heeft de tijdslimiet overschreden en is gestopt. Het origineel is behouden.".into());
+            }
+            Err(e) => {
+                stop(&mut kind);
+                return Err(e.to_string());
+            }
+        }
+    }
+}
+
 pub fn converteer(bytes: &[u8], bron: &str, doel: &str, module: &str) -> Result<Vec<u8>, String> {
     if bytes.is_empty() || bytes.len() > 100 * 1024 * 1024 {
         return Err("Kies een bestand van maximaal 100 MB dat niet leeg is.".into());
@@ -116,36 +159,7 @@ pub fn converteer(bytes: &[u8], bron: &str, doel: &str, module: &str) -> Result<
         .stdin(Stdio::null())
         .stdout(log.try_clone().map_err(|e| e.to_string())?)
         .stderr(log);
-    #[cfg(unix)]
-    {
-        use std::os::unix::process::CommandExt;
-        opdracht.process_group(0);
-    }
-    #[cfg(windows)]
-    {
-        use std::os::windows::process::CommandExt;
-        opdracht.creation_flags(0x08000000);
-    }
-    let mut kind = opdracht
-        .spawn()
-        .map_err(|e| format!("Conversie kon niet starten: {e}"))?;
-    let start = Instant::now();
-    loop {
-        match kind.try_wait() {
-            Ok(Some(_)) => break,
-            Ok(None) if start.elapsed() < Duration::from_secs(45) => {
-                std::thread::sleep(Duration::from_millis(30))
-            }
-            Ok(None) => {
-                stop(&mut kind);
-                return Err("Conversie duurde langer dan 45 seconden en is gestopt. Het origineel is behouden.".into());
-            }
-            Err(e) => {
-                stop(&mut kind);
-                return Err(e.to_string());
-            }
-        }
-    }
+    voer_uit(&mut opdracht, Duration::from_secs(45))?;
     let resultaat = uit.join(format!("invoer.{doel}"));
     let grootte = fs::metadata(&resultaat).map_err(|_| "Dit bestand kon niet worden geconverteerd. Het kan beschadigd of beveiligd zijn, of het formaatfilter ontbreekt in de lokale runtime.")?.len();
     if grootte == 0 || grootte > 100 * 1024 * 1024 {
@@ -167,6 +181,47 @@ mod tests {
         assert!(filter("../doc", "docx", "docx").is_err());
         assert!(filter("docx", "exe", "docx").is_err());
         assert!(!mag_bewaren("exe"));
+    }
+
+    fn proefproces() -> Command {
+        let mut opdracht = Command::new(std::env::current_exe().unwrap());
+        opdracht.stdout(Stdio::null()).stderr(Stdio::null());
+        opdracht
+    }
+
+    #[test]
+    fn geslaagd_proces_wordt_aanvaard() {
+        let mut opdracht = proefproces();
+        opdracht.arg("--list");
+        assert!(voer_uit(&mut opdracht, Duration::from_secs(10)).is_ok());
+    }
+
+    #[test]
+    fn procesfout_wordt_geweigerd() {
+        let mut opdracht = proefproces();
+        opdracht.arg("--ongeldige-conversieproefoptie");
+        let fout = voer_uit(&mut opdracht, Duration::from_secs(10)).unwrap_err();
+        assert!(fout.contains("procescode"), "{fout}");
+    }
+
+    #[test]
+    fn proces_wordt_gestopt_bij_tijdslimiet() {
+        // Het eigen proefprogramma levert een wachtend kindproces op elk platform.
+        if std::env::var_os("OFFICE_TEST_PROCESWACHT").is_some() {
+            std::thread::sleep(Duration::from_secs(30));
+            return;
+        }
+        let mut opdracht = proefproces();
+        opdracht
+            .args([
+                "--exact",
+                "conversie::tests::proces_wordt_gestopt_bij_tijdslimiet",
+            ])
+            .env("OFFICE_TEST_PROCESWACHT", "1");
+        let start = Instant::now();
+        let fout = voer_uit(&mut opdracht, Duration::from_millis(150)).unwrap_err();
+        assert!(fout.contains("tijdslimiet"), "{fout}");
+        assert!(start.elapsed() < Duration::from_secs(10));
     }
     #[test]
     #[ignore = "Vereist een lokale LibreOffice-installatie"]
