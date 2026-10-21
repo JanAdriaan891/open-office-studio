@@ -26,3 +26,4 @@ await cp(
   "public/licenses/fonts-cjk/LICENSES",
   { recursive: true },
 );
+await import("./kopieer-licenties.mjs");

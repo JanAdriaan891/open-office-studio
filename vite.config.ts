@@ -1,5 +1,9 @@
 import { defineConfig } from "vite";
 export default defineConfig({
+  worker: { format: "es" },
+  resolve: {
+    alias: { stream: "stream-browserify", events: "events/" },
+  },
   // De engines laden WASM relatief aan import.meta.url; prebundelen verbreekt die paden.
   optimizeDeps: {
     include: [

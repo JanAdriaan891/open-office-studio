@@ -1,39 +1,26 @@
 # Open Access Studio
 
-React-opzet in OpenAEC-kleuren, bedoeld voor de gedeelde Tauri-desktopomgeving.
-Volgt [issue #8](https://github.com/OpenAEC-Foundation/open-office-studio/issues/8).
-
-## Richting en prioriteit
-
-Een databaseomgeving in de richting van LibreOffice Base, met tabellen, relaties, query’s, formulieren, rapporten en databronverbindingen. Ondersteuning voor oude MDB/ACCDB-bestanden en beschikbare VBA-bron blijft onderdeel van de richting.
-
-Deze module heeft de laagste prioriteit. Writer, Calc en Presentatie krijgen voorrang; de huidige opzet blijft voorlopig behouden zonder verdere uitbreiding.
-
-## Starten
-
-Vanuit de repository: `pnpm install`, daarna `pnpm dev`. `pnpm build` controleert TypeScript en bouwt de browserweergave. De gedeelde kantooromgeving heeft inmiddels een Tauri-configuratie; Access zelf heeft nog geen native databaseadapter.
+Experimentele databasebrowser in de gedeelde React/Tauri-werkruimte. Volgt [issue #8](https://github.com/OpenAEC-Foundation/open-office-studio/issues/8). Writer, Calc en Presentatie houden voorrang.
 
 ## Werkt nu
 
-- Lokale bestandskiezer voor MDB/ACCDB; controle op extensie, leeg bestand en leesbaarheid.
-- Expliciete scheiding tussen een geselecteerd bestand en ingebouwde voorbeeldgegevens.
-- Objectbrowser met tabellen, query’s en VBA; zoeken in de voorbeeldtabel.
-- CSV-export met bescherming tegen spreadsheetformules, SQL- en BAS-downloads.
-- Licht/donker thema, responsieve weergave, lokaal gebundelde lettertypen.
+- MDB- en ACCDB-bestanden lokaal openen met de MIT-parser `mdb-reader` 3.2.0.
+- Normale gebruikerstabellen, kolomnamen, typen en rijaantallen lezen.
+- Maximaal 200 rijen per pagina tonen; zoeken en CSV-export gelden alleen voor de geladen pagina.
+- Parsing in een moduleworker met overdracht van de invoerbuffer en een tijdslimiet van 15 seconden.
+- Fouten melden voor beschadigde, lege en niet-ondersteunde bestanden. Originelen blijven onaangeroerd.
+- Ingebouwde demonstratiegegevens onderscheiden van echte databasegegevens.
 
-## Nog niet geïmplementeerd
+De Node-parserproef las 79 van 82 openbare databases. Drie bestanden met complexe of niet-ondersteunde velden werden geweigerd. De gebouwde browserworker las ook een MDB- en ACCDB-fixture via een Node-berichtadapter. Dit bewijst geen volledige versie-, encryptie- of velddekking. Zie het [corpusverslag](../../docs/tests/2026-10-21-formaten.md).
 
-Geen databaseparser, formaatvalidatie, VBA-extractie of scriptuitvoering. Het selecteren van een bestand betekent niet dat de database is geopend of geïnterpreteerd. Geen ondersteuning voor bewerken, relaties, formulieren en rapporten. De bronweergave heeft nog geen syntaxiskleuring. Er worden geen bestanden geüpload of originelen beschreven.
+## Resterend werk
 
-`src/model.ts` bevat het `DatabaseReader`-contract. Een echte adapter moet objecten met hun concrete leesstatus teruggeven, met foutmeldingen voor beveiligde, beschadigde en niet-ondersteunde bestanden. Uitvoering en extractie van VBA zijn afzonderlijke onderdelen.
+Geen databasebewerkingen, query-uitvoering, relaties, formulieren, rapporten, gekoppelde tabellen of ODB-ondersteuning. VBA-extractie en VBA-uitvoering ontbreken. SQL- en BAS-downloads zijn uitsluitend beschikbaar voor de ingebouwde voorbeelden. De richting blijft een databaseomgeving zoals LibreOffice Base; deze versie is daarvan slechts het begin.
 
-## Integratieroutes
+De browser-GUI van de nieuwe parser moet nog afzonderlijk worden afgetest. Een geslaagde parser- of buildproef vervangt dat niet.
 
-- [MDB Tools](https://mdbtools.github.io/utils/): onderzoeken voor lokale tabel- en schema-extractie; geen bewijs van VBA-uitvoering.
-- [Jackcess](https://jackcess.sourceforge.io/faq.html): onderzoeken voor tabellen en opgeslagen querydefinities; Java-runtime en distributie meewegen.
+## Opbouw
 
-Beide routes vereisen corpusproeven op ieder doelplatform voordat ondersteuning wordt toegezegd. Het adaptercontract voorkomt dat de interface aan één leverancier vastzit.
+`database-client.ts` beheert de worker en sessiegrenzen. `database-worker.ts` leest metadata en tabelpagina’s. `database-parser.ts` configureert de browserbuffer vóór het laden van de parser. `model.ts` bevat gegevensmodellen en CSV-escaping, inclusief bescherming tegen formule-invoer.
 
-## Vormgeving
-
-Kleuren en typografieke richting volgen [OpenAEC-style-book](https://github.com/OpenAEC-Foundation/OpenAEC-style-book). De componenten zijn voor deze toepassing geschreven.
+Starten: `pnpm install`, `pnpm dev`. Productie: `pnpm build`. Adaptercontroles: `pnpm test`.

@@ -102,6 +102,18 @@
 .access-app p {
   line-height: 1.65;
 }
+.access-app .access-kolomtype {
+  display: block;
+  font-size: 9px;
+  color: var(--muted);
+  font-weight: 400;
+  margin-top: 3px;
+}
+.access-app .access-paginering {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
 .access-app .titel p:last-child {
   margin: 0;
   color: var(--muted);

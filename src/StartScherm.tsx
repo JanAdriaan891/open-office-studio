@@ -227,9 +227,10 @@ export function StartScherm({
           <details>
             <summary>Over deze versie</summary>
             <p>
-              Deze ontwikkelversie ondersteunt DOCX, XLSX en PPTX. Controleer
-              opgeslagen bestanden voor gebruik. ODF en oudere binaire formaten
-              volgen. Access Studio bevat een voorbereidende objectbrowser.
+              DOCX, XLSX en PPTX werken rechtstreeks. De desktopversie kan met
+              een lokale LibreOffice-installatie ook ODF en oudere formaten
+              omzetten. Opmaak kan daarbij afwijken. Access Studio leest MDB- en
+              ACCDB-tabellen; bewerken en VBA volgen later.
             </p>
           </details>
         </div>

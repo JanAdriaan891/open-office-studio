@@ -7,6 +7,8 @@ export interface DatabaseObject {
   kolommen?: string[];
   rijen?: string[][];
   bron?: string;
+  totaalRijen?: number;
+  kolomtypen?: string[];
 }
 export interface DatabaseSession {
   naam: string;
@@ -15,27 +17,14 @@ export interface DatabaseSession {
   objecten: DatabaseObject[];
   melding: string;
 }
-export interface DatabaseReader {
-  open(file: File): Promise<DatabaseSession>;
+export function controleerDatabaseBestand(file: File) {
+  if (!/\.(mdb|accdb)$/i.test(file.name))
+    throw new Error("Kies een MDB- of ACCDB-bestand.");
+  if (!file.size)
+    throw new Error("Dit bestand is leeg. Kies een database met inhoud.");
+  if (file.size > 100 * 1024 * 1024)
+    throw new Error("Kies een database van maximaal 100 MB.");
 }
-export const voorbereidendeLezer: DatabaseReader = {
-  async open(file) {
-    if (!/\.(mdb|accdb)$/i.test(file.name))
-      throw new Error("Kies een MDB- of ACCDB-bestand.");
-    if (file.size === 0)
-      throw new Error("Dit bestand is leeg. Kies een database met inhoud.");
-    // Alleen leesbaarheid controleren. De extensie bewijst het databaseformaat niet.
-    await file.slice(0, 32).arrayBuffer();
-    return {
-      naam: file.name,
-      grootte: file.size,
-      voorbeeld: false,
-      objecten: [],
-      melding:
-        "Bestand geselecteerd. De databaselezer is nog niet aangesloten; tabellen, query’s en VBA zijn niet uitgelezen. Het formaat is nog niet gevalideerd.",
-    };
-  },
-};
 export const voorbeeld: DatabaseSession = {
   naam: "Voorbeelddatabase",
   voorbeeld: true,

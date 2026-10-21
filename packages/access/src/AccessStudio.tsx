@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Database,
   FolderOpen,
@@ -14,11 +14,11 @@ import {
 } from "lucide-react";
 import {
   csv,
-  voorbereidendeLezer,
   voorbeeld,
   type DatabaseSession,
   type Objectsoort,
 } from "./model";
+import { DatabaseClient } from "./database-client";
 import { Ribbon, Groep, Actie } from "../../../src/Ribbon";
 function downloaden(naam: string, inhoud: string, type: string) {
   const url = URL.createObjectURL(new Blob([inhoud], { type }));
@@ -40,19 +40,24 @@ export function AccessStudio({
   const [bezig, setBezig] = useState(false);
   const [donker, setDonker] = useState(false);
   const invoer = useRef<HTMLInputElement>(null);
+  const lezer = useRef<DatabaseClient | null>(null);
+  const [paginaStart, setPaginaStart] = useState(0);
+  useEffect(() => () => lezer.current?.sluit(), []);
   const object = sessie?.objecten.find((item) => item.id === selectie);
   const rijen =
     object?.rijen?.filter((rij) =>
       rij.some((cel) => cel.toLowerCase().includes(zoeken.toLowerCase())),
     ) ?? [];
   function sluit() {
+    lezer.current?.sluit();
+    lezer.current = null;
     setSessie(null);
     setSelectie("");
     setZoeken("");
     setFout("");
   }
   function exporteer() {
-    if (!object) return;
+    if (!object || (object.soort === "Tabel" && !object.rijen)) return;
     downloaden(
       object.naam +
         (object.soort === "Tabel"
@@ -67,10 +72,41 @@ export function AccessStudio({
     );
   }
   function openVoorbeeld() {
+    lezer.current?.sluit();
+    lezer.current = null;
     setSessie(voorbeeld);
     setSelectie("materialen");
     setZoeken("");
     setFout("");
+    setPaginaStart(0);
+  }
+  async function kiesObject(id: string, start = 0) {
+    setSelectie(id);
+    setZoeken("");
+    setPaginaStart(start);
+    setFout("");
+    const client = lezer.current;
+    if (!client) return;
+    setBezig(true);
+    try {
+      const tabel = await client.tabel(id, start);
+      if (lezer.current === client)
+        setSessie((huidig) =>
+          huidig
+            ? {
+                ...huidig,
+                objecten: huidig.objecten.map((item) =>
+                  item.id === id ? tabel : item,
+                ),
+              }
+            : huidig,
+        );
+    } catch (error) {
+      if (lezer.current === client)
+        setFout("Deze tabel kon niet worden gelezen: " + String(error));
+    } finally {
+      if (lezer.current === client) setBezig(false);
+    }
   }
   return (
     <div
@@ -107,7 +143,11 @@ export function AccessStudio({
                     icoon={Download}
                     naam="Exporteren"
                     groot
-                    disabled={!object || bezig}
+                    disabled={
+                      !object ||
+                      bezig ||
+                      (object.soort === "Tabel" && !object.rijen)
+                    }
                     onClick={exporteer}
                   />
                 </Groep>
@@ -163,12 +203,17 @@ export function AccessStudio({
           if (!bestand) return;
           setBezig(true);
           setFout("");
+          const client = new DatabaseClient();
           try {
-            const nieuw = await voorbereidendeLezer.open(bestand);
+            const nieuw = await client.open(bestand);
+            lezer.current?.sluit();
+            lezer.current = client;
             setSessie(nieuw);
             setSelectie("");
             setZoeken("");
+            setPaginaStart(0);
           } catch (error) {
+            client.sluit();
             setFout(
               error instanceof Error
                 ? error.message
@@ -203,12 +248,10 @@ export function AccessStudio({
                 .filter((item) => item.soort === soort)
                 .map((item) => (
                   <button
+                    disabled={bezig}
                     className={selectie === item.id ? "selected" : ""}
                     key={item.id}
-                    onClick={() => {
-                      setSelectie(item.id);
-                      setZoeken("");
-                    }}
+                    onClick={() => void kiesObject(item.id)}
                   >
                     {soort === "Tabel" ? (
                       <Table2 size={16} />
@@ -244,7 +287,10 @@ export function AccessStudio({
                 <section>
                   <Table2 />
                   <h3>Tabellen</h3>
-                  <p>Voorbeeld bekijken, doorzoeken en exporteren.</p>
+                  <p>
+                    Tabellen lokaal bekijken, per pagina doorzoeken en
+                    exporteren.
+                  </p>
                 </section>
                 <section>
                   <Braces />
@@ -258,8 +304,8 @@ export function AccessStudio({
                 </section>
               </div>
               <p className="melding">
-                De echte databaselezer en VBA-extractie volgen. Scripts worden
-                niet uitgevoerd.
+                MDB/ACCDB-tabellen worden lokaal gelezen. Query’s, VBA-extractie
+                en bewerking volgen. Scripts worden niet uitgevoerd.
               </p>
             </div>
           ) : (
@@ -277,46 +323,99 @@ export function AccessStudio({
                         {object.soort}
                       </small>
                     </h2>
-                    <button onClick={exporteer}>
+                    <button
+                      disabled={
+                        bezig || (object.soort === "Tabel" && !object.rijen)
+                      }
+                      onClick={exporteer}
+                    >
                       <Download size={16} />
                       {object.soort === "Tabel"
-                        ? "CSV exporteren"
+                        ? sessie.voorbeeld
+                          ? "CSV exporteren"
+                          : "Pagina als CSV"
                         : "Bron downloaden"}
                     </button>
                   </div>
                   {object.soort === "Tabel" ? (
-                    <>
-                      <label className="zoek">
-                        <Search size={17} />
-                        <input
-                          aria-label="Zoeken in tabel"
-                          placeholder="Zoeken in deze tabel…"
-                          value={zoeken}
-                          onChange={(e) => setZoeken(e.target.value)}
-                        />
-                      </label>
-                      <div className="table-wrap">
-                        <table>
-                          <thead>
-                            <tr>
-                              {object.kolommen?.map((k) => (
-                                <th key={k}>{k}</th>
-                              ))}
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {rijen.map((rij, i) => (
-                              <tr key={i}>
-                                {rij.map((cel, j) => (
-                                  <td key={j}>{cel}</td>
+                    bezig ? (
+                      <p role="status">Tabelpagina laden…</p>
+                    ) : !object.rijen ? (
+                      <p>
+                        Deze tabel is niet uitgelezen. Probeer een andere tabel
+                        of open het bestand opnieuw.
+                      </p>
+                    ) : (
+                      <>
+                        <label className="zoek">
+                          <Search size={17} />
+                          <input
+                            aria-label="Zoeken in geladen rijen"
+                            placeholder="Zoeken in deze pagina…"
+                            value={zoeken}
+                            onChange={(e) => setZoeken(e.target.value)}
+                          />
+                        </label>
+                        <div className="table-wrap">
+                          <table>
+                            <thead>
+                              <tr>
+                                {object.kolommen?.map((k, index) => (
+                                  <th key={k}>
+                                    {k}
+                                    {object.kolomtypen?.[index] && (
+                                      <small className="access-kolomtype">
+                                        {object.kolomtypen[index]}
+                                      </small>
+                                    )}
+                                  </th>
                                 ))}
                               </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      </div>
-                      <p className="muted">{rijen.length} rijen getoond</p>
-                    </>
+                            </thead>
+                            <tbody>
+                              {rijen.map((rij, i) => (
+                                <tr key={i}>
+                                  {rij.map((cel, j) => (
+                                    <td key={j}>{cel}</td>
+                                  ))}
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
+                        </div>
+                        <p className="muted">
+                          {rijen.length} rijen getoond
+                          {object.totaalRijen !== undefined &&
+                            ` · pagina vanaf rij ${object.totaalRijen ? paginaStart + 1 : 0} van ${object.totaalRijen}`}
+                        </p>
+                        {!sessie.voorbeeld && (
+                          <div className="access-paginering">
+                            <button
+                              disabled={bezig || paginaStart === 0}
+                              onClick={() =>
+                                void kiesObject(
+                                  object.id,
+                                  Math.max(0, paginaStart - 200),
+                                )
+                              }
+                            >
+                              Vorige pagina
+                            </button>
+                            <button
+                              disabled={
+                                bezig ||
+                                paginaStart + 200 >= (object.totaalRijen ?? 0)
+                              }
+                              onClick={() =>
+                                void kiesObject(object.id, paginaStart + 200)
+                              }
+                            >
+                              Volgende pagina
+                            </button>
+                          </div>
+                        )}
+                      </>
+                    )
                   ) : (
                     <>
                       <pre>
@@ -335,14 +434,16 @@ export function AccessStudio({
               ) : (
                 <div className="welkom">
                   <Database size={40} />
-                  <h2>Bestand gereed voor de volgende stap</h2>
+                  <h2>Selecteer een tabel</h2>
                   <p>
                     {sessie.naam} · {sessie.grootte?.toLocaleString("nl-NL")}{" "}
                     bytes
                   </p>
                   <p>
-                    De bestandskiezer werkt. Een volgende versie koppelt deze
-                    werkplek aan een databaselezer.
+                    Kies links een gebruikerstabel om de kolommen en gegevens te
+                    lezen.{" "}
+                    {sessie.objecten.length === 0 &&
+                      "Er zijn geen gebruikerstabellen gevonden."}
                   </p>
                 </div>
               )}
@@ -356,7 +457,7 @@ export function AccessStudio({
           {sessie?.voorbeeld
             ? "Voorbeeldgegevens"
             : sessie
-              ? "Inhoud niet uitgelezen"
+              ? "Tabellen · alleen lezen"
               : "Klaar om te beginnen"}
         </span>
         <span>Geen uploads · geen wijzigingen aan het origineel</span>

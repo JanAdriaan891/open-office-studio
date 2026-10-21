@@ -5,6 +5,43 @@ use std::{
     sync::atomic::{AtomicBool, Ordering},
 };
 use tauri::Manager;
+mod conversie;
+
+fn lees_bytes(request: &tauri::ipc::Request<'_>) -> Result<Vec<u8>, String> {
+    match request.body() {
+        tauri::ipc::InvokeBody::Raw(bytes)
+            if !bytes.is_empty() && bytes.len() <= 100 * 1024 * 1024 =>
+        {
+            Ok(bytes.clone())
+        }
+        _ => Err(
+            "Het bestand is leeg, groter dan 100 MB of niet als binaire gegevens verzonden.".into(),
+        ),
+    }
+}
+
+#[tauri::command]
+async fn converteer_document(
+    request: tauri::ipc::Request<'_>,
+) -> Result<tauri::ipc::Response, String> {
+    let bytes = lees_bytes(&request)?;
+    let kop = |naam| {
+        request
+            .headers()
+            .get(naam)
+            .and_then(|v| v.to_str().ok())
+            .map(str::to_owned)
+            .ok_or_else(|| "De formaatinformatie ontbreekt.".to_owned())
+    };
+    let bron = kop("x-office-bron")?;
+    let doel = kop("x-office-doel")?;
+    let module = kop("x-office-module")?;
+    tauri::async_runtime::spawn_blocking(move || {
+        conversie::converteer(&bytes, &bron, &doel, &module).map(tauri::ipc::Response::new)
+    })
+    .await
+    .map_err(|e| e.to_string())?
+}
 
 #[tauri::command]
 fn wijzigingsstatus(gewijzigd: bool, status: tauri::State<AtomicBool>) {
@@ -32,7 +69,17 @@ fn schrijf_atomair(pad: &Path, bytes: &[u8]) -> Result<(), String> {
 }
 
 #[tauri::command]
-async fn bewaar_kopie(naam: String, bytes: Vec<u8>) -> Result<Option<String>, String> {
+async fn bewaar_kopie(request: tauri::ipc::Request<'_>) -> Result<Option<String>, String> {
+    let bytes = lees_bytes(&request)?;
+    let naam = request
+        .headers()
+        .get("x-office-naam")
+        .and_then(|v| v.to_str().ok())
+        .ok_or("De bestandsnaam ontbreekt.")?;
+    let naam = percent_encoding::percent_decode_str(naam)
+        .decode_utf8()
+        .map_err(|_| "De bestandsnaam bevat ongeldige tekens.")?
+        .into_owned();
     if bytes.is_empty() || bytes.len() > 100 * 1024 * 1024 {
         return Err("Het bestand is leeg of groter dan 100 MB.".into());
     }
@@ -46,7 +93,7 @@ async fn bewaar_kopie(naam: String, bytes: Vec<u8>) -> Result<Option<String>, St
         .and_then(|s| s.to_str())
         .unwrap_or("")
         .to_lowercase();
-    if !["docx", "xlsx", "pptx"].contains(&extensie.as_str()) {
+    if !conversie::mag_bewaren(&extensie) {
         return Err("Niet-ondersteund bestandsformaat.".into());
     }
     let bestand = rfd::AsyncFileDialog::new()
@@ -112,7 +159,8 @@ fn main() {
         .invoke_handler(tauri::generate_handler![
             bewaar_kopie,
             wijzigingsstatus,
-            bevestig_verlaten
+            bevestig_verlaten,
+            converteer_document
         ])
         .run(tauri::generate_context!())
         .expect("De kantooromgeving kon niet starten");

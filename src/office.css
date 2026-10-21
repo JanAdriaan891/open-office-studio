@@ -13,6 +13,80 @@
 body {
   margin: 0;
 }
+.office-dialoogachtergrond {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: #26324465;
+  backdrop-filter: blur(3px);
+}
+.office-dialoog {
+  width: min(100%, 460px);
+  padding: 28px;
+  border: 1px solid #e1e5eb;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 20px 70px #15233830;
+  color: #333a46;
+}
+.office-dialoogicoon {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  color: #a95606;
+  background: #fbefdc;
+  border-radius: 12px;
+}
+.office-dialoog h2 {
+  margin: 20px 0 10px;
+  font-size: 20px;
+  letter-spacing: -0.5px;
+}
+.office-dialoog p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.8;
+  color: #707a89;
+  overflow-wrap: anywhere;
+}
+.office-dialoog strong {
+  font-weight: 500;
+  color: #465164;
+}
+.office-dialoogacties {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 26px;
+}
+.office-dialoog button {
+  padding: 10px 13px;
+  border: 1px solid #dce1e8;
+  border-radius: 8px;
+  background: #fff;
+  color: #465164;
+  font-size: 12px;
+  cursor: pointer;
+}
+.office-dialoog button:hover {
+  background: #f4f6f8;
+}
+.office-dialoog .office-dialoogdoorgaan {
+  background: #a95606;
+  border-color: #a95606;
+  color: #fff;
+}
+.office-dialoog .office-dialoogdoorgaan:hover {
+  background: #914805;
+}
+.office-dialoog button:focus-visible {
+  outline: 2px solid #bc6a15;
+  outline-offset: 3px;
+}
 button,
 input,
 select {
@@ -136,6 +210,15 @@ select {
   align-items: center;
   gap: 8px;
   flex-shrink: 0;
+}
+.office-opslagformaat {
+  width: 76px;
+  padding: 8px;
+  border: 1px solid #dce1e8;
+  border-radius: 8px;
+  background: #fff;
+  color: #596372;
+  font-size: 11px;
 }
 .office-header .office-headerknop,
 .office-iconknop {

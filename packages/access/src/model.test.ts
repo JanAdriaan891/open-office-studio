@@ -1,23 +1,21 @@
 import { describe, it, expect } from "vitest";
-import { csv, voorbereidendeLezer } from "./model";
+import { csv, controleerDatabaseBestand } from "./model";
+import { openDatabase } from "./database-parser";
 describe("Databasevoorbereiding", () => {
   it("weigert verkeerde extensies", async () => {
-    await expect(
-      voorbereidendeLezer.open(new File(["data"], "test.txt")),
-    ).rejects.toThrow("MDB");
+    expect(() =>
+      controleerDatabaseBestand(new File(["data"], "test.txt")),
+    ).toThrow("MDB");
   });
   it("weigert lege databases", async () => {
-    await expect(
-      voorbereidendeLezer.open(new File([], "leeg.mdb")),
-    ).rejects.toThrow("leeg");
+    expect(() => controleerDatabaseBestand(new File([], "leeg.mdb"))).toThrow(
+      "leeg",
+    );
   });
   it("presenteert willekeurige bytes nooit als ingelezen database", async () => {
-    const resultaat = await voorbereidendeLezer.open(
-      new File(["geen database"], "oud.ACCDB"),
-    );
-    expect(resultaat.voorbeeld).toBe(false);
-    expect(resultaat.objecten).toEqual([]);
-    expect(resultaat.melding).toContain("niet gevalideerd");
+    await expect(
+      openDatabase(new TextEncoder().encode("geen database").buffer),
+    ).rejects.toThrow();
   });
 });
 describe("CSV-export", () => {

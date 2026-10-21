@@ -164,4 +164,16 @@ describe("Opslag van de geopende documentrevisie", () => {
     ).toMatchObject({ status: "mislukt" });
     expect(bewaar).not.toHaveBeenCalled();
   });
+
+  it("maakt een bewerkbaar document niet schoon na een PDF- of CSV-export", async () => {
+    const opslag = new DocumentOpslag();
+    opslag.wijzig(opslag.wissel());
+    expect(
+      await opslag.opslaan(
+        async () => bytes,
+        async () => ({ status: "geëxporteerd", pad: "kopie.pdf" }),
+      ),
+    ).toMatchObject({ status: "afgerond", schoon: false });
+    expect(opslag.gewijzigd).toBe(true);
+  });
 });

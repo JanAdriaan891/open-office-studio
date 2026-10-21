@@ -32,11 +32,15 @@ Dia’s, vormen, tekst en sprekersnotities in één werkruimte.
 - **Open Excel Calc Studio** — tabellen, formules en celopmaak bewerken.
 - **Open Presentatie Studio** — dia’s maken, vormgeven en presenteren.
 
-- **Open Access Studio** — experimentele voorbeeldopzet; database- en VBA-ondersteuning zijn nog niet geïmplementeerd. Deze module heeft de laagste prioriteit.
+- **Open Access Studio** — experimentele MDB/ACCDB-tabelbrowser, alleen lezen, met zoeken en CSV-export per pagina. Query’s, formulieren en VBA ontbreken nog. Deze module heeft de laagste prioriteit.
 
 ## Status
 
-Een lokale React-werkruimte met drie aangesloten kantoorengines en een Tauri-desktopbasis is beschikbaar. Nieuw, openen en opslaan als zijn aangesloten; voor Access is er alleen een voorbeeldopzet. De suite is nog een ontwikkelprototype. Zie het [testverslag](docs/tests/2026-10-21.md) voor bewezen functionaliteit en ontbrekende releasecontroles.
+Een lokale React-werkruimte met drie aangesloten kantoorengines en een Tauri-desktopbasis is beschikbaar. Nieuw, openen en opslaan als zijn aangesloten. De suite is nog een ontwikkelprototype.
+
+DOCX, XLSX en PPTX werken rechtstreeks. De desktopversie kan met een **afzonderlijk geïnstalleerde LibreOffice-runtime** ook ODF en oudere formaten omzetten en PDF exporteren. De runtime wordt nog niet met onze installers meegeleverd. Er zijn routes voor 81 invoerextensies; dit betekent niet dat elk bestand of alle LibreOffice-formaten al correct werken. Zie de [formaatmatrix en beperkingen](docs/formaten.md).
+
+De [corpusproef](docs/tests/2026-10-21-formaten.md) gebruikt 1.566 openbare bestanden met vastgelegde bronrevisies en hashes. De engines voltooiden 571 rechtstreekse en 775 geconverteerde open-/opslag-/heropenproeven; Access las 79 databases. Weigeringen, tijdslimieten en de beperkte visuele controle staan eveneens in het verslag. Voor eerdere bedieningstests: [ribbon en editors](docs/tests/2026-10-21.md), [opslagbeveiliging](docs/tests/2026-10-21-opslag.md).
 
 De ontwikkeling met screenshots staat in [pull request #9](https://github.com/OpenAEC-Foundation/open-office-studio/pull/9). De [bouwcontroles](https://github.com/JanAdriaan891/open-office-studio/actions/workflows/desktop.yml) maken pakketten voor Windows x64, Linux x64 en macOS ARM64. Een geslaagde build vervangt geen installatie- en gebruikerstest.
 
@@ -50,7 +54,7 @@ De ontwikkeling met screenshots staat in [pull request #9](https://github.com/Op
 
 1. Nederlandse editorbediening en de functionele acceptatieproeven afronden.
 2. Native opslag, herstel en installers op alle doelplatformen testen.
-3. Import en export van gangbare documentformaten uitwerken.
+3. Formaatgetrouwheid, grote bestanden en distributie van de conversieruntime afronden.
 
 ## Onderzoek
 

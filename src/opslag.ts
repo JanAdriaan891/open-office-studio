@@ -1,5 +1,6 @@
 export type BewaarUitkomst =
   | { status: "opgeslagen"; pad: string }
+  | { status: "geëxporteerd"; pad: string }
   | { status: "geannuleerd" }
   | { status: "download" };
 
