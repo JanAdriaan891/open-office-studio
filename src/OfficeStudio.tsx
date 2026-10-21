@@ -9,41 +9,19 @@ import {
   type ReactNode,
 } from "react";
 import {
-  FileText,
-  Sheet,
-  Presentation,
   FolderOpen,
   Save,
   Home,
   Database,
+  X,
+  HardDrive,
+  FileText,
 } from "lucide-react";
 import type { Soort } from "./editors";
 import { AccessStudio } from "../packages/access/src/AccessStudio";
 import "./office.css";
+import { StartScherm, modules } from "./StartScherm";
 const Editor = lazy(() => import("./editors"));
-const modules = [
-  {
-    soort: "docx",
-    naam: "Open Writer Studio",
-    kort: "Writer",
-    tekst: "Documenten schrijven en opmaken.",
-    icoon: FileText,
-  },
-  {
-    soort: "xlsx",
-    naam: "Open Excel Calc Studio",
-    kort: "Calc",
-    tekst: "Rekenbladen, formules en tabellen.",
-    icoon: Sheet,
-  },
-  {
-    soort: "pptx",
-    naam: "Open Presentatie Studio",
-    kort: "Presentatie",
-    tekst: "Verhalen vormgeven in dia’s.",
-    icoon: Presentation,
-  },
-] as const;
 type Bestand = { id: number; naam: string; soort: Soort; bytes: Uint8Array };
 class EditorGrens extends Component<{ children: ReactNode }, { fout: string }> {
   state = { fout: "" };
@@ -52,7 +30,7 @@ class EditorGrens extends Component<{ children: ReactNode }, { fout: string }> {
   }
   render() {
     return this.state.fout ? (
-      <div role="alert" className="melding">
+      <div role="alert" className="office-editorfout">
         De editor kon dit bestand niet openen: {this.state.fout}
       </div>
     ) : (
@@ -63,6 +41,7 @@ class EditorGrens extends Component<{ children: ReactNode }, { fout: string }> {
 export function OfficeStudio() {
   const [bestand, setBestand] = useState<Bestand | null>(null),
     [access, setAccess] = useState(false),
+    [bestandsmenu, setBestandsmenu] = useState(true),
     [gewijzigd, setGewijzigd] = useState(false),
     [melding, setMelding] = useState(""),
     [bezig, setBezig] = useState(false),
@@ -89,6 +68,9 @@ export function OfficeStudio() {
     return window.confirm(
       "Er zijn wijzigingen die nog niet zijn opgeslagen. Toch sluiten?",
     );
+  }
+  async function kiesBestand() {
+    if (await verlaten()) input.current?.click();
   }
   useEffect(() => {
     if ("__TAURI_INTERNALS__" in window) {
@@ -174,6 +156,13 @@ export function OfficeStudio() {
         e.stopImmediatePropagation();
         void opslaan();
       }
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "o") {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        if (!bezig) void kiesBestand();
+      }
+      if (e.key === "Escape" && bestandsmenu && (bestand || access))
+        setBestandsmenu(false);
     };
     window.addEventListener("keydown", toetsen, true);
     return () => window.removeEventListener("keydown", toetsen, true);
@@ -184,6 +173,8 @@ export function OfficeStudio() {
     versie.current = 0;
     setGewijzigd(false);
     setMelding("");
+    setAccess(false);
+    setBestandsmenu(false);
     setBestand({ id: Date.now(), soort, naam, bytes });
   }
   async function nieuw(soort: Soort) {
@@ -203,50 +194,82 @@ export function OfficeStudio() {
       setBezig(false);
     }
   }
+  const module = modules.find((item) => item.soort === bestand?.soort);
+  const ModuleIcoon = module?.icoon ?? (access ? Database : FileText);
   return (
-    <div className="office">
+    <div
+      className="office"
+      data-module={bestand?.soort ?? (access ? "access" : "start")}
+    >
       <header className="office-header">
-        <strong>
-          OpenAEC <span>OFFICE STUDIO</span>
-        </strong>
-        <span>Lokale ontwikkelversie</span>
-      </header>
-      <nav className="office-actions">
         <button
-          disabled={bezig}
-          onClick={async () => {
-            if (await verlaten()) {
-              setBestand(null);
-              setAccess(false);
-              setGewijzigd(false);
-              setMelding("");
-            }
-          }}
+          className="office-merk"
+          onClick={() => setBestandsmenu(true)}
+          title="Naar Start"
+          aria-label="OpenAEC Office Studio · Start"
         >
-          <Home size={18} />
-          Start
+          <span className="office-beeldmerk">
+            <FileText size={21} strokeWidth={1.6} />
+          </span>
+          <strong>
+            OpenAEC<span>Office Studio</span>
+          </strong>
         </button>
-        <button
-          disabled={bezig}
-          onClick={async () => {
-            if (await verlaten()) input.current?.click();
-          }}
-        >
-          <FolderOpen size={18} />
-          Openen
-        </button>
-        {bestand && (
-          <button disabled={bezig || !gereed} onClick={() => void opslaan()}>
-            <Save size={18} />
-            {bezig ? "Bezig…" : "Opslaan als"}
-          </button>
+        {(bestand || access) && (
+          <>
+            <span className="office-header-scheiding" />
+            <span className="office-modulenaam">
+              {module?.kort ?? "Access"}
+            </span>
+          </>
         )}
-        <span>
-          {bestand
-            ? `${bestand.naam}${gewijzigd ? " • gewijzigd" : ""}`
-            : "Documenten · rekenbladen · presentaties"}
-        </span>
-      </nav>
+        <div className="office-documenttitel">
+          {bestand && (
+            <>
+              <ModuleIcoon size={15} />
+              <span>{bestand.naam}</span>
+              <i
+                className={gewijzigd ? "gewijzigd" : ""}
+                title={
+                  gewijzigd ? "Niet-opgeslagen wijzigingen" : "Ongewijzigd"
+                }
+              />
+            </>
+          )}
+        </div>
+        <div className="office-snelacties">
+          {(bestand || access) && (
+            <button
+              className="office-iconknop"
+              onClick={() => setBestandsmenu(true)}
+              aria-label="Bestand en Start"
+              title="Bestand en Start"
+            >
+              <Home size={17} />
+            </button>
+          )}
+          <button
+            className="office-headerknop"
+            disabled={bezig}
+            onClick={() => void kiesBestand()}
+            title="Bestand openen · Ctrl+O"
+          >
+            <FolderOpen size={16} />
+            <span>Openen</span>
+          </button>
+          {bestand && (
+            <button
+              className="office-headerknop office-bewaren"
+              disabled={bezig || !gereed}
+              onClick={() => void opslaan()}
+              title="Opslaan als · Ctrl+S"
+            >
+              <Save size={16} />
+              <span>{bezig ? "Bezig…" : "Opslaan als"}</span>
+            </button>
+          )}
+        </div>
+      </header>
       <input
         hidden
         ref={input}
@@ -284,11 +307,14 @@ export function OfficeStudio() {
       />
       {melding && (
         <div role="status" className="office-message">
-          {melding}
+          <span>{melding}</span>
+          <button onClick={() => setMelding("")} aria-label="Melding sluiten">
+            <X size={15} />
+          </button>
         </div>
       )}
       {bestand ? (
-        <div className="office-editor">
+        <div className="office-editor" inert={bestandsmenu}>
           <EditorGrens key={bestand.id}>
             <Suspense
               fallback={<p className="office-loading">Editor laden…</p>}
@@ -302,50 +328,62 @@ export function OfficeStudio() {
                 fout={(e) => setMelding(e.message)}
                 registreer={registreer}
                 opgeslagen={(b) => void bewaarBytes(b)}
+                bestandsmenu={() => setBestandsmenu(true)}
+                inactief={bestandsmenu}
               />
             </Suspense>
           </EditorGrens>
         </div>
       ) : access ? (
-        <AccessStudio />
-      ) : (
-        <main className="office-home">
-          <p className="eyebrow">JOUW WERK. JOUW BESTANDEN.</p>
-          <h1>Ruimte om te maken.</h1>
-          <p>Schrijf, reken en presenteer met OpenAEC Office Studio.</p>
-          <div className="office-cards">
-            {modules.map((m) => (
-              <button
-                disabled={bezig}
-                key={m.soort}
-                onClick={() => void nieuw(m.soort)}
-              >
-                <m.icoon size={36} />
-                <h2>{m.naam}</h2>
-                <p>{m.tekst}</p>
-                <strong>
-                  Nieuw{" "}
-                  {m.kort === "Writer"
-                    ? "document"
-                    : m.kort === "Calc"
-                      ? "rekenblad"
-                      : "presentatie"}{" "}
-                  →
-                </strong>
-              </button>
-            ))}
-          </div>
-          <p className="office-note">
-            De editors zijn in ontwikkeling. Controleer opgeslagen bestanden
-            voordat je ze in productie gebruikt. ODF en oude binaire
-            kantoorformaten zijn nog niet aangesloten.
-          </p>
-          <button onClick={() => setAccess(true)}>
-            <Database size={16} />
-            Open Access Studio · experimentele opzet
-          </button>
-        </main>
+        <AccessStudio
+          bestandsmenu={() => setBestandsmenu(true)}
+          inactief={bestandsmenu}
+        />
+      ) : null}
+      {(bestandsmenu || (!bestand && !access)) && (
+        <div
+          className={`office-backstage ${bestand || access ? "is-overlay" : ""}`}
+        >
+          <StartScherm
+            bezig={bezig}
+            terug={bestand || access ? () => setBestandsmenu(false) : undefined}
+            open={() => void kiesBestand()}
+            nieuw={(soort) => void nieuw(soort)}
+            bewaar={bestand && gereed ? () => void opslaan() : undefined}
+            access={() =>
+              void (async () => {
+                if (!(await verlaten())) return;
+                setBestand(null);
+                setAccess(true);
+                setBestandsmenu(false);
+                setGewijzigd(false);
+                setMelding("");
+              })()
+            }
+          />
+        </div>
       )}
+      <footer className="office-statusbalk">
+        <span>
+          <HardDrive size={12} />
+          <i />
+          Lokaal
+        </span>
+        <span>
+          {module?.naam ??
+            (access ? "Open Access Studio" : "OpenAEC Office Studio")}
+        </span>
+        <span className="office-statusrechts">
+          {bestand
+            ? !gereed
+              ? "Laden…"
+              : gewijzigd
+                ? "Niet-opgeslagen wijzigingen"
+                : "Gereed"
+            : "Ontwikkelversie 0.3"}
+          {bestand && <kbd>Ctrl+S</kbd>}
+        </span>
+      </footer>
     </div>
   );
 }

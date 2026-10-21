@@ -19,6 +19,7 @@ import {
   type DatabaseSession,
   type Objectsoort,
 } from "./model";
+import { Ribbon, Groep, Actie } from "../../../src/Ribbon";
 function downloaden(naam: string, inhoud: string, type: string) {
   const url = URL.createObjectURL(new Blob([inhoud], { type }));
   const link = document.createElement("a");
@@ -28,7 +29,10 @@ function downloaden(naam: string, inhoud: string, type: string) {
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 const soorten: Objectsoort[] = ["Tabel", "Query", "VBA"];
-export function AccessStudio() {
+export function AccessStudio({
+  bestandsmenu,
+  inactief = false,
+}: { bestandsmenu?: () => void; inactief?: boolean } = {}) {
   const [sessie, setSessie] = useState<DatabaseSession | null>(null);
   const [selectie, setSelectie] = useState("");
   const [zoeken, setZoeken] = useState("");
@@ -62,61 +66,92 @@ export function AccessStudio() {
       "text/plain;charset=utf-8",
     );
   }
+  function openVoorbeeld() {
+    setSessie(voorbeeld);
+    setSelectie("materialen");
+    setZoeken("");
+    setFout("");
+  }
   return (
-    <div className="access-app" data-theme={donker ? "dark" : "light"}>
-      <header>
-        <div className="merk">
-          <Database size={24} />
-          <strong>
-            OpenAEC <span>/ OFFICE STUDIO</span>
-          </strong>
-        </div>
-        <button
-          aria-label={donker ? "Licht thema" : "Donker thema"}
-          onClick={() => setDonker(!donker)}
-        >
-          {donker ? <Sun size={18} /> : <Moon size={18} />}
-        </button>
-      </header>
-      <div className="titel">
-        <div>
-          <p className="eyebrow">DATABASES & AUTOMATISERING</p>
-          <h1>Open Access Studio</h1>
-          <p>Een nieuwe werkplek voor bestaande databases.</p>
-        </div>
-        <span className="badge">Ontwikkelversie · opzet</span>
+    <div
+      className="access-app"
+      data-theme={donker ? "dark" : "light"}
+      inert={inactief}
+    >
+      <Ribbon
+        bestand={bestandsmenu}
+        tabs={[
+          {
+            id: "start",
+            naam: "Start",
+            inhoud: (
+              <>
+                <Groep naam="Database">
+                  <Actie
+                    icoon={FolderOpen}
+                    naam={bezig ? "Bestand lezen…" : "Database kiezen"}
+                    groot
+                    disabled={bezig}
+                    onClick={() => invoer.current?.click()}
+                  />
+                  <Actie
+                    icoon={Database}
+                    naam="Voorbeeld verkennen"
+                    groot
+                    disabled={bezig}
+                    onClick={openVoorbeeld}
+                  />
+                </Groep>
+                <Groep naam="Object">
+                  <Actie
+                    icoon={Download}
+                    naam="Exporteren"
+                    groot
+                    disabled={!object || bezig}
+                    onClick={exporteer}
+                  />
+                </Groep>
+                <Groep naam="Bestand">
+                  <Actie
+                    icoon={X}
+                    naam="Database sluiten"
+                    groot
+                    disabled={!sessie || bezig}
+                    onClick={sluit}
+                  />
+                </Groep>
+              </>
+            ),
+          },
+          {
+            id: "beeld",
+            naam: "Beeld",
+            inhoud: (
+              <Groep naam="Weergave">
+                <Actie
+                  icoon={Sun}
+                  naam="Licht"
+                  groot
+                  actief={!donker}
+                  onClick={() => setDonker(false)}
+                />
+                <Actie
+                  icoon={Moon}
+                  naam="Donker"
+                  groot
+                  actief={donker}
+                  onClick={() => setDonker(true)}
+                />
+              </Groep>
+            ),
+          },
+        ]}
+      />
+      <div className="access-documentbalk">
+        <Database size={15} />
+        <strong>{sessie?.naam ?? "Geen database geopend"}</strong>
+        <span>Alleen lezen · experimenteel</span>
       </div>
-      <nav aria-label="Bestandsacties">
-        <button
-          className="primary"
-          disabled={bezig}
-          onClick={() => invoer.current?.click()}
-        >
-          <FolderOpen size={18} />
-          {bezig ? "Bestand lezen…" : "Database kiezen"}
-        </button>
-        <button
-          disabled={bezig}
-          onClick={() => {
-            setSessie(voorbeeld);
-            setSelectie("materialen");
-            setZoeken("");
-            setFout("");
-          }}
-        >
-          Voorbeeld verkennen
-        </button>
-        {sessie && (
-          <button disabled={bezig} onClick={sluit}>
-            <X size={16} />
-            Sluiten
-          </button>
-        )}
-        <span className="local">
-          <ShieldCheck size={16} />
-          Lokaal · alleen lezen
-        </span>
-      </nav>
       <input
         ref={invoer}
         hidden

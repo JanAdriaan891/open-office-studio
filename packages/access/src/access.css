@@ -363,3 +363,140 @@
     flex-direction: column;
   }
 }
+
+/* De objectbrowser sluit aan op het lint van de kantoorwerkruimte. */
+.office > .access-app {
+  min-height: 0;
+  background: #f3f5f7;
+}
+.office .access-documentbalk {
+  min-height: 36px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 0 20px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 11px;
+}
+.office .access-documentbalk strong {
+  font-weight: 400;
+}
+.office .access-documentbalk > span {
+  margin-left: auto;
+  color: #9399a3;
+  font-size: 10px;
+}
+.office .access-app main {
+  min-height: 0;
+  grid-template-columns: 235px minmax(0, 1fr);
+  overflow: hidden;
+}
+.office .access-app aside {
+  padding: 22px 14px;
+  overflow: auto;
+  background: var(--surface);
+}
+.office .access-app aside h2 {
+  font-family: Inter, sans-serif;
+  font-size: 12px;
+  margin: 0 10px 12px;
+}
+.office .access-app .bestandsnaam {
+  font-size: 10px;
+  margin-inline: 10px;
+}
+.office .access-app aside section {
+  padding-top: 12px;
+}
+.office .access-app aside h3 {
+  font-family: Inter, sans-serif;
+  margin-left: 10px;
+  font-size: 9px;
+  color: #9299a5;
+}
+.office .access-app aside button {
+  font-size: 11px;
+  border-radius: 4px;
+  padding: 9px 10px;
+}
+.office .access-app aside .selected {
+  background: #fff5e4;
+  border-left: 1px solid #e8cc9f;
+  color: #94550b;
+}
+.office .access-app .muted,
+.office .access-app .aside-note {
+  font-size: 10px;
+  margin-left: 10px;
+  color: #949ba5;
+}
+.office .access-app article {
+  overflow: auto;
+  padding: 24px 30px;
+}
+.office .access-app article h2 {
+  font-family: Inter, sans-serif;
+  font-size: 20px;
+  letter-spacing: -0.5px;
+}
+.office .access-app .welkom {
+  text-align: left;
+  margin: 20px auto;
+}
+.office .access-app .db-icon {
+  width: 46px;
+  height: 46px;
+  margin: 0 0 20px;
+  border-radius: 8px;
+}
+.office .access-app .db-icon svg {
+  width: 25px;
+}
+.office .access-app .welkom > p {
+  margin: 12px 0;
+  font-size: 12px;
+  max-width: 560px;
+}
+.office .access-app .kaarten {
+  gap: 12px;
+  margin-block: 25px;
+}
+.office .access-app .kaarten section {
+  padding: 18px;
+  border-radius: 5px;
+}
+.office .access-app .kaarten h3 {
+  font:
+    600 12px Inter,
+    sans-serif;
+}
+.office .access-app .kaarten p,
+.office .access-app .melding {
+  font-size: 11px;
+}
+.office .access-app .object-toolbar {
+  margin-top: 8px;
+}
+.office .access-app .object-toolbar h2 {
+  margin: 0;
+}
+.office .access-app table {
+  font-size: 12px;
+}
+.office .access-app th,
+.office .access-app td {
+  padding: 11px 14px;
+}
+@media (max-width: 800px) {
+  .office .access-app main {
+    grid-template-columns: 185px minmax(0, 1fr);
+  }
+  .office .access-app article {
+    padding: 20px;
+  }
+  .office .access-app .kaarten {
+    grid-template-columns: 1fr;
+  }
+}
