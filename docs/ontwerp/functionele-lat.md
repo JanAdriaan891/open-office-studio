@@ -42,4 +42,4 @@ Bronnen zijn projectdocumentatie, geen onafhankelijk bewijs van compatibiliteit.
 
 ## Huidige stand
 
-De drie hoofdeditors zijn aangesloten op een React-werkruimte met nieuwe bestanden, openen en opslaan als. De Tauri-basis en een lokale Linux-debugbuild zijn toegevoegd. Access behoudt zijn voorbeeldopzet. Dit is nog geen volledige kantoorvervanger: zie het [testverslag](../tests/2026-10-21.md) voor uitgevoerde controles en de resterende releasevoorwaarden.
+De drie hoofdeditors zijn aangesloten op een React-werkruimte met nieuwe bestanden, openen en opslaan als. De Tauri-basis, een lokale Linux-debugbuild en geslaagde releasebuilds voor Windows x64, Linux x64 en macOS ARM64 zijn toegevoegd. Access behoudt zijn voorbeeldopzet. Dit is nog geen volledige kantoorvervanger: zie het [testverslag](../tests/2026-10-21.md) voor uitgevoerde controles en de resterende releasevoorwaarden.
