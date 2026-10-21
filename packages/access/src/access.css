@@ -379,7 +379,7 @@
 /* De objectbrowser sluit aan op het lint van de kantoorwerkruimte. */
 .office > .access-app {
   min-height: 0;
-  background: #f3f5f7;
+  background: var(--bg);
 }
 .office .access-documentbalk {
   min-height: 36px;

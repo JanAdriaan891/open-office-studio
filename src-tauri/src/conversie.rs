@@ -14,9 +14,12 @@ fn catalogus() -> Value {
 }
 pub fn mag_bewaren(ext: &str) -> bool {
     catalogus().as_object().is_some_and(|modules| {
-        modules
-            .values()
-            .any(|module| module["uitvoer"].get(ext).is_some())
+        modules.values().any(|module| {
+            module["uitvoer"].get(ext).is_some()
+                || module["eigenUitvoer"].as_array().is_some_and(|formaten| {
+                    formaten.iter().any(|formaat| formaat.as_str() == Some(ext))
+                })
+        })
     })
 }
 fn filter(bron: &str, doel: &str, module: &str) -> Result<String, String> {
@@ -181,6 +184,8 @@ mod tests {
         assert!(filter("../doc", "docx", "docx").is_err());
         assert!(filter("docx", "exe", "docx").is_err());
         assert!(!mag_bewaren("exe"));
+        assert!(mag_bewaren("md"));
+        assert!(filter("docx", "md", "docx").is_err());
     }
 
     fn proefproces() -> Command {

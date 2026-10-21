@@ -15,7 +15,7 @@ describe("Databasevoorbereiding", () => {
   it("presenteert willekeurige bytes nooit als ingelezen database", async () => {
     await expect(
       openDatabase(new TextEncoder().encode("geen database").buffer),
-    ).rejects.toThrow();
+    ).rejects.toThrow("geen leesbare MDB- of ACCDB-database");
   });
 });
 describe("CSV-export", () => {

@@ -9,6 +9,7 @@ import {
   Sheet,
   HardDrive,
   Plus,
+  ArrowUpRight,
 } from "lucide-react";
 import type { Soort } from "./editors";
 
@@ -20,6 +21,8 @@ export const modules = [
     nieuw: "Leeg document",
     omschrijving: "Documenten",
     icoon: FileText,
+    voorbeeld: "Ontwerpnotitie",
+    voorbeeldtekst: "Tekst, stijlen en een tabel",
   },
   {
     soort: "xlsx",
@@ -28,6 +31,8 @@ export const modules = [
     nieuw: "Leeg rekenblad",
     omschrijving: "Rekenbladen",
     icoon: Sheet,
+    voorbeeld: "Materiaaloverzicht",
+    voorbeeldtekst: "Materialen, formules en totalen",
   },
   {
     soort: "pptx",
@@ -36,12 +41,17 @@ export const modules = [
     nieuw: "Lege presentatie",
     omschrijving: "Presentaties",
     icoon: Presentation,
+    voorbeeld: "Ontwerpvisie",
+    voorbeeldtekst: "Dia’s, vormen en notities",
   },
 ] as const;
 
 function Voorbeeld({ soort }: { soort: Soort }) {
   return (
     <div className={`start-voorbeeld voorbeeld-${soort}`} aria-hidden="true">
+      <span className="voorbeeld-app">
+        {modules.find((module) => module.soort === soort)?.kort}
+      </span>
       {soort === "docx" ? (
         <div className="voorbeeld-papier">
           <div />
@@ -85,6 +95,8 @@ export function StartScherm({
   nieuw,
   access,
   bewaar,
+  voorbeeld,
+  databaseActief = false,
 }: {
   bezig: boolean;
   terug?: () => void;
@@ -92,6 +104,8 @@ export function StartScherm({
   nieuw: (soort: Soort) => void;
   access: () => void;
   bewaar?: () => void;
+  voorbeeld: (soort: Soort) => void;
+  databaseActief?: boolean;
 }) {
   return (
     <div className="office-start">
@@ -124,6 +138,7 @@ export function StartScherm({
           {modules.map((module) => (
             <button
               key={module.soort}
+              className={`start-module module-${module.soort}`}
               disabled={bezig}
               onClick={() => nieuw(module.soort)}
               title={module.naam}
@@ -143,7 +158,7 @@ export function StartScherm({
           >
             <Database size={18} />
             <span>
-              Access Studio<small>Experimenteel</small>
+              Access Studio<small>Experimenteel · alleen lezen</small>
             </span>
             <ArrowRight size={14} />
           </button>
@@ -153,9 +168,11 @@ export function StartScherm({
       <main className="start-inhoud">
         <div className="start-kop">
           <div>
-            <span className="start-label">OPENAEC OFFICE STUDIO</span>
-            <h1>Je werkruimte.</h1>
-            <p>Documenten, rekenbladen en presentaties op je eigen computer.</p>
+            <span className="start-welkom">
+              <span /> Jouw lokale kantoor
+            </span>
+            <h1>{terug ? "Bestand" : "Je werkruimte."}</h1>
+            <p>Schrijven, rekenen en presenteren. Alles op één plek.</p>
           </div>
           <button
             className="office-knop office-primair"
@@ -163,13 +180,14 @@ export function StartScherm({
             onClick={open}
           >
             <FolderOpen size={17} />
-            Bestand openen
+            {databaseActief ? "Database openen" : "Bestand openen"}
+            <kbd>Ctrl O</kbd>
           </button>
         </div>
         <section className="start-nieuw" aria-labelledby="start-nieuw-titel">
           <div className="start-sectiekop">
             <h2 id="start-nieuw-titel">Nieuw bestand</h2>
-            <span>Begin met een leeg bestand</span>
+            <span>Kies je gereedschap, begin met een leeg bestand</span>
           </div>
           <div className="start-sjablonen">
             {modules.map((module) => (
@@ -195,6 +213,34 @@ export function StartScherm({
             ))}
           </div>
         </section>
+        <section
+          className="start-voorbeelden"
+          aria-labelledby="start-voorbeelden-titel"
+        >
+          <div className="start-sectiekop">
+            <h2 id="start-voorbeelden-titel">Ontdek wat je kunt maken</h2>
+            <span>Voorbeeldbestanden</span>
+          </div>
+          <div className="start-voorbeeldlijst">
+            {modules.map((module) => (
+              <button
+                key={module.soort}
+                className={`start-voorbeeldbestand module-${module.soort}`}
+                disabled={bezig}
+                onClick={() => voorbeeld(module.soort)}
+              >
+                <span className="module-icoon">
+                  <module.icoon size={20} />
+                </span>
+                <span>
+                  <strong>{module.voorbeeld}</strong>
+                  <small>{module.voorbeeldtekst}</small>
+                </span>
+                <ArrowUpRight size={17} />
+              </button>
+            ))}
+          </div>
+        </section>
         <section className="start-openen" aria-labelledby="start-openen-titel">
           <div className="start-sectiekop">
             <h2 id="start-openen-titel">Bestaand bestand</h2>
@@ -209,12 +255,19 @@ export function StartScherm({
             </span>
             <span>
               <strong>Bladeren op deze computer</strong>
-              <small>Open een document, rekenblad of presentatie.</small>
+              <small>
+                {databaseActief
+                  ? "Open een MDB- of ACCDB-database."
+                  : "Open een document, rekenblad of presentatie."}
+              </small>
             </span>
             <span className="bestandsformaten">
-              <i>DOCX</i>
-              <i>XLSX</i>
-              <i>PPTX</i>
+              {(databaseActief
+                ? ["MDB", "ACCDB"]
+                : ["DOCX", "XLSX", "PPTX"]
+              ).map((formaat) => (
+                <i key={formaat}>{formaat}</i>
+              ))}
             </span>
             <ArrowRight size={19} />
           </button>
@@ -222,7 +275,7 @@ export function StartScherm({
         <div className="start-onderkant">
           <span>
             <HardDrive size={15} />
-            Je bestanden blijven lokaal.
+            Je bestanden blijven op jouw computer.
           </span>
           <details>
             <summary>Over deze versie</summary>

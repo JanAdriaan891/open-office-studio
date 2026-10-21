@@ -9,5 +9,12 @@ omgeving.Buffer = Buffer;
 omgeving.process ??= browserProcess;
 export async function openDatabase(bytes: ArrayBuffer): Promise<MDBReader> {
   const { default: Lezer } = await import("mdb-reader");
-  return new Lezer(Buffer.from(bytes));
+  try {
+    return new Lezer(Buffer.from(bytes));
+  } catch (oorzaak) {
+    throw new Error(
+      "Dit bestand is geen leesbare MDB- of ACCDB-database. Het kan beschadigd, beveiligd of niet ondersteund zijn.",
+      { cause: oorzaak },
+    );
+  }
 }

@@ -31,6 +31,7 @@
       "sdw",
       "uot"
     ],
+    "eigenUitvoer": ["md"],
     "uitvoer": {
       "docx": "Office Open XML Text",
       "odt": "writer8",
@@ -77,6 +78,7 @@
       "ett",
       "uos"
     ],
+    "eigenUitvoer": [],
     "uitvoer": {
       "xlsx": "Calc MS Excel 2007 XML",
       "ods": "calc8",
@@ -106,6 +108,7 @@
       "sdd",
       "uop"
     ],
+    "eigenUitvoer": [],
     "uitvoer": {
       "pptx": "Impress MS PowerPoint 2007 XML",
       "odp": "impress8",

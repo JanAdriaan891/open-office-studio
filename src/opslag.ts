@@ -1,8 +1,9 @@
-export type BewaarUitkomst =
+export type BewaarUitkomst = (
   | { status: "opgeslagen"; pad: string }
   | { status: "geëxporteerd"; pad: string }
   | { status: "geannuleerd" }
-  | { status: "download" };
+  | { status: "download" }
+) & { toelichting?: string };
 
 type OpslagResultaat =
   | { status: "bezig" | "verouderd" }

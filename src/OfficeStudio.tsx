@@ -30,6 +30,7 @@ import {
   bestandssoort,
   converteer,
   invoerformaten,
+  uitvoerformaten,
 } from "./formaten";
 const Editor = lazy(() => import("./editors"));
 type Bestand = { id: number; naam: string; soort: Soort; bytes: Uint8Array };
@@ -56,12 +57,21 @@ export function OfficeStudio() {
     [melding, setMelding] = useState(""),
     [bezig, setBezig] = useState(false),
     [gereed, setGereed] = useState(false),
+    [databaseGereed, setDatabaseGereed] = useState(false),
     [verlaatvraag, setVerlaatvraag] = useState(false),
     [exportFormaat, setExportFormaat] = useState("docx");
   const input = useRef<HTMLInputElement>(null),
     serialiseer = useRef<(() => Promise<Uint8Array>) | null>(null),
     bezigRef = useRef(false);
   const verlaatAntwoord = useRef<((doorgaan: boolean) => void) | null>(null);
+  const databaseOpenen = useRef<(() => void) | null>(null);
+  const registreerDatabaseOpenen = useCallback(
+    (openen: (() => void) | null) => {
+      databaseOpenen.current = openen;
+      setDatabaseGereed(!!openen);
+    },
+    [],
+  );
   const vorigeFocus = useRef<HTMLElement | null>(null);
   const opslag = useRef(new DocumentOpslag()).current;
   const registreer = useCallback(
@@ -94,6 +104,13 @@ export function OfficeStudio() {
   }
   async function kiesBestand() {
     if (bezigRef.current) return;
+    if (access) {
+      if (!databaseOpenen.current) return;
+      setBestandsmenu(false);
+      // Wacht tot het databasepaneel niet meer inert is; de gebruikersactie blijft actief.
+      requestAnimationFrame(() => databaseOpenen.current?.());
+      return;
+    }
     if (await verlaten()) input.current?.click();
   }
   useEffect(() => {
@@ -119,49 +136,62 @@ export function OfficeStudio() {
     naam: string,
     bytes: Uint8Array,
   ): Promise<BewaarUitkomst> {
+    if (!bestand) throw new Error("Er is geen bestand geopend.");
+    const markdown = bestand.soort === "docx" && exportFormaat === "md";
+    const uitvoernaam = naam.replace(/\.[^.]+$/, "") + "." + exportFormaat;
+    let uitvoer = bytes;
+    let toelichting: string | undefined;
+    if (markdown) {
+      const { exporteerMarkdown } = await import("./markdown");
+      const resultaat = await exporteerMarkdown(bytes);
+      uitvoer = resultaat.bytes;
+      if (resultaat.waarschuwing)
+        toelichting =
+          "Sommige onderdelen kunnen niet in Markdown worden overgenomen. Bewaar ook een DOCX.";
+    }
     if ("__TAURI_INTERNALS__" in window) {
       const { invoke } = await import("@tauri-apps/api/core");
-      if (!bestand) throw new Error("Er is geen bestand geopend.");
-      const uitvoer =
-        exportFormaat === bestand.soort
-          ? bytes
-          : await converteer(
-              bytes,
-              bestand.soort,
-              exportFormaat,
-              bestand.soort,
-            );
-      const uitvoernaam = naam.replace(/\.[^.]+$/, "") + "." + exportFormaat;
+      if (exportFormaat !== bestand.soort && !markdown)
+        uitvoer = await converteer(
+          bytes,
+          bestand.soort,
+          exportFormaat,
+          bestand.soort,
+        );
       const pad = await invoke<string | null>("bewaar_kopie", uitvoer, {
         headers: { "x-office-naam": encodeURIComponent(uitvoernaam) },
       });
       return pad
         ? {
-            status: ["pdf", "csv", "txt", "html"].includes(exportFormaat)
+            status: ["pdf", "csv", "txt", "html", "md"].includes(exportFormaat)
               ? "geëxporteerd"
               : "opgeslagen",
             pad,
+            toelichting,
           }
         : { status: "geannuleerd" };
     } else {
       const url = URL.createObjectURL(
-        new Blob([new Uint8Array(bytes)], {
-          type: "application/octet-stream",
+        new Blob([new Uint8Array(uitvoer)], {
+          type: markdown
+            ? "text/markdown;charset=utf-8"
+            : "application/octet-stream",
         }),
       );
       const a = document.createElement("a");
       a.href = url;
-      a.download = naam;
+      a.download = uitvoernaam;
       document.body.append(a);
       a.click();
       a.remove();
       setTimeout(() => URL.revokeObjectURL(url), 60000);
-      return { status: "download" };
+      return { status: "download", toelichting };
     }
   }
   async function opslaan() {
     const serialiseerDocument = serialiseer.current;
     if (!bestand || !serialiseerDocument || bezigRef.current) return;
+    setBestandsmenu(false);
     bezigRef.current = true;
     setBezig(true);
     try {
@@ -174,7 +204,7 @@ export function OfficeStudio() {
       if (resultaat.status === "afgerond" && resultaat.actueel) {
         const uitkomst = resultaat.uitkomst;
         setMelding(
-          uitkomst.status === "opgeslagen"
+          (uitkomst.status === "opgeslagen"
             ? "Opgeslagen: " + uitkomst.pad
             : uitkomst.status === "geëxporteerd"
               ? "Geëxporteerd: " +
@@ -182,7 +212,8 @@ export function OfficeStudio() {
                 ". Sla je bewerkbare bestand ook op om de wijzigingen te behouden."
               : uitkomst.status === "geannuleerd"
                 ? "Opslaan geannuleerd."
-                : "Download aangevraagd. Controleer het bestand in je downloads.",
+                : "Download aangevraagd. Controleer het bestand in je downloads.") +
+            (uitkomst.toelichting ? " " + uitkomst.toelichting : ""),
         );
         if (resultaat.schoon) setGewijzigd(false);
       }
@@ -233,6 +264,28 @@ export function OfficeStudio() {
       open(soort, `Naamloos.${soort}`, new Uint8Array(await r.arrayBuffer()));
     } catch (e) {
       setMelding(String(e));
+    } finally {
+      bezigRef.current = false;
+      setBezig(false);
+    }
+  }
+  async function voorbeeld(soort: Soort) {
+    if (bezigRef.current) return;
+    bezigRef.current = true;
+    setBezig(true);
+    try {
+      if (!(await verlaten())) return;
+      const module = modules.find((module) => module.soort === soort)!;
+      const resultaat = await fetch(
+        `/voorbeelden/${module.voorbeeld}.${soort}`,
+      );
+      if (!resultaat.ok)
+        throw new Error("Het voorbeeld kon niet worden geopend.");
+      const bytes = new Uint8Array(await resultaat.arrayBuffer());
+      controleerPakket(bytes, soort);
+      open(soort, `${module.voorbeeld}.${soort}`, bytes);
+    } catch (error) {
+      setMelding(String(error));
     } finally {
       bezigRef.current = false;
       setBezig(false);
@@ -296,16 +349,19 @@ export function OfficeStudio() {
             )}
             <button
               className="office-headerknop"
-              disabled={bezig}
+              disabled={bezig || (access && !databaseGereed)}
               onClick={() => void kiesBestand()}
-              title="Bestand openen · Ctrl+O"
+              title={
+                access ? "Database openen · Ctrl+O" : "Bestand openen · Ctrl+O"
+              }
             >
               <FolderOpen size={16} />
               <span>Openen</span>
             </button>
             {bestand && (
               <>
-                {"__TAURI_INTERNALS__" in window && (
+                {(bestand.soort === "docx" ||
+                  "__TAURI_INTERNALS__" in window) && (
                   <select
                     className="office-opslagformaat"
                     aria-label="Opslagformaat"
@@ -314,13 +370,14 @@ export function OfficeStudio() {
                     disabled={bezig}
                     onChange={(event) => setExportFormaat(event.target.value)}
                   >
-                    {Object.keys(bestandstypen[bestand.soort].uitvoer).map(
-                      (ext) => (
-                        <option key={ext} value={ext}>
-                          {ext.toUpperCase()}
-                        </option>
-                      ),
-                    )}
+                    {uitvoerformaten(
+                      bestand.soort,
+                      "__TAURI_INTERNALS__" in window,
+                    ).map((ext) => (
+                      <option key={ext} value={ext}>
+                        {ext === "md" ? "Markdown (.md)" : ext.toUpperCase()}
+                      </option>
+                    ))}
                   </select>
                 )}
                 <button
@@ -402,6 +459,12 @@ export function OfficeStudio() {
             </button>
           </div>
         )}
+        {bestand?.soort === "docx" && exportFormaat === "md" && (
+          <div className="office-exportuitleg" role="note">
+            Markdown bewaart tekst en structuur. Bewaar ook een DOCX voor
+            paginaopmaak, afbeeldingen en revisies.
+          </div>
+        )}
         {bestand ? (
           <div
             className="office-editor"
@@ -432,6 +495,7 @@ export function OfficeStudio() {
           <AccessStudio
             bestandsmenu={() => setBestandsmenu(true)}
             inactief={bestandsmenu || verlaatvraag}
+            registreerOpenen={registreerDatabaseOpenen}
           />
         ) : null}
         {(bestandsmenu || (!bestand && !access)) && (
@@ -439,12 +503,14 @@ export function OfficeStudio() {
             className={`office-backstage ${bestand || access ? "is-overlay" : ""}`}
           >
             <StartScherm
-              bezig={bezig}
+              bezig={bezig || (access && !databaseGereed)}
               terug={
                 bestand || access ? () => setBestandsmenu(false) : undefined
               }
               open={() => void kiesBestand()}
               nieuw={(soort) => void nieuw(soort)}
+              voorbeeld={(soort) => void voorbeeld(soort)}
+              databaseActief={access}
               bewaar={bestand && gereed ? () => void opslaan() : undefined}
               access={() =>
                 void (async () => {

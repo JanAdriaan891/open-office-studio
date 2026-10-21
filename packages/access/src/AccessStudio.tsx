@@ -32,7 +32,12 @@ const soorten: Objectsoort[] = ["Tabel", "Query", "VBA"];
 export function AccessStudio({
   bestandsmenu,
   inactief = false,
-}: { bestandsmenu?: () => void; inactief?: boolean } = {}) {
+  registreerOpenen,
+}: {
+  bestandsmenu?: () => void;
+  inactief?: boolean;
+  registreerOpenen?: (openen: (() => void) | null) => void;
+} = {}) {
   const [sessie, setSessie] = useState<DatabaseSession | null>(null);
   const [selectie, setSelectie] = useState("");
   const [zoeken, setZoeken] = useState("");
@@ -44,6 +49,10 @@ export function AccessStudio({
   const inlezen = useRef<DatabaseClient | null>(null);
   const actief = useRef(true);
   const [paginaStart, setPaginaStart] = useState(0);
+  useEffect(() => {
+    registreerOpenen?.(bezig ? null : () => invoer.current?.click());
+    return () => registreerOpenen?.(null);
+  }, [registreerOpenen, bezig]);
   useEffect(() => {
     actief.current = true;
     return () => {

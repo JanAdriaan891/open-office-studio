@@ -2,6 +2,12 @@ import catalogus from "./formaten.json";
 import type { Soort } from "./editors";
 
 export const bestandstypen = catalogus;
+export function uitvoerformaten(soort: Soort, desktop: boolean) {
+  return [
+    ...(desktop ? Object.keys(catalogus[soort].uitvoer) : [soort]),
+    ...catalogus[soort].eigenUitvoer,
+  ];
+}
 export const invoerformaten = Object.values(catalogus)
   .flatMap((module) => module.invoer)
   .map((ext) => `.${ext}`)

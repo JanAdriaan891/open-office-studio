@@ -1,14 +1,17 @@
 # Schermafbeeldingen
 
-Opgenomen op 21 oktober 2026 uit de lokale Vite-productiebuild. De beelden tonen de echte React-interface die ook in de Tauri-app wordt gebruikt; er zijn geen bedieningselementen of documentresultaten aan de afbeeldingen toegevoegd.
+De actuele beelden zijn opgenomen op 22 oktober 2026 uit de lokale Vite-productiebuild 0.4.3. De beelden tonen de echte React-interface die ook in de Tauri-app wordt gebruikt; er zijn geen bedieningselementen of documentresultaten aan de afbeeldingen toegevoegd.
 
-De hoofd-README gebruikt de actuele beelden van 0.4.1:
+De hoofd-README gebruikt de actuele beelden van 0.4.3:
 
-- `start-0.4.1.jpg`: startscherm met de hoofdmodules.
-- `writer-0.4.1.jpg`: eigen ontwerpnotitie met ribbon en documentnavigatie.
-- `calc-0.4.1.jpg`: eigen materiaaloverzicht met berekende totalen.
-- `presentatie-0.4.1.jpg`: eigen presentatie met dia-overzicht.
-- `access-0.4.1.jpg`: echte openbare ACCDB-fixture, vier tabellen en geladen gegevens. De module is alleen lezen; query’s, formulieren en VBA ontbreken.
+- `start-0.4.3.jpg`: startscherm met de hoofdmodules en werkende voorbeeldknoppen.
+- `writer-0.4.3.jpg`: eigen ontwerpnotitie met ribbon, Markdown-opslagkeuze en documentnavigatie.
+- `calc-0.4.3.jpg`: eigen materiaaloverzicht met berekende totalen, op 75% zoom.
+- `presentatie-0.4.3.jpg`: eigen presentatie met dia-overzicht.
+- `access-0.4.3.jpg`: echte openbare ACCDB-fixture, vier tabellen en geladen gegevens. De module is alleen lezen; query’s, formulieren en VBA ontbreken.
+- `bestandsmenu-0.4.3.jpg`: bestandsmenu vóór de Writer-ribbon, na herstel van de laagvolgorde.
+
+De 0.4.1-beelden blijven beschikbaar voor de eerdere testverslagen.
 
 De eerdere 0.3-beelden blijven beschikbaar voor de historische testverslagen:
 

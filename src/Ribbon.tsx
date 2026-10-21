@@ -6,9 +6,17 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { ChevronDown, type LucideIcon } from "lucide-react";
+import { ChevronDown, ChevronUp, type LucideIcon } from "lucide-react";
 
 export const RibbonFout = createContext<(bericht: string) => void>(() => {});
+const opdrachtToelichtingen: Record<string, string> = {
+  "Nothing to undo.": "Er is niets om ongedaan te maken.",
+  "Nothing to redo.": "Er is niets om opnieuw uit te voeren.",
+  "There is nothing to undo.": "Er is niets om ongedaan te maken.",
+  "There is nothing to redo.": "Er is niets om opnieuw uit te voeren.",
+  "The presentation is still opening.": "De presentatie wordt nog geopend.",
+  "Select a shape first.": "Selecteer eerst een vorm.",
+};
 
 export interface RibbonTab {
   id: string;
@@ -24,6 +32,7 @@ export function Ribbon({
   bestand?: () => void;
 }) {
   const [gekozen, setGekozen] = useState(tabs[0].id);
+  const [ingeklapt, setIngeklapt] = useState(false);
   const basis = useId();
   const actief = tabs.find((tab) => tab.id === gekozen) ?? tabs[0];
   return (
@@ -43,7 +52,10 @@ export function Ribbon({
               aria-selected={actief.id === tab.id}
               aria-controls={`${basis}-paneel`}
               tabIndex={actief.id === tab.id ? 0 : -1}
-              onClick={() => setGekozen(tab.id)}
+              onClick={() => {
+                setGekozen(tab.id);
+                setIngeklapt(false);
+              }}
               onKeyDown={(event) => {
                 const volgende =
                   event.key === "ArrowRight"
@@ -58,6 +70,7 @@ export function Ribbon({
                 if (volgende < 0) return;
                 event.preventDefault();
                 setGekozen(tabs[volgende].id);
+                setIngeklapt(false);
                 document
                   .getElementById(`${basis}-${tabs[volgende].id}`)
                   ?.focus();
@@ -67,12 +80,23 @@ export function Ribbon({
             </button>
           ))}
         </div>
+        <button
+          className="ribbon-inklap"
+          aria-label={ingeklapt ? "Lint weergeven" : "Lint verbergen"}
+          title={ingeklapt ? "Lint weergeven" : "Meer ruimte voor je document"}
+          aria-expanded={!ingeklapt}
+          aria-controls={`${basis}-paneel`}
+          onClick={() => setIngeklapt(!ingeklapt)}
+        >
+          {ingeklapt ? <ChevronDown size={16} /> : <ChevronUp size={16} />}
+        </button>
       </div>
       <div
         className="ribbon-inhoud"
         role="tabpanel"
         id={`${basis}-paneel`}
         aria-labelledby={`${basis}-${actief.id}`}
+        hidden={ingeklapt}
       >
         {actief.inhoud}
       </div>
@@ -170,9 +194,12 @@ export function OpdrachtKnop({
   groot?: boolean;
 }) {
   const uitvoeren = useUitvoeren(opdracht);
-  const uitleg = opdracht.state.enabled
+  const toelichting = opdracht.state.enabled
     ? opdracht.shortcut
     : opdracht.state.disabledReason?.message;
+  const uitleg = toelichting
+    ? (opdrachtToelichtingen[toelichting] ?? toelichting)
+    : null;
   return (
     <Actie
       {...props}

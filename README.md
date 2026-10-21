@@ -2,37 +2,37 @@
 
 Open-source kantoortoepassingen van het OpenAEC-ecosysteem voor tekstverwerking, rekenbladen en presentaties.
 
-![OpenAEC Office Studio: lichte werkruimte met Writer, Calc en Presentatie](docs/screenshots/start-0.4.1.jpg)
+![OpenAEC Office Studio: lichte werkruimte met Writer, Calc en Presentatie](docs/screenshots/start-0.4.3.jpg)
 
 ## In beeld
 
 Werkelijke schermafbeeldingen van de lokale productiebuild, met de eigen [voorbeeldbestanden](docs/voorbeelden). De interface heeft een gedeelde ribbon, contextuele opdrachten en een lokaal bestandsmenu. Deze beelden tonen de ontwikkelversie; ze zijn geen verklaring van volledige formaatcompatibiliteit.
 
-Beelden bijgewerkt naar productiefrontend 0.4.1.
+Beelden bijgewerkt naar productiefrontend 0.4.3. Het lint kan worden ingeklapt; het bestandsmenu bedekt de volledige werkruimte. De drie voorbeelden zijn rechtstreeks vanuit het startscherm te openen.
 
 ### Open Writer Studio
 
-Paginaweergave met tekstopmaak, alineastijlen en documentnavigatie.
+Paginaweergave met tekstopmaak, alineastijlen en documentnavigatie. Kies bovenin **Markdown (.md)** en **Opslaan als** om tekst, koppen, lijsten, links en tabellen als Markdown te bewaren. Dit werkt ook in de browser, zonder conversieruntime. Paginaopmaak en ingesloten afbeeldingen vragen daarnaast om een DOCX; Markdown bevat bij afbeeldingen een leesbare verwijzing.
 
-![Writer: ontwerpnotitie met Nederlandse ribbon, koppen en navigatie](docs/screenshots/writer-0.4.1.jpg)
+![Writer: ontwerpnotitie met Nederlandse ribbon, Markdown-opslag en navigatie](docs/screenshots/writer-0.4.3.jpg)
 
 ### Open Excel Calc Studio
 
 Rekenblad met formulebalk, rij- en kolomkoppen, celopmaak en berekende materiaaltotalen.
 
-![Calc: materiaaloverzicht met formules en opgemaakte cellen](docs/screenshots/calc-0.4.1.jpg)
+![Calc: materiaaloverzicht met formules en opgemaakte cellen](docs/screenshots/calc-0.4.3.jpg)
 
 ### Open Presentatie Studio
 
 Dia’s, vormen, tekst en sprekersnotities in één werkruimte.
 
-![Presentatie: ontwerpvisie met dia-overzicht en sprekersnotities](docs/screenshots/presentatie-0.4.1.jpg)
+![Presentatie: ontwerpvisie met dia-overzicht en sprekersnotities](docs/screenshots/presentatie-0.4.3.jpg)
 
 ### Open Access Studio — experimenteel
 
 Een echt openbaar ACCDB-testbestand, lokaal en alleen lezen, met kolomtypen en paginering. Query’s, formulieren en VBA ontbreken nog.
 
-![Access: echte ACCDB-tabellen met typen en geladen rijen](docs/screenshots/access-0.4.1.jpg)
+![Access: echte ACCDB-tabellen met typen en geladen rijen](docs/screenshots/access-0.4.3.jpg)
 
 ## Modules
 
@@ -49,6 +49,8 @@ Een lokale React-werkruimte met drie aangesloten kantoorengines en een Tauri-des
 DOCX, XLSX en PPTX werken rechtstreeks. De desktopversie kan met een **afzonderlijk geïnstalleerde LibreOffice-runtime** ook ODF en oudere formaten omzetten en PDF exporteren. De runtime wordt nog niet met onze installers meegeleverd. Er zijn routes voor 81 invoerextensies; dit betekent niet dat elk bestand of alle LibreOffice-formaten al correct werken. Zie de [formaatmatrix en beperkingen](docs/formaten.md).
 
 De [corpusproef](docs/tests/2026-10-21-formaten.md) gebruikt 1.566 openbare bestanden met vastgelegde bronrevisies en hashes. De engines voltooiden 571 rechtstreekse en 775 geconverteerde open-/opslag-/heropenproeven; Access las 79 databases. Weigeringen, tijdslimieten en de beperkte visuele controle staan eveneens in het verslag. De [browserproeven van 0.4.1](docs/tests/2026-10-21-browser.md) bevestigen opslag, annuleren, foutbehoud en echte MDB/ACCDB-pagina’s, inclusief een hierbij gevonden en herstelde browserfout. Voor eerdere bedieningstests: [ribbon en editors](docs/tests/2026-10-21.md), [opslagbeveiliging](docs/tests/2026-10-21-opslag.md).
+
+De [GUI-controle van 0.4.3](docs/tests/2026-10-22-gui.md) controleert de vier werkruimtes, het bestandsmenu, bewerken en echte downloads. Bewaarde DOCX-, XLSX- en PPTX-bestanden zijn daarnaast met onafhankelijke lezers gecontroleerd. Daarbij zijn de laagvolgorde van het bestandsmenu, de algemene database-openknop en de donkere databaseweergave hersteld.
 
 De ontwikkeling met screenshots staat in [pull request #9](https://github.com/OpenAEC-Foundation/open-office-studio/pull/9). De [bouwcontroles](https://github.com/JanAdriaan891/open-office-studio/actions/workflows/desktop.yml) maken pakketten voor Windows x64, Linux x64 en macOS ARM64. Een geslaagde build vervangt geen installatie- en gebruikerstest.
 

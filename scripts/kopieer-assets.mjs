@@ -1,4 +1,11 @@
 import { cp, mkdir } from "node:fs/promises";
+await mkdir("public/voorbeelden", { recursive: true });
+for (const naam of [
+  "Ontwerpnotitie.docx",
+  "Materiaaloverzicht.xlsx",
+  "Ontwerpvisie.pptx",
+])
+  await cp(`docs/voorbeelden/${naam}`, `public/voorbeelden/${naam}`);
 await mkdir("public/fonts", { recursive: true });
 await cp("node_modules/@betteroffice/fonts/assets", "public/fonts", {
   recursive: true,

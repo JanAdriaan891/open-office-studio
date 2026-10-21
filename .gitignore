@@ -11,6 +11,7 @@ __pycache__/
 .local/
 
 /public/fonts/
+/public/voorbeelden/
 /public/licenses/
 /src-tauri/target/
 
