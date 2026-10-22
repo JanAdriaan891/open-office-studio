@@ -1,0 +1,276 @@
+use serde_json::Value;
+use std::{
+    fs,
+    path::PathBuf,
+    process::{Command, Stdio},
+    time::{Duration, Instant},
+};
+
+/// Pad naar het conversieprogramma; de runtime wordt niet met de app meegeleverd.
+const PROGRAMMA_VARIABELE: &str = "OPENAEC_CONVERSIE_PROGRAMMA";
+/// Optioneel profielbestand dat macro's en actieve inhoud in de runtime uitschakelt.
+const PROFIEL_VARIABELE: &str = "OPENAEC_CONVERSIE_PROFIEL";
+
+fn catalogus() -> Value {
+    serde_json::from_str(include_str!("../../src/formaten.json"))
+        .expect("Ongeldige ingebouwde formaatcatalogus")
+}
+pub fn mag_bewaren(ext: &str) -> bool {
+    catalogus().as_object().is_some_and(|modules| {
+        modules.values().any(|module| {
+            module["uitvoer"].get(ext).is_some()
+                || module["eigenUitvoer"].as_array().is_some_and(|formaten| {
+                    formaten.iter().any(|formaat| formaat.as_str() == Some(ext))
+                })
+        })
+    })
+}
+fn filter(bron: &str, doel: &str, module: &str) -> Result<String, String> {
+    let catalogus = catalogus();
+    let gegevens = catalogus.get(module).ok_or("Onbekende kantoormodule.")?;
+    if !gegevens["invoer"]
+        .as_array()
+        .is_some_and(|invoer| invoer.iter().any(|ext| ext.as_str() == Some(bron)))
+    {
+        return Err("Het bronformaat hoort niet bij deze module.".into());
+    }
+    gegevens["uitvoer"]
+        .get(doel)
+        .and_then(Value::as_str)
+        .map(str::to_owned)
+        .ok_or_else(|| "Dit uitvoerformaat wordt niet ondersteund.".into())
+}
+fn uit_omgeving(variabele: &str) -> Option<PathBuf> {
+    std::env::var_os(variabele)
+        .map(PathBuf::from)
+        .filter(|pad| pad.is_file())
+}
+fn stop(kind: &mut std::process::Child) {
+    #[cfg(unix)]
+    unsafe {
+        libc::kill(-(kind.id() as i32), libc::SIGKILL);
+    }
+    #[cfg(windows)]
+    {
+        let _ = Command::new("taskkill")
+            .args(["/PID", &kind.id().to_string(), "/T", "/F"])
+            .stdout(Stdio::null())
+            .stderr(Stdio::null())
+            .status();
+    }
+    let _ = kind.kill();
+    let _ = kind.wait();
+}
+
+fn voer_uit(opdracht: &mut Command, tijdslimiet: Duration) -> Result<(), String> {
+    #[cfg(unix)]
+    {
+        use std::os::unix::process::CommandExt;
+        opdracht.process_group(0);
+    }
+    #[cfg(windows)]
+    {
+        use std::os::windows::process::CommandExt;
+        opdracht.creation_flags(0x08000000);
+    }
+    let mut kind = opdracht
+        .spawn()
+        .map_err(|e| format!("Conversie kon niet starten: {e}"))?;
+    let start = Instant::now();
+    loop {
+        match kind.try_wait() {
+            Ok(Some(status)) if status.success() => return Ok(()),
+            Ok(Some(status)) => {
+                let code = status
+                    .code()
+                    .map(|code| format!("procescode {code}"))
+                    .unwrap_or_else(|| "proces afgebroken".into());
+                return Err(format!(
+                    "De conversie is mislukt ({code}). Het origineel is behouden."
+                ));
+            }
+            Ok(None) if start.elapsed() < tijdslimiet => {
+                std::thread::sleep(Duration::from_millis(30))
+            }
+            Ok(None) => {
+                stop(&mut kind);
+                return Err("De conversie heeft de tijdslimiet overschreden en is gestopt. Het origineel is behouden.".into());
+            }
+            Err(e) => {
+                stop(&mut kind);
+                return Err(e.to_string());
+            }
+        }
+    }
+}
+
+pub fn converteer(bytes: &[u8], bron: &str, doel: &str, module: &str) -> Result<Vec<u8>, String> {
+    if bytes.is_empty() || bytes.len() > 100 * 1024 * 1024 {
+        return Err("Kies een bestand van maximaal 100 MB dat niet leeg is.".into());
+    }
+    let uitvoerfilter = filter(bron, doel, module)?;
+    let programma = uit_omgeving(PROGRAMMA_VARIABELE).ok_or("Voor dit formaat is een conversieprogramma nodig: zet OPENAEC_CONVERSIE_PROGRAMMA op het pad ervan. DOCX, XLSX en PPTX werken rechtstreeks.")?;
+    let map = tempfile::tempdir().map_err(|e| e.to_string())?;
+    let invoer = map.path().join(format!("invoer.{bron}"));
+    let uit = map.path().join("uit");
+    let profiel = map.path().join("profiel");
+    fs::create_dir_all(profiel.join("user")).map_err(|e| e.to_string())?;
+    fs::create_dir(&uit).map_err(|e| e.to_string())?;
+    fs::write(&invoer, bytes).map_err(|e| e.to_string())?;
+    if let Some(profielbron) = uit_omgeving(PROFIEL_VARIABELE) {
+        fs::copy(profielbron, profiel.join("user/registrymodifications.xcu"))
+            .map_err(|e| e.to_string())?;
+    }
+    let profiel_url = tauri::Url::from_directory_path(&profiel)
+        .map_err(|_| "Het tijdelijke profielpad is ongeldig.")?;
+    let log = fs::File::create(map.path().join("conversie.log")).map_err(|e| e.to_string())?;
+    let mut opdracht = Command::new(programma);
+    opdracht.args([
+        format!("-env:UserInstallation={profiel_url}"),
+        "--headless".into(),
+        "--nologo".into(),
+        "--nodefault".into(),
+        "--norestore".into(),
+        "--convert-to".into(),
+        // Zonder filter in de catalogus kiest de runtime het standaardfilter voor de extensie.
+        if uitvoerfilter.is_empty() {
+            doel.to_owned()
+        } else {
+            format!("{doel}:{uitvoerfilter}")
+        },
+        "--outdir".into(),
+    ]);
+    opdracht
+        .arg(&uit)
+        .arg(&invoer)
+        .stdin(Stdio::null())
+        .stdout(log.try_clone().map_err(|e| e.to_string())?)
+        .stderr(log);
+    voer_uit(&mut opdracht, Duration::from_secs(45))?;
+    let resultaat = uit.join(format!("invoer.{doel}"));
+    let grootte = fs::metadata(&resultaat).map_err(|_| "Dit bestand kon niet worden geconverteerd. Het kan beschadigd of beveiligd zijn, of het formaatfilter ontbreekt in de lokale runtime.")?.len();
+    if grootte == 0 || grootte > 100 * 1024 * 1024 {
+        return Err("De conversie leverde geen bruikbaar bestand van maximaal 100 MB op.".into());
+    }
+    fs::read(resultaat).map_err(|e| e.to_string())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::path::Path;
+    #[test]
+    fn formaat_en_module_moeten_overeenkomen() {
+        assert!(filter("odt", "docx", "docx").is_ok());
+        assert!(filter("xls", "xlsx", "xlsx").is_ok());
+        assert!(filter("ppt", "pptx", "pptx").is_ok());
+        assert!(filter("odt", "xlsx", "xlsx").is_err());
+        assert!(filter("../doc", "docx", "docx").is_err());
+        assert!(filter("docx", "exe", "docx").is_err());
+        assert!(!mag_bewaren("exe"));
+        assert!(mag_bewaren("md"));
+        assert!(filter("docx", "md", "docx").is_err());
+    }
+
+    fn proefproces() -> Command {
+        let mut opdracht = Command::new(std::env::current_exe().unwrap());
+        opdracht.stdout(Stdio::null()).stderr(Stdio::null());
+        opdracht
+    }
+
+    #[test]
+    fn geslaagd_proces_wordt_aanvaard() {
+        let mut opdracht = proefproces();
+        opdracht.arg("--list");
+        assert!(voer_uit(&mut opdracht, Duration::from_secs(10)).is_ok());
+    }
+
+    #[test]
+    fn procesfout_wordt_geweigerd() {
+        let mut opdracht = proefproces();
+        opdracht.arg("--ongeldige-conversieproefoptie");
+        let fout = voer_uit(&mut opdracht, Duration::from_secs(10)).unwrap_err();
+        assert!(fout.contains("procescode"), "{fout}");
+    }
+
+    #[test]
+    fn proces_wordt_gestopt_bij_tijdslimiet() {
+        // Het eigen proefprogramma levert een wachtend kindproces op elk platform.
+        if std::env::var_os("OFFICE_TEST_PROCESWACHT").is_some() {
+            std::thread::sleep(Duration::from_secs(30));
+            return;
+        }
+        let mut opdracht = proefproces();
+        opdracht
+            .args([
+                "--exact",
+                "conversie::tests::proces_wordt_gestopt_bij_tijdslimiet",
+            ])
+            .env("OFFICE_TEST_PROCESWACHT", "1");
+        let start = Instant::now();
+        let fout = voer_uit(&mut opdracht, Duration::from_millis(150)).unwrap_err();
+        assert!(fout.contains("tijdslimiet"), "{fout}");
+        assert!(start.elapsed() < Duration::from_secs(10));
+    }
+    #[test]
+    #[ignore = "Vereist OPENAEC_CONVERSIE_PROGRAMMA"]
+    fn drie_odf_formaten_heen_en_terug() {
+        for (module, odf) in [("docx", "odt"), ("xlsx", "ods"), ("pptx", "odp")] {
+            let pad = Path::new(env!("CARGO_MANIFEST_DIR"))
+                .join(format!("../public/templates/nieuw.{module}"));
+            let origineel = fs::read(pad).unwrap();
+            let open_document = converteer(&origineel, module, odf, module).unwrap();
+            let opnieuw = converteer(&open_document, odf, module, module).unwrap();
+            assert!(opnieuw.starts_with(b"PK"));
+            assert!(!open_document.is_empty());
+        }
+    }
+    #[test]
+    #[ignore = "Vereist OPENAEC_CONVERSIE_PROGRAMMA en OFFICE_TEST_UIT"]
+    fn voorbeelden_in_odf_oud_en_pdf() {
+        let uit = PathBuf::from(
+            std::env::var_os("OFFICE_TEST_UIT")
+                .expect("Kies een uitvoermap voor de controlebestanden"),
+        );
+        fs::create_dir_all(&uit).unwrap();
+        let mut metingen = vec![];
+        for (module, naam, formaten) in [
+            ("docx", "Ontwerpnotitie", ["odt", "doc", "pdf"]),
+            ("xlsx", "Materiaaloverzicht", ["ods", "xls", "pdf"]),
+            ("pptx", "Ontwerpvisie", ["odp", "ppt", "pdf"]),
+        ] {
+            let origineel = fs::read(
+                Path::new(env!("CARGO_MANIFEST_DIR"))
+                    .join(format!("../docs/voorbeelden/{naam}.{module}")),
+            )
+            .unwrap();
+            for formaat in formaten {
+                let start = Instant::now();
+                let omgezet = converteer(&origineel, module, formaat, module).unwrap();
+                metingen.push(serde_json::json!({"van": module, "naar": formaat, "ms": start.elapsed().as_millis(), "bytes": omgezet.len()}));
+                fs::write(uit.join(format!("{naam}.{formaat}")), &omgezet).unwrap();
+                if formaat == "pdf" {
+                    assert!(omgezet.starts_with(b"%PDF-"));
+                } else {
+                    let start = Instant::now();
+                    let heropend = converteer(&omgezet, formaat, module, module).unwrap();
+                    assert!(heropend.starts_with(b"PK"));
+                    metingen.push(serde_json::json!({"van": formaat, "naar": module, "ms": start.elapsed().as_millis(), "bytes": heropend.len()}));
+                    fs::write(uit.join(format!("{naam}-via-{formaat}.{module}")), heropend)
+                        .unwrap();
+                }
+            }
+        }
+        if let Some(pad) = std::env::var_os("OFFICE_TEST_STRICT") {
+            let bron = fs::read(pad).unwrap();
+            let omgezet = converteer(&bron, "xlsx", "xlsx", "xlsx").unwrap();
+            assert!(omgezet.starts_with(b"PK"));
+            fs::write(uit.join("Strict-omgezet.xlsx"), omgezet).unwrap();
+        }
+        fs::write(
+            uit.join("metingen.json"),
+            serde_json::to_vec_pretty(&metingen).unwrap(),
+        )
+        .unwrap();
+    }
+}

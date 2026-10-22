@@ -1,0 +1,98 @@
+name: Kantooromgeving controleren en bouwen
+on:
+  push:
+    branches: [main, "feat/**"]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  desktop:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-22.04, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.25.0
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Linux-bouwafhankelijkheden
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends libwebkit2gtk-4.1-dev libgtk-3-dev libayatana-appindicator3-dev librsvg2-dev patchelf squashfs-tools poppler-utils
+      # De conversieruntime staat niet in deze repository: zet de Actions-variabelen
+      # CONVERSIE_APT_PAKKETTEN en CONVERSIE_PROGRAMMA om de echte conversieproeven te draaien.
+      - name: Conversieruntime installeren
+        if: runner.os == 'Linux' && vars.CONVERSIE_APT_PAKKETTEN != ''
+        env:
+          PAKKETTEN: ${{ vars.CONVERSIE_APT_PAKKETTEN }}
+        run: sudo apt-get install -y --no-install-recommends $PAKKETTEN
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm test
+      - run: python -m unittest discover -s tests -v
+      - run: node scripts/test-kantoor-engines.mjs
+      - name: Windows-loader voorbereiden
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: ./scripts/voorbereiden-windows.ps1
+      - run: pnpm build
+      - name: Vastgelegde MDB-, ACCDB- en Strict-proefbestanden ophalen
+        if: runner.os == 'Linux'
+        run: node scripts/corpus-download.mjs docs/tests/smoke-manifest.json
+      - name: Gebouwde databaseparser controleren
+        if: runner.os == 'Linux'
+        run: node scripts/test-database-worker.mjs .local/corpus/bestanden/jackcess-b9d004aa5f8287ae413074a933e2c54235f1de29.mdb .local/corpus/bestanden/jackcess-e16c664c03d368bc37fb55265544ba23c201f174.accdb .local/corpus/bestanden/jackcess-6121fc34bed66f15e836e8130cd9489184e7a384.mdb
+      - run: cargo test --manifest-path src-tauri/Cargo.toml --locked
+      - name: ODF, oudere formaten en PDF werkelijk converteren
+        if: runner.os == 'Linux' && vars.CONVERSIE_PROGRAMMA != ''
+        env:
+          OPENAEC_CONVERSIE_PROGRAMMA: ${{ vars.CONVERSIE_PROGRAMMA }}
+          OFFICE_TEST_UIT: ${{ runner.temp }}/formaatcontrole
+          OFFICE_TEST_STRICT: ${{ github.workspace }}/.local/corpus/bestanden/poi-7ed3e45d2b7affb9ddf46ff84b6b5d3d08c414a6.xlsx
+        run: cargo test --manifest-path src-tauri/Cargo.toml --locked voorbeelden_in_odf_oud_en_pdf -- --ignored
+      - name: Geconverteerde inhoud onafhankelijk controleren
+        if: runner.os == 'Linux' && vars.CONVERSIE_PROGRAMMA != ''
+        run: |
+          python -m pip install python-docx==1.2.0 openpyxl==3.1.5 python-pptx==1.0.2
+          python scripts/test-formaatuitvoer.py "${{ runner.temp }}/formaatcontrole"
+          node scripts/corpus-bestand.mjs "${{ runner.temp }}/formaatcontrole/Strict-omgezet.xlsx" xlsx
+      - name: Linux-pakket bouwen
+        if: runner.os == 'Linux'
+        run: pnpm desktop:build --bundles deb,appimage
+      - name: Windows-pakket bouwen
+        if: runner.os == 'Windows'
+        run: pnpm desktop:build --bundles nsis
+      - name: macOS-pakket bouwen
+        if: runner.os == 'macOS'
+        run: pnpm desktop:build --bundles dmg
+      - name: Linux-installers werkelijk uitpakken en controleren
+        if: runner.os == 'Linux'
+        run: python scripts/controleer-installers.py --platform linux --rapport .local/pakketcontrole-Linux.json
+      - name: Windows-installer werkelijk uitpakken en controleren
+        if: runner.os == 'Windows'
+        run: python scripts/controleer-installers.py --platform windows --rapport .local/pakketcontrole-Windows.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: open-office-studio-${{ runner.os }}
+          path: |
+            src-tauri/target/release/bundle/**/*.deb
+            src-tauri/target/release/bundle/**/*.AppImage
+            src-tauri/target/release/bundle/**/*.exe
+            src-tauri/target/release/bundle/**/*.dmg
+          if-no-files-found: error
+      - name: Pakketrapport bewaren
+        if: runner.os != 'macOS'
+        uses: actions/upload-artifact@v4
+        with:
+          name: pakketcontrole-${{ runner.os }}
+          path: .local/pakketcontrole-*.json
+          include-hidden-files: true
+          if-no-files-found: error
