@@ -1,6 +1,6 @@
 import { exportDocxMarkdown } from "@betteroffice/docx";
 
-/** Exporteert de bewaarde revisie via dezelfde documentkern als Writer. */
+/** Exporteert de bewaarde revisie via dezelfde documentkern als de teksteditor. */
 export async function exporteerMarkdown(bytes: Uint8Array) {
   const resultaat = await exportDocxMarkdown(bytes, {
     revisionView: "accepted",

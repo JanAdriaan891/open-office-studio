@@ -6,7 +6,10 @@ use std::{
     time::{Duration, Instant},
 };
 
-pub const PROFIEL: &str = r#"<?xml version="1.0"?><oor:items xmlns:oor="http://openoffice.org/2001/registry"><item oor:path="/org.openoffice.Office.Common/Security/Scripting"><prop oor:name="DisableMacrosExecution" oor:op="fuse"><value>true</value></prop><prop oor:name="MacroSecurityLevel" oor:op="fuse"><value>3</value></prop><prop oor:name="DisableActiveContent" oor:op="fuse"><value>true</value></prop></item></oor:items>"#;
+/// Pad naar het conversieprogramma; de runtime wordt niet met de app meegeleverd.
+const PROGRAMMA_VARIABELE: &str = "OPENAEC_CONVERSIE_PROGRAMMA";
+/// Optioneel profielbestand dat macro's en actieve inhoud in de runtime uitschakelt.
+const PROFIEL_VARIABELE: &str = "OPENAEC_CONVERSIE_PROFIEL";
 
 fn catalogus() -> Value {
     serde_json::from_str(include_str!("../../src/formaten.json"))
@@ -37,36 +40,10 @@ fn filter(bron: &str, doel: &str, module: &str) -> Result<String, String> {
         .map(str::to_owned)
         .ok_or_else(|| "Dit uitvoerformaat wordt niet ondersteund.".into())
 }
-fn programma() -> Option<PathBuf> {
-    let namen = if cfg!(target_os = "windows") {
-        vec!["soffice.exe", "libreoffice.exe"]
-    } else {
-        vec!["libreoffice", "soffice"]
-    };
-    let mut kandidaten = vec![
-        PathBuf::from("/Applications/LibreOffice.app/Contents/MacOS/soffice"),
-        PathBuf::from("/usr/bin/libreoffice"),
-    ];
-    for sleutel in ["PROGRAMFILES", "PROGRAMFILES(X86)"] {
-        if let Some(pad) = std::env::var_os(sleutel) {
-            kandidaten.push(PathBuf::from(pad).join("LibreOffice/program/soffice.exe"));
-        }
-    }
-    // Gebruik de normale desktopinstallatie vóór hulpmiddelen uit een ontwikkelomgeving.
-    if let Some(pad) = kandidaten.into_iter().find(|p| p.is_file()) {
-        return Some(pad);
-    }
-    if let Some(paden) = std::env::var_os("PATH") {
-        for naam in &namen {
-            for pad in std::env::split_paths(&paden) {
-                let p = pad.join(naam);
-                if p.is_file() {
-                    return Some(p);
-                }
-            }
-        }
-    }
-    None
+fn uit_omgeving(variabele: &str) -> Option<PathBuf> {
+    std::env::var_os(variabele)
+        .map(PathBuf::from)
+        .filter(|pad| pad.is_file())
 }
 fn stop(kind: &mut std::process::Child) {
     #[cfg(unix)]
@@ -132,7 +109,7 @@ pub fn converteer(bytes: &[u8], bron: &str, doel: &str, module: &str) -> Result<
         return Err("Kies een bestand van maximaal 100 MB dat niet leeg is.".into());
     }
     let uitvoerfilter = filter(bron, doel, module)?;
-    let programma = programma().ok_or("Voor dit formaat is een lokale LibreOffice-installatie nodig. DOCX, XLSX en PPTX werken rechtstreeks.")?;
+    let programma = uit_omgeving(PROGRAMMA_VARIABELE).ok_or("Voor dit formaat is een conversieprogramma nodig: zet OPENAEC_CONVERSIE_PROGRAMMA op het pad ervan. DOCX, XLSX en PPTX werken rechtstreeks.")?;
     let map = tempfile::tempdir().map_err(|e| e.to_string())?;
     let invoer = map.path().join(format!("invoer.{bron}"));
     let uit = map.path().join("uit");
@@ -140,8 +117,10 @@ pub fn converteer(bytes: &[u8], bron: &str, doel: &str, module: &str) -> Result<
     fs::create_dir_all(profiel.join("user")).map_err(|e| e.to_string())?;
     fs::create_dir(&uit).map_err(|e| e.to_string())?;
     fs::write(&invoer, bytes).map_err(|e| e.to_string())?;
-    fs::write(profiel.join("user/registrymodifications.xcu"), PROFIEL)
-        .map_err(|e| e.to_string())?;
+    if let Some(profielbron) = uit_omgeving(PROFIEL_VARIABELE) {
+        fs::copy(profielbron, profiel.join("user/registrymodifications.xcu"))
+            .map_err(|e| e.to_string())?;
+    }
     let profiel_url = tauri::Url::from_directory_path(&profiel)
         .map_err(|_| "Het tijdelijke profielpad is ongeldig.")?;
     let log = fs::File::create(map.path().join("conversie.log")).map_err(|e| e.to_string())?;
@@ -153,7 +132,12 @@ pub fn converteer(bytes: &[u8], bron: &str, doel: &str, module: &str) -> Result<
         "--nodefault".into(),
         "--norestore".into(),
         "--convert-to".into(),
-        format!("{doel}:{uitvoerfilter}"),
+        // Zonder filter in de catalogus kiest de runtime het standaardfilter voor de extensie.
+        if uitvoerfilter.is_empty() {
+            doel.to_owned()
+        } else {
+            format!("{doel}:{uitvoerfilter}")
+        },
         "--outdir".into(),
     ]);
     opdracht
@@ -229,7 +213,7 @@ mod tests {
         assert!(start.elapsed() < Duration::from_secs(10));
     }
     #[test]
-    #[ignore = "Vereist een lokale LibreOffice-installatie"]
+    #[ignore = "Vereist OPENAEC_CONVERSIE_PROGRAMMA"]
     fn drie_odf_formaten_heen_en_terug() {
         for (module, odf) in [("docx", "odt"), ("xlsx", "ods"), ("pptx", "odp")] {
             let pad = Path::new(env!("CARGO_MANIFEST_DIR"))
@@ -242,7 +226,7 @@ mod tests {
         }
     }
     #[test]
-    #[ignore = "Vereist een lokale LibreOffice-installatie en OFFICE_TEST_UIT"]
+    #[ignore = "Vereist OPENAEC_CONVERSIE_PROGRAMMA en OFFICE_TEST_UIT"]
     fn voorbeelden_in_odf_oud_en_pdf() {
         let uit = PathBuf::from(
             std::env::var_os("OFFICE_TEST_UIT")

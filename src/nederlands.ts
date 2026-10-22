@@ -1,8 +1,8 @@
-import type { Translations as WriterVertaling } from "@betteroffice/docx-i18n";
-import type { Translations as CalcVertaling } from "@betteroffice/xlsx-i18n";
+import type { Translations as TekstVertaling } from "@betteroffice/docx-i18n";
+import type { Translations as RekenbladVertaling } from "@betteroffice/xlsx-i18n";
 import type { Translations as DiaVertaling } from "@betteroffice/pptx-i18n";
 
-export const writerNl: WriterVertaling = {
+export const tekstNl: TekstVertaling = {
   _lang: "nl",
   common: {
     cancel: "Annuleren",
@@ -257,7 +257,7 @@ export const writerNl: WriterVertaling = {
   },
 };
 
-export const calcNl: CalcVertaling = {
+export const rekenbladNl: RekenbladVertaling = {
   _lang: "nl",
   toolbar: {
     actionsLabel: "Rekenbladopdrachten",

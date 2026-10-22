@@ -1,6 +1,6 @@
 # Validatie: praktijkcorpus, bundelmetingen en ODF-vervolg
 
-Onderdeel van #1. Zie `docs/onderzoek/landschap.md` voor de broninventarisatie.
+Onderdeel van #1. Zie `docs/onderzoek/README.md` voor de routekeuze.
 
 Maak de routekeuze toetsbaar met dezelfde praktijkgevallen en meetmethode voor elke kandidaat.
 

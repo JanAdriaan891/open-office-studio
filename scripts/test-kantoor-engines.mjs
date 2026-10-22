@@ -49,7 +49,7 @@ assert.equal(
 );
 await writeFile(".local/controledocumenten/presentatieproef.pptx", deck.save());
 console.log(
-  "Calc-formule en gewijzigde presentatietekst zijn na opslaan en heropenen behouden.",
+  "Rekenbladformule en gewijzigde presentatietekst zijn na opslaan en heropenen behouden.",
 );
 
 const document = await parseDocx(
@@ -62,7 +62,7 @@ const alinea = {
     {
       type: "run",
       formatting: { bold: true },
-      content: [{ type: "text", text: "OpenAEC Writer controle." }],
+      content: [{ type: "text", text: "OpenAEC tekstcontrole." }],
     },
   ],
 };
@@ -73,10 +73,10 @@ await writeFile(".local/controledocumenten/documentproef.docx", docxBytes);
 const documentOpnieuw = await parseDocx(docxBytes, { preloadFonts: false });
 assert.equal(
   documentOpnieuw.package.document.content[0].content[0].content[0].text,
-  "OpenAEC Writer controle.",
+  "OpenAEC tekstcontrole.",
 );
 assert.equal(
   documentOpnieuw.package.document.content[0].content[0].formatting.bold,
   true,
 );
-console.log("Writer-tekst en vetopmaak zijn na opslaan en heropenen behouden.");
+console.log("Documenttekst en vetopmaak zijn na opslaan en heropenen behouden.");

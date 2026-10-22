@@ -64,13 +64,17 @@ async function ontdek() {
       boom.tree.filter((item) => item.path.startsWith(bron.prefix)),
     );
   }
-  const odfBron = { repo: "LibreOffice/core", kort: "odf" };
-  const odfRevisie = api(`repos/${odfBron.repo}/commits/master`).sha;
-  for (const [pad, ext] of [
-    ["sw/qa/extras/odfexport/data", "odt"],
-    ["sc/qa/unit/data/ods", "ods"],
-    ["sd/qa/unit/data/odp", "odp"],
-  ]) {
+  // De ODF-steekproef komt uit een optionele bronrepository (eigenaar/naam) die buiten deze repository is vastgelegd.
+  const odfRepo = process.env.OPENAEC_CORPUS_ODF_REPO;
+  const odfBron = { repo: odfRepo, kort: "odf" };
+  const odfRevisie = odfRepo && api(`repos/${odfBron.repo}/commits/master`).sha;
+  for (const [pad, ext] of odfRepo
+    ? [
+        ["sw/qa/extras/odfexport/data", "odt"],
+        ["sc/qa/unit/data/ods", "ods"],
+        ["sd/qa/unit/data/odp", "odp"],
+      ]
+    : []) {
     const lijst = api(
       `repos/${odfBron.repo}/contents/${pad}?ref=${odfRevisie}`,
     );

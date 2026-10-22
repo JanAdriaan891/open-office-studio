@@ -1344,7 +1344,7 @@ select {
   font-size: 11px;
   line-height: 1.7;
 }
-.office > .access-app {
+.office > .database-app {
   position: relative;
   isolation: isolate;
   z-index: 0;
@@ -1604,19 +1604,19 @@ select {
 }
 
 /* Rijkoppen volgen de werkelijke, door de rekenkern berekende celgeometrie. */
-.office .office-calc-host {
+.office .office-rekenblad-host {
   position: relative;
   min-height: 0;
   height: 100%;
 }
-.office .office-calc-host [data-testid="xlsx-workspace"] {
+.office .office-rekenblad-host [data-testid="xlsx-workspace"] {
   margin-left: 38px;
   margin-top: 23px;
 }
-.office .calc-koppen {
+.office .rekenblad-koppen {
   pointer-events: none;
 }
-.office .calc-hoek {
+.office .rekenblad-hoek {
   position: absolute;
   width: 38px;
   height: 23px;
@@ -1624,7 +1624,7 @@ select {
   border-width: 0 1px 1px 0;
   background: #f0f3f5;
 }
-.office .calc-hoek::after {
+.office .rekenblad-hoek::after {
   content: "";
   position: absolute;
   right: 7px;
@@ -1633,22 +1633,22 @@ select {
   border-width: 0 0 8px 8px;
   border-bottom-color: #c1c9ce;
 }
-.office .calc-kolomkoppen {
+.office .rekenblad-kolomkoppen {
   position: absolute;
   height: 23px;
   overflow: hidden;
   background: #f4f6f8;
   border-bottom: 1px solid #dce1e6;
 }
-.office .calc-rijkoppen {
+.office .rekenblad-rijkoppen {
   position: absolute;
   width: 38px;
   overflow: hidden;
   background: #f4f6f8;
   border-right: 1px solid #dce1e6;
 }
-.office .calc-kolomkoppen > span,
-.office .calc-rijkoppen > span {
+.office .rekenblad-kolomkoppen > span,
+.office .rekenblad-rijkoppen > span {
   position: absolute;
   display: flex;
   align-items: center;
@@ -1658,15 +1658,15 @@ select {
     sans-serif;
   color: #788490;
 }
-.office .calc-kolomkoppen > span {
+.office .rekenblad-kolomkoppen > span {
   height: 100%;
   border-right: 1px solid #e0e4e8;
 }
-.office .calc-rijkoppen > span {
+.office .rekenblad-rijkoppen > span {
   width: 100%;
   border-bottom: 1px solid #e0e4e8;
 }
-.office .calc-koppen [data-actief="true"] {
+.office .rekenblad-koppen [data-actief="true"] {
   background: #e3eee7;
   color: #356b4f;
   font-weight: 600;

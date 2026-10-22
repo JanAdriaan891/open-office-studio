@@ -1,17 +1,17 @@
-.access-app {
+.database-app {
   font-family: Inter, sans-serif;
   color: #36363e;
   background: #fafaf9;
   font-synthesis: none;
 }
-.access-app * {
+.database-app * {
   box-sizing: border-box;
 }
-.access-app button,
-.access-app input {
+.database-app button,
+.database-app input {
   font: inherit;
 }
-.access-app button {
+.database-app button {
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -22,19 +22,19 @@
   color: var(--text);
   padding: 10px 14px;
 }
-.access-app button:hover {
+.database-app button:hover {
   border-color: #d97706;
 }
-.access-app button:focus-visible,
-.access-app input:focus-visible {
+.database-app button:focus-visible,
+.database-app input:focus-visible {
   outline: 3px solid #f59e0b;
   outline-offset: 2px;
 }
-.access-app button:disabled {
+.database-app button:disabled {
   opacity: 0.5;
   cursor: wait;
 }
-.access-app {
+.database-app {
   --surface: #fff;
   --bg: #fafaf9;
   --text: #36363e;
@@ -47,7 +47,7 @@
   display: flex;
   flex-direction: column;
 }
-.access-app[data-theme="dark"] {
+.database-app[data-theme="dark"] {
   --surface: #36363e;
   --bg: #2a2a32;
   --text: #fafaf9;
@@ -55,7 +55,7 @@
   --border: #52525b;
   --soft: #303038;
 }
-.access-app header {
+.database-app header {
   height: 60px;
   padding: 0 30px;
   border-bottom: 1px solid var(--border);
@@ -64,68 +64,68 @@
   justify-content: space-between;
   background: var(--surface);
 }
-.access-app .merk {
+.database-app .merk {
   display: flex;
   gap: 12px;
   align-items: center;
 }
-.access-app .merk svg {
+.database-app .merk svg {
   color: #d97706;
 }
-.access-app .merk span {
+.database-app .merk span {
   font-size: 11px;
   letter-spacing: 2px;
   color: var(--muted);
   margin-left: 12px;
 }
-.access-app .titel {
+.database-app .titel {
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 30px 36px 24px;
 }
-.access-app .eyebrow {
+.database-app .eyebrow {
   font-size: 11px;
   letter-spacing: 2px;
   font-weight: 600;
   color: #d97706;
 }
-.access-app h1,
-.access-app h2,
-.access-app h3 {
+.database-app h1,
+.database-app h2,
+.database-app h3 {
   font-family: "Space Grotesk", sans-serif;
 }
-.access-app h1 {
+.database-app h1 {
   font-size: 32px;
   margin: 8px 0;
 }
-.access-app p {
+.database-app p {
   line-height: 1.65;
 }
-.access-app .access-kolomtype {
+.database-app .database-kolomtype {
   display: block;
   font-size: 9px;
   color: var(--muted);
   font-weight: 400;
   margin-top: 3px;
 }
-.access-app .access-paginering {
+.database-app .database-paginering {
   display: flex;
   gap: 8px;
   margin-top: 12px;
 }
-.access-app .titel p:last-child {
+.database-app .titel p:last-child {
   margin: 0;
   color: var(--muted);
   font-size: 14px;
 }
-.access-app .badge {
+.database-app .badge {
   border: 1px solid var(--border);
   padding: 8px 12px;
   border-radius: 20px;
   font-size: 12px;
 }
-.access-app nav {
+.database-app nav {
   padding: 14px 36px;
   display: flex;
   gap: 10px;
@@ -133,12 +133,12 @@
   border-block: 1px solid var(--border);
   background: var(--surface);
 }
-.access-app .primary {
+.database-app .primary {
   background: #d97706;
   color: white;
   border-color: #d97706;
 }
-.access-app .local {
+.database-app .local {
   margin-left: auto;
   display: flex;
   gap: 8px;
@@ -146,49 +146,49 @@
   color: var(--muted);
   font-size: 12px;
 }
-.access-app main {
+.database-app main {
   display: grid;
   grid-template-columns: 260px minmax(0, 1fr);
   flex: 1;
   min-height: 500px;
 }
-.access-app aside {
+.database-app aside {
   padding: 24px 18px;
   border-right: 1px solid var(--border);
   background: var(--surface);
 }
-.access-app aside h2 {
+.database-app aside h2 {
   font-size: 16px;
 }
-.access-app .bestandsnaam {
+.database-app .bestandsnaam {
   font-size: 12px;
   overflow-wrap: anywhere;
   color: var(--muted);
 }
-.access-app aside section {
+.database-app aside section {
   padding-top: 18px;
 }
-.access-app aside h3 {
+.database-app aside h3 {
   font-size: 11px;
   letter-spacing: 1px;
   text-transform: uppercase;
   color: var(--muted);
 }
-.access-app aside button {
+.database-app aside button {
   width: 100%;
   border-color: transparent;
   text-align: left;
   font-size: 13px;
 }
-.access-app aside .selected {
+.database-app aside .selected {
   background: var(--soft);
   border-left: 3px solid #d97706;
 }
-.access-app .muted {
+.database-app .muted {
   font-size: 12px;
   color: var(--muted);
 }
-.access-app .aside-note {
+.database-app .aside-note {
   font-size: 12px;
   line-height: 1.7;
   color: var(--muted);
@@ -196,21 +196,21 @@
   padding-top: 20px;
   margin-top: 36px;
 }
-.access-app article {
+.database-app article {
   padding: 28px 36px;
   min-width: 0;
 }
-.access-app .welkom {
+.database-app .welkom {
   max-width: 900px;
   margin: 30px auto;
   text-align: center;
 }
-.access-app .welkom > p {
+.database-app .welkom > p {
   color: var(--muted);
   max-width: 620px;
   margin: 16px auto;
 }
-.access-app .db-icon {
+.database-app .db-icon {
   width: 90px;
   height: 90px;
   display: grid;
@@ -220,30 +220,30 @@
   margin: 0 auto;
   color: #d97706;
 }
-.access-app .welkom h2 {
+.database-app .welkom h2 {
   font-size: 27px;
 }
-.access-app .kaarten {
+.database-app .kaarten {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
   margin: 32px 0;
   text-align: left;
 }
-.access-app .kaarten section {
+.database-app .kaarten section {
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 24px;
   background: var(--surface);
 }
-.access-app .kaarten svg {
+.database-app .kaarten svg {
   color: #d97706;
 }
-.access-app .kaarten p {
+.database-app .kaarten p {
   font-size: 13px;
   color: var(--muted);
 }
-.access-app .melding {
+.database-app .melding {
   padding: 14px 18px;
   border-left: 3px solid #d97706;
   background: var(--soft);
@@ -251,17 +251,17 @@
   line-height: 1.7;
   text-align: left;
 }
-.access-app .fout {
+.database-app .fout {
   color: #b91c1c;
 }
-.access-app .object-toolbar {
+.database-app .object-toolbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
   margin: 18px 0;
 }
-.access-app small {
+.database-app small {
   display: block;
   font:
     12px Inter,
@@ -269,7 +269,7 @@
   color: var(--muted);
   margin-top: 8px;
 }
-.access-app .zoek {
+.database-app .zoek {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -280,32 +280,32 @@
   border-radius: 6px;
   margin-bottom: 20px;
 }
-.access-app .zoek input {
+.database-app .zoek input {
   border: 0;
   background: transparent;
   color: var(--text);
   width: 100%;
   min-width: 0;
 }
-.access-app .table-wrap {
+.database-app .table-wrap {
   overflow: auto;
 }
-.access-app table {
+.database-app table {
   border-collapse: collapse;
   width: 100%;
   font-size: 14px;
   text-align: left;
   background: var(--surface);
 }
-.access-app th,
-.access-app td {
+.database-app th,
+.database-app td {
   padding: 14px;
   border-bottom: 1px solid var(--border);
 }
-.access-app th {
+.database-app th {
   background: var(--soft);
 }
-.access-app pre {
+.database-app pre {
   padding: 24px;
   background: var(--surface);
   border: 1px solid var(--border);
@@ -313,7 +313,7 @@
   line-height: 1.8;
   overflow: auto;
 }
-.access-app footer {
+.database-app footer {
   display: flex;
   justify-content: space-between;
   gap: 12px;
@@ -323,65 +323,65 @@
   color: var(--muted);
 }
 @media (max-width: 800px) {
-  .access-app .titel {
+  .database-app .titel {
     padding: 20px;
     display: block;
   }
-  .access-app .badge {
+  .database-app .badge {
     display: inline-block;
     margin-top: 16px;
   }
-  .access-app nav {
+  .database-app nav {
     padding: 14px 20px;
     flex-wrap: wrap;
   }
-  .access-app .local {
+  .database-app .local {
     margin: 0;
   }
-  .access-app .merk span {
+  .database-app .merk span {
     display: none;
   }
-  .access-app main {
+  .database-app main {
     grid-template-columns: 190px minmax(0, 1fr);
   }
-  .access-app article {
+  .database-app article {
     padding: 20px;
   }
-  .access-app .kaarten {
+  .database-app .kaarten {
     grid-template-columns: 1fr;
   }
-  .access-app footer {
+  .database-app footer {
     flex-wrap: wrap;
   }
 }
 @media (max-width: 500px) {
-  .access-app main {
+  .database-app main {
     grid-template-columns: 1fr;
   }
-  .access-app aside {
+  .database-app aside {
     border-right: 0;
     border-bottom: 1px solid var(--border);
   }
-  .access-app aside section {
+  .database-app aside section {
     display: inline-block;
     vertical-align: top;
     margin-right: 12px;
   }
-  .access-app .aside-note {
+  .database-app .aside-note {
     display: none;
   }
-  .access-app .object-toolbar {
+  .database-app .object-toolbar {
     align-items: start;
     flex-direction: column;
   }
 }
 
 /* De objectbrowser sluit aan op het lint van de kantoorwerkruimte. */
-.office > .access-app {
+.office > .database-app {
   min-height: 0;
   background: var(--bg);
 }
-.office .access-documentbalk {
+.office .database-documentbalk {
   min-height: 36px;
   display: flex;
   align-items: center;
@@ -392,123 +392,123 @@
   color: var(--muted);
   font-size: 11px;
 }
-.office .access-documentbalk strong {
+.office .database-documentbalk strong {
   font-weight: 400;
 }
-.office .access-documentbalk > span {
+.office .database-documentbalk > span {
   margin-left: auto;
   color: #9399a3;
   font-size: 10px;
 }
-.office .access-app main {
+.office .database-app main {
   min-height: 0;
   grid-template-columns: 235px minmax(0, 1fr);
   overflow: hidden;
 }
-.office .access-app aside {
+.office .database-app aside {
   padding: 22px 14px;
   overflow: auto;
   background: var(--surface);
 }
-.office .access-app aside h2 {
+.office .database-app aside h2 {
   font-family: Inter, sans-serif;
   font-size: 12px;
   margin: 0 10px 12px;
 }
-.office .access-app .bestandsnaam {
+.office .database-app .bestandsnaam {
   font-size: 10px;
   margin-inline: 10px;
 }
-.office .access-app aside section {
+.office .database-app aside section {
   padding-top: 12px;
 }
-.office .access-app aside h3 {
+.office .database-app aside h3 {
   font-family: Inter, sans-serif;
   margin-left: 10px;
   font-size: 9px;
   color: #9299a5;
 }
-.office .access-app aside button {
+.office .database-app aside button {
   font-size: 11px;
   border-radius: 4px;
   padding: 9px 10px;
 }
-.office .access-app aside .selected {
+.office .database-app aside .selected {
   background: #fff5e4;
   border-left: 1px solid #e8cc9f;
   color: #94550b;
 }
-.office .access-app .muted,
-.office .access-app .aside-note {
+.office .database-app .muted,
+.office .database-app .aside-note {
   font-size: 10px;
   margin-left: 10px;
   color: #949ba5;
 }
-.office .access-app article {
+.office .database-app article {
   overflow: auto;
   padding: 24px 30px;
 }
-.office .access-app article h2 {
+.office .database-app article h2 {
   font-family: Inter, sans-serif;
   font-size: 20px;
   letter-spacing: -0.5px;
 }
-.office .access-app .welkom {
+.office .database-app .welkom {
   text-align: left;
   margin: 20px auto;
 }
-.office .access-app .db-icon {
+.office .database-app .db-icon {
   width: 46px;
   height: 46px;
   margin: 0 0 20px;
   border-radius: 8px;
 }
-.office .access-app .db-icon svg {
+.office .database-app .db-icon svg {
   width: 25px;
 }
-.office .access-app .welkom > p {
+.office .database-app .welkom > p {
   margin: 12px 0;
   font-size: 12px;
   max-width: 560px;
 }
-.office .access-app .kaarten {
+.office .database-app .kaarten {
   gap: 12px;
   margin-block: 25px;
 }
-.office .access-app .kaarten section {
+.office .database-app .kaarten section {
   padding: 18px;
   border-radius: 5px;
 }
-.office .access-app .kaarten h3 {
+.office .database-app .kaarten h3 {
   font:
     600 12px Inter,
     sans-serif;
 }
-.office .access-app .kaarten p,
-.office .access-app .melding {
+.office .database-app .kaarten p,
+.office .database-app .melding {
   font-size: 11px;
 }
-.office .access-app .object-toolbar {
+.office .database-app .object-toolbar {
   margin-top: 8px;
 }
-.office .access-app .object-toolbar h2 {
+.office .database-app .object-toolbar h2 {
   margin: 0;
 }
-.office .access-app table {
+.office .database-app table {
   font-size: 12px;
 }
-.office .access-app th,
-.office .access-app td {
+.office .database-app th,
+.office .database-app td {
   padding: 11px 14px;
 }
 @media (max-width: 800px) {
-  .office .access-app main {
+  .office .database-app main {
     grid-template-columns: 185px minmax(0, 1fr);
   }
-  .office .access-app article {
+  .office .database-app article {
     padding: 20px;
   }
-  .office .access-app .kaarten {
+  .office .database-app .kaarten {
     grid-template-columns: 1fr;
   }
 }

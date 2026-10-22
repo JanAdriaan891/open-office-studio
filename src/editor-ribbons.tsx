@@ -1,15 +1,15 @@
 import { useContext, useEffect, useRef } from "react";
 import {
   useDocxCommand,
-  ToolbarCommand as WriterControl,
+  ToolbarCommand as TekstControl,
   type DocxCommandArgs,
   type DocxCommandId,
   type DocxSelectCommandId,
 } from "@betteroffice/docx-react";
 import {
   useXlsxCommand,
-  EditorToolbar as CalcToolbar,
-  ToolbarCommand as CalcControl,
+  EditorToolbar as RekenbladToolbar,
+  ToolbarCommand as RekenbladControl,
   type XlsxCommandArgs,
   type XlsxCommandId,
   type XlsxSelectCommandId,
@@ -163,7 +163,7 @@ function PK({
     <OpdrachtKeuze opdracht={usePptxCommand(id)} naam={naam} breed={breed} />
   );
 }
-function WriterLettertype() {
+function TekstLettertype() {
   const grootte = useDocxCommand("fontSize"),
     kleur = useDocxCommand("textColor"),
     markering = useDocxCommand("highlightColor");
@@ -200,7 +200,7 @@ function WriterLettertype() {
     </Groep>
   );
 }
-function WriterAlinea() {
+function TekstAlinea() {
   return (
     <Groep naam="Alinea">
       <div className="ribbon-rij ribbon-iconen">
@@ -264,16 +264,16 @@ function Stijlen() {
     </Groep>
   );
 }
-function Geschiedenis({ soort }: { soort: "writer" | "calc" | "dia" }) {
+function Geschiedenis({ soort }: { soort: "tekst" | "rekenblad" | "dia" }) {
   return (
     <Groep naam="Bewerken">
       <div className="ribbon-stapel">
-        {soort === "writer" ? (
+        {soort === "tekst" ? (
           <>
             <W id="undo" naam="Ongedaan" icoon={Undo2} />
             <W id="redo" naam="Opnieuw" icoon={Redo2} />
           </>
-        ) : soort === "calc" ? (
+        ) : soort === "rekenblad" ? (
           <>
             <C id="undo" naam="Ongedaan" icoon={Undo2} />
             <C id="redo" naam="Opnieuw" icoon={Redo2} />
@@ -298,7 +298,7 @@ function Zoom({ opdracht }: { opdracht: GebondenOpdracht }) {
     </Groep>
   );
 }
-export function WriterRibbon({
+export function TekstRibbon({
   bestand,
   liniaal,
   navigatie,
@@ -371,7 +371,7 @@ export function WriterRibbon({
           </Groep>
           <Groep naam="Tabelstijl">
             <div className="ribbon-ingebouwd">
-              <WriterControl id="tableAction" />
+              <TekstControl id="tableAction" />
               <span>Randen en opvulling</span>
             </div>
           </Groep>
@@ -466,9 +466,9 @@ export function WriterRibbon({
           naam: "Start",
           inhoud: (
             <>
-              <Geschiedenis soort="writer" />
-              <WriterLettertype />
-              <WriterAlinea />
+              <Geschiedenis soort="tekst" />
+              <TekstLettertype />
+              <TekstAlinea />
               <Stijlen />
               <Groep naam="Opmaak">
                 <W
@@ -502,7 +502,7 @@ export function WriterRibbon({
               </Groep>
               <Groep naam="Tabellen">
                 <div className="ribbon-ingebouwd">
-                  <WriterControl id="insertTable" />
+                  <TekstControl id="insertTable" />
                   <span>Tabel</span>
                 </div>
               </Groep>
@@ -543,7 +543,7 @@ export function WriterRibbon({
                   />
                 </div>
               </Groep>
-              <WriterAlinea />
+              <TekstAlinea />
               <Groep naam="Regelafstand">
                 <WK id="lineSpacing" naam="Regelafstand" breed />
               </Groep>
@@ -629,7 +629,7 @@ export function WriterRibbon({
   );
 }
 
-function CalcLettertype() {
+function RekenbladLettertype() {
   const grootte = useXlsxCommand("fontSize"),
     kleur = useXlsxCommand("textColor"),
     vulling = useXlsxCommand("fillColor");
@@ -663,7 +663,7 @@ function CalcLettertype() {
     </Groep>
   );
 }
-function CalcUitlijning() {
+function RekenbladUitlijning() {
   return (
     <Groep naam="Uitlijning">
       <div className="ribbon-rij ribbon-iconen">
@@ -699,7 +699,7 @@ function CalcUitlijning() {
     </Groep>
   );
 }
-function CalcGetal() {
+function RekenbladGetal() {
   return (
     <Groep naam="Getal">
       <CK id="numberFormat" naam="Getalnotatie" breed />
@@ -732,11 +732,11 @@ function CalcGetal() {
     </Groep>
   );
 }
-export function CalcRibbon({ bestand }: { bestand: () => void }) {
+export function RekenbladRibbon({ bestand }: { bestand: () => void }) {
   const zoom = useXlsxCommand("zoom"),
     randkleur = useXlsxCommand("borderColor");
   return (
-    <CalcToolbar mode="commands" className="editor-chrome">
+    <RekenbladToolbar mode="commands" className="editor-chrome">
       <Ribbon
         bestand={bestand}
         tabs={[
@@ -745,7 +745,7 @@ export function CalcRibbon({ bestand }: { bestand: () => void }) {
             naam: "Start",
             inhoud: (
               <>
-                <Geschiedenis soort="calc" />
+                <Geschiedenis soort="rekenblad" />
                 <Groep naam="Opmaak">
                   <C
                     id="paintFormat"
@@ -754,12 +754,12 @@ export function CalcRibbon({ bestand }: { bestand: () => void }) {
                     groot
                   />
                 </Groep>
-                <CalcLettertype />
-                <CalcUitlijning />
-                <CalcGetal />
+                <RekenbladLettertype />
+                <RekenbladUitlijning />
+                <RekenbladGetal />
                 <Groep naam="Celranden">
                   <div className="ribbon-ingebouwd">
-                    <CalcControl id="borderPreset" />
+                    <RekenbladControl id="borderPreset" />
                     <span>Randen</span>
                   </div>
                 </Groep>
@@ -771,9 +771,9 @@ export function CalcRibbon({ bestand }: { bestand: () => void }) {
             naam: "Celopmaak",
             inhoud: (
               <>
-                <CalcLettertype />
-                <CalcUitlijning />
-                <CalcGetal />
+                <RekenbladLettertype />
+                <RekenbladUitlijning />
+                <RekenbladGetal />
                 <Groep naam="Celranden">
                   <div className="ribbon-stapel">
                     <CK id="borderPreset" naam="Celranden" breed />
@@ -807,16 +807,16 @@ export function CalcRibbon({ bestand }: { bestand: () => void }) {
                     groot
                   />
                 </Groep>
-                <Geschiedenis soort="calc" />
+                <Geschiedenis soort="rekenblad" />
               </>
             ),
           },
         ]}
       />
       <div className="office-formulebalk">
-        <CalcToolbar.FormulaBar />
+        <RekenbladToolbar.FormulaBar />
       </div>
-    </CalcToolbar>
+    </RekenbladToolbar>
   );
 }
 

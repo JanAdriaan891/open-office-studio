@@ -27,7 +27,7 @@ export async function converteer(
 ): Promise<Uint8Array> {
   if (!("__TAURI_INTERNALS__" in window))
     throw new Error(
-      "Dit formaat vereist de desktopversie met een lokaal geïnstalleerde LibreOffice-runtime.",
+      "Dit formaat vereist de desktopversie met een ingesteld conversieprogramma.",
     );
   const { invoke } = await import("@tauri-apps/api/core");
   const resultaat = await invoke<ArrayBuffer>("converteer_document", bytes, {

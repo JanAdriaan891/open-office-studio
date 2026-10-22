@@ -2,7 +2,8 @@
 
 Onderzoeksdatum: 21 oktober 2026. Onderdeel van issue #1.
 
-Lees ook de [brede inventarisatie van het opensource landschap](landschap.md) en de [versie- en omvanggegevens](metingen.md).
+De volledige broninventarisatie, met de onderzochte projecten, versies, omvang en onderhoudssignalen,
+wordt buiten deze repository bewaard. Dit document geeft de conclusies.
 
 ## Advies
 
@@ -13,8 +14,7 @@ Y-app biedt een concrete start, maar is geen bewijs dat willekeurige documenten
 zonder verlies kunnen worden bewerkt. Vrijgave blijft afhankelijk van de
 [bestandsproeven](testmatrix.md).
 
-Dit is een bronnenonderzoek met controlehulpmiddel. Er is in deze repository
-nog geen lokale editor gebouwd of live opslagproef uitgevoerd. Er zijn geen
+Dit is een bronnenonderzoek met controlehulpmiddel. Er zijn nog geen
 praktijkbestanden aangeleverd. Issue #1 blijft daarom open.
 
 ## Bestaand werk dat kan worden hergebruikt
@@ -22,8 +22,7 @@ praktijkbestanden aangeleverd. Issue #1 blijft daarom open.
 De [installatiebranch van de Y-app](https://github.com/OpenAEC-Foundation/Y-app-ERPNext/tree/340c8f84b567d517b4d832a8501ce3d17255a6ce)
 bevat al document- en rekenbladeditors. De
 [ontwikkelbron](https://github.com/OpenAEC-Foundation/Y-app-ERPNext/tree/cc51488bed97d251cb5c98ff91d5a0d56a49fd0a/packages/frontend/src/components/office)
-bevat adapters voor DOCX en XLSX. Versies in die bron zijn
-`@stll/folio-react` 0.26.0 en `@betteroffice/xlsx` / `xlsx-react` 0.3.0.
+bevat adapters voor DOCX en XLSX.
 
 De [opslag-API](https://github.com/OpenAEC-Foundation/Y-app-ERPNext/blob/340c8f84b567d517b4d832a8501ce3d17255a6ce/y_next/api/office.py)
 controleert bestands- en ouderrechten, bewaart een nieuwe private kopie,
@@ -31,27 +30,21 @@ controleert de bronhash en registreert opslagoperaties. De bestaande API kent
 DOCX/XLSX/XLSM; PPTX en generieke SuperCloud-opslag zijn daarmee niet bewezen.
 Zie [integratie](integratie.md) voor het contract en de resterende proef.
 
-## Kandidaten
+## Soorten kandidaten
 
-De omvang hieronder is de **uitgepakte npm-pakketomvang**, zonder transitieve
-afhankelijkheden. Dit is nadrukkelijk geen download- of browserbundelmeting.
-De exacte bytes, versies en publicatiedata staan in [pakketten.json](pakketten.json).
-Onderhoudssignalen staan in [repositories.json](repositories.json); een recente
-push is geen garantie voor kwaliteit of ondersteuning.
+Onderzocht zijn opensource bouwstenen in vijf groepen. De omvang is gemeten als
+uitgepakte npm-pakketomvang, zonder transitieve afhankelijkheden; dat is geen
+download- of browserbundelmeting.
 
-| Kandidaat | Rol en licentie | Uitvoering en uitwisseling | Omvang / onderhoudssignaal |
-|---|---|---|---|
-| [Folio](https://github.com/stella/folio) | DOCX-editor; Apache-2.0 | Browser; openen en opslaan als DOCX. Behoud van onbekende onderdelen is een upstreamclaim, nog lokaal te meten. | React 0.26.0: 1,13 MB; kern extra. Release 12-10-2026; recente repositoryactiviteit. |
-| [BetterOffice](https://github.com/openooxml/betteroffice) | OOXML-kernen en React-editors; Apache-2.0 | Rust/WASM in browser; XLSX-bewerking en herberekening, PPTX-kandidaat. Samenwerking vraagt aanvullende infrastructuur. Behoud van onaangeroerde onderdelen wordt upstream geclaimd. | XLSX 0.3.0: 5,32 MB + React 0,23 MB; PPTX 0.2.0: 5,55 MB + React 0,27 MB. Releases 28-09-2026, recente activiteit. |
-| [Tiptap](https://github.com/ueberdosis/tiptap) | Eigen teksteditor op MIT-kern | Browser; alleen rich text levert nog geen paginamodel of betrouwbare DOCX-uitwisseling. Aanvullende diensten/extensies afzonderlijk beoordelen. | Core 3.32.0: 3,30 MB; recente release. |
-| [docx-preview](https://github.com/VolodymyrBaydalka/docxjs) | DOCX-weergave; Apache-2.0 | Browserweergave, geen complete editor en geen DOCX-opslagroute. | 0.4.1: 0,98 MB; release 21-09-2026. |
-| [Mammoth](https://github.com/mwilliamson/mammoth.js) | DOCX naar HTML; BSD-2-Clause | Browser of server; semantische conversie, geen behoudende DOCX-roundtrip. Geen basis voor de verliesvrije eis. | 1.13.0: 1,67 MB; release 26-09-2026. |
-| [Univer](https://github.com/dream-num/univer) | Browserwerkbladen; Apache-2.0-kern | Browsereditor; officiële [bestandsuitwisseling](https://docs.univer.ai/guides/sheets/features/import-export) gebruikt een conversiebackend en aparte pakketten. Volledige route niet afgedekt door de kernlicentie. | Core 1.1.0: 4,40 MB; release 17-10-2026. |
-| [SheetJS CE](https://cdn.sheetjs.com/) | Formaatbibliotheek; Apache-2.0 | Browser/Node; geen complete editor. Formule-opslag niet gelijkstellen aan herberekening. | npm `xlsx` 0.18.5: 7,50 MB, release 2022. npm is niet het actuele distributiekanaal; CDN-versie apart vastzetten. |
-| [ExcelJS](https://github.com/exceljs/exceljs) | XLSX lezen/schrijven; MIT | Browser/Node; zelf een raster/editor en rekenkern toevoegen. Niet geschikt om onbekende opmaak zonder bewijs te garanderen. | 4.4.0: 21,83 MB; release 2023, laatste geregistreerde push 2025. |
-| [PptxGenJS](https://github.com/gitbrent/PptxGenJS) | PPTX-generatie; MIT | Browser/Node; geschikt voor nieuwe dia's/export. Geen algemene importeditor voor bestaande presentaties. | 4.0.1: 2,61 MB; release juni 2025, push november 2025. |
-| [SuperDoc](https://github.com/superdoc/docx-editor) | DOCX-browsereditor; AGPL-3.0 | Browserroute beschikbaar; licentie en eventuele aanvullende voorwaarden eerst per versie beoordelen. | Browserbundel niet gemeten; recente activiteit. |
-| [DocumentServer](https://github.com/ONLYOFFICE/DocumentServer) | Ingebedde suite; AGPL-3.0 volgens repositorymetadata | Browserinterface met documentserver. Zwaardere beheer- en conversieroute; rebranding en aanvullende licentievoorwaarden apart toetsen. | Serverinstallatie en clientbundel niet gemeten; recente activiteit. |
+| Soort | Bevinding |
+|---|---|
+| Complete DOCX-browsereditors (Apache-2.0) | Openen en opslaan als DOCX in de browser. Behoud van onbekende onderdelen is een upstreamclaim die lokaal gemeten moet worden. |
+| OOXML-kernen met React-editors (Rust/WASM, Apache-2.0) | XLSX-bewerking met herberekening en een PPTX-kandidaat. Samenwerking vraagt aanvullende infrastructuur. Dit zijn de pakketten die nu in `package.json` staan. |
+| Losse teksteditorkernen, weergave- en conversiebibliotheken (MIT, BSD, Apache-2.0) | Bruikbaar als onderdeel, maar zonder paginamodel, behoudende DOCX-roundtrip of complete editor geen basis voor de verliesvrije eis. |
+| Formaat- en generatiebibliotheken voor XLSX en PPTX (MIT, Apache-2.0) | Geschikt voor lezen, schrijven of nieuwe dia’s; geen algemene editor voor bestaande bestanden. Formule-opslag is geen bewijs van correcte herberekening. |
+| Ingebedde suites en editors met documentserver (AGPL-3.0) | Brede formaatdekking, maar zwaardere beheer- en conversieroute, rebranding en aanvullende licentievoorwaarden. Niet voor de eerste route. |
+
+Een recente push of release is geen garantie voor kwaliteit of ondersteuning.
 
 ## Routes vergelijken
 
@@ -63,7 +56,7 @@ push is geen garantie voor kwaliteit of ondersteuning.
 
 Documenten: eerst de bestaande adapter losmaakbaar maken en drie DOCX-proeven.
 Rekenbladen: dezelfde aanpak met formulecontrole, zonder cached waarden als
-bewijs van correcte herberekening te gebruiken. Presentaties: eerst PPTX 0.2.0
+bewijs van correcte herberekening te gebruiken. Presentaties: eerst de PPTX-kern
 op masters, notities en onbekende onderdelen beproeven; pas daarna de editor
 integreren. Een generatiebibliotheek alleen voldoet niet voor bestaande PPTX.
 ODT/ODS/ODP zijn een afzonderlijke vervolgfase: geen van de gekozen adapters is
@@ -80,9 +73,8 @@ Bij een gewijzigde AGPL-netwerktoepassing verplicht artikel 13 tot een zichtbaar
 bronaanbod voor de gebruikers die er via het netwerk mee werken. Distributie
 van browsercode kan daarnaast eigen broncodeverplichtingen activeren. Of een
 koppeling een gecombineerd werk vormt hangt af van de concrete integratie;
-een apart proces maakt die beoordeling niet automatisch overbodig. Bronnen:
-[AGPL-tekst bij de editor](https://github.com/superdoc/docx-editor/blob/main/LICENSE)
-en [officiële licentie](https://www.gnu.org/licenses/agpl-3.0.html).
+een apart proces maakt die beoordeling niet automatisch overbodig. Bron:
+[officiële licentie](https://www.gnu.org/licenses/agpl-3.0.html).
 Voor deze eerste route worden geen AGPL-componenten toegevoegd.
 
 Het [stijlboek](https://github.com/OpenAEC-Foundation/OpenAEC-style-book) vermeldt

@@ -1,6 +1,6 @@
-# Open Access Studio
+# Open Database Studio
 
-Experimentele databasebrowser in de gedeelde React/Tauri-werkruimte. Volgt [issue #8](https://github.com/OpenAEC-Foundation/open-office-studio/issues/8). Writer, Calc en Presentatie houden voorrang.
+Experimentele databasebrowser in de gedeelde React/Tauri-werkruimte. Volgt [issue #8](https://github.com/OpenAEC-Foundation/open-office-studio/issues/8). Tekst, Rekenblad en Presentatie houden voorrang.
 
 ## Werkt nu
 
@@ -15,7 +15,7 @@ De Node-parserproef las 79 van 82 openbare databases. Drie bestanden met complex
 
 ## Resterend werk
 
-Geen databasebewerkingen, query-uitvoering, relaties, formulieren, rapporten, gekoppelde tabellen of ODB-ondersteuning. VBA-extractie en VBA-uitvoering ontbreken. SQL- en BAS-downloads zijn uitsluitend beschikbaar voor de ingebouwde voorbeelden. De richting blijft een databaseomgeving zoals LibreOffice Base; deze versie is daarvan slechts het begin.
+Geen databasebewerkingen, query-uitvoering, relaties, formulieren, rapporten, gekoppelde tabellen of ODB-ondersteuning. VBA-extractie en VBA-uitvoering ontbreken. SQL- en BAS-downloads zijn uitsluitend beschikbaar voor de ingebouwde voorbeelden. De richting blijft een volwaardige databaseomgeving met formulieren, query’s en rapporten; deze versie is daarvan slechts het begin.
 
 De [browserproef van 0.4.1](../../docs/tests/2026-10-21-browser.md) heeft echte MDB/ACCDB-tabellen, typen, filters, CSV, foutbehoud en paginering gecontroleerd. Deze proef vond een ontbrekende browseradapter; die is hersteld. Native dialogen en schone installaties blijven afzonderlijke controles.
 

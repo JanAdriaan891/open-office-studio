@@ -29,7 +29,7 @@ function downloaden(naam: string, inhoud: string, type: string) {
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 const soorten: Objectsoort[] = ["Tabel", "Query", "VBA"];
-export function AccessStudio({
+export function DatabaseStudio({
   bestandsmenu,
   inactief = false,
   registreerOpenen,
@@ -134,7 +134,7 @@ export function AccessStudio({
   }
   return (
     <div
-      className="access-app"
+      className="database-app"
       data-theme={donker ? "dark" : "light"}
       inert={inactief}
     >
@@ -211,7 +211,7 @@ export function AccessStudio({
           },
         ]}
       />
-      <div className="access-documentbalk">
+      <div className="database-documentbalk">
         <Database size={15} />
         <strong>{sessie?.naam ?? "Geen database geopend"}</strong>
         <span>Alleen lezen · experimenteel</span>
@@ -396,7 +396,7 @@ export function AccessStudio({
                                   <th key={k}>
                                     {k}
                                     {object.kolomtypen?.[index] && (
-                                      <small className="access-kolomtype">
+                                      <small className="database-kolomtype">
                                         {object.kolomtypen[index]}
                                       </small>
                                     )}
@@ -421,7 +421,7 @@ export function AccessStudio({
                             ` · pagina vanaf rij ${object.totaalRijen ? paginaStart + 1 : 0} van ${object.totaalRijen}`}
                         </p>
                         {!sessie.voorbeeld && (
-                          <div className="access-paginering">
+                          <div className="database-paginering">
                             <button
                               disabled={bezig || paginaStart === 0}
                               onClick={() =>
@@ -484,7 +484,7 @@ export function AccessStudio({
         </article>
       </main>
       <footer>
-        <span>Open Access Studio</span>
+        <span>Open Database Studio</span>
         <span>
           {sessie?.voorbeeld
             ? "Voorbeeldgegevens"

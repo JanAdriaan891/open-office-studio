@@ -1,6 +1,6 @@
 # Integratie: live Y-app-opslagproef en gedeeld editorcontract
 
-Onderdeel van #1. Zie `docs/onderzoek/landschap.md` voor de broninventarisatie.
+Onderdeel van #1. Zie `docs/onderzoek/README.md` voor de routekeuze.
 
 Gebruik het bestaande opslagcontract in docs/onderzoek/integratie.md. Bepaal expliciet welke Y-app-variant en testsite worden gebruikt.
 

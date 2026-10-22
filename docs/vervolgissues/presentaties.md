@@ -1,6 +1,6 @@
 # Presentaties: twee PPTX-routes vergelijken en editor kiezen
 
-Onderdeel van #1. Zie `docs/onderzoek/landschap.md` voor de broninventarisatie.
+Onderdeel van #1. Zie `docs/onderzoek/README.md` voor de routekeuze.
 
 Vergelijk een browser/WASM-editor en een volledige suite op bestaande presentaties voordat de engine definitief wordt gekozen.
 

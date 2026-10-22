@@ -81,7 +81,7 @@ def windows(pakket, map):
     loader = een(map.rglob("WebView2Loader.dll"), "WebView2-loader")
     pe_x64(programma)
     pe_x64(loader)
-    bootstrapper = een(map.rglob("MicrosoftEdgeWebview2Setup.exe"), "WebView2-bootstrapper")
+    bootstrapper = een(map.rglob("*Webview2Setup.exe"), "WebView2-bootstrapper")
     eis(bootstrapper.stat().st_size > 1_000_000, "De WebView2-bootstrapper is onvolledig.")
     with bootstrapper.open("rb") as bestand:
         eis(bestand.read(2) == b"MZ", "De WebView2-bootstrapper is geen uitvoerbaar bestand.")

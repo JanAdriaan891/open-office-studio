@@ -16,8 +16,8 @@ import type { Soort } from "./editors";
 export const modules = [
   {
     soort: "docx",
-    naam: "Open Writer Studio",
-    kort: "Writer",
+    naam: "Open Tekst Studio",
+    kort: "Tekst",
     nieuw: "Leeg document",
     omschrijving: "Documenten",
     icoon: FileText,
@@ -26,8 +26,8 @@ export const modules = [
   },
   {
     soort: "xlsx",
-    naam: "Open Excel Calc Studio",
-    kort: "Calc",
+    naam: "Open Rekenblad Studio",
+    kort: "Rekenblad",
     nieuw: "Leeg rekenblad",
     omschrijving: "Rekenbladen",
     icoon: Sheet,
@@ -93,7 +93,7 @@ export function StartScherm({
   terug,
   open,
   nieuw,
-  access,
+  openDatabase,
   bewaar,
   voorbeeld,
   databaseActief = false,
@@ -102,7 +102,7 @@ export function StartScherm({
   terug?: () => void;
   open: () => void;
   nieuw: (soort: Soort) => void;
-  access: () => void;
+  openDatabase: () => void;
   bewaar?: () => void;
   voorbeeld: (soort: Soort) => void;
   databaseActief?: boolean;
@@ -152,13 +152,13 @@ export function StartScherm({
         <div className="start-navonder">
           <button
             disabled={bezig}
-            onClick={access}
-            aria-label="Access Studio (experimenteel)"
-            title="Access Studio (experimenteel)"
+            onClick={openDatabase}
+            aria-label="Database Studio (experimenteel)"
+            title="Database Studio (experimenteel)"
           >
             <Database size={18} />
             <span>
-              Access Studio<small>Experimenteel · alleen lezen</small>
+              Database Studio<small>Experimenteel · alleen lezen</small>
             </span>
             <ArrowRight size={14} />
           </button>
@@ -281,9 +281,9 @@ export function StartScherm({
             <summary>Over deze versie</summary>
             <p>
               DOCX, XLSX en PPTX werken rechtstreeks. De desktopversie kan met
-              een lokale LibreOffice-installatie ook ODF en oudere formaten
-              omzetten. Opmaak kan daarbij afwijken. Access Studio leest MDB- en
-              ACCDB-tabellen; bewerken en VBA volgen later.
+              een ingesteld conversieprogramma ook ODF en oudere formaten
+              omzetten. Opmaak kan daarbij afwijken. Database Studio leest MDB-
+              en ACCDB-tabellen; bewerken en VBA volgen later.
             </p>
           </details>
         </div>

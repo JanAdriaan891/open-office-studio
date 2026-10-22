@@ -9,7 +9,7 @@ Drie nieuwe Rust-proeven starten echte kindprocessen: succesvol beëindigen, een
 ## Lokaal uitgevoerd
 
 - 23 Vitest-proeven en 11 Python-pakketproeven slagen.
-- Writer, Calc en Presentatie bewaren wijzigingen na openen, wijzigen, bewaren en heropenen met de echte engines.
+- Tekst, Rekenblad en Presentatie bewaren wijzigingen na openen, wijzigen, bewaren en heropenen met de echte engines.
 - Zes reguliere Rust-proeven slagen. De twee bestaande runtimeproeven blijven afzonderlijk gestart.
 - De uitgebreide runtimeproef slaagt: vijftien conversies met ODF, oudere formaten en PDF, plus een Strict-XLSX-conversie. De gehele proef duurde hier 41,09 seconden.
 - De onafhankelijke Python-controle bevestigt alineatekst en tabelaantallen, ingevulde cellen, formules, totaal 3068, dia-aantallen, diatekst en leesbare tekst in drie PDF’s.

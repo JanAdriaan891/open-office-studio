@@ -24,7 +24,7 @@ function kolomnaam(nummer: number) {
   return naam;
 }
 
-export function CalcKoppen({
+export function RekenbladKoppen({
   host,
   api,
 }: {
@@ -100,13 +100,13 @@ export function CalcKoppen({
   if (!koppen) return null;
   const actief = /^([A-Z]+)(\d+)/.exec(koppen.actief);
   return (
-    <div className="calc-koppen" aria-hidden="true">
+    <div className="rekenblad-koppen" aria-hidden="true">
       <div
-        className="calc-hoek"
+        className="rekenblad-hoek"
         style={{ left: koppen.links - 38, top: koppen.boven - 23 }}
       />
       <div
-        className="calc-kolomkoppen"
+        className="rekenblad-kolomkoppen"
         style={{
           left: koppen.links,
           top: koppen.boven - 23,
@@ -124,7 +124,7 @@ export function CalcKoppen({
         ))}
       </div>
       <div
-        className="calc-rijkoppen"
+        className="rekenblad-rijkoppen"
         style={{
           left: koppen.links - 38,
           top: koppen.boven,
