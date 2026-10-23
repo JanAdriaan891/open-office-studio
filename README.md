@@ -2,37 +2,45 @@
 
 Open-source kantoortoepassingen van het OpenAEC-ecosysteem voor tekstverwerking, rekenbladen en presentaties.
 
-![OpenAEC Office Studio: lichte werkruimte met Writer, Calc en Presentatie](docs/screenshots/start-0.4.3.jpg)
+Actuele weekuitgave: **2026-W43.1** (`2026.43.1`). Zie [versieafspraken](docs/versies.md).
+
+**[Open Access Studio](apps/access-studio)** is nu ook een afzonderlijke desktopapp voor oude MDB- en ACCDB-databases, met een eigen venster en installers. Writer, Calc en Presentatie blijven onderdeel van de kantooromgeving.
+
+![OpenAEC Office Studio in officiële OpenAEC-stijl](docs/screenshots/start-2026-W43.1.jpg)
 
 ## In beeld
 
 Werkelijke schermafbeeldingen van de lokale productiebuild, met de eigen [voorbeeldbestanden](docs/voorbeelden). De interface heeft een gedeelde ribbon, contextuele opdrachten en een lokaal bestandsmenu. Deze beelden tonen de ontwikkelversie; ze zijn geen verklaring van volledige formaatcompatibiliteit.
 
-Beelden bijgewerkt naar productiefrontend 0.4.3. Het lint kan worden ingeklapt; het bestandsmenu bedekt de volledige werkruimte. De drie voorbeelden zijn rechtstreeks vanuit het startscherm te openen.
+Beelden bijgewerkt naar weekuitgave 2026-W43.1. De interface volgt het officiële [OpenAEC-stijlboek](docs/ontwerp/openaec-stijl.md), met een compact lint en het OpenAEC-symbool. Het lint kan worden ingeklapt; het bestandsmenu bedekt de volledige werkruimte. De drie voorbeelden zijn rechtstreeks vanuit het startscherm te openen.
 
 ### Open Writer Studio
 
 Paginaweergave met tekstopmaak, alineastijlen en documentnavigatie. Kies bovenin **Markdown (.md)** en **Opslaan als** om tekst, koppen, lijsten, links en tabellen als Markdown te bewaren. Dit werkt ook in de browser, zonder conversieruntime. Paginaopmaak en ingesloten afbeeldingen vragen daarnaast om een DOCX; Markdown bevat bij afbeeldingen een leesbare verwijzing.
 
-![Writer: ontwerpnotitie met Nederlandse ribbon, Markdown-opslag en navigatie](docs/screenshots/writer-0.4.3.jpg)
+![Writer: ontwerpnotitie met compact OpenAEC-lint en navigatie](docs/screenshots/writer-2026-W43.1.jpg)
 
 ### Open Excel Calc Studio
 
 Rekenblad met formulebalk, rij- en kolomkoppen, celopmaak en berekende materiaaltotalen.
 
-![Calc: materiaaloverzicht met formules en opgemaakte cellen](docs/screenshots/calc-0.4.3.jpg)
+![Calc: materiaaloverzicht met formules en opgemaakte cellen](docs/screenshots/calc-2026-W43.1.jpg)
 
 ### Open Presentatie Studio
 
 Dia’s, vormen, tekst en sprekersnotities in één werkruimte.
 
-![Presentatie: ontwerpvisie met dia-overzicht en sprekersnotities](docs/screenshots/presentatie-0.4.3.jpg)
+![Presentatie: ontwerpvisie met dia-overzicht en sprekersnotities](docs/screenshots/presentatie-2026-W43.1.jpg)
 
 ### Open Access Studio — experimenteel
 
 Een echt openbaar ACCDB-testbestand, lokaal en alleen lezen, met kolomtypen en paginering. Query’s, formulieren en VBA ontbreken nog.
 
 ![Access: echte ACCDB-tabellen met typen en geladen rijen](docs/screenshots/access-0.4.3.jpg)
+
+De zelfstandige database-app, met een eigen weekversie en zonder de drie kantoorengines:
+
+![Zelfstandige Open Access Studio met een werkelijke ACCDB-tabel](docs/screenshots/access-2026-W43.1.jpg)
 
 ## Modules
 
@@ -95,5 +103,7 @@ Zie de [testmatrix](docs/onderzoek/testmatrix.md) voor het vergelijken van DOCX-
 - `pnpm test:engines`: documenten wijzigen, opslaan en opnieuw openen met de echte engines.
 - `pnpm desktop:dev`: Tauri-desktopomgeving.
 - `pnpm desktop:build`: native pakket voor het huidige platform.
+- `pnpm access:dev`, `pnpm access:build`, `pnpm access:desktop:build`: de afzonderlijke database-app ontwikkelen en bouwen.
+- `pnpm versie:week 2026-10-23 1`, `pnpm versie:check`: weekversie instellen en controleren.
 - `python scripts/controleer-installers.py --platform linux --rapport .local/pakketcontrole-Linux.json`: gebouwde DEB en AppImage controleren; vereist Python 3.11+, dpkg, squashfs-tools en ldd. Gebruik op Windows `--platform windows` met 7-Zip voor de NSIS-installer en de gebundelde WebView2-bestanden.
 - [Testverslag en resterend werk](docs/tests/2026-10-21.md).

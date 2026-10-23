@@ -1,5 +1,14 @@
 # Schermafbeeldingen
 
+De actuele beelden van 23 oktober 2026 tonen weekuitgave 2026-W43.1 in de officiële OpenAEC-stijl:
+
+- `start-2026-W43.1.jpg`, `writer-2026-W43.1.jpg`, `calc-2026-W43.1.jpg` en `presentatie-2026-W43.1.jpg`: kantooromgeving met de eigen voorbeelden.
+- `access-2026-W43.1.jpg`: zelfstandige database-app met een werkelijk ingelezen ACCDB-tabel.
+- `access-donker-2026-W43.1.jpg`: dezelfde werkelijke tabel in de donkere weergave.
+- `bestandsmenu-2026-W43.1.jpg`: bestandsmenu vóór de Writer-ribbon en aansluitend op de kopbalk.
+
+De oudere beelden hieronder blijven beschikbaar voor de eerdere verslagen.
+
 De actuele beelden zijn opgenomen op 22 oktober 2026 uit de lokale Vite-productiebuild 0.4.3. De beelden tonen de echte React-interface die ook in de Tauri-app wordt gebruikt; er zijn geen bedieningselementen of documentresultaten aan de afbeeldingen toegevoegd.
 
 De hoofd-README gebruikt de actuele beelden van 0.4.3:

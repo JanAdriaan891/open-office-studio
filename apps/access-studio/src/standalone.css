@@ -1,0 +1,48 @@
+.access-zelfstandig {
+  --module-accent: #916223;
+  --module-tint: #fbf2df;
+}
+.access-zelfstandig > .access-app {
+  flex: 1;
+  min-height: 0;
+}
+.access-eigen-merk {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+}
+.access-eigen-merk strong {
+  font-size: 14px;
+  font-weight: 600;
+}
+.access-eigen-merk strong > span {
+  font-weight: 400;
+  color: #707780;
+  margin-left: 5px;
+}
+.access-weekversie {
+  border: 1px solid #e4d8c2;
+  color: #79551e;
+  background: #fcf6e9;
+  border-radius: 6px;
+  padding: 5px 9px;
+  font-size: 11px;
+  white-space: nowrap;
+}
+.access-lokaal {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 11px;
+  color: #6b7481;
+}
+@media (max-width: 800px) {
+  .access-lokaal {
+    display: none;
+  }
+  .access-zelfstandig .office-headerknop {
+    margin-left: auto;
+  }
+}

@@ -24,7 +24,8 @@ import { StartScherm, modules } from "./StartScherm";
 import { DocumentOpslag, type BewaarUitkomst } from "./opslag";
 import { VerlaatDialoog } from "./VerlaatDialoog";
 import { controleerPakket } from "./pakketcontrole";
-import { version } from "../package.json";
+import versie from "../versie.json";
+import openaecSymbool from "./stijl/openaec-symbol.svg";
 import {
   bestandstypen,
   bestandssoort,
@@ -308,12 +309,15 @@ export function OfficeStudio() {
             aria-label="OpenAEC Office Studio · Start"
           >
             <span className="office-beeldmerk">
-              <FileText size={21} strokeWidth={1.6} />
+              <img src={openaecSymbool} alt="" />
             </span>
             <strong>
               OpenAEC<span>Office Studio</span>
             </strong>
           </button>
+          <span className="office-weekversie" title={`Versie ${versie.versie}`}>
+            {versie.label}
+          </span>
           {(bestand || access) && (
             <>
               <span className="office-header-scheiding" />
@@ -546,7 +550,7 @@ export function OfficeStudio() {
                 : gewijzigd
                   ? "Niet-opgeslagen wijzigingen"
                   : "Gereed"
-              : `Ontwikkelversie ${version}`}
+              : `Ontwikkelversie ${versie.label}`}
             {bestand && <kbd>Ctrl+S</kbd>}
           </span>
         </footer>

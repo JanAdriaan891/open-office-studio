@@ -12,5 +12,5 @@
     "esModuleInterop": true,
     "resolveJsonModule": true
   },
-  "include": ["src", "packages/access/src"]
+  "include": ["src", "packages/access/src", "apps/access-studio/src"]
 }

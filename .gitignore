@@ -20,3 +20,9 @@ __pycache__/
 /src-tauri/gen/
 /src-tauri/icons/android/
 /src-tauri/icons/ios/
+/apps/access-studio/src-tauri/target/
+/apps/access-studio/src-tauri/gen/
+/apps/access-studio/src-tauri/resources/WebView2Loader.dll
+/apps/access-studio/public/licenses/
+/apps/access-studio/src-tauri/icons/android/
+/apps/access-studio/src-tauri/icons/ios/

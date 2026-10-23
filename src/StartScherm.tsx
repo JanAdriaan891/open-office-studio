@@ -283,7 +283,9 @@ export function StartScherm({
               DOCX, XLSX en PPTX werken rechtstreeks. De desktopversie kan met
               een lokale LibreOffice-installatie ook ODF en oudere formaten
               omzetten. Opmaak kan daarbij afwijken. Access Studio leest MDB- en
-              ACCDB-tabellen; bewerken en VBA volgen later.
+              ACCDB-tabellen; bewerken en VBA volgen later. De zelfstandige
+              database-app is afzonderlijk te installeren als Open Access
+              Studio.
             </p>
           </details>
         </div>

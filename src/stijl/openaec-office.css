@@ -1,0 +1,318 @@
+/* OpenAEC Foundation · CC BY-SA 4.0. Afgeleid van het stijlboek; zie bron.json. */
+@import "./openaec-tokens.css";
+
+.office {
+  --office-kophoogte: 44px;
+  --office-accent: var(--oa-color-brand-amber);
+  --module-accent: var(--oa-color-brand-amber);
+  --module-tint: #d9770614;
+  --oa-ui-bg: var(--oa-color-surface-light-bg);
+  --oa-ui-surface: var(--oa-color-surface-light-panel);
+  --oa-ui-text: var(--oa-color-text-light-primary);
+  --oa-ui-muted: var(--oa-color-text-light-secondary);
+  --oa-ui-border: var(--oa-color-border-light-default);
+  font-family: var(--oa-font-family-body);
+  color: var(--oa-ui-text);
+  background: var(--oa-ui-bg);
+}
+.office[data-module] {
+  --module-accent: var(--oa-color-brand-amber);
+  --module-tint: #d9770614;
+}
+.office-header {
+  flex-basis: var(--office-kophoogte);
+  gap: 12px;
+  background: #fff;
+  border-color: var(--oa-ui-border);
+}
+.office .office-beeldmerk {
+  width: 32px;
+  height: 34px;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+}
+.office-beeldmerk img {
+  display: block;
+  width: 30px;
+  height: 34px;
+  object-fit: contain;
+}
+.office-merk strong,
+.access-eigen-merk strong {
+  font-family: var(--oa-font-family-heading);
+  font-weight: 700;
+  color: var(--oa-ui-text);
+}
+.office-weekversie,
+.access-zelfstandig .access-weekversie {
+  color: #57534e;
+  background: #f5f5f4;
+  border: 1px solid #e7e5e4;
+  border-radius: 4px;
+  padding: 4px 7px;
+  font-size: 10px;
+  white-space: nowrap;
+}
+.office-modulenaam {
+  color: #36363e;
+  background: #d9770614;
+}
+.office .office-headerknop,
+.office .office-opslagformaat {
+  border-radius: 4px;
+  min-height: 30px;
+}
+.office-header .office-bewaren {
+  background: #36363e;
+  color: #fafaf9;
+}
+.office-header .office-bewaren:hover {
+  background: #2a2a32;
+}
+.office-backstage.is-overlay {
+  inset: var(--office-kophoogte) 0 28px;
+}
+.office-backstage,
+.start-inhoud {
+  background: var(--oa-ui-bg);
+}
+.start-navigatie {
+  background: #fff;
+  border-color: var(--oa-ui-border);
+}
+.start-navigatie button {
+  border-radius: 4px;
+}
+.start-navigatie button.geselecteerd {
+  background: #d9770614;
+  border-color: #d9770640;
+  color: #36363e;
+  box-shadow: inset 3px 0 #d97706;
+}
+.start-navigatie button:hover:not(:disabled),
+.start-navigatie .start-terug {
+  background: #f5f5f4;
+  color: #36363e;
+}
+.start-kop h1 {
+  font-family: var(--oa-font-family-heading);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #36363e;
+}
+.start-kop p,
+.start-sectiekop > span {
+  color: #57534e;
+}
+.start-welkom > span {
+  background: #d97706;
+  box-shadow: 0 0 0 3px #d9770614;
+}
+.start-sectiekop h2 {
+  font-family: var(--oa-font-family-heading);
+  font-size: 15px;
+  font-weight: 700;
+  color: #36363e;
+}
+.office-knop,
+.start-sjabloon,
+.start-bestandknop,
+.start-voorbeeld {
+  border-radius: 6px;
+  border-color: #e7e5e4;
+  box-shadow: none;
+}
+.office-primair {
+  background: #36363e;
+  border-color: #36363e;
+}
+.office-primair > svg {
+  color: #f59e0b;
+}
+.office-primair:hover:not(:disabled) {
+  background: #2a2a32;
+  border-color: #d97706;
+}
+.office .ribbon {
+  background: var(--oa-ui-bg);
+}
+.office .ribbon-tabs {
+  height: 30px;
+  padding: 0 8px;
+  gap: 2px;
+  background: var(--oa-ui-surface);
+  border-bottom: 1px solid #d97706;
+}
+.office .ribbon-tabknoppen {
+  gap: 2px;
+}
+.office .ribbon-tabs button {
+  margin: 0 0 -1px;
+  padding: 0 15px;
+  border: 1px solid transparent;
+  border-radius: 4px 4px 0 0;
+  color: var(--oa-ui-text);
+  background: transparent;
+}
+.office .ribbon-tabs button[aria-selected="true"] {
+  background: var(--oa-ui-bg);
+  border: 1px solid #d97706;
+  border-bottom-color: var(--oa-ui-bg);
+  color: var(--oa-ui-text);
+}
+.office .ribbon-tabs button[aria-selected="true"]:after {
+  display: none;
+}
+.office .ribbon-tabs button:hover {
+  background: #d9770614;
+  color: var(--oa-ui-text);
+}
+.office .ribbon-tabs .ribbon-bestand {
+  background: #d97706;
+  color: #1c1917;
+  margin-right: 3px;
+}
+.office .ribbon-tabs .ribbon-bestand:hover {
+  background: #f59e0b;
+  color: #1c1917;
+}
+.office .ribbon-tabs .ribbon-inklap {
+  color: var(--oa-ui-muted);
+  background: var(--oa-ui-surface);
+}
+.office .ribbon-inhoud {
+  height: 98px;
+  margin: 0;
+  padding: 5px 3px 3px;
+  border: 0;
+  border-bottom: 1px solid var(--oa-ui-border);
+  border-radius: 0;
+  background: var(--oa-ui-bg);
+  box-shadow: none;
+}
+.office .ribbon-groep {
+  padding: 0 10px;
+  border-color: var(--oa-ui-border);
+}
+.office .ribbon-groep-naam {
+  color: var(--oa-ui-muted);
+  font-size: 10px;
+  line-height: 13px;
+}
+.office .ribbon-actie {
+  border-radius: 4px;
+  color: var(--oa-ui-text);
+}
+.office .ribbon-actie:hover:not(:disabled),
+.office .ribbon-actie[aria-pressed="true"] {
+  color: var(--oa-ui-text);
+  background: #d977061a;
+  border-color: #d9770659;
+}
+.office .ribbon-actie svg {
+  color: inherit;
+}
+.office .ribbon select,
+.office .ribbon input {
+  border-radius: 3px;
+}
+.office .office-formulebalk {
+  background: #fafaf9;
+  border-color: #e7e5e4;
+}
+.office .docx-editor__scroll-container {
+  background: #f5f5f4 !important;
+}
+.office .docx-outline-nav {
+  background: #fafaf9;
+  border-color: #e7e5e4;
+  border-radius: 4px;
+}
+.office .office-statusbalk,
+.office .access-app footer {
+  background: #36363e;
+  color: #fafaf9;
+  border-top: 1px solid #2a2a32;
+}
+.office .office-statusbalk i {
+  background: #f59e0b;
+}
+.office .office-statusbalk kbd {
+  border-color: #71717a;
+  background: #2a2a32;
+  color: #fafaf9;
+}
+.office .access-app {
+  --surface: #fff;
+  --bg: #fafaf9;
+  --text: #36363e;
+  --muted: #57534e;
+  --border: #e7e5e4;
+  --soft: #f5f5f4;
+}
+.office .access-app h1,
+.office .access-app h2,
+.office .access-app h3 {
+  font-family: var(--oa-font-family-heading);
+  font-weight: 700;
+}
+.office .access-app aside button.selected {
+  color: var(--text);
+  border-color: #d9770660;
+  background: #d9770614;
+  box-shadow: inset 3px 0 #d97706;
+}
+.office .access-app .melding {
+  background: var(--soft);
+  color: var(--text);
+  border-color: var(--border);
+}
+.office .access-app .melding.fout {
+  background: #fef2f2;
+  color: #991b1b;
+  border-color: #fecaca;
+}
+.office .access-app .welkom .db-icon {
+  color: #d97706;
+  background: #d9770614;
+  border-radius: 8px;
+}
+.office .access-app[data-theme="dark"] {
+  --surface: #2a2a32;
+  --bg: #36363e;
+  --text: #fafaf9;
+  --muted: #d6d3d1;
+  --border: #52525b;
+  --soft: #3f3f46;
+  --oa-ui-bg: #36363e;
+  --oa-ui-surface: #2a2a32;
+  --oa-ui-text: #fafaf9;
+  --oa-ui-muted: #d6d3d1;
+  --oa-ui-border: #52525b;
+}
+.office .access-app[data-theme="dark"] .ribbon-tabs button {
+  color: #fafaf9;
+}
+.office .access-app[data-theme="dark"] .ribbon-inhoud {
+  background: #36363e;
+}
+.office .access-app[data-theme="dark"] .melding.fout {
+  background: #7f1d1d;
+  color: #fafaf9;
+}
+.office .access-app[data-theme="dark"] aside h3 {
+  color: #f59e0b;
+}
+@media (max-width: 800px) {
+  .office-header {
+    gap: 8px;
+    padding-inline: 10px;
+  }
+  .office-weekversie {
+    display: none;
+  }
+  .office .ribbon-groep {
+    padding-inline: 8px;
+  }
+}
