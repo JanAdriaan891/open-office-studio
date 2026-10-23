@@ -2,35 +2,35 @@
 
 Open-source kantoortoepassingen van het OpenAEC-ecosysteem voor tekstverwerking, rekenbladen, presentaties en notities.
 
-Actuele weekuitgave: **2026-W43.2** (`2026.43.2`). Zie [versieafspraken](docs/versies.md).
+Actuele bronversie: **2026-W43.3** (`2026.43.3`). Zie [versieafspraken](docs/versies.md).
 
 **[Open Database Studio](apps/database-studio)** is nu ook een afzonderlijke desktopapp voor oude MDB- en ACCDB-databases, met een eigen venster en installers. Tekst, Rekenblad, Presentatie en Notities zijn onderdeel van de kantooromgeving.
 
-![OpenAEC Office Studio in officiële OpenAEC-stijl](docs/screenshots/start-2026-W43.1.jpg)
+![OpenAEC Office Studio in officiële OpenAEC-stijl](docs/screenshots/start-2026-W43.3.jpg)
 
 ## In beeld
 
 Werkelijke schermafbeeldingen van de lokale productiebuild, met de eigen [voorbeeldbestanden](docs/voorbeelden). De interface heeft een gedeelde ribbon, contextuele opdrachten en een lokaal bestandsmenu. Deze beelden tonen de ontwikkelversie; ze zijn geen verklaring van volledige formaatcompatibiliteit.
 
-Beelden bijgewerkt naar weekuitgave 2026-W43.1. De interface volgt het officiële [OpenAEC-stijlboek](docs/ontwerp/openaec-stijl.md), met een compact lint en het OpenAEC-symbool. Het lint kan worden ingeklapt; het bestandsmenu bedekt de volledige werkruimte. De drie voorbeelden zijn rechtstreeks vanuit het startscherm te openen.
+De kantoorbeelden zijn bijgewerkt naar bronversie 2026-W43.3. De interface volgt het officiële [OpenAEC-stijlboek](docs/ontwerp/openaec-stijl.md), met Forge- en Light-weergave, een compact lint en het OpenAEC-symbool. De zon-/maanknop wisselt de appweergave; documenten en het vrije notitiecanvas blijven licht. Het lint kan worden ingeklapt; het bestandsmenu bedekt de volledige werkruimte. De drie voorbeelden zijn rechtstreeks vanuit het startscherm te openen.
 
 ### Open Tekst Studio
 
 Paginaweergave met tekstopmaak, alineastijlen en documentnavigatie. Kies bovenin **Markdown (.md)** en **Opslaan als** om tekst, koppen, lijsten, links en tabellen als Markdown te bewaren. Dit werkt ook in de browser, zonder conversieruntime. Paginaopmaak en ingesloten afbeeldingen vragen daarnaast om een DOCX; Markdown bevat bij afbeeldingen een leesbare verwijzing.
 
-![Tekst: ontwerpnotitie met compact OpenAEC-lint en navigatie](docs/screenshots/tekst-2026-W43.1.jpg)
+![Tekst: ontwerpnotitie met compact OpenAEC-lint en navigatie](docs/screenshots/tekst-2026-W43.3.jpg)
 
 ### Open Rekenblad Studio
 
 Rekenblad met formulebalk, rij- en kolomkoppen, celopmaak en berekende materiaaltotalen.
 
-![Rekenblad: materiaaloverzicht met formules en opgemaakte cellen](docs/screenshots/rekenblad-2026-W43.1.jpg)
+![Rekenblad: materiaaloverzicht met formules en opgemaakte cellen](docs/screenshots/rekenblad-2026-W43.3.jpg)
 
 ### Open Presentatie Studio
 
 Dia’s, vormen, tekst en sprekersnotities in één werkruimte.
 
-![Presentatie: ontwerpvisie met dia-overzicht en sprekersnotities](docs/screenshots/presentatie-2026-W43.1.jpg)
+![Presentatie: ontwerpvisie met dia-overzicht en sprekersnotities](docs/screenshots/presentatie-2026-W43.3.jpg)
 
 ### Open Database Studio — experimenteel
 
@@ -38,15 +38,15 @@ Opent MDB- en ACCDB-bestanden lokaal en alleen lezen, met kolomtypen en pagineri
 
 ![Database: voorbeelddatabase met tabel, query en VBA-module in de objectbrowser](docs/screenshots/database-0.4.3.jpg)
 
-De zelfstandige database-app, met een eigen weekversie en zonder de drie kantoorengines:
+De zelfstandige database-app, met dezelfde weekversie en het gedeelde OpenAEC-lint, hier met de ingebouwde voorbeeldgegevens:
 
-![Zelfstandige Open Database Studio met een werkelijke ACCDB-tabel](docs/screenshots/database-2026-W43.1.jpg)
+![Zelfstandige Open Database Studio met voorbeeldtabel](docs/screenshots/database-2026-W43.3.jpg)
 
 ### Open Notities Studio
 
 Een vrije pagina met tekstvakken die je zelf plaatst, sleept en groter of kleiner maakt. Ieder tekstvak kan alinea’s, koppen en taken bevatten. Notitieboeken en secties houden alles bij elkaar. Met zoom, inklapbare navigatie, ongedaan maken, automatisch lokaal opslaan, back-ups en Markdown-export. Oudere notities blijven leesbaar. Zie [werking en opslag](docs/notities.md).
 
-![Notities: drie vrij geplaatste tekstvakken in de werkelijke productiebuild](docs/screenshots/notities-vrij-2026-W43.2.jpg)
+![Notities: drie vrij geplaatste tekstvakken in de werkelijke productiebuild](docs/screenshots/notities-2026-W43.3.jpg)
 
 ## Modules
 
@@ -67,7 +67,7 @@ De [corpusproef](docs/tests/2026-10-21-formaten.md) gebruikt 1.566 openbare best
 
 De [GUI-controle van 0.4.3](docs/tests/2026-10-22-gui.md) controleert de vier werkruimtes, het bestandsmenu, bewerken en echte downloads. Bewaarde DOCX-, XLSX- en PPTX-bestanden zijn daarnaast met onafhankelijke lezers gecontroleerd. Daarbij zijn de laagvolgorde van het bestandsmenu, de algemene database-openknop en de donkere databaseweergave hersteld.
 
-De ontwikkeling met screenshots staat in [pull request #9](https://github.com/OpenAEC-Foundation/open-office-studio/pull/9). De [bouwcontroles](https://github.com/JanAdriaan891/open-office-studio/actions/workflows/desktop.yml) maken pakketten voor Windows x64, Linux x64 en macOS ARM64. Een geslaagde build vervangt geen installatie- en gebruikerstest.
+De ontwikkeling met screenshots staat in [pull request #10](https://github.com/OpenAEC-Foundation/open-office-studio/pull/10). De [bouwcontroles](https://github.com/JanAdriaan891/open-office-studio/actions/workflows/desktop.yml) maken pakketten voor Windows x64, Linux x64 en macOS ARM64. Een geslaagde build vervangt geen installatie- en gebruikerstest.
 
 De [downloadbare testreleases](https://github.com/JanAdriaan891/open-office-studio/releases) bevatten een Windows-installer, Linux-DEB/AppImage, macOS-ARM64-DMG en SHA256SUMS. Vanaf 0.4.2 pakt de bouwstraat de Windows- en Linux-installers ook uit: zij controleert de programma-architectuur, WebView2, Linux-bibliotheken en snelkoppelingen. Dit is nog geen schone installatie of native bedieningstest.
 

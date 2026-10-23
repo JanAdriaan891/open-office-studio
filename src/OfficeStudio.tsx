@@ -28,6 +28,7 @@ import { VerlaatDialoog } from "./VerlaatDialoog";
 import { controleerPakket } from "./pakketcontrole";
 import versie from "../versie.json";
 import openaecSymbool from "./stijl/openaec-symbol.svg";
+import { ThemaKnop, useOfficeThema } from "./stijl/ThemaKnop";
 import {
   bestandstypen,
   bestandssoort,
@@ -54,6 +55,7 @@ class EditorGrens extends Component<{ children: ReactNode }, { fout: string }> {
   }
 }
 export function OfficeStudio() {
+  const { thema, wisselThema } = useOfficeThema();
   const [bestand, setBestand] = useState<Bestand | null>(null),
     [databaseOpen, setDatabaseOpen] = useState(false),
     [notitiesOpen, setNotitiesOpen] = useState(false),
@@ -330,6 +332,7 @@ export function OfficeStudio() {
     <>
       <div
         className="office"
+        data-office-thema={thema}
         inert={verlaatvraag}
         data-module={
           bestand?.soort ??
@@ -376,6 +379,7 @@ export function OfficeStudio() {
             )}
           </div>
           <div className="office-snelacties">
+            <ThemaKnop thema={thema} wissel={wisselThema} />
             {(bestand || databaseOpen || notitiesOpen) && (
               <button
                 className="office-iconknop"

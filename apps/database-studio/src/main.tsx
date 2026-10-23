@@ -14,6 +14,7 @@ import "../../../packages/database/src/database.css";
 import "./standalone.css";
 import "../../../src/stijl/openaec-office.css";
 import openaecSymbool from "../../../src/stijl/openaec-symbol.svg";
+import { ThemaKnop, useOfficeThema } from "../../../src/stijl/ThemaKnop";
 
 const bewaar: DatabaseUitvoer = async (naam, inhoud) => {
   const { invoke } = await import("@tauri-apps/api/core");
@@ -28,6 +29,7 @@ const bewaar: DatabaseUitvoer = async (naam, inhoud) => {
 };
 
 function ZelfstandigeDatabaseStudio() {
+  const { thema, wisselThema } = useOfficeThema();
   const openen = useRef<(() => void) | null>(null);
   const [gereed, setGereed] = useState(false);
   const registreer = useCallback((actie: (() => void) | null) => {
@@ -45,7 +47,11 @@ function ZelfstandigeDatabaseStudio() {
     return () => window.removeEventListener("keydown", toets);
   }, []);
   return (
-    <div className="office database-zelfstandig" data-module="database">
+    <div
+      className="office database-zelfstandig"
+      data-module="database"
+      data-office-thema={thema}
+    >
       <header className="office-header">
         <div className="database-eigen-merk">
           <span className="office-beeldmerk">
@@ -61,6 +67,7 @@ function ZelfstandigeDatabaseStudio() {
         <span className="database-lokaal">
           <ShieldCheck size={14} /> Lokaal · alleen lezen
         </span>
+        <ThemaKnop thema={thema} wissel={wisselThema} />
         <button
           className="office-headerknop"
           disabled={!gereed}
