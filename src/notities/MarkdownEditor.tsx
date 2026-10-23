@@ -73,7 +73,8 @@ export function MarkdownEditor({
   function voerUit(opdracht: MarkdownOpdracht) {
     if (alleenLezen) return;
     const resultaat = bewerkMarkdown(
-      tekst,
+      // Selectieposities horen bij de textarea; die normaliseert Windows-regelafbrekingen.
+      bron.current?.value ?? tekst,
       bron.current?.selectionStart ?? tekst.length,
       bron.current?.selectionEnd ?? tekst.length,
       opdracht,

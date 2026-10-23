@@ -23,7 +23,8 @@ Gecontroleerd op 1280 × 720 pixels met eigen lokale voorbeeldnotities en een we
 5. De Markdownkopie weer als canvaskopie toegevoegd. De melding en nieuwe tekstvakken bevestigen dat de Markdownbron als tekst is overgenomen; de bronsecties blijven bestaan.
 6. De pagina herladen en de nieuwe secties opnieuw geopend. Een zoekopdracht op tekst in de geïmporteerde Markdownpagina vond de juiste pagina.
 7. Een gemengde back-up van formaatversie 3 via de GUI toegevoegd. Zes notitieboeken werden naast de bestaande toegevoegd. De volgende echte back-up bevatte dertien boeken en vier Markdownsecties; het nieuwe eigen voorbeeldboek en de herstelde Markdownbron waren beide aanwezig.
-8. De compacte Markdownribbon past binnen het venster. Het bronveld heeft een amber focusrand. De browserconsole bevatte geen toepassingsfouten.
+8. Een werkelijk Markdownbestand met Windows-regelafbrekingen geïmporteerd. Op de derde regel vier letters geselecteerd en Ctrl+B gebruikt: precies `idee` werd vet, met behoud van de andere inhoud. De opmaak gebruikt de selectieposities van het bronveld, dat regelafbrekingen normaliseert.
+9. De compacte Markdownribbon past binnen het venster. Het bronveld heeft een amber focusrand. De browserconsole bevatte geen toepassingsfouten.
 
 De onbewerkte schermafbeelding staat in `docs/screenshots/notities-markdown-2026-W43.4.jpg`.
 
