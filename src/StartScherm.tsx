@@ -283,7 +283,8 @@ export function StartScherm({
               DOCX, XLSX en PPTX werken rechtstreeks. De desktopversie kan met
               een ingesteld conversieprogramma ook ODF en oudere formaten
               omzetten. Opmaak kan daarbij afwijken. Database Studio leest MDB-
-              en ACCDB-tabellen; bewerken en VBA volgen later.
+              en ACCDB-tabellen; bewerken en VBA volgen later. De afzonderlijke
+              app is te installeren als Open Database Studio.
             </p>
           </details>
         </div>
