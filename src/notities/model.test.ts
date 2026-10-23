@@ -43,7 +43,7 @@ describe("Lokale notities", () => {
     });
     const data = bewaring.lees();
     expect(waarde).toBe(oorspronkelijk);
-    expect(data.versie).toBe(2);
+    expect(data.versie).toBe(3);
     const overgezet = allePaginas(data)[0].pagina;
     expect(overgezet.vakken).toHaveLength(1);
     expect(paginaBlokken(overgezet)).toEqual(vakken[0].blokken);

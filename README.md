@@ -2,7 +2,7 @@
 
 Open-source kantoortoepassingen van het OpenAEC-ecosysteem voor tekstverwerking, rekenbladen, presentaties en notities.
 
-Actuele bronversie: **2026-W43.3** (`2026.43.3`). Zie [versieafspraken](docs/versies.md).
+Actuele bronversie: **2026-W43.4** (`2026.43.4`). Zie [versieafspraken](docs/versies.md).
 
 **[Open Database Studio](apps/database-studio)** is nu ook een afzonderlijke desktopapp voor oude MDB- en ACCDB-databases, met een eigen venster en installers. Tekst, Rekenblad, Presentatie en Notities zijn onderdeel van de kantooromgeving.
 
@@ -12,7 +12,7 @@ Actuele bronversie: **2026-W43.3** (`2026.43.3`). Zie [versieafspraken](docs/ver
 
 Werkelijke schermafbeeldingen van de lokale productiebuild, met de eigen [voorbeeldbestanden](docs/voorbeelden). De interface heeft een gedeelde ribbon, contextuele opdrachten en een lokaal bestandsmenu. Deze beelden tonen de ontwikkelversie; ze zijn geen verklaring van volledige formaatcompatibiliteit.
 
-De kantoorbeelden zijn bijgewerkt naar bronversie 2026-W43.3. De interface volgt het officiële [OpenAEC-stijlboek](docs/ontwerp/openaec-stijl.md), met Forge- en Light-weergave, een compact lint en het OpenAEC-symbool. De zon-/maanknop wisselt de appweergave; documenten en het vrije notitiecanvas blijven licht. Het lint kan worden ingeklapt; het bestandsmenu bedekt de volledige werkruimte. De drie voorbeelden zijn rechtstreeks vanuit het startscherm te openen.
+De meeste kantoorbeelden tonen bronversie 2026-W43.3; de Markdownsectie in Notities toont 2026-W43.4. De interface volgt het officiële [OpenAEC-stijlboek](docs/ontwerp/openaec-stijl.md), met Forge- en Light-weergave, een compact lint en het OpenAEC-symbool. De zon-/maanknop wisselt de appweergave; documenten en het vrije notitiecanvas blijven licht. Het lint kan worden ingeklapt; het bestandsmenu bedekt de volledige werkruimte. De drie voorbeelden zijn rechtstreeks vanuit het startscherm te openen.
 
 ### Open Tekst Studio
 
@@ -47,6 +47,10 @@ De zelfstandige database-app, met dezelfde weekversie en het gedeelde OpenAEC-li
 Een vrije pagina met tekstvakken die je zelf plaatst, sleept en groter of kleiner maakt. Ieder tekstvak kan alinea’s, koppen en taken bevatten. Notitieboeken en secties houden alles bij elkaar. Met zoom, inklapbare navigatie, ongedaan maken, automatisch lokaal opslaan, back-ups en Markdown-export. Oudere notities blijven leesbaar. Zie [werking en opslag](docs/notities.md).
 
 ![Notities: drie vrij geplaatste tekstvakken in de werkelijke productiebuild](docs/screenshots/notities-2026-W43.3.jpg)
+
+Vanaf **2026-W43.4** kan iedere notitiesectie **Canvas** of **Markdown** zijn. Markdown heeft een broneditor, direct voorbeeld, tabellen, takenlijsten en `.md`-import/export. Bij omzetten blijft de oorspronkelijke sectie behouden.
+
+![Notities: Markdownsectie met bron en direct voorbeeld](docs/screenshots/notities-markdown-2026-W43.4.jpg)
 
 ## Modules
 

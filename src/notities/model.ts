@@ -60,16 +60,24 @@ export type Pagina = {
   vastgezet: boolean;
   verwijderd: boolean;
   vakken: Tekstvak[];
+  markdown: string;
 };
-export type Sectie = { id: string; naam: string; paginas: Pagina[] };
+export type SectieSoort = "canvas" | "markdown";
+export type Sectie = {
+  id: string;
+  naam: string;
+  soort: SectieSoort;
+  paginas: Pagina[];
+};
 export type Notitieboek = { id: string; naam: string; secties: Sectie[] };
 export type Notities = {
   formaat: "openaec-notities";
-  versie: 2;
+  versie: 3;
   boeken: Notitieboek[];
 };
 export const OPSLAGSLEUTEL = "openaec-notities-v1";
 export const MAX_BACKUP_BYTES = 10 * 1024 * 1024;
+export const MAX_MARKDOWN_TEKENS = 500000;
 export const nieuwId = () => crypto.randomUUID();
 export class NotitieBewaring {
   private verwacht: string | null = null;
@@ -107,20 +115,24 @@ export function nieuwBlok(tekst = "", soort: BlokSoort = "tekst"): Blok {
     klaar: false,
   };
 }
-export function nieuwePagina(titel = "Naamloze pagina"): Pagina {
+export function nieuwePagina(
+  titel = "Naamloze pagina",
+  soort: SectieSoort = "canvas",
+): Pagina {
   return {
     id: nieuwId(),
     titel,
     bijgewerkt: new Date().toISOString(),
     vastgezet: false,
     verwijderd: false,
-    vakken: [nieuwTekstvak()],
+    vakken: soort === "canvas" ? [nieuwTekstvak()] : [],
+    markdown: "",
   };
 }
 export function nieuweNotities(): Notities {
   return {
     formaat: "openaec-notities",
-    versie: 2,
+    versie: 3,
     boeken: [
       {
         id: nieuwId(),
@@ -129,6 +141,7 @@ export function nieuweNotities(): Notities {
           {
             id: nieuwId(),
             naam: "Ideeën",
+            soort: "canvas",
             paginas: [
               {
                 ...nieuwePagina("Ruimte voor je ideeën"),
@@ -197,7 +210,7 @@ export function leesNotities(tekst: string): Notities {
   const hoofd = object(data);
   if (
     hoofd.formaat !== "openaec-notities" ||
-    ![1, 2].includes(Number(hoofd.versie)) ||
+    ![1, 2, 3].includes(Number(hoofd.versie)) ||
     typeof hoofd.versie !== "number"
   )
     throw new Error("Dit is geen ondersteunde OpenAEC-notitieback-up.");
@@ -232,11 +245,15 @@ export function leesNotities(tekst: string): Notities {
     return {
       id: id(boek.id),
       naam: tekstveld(boek.naam, 200),
-      secties: lijst(boek.secties, 200).map((invoer) => {
+      secties: lijst(boek.secties, 200).map((invoer): Sectie => {
         const sectie = object(invoer);
+        const soort = hoofd.versie === 3 ? sectie.soort : "canvas";
+        if (soort !== "canvas" && soort !== "markdown")
+          throw new Error("Onbekend sectietype.");
         return {
           id: id(sectie.id),
           naam: tekstveld(sectie.naam, 200),
+          soort,
           paginas: lijst(sectie.paginas, 2000).map((invoer) => {
             if (++aantalPaginas > 5000)
               throw new Error("De back-up bevat te veel pagina’s.");
@@ -280,13 +297,17 @@ export function leesNotities(tekst: string): Notities {
               vastgezet: jaNee(pagina.vastgezet),
               verwijderd: jaNee(pagina.verwijderd),
               vakken,
+              markdown:
+                hoofd.versie === 3
+                  ? tekstveld(pagina.markdown, MAX_MARKDOWN_TEKENS)
+                  : "",
             };
           }),
         };
       }),
     };
   });
-  return { formaat: "openaec-notities", versie: 2, boeken };
+  return { formaat: "openaec-notities", versie: 3, boeken };
 }
 
 /** Import voegt toe met nieuwe identificaties; bestaande notities blijven behouden. */
@@ -358,7 +379,7 @@ export function zoekPaginas(
         boek.naam,
         sectie.naam,
         pagina.titel,
-        ...paginaBlokken(pagina).map((b) => b.tekst),
+        paginaTekst(pagina, sectie.soort),
       ]
         .join(" ")
         .toLocaleLowerCase("nl");
@@ -370,13 +391,27 @@ export function zoekPaginas(
         b.pagina.bijgewerkt.localeCompare(a.pagina.bijgewerkt),
     );
 }
-export function paginaAlsMarkdown(pagina: Pagina) {
-  const veilig = (tekst: string) => tekst.replace(/([\\`*_[\]<>])/g, "\\$1");
+export function paginaTekst(pagina: Pagina, soort: SectieSoort) {
+  return soort === "markdown"
+    ? pagina.markdown
+    : paginaBlokken(pagina)
+        .map((b) => b.tekst)
+        .join("\n");
+}
+export function paginaAlsMarkdown(
+  pagina: Pagina,
+  soort: SectieSoort = "canvas",
+) {
+  if (soort === "markdown") return pagina.markdown;
+  return `# ${ontsnapMarkdown(pagina.titel || "Naamloze pagina")}\n\n${canvasAlsMarkdown(pagina)}`;
+}
+const ontsnapMarkdown = (tekst: string) =>
+  tekst.replace(/([\\`*_[\]<>])/g, "\\$1");
+export function canvasAlsMarkdown(pagina: Pagina) {
   return (
-    `# ${veilig(pagina.titel || "Naamloze pagina")}\n\n` +
     paginaBlokken(pagina)
       .map((blok) => {
-        let tekst = veilig(blok.tekst);
+        let tekst = ontsnapMarkdown(blok.tekst);
         if (blok.vet) tekst = `**${tekst}**`;
         if (blok.cursief) tekst = `*${tekst}*`;
         const prefix =
@@ -391,7 +426,43 @@ export function paginaAlsMarkdown(pagina: Pagina) {
                   : "";
         return prefix + tekst.replace(/\n/g, prefix ? "\n  " : "\n");
       })
-      .join("\n\n") +
-    "\n"
+      .join("\n\n") + "\n"
   );
+}
+
+/** Een ander sectietype krijgt eigen pagina’s; de bron blijft geheel intact. */
+export function kopieerSectie(sectie: Sectie, soort: SectieSoort): Sectie {
+  if (soort === sectie.soort) throw new Error("Kies een ander sectietype.");
+  function tekstBlokken(tekst: string) {
+    const blokken: Blok[] = [];
+    while (tekst.length > 100000) {
+      let einde = 100000;
+      if (/[\uD800-\uDBFF]/.test(tekst[einde - 1])) einde--;
+      blokken.push(nieuwBlok(tekst.slice(0, einde)));
+      tekst = tekst.slice(einde);
+    }
+    blokken.push(nieuwBlok(tekst));
+    return blokken;
+  }
+  return {
+    id: nieuwId(),
+    naam: `${sectie.naam.slice(0, 180)} (${soort === "markdown" ? "Markdown" : "Canvas"})`,
+    soort,
+    paginas: sectie.paginas.map((pagina) => {
+      const markdown = soort === "markdown" ? canvasAlsMarkdown(pagina) : "";
+      if (markdown.length > MAX_MARKDOWN_TEKENS)
+        throw new Error(
+          "Een pagina is te groot voor een Markdown-kopie (maximaal 500.000 tekens).",
+        );
+      return {
+        ...pagina,
+        id: nieuwId(),
+        markdown,
+        vakken:
+          soort === "canvas"
+            ? [nieuwTekstvak(tekstBlokken(pagina.markdown))]
+            : [],
+      };
+    }),
+  };
 }

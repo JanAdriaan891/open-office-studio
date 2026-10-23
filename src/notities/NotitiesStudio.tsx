@@ -27,6 +27,9 @@ import {
   Redo2,
   Grid2X2,
   PanelLeft,
+  Table2,
+  Code2,
+  Link,
 } from "lucide-react";
 import { Actie, Groep, Ribbon } from "../Ribbon";
 import {
@@ -42,6 +45,9 @@ import {
   OPSLAGSLEUTEL,
   paginaAlsMarkdown,
   paginaBlokken,
+  paginaTekst,
+  kopieerSectie,
+  MAX_MARKDOWN_TEKENS,
   voegBackupToe,
   zoekPaginas,
   type Blok,
@@ -49,7 +55,10 @@ import {
   type Notities,
   type Tekstvak,
   type VakPlaats,
+  type Sectie,
+  type SectieSoort,
 } from "./model";
+import { MarkdownEditor, type MarkdownActies } from "./MarkdownEditor";
 import { TekstBlok } from "./TekstBlok";
 import { TekstCanvas } from "./TekstCanvas";
 import { NotitieHistorie } from "./historie";
@@ -135,11 +144,15 @@ export default function NotitiesStudio({
   const [naamveld, setNaamveld] = useState<{
     soort: "boek" | "sectie";
     waarde: string;
+    sectieSoort?: SectieSoort;
+    nieuw?: boolean;
   } | null>(null);
   const invoer = useRef<HTMLInputElement>(null),
     inhoud = useRef<HTMLDivElement>(null),
     zoekveld = useRef<HTMLInputElement>(null);
   const canvasVenster = useRef<HTMLDivElement>(null);
+  const markdownActies = useRef<MarkdownActies | null>(null);
+  const markdownInvoer = useRef<HTMLInputElement>(null);
   const historie = useRef(new NotitieHistorie());
   const historieActies = useRef({ terug: () => {}, vooruit: () => {} });
   const [zoom, setZoom] = useState(1),
@@ -153,6 +166,8 @@ export default function NotitiesStudio({
     ? allePaginas(data).find(({ pagina }) => pagina.id === paginaId)
     : undefined;
   const pagina = selectie?.pagina;
+  const paginaSoort = selectie?.sectie.soort ?? sectie?.soort ?? "canvas";
+  const isMarkdown = paginaSoort === "markdown";
   const actiefVak =
     pagina?.vakken.find((v) => v.blokken.some((b) => b.id === blokId)) ??
     pagina?.vakken[0];
@@ -443,12 +458,28 @@ export default function NotitiesStudio({
   }
   function nieuweInhoud(soort: "boek" | "sectie" | "pagina") {
     if (!data || !boek || !sectie) return;
-    const p = nieuwePagina();
-    const s = { id: nieuwId(), naam: "Nieuwe sectie", paginas: [p] };
+    if (soort === "sectie") {
+      setNaamveld({
+        soort,
+        waarde: "Nieuwe sectie",
+        sectieSoort: "canvas",
+        nieuw: true,
+      });
+      return;
+    }
+    const p = nieuwePagina(
+      "Naamloze pagina",
+      soort === "pagina" ? sectie.soort : "canvas",
+    );
+    const s: Sectie = {
+      id: nieuwId(),
+      naam: "Ideeën",
+      soort: "canvas",
+      paginas: [p],
+    };
     const b = { id: nieuwId(), naam: "Nieuw notitieboek", secties: [s] };
     if (
       (soort === "boek" && data.boeken.length >= 100) ||
-      (soort === "sectie" && boek.secties.length >= 200) ||
       allePaginas(data).length >= 5000
     ) {
       setFout(
@@ -466,21 +497,18 @@ export default function NotitiesStudio({
                 ? item
                 : {
                     ...item,
-                    secties:
-                      soort === "sectie"
-                        ? [...item.secties, s]
-                        : item.secties.map((item) =>
-                            item.id !== sectie.id
-                              ? item
-                              : { ...item, paginas: [...item.paginas, p] },
-                          ),
+                    secties: item.secties.map((item) =>
+                      item.id !== sectie.id
+                        ? item
+                        : { ...item, paginas: [...item.paginas, p] },
+                    ),
                   },
             ),
     });
     setBoekId(soort === "boek" ? b.id : boek.id);
     setSectieId(soort === "pagina" ? sectie.id : s.id);
     setPaginaId(p.id);
-    setBlokId(p.vakken[0].blokken[0].id);
+    setBlokId(p.vakken[0]?.blokken[0]?.id ?? "");
     setZoekterm("");
     setPrullenbak(false);
     if (soort !== "pagina")
@@ -494,6 +522,54 @@ export default function NotitiesStudio({
   }
   function hernoem() {
     if (!data || !boek || !sectie || !naamveld?.waarde.trim()) return;
+    if (
+      naamveld.soort === "sectie" &&
+      (naamveld.nieuw ||
+        (naamveld.sectieSoort ?? sectie.soort) !== sectie.soort)
+    ) {
+      try {
+        if (boek.secties.length >= 200)
+          throw new Error("Dit notitieboek bevat al 200 secties.");
+        const soort = naamveld.sectieSoort ?? sectie.soort;
+        const nieuw: Sectie = naamveld.nieuw
+          ? {
+              id: nieuwId(),
+              naam: naamveld.waarde.trim(),
+              soort,
+              paginas: [nieuwePagina("Naamloze pagina", soort)],
+            }
+          : kopieerSectie(sectie, soort);
+        if (!naamveld.nieuw && naamveld.waarde.trim() !== sectie.naam)
+          nieuw.naam = naamveld.waarde.trim();
+        const basis = nieuw.naam;
+        let teller = 1;
+        while (boek.secties.some((s) => s.naam === nieuw.naam))
+          nieuw.naam = `${basis.slice(0, 180)} (${++teller})`;
+        const samen = {
+          ...data,
+          boeken: data.boeken.map((b) =>
+            b.id === boek.id ? { ...b, secties: [...b.secties, nieuw] } : b,
+          ),
+        };
+        leesNotities(JSON.stringify(samen));
+        wijzigen(samen);
+        setSectieId(nieuw.id);
+        setPaginaId(
+          nieuw.paginas.find((p) => !p.verwijderd)?.id ?? nieuw.paginas[0].id,
+        );
+        setBlokId(nieuw.paginas[0].vakken[0]?.blokken[0]?.id ?? "");
+        setZoekterm("");
+        setPrullenbak(false);
+        if (!naamveld.nieuw)
+          setMelding(
+            `Een ${soort === "markdown" ? "Markdown" : "Canvas"}-kopie is gemaakt. De oorspronkelijke sectie is behouden.${soort === "canvas" ? " Markdownbron is als tekst overgenomen." : ""}`,
+          );
+      } catch (e) {
+        setFout(`Sectie niet toegevoegd: ${String(e)}`);
+      }
+      setNaamveld(null);
+      return;
+    }
     wijzigen({
       ...data,
       boeken: data.boeken.map((b) =>
@@ -519,11 +595,11 @@ export default function NotitiesStudio({
       const tekst = ruw
         ? window.localStorage.getItem(OPSLAGSLEUTEL)
         : markdown && pagina
-          ? paginaAlsMarkdown(pagina)
+          ? paginaAlsMarkdown(pagina, paginaSoort)
           : dataRef.current
             ? JSON.stringify(dataRef.current)
             : null;
-      if (!tekst)
+      if (tekst === null)
         throw new Error("Er zijn geen notities beschikbaar voor een back-up.");
       const naam =
         markdown && pagina
@@ -538,6 +614,10 @@ export default function NotitiesStudio({
   }
   const bewerkbaar = !!pagina && !pagina.verwijderd;
   const knoppen = (soort: BlokSoort) => () => {
+    if (isMarkdown && bewerkbaar) {
+      markdownActies.current?.voerUit(soort === "subkop" ? "kop" : soort);
+      return;
+    }
     if (actiefBlok && bewerkbaar) {
       wijzigBlok(actiefBlok.id, { soort });
       focusBlok(actiefBlok.id);
@@ -594,18 +674,21 @@ export default function NotitiesStudio({
                     onClick={() => nieuweInhoud("pagina")}
                   />
                 </Groep>
-                <Groep naam="Tekst">
+                <Groep
+                  naam="Tekst"
+                  className={isMarkdown ? "notities-md-opmaak" : ""}
+                >
                   <Actie
                     icoon={Type}
                     naam="Tekst"
-                    disabled={!bewerkbaar || !actiefBlok}
+                    disabled={!bewerkbaar || (!isMarkdown && !actiefBlok)}
                     onMouseDown={(e) => e.preventDefault()}
                     onClick={knoppen("tekst")}
                   />
                   <Actie
                     icoon={Heading2}
                     naam="Kop"
-                    disabled={!bewerkbaar || !actiefBlok}
+                    disabled={!bewerkbaar || (!isMarkdown && !actiefBlok)}
                     onMouseDown={(e) => e.preventDefault()}
                     onClick={knoppen("kop")}
                   />
@@ -613,9 +696,13 @@ export default function NotitiesStudio({
                     icoon={Bold}
                     naam="Vet"
                     actief={actiefBlok?.vet}
-                    disabled={!bewerkbaar || !actiefBlok}
+                    disabled={!bewerkbaar || (!isMarkdown && !actiefBlok)}
                     onMouseDown={(e) => e.preventDefault()}
                     onClick={() => {
+                      if (isMarkdown) {
+                        markdownActies.current?.voerUit("vet");
+                        return;
+                      }
                       if (actiefBlok) {
                         wijzigBlok(actiefBlok.id, { vet: !actiefBlok.vet });
                         focusBlok(actiefBlok.id);
@@ -626,9 +713,13 @@ export default function NotitiesStudio({
                     icoon={Italic}
                     naam="Cursief"
                     actief={actiefBlok?.cursief}
-                    disabled={!bewerkbaar || !actiefBlok}
+                    disabled={!bewerkbaar || (!isMarkdown && !actiefBlok)}
                     onMouseDown={(e) => e.preventDefault()}
                     onClick={() => {
+                      if (isMarkdown) {
+                        markdownActies.current?.voerUit("cursief");
+                        return;
+                      }
                       if (actiefBlok) {
                         wijzigBlok(actiefBlok.id, {
                           cursief: !actiefBlok.cursief,
@@ -640,40 +731,78 @@ export default function NotitiesStudio({
                 </Groep>
                 <Groep naam="Invoegen">
                   <Actie
-                    icoon={TextCursorInput}
-                    naam="Tekstvak"
+                    icoon={isMarkdown ? Table2 : TextCursorInput}
+                    naam={isMarkdown ? "Tabel" : "Tekstvak"}
                     groot
                     disabled={!bewerkbaar}
-                    onClick={() => nieuwVak()}
+                    onMouseDown={(e) => e.preventDefault()}
+                    onClick={() =>
+                      isMarkdown
+                        ? markdownActies.current?.voerUit("tabel")
+                        : nieuwVak()
+                    }
                   />
                   <Actie
                     icoon={CheckSquare}
                     naam="Taak"
                     groot
                     disabled={!bewerkbaar}
-                    onClick={() => voegBlokToe("taak")}
+                    onMouseDown={(e) => e.preventDefault()}
+                    onClick={() =>
+                      isMarkdown
+                        ? markdownActies.current?.voerUit("taak")
+                        : voegBlokToe("taak")
+                    }
                   />
                   <Actie
                     icoon={List}
                     naam="Opsomming"
                     groot
                     disabled={!bewerkbaar}
-                    onClick={() => voegBlokToe("opsomming")}
+                    onMouseDown={(e) => e.preventDefault()}
+                    onClick={() =>
+                      isMarkdown
+                        ? markdownActies.current?.voerUit("opsomming")
+                        : voegBlokToe("opsomming")
+                    }
                   />
                   <Actie
                     icoon={CalendarDays}
                     naam="Datum"
                     groot
                     disabled={!bewerkbaar}
+                    onMouseDown={(e) => e.preventDefault()}
                     onClick={() =>
-                      voegBlokToe(
-                        "tekst",
-                        new Intl.DateTimeFormat("nl-NL", {
-                          dateStyle: "full",
-                        }).format(new Date()),
-                      )
+                      isMarkdown
+                        ? markdownActies.current?.voerUit("datum")
+                        : voegBlokToe(
+                            "tekst",
+                            new Intl.DateTimeFormat("nl-NL", {
+                              dateStyle: "full",
+                            }).format(new Date()),
+                          )
                     }
                   />
+                  {isMarkdown && (
+                    <>
+                      <Actie
+                        icoon={Code2}
+                        naam="Code"
+                        groot
+                        disabled={!bewerkbaar}
+                        onMouseDown={(e) => e.preventDefault()}
+                        onClick={() => markdownActies.current?.voerUit("code")}
+                      />
+                      <Actie
+                        icoon={Link}
+                        naam="Link"
+                        groot
+                        disabled={!bewerkbaar}
+                        onMouseDown={(e) => e.preventDefault()}
+                        onClick={() => markdownActies.current?.voerUit("link")}
+                      />
+                    </>
+                  )}
                 </Groep>
                 <Groep naam="Pagina">
                   <Actie
@@ -718,6 +847,7 @@ export default function NotitiesStudio({
                     icoon={Grid2X2}
                     naam="Raster"
                     groot
+                    disabled={isMarkdown}
                     actief={raster}
                     onClick={() => setRaster(!raster)}
                   />
@@ -726,6 +856,7 @@ export default function NotitiesStudio({
                   <label className="ribbon-keuze">
                     <select
                       aria-label="Pagina zoom"
+                      disabled={isMarkdown}
                       value={zoom}
                       onChange={(e) => setZoom(Number(e.target.value))}
                     >
@@ -738,11 +869,22 @@ export default function NotitiesStudio({
                   </label>
                 </Groep>
                 <p className="notities-bewaaruitleg">
-                  Sleep tekstvakken aan de bovenrand. Wijzig de grootte
-                  rechtsonder.
-                  <br />
-                  Je kunt de verplaatsgrepen ook met de pijltjestoetsen
-                  bedienen.
+                  {isMarkdown ? (
+                    <>
+                      Kies Bron, Naast elkaar of Voorbeeld boven de
+                      Markdown-editor.
+                      <br />
+                      Ctrl+B: vet · Ctrl+I: cursief · Ctrl+K: link.
+                    </>
+                  ) : (
+                    <>
+                      Sleep tekstvakken aan de bovenrand. Wijzig de grootte
+                      rechtsonder.
+                      <br />
+                      Je kunt de verplaatsgrepen ook met de pijltjestoetsen
+                      bedienen.
+                    </>
+                  )}
                 </p>
               </>
             ),
@@ -769,6 +911,15 @@ export default function NotitiesStudio({
                   />
                 </Groep>
                 <Groep naam="Exporteren">
+                  {isMarkdown && (
+                    <Actie
+                      icoon={Upload}
+                      naam="Markdown openen"
+                      groot
+                      disabled={!data || exportBezig || prullenbak}
+                      onClick={() => markdownInvoer.current?.click()}
+                    />
+                  )}
                   <Actie
                     icoon={Download}
                     naam="Pagina als Markdown"
@@ -795,6 +946,70 @@ export default function NotitiesStudio({
             ),
           },
         ]}
+      />
+      <input
+        hidden
+        type="file"
+        ref={markdownInvoer}
+        accept=".md,.markdown,text/markdown"
+        onChange={async (e) => {
+          const file = e.target.files?.[0];
+          e.target.value = "";
+          if (!file || !boek || !sectie) return;
+          const doelBoek = boek.id,
+            doelSectie = sectie.id;
+          try {
+            if (file.size > MAX_MARKDOWN_TEKENS * 4)
+              throw new Error("Kies een Markdownbestand van maximaal 2 MB.");
+            const tekst = await file.text();
+            if (tekst.length > MAX_MARKDOWN_TEKENS)
+              throw new Error(
+                "Een Markdownpagina mag maximaal 500.000 tekens bevatten.",
+              );
+            const huidig = dataRef.current;
+            const doel = huidig?.boeken
+              .find((b) => b.id === doelBoek)
+              ?.secties.find((s) => s.id === doelSectie);
+            if (!huidig || doel?.soort !== "markdown")
+              throw new Error(
+                "Kies een Markdownsectie om het bestand toe te voegen.",
+              );
+            const nieuw = {
+              ...nieuwePagina(
+                file.name.replace(/\.(md|markdown)$/i, "").slice(0, 300),
+                "markdown",
+              ),
+              markdown: tekst,
+            };
+            const samen = {
+              ...huidig,
+              boeken: huidig.boeken.map((b) =>
+                b.id === doelBoek
+                  ? {
+                      ...b,
+                      secties: b.secties.map((s) =>
+                        s.id === doelSectie
+                          ? { ...s, paginas: [...s.paginas, nieuw] }
+                          : s,
+                      ),
+                    }
+                  : b,
+              ),
+            };
+            leesNotities(JSON.stringify(samen));
+            wijzigen(samen);
+            setBoekId(doelBoek);
+            setSectieId(doelSectie);
+            setPaginaId(nieuw.id);
+            setZoekterm("");
+            setPrullenbak(false);
+            setMelding(
+              "Markdown als nieuwe pagina toegevoegd. Bestaande pagina’s zijn behouden.",
+            );
+          } catch (e) {
+            setFout(`Markdown niet toegevoegd: ${String(e)}`);
+          }
+        }}
       />
       <input
         hidden
@@ -925,6 +1140,7 @@ export default function NotitiesStudio({
               {boek?.secties.map((s, i) => (
                 <button
                   key={s.id}
+                  title={`${s.naam} · ${s.soort === "markdown" ? "Markdown" : "Canvas"}`}
                   className={
                     s.id === sectie?.id && !zoekterm && !prullenbak
                       ? "is-geselecteerd"
@@ -947,6 +1163,9 @@ export default function NotitiesStudio({
                     }}
                   />
                   <span>{s.naam || "Naamloze sectie"}</span>
+                  {s.soort === "markdown" && (
+                    <Code2 size={12} aria-label="Markdownsectie" />
+                  )}
                   <small>{s.paginas.filter((p) => !p.verwijderd).length}</small>
                 </button>
               ))}
@@ -1008,6 +1227,25 @@ export default function NotitiesStudio({
                 </button>
               )}
             </div>
+            {!zoekterm && !prullenbak && sectie && (
+              <label className="notities-sectietype">
+                Sectietype
+                <select
+                  aria-label="Sectietype"
+                  value={sectie.soort}
+                  onChange={(e) =>
+                    setNaamveld({
+                      soort: "sectie",
+                      waarde: sectie.naam,
+                      sectieSoort: e.target.value as SectieSoort,
+                    })
+                  }
+                >
+                  <option value="canvas">Canvas</option>
+                  <option value="markdown">Markdown</option>
+                </select>
+              </label>
+            )}
             {!prullenbak && (
               <button
                 className="notities-nieuwepagina"
@@ -1028,11 +1266,8 @@ export default function NotitiesStudio({
                     {p.titel || "Naamloze pagina"}
                   </strong>
                   <span>
-                    {paginaBlokken(p)
-                      .map((b) => b.tekst)
-                      .filter(Boolean)
-                      .join(" ")
-                      .slice(0, 90) || "Een lege pagina, klaar voor je ideeën."}
+                    {paginaTekst(p, s.soort).slice(0, 90) ||
+                      "Een lege pagina, klaar voor je ideeën."}
                   </span>
                   <small>
                     {zoekterm || prullenbak
@@ -1093,12 +1328,13 @@ export default function NotitiesStudio({
                     timeStyle: "short",
                   }).format(new Date(pagina.bijgewerkt))}
                   <span>·</span>
-                  {paginaBlokken(pagina).reduce(
-                    (a, b) =>
-                      a + b.tekst.trim().split(/\s+/).filter(Boolean).length,
-                    0,
-                  )}{" "}
-                  woorden
+                  {
+                    paginaTekst(pagina, paginaSoort)
+                      .trim()
+                      .split(/\s+/)
+                      .filter(Boolean).length
+                  }{" "}
+                  {isMarkdown ? "woorden in bron" : "woorden"}
                 </div>
                 {pagina.verwijderd ? (
                   <>
@@ -1114,15 +1350,36 @@ export default function NotitiesStudio({
                         Pagina herstellen
                       </button>
                     </div>
-                    <div className="notities-leestekst">
-                      {paginaBlokken(pagina).map((b) => (
-                        <p key={b.id}>
-                          {b.soort === "taak" ? (b.klaar ? "☑ " : "☐ ") : ""}
-                          {b.tekst}
-                        </p>
-                      ))}
-                    </div>
+                    {isMarkdown ? (
+                      <MarkdownEditor
+                        tekst={pagina.markdown}
+                        wijzig={() => {}}
+                        acties={markdownActies}
+                        alleenLezen
+                      />
+                    ) : (
+                      <div className="notities-leestekst">
+                        {paginaBlokken(pagina).map((b) => (
+                          <p key={b.id}>
+                            {b.soort === "taak" ? (b.klaar ? "☑ " : "☐ ") : ""}
+                            {b.tekst}
+                          </p>
+                        ))}
+                      </div>
+                    )}
                   </>
+                ) : isMarkdown ? (
+                  <MarkdownEditor
+                    key={pagina.id}
+                    tekst={pagina.markdown}
+                    wijzig={(markdown, opmaak) =>
+                      wijzigPagina(
+                        { markdown },
+                        opmaak ? "" : `markdown:${pagina.id}`,
+                      )
+                    }
+                    acties={markdownActies}
+                  />
                 ) : (
                   <TekstCanvas
                     key={pagina.id}
@@ -1193,8 +1450,10 @@ export default function NotitiesStudio({
         {vuil.current ? <AlertCircle size={13} /> : <ShieldCheck size={13} />}
         {status}
         <span>
-          {pagina?.vakken.length ?? 0} tekstvakken · {Math.round(zoom * 100)}% ·
-          Ctrl+Z ongedaan maken
+          {isMarkdown
+            ? "Markdown"
+            : `${pagina?.vakken.length ?? 0} tekstvakken · ${Math.round(zoom * 100)}%`}{" "}
+          · Ctrl+Z ongedaan maken
         </span>
       </div>
       {naamveld && (
@@ -1204,7 +1463,9 @@ export default function NotitiesStudio({
             if (e.key === "Escape") setNaamveld(null);
             if (e.key === "Tab") {
               const items = Array.from(
-                e.currentTarget.querySelectorAll<HTMLElement>("input,button"),
+                e.currentTarget.querySelectorAll<HTMLElement>(
+                  "input:not(:disabled),button:not(:disabled),select:not(:disabled)",
+                ),
               );
               const i = items.indexOf(document.activeElement as HTMLElement);
               e.preventDefault();
@@ -1225,8 +1486,11 @@ export default function NotitiesStudio({
             }}
           >
             <h2 id="notities-naam-titel">
-              {naamveld.soort === "boek" ? "Notitieboek" : "Sectie"} een naam
-              geven
+              {naamveld.soort === "boek"
+                ? "Notitieboek een naam geven"
+                : naamveld.nieuw
+                  ? "Nieuwe sectie"
+                  : "Sectie instellen"}
             </h2>
             <label>
               Naam
@@ -1240,12 +1504,54 @@ export default function NotitiesStudio({
                 }
               />
             </label>
+            {naamveld.soort === "sectie" && (
+              <>
+                <label>
+                  Sectietype
+                  <select
+                    aria-label="Type voor sectie"
+                    value={naamveld.sectieSoort ?? sectie?.soort ?? "canvas"}
+                    onChange={(e) =>
+                      setNaamveld({
+                        ...naamveld,
+                        sectieSoort: e.target.value as SectieSoort,
+                      })
+                    }
+                  >
+                    <option value="canvas">
+                      Canvas — vrij geplaatste tekstvakken
+                    </option>
+                    <option value="markdown">
+                      Markdown — tekst met direct voorbeeld
+                    </option>
+                  </select>
+                </label>
+                {!naamveld.nieuw &&
+                  naamveld.sectieSoort &&
+                  naamveld.sectieSoort !== sectie?.soort && (
+                    <p>
+                      Dit maakt een kopie van de sectie. De oorspronkelijke
+                      pagina’s en canvasindeling blijven behouden.{" "}
+                      {naamveld.sectieSoort === "canvas" &&
+                        "Markdownbron wordt als tekst in een tekstvak overgenomen."}
+                    </p>
+                  )}
+              </>
+            )}
             <div>
               <button type="button" onClick={() => setNaamveld(null)}>
                 Annuleren
               </button>
               <button type="submit" disabled={!naamveld.waarde.trim()}>
-                <Check size={15} /> Opslaan
+                <Check size={15} />{" "}
+                {naamveld.soort === "sectie" &&
+                !naamveld.nieuw &&
+                naamveld.sectieSoort &&
+                naamveld.sectieSoort !== sectie?.soort
+                  ? "Maak kopie"
+                  : naamveld.nieuw
+                    ? "Toevoegen"
+                    : "Opslaan"}
               </button>
             </div>
           </form>
