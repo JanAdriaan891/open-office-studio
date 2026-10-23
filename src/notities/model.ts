@@ -7,19 +7,65 @@ export type Blok = {
   cursief: boolean;
   klaar: boolean;
 };
+export type Tekstvak = {
+  id: string;
+  x: number;
+  y: number;
+  breedte: number;
+  hoogte: number;
+  blokken: Blok[];
+};
+export type VakPlaats = Pick<Tekstvak, "x" | "y" | "breedte" | "hoogte">;
+export const VAK_GRENZEN = {
+  x: 10000,
+  y: 20000,
+  minBreedte: 200,
+  maxBreedte: 2000,
+  minHoogte: 80,
+  maxHoogte: 5000,
+};
+export function begrensVak(plaats: VakPlaats): VakPlaats {
+  const begrens = (v: number, min: number, max: number) =>
+    Math.round(Math.max(min, Math.min(max, Number.isFinite(v) ? v : min)));
+  return {
+    x: begrens(plaats.x, 0, VAK_GRENZEN.x),
+    y: begrens(plaats.y, 0, VAK_GRENZEN.y),
+    breedte: begrens(
+      plaats.breedte,
+      VAK_GRENZEN.minBreedte,
+      VAK_GRENZEN.maxBreedte,
+    ),
+    hoogte: begrens(
+      plaats.hoogte,
+      VAK_GRENZEN.minHoogte,
+      VAK_GRENZEN.maxHoogte,
+    ),
+  };
+}
+export function nieuwTekstvak(
+  blokken: Blok[] = [nieuwBlok()],
+  x = 40,
+  y = 32,
+): Tekstvak {
+  return {
+    id: nieuwId(),
+    ...begrensVak({ x, y, breedte: 560, hoogte: 80 }),
+    blokken,
+  };
+}
 export type Pagina = {
   id: string;
   titel: string;
   bijgewerkt: string;
   vastgezet: boolean;
   verwijderd: boolean;
-  blokken: Blok[];
+  vakken: Tekstvak[];
 };
 export type Sectie = { id: string; naam: string; paginas: Pagina[] };
 export type Notitieboek = { id: string; naam: string; secties: Sectie[] };
 export type Notities = {
   formaat: "openaec-notities";
-  versie: 1;
+  versie: 2;
   boeken: Notitieboek[];
 };
 export const OPSLAGSLEUTEL = "openaec-notities-v1";
@@ -68,13 +114,13 @@ export function nieuwePagina(titel = "Naamloze pagina"): Pagina {
     bijgewerkt: new Date().toISOString(),
     vastgezet: false,
     verwijderd: false,
-    blokken: [nieuwBlok()],
+    vakken: [nieuwTekstvak()],
   };
 }
 export function nieuweNotities(): Notities {
   return {
     formaat: "openaec-notities",
-    versie: 1,
+    versie: 2,
     boeken: [
       {
         id: nieuwId(),
@@ -86,20 +132,22 @@ export function nieuweNotities(): Notities {
             paginas: [
               {
                 ...nieuwePagina("Ruimte voor je ideeën"),
-                blokken: [
-                  nieuwBlok(
-                    "Een plek voor alles wat je wilt onthouden.",
-                    "subkop",
-                  ),
-                  nieuwBlok(
-                    "Verzamel je ideeën, maak een takenlijst of werk je overleg uit. Deel je notitieboek in met secties en pagina’s.",
-                  ),
-                  nieuwBlok("Vandaag", "kop"),
-                  nieuwBlok("Een eerste idee vastleggen", "taak"),
-                  nieuwBlok("Een eigen sectie aanmaken", "taak"),
-                  nieuwBlok(
-                    "Je notities blijven lokaal op deze computer. Maak regelmatig een back-up om ze mee te nemen naar een andere computer.",
-                  ),
+                vakken: [
+                  nieuwTekstvak([
+                    nieuwBlok(
+                      "Een plek voor alles wat je wilt onthouden.",
+                      "subkop",
+                    ),
+                    nieuwBlok(
+                      "Verzamel je ideeën, maak een takenlijst of werk je overleg uit. Deel je notitieboek in met secties en pagina’s.",
+                    ),
+                    nieuwBlok("Vandaag", "kop"),
+                    nieuwBlok("Een eerste idee vastleggen", "taak"),
+                    nieuwBlok("Een eigen sectie aanmaken", "taak"),
+                    nieuwBlok(
+                      "Je notities blijven lokaal op deze computer. Maak regelmatig een back-up om ze mee te nemen naar een andere computer.",
+                    ),
+                  ]),
                 ],
               },
             ],
@@ -137,8 +185,8 @@ export function leesNotities(tekst: string): Notities {
     ids.add(waarde);
     return waarde;
   };
-  const lijst = (v: unknown, max: number): unknown[] => {
-    if (!Array.isArray(v) || !v.length || v.length > max)
+  const lijst = (v: unknown, max: number, magLeeg = false): unknown[] => {
+    if (!Array.isArray(v) || (!v.length && !magLeeg) || v.length > max)
       throw new Error("Een lijst is leeg of te groot.");
     return v;
   };
@@ -147,8 +195,38 @@ export function leesNotities(tekst: string): Notities {
     return v;
   };
   const hoofd = object(data);
-  if (hoofd.formaat !== "openaec-notities" || hoofd.versie !== 1)
+  if (
+    hoofd.formaat !== "openaec-notities" ||
+    ![1, 2].includes(Number(hoofd.versie)) ||
+    typeof hoofd.versie !== "number"
+  )
     throw new Error("Dit is geen ondersteunde OpenAEC-notitieback-up.");
+  const getal = (v: unknown, min: number, max: number) => {
+    if (typeof v !== "number" || !Number.isFinite(v) || v < min || v > max)
+      throw new Error("Ongeldige positie of afmeting van een tekstvak.");
+    return v;
+  };
+  function leesBlokken(invoer: unknown): Blok[] {
+    return lijst(invoer, 2000).map((invoer): Blok => {
+      if (++aantalBlokken > 30000)
+        throw new Error("De back-up bevat te veel tekstblokken.");
+      const blok = object(invoer);
+      if (
+        !["tekst", "kop", "subkop", "opsomming", "taak"].includes(
+          String(blok.soort),
+        )
+      )
+        throw new Error("Onbekend tekstblok.");
+      return {
+        id: id(blok.id),
+        soort: blok.soort as BlokSoort,
+        tekst: tekstveld(blok.tekst, 100000),
+        vet: jaNee(blok.vet),
+        cursief: jaNee(blok.cursief),
+        klaar: jaNee(blok.klaar),
+      };
+    });
+  }
   const boeken = lijst(hoofd.boeken, 100).map((invoer) => {
     const boek = object(invoer);
     return {
@@ -166,38 +244,49 @@ export function leesNotities(tekst: string): Notities {
             const bijgewerkt = tekstveld(pagina.bijgewerkt, 40);
             if (!Number.isFinite(Date.parse(bijgewerkt)))
               throw new Error("Ongeldige wijzigingsdatum.");
+            const paginaId = id(pagina.id);
+            const vakken: Tekstvak[] =
+              hoofd.versie === 1
+                ? [nieuwTekstvak(leesBlokken(pagina.blokken))]
+                : lijst(pagina.vakken, 2000, true).map((invoer): Tekstvak => {
+                    const vak = object(invoer);
+                    return {
+                      id: id(vak.id),
+                      x: getal(vak.x, 0, VAK_GRENZEN.x),
+                      y: getal(vak.y, 0, VAK_GRENZEN.y),
+                      breedte: getal(
+                        vak.breedte,
+                        VAK_GRENZEN.minBreedte,
+                        VAK_GRENZEN.maxBreedte,
+                      ),
+                      hoogte: getal(
+                        vak.hoogte,
+                        VAK_GRENZEN.minHoogte,
+                        VAK_GRENZEN.maxHoogte,
+                      ),
+                      blokken: leesBlokken(vak.blokken),
+                    };
+                  });
+            if (vakken.reduce((a, v) => a + v.blokken.length, 0) > 2000)
+              throw new Error("De pagina bevat te veel tekstblokken.");
+            if (hoofd.versie === 1) {
+              while (ids.has(vakken[0].id)) vakken[0].id = nieuwId();
+              ids.add(vakken[0].id);
+            }
             return {
-              id: id(pagina.id),
+              id: paginaId,
               titel: tekstveld(pagina.titel, 300),
               bijgewerkt,
               vastgezet: jaNee(pagina.vastgezet),
               verwijderd: jaNee(pagina.verwijderd),
-              blokken: lijst(pagina.blokken, 2000).map((invoer): Blok => {
-                if (++aantalBlokken > 30000)
-                  throw new Error("De back-up bevat te veel tekstblokken.");
-                const blok = object(invoer);
-                if (
-                  !["tekst", "kop", "subkop", "opsomming", "taak"].includes(
-                    String(blok.soort),
-                  )
-                )
-                  throw new Error("Onbekend tekstblok.");
-                return {
-                  id: id(blok.id),
-                  soort: blok.soort as BlokSoort,
-                  tekst: tekstveld(blok.tekst, 100000),
-                  vet: jaNee(blok.vet),
-                  cursief: jaNee(blok.cursief),
-                  klaar: jaNee(blok.klaar),
-                };
-              }),
+              vakken,
             };
           }),
         };
       }),
     };
   });
-  return { formaat: "openaec-notities", versie: 1, boeken };
+  return { formaat: "openaec-notities", versie: 2, boeken };
 }
 
 /** Import voegt toe met nieuwe identificaties; bestaande notities blijven behouden. */
@@ -228,7 +317,11 @@ export function voegBackupToe(huidig: Notities, backup: Notities): Notities {
           paginas: sectie.paginas.map((pagina) => ({
             ...pagina,
             id: nieuwId(),
-            blokken: pagina.blokken.map((blok) => ({ ...blok, id: nieuwId() })),
+            vakken: pagina.vakken.map((vak) => ({
+              ...vak,
+              id: nieuwId(),
+              blokken: vak.blokken.map((blok) => ({ ...blok, id: nieuwId() })),
+            })),
           })),
         })),
       })),
@@ -241,6 +334,11 @@ export function allePaginas(data: Notities) {
       sectie.paginas.map((pagina) => ({ boek, sectie, pagina })),
     ),
   );
+}
+export function paginaBlokken(pagina: Pagina): Blok[] {
+  return [...pagina.vakken]
+    .sort((a, b) => a.y - b.y || a.x - b.x)
+    .flatMap((vak) => vak.blokken);
 }
 export function zoekPaginas(
   data: Notities,
@@ -260,7 +358,7 @@ export function zoekPaginas(
         boek.naam,
         sectie.naam,
         pagina.titel,
-        ...pagina.blokken.map((b) => b.tekst),
+        ...paginaBlokken(pagina).map((b) => b.tekst),
       ]
         .join(" ")
         .toLocaleLowerCase("nl");
@@ -276,7 +374,7 @@ export function paginaAlsMarkdown(pagina: Pagina) {
   const veilig = (tekst: string) => tekst.replace(/([\\`*_[\]<>])/g, "\\$1");
   return (
     `# ${veilig(pagina.titel || "Naamloze pagina")}\n\n` +
-    pagina.blokken
+    paginaBlokken(pagina)
       .map((blok) => {
         let tekst = veilig(blok.tekst);
         if (blok.vet) tekst = `**${tekst}**`;

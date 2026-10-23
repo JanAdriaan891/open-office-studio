@@ -2,7 +2,7 @@
 
 Open-source kantoortoepassingen van het OpenAEC-ecosysteem voor tekstverwerking, rekenbladen, presentaties en notities.
 
-Actuele weekuitgave: **2026-W43.1** (`2026.43.1`). Zie [versieafspraken](docs/versies.md).
+Actuele weekuitgave: **2026-W43.2** (`2026.43.2`). Zie [versieafspraken](docs/versies.md).
 
 **[Open Database Studio](apps/database-studio)** is nu ook een afzonderlijke desktopapp voor oude MDB- en ACCDB-databases, met een eigen venster en installers. Tekst, Rekenblad, Presentatie en Notities zijn onderdeel van de kantooromgeving.
 
@@ -44,9 +44,9 @@ De zelfstandige database-app, met een eigen weekversie en zonder de drie kantoor
 
 ### Open Notities Studio
 
-Notitieboeken met secties en pagina’s, tekstblokken, koppen, takenlijsten en zoeken over alle notities. Wijzigingen worden automatisch lokaal bewaard. Pagina’s kunnen naar de prullenbak en worden hersteld. Bewaar een volledige back-up of exporteer een pagina als Markdown. Zie [werking en opslag](docs/notities.md).
+Een vrije pagina met tekstvakken die je zelf plaatst, sleept en groter of kleiner maakt. Ieder tekstvak kan alinea’s, koppen en taken bevatten. Notitieboeken en secties houden alles bij elkaar. Met zoom, inklapbare navigatie, ongedaan maken, automatisch lokaal opslaan, back-ups en Markdown-export. Oudere notities blijven leesbaar. Zie [werking en opslag](docs/notities.md).
 
-![Notities: werkelijke pagina met koppen en afvinkbare taken](docs/screenshots/notities-2026-W43.1.jpg)
+![Notities: drie vrij geplaatste tekstvakken in de werkelijke productiebuild](docs/screenshots/notities-vrij-2026-W43.2.jpg)
 
 ## Modules
 

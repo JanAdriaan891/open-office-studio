@@ -7,6 +7,7 @@ De actuele beelden van 23 oktober 2026 tonen weekuitgave 2026-W43.1 in de offici
 - `database-donker-2026-W43.1.jpg`: dezelfde werkelijke tabel in de donkere weergave.
 - `bestandsmenu-2026-W43.1.jpg`: bestandsmenu vóór de Tekst-ribbon en aansluitend op de kopbalk.
 - `notities-2026-W43.1.jpg`: ingebouwde notitiemodule met aangemaakte secties, pagina’s, koppen en taken. De gegevens zijn werkelijk via de GUI ingevoerd en lokaal opgeslagen. Het startbeeld bevat ook de nieuwe Notities-ingang.
+- `notities-vrij-2026-W43.2.jpg`: vrije pagina met drie via de GUI aangemaakte, versleepte en geschaalde tekstvakken. De navigatie is verborgen en het blad staat op 100%. Dit is een werkelijke schermafbeelding; posities en inhoud zijn opgeslagen en heropend.
 
 De oudere beelden hieronder blijven beschikbaar voor de eerdere verslagen.
 

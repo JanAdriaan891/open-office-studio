@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Bold,
   Italic,
@@ -22,6 +22,11 @@ import {
   X,
   ShieldCheck,
   AlertCircle,
+  TextCursorInput,
+  Undo2,
+  Redo2,
+  Grid2X2,
+  PanelLeft,
 } from "lucide-react";
 import { Actie, Groep, Ribbon } from "../Ribbon";
 import {
@@ -29,18 +34,27 @@ import {
   leesNotities,
   MAX_BACKUP_BYTES,
   nieuwBlok,
+  nieuwTekstvak,
+  begrensVak,
   nieuwId,
   nieuwePagina,
   NotitieBewaring,
   OPSLAGSLEUTEL,
   paginaAlsMarkdown,
+  paginaBlokken,
   voegBackupToe,
   zoekPaginas,
   type Blok,
   type BlokSoort,
   type Notities,
+  type Tekstvak,
+  type VakPlaats,
 } from "./model";
+import { TekstBlok } from "./TekstBlok";
+import { TekstCanvas } from "./TekstCanvas";
+import { NotitieHistorie } from "./historie";
 import "./notities.css";
+import "./canvas.css";
 
 export type NotitieActies = { openen: () => void; bewaren: () => boolean };
 
@@ -68,83 +82,6 @@ async function bewaarBestand(naam: string, tekst: string) {
   link.remove();
   setTimeout(() => URL.revokeObjectURL(url), 60000);
   return "Download aangevraagd. Controleer het bestand in je downloads.";
-}
-
-function TekstBlok({
-  blok,
-  actief,
-  wijzig,
-  kies,
-  splits,
-  verwijder,
-}: {
-  blok: Blok;
-  actief: boolean;
-  wijzig: (patch: Partial<Blok>) => void;
-  kies: () => void;
-  splits: (positie: number, einde: number) => void;
-  verwijder: () => void;
-}) {
-  const veld = useRef<HTMLTextAreaElement>(null);
-  useLayoutEffect(() => {
-    if (!veld.current) return;
-    veld.current.style.height = "0";
-    veld.current.style.height = `${veld.current.scrollHeight}px`;
-  }, [blok.tekst, blok.soort, blok.vet, blok.cursief]);
-  return (
-    <div
-      className={`notities-blok is-${blok.soort} ${actief ? "is-actief" : ""} ${blok.klaar && blok.soort === "taak" ? "is-klaar" : ""}`}
-    >
-      {blok.soort === "taak" && (
-        <input
-          type="checkbox"
-          checked={blok.klaar}
-          onChange={(e) => wijzig({ klaar: e.target.checked })}
-          aria-label={`Taak afronden: ${blok.tekst || "Naamloos"}`}
-        />
-      )}
-      {blok.soort === "opsomming" && (
-        <span className="notities-punt" aria-hidden="true">
-          •
-        </span>
-      )}
-      <textarea
-        ref={veld}
-        aria-label={
-          blok.soort === "taak"
-            ? "Taaktekst"
-            : blok.soort === "kop" || blok.soort === "subkop"
-              ? "Koptekst"
-              : "Notitietekst"
-        }
-        value={blok.tekst}
-        maxLength={100000}
-        rows={1}
-        placeholder={
-          blok.soort === "taak" ? "Wat wil je doen?" : "Schrijf iets…"
-        }
-        style={{
-          fontWeight: blok.vet ? 700 : undefined,
-          fontStyle: blok.cursief ? "italic" : undefined,
-        }}
-        onFocus={kies}
-        onChange={(e) => wijzig({ tekst: e.target.value })}
-        onKeyDown={(e) => {
-          if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) {
-            e.preventDefault();
-            splits(
-              e.currentTarget.selectionStart,
-              e.currentTarget.selectionEnd,
-            );
-          }
-          if (e.key === "Backspace" && !blok.tekst) {
-            e.preventDefault();
-            verwijder();
-          }
-        }}
-      />
-    </div>
-  );
 }
 
 export default function NotitiesStudio({
@@ -189,7 +126,9 @@ export default function NotitiesStudio({
   const [boekId, setBoekId] = useState(eerste?.boek.id ?? ""),
     [sectieId, setSectieId] = useState(eerste?.sectie.id ?? ""),
     [paginaId, setPaginaId] = useState(eerste?.pagina.id ?? ""),
-    [blokId, setBlokId] = useState(eerste?.pagina.blokken[0].id ?? "");
+    [blokId, setBlokId] = useState(
+      eerste?.pagina.vakken[0]?.blokken[0]?.id ?? "",
+    );
   const [zoekterm, setZoekterm] = useState(""),
     [prullenbak, setPrullenbak] = useState(false),
     [exportBezig, setExportBezig] = useState(false);
@@ -200,6 +139,12 @@ export default function NotitiesStudio({
   const invoer = useRef<HTMLInputElement>(null),
     inhoud = useRef<HTMLDivElement>(null),
     zoekveld = useRef<HTMLInputElement>(null);
+  const canvasVenster = useRef<HTMLDivElement>(null);
+  const historie = useRef(new NotitieHistorie());
+  const historieActies = useRef({ terug: () => {}, vooruit: () => {} });
+  const [zoom, setZoom] = useState(1),
+    [raster, setRaster] = useState(true),
+    [toonPanelen, setToonPanelen] = useState(true);
   const bewaarRef = useRef<() => boolean>(() => true);
   const boek = data?.boeken.find((b) => b.id === boekId) ?? data?.boeken[0];
   const sectie =
@@ -208,20 +153,49 @@ export default function NotitiesStudio({
     ? allePaginas(data).find(({ pagina }) => pagina.id === paginaId)
     : undefined;
   const pagina = selectie?.pagina;
-  const actiefBlok = pagina?.blokken.find((b) => b.id === blokId);
+  const actiefVak =
+    pagina?.vakken.find((v) => v.blokken.some((b) => b.id === blokId)) ??
+    pagina?.vakken[0];
+  const actiefBlok = actiefVak?.blokken.find((b) => b.id === blokId);
   const resultaten = data
     ? zoekPaginas(data, zoekterm, prullenbak).filter(
         (r) => zoekterm.trim() || prullenbak || r.sectie.id === sectie?.id,
       )
     : [];
 
-  function wijzigen(nieuw: Notities) {
+  function pasToe(nieuw: Notities) {
     dataRef.current = nieuw;
     vuil.current = true;
     onOnopgeslagen(true);
     setData(nieuw);
     setStatus("Opslaan…");
   }
+  function wijzigen(nieuw: Notities, groep = "") {
+    if (dataRef.current) historie.current.bewaar(dataRef.current, groep);
+    pasToe(nieuw);
+  }
+  function herstelStap(vooruit = false) {
+    if (!dataRef.current) return;
+    const nieuw = vooruit
+      ? historie.current.vooruit(dataRef.current)
+      : historie.current.terug(dataRef.current);
+    if (!nieuw) return;
+    pasToe(nieuw);
+    const r =
+      allePaginas(nieuw).find((r) => r.pagina.id === paginaId) ??
+      allePaginas(nieuw).find((r) => !r.pagina.verwijderd);
+    if (r) {
+      setPaginaId(r.pagina.id);
+      setBoekId(r.boek.id);
+      setSectieId(r.sectie.id);
+      if (!paginaBlokken(r.pagina).some((b) => b.id === blokId))
+        setBlokId(r.pagina.vakken[0]?.blokken[0]?.id ?? "");
+    }
+  }
+  historieActies.current = {
+    terug: () => herstelStap(),
+    vooruit: () => herstelStap(true),
+  };
   function bewaren() {
     if (!vuil.current) return true;
     try {
@@ -273,6 +247,7 @@ export default function NotitiesStudio({
       try {
         const nieuw = opslag.current?.lees();
         if (nieuw) {
+          historie.current.wis();
           dataRef.current = nieuw;
           setData(nieuw);
           setMelding("Lokale notities bijgewerkt vanuit een ander venster.");
@@ -287,11 +262,30 @@ export default function NotitiesStudio({
       if (inactief) return;
       if (
         (e.ctrlKey || e.metaKey) &&
+        !(
+          e.target instanceof Element &&
+          e.target.closest(".notities-zoek,.notities-naamdialoog")
+        )
+      ) {
+        if (e.key.toLowerCase() === "z") {
+          e.preventDefault();
+          e.shiftKey
+            ? historieActies.current.vooruit()
+            : historieActies.current.terug();
+        }
+        if (e.key.toLowerCase() === "y") {
+          e.preventDefault();
+          historieActies.current.vooruit();
+        }
+      }
+      if (
+        (e.ctrlKey || e.metaKey) &&
         e.shiftKey &&
         e.key.toLowerCase() === "f"
       ) {
         e.preventDefault();
-        zoekveld.current?.focus();
+        setToonPanelen(true);
+        requestAnimationFrame(() => zoekveld.current?.focus());
       }
     };
     window.addEventListener("storage", extern);
@@ -302,30 +296,42 @@ export default function NotitiesStudio({
     };
   }, [inactief]);
 
-  function wijzigPagina(patch: Partial<NonNullable<typeof pagina>>) {
+  function wijzigPagina(
+    patch: Partial<NonNullable<typeof pagina>>,
+    groep = "",
+  ) {
     if (!dataRef.current || !pagina) return;
-    wijzigen({
-      ...dataRef.current,
-      boeken: dataRef.current.boeken.map((b) => ({
-        ...b,
-        secties: b.secties.map((s) => ({
-          ...s,
-          paginas: s.paginas.map((p) =>
-            p.id === pagina.id
-              ? { ...p, ...patch, bijgewerkt: new Date().toISOString() }
-              : p,
-          ),
+    wijzigen(
+      {
+        ...dataRef.current,
+        boeken: dataRef.current.boeken.map((b) => ({
+          ...b,
+          secties: b.secties.map((s) => ({
+            ...s,
+            paginas: s.paginas.map((p) =>
+              p.id === pagina.id
+                ? { ...p, ...patch, bijgewerkt: new Date().toISOString() }
+                : p,
+            ),
+          })),
         })),
-      })),
-    });
+      },
+      groep,
+    );
   }
   function wijzigBlok(id: string, patch: Partial<Blok>) {
     if (pagina)
-      wijzigPagina({
-        blokken: pagina.blokken.map((b) =>
-          b.id === id ? { ...b, ...patch } : b,
-        ),
-      });
+      wijzigPagina(
+        {
+          vakken: pagina.vakken.map((v) => ({
+            ...v,
+            blokken: v.blokken.map((b) =>
+              b.id === id ? { ...b, ...patch } : b,
+            ),
+          })),
+        },
+        Object.hasOwn(patch, "tekst") ? `tekst:${id}` : "",
+      );
   }
   function kiesPagina(id: string) {
     const r =
@@ -335,7 +341,7 @@ export default function NotitiesStudio({
     setPaginaId(id);
     setBoekId(r.boek.id);
     setSectieId(r.sectie.id);
-    setBlokId(r.pagina.blokken[0].id);
+    setBlokId(r.pagina.vakken[0]?.blokken[0]?.id ?? "");
   }
   function focusBlok(id: string) {
     setBlokId(id);
@@ -346,16 +352,27 @@ export default function NotitiesStudio({
     );
   }
   function voegBlokToe(soort: BlokSoort = "tekst", tekst = "") {
-    if (!pagina || pagina.verwijderd || pagina.blokken.length >= 2000) return;
+    if (!pagina || pagina.verwijderd || paginaBlokken(pagina).length >= 2000)
+      return;
     const nieuw = nieuwBlok(tekst, soort);
-    const index = pagina.blokken.findIndex((b) => b.id === blokId);
-    const blokken = [...pagina.blokken];
+    if (!actiefVak) {
+      const vak = nieuwTekstvak([nieuw]);
+      wijzigPagina({ vakken: [...pagina.vakken, vak] });
+      focusBlok(nieuw.id);
+      return;
+    }
+    const index = actiefVak.blokken.findIndex((b) => b.id === blokId);
+    const blokken = [...actiefVak.blokken];
     blokken.splice(index < 0 ? blokken.length : index + 1, 0, nieuw);
-    wijzigPagina({ blokken });
+    wijzigPagina({
+      vakken: pagina.vakken.map((v) =>
+        v.id === actiefVak.id ? { ...v, blokken } : v,
+      ),
+    });
     focusBlok(nieuw.id);
   }
   function splitsBlok(blok: Blok, positie: number, einde: number) {
-    if (!pagina || pagina.blokken.length >= 2000) return;
+    if (!pagina || !actiefVak || paginaBlokken(pagina).length >= 2000) return;
     if (!blok.tekst && (blok.soort === "taak" || blok.soort === "opsomming")) {
       wijzigBlok(blok.id, { soort: "tekst" });
       return;
@@ -364,23 +381,65 @@ export default function NotitiesStudio({
       blok.tekst.slice(einde),
       blok.soort === "kop" || blok.soort === "subkop" ? "tekst" : blok.soort,
     );
-    const index = pagina.blokken.findIndex((b) => b.id === blok.id);
-    const blokken = [...pagina.blokken];
+    const index = actiefVak.blokken.findIndex((b) => b.id === blok.id);
+    const blokken = [...actiefVak.blokken];
     blokken.splice(
       index,
       1,
       { ...blok, tekst: blok.tekst.slice(0, positie) },
       nieuw,
     );
-    wijzigPagina({ blokken });
+    wijzigPagina({
+      vakken: pagina.vakken.map((v) =>
+        v.id === actiefVak.id ? { ...v, blokken } : v,
+      ),
+    });
     focusBlok(nieuw.id);
   }
   function verwijderBlok(blok: Blok) {
-    if (!pagina || pagina.blokken.length <= 1) return;
-    const index = pagina.blokken.findIndex((b) => b.id === blok.id);
-    const vorig = pagina.blokken[Math.max(0, index - 1)].id;
-    wijzigPagina({ blokken: pagina.blokken.filter((b) => b.id !== blok.id) });
-    focusBlok(vorig === blok.id ? pagina.blokken[1].id : vorig);
+    if (!pagina || !actiefVak || actiefVak.blokken.length <= 1) return;
+    const index = actiefVak.blokken.findIndex((b) => b.id === blok.id);
+    const vorig = actiefVak.blokken[Math.max(0, index - 1)].id;
+    wijzigPagina({
+      vakken: pagina.vakken.map((v) =>
+        v.id === actiefVak.id
+          ? { ...v, blokken: v.blokken.filter((b) => b.id !== blok.id) }
+          : v,
+      ),
+    });
+    focusBlok(vorig === blok.id ? actiefVak.blokken[1].id : vorig);
+  }
+  function nieuwVak(x?: number, y?: number) {
+    if (!pagina || pagina.verwijderd || paginaBlokken(pagina).length >= 2000)
+      return;
+    const offset = (pagina.vakken.length % 5) * 28;
+    const vak = {
+      ...nieuwTekstvak(
+        undefined,
+        x ?? (canvasVenster.current?.scrollLeft ?? 0) / zoom + 40 + offset,
+        y ?? (canvasVenster.current?.scrollTop ?? 0) / zoom + 32 + offset,
+      ),
+      breedte: 360,
+    };
+    wijzigPagina({ vakken: [...pagina.vakken, vak] });
+    focusBlok(vak.blokken[0].id);
+  }
+  function wijzigVak(id: string, plaats: VakPlaats) {
+    if (!pagina || pagina.verwijderd) return;
+    wijzigPagina(
+      {
+        vakken: pagina.vakken.map((v) =>
+          v.id === id ? { ...v, ...begrensVak(plaats) } : v,
+        ),
+      },
+      `plaats:${id}`,
+    );
+  }
+  function verwijderVak(id: string) {
+    if (!pagina || pagina.verwijderd) return;
+    const vakken = pagina.vakken.filter((v) => v.id !== id);
+    wijzigPagina({ vakken });
+    setBlokId(vakken[0]?.blokken[0]?.id ?? "");
   }
   function nieuweInhoud(soort: "boek" | "sectie" | "pagina") {
     if (!data || !boek || !sectie) return;
@@ -421,7 +480,7 @@ export default function NotitiesStudio({
     setBoekId(soort === "boek" ? b.id : boek.id);
     setSectieId(soort === "pagina" ? sectie.id : s.id);
     setPaginaId(p.id);
-    setBlokId(p.blokken[0].id);
+    setBlokId(p.vakken[0].blokken[0].id);
     setZoekterm("");
     setPrullenbak(false);
     if (soort !== "pagina")
@@ -498,6 +557,20 @@ export default function NotitiesStudio({
             naam: "Start",
             inhoud: (
               <>
+                <Groep naam="Bewerken" className="notities-historie">
+                  <Actie
+                    icoon={Undo2}
+                    naam="Ongedaan maken"
+                    disabled={!historie.current.kanTerug}
+                    onClick={() => herstelStap()}
+                  />
+                  <Actie
+                    icoon={Redo2}
+                    naam="Opnieuw"
+                    disabled={!historie.current.kanVooruit}
+                    onClick={() => herstelStap(true)}
+                  />
+                </Groep>
                 <Groep naam="Organiseren">
                   <Actie
                     icoon={NotebookPen}
@@ -567,6 +640,13 @@ export default function NotitiesStudio({
                 </Groep>
                 <Groep naam="Invoegen">
                   <Actie
+                    icoon={TextCursorInput}
+                    naam="Tekstvak"
+                    groot
+                    disabled={!bewerkbaar}
+                    onClick={() => nieuwVak()}
+                  />
+                  <Actie
                     icoon={CheckSquare}
                     naam="Taak"
                     groot
@@ -597,6 +677,14 @@ export default function NotitiesStudio({
                 </Groep>
                 <Groep naam="Pagina">
                   <Actie
+                    icoon={PanelLeft}
+                    naam="Navigatie"
+                    groot
+                    actief={toonPanelen}
+                    title="Notitieboeken en paginalijst weergeven of verbergen"
+                    onClick={() => setToonPanelen(!toonPanelen)}
+                  />
+                  <Actie
                     icoon={Pin}
                     naam="Vastzetten"
                     actief={pagina?.vastgezet}
@@ -617,6 +705,45 @@ export default function NotitiesStudio({
                     }}
                   />
                 </Groep>
+              </>
+            ),
+          },
+          {
+            id: "beeld",
+            naam: "Beeld",
+            inhoud: (
+              <>
+                <Groep naam="Pagina">
+                  <Actie
+                    icoon={Grid2X2}
+                    naam="Raster"
+                    groot
+                    actief={raster}
+                    onClick={() => setRaster(!raster)}
+                  />
+                </Groep>
+                <Groep naam="Zoom">
+                  <label className="ribbon-keuze">
+                    <select
+                      aria-label="Pagina zoom"
+                      value={zoom}
+                      onChange={(e) => setZoom(Number(e.target.value))}
+                    >
+                      {[0.5, 0.75, 1, 1.25, 1.5, 2].map((waarde) => (
+                        <option key={waarde} value={waarde}>
+                          {Math.round(waarde * 100)}%
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                </Groep>
+                <p className="notities-bewaaruitleg">
+                  Sleep tekstvakken aan de bovenrand. Wijzig de grootte
+                  rechtsonder.
+                  <br />
+                  Je kunt de verplaatsgrepen ook met de pijltjestoetsen
+                  bedienen.
+                </p>
               </>
             ),
           },
@@ -690,7 +817,7 @@ export default function NotitiesStudio({
             setBoekId(b.id);
             setSectieId(b.secties[0].id);
             setPaginaId(b.secties[0].paginas[0].id);
-            setBlokId(b.secties[0].paginas[0].blokken[0].id);
+            setBlokId(b.secties[0].paginas[0].vakken[0]?.blokken[0]?.id ?? "");
             setZoekterm("");
             setPrullenbak(false);
             setMelding(
@@ -734,7 +861,9 @@ export default function NotitiesStudio({
         </div>
       )}
       {data && (
-        <div className="notities-werkruimte">
+        <div
+          className={`notities-werkruimte ${toonPanelen ? "" : "zonder-panelen"}`}
+        >
           <aside
             className="notities-boeken"
             aria-label="Notitieboeken en secties"
@@ -899,7 +1028,7 @@ export default function NotitiesStudio({
                     {p.titel || "Naamloze pagina"}
                   </strong>
                   <span>
-                    {p.blokken
+                    {paginaBlokken(p)
                       .map((b) => b.tekst)
                       .filter(Boolean)
                       .join(" ")
@@ -950,7 +1079,12 @@ export default function NotitiesStudio({
                   maxLength={300}
                   readOnly={pagina.verwijderd}
                   placeholder="Naamloze pagina"
-                  onChange={(e) => wijzigPagina({ titel: e.target.value })}
+                  onChange={(e) =>
+                    wijzigPagina(
+                      { titel: e.target.value },
+                      `titel:${pagina.id}`,
+                    )
+                  }
                 />
                 <div className="notities-paginadatum">
                   <CalendarDays size={13} />
@@ -959,7 +1093,7 @@ export default function NotitiesStudio({
                     timeStyle: "short",
                   }).format(new Date(pagina.bijgewerkt))}
                   <span>·</span>
-                  {pagina.blokken.reduce(
+                  {paginaBlokken(pagina).reduce(
                     (a, b) =>
                       a + b.tekst.trim().split(/\s+/).filter(Boolean).length,
                     0,
@@ -981,7 +1115,7 @@ export default function NotitiesStudio({
                       </button>
                     </div>
                     <div className="notities-leestekst">
-                      {pagina.blokken.map((b) => (
+                      {paginaBlokken(pagina).map((b) => (
                         <p key={b.id}>
                           {b.soort === "taak" ? (b.klaar ? "☑ " : "☐ ") : ""}
                           {b.tekst}
@@ -990,35 +1124,56 @@ export default function NotitiesStudio({
                     </div>
                   </>
                 ) : (
-                  <>
-                    <div className="notities-tekstblokken">
-                      {pagina.blokken.map((blok) => (
-                        <div key={blok.id} data-blok={blok.id}>
-                          <TekstBlok
-                            blok={blok}
-                            actief={blokId === blok.id}
-                            kies={() => setBlokId(blok.id)}
-                            wijzig={(patch) => wijzigBlok(blok.id, patch)}
-                            splits={(positie, einde) =>
-                              splitsBlok(blok, positie, einde)
-                            }
-                            verwijder={() => verwijderBlok(blok)}
-                          />
-                        </div>
-                      ))}
-                    </div>
-                    <button
-                      className="notities-bloktoevoegen"
-                      disabled={pagina.blokken.length >= 2000}
-                      onClick={() => voegBlokToe()}
-                    >
-                      <Plus size={15} /> Tekst toevoegen
-                    </button>
-                    <div className="notities-paginatip">
-                      Enter voor een nieuw blok · Shift+Enter voor een nieuwe
-                      regel
-                    </div>
-                  </>
+                  <TekstCanvas
+                    key={pagina.id}
+                    vakken={pagina.vakken}
+                    actiefId={actiefVak?.id}
+                    zoom={zoom}
+                    raster={raster}
+                    venster={canvasVenster}
+                    kies={(vak) => {
+                      if (!vak.blokken.some((b) => b.id === blokId))
+                        setBlokId(vak.blokken[0].id);
+                    }}
+                    wijzig={wijzigVak}
+                    verwijder={verwijderVak}
+                    nieuw={nieuwVak}
+                    render={(vak: Tekstvak) => (
+                      <>
+                        {vak.blokken.map((blok) => (
+                          <div key={blok.id} data-blok={blok.id}>
+                            <TekstBlok
+                              blok={blok}
+                              actief={blokId === blok.id}
+                              kies={() => setBlokId(blok.id)}
+                              wijzig={(patch) => wijzigBlok(blok.id, patch)}
+                              splits={(positie, einde) =>
+                                splitsBlok(blok, positie, einde)
+                              }
+                              verwijder={() => verwijderBlok(blok)}
+                            />
+                          </div>
+                        ))}
+                        <button
+                          className="notities-bloktoevoegen"
+                          disabled={paginaBlokken(pagina).length >= 2000}
+                          onClick={() => {
+                            const blok = nieuwBlok();
+                            wijzigPagina({
+                              vakken: pagina.vakken.map((v) =>
+                                v.id === vak.id
+                                  ? { ...v, blokken: [...v.blokken, blok] }
+                                  : v,
+                              ),
+                            });
+                            focusBlok(blok.id);
+                          }}
+                        >
+                          <Plus size={13} /> Tekst toevoegen
+                        </button>
+                      </>
+                    )}
+                  />
                 )}
               </article>
             ) : (
@@ -1037,7 +1192,10 @@ export default function NotitiesStudio({
       <div className="notities-opslagstatus" role="status">
         {vuil.current ? <AlertCircle size={13} /> : <ShieldCheck size={13} />}
         {status}
-        <span>Ctrl+S opslaan · Ctrl+Shift+F zoeken</span>
+        <span>
+          {pagina?.vakken.length ?? 0} tekstvakken · {Math.round(zoom * 100)}% ·
+          Ctrl+Z ongedaan maken
+        </span>
       </div>
       {naamveld && (
         <div

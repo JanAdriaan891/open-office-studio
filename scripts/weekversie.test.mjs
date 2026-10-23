@@ -47,11 +47,17 @@ describe("ISO-weekversies", () => {
           },
         );
       expect(uitvoeren("controleer-weekversie.mjs")).toContain("weekversie");
-      uitvoeren("weekversie.mjs", "2026-10-23", "2");
-      expect(uitvoeren("controleer-weekversie.mjs")).toContain("2026-W43.2");
+      const huidig = JSON.parse(
+        await readFile(join(werkmap, "versie.json"), "utf8"),
+      );
+      const volgnummer = huidig.volgnummer === 1 ? 2 : 1;
+      uitvoeren("weekversie.mjs", "2026-10-23", String(volgnummer));
+      expect(uitvoeren("controleer-weekversie.mjs")).toContain(
+        `2026-W43.${volgnummer}`,
+      );
       expect(
         JSON.parse(await readFile(join(werkmap, "versie.json"), "utf8")).versie,
-      ).toBe("2026.43.2");
+      ).toBe(`2026.43.${volgnummer}`);
     } finally {
       await rm(werkmap, { recursive: true, force: true });
     }
