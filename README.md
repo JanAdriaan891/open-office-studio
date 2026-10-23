@@ -6,51 +6,56 @@ Actuele bronversie: **2026-W43.4** (`2026.43.4`). Zie [versieafspraken](docs/ver
 
 **[Open Database Studio](apps/database-studio)** is nu ook een afzonderlijke desktopapp voor oude MDB- en ACCDB-databases, met een eigen venster en installers. Tekst, Rekenblad, Presentatie en Notities zijn onderdeel van de kantooromgeving.
 
-![OpenAEC Office Studio in officiële OpenAEC-stijl](docs/screenshots/start-2026-W43.3.jpg)
+![OpenAEC Office Studio in officiële OpenAEC-stijl](docs/screenshots/start-2026-W43.4.jpg)
 
 ## In beeld
 
 Werkelijke schermafbeeldingen van de lokale productiebuild, met de eigen [voorbeeldbestanden](docs/voorbeelden). De interface heeft een gedeelde ribbon, contextuele opdrachten en een lokaal bestandsmenu. Deze beelden tonen de ontwikkelversie; ze zijn geen verklaring van volledige formaatcompatibiliteit.
 
-De meeste kantoorbeelden tonen bronversie 2026-W43.3; de Markdownsectie in Notities toont 2026-W43.4. De interface volgt het officiële [OpenAEC-stijlboek](docs/ontwerp/openaec-stijl.md), met Forge- en Light-weergave, een compact lint en het OpenAEC-symbool. De zon-/maanknop wisselt de appweergave; documenten en het vrije notitiecanvas blijven licht. Het lint kan worden ingeklapt; het bestandsmenu bedekt de volledige werkruimte. De drie voorbeelden zijn rechtstreeks vanuit het startscherm te openen.
+De beelden zijn op 24 oktober 2026 vastgelegd uit bronversie **2026-W43.4**. De interface volgt het officiële [OpenAEC-stijlboek](docs/ontwerp/openaec-stijl.md), met Forge- en Light-weergave, een compact lint en het OpenAEC-symbool. De zon-/maanknop wisselt de appweergave; documenten en het vrije notitiecanvas blijven licht. Het lint kan worden ingeklapt; het bestandsmenu bedekt de volledige werkruimte. De drie voorbeelden zijn rechtstreeks vanuit het startscherm te openen. Alle negen beelden staan in het [schermafbeeldingenoverzicht](docs/screenshots).
 
 ### Open Tekst Studio
 
 Paginaweergave met tekstopmaak, alineastijlen en documentnavigatie. Kies bovenin **Markdown (.md)** en **Opslaan als** om tekst, koppen, lijsten, links en tabellen als Markdown te bewaren. Dit werkt ook in de browser, zonder conversieruntime. Paginaopmaak en ingesloten afbeeldingen vragen daarnaast om een DOCX; Markdown bevat bij afbeeldingen een leesbare verwijzing.
 
-![Tekst: ontwerpnotitie met compact OpenAEC-lint en navigatie](docs/screenshots/tekst-2026-W43.3.jpg)
+![Tekst: ontwerpnotitie met compact OpenAEC-lint en linialen](docs/screenshots/tekst-2026-W43.4.jpg)
+
+<details>
+<summary>Licht thema en bestandsmenu bekijken</summary>
+
+![Tekst: dezelfde ontwerpnotitie in het lichte thema](docs/screenshots/tekst-licht-2026-W43.4.jpg)
+
+![Bestandsmenu: de werkruimte en het lint zijn volledig bedekt](docs/screenshots/bestandsmenu-2026-W43.4.jpg)
+
+</details>
 
 ### Open Rekenblad Studio
 
 Rekenblad met formulebalk, rij- en kolomkoppen, celopmaak en berekende materiaaltotalen.
 
-![Rekenblad: materiaaloverzicht met formules en opgemaakte cellen](docs/screenshots/rekenblad-2026-W43.3.jpg)
+![Rekenblad: materiaaloverzicht met formules en opgemaakte cellen](docs/screenshots/rekenblad-2026-W43.4.jpg)
 
 ### Open Presentatie Studio
 
 Dia’s, vormen, tekst en sprekersnotities in één werkruimte.
 
-![Presentatie: ontwerpvisie met dia-overzicht en sprekersnotities](docs/screenshots/presentatie-2026-W43.3.jpg)
+![Presentatie: ontwerpvisie met dia-overzicht en sprekersnotities](docs/screenshots/presentatie-2026-W43.4.jpg)
 
 ### Open Database Studio — experimenteel
 
-Opent MDB- en ACCDB-bestanden lokaal en alleen lezen, met kolomtypen en paginering; het beeld toont de ingebouwde voorbeelddatabase. Query’s, formulieren en VBA ontbreken nog.
+Opent MDB- en ACCDB-bestanden lokaal en alleen lezen, met kolomtypen en paginering. Het beeld toont de zelfstandige database-app met het gedeelde OpenAEC-lint en de ingebouwde voorbeeldgegevens. De query- en modulevermeldingen horen bij die demonstratie; query’s en VBA uit echte bestanden uitlezen of uitvoeren, formulieren en bewerking ontbreken nog.
 
-![Database: voorbeelddatabase met tabel, query en VBA-module in de objectbrowser](docs/screenshots/database-0.4.3.jpg)
-
-De zelfstandige database-app, met dezelfde weekversie en het gedeelde OpenAEC-lint, hier met de ingebouwde voorbeeldgegevens:
-
-![Zelfstandige Open Database Studio met voorbeeldtabel](docs/screenshots/database-2026-W43.3.jpg)
+![Zelfstandige Open Database Studio met voorbeeldtabel](docs/screenshots/database-2026-W43.4.jpg)
 
 ### Open Notities Studio
 
 Een vrije pagina met tekstvakken die je zelf plaatst, sleept en groter of kleiner maakt. Ieder tekstvak kan alinea’s, koppen en taken bevatten. Notitieboeken en secties houden alles bij elkaar. Met zoom, inklapbare navigatie, ongedaan maken, automatisch lokaal opslaan, back-ups en Markdown-export. Oudere notities blijven leesbaar. Zie [werking en opslag](docs/notities.md).
 
-![Notities: drie vrij geplaatste tekstvakken in de werkelijke productiebuild](docs/screenshots/notities-2026-W43.3.jpg)
+![Notities: drie vrij geplaatste tekstvakken in de werkelijke productiebuild](docs/screenshots/notities-canvas-2026-W43.4.jpg)
 
 Vanaf **2026-W43.4** kan iedere notitiesectie **Canvas** of **Markdown** zijn. Markdown heeft een broneditor, direct voorbeeld, tabellen, takenlijsten en `.md`-import/export. Bij omzetten blijft de oorspronkelijke sectie behouden.
 
-![Notities: Markdownsectie met bron en direct voorbeeld](docs/screenshots/notities-markdown-2026-W43.4.jpg)
+![Notities: Markdownsectie met bron en direct voorbeeld](docs/screenshots/notities-markdown-breed-2026-W43.4.jpg)
 
 ## Modules
 
