@@ -42,7 +42,7 @@ export async function zetWeekversie(datum, volgnummer) {
     );
     const lock = `${map}/Cargo.lock`;
     const inhoud = await readFile(lock, "utf8");
-    const patroon = new RegExp(`(name = "${naam}"\\nversion = ")[^"]+`);
+    const patroon = new RegExp(`(name = "${naam}"\\r?\\nversion = ")[^"]+`);
     if (!patroon.test(inhoud)) throw new Error(`Project ontbreekt in ${lock}.`);
     await writeFile(lock, inhoud.replace(patroon, `$1${versie}`));
   }

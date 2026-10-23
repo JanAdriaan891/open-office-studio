@@ -4,7 +4,7 @@ Gecontroleerd op 23 oktober 2026. De versiebestanden van Office Studio en Open D
 
 ## Uitgevoerd
 
-- 42 frontendproeven slagen, waaronder acht ISO-weekgevallen met jaarwisselingen en ongeldige datums.
+- 43 frontendproeven slagen, waaronder acht ISO-weekgevallen met jaarwisselingen en ongeldige datums. Een integratieproef controleert en wijzigt de echte versiebestanden van beide apps in een tijdelijke map met Windows-regeleinden.
 - De versiecontrole bevestigt dezelfde versie in package-, Tauri-, Cargo- en lockbestanden van beide apps.
 - De zelfstandige Database-productiebundel bouwt met ongeveer 506 kB JavaScript, inclusief worker. De bundelcontrole vindt geen kantoorengine of kantoor-WASM en bevestigt de meegedistribueerde licenties.
 - De gebouwde databaseworker leest een oudere MDB, een ACCDB en een MDB met 512 rijen, ook zonder de gebruikelijke Node-globals. Paginering wordt afzonderlijk gecontroleerd.

@@ -29,7 +29,7 @@ for (const [map, naam] of [
   assert.equal(cargo.match(/^version = "([^"]+)"/m)?.[1], gegevens.versie, map);
   const lock = await readFile(`${map}/Cargo.lock`, "utf8");
   assert.equal(
-    lock.match(new RegExp(`name = "${naam}"\\nversion = "([^"]+)"`))?.[1],
+    lock.match(new RegExp(`name = "${naam}"\\r?\\nversion = "([^"]+)"`))?.[1],
     gegevens.versie,
     map,
   );
