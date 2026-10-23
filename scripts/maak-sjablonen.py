@@ -1,4 +1,6 @@
 """Maak lege, geldige kantoorbestanden voor de knop Nieuw (ontwikkelhulpmiddel)."""
+import re
+import zipfile
 from pathlib import Path
 from docx import Document
 from openpyxl import Workbook
@@ -6,6 +8,19 @@ from pptx import Presentation
 from pptx.util import Inches
 uitvoer = Path(__file__).resolve().parents[1] / 'public' / 'templates'
 uitvoer.mkdir(parents=True, exist_ok=True)
+
+
+def zet_toepassing(pad):
+    """Zet de toepassingsnaam in docProps/app.xml op die van deze suite."""
+    with zipfile.ZipFile(pad) as z:
+        delen = [(info, z.read(info.filename)) for info in z.infolist()]
+    with zipfile.ZipFile(pad, 'w') as z:
+        for info, data in delen:
+            if info.filename == 'docProps/app.xml':
+                data = re.sub(rb'<Application>[^<]*</Application>', b'<Application>OpenAEC Office Studio</Application>', data)
+            z.writestr(info, data)
+
+
 d = Document()
 d.core_properties.author = ''
 d.core_properties.last_modified_by = ''
@@ -24,3 +39,5 @@ s = p.slides.add_slide(p.slide_layouts[0])
 s.shapes.title.text = 'Titel van de presentatie'
 s.placeholders[1].text = 'Voeg een ondertitel toe'
 p.save(uitvoer / 'nieuw.pptx')
+for naam in ('nieuw.docx', 'nieuw.xlsx', 'nieuw.pptx'):
+    zet_toepassing(uitvoer / naam)

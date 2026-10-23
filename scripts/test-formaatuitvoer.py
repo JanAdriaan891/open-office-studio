@@ -15,7 +15,7 @@ for route in ("odt", "doc"):
     for alinea in origineel.paragraphs:
         assert not alinea.text or alinea.text in tekst, (route, alinea.text)
     assert len(document.tables) == len(origineel.tables)
-    print(f"Writer via {route}: alineatekst en aantal tabellen behouden.")
+    print(f"Tekst via {route}: alineatekst en aantal tabellen behouden.")
 
 bronboek = load_workbook("docs/voorbeelden/Materiaaloverzicht.xlsx")
 for route in ("ods", "xls"):
@@ -28,7 +28,7 @@ for route in ("ods", "xls"):
         for cel in rij:
             if cel.value is not None:
                 assert boek.active[cel.coordinate].value == cel.value, (route, cel.coordinate)
-    print(f"Calc via {route}: alle ingevulde cellen, formules en berekend totaal behouden.")
+    print(f"Rekenblad via {route}: alle ingevulde cellen, formules en berekend totaal behouden.")
 
 def teksten(presentatie):
     return [p.text for dia in presentatie.slides for vorm in dia.shapes if vorm.has_text_frame for p in vorm.text_frame.paragraphs if p.text]

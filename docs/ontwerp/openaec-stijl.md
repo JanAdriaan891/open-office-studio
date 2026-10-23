@@ -9,7 +9,7 @@ De weekuitgave 2026-W43.1 gebruikt de officiële [OpenAEC-style-book](https://gi
 - Inter voor bediening en Space Grotesk 700 voor koppen en het productmerk. Lettertypen worden lokaal meegeleverd.
 - Het officiële OpenAEC-symbool in beide kopbalken.
 - Een compacte kopbalk van 44 pixels, linttabbladen van 30 pixels en een opdrachtpaneel van 98 pixels, aansluitend op het desktopvoorbeeld.
-- Dezelfde stijl voor Writer, Calc, Presentatie en de afzonderlijke database-app. Documentinhoud en celopmaak behouden hun eigen kleuren en lettertypen.
+- Dezelfde stijl voor Tekst, Rekenblad, Presentatie en de afzonderlijke database-app. Documentinhoud en celopmaak behouden hun eigen kleuren en lettertypen.
 - Donkere databasepanelen gebruiken Deep Forge en Night Build met lichte tekst. Kleine actieve bedieningselementen krijgen een amber accent.
 
 De kopbalkhoogte en de bovenrand van het bestandsmenu delen één CSS-variabele, zodat het menu de volledige ribbon blijft bedekken. Het inkappen van het lint en bestaande toetsenbordbediening blijven beschikbaar. Er zijn geen nieuwe vensterknoppen toegevoegd die in de browser niet werken; de desktopapp behoudt de native vensterbediening.

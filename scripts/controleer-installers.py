@@ -81,7 +81,7 @@ def windows(pakket, map, programmanaam="open-office-studio"):
     loader = een(map.rglob("WebView2Loader.dll"), "WebView2-loader")
     pe_x64(programma)
     pe_x64(loader)
-    bootstrapper = een(map.rglob("MicrosoftEdgeWebview2Setup.exe"), "WebView2-bootstrapper")
+    bootstrapper = een(map.rglob("*Webview2Setup.exe"), "WebView2-bootstrapper")
     eis(bootstrapper.stat().st_size > 1_000_000, "De WebView2-bootstrapper is onvolledig.")
     with bootstrapper.open("rb") as bestand:
         eis(bestand.read(2) == b"MZ", "De WebView2-bootstrapper is geen uitvoerbaar bestand.")
@@ -123,12 +123,12 @@ def appimage(pakket, map, programma="open-office-studio"):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--platform", choices=["windows", "linux"], required=True)
-    parser.add_argument("--programma", choices=["open-office-studio", "open-access-studio"], default="open-office-studio")
+    parser.add_argument("--programma", choices=["open-office-studio", "open-database-studio"], default="open-office-studio")
     parser.add_argument("--bundels", type=Path, default=Path("src-tauri/target/release/bundle"))
     parser.add_argument("--versie", default=json.loads(Path("package.json").read_text())["version"])
     parser.add_argument("--rapport", type=Path, required=True)
     opties = parser.parse_args()
-    product = "Open*Access*Studio" if opties.programma == "open-access-studio" else "Open*Office*Studio"
+    product = "Open*Database*Studio" if opties.programma == "open-database-studio" else "Open*Office*Studio"
     patronen = ([f"{product}_{opties.versie}_x64-setup.exe"] if opties.platform == "windows" else
                 [f"{product}_{opties.versie}_amd64.deb", f"{product}_{opties.versie}_amd64.AppImage"])
     uitkomsten = []

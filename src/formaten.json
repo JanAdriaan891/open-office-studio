@@ -33,12 +33,12 @@
     ],
     "eigenUitvoer": ["md"],
     "uitvoer": {
-      "docx": "Office Open XML Text",
-      "odt": "writer8",
-      "doc": "MS Word 97",
-      "rtf": "Rich Text Format",
+      "docx": "",
+      "odt": "",
+      "doc": "",
+      "rtf": "",
       "txt": "Text (encoded):UTF8",
-      "pdf": "writer_pdf_Export"
+      "pdf": ""
     }
   },
   "xlsx": {
@@ -80,11 +80,11 @@
     ],
     "eigenUitvoer": [],
     "uitvoer": {
-      "xlsx": "Calc MS Excel 2007 XML",
-      "ods": "calc8",
-      "xls": "MS Excel 97",
-      "csv": "Text - txt - csv (StarCalc)",
-      "pdf": "calc_pdf_Export"
+      "xlsx": "",
+      "ods": "",
+      "xls": "",
+      "csv": "",
+      "pdf": ""
     }
   },
   "pptx": {
@@ -110,11 +110,11 @@
     ],
     "eigenUitvoer": [],
     "uitvoer": {
-      "pptx": "Impress MS PowerPoint 2007 XML",
-      "odp": "impress8",
-      "ppt": "MS PowerPoint 97",
-      "ppsx": "Impress MS PowerPoint 2007 XML AutoPlay",
-      "pdf": "impress_pdf_Export"
+      "pptx": "",
+      "odp": "",
+      "ppt": "",
+      "ppsx": "",
+      "pdf": ""
     }
   }
 }

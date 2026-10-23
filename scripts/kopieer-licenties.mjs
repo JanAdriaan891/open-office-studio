@@ -71,8 +71,8 @@ async function lees(map) {
   }
 }
 const project = JSON.parse(await readFile("package.json", "utf8"));
-const alleenAccess = process.argv.includes("--access");
-const namen = alleenAccess
+const alleenDatabase = process.argv.includes("--database");
+const namen = alleenDatabase
   ? [
       "react",
       "react-dom",
@@ -90,8 +90,8 @@ for (const naam of namen) {
   if (!map) throw new Error(`Productieafhankelijkheid ontbreekt: ${naam}`);
   await lees(map);
 }
-const uitvoermap = alleenAccess
-  ? "apps/access-studio/public/licenses"
+const uitvoermap = alleenDatabase
+  ? "apps/database-studio/public/licenses"
   : "public/licenses";
 await mkdir(uitvoermap, { recursive: true });
 await copyFile("src/stijl/LICENSE", `${uitvoermap}/OpenAEC-style-LICENSE.txt`);

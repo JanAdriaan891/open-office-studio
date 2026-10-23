@@ -43,7 +43,7 @@ async function markdown(inhoud: string) {
   );
 }
 
-describe("Writer als Markdown", () => {
+describe("Tekstdocument als Markdown", () => {
   it("geeft een duidelijke afbeeldingstekst en waarschuwing wanneer beeldgegevens ontbreken", async () => {
     const tekening =
       '<w:p><w:r><w:drawing><wp:inline><wp:extent cx="1219200" cy="1219200"/><wp:docPr id="1" name="Controle" descr="Voorbeeld"/><a:graphic xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"><a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture"><pic:pic xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture"><pic:nvPicPr><pic:cNvPr id="1" name="Controle"/><pic:cNvPicPr/></pic:nvPicPr><pic:blipFill><a:blip r:embed="afbeelding"/><a:stretch><a:fillRect/></a:stretch></pic:blipFill><pic:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="1219200" cy="1219200"/></a:xfrm><a:prstGeom prst="rect"><a:avLst/></a:prstGeom></pic:spPr></pic:pic></a:graphicData></a:graphic></wp:inline></w:drawing></w:r></w:p>';

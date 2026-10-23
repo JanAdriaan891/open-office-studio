@@ -7,7 +7,7 @@ import "@fontsource/inter/700.css";
 import "@fontsource/space-grotesk/600.css";
 import "@fontsource/space-grotesk/700.css";
 import { OfficeStudio } from "./OfficeStudio";
-import "../packages/access/src/access.css";
+import "../packages/database/src/database.css";
 import "./stijl/openaec-office.css";
 createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

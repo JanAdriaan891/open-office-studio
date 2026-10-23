@@ -17,11 +17,11 @@
     "test:engines": "node scripts/test-kantoor-engines.mjs",
     "versie:week": "node scripts/weekversie.mjs",
     "versie:check": "node scripts/controleer-weekversie.mjs",
-    "access:dev": "vite --config apps/access-studio/vite.config.ts",
-    "preaccess:build": "node scripts/kopieer-licenties.mjs --access",
-    "access:build": "tsc --noEmit && vite build --config apps/access-studio/vite.config.ts && node scripts/controleer-access-bundel.mjs",
-    "access:desktop:dev": "cd apps/access-studio && pnpm exec tauri dev",
-    "access:desktop:build": "cd apps/access-studio && pnpm exec tauri build"
+    "database:dev": "vite --config apps/database-studio/vite.config.ts",
+    "predatabase:build": "node scripts/kopieer-licenties.mjs --database",
+    "database:build": "tsc --noEmit && vite build --config apps/database-studio/vite.config.ts && node scripts/controleer-database-bundel.mjs",
+    "database:desktop:dev": "cd apps/database-studio && pnpm exec tauri dev",
+    "database:desktop:build": "cd apps/database-studio && pnpm exec tauri build"
   },
   "dependencies": {
     "@betteroffice/docx": "0.4.3",

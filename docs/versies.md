@@ -1,6 +1,6 @@
 # Weekversies
 
-Office Studio en de zelfstandige Access Studio gebruiken dezelfde weekuitgave. `2026.43.1` staat voor ISO-week 43 van 2026 en uitgave 1 binnen die week. De interface toont `2026-W43.1`. Het numerieke formaat blijft geschikt voor de drie desktopplatformen.
+Office Studio en de zelfstandige Database Studio gebruiken dezelfde weekuitgave. `2026.43.1` staat voor ISO-week 43 van 2026 en uitgave 1 binnen die week. De interface toont `2026-W43.1`. Het numerieke formaat blijft geschikt voor de drie desktopplatformen.
 
 Vanuit de repositoryhoofdmap:
 
@@ -13,4 +13,4 @@ De eerste opdracht werkt `package.json`, beide Tauri-configuraties, beide Cargo-
 
 Een ISO-weekjaar kan rond de jaarwisseling afwijken van het kalenderjaar. De controles omvatten die overgang en weigeren ongeldige datums. De bouwstraat controleert vóór het bouwen of alle versiebestanden overeenkomen.
 
-Beide apps zijn onderdelen van dezelfde bronrepository. Access krijgt een eigen installer en eigen applicatie-id, zodat beide programma’s naast elkaar kunnen worden geïnstalleerd. Een weekrelease kan de pakketten van beide apps en de bijbehorende pakketrapporten bevatten.
+Beide apps zijn onderdelen van dezelfde bronrepository. Database krijgt een eigen installer en eigen applicatie-id, zodat beide programma’s naast elkaar kunnen worden geïnstalleerd. Een weekrelease kan de pakketten van beide apps en de bijbehorende pakketrapporten bevatten.

@@ -24,7 +24,7 @@ export async function zetWeekversie(datum, volgnummer) {
   for (const pad of [
     "package.json",
     "src-tauri/tauri.conf.json",
-    "apps/access-studio/src-tauri/tauri.conf.json",
+    "apps/database-studio/src-tauri/tauri.conf.json",
   ]) {
     const gegevens = JSON.parse(await readFile(pad, "utf8"));
     gegevens.version = versie;
@@ -32,7 +32,7 @@ export async function zetWeekversie(datum, volgnummer) {
   }
   for (const [map, naam] of [
     ["src-tauri", "open-office-studio"],
-    ["apps/access-studio/src-tauri", "open-access-studio"],
+    ["apps/database-studio/src-tauri", "open-database-studio"],
   ]) {
     const pad = `${map}/Cargo.toml`;
     const tekst = await readFile(pad, "utf8");

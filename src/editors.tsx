@@ -6,10 +6,14 @@ import { PptxEditor, type PptxEditorApi } from "@betteroffice/pptx-react";
 import type { PptxFontFace } from "@betteroffice/pptx";
 import * as fonts from "@betteroffice/fonts";
 import "@betteroffice/docx-react/styles.css";
-import { WriterRibbon, CalcRibbon, PresentatieRibbon } from "./editor-ribbons";
+import {
+  TekstRibbon,
+  RekenbladRibbon,
+  PresentatieRibbon,
+} from "./editor-ribbons";
 import { RibbonFout } from "./Ribbon";
-import { writerNl, calcNl, diaNl } from "./nederlands";
-import { CalcKoppen } from "./CalcKoppen";
+import { tekstNl, rekenbladNl, diaNl } from "./nederlands";
+import { RekenbladKoppen } from "./RekenbladKoppen";
 configureDefaultFonts({
   fonts,
   baseUrl: new URL("/fonts/", location.href).href,
@@ -33,8 +37,8 @@ export default function OfficeEditor(props: EditorProps) {
   const [liniaal, setLiniaal] = useState(true);
   const [navigatie, setNavigatie] = useState(false);
   const [documentGereed, setDocumentGereed] = useState(false);
-  const calcHost = useRef<HTMLDivElement>(null);
-  const [calcApi, setCalcApi] = useState<XlsxEditorApi | null>(null);
+  const rekenbladHost = useRef<HTMLDivElement>(null);
+  const [rekenbladApi, setRekenbladApi] = useState<XlsxEditorApi | null>(null);
   const recent = useRef(props);
   recent.current = props;
   useEffect(() => {
@@ -82,13 +86,13 @@ export default function OfficeEditor(props: EditorProps) {
   }, []);
   const gereedXlsx = useCallback(
     (api: XlsxEditorApi) => {
-      setCalcApi(api);
+      setRekenbladApi(api);
       props.registreer(async () => {
         await api.version();
         return api.save();
       });
       return () => {
-        setCalcApi(null);
+        setRekenbladApi(null);
         props.registreer(null);
       };
     },
@@ -124,11 +128,11 @@ export default function OfficeEditor(props: EditorProps) {
           showOutline={navigatie}
           showOutlineButton={false}
           colorMode="light"
-          i18n={writerNl}
-          className="office-writer"
+          i18n={tekstNl}
+          className="office-tekst"
           readOnly={props.inactief}
           toolbar={
-            <WriterRibbon
+            <TekstRibbon
               bestand={props.bestandsmenu}
               liniaal={liniaal}
               navigatie={navigatie}
@@ -142,19 +146,19 @@ export default function OfficeEditor(props: EditorProps) {
   if (props.soort === "xlsx")
     return (
       <RibbonFout.Provider value={(bericht) => props.fout(new Error(bericht))}>
-        <div className="office-calc-host" ref={calcHost}>
+        <div className="office-rekenblad-host" ref={rekenbladHost}>
           <XlsxEditor
             file={props.bytes}
             fileName={props.naam}
             onReady={gereedXlsx}
             onChange={props.gewijzigd}
             onSave={props.opslaan}
-            i18n={calcNl}
-            className="office-calc"
+            i18n={rekenbladNl}
+            className="office-rekenblad"
             readOnly={props.inactief}
-            toolbar={<CalcRibbon bestand={props.bestandsmenu} />}
+            toolbar={<RekenbladRibbon bestand={props.bestandsmenu} />}
           />
-          <CalcKoppen host={calcHost} api={calcApi} />
+          <RekenbladKoppen host={rekenbladHost} api={rekenbladApi} />
         </div>
       </RibbonFout.Provider>
     );

@@ -5,7 +5,7 @@ import { pathToFileURL } from "node:url";
 import assert from "node:assert/strict";
 
 // Controleert de gebouwde browserparser met een berichtadapter; geen vervanging voor een GUI-proef.
-const uitvoermap = process.env.ACCESS_DIST ?? "dist";
+const uitvoermap = process.env.DATABASE_DIST ?? "dist";
 const naam = (await readdir(`${uitvoermap}/assets`)).find((n) =>
   /^database-worker-.*\.js$/.test(n),
 );

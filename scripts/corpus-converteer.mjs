@@ -1,13 +1,25 @@
 import { spawn, execFileSync } from "node:child_process";
-import { mkdir, mkdtemp, readFile, writeFile, stat } from "node:fs/promises";
+import {
+  copyFile,
+  mkdir,
+  mkdtemp,
+  readFile,
+  writeFile,
+  stat,
+} from "node:fs/promises";
 import { resolve, join } from "node:path";
 import { pathToFileURL } from "node:url";
 
 // Alleen een conversieproef: dit belooft nog geen beschikbaarheid van deze formaten in de app.
 if (process.platform !== "linux")
+  throw new Error("Deze afgeschermde corpusproef vereist Linux en bubblewrap.");
+// Het conversieprogramma en zijn beveiligingsprofiel komen uit de omgeving, net als in de desktopapp.
+const programma = process.env.OPENAEC_CONVERSIE_PROGRAMMA;
+if (!programma)
   throw new Error(
-    "Deze afgeschermde corpusproef vereist Linux, bubblewrap en LibreOffice.",
+    "Zet OPENAEC_CONVERSIE_PROGRAMMA op het pad van het conversieprogramma.",
   );
+const profielbron = process.env.OPENAEC_CONVERSIE_PROFIEL;
 execFileSync("bwrap", [
   "--unshare-net",
   "--ro-bind",
@@ -21,17 +33,17 @@ const manifest = JSON.parse(
 const modules = [
   {
     engine: "docx",
-    filter: "docx:Office Open XML Text",
+    doel: "docx",
     extensies: ["doc", "dot", "docm", "dotx", "dotm", "odt", "rtf"],
   },
   {
     engine: "xlsx",
-    filter: "xlsx:Calc MS Excel 2007 XML",
+    doel: "xlsx",
     extensies: ["xls", "xlt", "xlsm", "xlsb", "xltx", "xltm", "ods", "csv"],
   },
   {
     engine: "pptx",
-    filter: "pptx:Impress MS PowerPoint 2007 XML",
+    doel: "pptx",
     extensies: ["ppt", "pps", "pot", "pptm", "potx", "potm", "ppsx", "odp"],
   },
 ];
@@ -56,10 +68,11 @@ async function werk() {
     const uit = join(werkmap, "uit");
     await mkdir(join(profiel, "user"), { recursive: true });
     await mkdir(uit);
-    await writeFile(
-      join(profiel, "user", "registrymodifications.xcu"),
-      `<?xml version="1.0"?><oor:items xmlns:oor="http://openoffice.org/2001/registry"><item oor:path="/org.openoffice.Office.Common/Security/Scripting"><prop oor:name="DisableMacrosExecution" oor:op="fuse"><value>true</value></prop><prop oor:name="MacroSecurityLevel" oor:op="fuse"><value>3</value></prop><prop oor:name="DisableActiveContent" oor:op="fuse"><value>true</value></prop></item></oor:items>`,
-    );
+    if (profielbron)
+      await copyFile(
+        profielbron,
+        join(profiel, "user", "registrymodifications.xcu"),
+      );
     const args = [
       "--unshare-net",
       "--die-with-parent",
@@ -75,14 +88,14 @@ async function werk() {
       "/dev",
       "--proc",
       "/proc",
-      "/usr/bin/libreoffice",
+      programma,
       `-env:UserInstallation=${pathToFileURL(profiel).href}`,
       "--headless",
       "--nologo",
       "--nodefault",
       "--norestore",
       "--convert-to",
-      taak.filter,
+      taak.doel,
       "--outdir",
       uit,
       ...taak.bestanden.map((b) => resolve(b.bestand)),

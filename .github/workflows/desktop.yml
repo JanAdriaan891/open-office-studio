@@ -27,7 +27,14 @@ jobs:
           python-version: "3.12"
       - name: Linux-bouwafhankelijkheden
         if: runner.os == 'Linux'
-        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends libwebkit2gtk-4.1-dev libgtk-3-dev libayatana-appindicator3-dev librsvg2-dev patchelf squashfs-tools libreoffice-writer libreoffice-calc libreoffice-impress poppler-utils
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends libwebkit2gtk-4.1-dev libgtk-3-dev libayatana-appindicator3-dev librsvg2-dev patchelf squashfs-tools poppler-utils
+      # De conversieruntime staat niet in deze repository: zet de Actions-variabelen
+      # CONVERSIE_APT_PAKKETTEN en CONVERSIE_PROGRAMMA om de echte conversieproeven te draaien.
+      - name: Conversieruntime installeren
+        if: runner.os == 'Linux' && vars.CONVERSIE_APT_PAKKETTEN != ''
+        env:
+          PAKKETTEN: ${{ vars.CONVERSIE_APT_PAKKETTEN }}
+        run: sudo apt-get install -y --no-install-recommends $PAKKETTEN
       - run: pnpm install --frozen-lockfile
       - run: pnpm versie:check
       - run: pnpm test
@@ -46,13 +53,14 @@ jobs:
         run: node scripts/test-database-worker.mjs .local/corpus/bestanden/jackcess-b9d004aa5f8287ae413074a933e2c54235f1de29.mdb .local/corpus/bestanden/jackcess-e16c664c03d368bc37fb55265544ba23c201f174.accdb .local/corpus/bestanden/jackcess-6121fc34bed66f15e836e8130cd9489184e7a384.mdb
       - run: cargo test --manifest-path src-tauri/Cargo.toml --locked
       - name: ODF, oudere formaten en PDF werkelijk converteren
-        if: runner.os == 'Linux'
+        if: runner.os == 'Linux' && vars.CONVERSIE_PROGRAMMA != ''
         env:
+          OPENAEC_CONVERSIE_PROGRAMMA: ${{ vars.CONVERSIE_PROGRAMMA }}
           OFFICE_TEST_UIT: ${{ runner.temp }}/formaatcontrole
           OFFICE_TEST_STRICT: ${{ github.workspace }}/.local/corpus/bestanden/poi-7ed3e45d2b7affb9ddf46ff84b6b5d3d08c414a6.xlsx
         run: cargo test --manifest-path src-tauri/Cargo.toml --locked voorbeelden_in_odf_oud_en_pdf -- --ignored
       - name: Geconverteerde inhoud onafhankelijk controleren
-        if: runner.os == 'Linux'
+        if: runner.os == 'Linux' && vars.CONVERSIE_PROGRAMMA != ''
         run: |
           python -m pip install python-docx==1.2.0 openpyxl==3.1.5 python-pptx==1.0.2
           python scripts/test-formaatuitvoer.py "${{ runner.temp }}/formaatcontrole"

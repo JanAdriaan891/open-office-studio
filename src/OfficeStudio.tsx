@@ -18,7 +18,7 @@ import {
   FileText,
 } from "lucide-react";
 import type { Soort } from "./editors";
-import { AccessStudio } from "../packages/access/src/AccessStudio";
+import { DatabaseStudio } from "../packages/database/src/DatabaseStudio";
 import "./office.css";
 import { StartScherm, modules } from "./StartScherm";
 import { DocumentOpslag, type BewaarUitkomst } from "./opslag";
@@ -52,7 +52,7 @@ class EditorGrens extends Component<{ children: ReactNode }, { fout: string }> {
 }
 export function OfficeStudio() {
   const [bestand, setBestand] = useState<Bestand | null>(null),
-    [access, setAccess] = useState(false),
+    [databaseOpen, setDatabaseOpen] = useState(false),
     [bestandsmenu, setBestandsmenu] = useState(true),
     [gewijzigd, setGewijzigd] = useState(false),
     [melding, setMelding] = useState(""),
@@ -105,7 +105,7 @@ export function OfficeStudio() {
   }
   async function kiesBestand() {
     if (bezigRef.current) return;
-    if (access) {
+    if (databaseOpen) {
       if (!databaseOpenen.current) return;
       setBestandsmenu(false);
       // Wacht tot het databasepaneel niet meer inert is; de gebruikersactie blijft actief.
@@ -236,7 +236,7 @@ export function OfficeStudio() {
         e.stopImmediatePropagation();
         if (!bezigRef.current) void kiesBestand();
       }
-      if (e.key === "Escape" && bestandsmenu && (bestand || access))
+      if (e.key === "Escape" && bestandsmenu && (bestand || databaseOpen))
         setBestandsmenu(false);
     };
     window.addEventListener("keydown", toetsen, true);
@@ -248,7 +248,7 @@ export function OfficeStudio() {
     const id = opslag.wissel();
     setGewijzigd(false);
     setMelding("");
-    setAccess(false);
+    setDatabaseOpen(false);
     setBestandsmenu(false);
     setBestand({ id, soort, naam, bytes });
     setExportFormaat(soort);
@@ -293,13 +293,13 @@ export function OfficeStudio() {
     }
   }
   const module = modules.find((item) => item.soort === bestand?.soort);
-  const ModuleIcoon = module?.icoon ?? (access ? Database : FileText);
+  const ModuleIcoon = module?.icoon ?? (databaseOpen ? Database : FileText);
   return (
     <>
       <div
         className="office"
         inert={verlaatvraag}
-        data-module={bestand?.soort ?? (access ? "access" : "start")}
+        data-module={bestand?.soort ?? (databaseOpen ? "database" : "start")}
       >
         <header className="office-header">
           <button
@@ -318,11 +318,11 @@ export function OfficeStudio() {
           <span className="office-weekversie" title={`Versie ${versie.versie}`}>
             {versie.label}
           </span>
-          {(bestand || access) && (
+          {(bestand || databaseOpen) && (
             <>
               <span className="office-header-scheiding" />
               <span className="office-modulenaam">
-                {module?.kort ?? "Access"}
+                {module?.kort ?? "Database"}
               </span>
             </>
           )}
@@ -341,7 +341,7 @@ export function OfficeStudio() {
             )}
           </div>
           <div className="office-snelacties">
-            {(bestand || access) && (
+            {(bestand || databaseOpen) && (
               <button
                 className="office-iconknop"
                 onClick={() => setBestandsmenu(true)}
@@ -353,10 +353,12 @@ export function OfficeStudio() {
             )}
             <button
               className="office-headerknop"
-              disabled={bezig || (access && !databaseGereed)}
+              disabled={bezig || (databaseOpen && !databaseGereed)}
               onClick={() => void kiesBestand()}
               title={
-                access ? "Database openen · Ctrl+O" : "Bestand openen · Ctrl+O"
+                databaseOpen
+                  ? "Database openen · Ctrl+O"
+                  : "Bestand openen · Ctrl+O"
               }
             >
               <FolderOpen size={16} />
@@ -446,7 +448,7 @@ export function OfficeStudio() {
                   "Geïmporteerd als bewerkbare kopie. Het origineel is behouden. Opmaak kan afwijken; macro’s en actieve inhoud zijn niet uitgevoerd en worden niet overgenomen in deze kopie.",
                 );
               }
-              setAccess(false);
+              setDatabaseOpen(false);
             } catch (error) {
               setMelding("Openen mislukt: " + String(error));
             } finally {
@@ -495,28 +497,30 @@ export function OfficeStudio() {
               </Suspense>
             </EditorGrens>
           </div>
-        ) : access ? (
-          <AccessStudio
+        ) : databaseOpen ? (
+          <DatabaseStudio
             bestandsmenu={() => setBestandsmenu(true)}
             inactief={bestandsmenu || verlaatvraag}
             registreerOpenen={registreerDatabaseOpenen}
           />
         ) : null}
-        {(bestandsmenu || (!bestand && !access)) && (
+        {(bestandsmenu || (!bestand && !databaseOpen)) && (
           <div
-            className={`office-backstage ${bestand || access ? "is-overlay" : ""}`}
+            className={`office-backstage ${bestand || databaseOpen ? "is-overlay" : ""}`}
           >
             <StartScherm
-              bezig={bezig || (access && !databaseGereed)}
+              bezig={bezig || (databaseOpen && !databaseGereed)}
               terug={
-                bestand || access ? () => setBestandsmenu(false) : undefined
+                bestand || databaseOpen
+                  ? () => setBestandsmenu(false)
+                  : undefined
               }
               open={() => void kiesBestand()}
               nieuw={(soort) => void nieuw(soort)}
               voorbeeld={(soort) => void voorbeeld(soort)}
-              databaseActief={access}
+              databaseActief={databaseOpen}
               bewaar={bestand && gereed ? () => void opslaan() : undefined}
-              access={() =>
+              openDatabase={() =>
                 void (async () => {
                   if (bezigRef.current) return;
                   if (!(await verlaten())) return;
@@ -524,7 +528,7 @@ export function OfficeStudio() {
                   serialiseer.current = null;
                   setGereed(false);
                   setBestand(null);
-                  setAccess(true);
+                  setDatabaseOpen(true);
                   setBestandsmenu(false);
                   setGewijzigd(false);
                   setMelding("");
@@ -541,7 +545,7 @@ export function OfficeStudio() {
           </span>
           <span>
             {module?.naam ??
-              (access ? "Open Access Studio" : "OpenAEC Office Studio")}
+              (databaseOpen ? "Open Database Studio" : "OpenAEC Office Studio")}
           </span>
           <span className="office-statusrechts">
             {bestand

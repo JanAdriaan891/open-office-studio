@@ -13,7 +13,7 @@ assert.equal(
 for (const pad of [
   "package.json",
   "src-tauri/tauri.conf.json",
-  "apps/access-studio/src-tauri/tauri.conf.json",
+  "apps/database-studio/src-tauri/tauri.conf.json",
 ]) {
   assert.equal(
     JSON.parse(await readFile(pad, "utf8")).version,
@@ -23,7 +23,7 @@ for (const pad of [
 }
 for (const [map, naam] of [
   ["src-tauri", "open-office-studio"],
-  ["apps/access-studio/src-tauri", "open-access-studio"],
+  ["apps/database-studio/src-tauri", "open-database-studio"],
 ]) {
   const cargo = await readFile(`${map}/Cargo.toml`, "utf8");
   assert.equal(cargo.match(/^version = "([^"]+)"/m)?.[1], gegevens.versie, map);
@@ -34,4 +34,4 @@ for (const [map, naam] of [
     map,
   );
 }
-console.log(`Office en Access gebruiken weekversie ${gegevens.label}.`);
+console.log(`Office en Database gebruiken weekversie ${gegevens.label}.`);
