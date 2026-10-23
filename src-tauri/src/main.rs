@@ -93,7 +93,7 @@ async fn bewaar_kopie(request: tauri::ipc::Request<'_>) -> Result<Option<String>
         .and_then(|s| s.to_str())
         .unwrap_or("")
         .to_lowercase();
-    if !conversie::mag_bewaren(&extensie) {
+    if extensie != "openaec-notities" && !conversie::mag_bewaren(&extensie) {
         return Err("Niet-ondersteund bestandsformaat.".into());
     }
     let bestand = rfd::AsyncFileDialog::new()

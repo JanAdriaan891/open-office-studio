@@ -4,7 +4,7 @@ Gecontroleerd op 23 oktober 2026. De versiebestanden van Office Studio en Open D
 
 ## Uitgevoerd
 
-- 43 frontendproeven slagen, waaronder acht ISO-weekgevallen met jaarwisselingen en ongeldige datums. Een integratieproef controleert en wijzigt de echte versiebestanden van beide apps in een tijdelijke map met Windows-regeleinden.
+- 55 frontendproeven slagen, waaronder acht ISO-weekgevallen met jaarwisselingen en ongeldige datums. Een integratieproef controleert en wijzigt de echte versiebestanden van beide apps in een tijdelijke map met Windows-regeleinden. Twaalf notitieproeven controleren back-uprondgang, import zonder overschrijven, zoeken, beschadigde invoer, opslaggebrek en conflicten tussen vensters.
 - De versiecontrole bevestigt dezelfde versie in package-, Tauri-, Cargo- en lockbestanden van beide apps.
 - De zelfstandige Database-productiebundel bouwt met ongeveer 506 kB JavaScript, inclusief worker. De bundelcontrole vindt geen kantoorengine of kantoor-WASM en bevestigt de meegedistribueerde licenties.
 - De gebouwde databaseworker leest een oudere MDB, een ACCDB en een MDB met 512 rijen, ook zonder de gebruikelijke Node-globals. Paginering wordt afzonderlijk gecontroleerd.
@@ -23,6 +23,17 @@ De zelfstandige browserapp is met echte corpusbestanden bediend:
 5. De definitieve OpenAEC-stijl met de echte ACCDB opnieuw geopend. Lichte en donkere weergave, logo, weekversie en het compacte lint visueel gecontroleerd. De browserconsole bevat tijdens deze bediening geen foutmelding.
 
 In de kantooromgeving zijn start, Tekst, Rekenblad en Presentatie visueel gecontroleerd met de eigen voorbeelden. Het Tekst-bestandsmenu begint op dezelfde hoogte als de onderkant van de kopbalk (44 pixels); een hit-test op de ribbonpositie treft het menu. De bestaande stapelcontext en invoerblokkering blijven behouden.
+
+Notities is via de gebouwde productiefrontend gecontroleerd op een afzonderlijke lokale testpoort:
+
+1. Notitieboek, sectie en pagina aangemaakt en hernoemd. Tekst ingevoerd; Enter voegt een tekstblok toe. Koppen en twee afvinkbare taken toegevoegd en een taak afgerond.
+2. Ctrl+S bevestigt lokale opslag. Na herladen zijn de pagina, tekst en taakstatus teruggevonden met zoeken over alle secties.
+3. Een werkelijke Markdown-download onafhankelijk gelezen: titel, tekst, kop en beide taken met de juiste status aanwezig.
+4. Een volledige back-up gedownload en onafhankelijk als JSON gelezen. Import voegt een tweede notitieboek toe en behoudt het eerste. Een ongeldige back-up wordt geweigerd en laat de bestaande pagina staan.
+5. Een pagina naar de prullenbak verplaatst en hersteld; tekst en taken behouden. Een pagina vastgezet.
+6. Naar Tekst en terug naar Notities gewisseld; de opgeslagen pagina en vastzetmarkering zijn teruggevonden. Het Notities-bestandsmenu begint op 44 pixels en ligt vóór het lint. De browserconsole bevat geen foutmelding tijdens deze controles.
+
+Opslaggebrek, onleesbare bestaande gegevens en conflicten tussen schrijvers worden daarnaast door de modelproeven gecontroleerd. Notities gebruikt tekstblokken met opmaak per blok; afbeeldingen, tekeningen, cloudsynchronisatie en andere notitieformaten ontbreken nog. Native back-updialogen en schone installaties zijn niet bediend.
 
 ## Stijlbron en grenzen
 

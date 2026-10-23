@@ -1,10 +1,10 @@
 # Open Office Studio
 
-Open-source kantoortoepassingen van het OpenAEC-ecosysteem voor tekstverwerking, rekenbladen en presentaties.
+Open-source kantoortoepassingen van het OpenAEC-ecosysteem voor tekstverwerking, rekenbladen, presentaties en notities.
 
 Actuele weekuitgave: **2026-W43.1** (`2026.43.1`). Zie [versieafspraken](docs/versies.md).
 
-**[Open Database Studio](apps/database-studio)** is nu ook een afzonderlijke desktopapp voor oude MDB- en ACCDB-databases, met een eigen venster en installers. Tekst, Rekenblad en Presentatie blijven onderdeel van de kantooromgeving.
+**[Open Database Studio](apps/database-studio)** is nu ook een afzonderlijke desktopapp voor oude MDB- en ACCDB-databases, met een eigen venster en installers. Tekst, Rekenblad, Presentatie en Notities zijn onderdeel van de kantooromgeving.
 
 ![OpenAEC Office Studio in officiële OpenAEC-stijl](docs/screenshots/start-2026-W43.1.jpg)
 
@@ -42,11 +42,18 @@ De zelfstandige database-app, met een eigen weekversie en zonder de drie kantoor
 
 ![Zelfstandige Open Database Studio met een werkelijke ACCDB-tabel](docs/screenshots/database-2026-W43.1.jpg)
 
+### Open Notities Studio
+
+Notitieboeken met secties en pagina’s, tekstblokken, koppen, takenlijsten en zoeken over alle notities. Wijzigingen worden automatisch lokaal bewaard. Pagina’s kunnen naar de prullenbak en worden hersteld. Bewaar een volledige back-up of exporteer een pagina als Markdown. Zie [werking en opslag](docs/notities.md).
+
+![Notities: werkelijke pagina met koppen en afvinkbare taken](docs/screenshots/notities-2026-W43.1.jpg)
+
 ## Modules
 
 - **Open Tekst Studio** — teksten schrijven, opmaken en opslaan.
 - **Open Rekenblad Studio** — tabellen, formules en celopmaak bewerken.
 - **Open Presentatie Studio** — dia’s maken, vormgeven en presenteren.
+- **Open Notities Studio** — notitieboeken, secties, pagina’s, takenlijsten, zoeken en lokale opslag.
 
 - **Open Database Studio** — experimentele MDB/ACCDB-tabelbrowser, alleen lezen, met zoeken en CSV-export per pagina. Query’s, formulieren en VBA ontbreken nog. Deze module heeft de laagste prioriteit.
 

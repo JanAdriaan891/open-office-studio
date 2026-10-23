@@ -6,6 +6,7 @@ De actuele beelden van 23 oktober 2026 tonen weekuitgave 2026-W43.1 in de offici
 - `database-2026-W43.1.jpg`: zelfstandige database-app met een werkelijk ingelezen ACCDB-tabel.
 - `database-donker-2026-W43.1.jpg`: dezelfde werkelijke tabel in de donkere weergave.
 - `bestandsmenu-2026-W43.1.jpg`: bestandsmenu vóór de Tekst-ribbon en aansluitend op de kopbalk.
+- `notities-2026-W43.1.jpg`: ingebouwde notitiemodule met aangemaakte secties, pagina’s, koppen en taken. De gegevens zijn werkelijk via de GUI ingevoerd en lokaal opgeslagen. Het startbeeld bevat ook de nieuwe Notities-ingang.
 
 De oudere beelden hieronder blijven beschikbaar voor de eerdere verslagen.
 

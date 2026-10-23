@@ -304,6 +304,53 @@
 .office .database-app[data-theme="dark"] aside h3 {
   color: #f59e0b;
 }
+.start-notities {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  width: 100%;
+  margin: 24px 0 32px;
+  padding: 19px 22px;
+  border: 1px solid #e7e5e4;
+  border-radius: 6px;
+  background: #fff;
+  text-align: left;
+  color: #36363e;
+}
+.start-notities:hover {
+  border-color: #d9770680;
+  background: #fffbf5;
+}
+.start-notities-icoon {
+  display: grid;
+  place-items: center;
+  height: 48px;
+  width: 48px;
+  border: 1px solid #d9770630;
+  border-radius: 8px;
+  background: #d977060d;
+  color: #a75c06;
+  flex-shrink: 0;
+}
+.start-notities strong {
+  display: block;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 18px;
+}
+.start-notities small {
+  display: block;
+  color: #78716c;
+  font-size: 11px;
+  margin-top: 5px;
+}
+.start-notities-open {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+  white-space: nowrap;
+  font-size: 11px;
+}
 @media (max-width: 800px) {
   .office-header {
     gap: 8px;
