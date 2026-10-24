@@ -54,7 +54,7 @@ De [GUI-controle van 0.4.3](docs/tests/2026-10-22-gui.md) controleert de vier we
 
 De ontwikkeling met screenshots staat in [pull request #9](https://github.com/OpenAEC-Foundation/open-office-studio/pull/9). De [bouwcontroles](https://github.com/JanAdriaan891/open-office-studio/actions/workflows/desktop.yml) maken pakketten voor Windows x64, Linux x64 en macOS ARM64. Een geslaagde build vervangt geen installatie- en gebruikerstest.
 
-De [downloadbare testreleases](https://github.com/JanAdriaan891/open-office-studio/releases) bevatten een Windows-installer, Linux-DEB/AppImage, macOS-ARM64-DMG en SHA256SUMS. Vanaf 0.4.2 pakt de bouwstraat de Windows- en Linux-installers ook uit: zij controleert de programma-architectuur, WebView2, Linux-bibliotheken en snelkoppelingen. Dit is nog geen schone installatie of native bedieningstest.
+De [uitgaven](https://github.com/OpenAEC-Foundation/open-office-studio/releases) bevatten een Windows-installer, Linux-DEB/AppImage, macOS-ARM64-DMG, pakketrapporten en SHA256SUMS. Versies volgen vanaf 2026.43.0 het OpenAEC-schema JJJJ.WW.N (jaar, ISO-week, volgnummer). Een tag `v<versie>` start [`release.yml`](.github/workflows/release.yml): dezelfde controles als de bouwstraat, Authenticode-ondertekening voor Windows en ondertekening met notarisatie voor macOS met de sleutels van de organisatie, en een concept-uitgave die pas na een installatietest openbaar wordt. De bouwstraat pakt de Windows- en Linux-installers ook uit en controleert de programma-architectuur, WebView2, Linux-bibliotheken en snelkoppelingen. Eerdere testreleases tot en met 0.4.3 staan op de [ontwikkelfork](https://github.com/JanAdriaan891/open-office-studio/releases).
 
 ## Opbouw
 
