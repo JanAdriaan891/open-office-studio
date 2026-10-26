@@ -41,9 +41,9 @@ Dia’s, vormen, tekst en sprekersnotities in één werkruimte.
 
 ![Presentatie: ontwerpvisie met dia-overzicht en sprekersnotities](docs/screenshots/presentatie-2026-W43.4.jpg)
 
-### Open Database Studio — experimenteel
+### Open Database Studio
 
-Opent MDB- en ACCDB-bestanden lokaal en alleen lezen, met kolomtypen en paginering. Het beeld toont de zelfstandige database-app met het gedeelde OpenAEC-lint en de ingebouwde voorbeeldgegevens. De query- en modulevermeldingen horen bij die demonstratie; query’s en VBA uit echte bestanden uitlezen of uitvoeren, formulieren en bewerking ontbreken nog.
+Opent MDB- en ACCDB-bestanden lokaal en bouwt er een bewerkbare SQLite-werkkopie van; het origineel blijft ongewijzigd. In de werkkopie bewerk je tabellen, voer je Access-SQL-query’s uit, maak je eenvoudige formulieren en rapporten en voer je VBA afgeschermd uit, alleen na toestemming. Wijzigingen bewaar je als `.sqlite`; tabellen, query’s en bron kunnen als CSV, SQL, BAS, JSON of tekst worden geëxporteerd. Het beeld toont de zelfstandige database-app met de ingebouwde voorbeeldgegevens. Zie [Open Database Studio](apps/database-studio/README.md) en [VBA-runtime](packages/vba/README.md) voor werking en grenzen.
 
 ![Zelfstandige Open Database Studio met voorbeeldtabel](docs/screenshots/database-2026-W43.4.jpg)
 
@@ -64,7 +64,7 @@ Vanaf **2026-W43.4** kan iedere notitiesectie **Canvas** of **Markdown** zijn. M
 - **Open Presentatie Studio** — dia’s maken, verplaatsen, verwijderen, uitlijnen, vormgeven en presenteren vanaf de eerste of huidige dia.
 - **Open Notities Studio** — notitieboeken, secties, pagina’s, takenlijsten, zoeken en lokale opslag.
 
-- **Open Database Studio** — experimentele MDB/ACCDB-browser, alleen lezen: tabellen, opgeslagen query’s als SQL, relaties, indexen en aanwezige VBA-bron, met een compatibiliteitsrapport per bestand. Formulieren, rapporten en macro’s worden alleen geïnventariseerd; niets wordt uitgevoerd. Deze module heeft de laagste prioriteit.
+- **Open Database Studio** — MDB/ACCDB als bewerkbare SQLite-werkkopie: tabellen bewerken, query’s (Access-SQL), formulieren, rapporten en afgeschermde VBA-uitvoering na toestemming, met een compatibiliteitsrapport per bestand. Access-formulierontwerpen en macro’s worden alleen geïnventariseerd; het origineel wordt nooit overschreven. Zie [apps/database-studio](apps/database-studio/README.md) en [packages/vba](packages/vba/README.md).
 
 ### Bediening
 

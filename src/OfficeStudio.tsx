@@ -20,7 +20,11 @@ import {
 } from "lucide-react";
 import type { NotitieActies } from "./notities/NotitiesStudio";
 import type { Soort } from "./editors";
-import { DatabaseStudio } from "../packages/database/src/DatabaseStudio";
+import {
+  DatabaseStudio,
+  type DatabaseBinaireUitvoer,
+} from "../packages/database/src/DatabaseStudio";
+import type { DatabaseUitvoer } from "../packages/database/src/uitvoer";
 import "./office.css";
 import { StartScherm, modules } from "./StartScherm";
 import { DocumentOpslag, type BewaarUitkomst } from "./opslag";
@@ -37,6 +41,25 @@ import {
   uitvoerformaten,
 } from "./formaten";
 const Editor = lazy(() => import("./editors"));
+const tauri = "__TAURI_INTERNALS__" in window;
+/** Database-export via de native opslagdialoog; Rust staat alleen bekende exporttypen toe. */
+async function bewaarDatabaseNatief(naam: string, bytes: Uint8Array) {
+  const { invoke } = await import("@tauri-apps/api/core");
+  const pad = await invoke<string | null>("bewaar_database_export", bytes, {
+    headers: { "x-database-naam": encodeURIComponent(naam) },
+  });
+  return pad
+    ? ({ status: "opgeslagen", pad } as const)
+    : ({ status: "geannuleerd" } as const);
+}
+// In de browser vallen deze terug op de downloads van Database Studio zelf.
+const bewaarDatabaseUitvoer: DatabaseUitvoer | undefined = tauri
+  ? (naam, inhoud) =>
+      bewaarDatabaseNatief(naam, new TextEncoder().encode(inhoud))
+  : undefined;
+const bewaarDatabaseBinair: DatabaseBinaireUitvoer | undefined = tauri
+  ? (naam, inhoud) => bewaarDatabaseNatief(naam, inhoud)
+  : undefined;
 const NotitiesStudio = lazy(() => import("./notities/NotitiesStudio"));
 type Bestand = { id: number; naam: string; soort: Soort; bytes: Uint8Array };
 class EditorGrens extends Component<{ children: ReactNode }, { fout: string }> {
@@ -75,6 +98,14 @@ export function OfficeStudio() {
   const databaseOpenen = useRef<(() => void) | null>(null);
   const notitieActies = useRef<NotitieActies | null>(null);
   const notitieGewijzigd = useRef(false);
+  const databaseGewijzigd = useRef(false);
+  const databaseBewerkt = useCallback((waarde: boolean) => {
+    // Na het verlaten van de database meldt het afsluitende paneel nog 'false';
+    // dat mag de status van een intussen geopend document niet overschrijven.
+    if (databaseGewijzigd.current === waarde) return;
+    databaseGewijzigd.current = waarde;
+    setGewijzigd(waarde);
+  }, []);
   const registreerNotities = useCallback((acties: NotitieActies | null) => {
     notitieActies.current = acties;
   }, []);
@@ -104,7 +135,12 @@ export function OfficeStudio() {
   }
   async function verlaten() {
     if (notitieGewijzigd.current) notitieActies.current?.bewaren();
-    if (!opslag.gewijzigd && !notitieGewijzigd.current) return true;
+    if (
+      !opslag.gewijzigd &&
+      !notitieGewijzigd.current &&
+      !databaseGewijzigd.current
+    )
+      return true;
     if (verlaatAntwoord.current) return false;
     vorigeFocus.current =
       document.activeElement instanceof HTMLElement
@@ -148,7 +184,11 @@ export function OfficeStudio() {
   useEffect(() => {
     const sluit = (e: BeforeUnloadEvent) => {
       if (notitieGewijzigd.current) notitieActies.current?.bewaren();
-      if (opslag.gewijzigd || notitieGewijzigd.current) {
+      if (
+        opslag.gewijzigd ||
+        notitieGewijzigd.current ||
+        databaseGewijzigd.current
+      ) {
         e.preventDefault();
         e.returnValue = "";
       }
@@ -295,6 +335,7 @@ export function OfficeStudio() {
     setDatabaseOpen(false);
     setNotitiesOpen(false);
     notitieGewijzigd.current = false;
+    databaseGewijzigd.current = false;
     setBestandsmenu(false);
     setBestand({ id, soort, naam, bytes });
     setExportFormaat(soort);
@@ -581,6 +622,9 @@ export function OfficeStudio() {
             bestandsmenu={() => setBestandsmenu(true)}
             inactief={bestandsmenu || verlaatvraag}
             registreerOpenen={registreerDatabaseOpenen}
+            bewaarUitvoer={bewaarDatabaseUitvoer}
+            bewaarBinair={bewaarDatabaseBinair}
+            gewijzigd={databaseBewerkt}
           />
         ) : null}
         {(bestandsmenu || (!bestand && !databaseOpen && !notitiesOpen)) && (
@@ -612,6 +656,7 @@ export function OfficeStudio() {
                   setGereed(false);
                   setBestand(null);
                   setDatabaseOpen(false);
+                  databaseGewijzigd.current = false;
                   setNotitiesOpen(true);
                   setBestandsmenu(false);
                   setGewijzigd(false);
@@ -622,6 +667,10 @@ export function OfficeStudio() {
               openDatabase={() =>
                 void (async () => {
                   if (bezigRef.current) return;
+                  if (databaseOpen) {
+                    setBestandsmenu(false);
+                    return;
+                  }
                   if (!(await verlaten())) return;
                   opslag.wissel();
                   serialiseer.current = null;
@@ -674,7 +723,14 @@ export function OfficeStudio() {
       </div>
       {verlaatvraag && (
         <VerlaatDialoog
-          naam={bestand?.naam ?? (notitiesOpen ? "Je notities" : "Dit bestand")}
+          naam={
+            bestand?.naam ??
+            (notitiesOpen
+              ? "Je notities"
+              : databaseOpen
+                ? "De databasewerkkopie"
+                : "Dit bestand")
+          }
           antwoord={beantwoordVerlaten}
           vorigeFocus={vorigeFocus.current}
         />

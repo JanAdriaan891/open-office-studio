@@ -6,6 +6,7 @@ use std::{
 };
 use tauri::Manager;
 mod conversie;
+mod database_export;
 
 fn lees_bytes(request: &tauri::ipc::Request<'_>) -> Result<Vec<u8>, String> {
     lees_binaire_inhoud(request.body(), false)
@@ -163,6 +164,7 @@ fn main() {
         })
         .invoke_handler(tauri::generate_handler![
             bewaar_kopie,
+            database_export::bewaar_database_export,
             wijzigingsstatus,
             bevestig_verlaten,
             converteer_document

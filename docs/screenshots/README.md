@@ -35,7 +35,7 @@ De onderstaande beelden zijn op 22 oktober 2026 vastgelegd uit de lokale Vite-pr
 - `tekst-0.4.3.jpg`: eigen ontwerpnotitie met ribbon, opslagformaatkeuze en linialen.
 - `rekenblad-0.4.3.jpg`: eigen materiaaloverzicht met formulebalk en opgemaakte cellen.
 - `presentatie-0.4.3.jpg`: eigen presentatie met dia-overzicht en sprekersnotities.
-- `database-0.4.3.jpg`: Database Studio met de ingebouwde voorbeelddatabase. De module is alleen lezen; query’s, formulieren en VBA ontbreken.
+- `database-0.4.3.jpg`: Database Studio met de ingebouwde voorbeelddatabase. In 0.4.3 was de module alleen lezen; query’s, formulieren en VBA ontbraken toen nog.
 - `bestandsmenu-0.4.3.jpg`: bestandsmenu over de geopende ontwerpnotitie, na herstel van de laagvolgorde.
 
 Werk screenshots opnieuw bij na een zichtbare interfacewijziging en controleer ze voor opname in de hoofd-README.

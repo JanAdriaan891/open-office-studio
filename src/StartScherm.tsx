@@ -167,12 +167,12 @@ export function StartScherm({
           <button
             disabled={bezig}
             onClick={openDatabase}
-            aria-label="Database Studio (experimenteel)"
-            title="Database Studio (experimenteel)"
+            aria-label="Database Studio"
+            title="Database Studio · Access-database als bewerkbare werkkopie"
           >
             <Database size={18} />
             <span>
-              Database Studio<small>Experimenteel · alleen lezen</small>
+              Database Studio<small>Werkkopie · bewerken, query’s, VBA</small>
             </span>
             <ArrowRight size={14} />
           </button>
@@ -295,7 +295,7 @@ export function StartScherm({
                 {notitiesActief
                   ? "Voeg een OpenAEC-notitieback-up toe."
                   : databaseActief
-                    ? "Open een MDB- of ACCDB-database."
+                    ? "Open een MDB- of ACCDB-database of een SQLite-werkkopie."
                     : "Open een document, rekenblad of presentatie."}
               </small>
             </span>
@@ -303,7 +303,7 @@ export function StartScherm({
               {(notitiesActief
                 ? ["NOTITIES"]
                 : databaseActief
-                  ? ["MDB", "ACCDB"]
+                  ? ["MDB", "ACCDB", "SQLITE"]
                   : ["DOCX", "XLSX", "PPTX"]
               ).map((formaat) => (
                 <i key={formaat}>{formaat}</i>
@@ -322,9 +322,11 @@ export function StartScherm({
             <p>
               DOCX, XLSX en PPTX werken rechtstreeks. De desktopversie kan met
               een ingesteld conversieprogramma ook ODF en oudere formaten
-              omzetten. Opmaak kan daarbij afwijken. Database Studio leest MDB-
-              en ACCDB-tabellen; bewerken en VBA volgen later. De afzonderlijke
-              app is te installeren als Open Database Studio.
+              omzetten. Opmaak kan daarbij afwijken. Database Studio maakt van
+              een MDB- of ACCDB-bestand een bewerkbare SQLite-werkkopie met
+              tabellen, query’s, formulieren, rapporten en VBA; het origineel
+              blijft ongewijzigd. De afzonderlijke app is te installeren als
+              Open Database Studio.
             </p>
           </details>
         </div>

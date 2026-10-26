@@ -8,7 +8,7 @@ DOCX, XLSX en PPTX werken rechtstreeks in de editors. De andere onderstaande inv
 | Rekenblad | XLSX | XLS, XLT, XLTX, XLSM, XLTM, XLSB, ODS, OTS, FODS, CSV, TSV, TAB, DIF, SLK, SYLK, SXC, STC, DBF, GNUMERIC, GNM, NUMBERS, WK1, WK3, WK4, WKS, 123, WB1, WB2, WQ1, WQ2, ET, ETT, UOS | XLSX, ODS, XLS, CSV, PDF |
 | Presentatie | PPTX | PPT, PPS, POT, PPTM, POTM, PPSX, POTX, ODP, OTP, FODP, SXI, STI, DPS, DPT, KEY, SDD, UOP | PPTX, ODP, PPT, PPSX, PDF |
 
-Database Studio leest MDB/ACCDB-tabellen; alleen de geladen pagina kan als CSV worden geëxporteerd.
+Database Studio opent MDB/ACCDB als SQLite-werkkopie; het origineel wordt nooit overschreven. De werkkopie kan als SQLite (.sqlite) worden bewaard en heropend, tabellen en queryresultaten als CSV, query’s als SQL en VBA-modules als BAS. Terugschrijven naar MDB/ACCDB wordt niet ondersteund.
 
 Tekst exporteert Markdown (.md) rechtstreeks via de documentkern, ook in de browser en zonder conversieruntime. Kies Markdown in Opslagformaat en gebruik Opslaan als of Ctrl+S. Koppen, lijsten, links, tabellen en basisopmaak worden als UTF-8-tekst bewaard. Paginaopmaak, ingesloten afbeeldingen en revisies vragen een DOCX; een Markdown-export wist daarom de wijzigingsmarkering niet. Afgekapt resultaat wordt geweigerd. Markdown openen is nog niet aangesloten.
 
