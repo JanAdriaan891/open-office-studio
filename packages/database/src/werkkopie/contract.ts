@@ -74,6 +74,17 @@ export interface QueryResultaat {
   afgekapt: boolean;
   /** De SQLite-SQL die werkelijk is uitgevoerd, voor diagnose. */
   uitgevoerd: string;
+  /**
+   * Veldsoort per kolom als die bekend is (bronveld of herkenbare expressie),
+   * anders null. Alleen bij het Access-dialect.
+   */
+  kolomsoorten?: (Veldsoort | null)[];
+  /**
+   * Alleen bij een SELECT op één basistabel (zonder groeperen, DISTINCT of
+   * aggregaten): de tabel en per teruggegeven rij de rowid, zodat de rijen
+   * met `wijzig`/`verwijder` bij te werken zijn.
+   */
+  bron?: { tabel: string; rowids: number[] };
 }
 
 export interface QueryOpties {
@@ -128,6 +139,10 @@ export interface Werkkopie {
     rijen: Rij[];
     totaal: number;
   }>;
+  // Toegevoegd voor de VBA-runtime. Optioneel, zodat bestaande implementaties
+  // geldig blijven; SqliteWerkkopie, WerkkopieClient en de poortproxy hebben ze allemaal.
+  /** Eén rij op rowid, of null als die niet (meer) bestaat. */
+  rij?(tabel: string, rowid: number): Promise<Rij | null>;
   /** Geeft de rowid van de nieuwe rij. */
   voegToe(tabel: string, waarden: Record<string, Waarde>): Promise<number>;
   wijzig(
@@ -138,6 +153,16 @@ export interface Werkkopie {
   verwijder(tabel: string, rowid: number): Promise<void>;
   maakTabel(schema: Omit<TabelSchema, "aantal" | "herkomst">): Promise<void>;
   verwijderTabel(naam: string): Promise<void>;
+  /** Legt een opgeslagen query vast (nieuw of vervangen); de SQL moet ontleedbaar zijn. */
+  bewaarQuery?(query: OpgeslagenQuery): Promise<void>;
+  verwijderQuery?(naam: string): Promise<void>;
+  /**
+   * Transactie over alle verbindingen met deze werkkopie (één niveau;
+   * een tweede `begin` wordt geweigerd met "beperking").
+   */
+  begin?(): Promise<void>;
+  bevestig?(): Promise<void>;
+  terugdraaien?(): Promise<void>;
   ontwerpen(): Promise<Ontwerp[]>;
   bewaarOntwerp(ontwerp: Ontwerp): Promise<void>;
   verwijderOntwerp(soort: Ontwerp["soort"], naam: string): Promise<void>;
@@ -162,11 +187,11 @@ export type WerkkopieFoutcode =
   | "intern";
 
 export class WerkkopieFout extends Error {
-  constructor(
-    readonly code: WerkkopieFoutcode,
-    melding: string,
-  ) {
+  // Geen parameter-eigenschap: Node draait deze module ook met alleen type-stripping.
+  readonly code: WerkkopieFoutcode;
+  constructor(code: WerkkopieFoutcode, melding: string) {
     super(melding);
+    this.code = code;
     this.name = "WerkkopieFout";
   }
 }

@@ -9,13 +9,23 @@ assert.ok(
   "Databaseworker ontbreekt.",
 );
 let uitvoerbareBytes = 0;
+let sqliteWasm = 0;
 for (const naam of namen) {
   if (!/\.(js|wasm)$/.test(naam)) continue;
   uitvoerbareBytes += (await stat(`${map}/assets/${naam}`)).size;
-  assert.ok(
-    !/\.wasm$/.test(naam),
-    "De zelfstandige databasebrowser heeft geen kantoor-WASM nodig.",
-  );
+  if (/\.wasm$/.test(naam)) {
+    // Alleen de SQLite-engine (sql.js) voor de werkkopie; geen kantoor-WASM.
+    assert.ok(
+      /^sql-wasm-browser-[\w-]+\.wasm$/.test(naam),
+      `Onverwachte WASM in de zelfstandige databasebrowser: ${naam}`,
+    );
+    const kop = new Uint8Array(
+      (await readFile(`${map}/assets/${naam}`)).subarray(0, 4),
+    );
+    assert.deepEqual([...kop], [0x00, 0x61, 0x73, 0x6d], `${naam} is geen WASM.`);
+    sqliteWasm++;
+    continue;
+  }
   const tekst = await readFile(`${map}/assets/${naam}`, "utf8");
   assert.ok(
     !/@betteroffice|docx-editor|pptx-editor|xlsx-editor|converteer_document/.test(
@@ -23,7 +33,18 @@ for (const naam of namen) {
     ),
     `Kantooreditor in databasebundel: ${naam}`,
   );
+  assert.ok(
+    !/sql\.js\.org\/dist|cdnjs\.cloudflare\.com\/ajax\/libs\/sql\.js|unpkg\.com\/sql\.js|jsdelivr\.net\/npm\/sql\.js/.test(
+      tekst,
+    ),
+    `sql.js zou van een CDN laden: ${naam}`,
+  );
 }
+assert.equal(
+  sqliteWasm,
+  1,
+  "De SQLite-WASM (sql.js) voor de werkkopie ontbreekt of staat er dubbel in.",
+);
 assert.ok(
   uitvoerbareBytes < 5 * 1024 * 1024,
   "Onverwacht grote zelfstandige databasebundel.",
@@ -32,6 +53,10 @@ assert.ok(
   (await stat(`${map}/licenses/npm.txt`)).size > 1000,
   "Licenties ontbreken.",
 );
+assert.ok(
+  /^sql\.js@\d/m.test(await readFile(`${map}/licenses/npm.txt`, "utf8")),
+  "Licentie van sql.js (MIT) ontbreekt.",
+);
 console.log(
-  `Zelfstandige Database-bundel gecontroleerd: ${Math.round(uitvoerbareBytes / 1024)} kB JavaScript, eigen worker en licenties.`,
+  `Zelfstandige Database-bundel gecontroleerd: ${Math.round(uitvoerbareBytes / 1024)} kB JavaScript en WASM, eigen worker, lokale SQLite-WASM en licenties.`,
 );

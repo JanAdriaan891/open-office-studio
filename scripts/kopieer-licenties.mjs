@@ -78,6 +78,7 @@ const namen = alleenDatabase
       "react-dom",
       "lucide-react",
       "mdb-reader",
+      "sql.js",
       "buffer",
       "process",
       "@tauri-apps/api",
