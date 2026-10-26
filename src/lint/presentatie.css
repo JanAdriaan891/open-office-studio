@@ -1,0 +1,4 @@
+.office-presentatie[data-notities="verborgen"]
+  div:has(> [data-testid="pptx-notes-textarea"]) {
+  display: none !important;
+}

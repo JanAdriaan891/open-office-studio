@@ -68,7 +68,7 @@ export function useSneltoetsen(
       if (e.defaultPrevented || e.repeat) return;
       const actief = document.activeElement;
       const doel = e.target instanceof Element ? e.target : actief;
-      if (doel?.closest(".office-backstage, [role='dialog']")) return;
+      if (doel?.closest(".office-backstage, [role='dialog'], dialog")) return;
       const editor = recent.current.vlak();
       if (!editor) return;
       if (actief && actief !== document.body && !editor.contains(actief))

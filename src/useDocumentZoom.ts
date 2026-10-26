@@ -142,7 +142,7 @@ export function useDocumentZoom({
       if (!(e.ctrlKey || e.metaKey) || e.altKey) return;
       if (
         e.target instanceof Element &&
-        e.target.closest(".office-backstage, [role='dialog']")
+        e.target.closest(".office-backstage, [role='dialog'], dialog")
       )
         return;
       const zoom = toetsZoom(doel.current ?? schaal(), e);
