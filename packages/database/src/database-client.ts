@@ -3,6 +3,7 @@ import {
   type DatabaseObject,
   type DatabaseSession,
 } from "./model";
+import type { Analyse } from "./access-analyse.ts";
 
 export class DatabaseClient {
   private worker = new Worker(
@@ -58,8 +59,8 @@ export class DatabaseClient {
   async open(file: File): Promise<DatabaseSession> {
     controleerDatabaseBestand(file);
     const bytes = await file.arrayBuffer();
-    const objecten = await this.vraag<DatabaseObject[]>(
-      { type: "open", bytes },
+    const { objecten, rapport } = await this.vraag<Analyse>(
+      { type: "open", bytes, naam: file.name },
       [bytes],
     );
     return {
@@ -67,8 +68,9 @@ export class DatabaseClient {
       grootte: file.size,
       voorbeeld: false,
       objecten,
+      rapport,
       melding:
-        "Tabellen worden lokaal en alleen-lezen uitgelezen, met maximaal 200 rijen per pagina. Query’s, VBA, formulieren, rapporten, relaties en gekoppelde tabellen zijn nog niet uitgelezen.",
+        "Alleen-lezen: tabellen (200 rijen per pagina), relaties, indexen, querydefinities en aanwezige VBA-bron worden lokaal gelezen. Formulieren, rapporten en macro’s worden alleen geïnventariseerd. Niets wordt uitgevoerd; zie het compatibiliteitsrapport.",
     };
   }
   tabel(naam: string, start: number) {

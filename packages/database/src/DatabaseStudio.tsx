@@ -11,17 +11,132 @@ import {
   ShieldCheck,
   Braces,
   X,
+  Link2,
+  FileText,
+  FileJson,
+  ClipboardList,
+  LayoutTemplate,
+  type LucideIcon,
 } from "lucide-react";
 import {
   csv,
+  rapportAlsTekst,
   voorbeeld,
+  type DatabaseObject,
   type DatabaseSession,
   type Objectsoort,
 } from "./model";
+import { kleurTokens } from "./syntaxis";
 import { DatabaseClient } from "./database-client";
 import { Ribbon, Groep, Actie } from "../../../src/Ribbon";
 import { downloadDatabaseUitvoer, type DatabaseUitvoer } from "./uitvoer";
-const soorten: Objectsoort[] = ["Tabel", "Query", "VBA"];
+const soorten: {
+  soort: Objectsoort;
+  titel: string;
+  icoon: LucideIcon;
+  rapport: string;
+  altijd?: boolean;
+}[] = [
+  {
+    soort: "Tabel",
+    titel: "Tabellen",
+    icoon: Table2,
+    rapport: "Tabellen",
+    altijd: true,
+  },
+  {
+    soort: "Gekoppelde tabel",
+    titel: "Gekoppelde tabellen",
+    icoon: Link2,
+    rapport: "Gekoppelde tabellen",
+  },
+  {
+    soort: "Query",
+    titel: "Query’s",
+    icoon: Braces,
+    rapport: "Opgeslagen query’s",
+    altijd: true,
+  },
+  {
+    soort: "Relatie",
+    titel: "Relaties",
+    icoon: Link2,
+    rapport: "Relaties",
+    altijd: true,
+  },
+  {
+    soort: "VBA",
+    titel: "VBA-modules",
+    icoon: Code2,
+    rapport: "VBA-modules",
+    altijd: true,
+  },
+  {
+    soort: "Formulier",
+    titel: "Formulieren",
+    icoon: LayoutTemplate,
+    rapport: "Formulieren",
+  },
+  {
+    soort: "Rapport",
+    titel: "Rapporten",
+    icoon: FileText,
+    rapport: "Rapporten",
+  },
+  {
+    soort: "Macro",
+    titel: "Macro’s",
+    icoon: ClipboardList,
+    rapport: "Macro’s",
+  },
+];
+const RAPPORT = "__rapport";
+function Bron({ bron, taal }: { bron: string; taal: "vba" | "sql" }) {
+  return (
+    <pre className="database-bron">
+      <code>
+        {kleurTokens(bron, taal).map((token, index) =>
+          token.soort === "gewoon" ? (
+            token.tekst
+          ) : (
+            <span key={index} className={`syntax-${token.soort}`}>
+              {token.tekst}
+            </span>
+          ),
+        )}
+      </code>
+    </pre>
+  );
+}
+function Details({ object }: { object: DatabaseObject }) {
+  return (
+    <>
+      {!!object.eigenschappen?.length && (
+        <dl className="database-eigenschappen">
+          {object.eigenschappen.map(([sleutel, waarde]) => (
+            <div key={sleutel}>
+              <dt>{sleutel}</dt>
+              <dd>{waarde}</dd>
+            </div>
+          ))}
+        </dl>
+      )}
+      {!!object.beperkingen?.length && (
+        <ul className="database-beperkingen" aria-label="Beperkingen">
+          {object.beperkingen.map((beperking) => (
+            <li key={beperking}>{beperking}</li>
+          ))}
+        </ul>
+      )}
+    </>
+  );
+}
+function exportBestand(object: DatabaseObject) {
+  if (object.soort === "Tabel") return ".csv";
+  if (object.soort === "VBA") return object.bron ? ".bas" : null;
+  if (object.soort === "Query") return object.bron ? ".sql" : null;
+  return null;
+}
 export function DatabaseStudio({
   bestandsmenu,
   inactief = false,
@@ -76,32 +191,16 @@ export function DatabaseStudio({
     setFout("");
     setExportmelding("");
   }
-  async function exporteer() {
-    if (
-      !object ||
-      bezig ||
-      exportBezig ||
-      (object.soort === "Tabel" && !object.rijen)
-    )
-      return;
+  const extensie = object ? exportBestand(object) : null;
+  const exporteerbaar =
+    !!object && !!extensie && !(object.soort === "Tabel" && !object.rijen);
+  async function bewaar(naam: string, inhoud: string, type: string) {
+    if (bezig || exportBezig) return;
     setExportBezig(true);
     setFout("");
     setExportmelding("");
     try {
-      const resultaat = await bewaarUitvoer(
-        object.naam +
-          (object.soort === "Tabel"
-            ? ".csv"
-            : object.soort === "VBA"
-              ? ".bas"
-              : ".sql"),
-        object.soort === "Tabel"
-          ? csv(object.kolommen ?? [], rijen)
-          : (object.bron ?? ""),
-        object.soort === "Tabel"
-          ? "text/csv;charset=utf-8"
-          : "text/plain;charset=utf-8",
-      );
+      const resultaat = await bewaarUitvoer(naam, inhoud, type);
       if (actief.current)
         setExportmelding(
           resultaat.status === "opgeslagen"
@@ -120,6 +219,35 @@ export function DatabaseStudio({
       if (actief.current) setExportBezig(false);
     }
   }
+  function exporteer() {
+    if (!object || !extensie || !exporteerbaar) return;
+    const bestandsnaam = object.naam.replace(/[\\/:*?"<>|~]+/g, "_") + extensie;
+    void bewaar(
+      bestandsnaam,
+      object.soort === "Tabel"
+        ? csv(object.kolommen ?? [], rijen)
+        : object.soort === "VBA"
+          ? object.bron!.replace(/\r?\n/g, "\r\n")
+          : object.bron!,
+      object.soort === "Tabel"
+        ? "text/csv;charset=utf-8"
+        : "text/plain;charset=utf-8",
+    );
+  }
+  function exporteerRapport(soort: "json" | "txt") {
+    const rapport = sessie?.rapport;
+    if (!rapport) return;
+    const basis = rapport.bestand.replace(/\.[^.]+$/, "");
+    void bewaar(
+      `${basis}-compatibiliteit.${soort}`,
+      soort === "json"
+        ? JSON.stringify(rapport, null, 2)
+        : rapportAlsTekst(rapport),
+      soort === "json"
+        ? "application/json;charset=utf-8"
+        : "text/plain;charset=utf-8",
+    );
+  }
   function openVoorbeeld() {
     lezer.current?.sluit();
     lezer.current = null;
@@ -135,7 +263,8 @@ export function DatabaseStudio({
     setZoeken("");
     setFout("");
     const client = lezer.current;
-    if (!client) {
+    const doel = sessie?.objecten.find((item) => item.id === id);
+    if (!client || doel?.soort !== "Tabel") {
       setPaginaStart(start);
       return;
     }
@@ -149,7 +278,7 @@ export function DatabaseStudio({
             ? {
                 ...huidig,
                 objecten: huidig.objecten.map((item) =>
-                  item.id === id ? tabel : item,
+                  item.id === id ? { ...item, ...tabel } : item,
                 ),
               }
             : huidig,
@@ -197,13 +326,30 @@ export function DatabaseStudio({
                     icoon={Download}
                     naam="Exporteren"
                     groot
-                    disabled={
-                      !object ||
-                      bezig ||
-                      exportBezig ||
-                      (object.soort === "Tabel" && !object.rijen)
-                    }
-                    onClick={() => void exporteer()}
+                    disabled={!exporteerbaar || bezig || exportBezig}
+                    onClick={exporteer}
+                  />
+                </Groep>
+                <Groep naam="Compatibiliteit">
+                  <Actie
+                    icoon={ShieldCheck}
+                    naam="Rapport tonen"
+                    groot
+                    disabled={!sessie?.rapport || bezig}
+                    actief={selectie === RAPPORT}
+                    onClick={() => setSelectie(RAPPORT)}
+                  />
+                  <Actie
+                    icoon={FileJson}
+                    naam="Rapport als JSON"
+                    disabled={!sessie?.rapport || bezig || exportBezig}
+                    onClick={() => exporteerRapport("json")}
+                  />
+                  <Actie
+                    icoon={FileText}
+                    naam="Rapport als tekst"
+                    disabled={!sessie?.rapport || bezig || exportBezig}
+                    onClick={() => exporteerRapport("txt")}
                   />
                 </Groep>
                 <Groep naam="Bestand">
@@ -304,41 +450,55 @@ export function DatabaseStudio({
           <p className="bestandsnaam">
             {sessie?.naam ?? "Geen database geselecteerd"}
           </p>
-          {soorten.map((soort) => (
-            <section key={soort}>
-              <h3>
-                {soort === "Tabel"
-                  ? "Tabellen"
-                  : soort === "Query"
-                    ? "Query’s"
-                    : "VBA-modules"}
-              </h3>
-              {sessie?.objecten
-                .filter((item) => item.soort === soort)
-                .map((item) => (
+          {soorten.map(({ soort, titel, icoon: Icoon, rapport, altijd }) => {
+            const lijst =
+              sessie?.objecten.filter((item) => item.soort === soort) ?? [];
+            if (!lijst.length && !altijd) return null;
+            const status = sessie?.rapport?.regels.find(
+              (regel) => regel.onderdeel === rapport,
+            )?.status;
+            return (
+              <section key={soort}>
+                <h3>{titel}</h3>
+                {lijst.map((item) => (
                   <button
                     disabled={bezig || exportBezig}
                     className={selectie === item.id ? "selected" : ""}
                     key={item.id}
                     onClick={() => void kiesObject(item.id)}
                   >
-                    {soort === "Tabel" ? (
-                      <Table2 size={16} />
-                    ) : soort === "VBA" ? (
-                      <Code2 size={16} />
-                    ) : (
-                      <Braces size={16} />
-                    )}{" "}
-                    {item.naam}
+                    <Icoon size={16} /> {item.naam}
                   </button>
                 ))}
-              {!sessie?.objecten.some((item) => item.soort === soort) && (
-                <p className="muted">Nog niet uitgelezen</p>
-              )}
+                {!lijst.length && (
+                  <p className="muted">
+                    {!sessie
+                      ? "Nog niet uitgelezen"
+                      : sessie.voorbeeld
+                        ? "Niet in het voorbeeld"
+                        : status === "niet gelezen"
+                          ? "Niet gelezen · zie rapport"
+                          : "Niet aanwezig"}
+                  </p>
+                )}
+              </section>
+            );
+          })}
+          {sessie?.rapport && (
+            <section>
+              <h3>Compatibiliteit</h3>
+              <button
+                disabled={bezig || exportBezig}
+                className={selectie === RAPPORT ? "selected" : ""}
+                onClick={() => setSelectie(RAPPORT)}
+              >
+                <ShieldCheck size={16} /> Rapport
+              </button>
             </section>
-          ))}
+          )}
           <div className="aside-note">
-            Formulieren, rapporten en relaties volgen in de database-integratie.
+            Formulieren, rapporten en macro’s worden alleen geïnventariseerd.
+            Niets wordt uitgevoerd.
           </div>
         </aside>
         <article>
@@ -364,17 +524,24 @@ export function DatabaseStudio({
                 <section>
                   <Braces />
                   <h3>Query’s</h3>
-                  <p>Voorbeeldbron bekijken en downloaden.</p>
+                  <p>
+                    Opgeslagen query’s als SQL reconstrueren, bekijken en als
+                    .sql bewaren.
+                  </p>
                 </section>
                 <section>
                   <Code2 />
                   <h3>VBA-scripts</h3>
-                  <p>Voorbeeldbron bekijken en als .bas bewaren.</p>
+                  <p>
+                    Aanwezige VBA-bron tonen en als .bas bewaren. Er wordt niets
+                    uitgevoerd.
+                  </p>
                 </section>
               </div>
               <p className="melding">
-                MDB/ACCDB-tabellen worden lokaal gelezen. Query’s, VBA-extractie
-                en bewerking volgen. Scripts worden niet uitgevoerd.
+                MDB/ACCDB-bestanden worden lokaal en alleen-lezen geopend, met
+                een compatibiliteitsrapport per bestand. Macro’s en VBA worden
+                nooit uitgevoerd; bewerken volgt later.
               </p>
             </div>
           ) : (
@@ -382,7 +549,63 @@ export function DatabaseStudio({
               <div className="melding" role="status">
                 {sessie.melding}
               </div>
-              {object ? (
+              {selectie === RAPPORT && sessie.rapport ? (
+                <>
+                  <div className="object-toolbar">
+                    <h2>
+                      Compatibiliteitsrapport
+                      <small>
+                        {sessie.rapport.formaat} · SHA-256{" "}
+                        {sessie.rapport.sha256.slice(0, 16)}…
+                      </small>
+                    </h2>
+                    <button
+                      disabled={bezig || exportBezig}
+                      onClick={() => exporteerRapport("json")}
+                    >
+                      <FileJson size={16} /> JSON
+                    </button>
+                    <button
+                      disabled={bezig || exportBezig}
+                      onClick={() => exporteerRapport("txt")}
+                    >
+                      <FileText size={16} /> Tekst
+                    </button>
+                  </div>
+                  <div className="table-wrap">
+                    <table className="database-rapport">
+                      <thead>
+                        <tr>
+                          <th>Onderdeel</th>
+                          <th>Status</th>
+                          <th>Aantal</th>
+                          <th>Toelichting</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {sessie.rapport.regels.map((regel) => (
+                          <tr key={regel.onderdeel}>
+                            <td>{regel.onderdeel}</td>
+                            <td>
+                              <span
+                                className={`database-status status-${regel.status.replaceAll(" ", "-")}`}
+                              >
+                                {regel.status}
+                              </span>
+                            </td>
+                            <td>{regel.aantal ?? "–"}</td>
+                            <td>{regel.toelichting}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                  <p className="muted">
+                    Gelezen met {sessie.rapport.lezer}. Het rapport bevat alleen
+                    aantallen, namen en meldingen, geen tabelgegevens.
+                  </p>
+                </>
+              ) : object ? (
                 <>
                   <div className="object-toolbar">
                     <h2>
@@ -392,22 +615,29 @@ export function DatabaseStudio({
                         {object.soort}
                       </small>
                     </h2>
-                    <button
-                      disabled={
-                        bezig ||
-                        exportBezig ||
-                        (object.soort === "Tabel" && !object.rijen)
-                      }
-                      onClick={() => void exporteer()}
-                    >
-                      <Download size={16} />
-                      {object.soort === "Tabel"
-                        ? sessie.voorbeeld
-                          ? "CSV exporteren"
-                          : "Pagina als CSV"
-                        : "Bron downloaden"}
-                    </button>
+                    {extensie && (
+                      <button
+                        disabled={!exporteerbaar || bezig || exportBezig}
+                        onClick={exporteer}
+                      >
+                        <Download size={16} />
+                        {object.soort === "Tabel"
+                          ? sessie.voorbeeld
+                            ? "CSV exporteren"
+                            : "Pagina als CSV"
+                          : object.soort === "VBA"
+                            ? "Als .bas downloaden"
+                            : "Als .sql downloaden"}
+                      </button>
+                    )}
                   </div>
+                  <Details
+                    object={
+                      object.soort === "Tabel"
+                        ? { ...object, eigenschappen: [] }
+                        : object
+                    }
+                  />
                   {object.soort === "Tabel" ? (
                     bezig ? (
                       <p role="status">Tabelpagina laden…</p>
@@ -459,6 +689,41 @@ export function DatabaseStudio({
                           {object.totaalRijen !== undefined &&
                             ` · pagina vanaf rij ${object.totaalRijen ? paginaStart + 1 : 0} van ${object.totaalRijen}`}
                         </p>
+                        {!!object.indexen?.length && (
+                          <details className="database-indexen">
+                            <summary>
+                              Indexen en sleutels ({object.indexen.length})
+                            </summary>
+                            <table>
+                              <thead>
+                                <tr>
+                                  <th>Naam</th>
+                                  <th>Kolommen</th>
+                                  <th>Soort</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {object.indexen.map((index) => (
+                                  <tr key={index.naam}>
+                                    <td>{index.naam}</td>
+                                    <td>{index.kolommen.join(", ")}</td>
+                                    <td>
+                                      {[
+                                        index.primair && "Primaire sleutel",
+                                        !index.primair &&
+                                          index.uniek &&
+                                          "Uniek",
+                                        index.extern && "Relatie-index",
+                                      ]
+                                        .filter(Boolean)
+                                        .join(" · ") || "Index"}
+                                    </td>
+                                  </tr>
+                                ))}
+                              </tbody>
+                            </table>
+                          </details>
+                        )}
                         {!sessie.voorbeeld && (
                           <div className="database-paginering">
                             <button
@@ -487,33 +752,40 @@ export function DatabaseStudio({
                         )}
                       </>
                     )
-                  ) : (
-                    <>
-                      <pre>
-                        <code>{object.bron}</code>
-                      </pre>
-                      <p className="muted">
-                        Alleen bronweergave.{" "}
-                        {object.soort === "VBA"
-                          ? "VBA-uitvoering"
-                          : "Query-uitvoering"}{" "}
-                        is nog niet beschikbaar.
+                  ) : object.soort === "Query" || object.soort === "VBA" ? (
+                    object.bron ? (
+                      <>
+                        <Bron
+                          bron={object.bron}
+                          taal={object.soort === "VBA" ? "vba" : "sql"}
+                        />
+                        <p className="muted">
+                          Alleen bronweergave.{" "}
+                          {object.soort === "VBA"
+                            ? "VBA wordt niet uitgevoerd; uitvoering vereist een afzonderlijk technisch ontwerp."
+                            : "Query’s worden niet uitgevoerd."}
+                        </p>
+                      </>
+                    ) : (
+                      <p role="status">
+                        Er is geen bron beschikbaar. Er is niets teruggewonnen
+                        of gegokt; zie de beperking hierboven.
                       </p>
-                    </>
-                  )}
+                    )
+                  ) : null}
                 </>
               ) : (
                 <div className="welkom">
                   <Database size={40} />
-                  <h2>Selecteer een tabel</h2>
+                  <h2>Selecteer een object</h2>
                   <p>
                     {sessie.naam} · {sessie.grootte?.toLocaleString("nl-NL")}{" "}
                     bytes
                   </p>
                   <p>
-                    Kies links een gebruikerstabel om de kolommen en gegevens te
-                    lezen.{" "}
-                    {sessie.objecten.length === 0 &&
+                    Kies links een tabel, query, relatie of VBA-module, of open
+                    het compatibiliteitsrapport.{" "}
+                    {!sessie.objecten.some((o) => o.soort === "Tabel") &&
                       "Er zijn geen gebruikerstabellen gevonden."}
                   </p>
                 </div>
@@ -528,7 +800,7 @@ export function DatabaseStudio({
           {sessie?.voorbeeld
             ? "Voorbeeldgegevens"
             : sessie
-              ? "Tabellen · alleen lezen"
+              ? `${sessie.rapport?.formaat ?? "Database"} · alleen lezen`
               : "Klaar om te beginnen"}
         </span>
         <span>Geen uploads · geen wijzigingen aan het origineel</span>

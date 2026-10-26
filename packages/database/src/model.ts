@@ -1,5 +1,20 @@
 /** Adaptercontract: onbekende onderdelen worden nooit als lege, gelezen lijsten gepresenteerd. */
-export type Objectsoort = "Tabel" | "Query" | "VBA";
+export type Objectsoort =
+  | "Tabel"
+  | "Query"
+  | "Relatie"
+  | "VBA"
+  | "Formulier"
+  | "Rapport"
+  | "Macro"
+  | "Gekoppelde tabel";
+export interface DatabaseIndex {
+  naam: string;
+  kolommen: string[];
+  primair: boolean;
+  uniek: boolean;
+  extern: boolean;
+}
 export interface DatabaseObject {
   id: string;
   naam: string;
@@ -9,6 +24,30 @@ export interface DatabaseObject {
   bron?: string;
   totaalRijen?: number;
   kolomtypen?: string[];
+  indexen?: DatabaseIndex[];
+  eigenschappen?: [string, string][];
+  beperkingen?: string[];
+}
+export type Rapportstatus =
+  | "gelezen"
+  | "gedeeltelijk"
+  | "niet gelezen"
+  | "niet aanwezig"
+  | "niet uitgevoerd";
+export interface Rapportregel {
+  onderdeel: string;
+  status: Rapportstatus;
+  aantal: number | null;
+  toelichting: string;
+}
+export interface Compatibiliteitsrapport {
+  bestand: string;
+  grootte: number;
+  sha256: string;
+  formaat: string;
+  lezer: string;
+  datum: string;
+  regels: Rapportregel[];
 }
 export interface DatabaseSession {
   naam: string;
@@ -16,6 +55,7 @@ export interface DatabaseSession {
   voorbeeld: boolean;
   objecten: DatabaseObject[];
   melding: string;
+  rapport?: Compatibiliteitsrapport;
 }
 export function controleerDatabaseBestand(file: File) {
   if (!/\.(mdb|accdb)$/i.test(file.name))
@@ -65,7 +105,23 @@ export function csv(kolommen: string[], rijen: string[][]): string {
     ) +
     '"';
   return (
-    "\uFEFF" +
-    [kolommen, ...rijen].map((rij) => rij.map(cel).join(";")).join("\r\n")
+    "﻿" + [kolommen, ...rijen].map((rij) => rij.map(cel).join(";")).join("\r\n")
   );
+}
+export function rapportAlsTekst(rapport: Compatibiliteitsrapport): string {
+  const regels = [
+    `Compatibiliteitsrapport Open Database Studio`,
+    `Bestand: ${rapport.bestand}`,
+    `Grootte: ${rapport.grootte} bytes`,
+    `SHA-256: ${rapport.sha256}`,
+    `Formaat: ${rapport.formaat}`,
+    `Lezer: ${rapport.lezer}`,
+    `Datum: ${rapport.datum}`,
+    "",
+  ];
+  for (const regel of rapport.regels)
+    regels.push(
+      `[${regel.status}] ${regel.onderdeel}${regel.aantal === null ? "" : ` (${regel.aantal})`}: ${regel.toelichting}`,
+    );
+  return regels.join("\r\n") + "\r\n";
 }

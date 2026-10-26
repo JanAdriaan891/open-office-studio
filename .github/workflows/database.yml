@@ -40,6 +40,9 @@ jobs:
         env:
           DATABASE_DIST: apps/database-studio/dist
         run: node scripts/test-database-worker.mjs .local/corpus/bestanden/jackcess-b9d004aa5f8287ae413074a933e2c54235f1de29.mdb .local/corpus/bestanden/jackcess-e16c664c03d368bc37fb55265544ba23c201f174.accdb .local/corpus/bestanden/jackcess-6121fc34bed66f15e836e8130cd9489184e7a384.mdb
+      - name: Databasecorpusproef (aantallen, indexen, query’s, VBA, hash)
+        if: runner.os == 'Linux'
+        run: node scripts/database-corpusproef.mjs
       - name: Windows-loader voorbereiden
         if: runner.os == 'Windows'
         shell: pwsh

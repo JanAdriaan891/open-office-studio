@@ -512,3 +512,103 @@
     grid-template-columns: 1fr;
   }
 }
+.database-app .database-bron {
+  white-space: pre;
+  font:
+    13px/1.7 "JetBrains Mono",
+    ui-monospace,
+    monospace;
+}
+.database-app .syntax-sleutelwoord {
+  color: #b45309;
+  font-weight: 600;
+}
+.database-app .syntax-tekst {
+  color: #15803d;
+}
+.database-app .syntax-commentaar {
+  color: #78716c;
+  font-style: italic;
+}
+.database-app .syntax-getal {
+  color: #7c3aed;
+}
+.database-app .syntax-naam {
+  color: #1d4ed8;
+}
+.database-app[data-theme="dark"] .syntax-sleutelwoord {
+  color: #fbbf24;
+}
+.database-app[data-theme="dark"] .syntax-tekst {
+  color: #86efac;
+}
+.database-app[data-theme="dark"] .syntax-commentaar {
+  color: #a8a29e;
+}
+.database-app[data-theme="dark"] .syntax-getal {
+  color: #c4b5fd;
+}
+.database-app[data-theme="dark"] .syntax-naam {
+  color: #93c5fd;
+}
+.database-app .database-eigenschappen {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 6px 18px;
+  margin: 0 0 16px;
+  font-size: 13px;
+}
+.database-app .database-eigenschappen > div {
+  display: contents;
+}
+.database-app .database-eigenschappen dt {
+  color: var(--muted);
+}
+.database-app .database-eigenschappen dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.database-app .database-beperkingen {
+  margin: 0 0 16px;
+  padding: 10px 14px 10px 30px;
+  border-left: 3px solid #b45309;
+  background: var(--soft);
+  font-size: 13px;
+  line-height: 1.6;
+}
+.database-app .database-indexen {
+  margin: 16px 0;
+  font-size: 13px;
+}
+.database-app .database-indexen summary {
+  cursor: pointer;
+  margin-bottom: 8px;
+}
+.database-app .database-rapport td {
+  vertical-align: top;
+}
+.database-app .database-status {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  white-space: nowrap;
+  background: var(--soft);
+  border: 1px solid var(--border);
+}
+.database-app .status-gelezen {
+  color: #15803d;
+  border-color: #86efac;
+}
+.database-app .status-gedeeltelijk,
+.database-app .status-niet-gelezen {
+  color: #b45309;
+  border-color: #fcd34d;
+}
+.database-app[data-theme="dark"] .status-gelezen {
+  color: #86efac;
+}
+.database-app[data-theme="dark"] .status-gedeeltelijk,
+.database-app[data-theme="dark"] .status-niet-gelezen {
+  color: #fcd34d;
+}

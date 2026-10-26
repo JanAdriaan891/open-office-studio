@@ -8,12 +8,17 @@ Afzonderlijk te installeren React/Tauri-app voor het lokaal openen van oude MDB-
 
 - MDB/ACCDB via Database openen of Ctrl+O kiezen.
 - Gebruikerstabellen, kolomtypen en gegevens lokaal lezen in een aparte worker.
+- Indexen, primaire sleutels en relaties bekijken in de objectbrowser.
+- Opgeslagen query’s als gereconstrueerde SQL bekijken en als `.sql` bewaren.
+- Aanwezige VBA-bron bekijken en als `.bas` bewaren. Ontbrekende of alleen gecompileerde bron wordt als beperking gemeld.
+- Formulieren, rapporten, macro’s en gekoppelde tabellen worden alleen geïnventariseerd.
+- Per bestand is er een compatibiliteitsrapport, te exporteren als JSON of tekst.
 - Maximaal 200 rijen per pagina; zoeken en CSV-export gelden voor de geladen pagina.
-- In de desktopapp CSV opslaan met een native dialoog en een volledige, atomaire schrijfactie. De bron blijft ongewijzigd. In de browser wordt een download aangevraagd.
-- Een ongeldige database weigeren en de eerder geopende tabel behouden.
+- In de desktopapp worden exports met een native dialoog en een volledige, atomaire schrijfactie opgeslagen. De bron blijft ongewijzigd. In de browser wordt een download aangevraagd.
+- Een ongeldige database wordt geweigerd; de eerder geopende tabel blijft staan.
 - Lichte en donkere weergave, een inklapbaar lint en ingebouwde demonstratiegegevens.
 
-De app is alleen lezen. Query-editor, formulieren, rapporten, relaties, gekoppelde tabellen, VBA-extractie en VBA-uitvoering zijn nog niet beschikbaar. SQL- en BAS-export betreffen uitsluitend de ingebouwde voorbeelden. Niet alle versies, encrypties en veldtypen zijn ondersteund. Zie ook de [parserbeperkingen](../../packages/database/README.md).
+De app is alleen lezen en voert geen query’s, macro’s of VBA uit. Bewerken, query-uitvoering, het tonen van formulieren en rapporten, en VBA-uitvoering zijn niet beschikbaar. Niet alle versies, encrypties en veldtypen worden ondersteund. Zie de [grenzen en platformmatrix](../../packages/database/README.md) en het [corpusverslag](../../docs/tests/2026-10-26-database.md).
 
 ## Ontwikkelen en bouwen
 

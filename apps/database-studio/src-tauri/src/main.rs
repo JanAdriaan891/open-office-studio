@@ -15,9 +15,9 @@ fn exportnaam(naam: &str, bytes: &[u8]) -> Result<(String, String), String> {
         .and_then(|e| e.to_str())
         .unwrap_or("")
         .to_lowercase();
-    if !["csv", "sql", "bas"].contains(&extensie.as_str()) {
+    if !["csv", "sql", "bas", "json", "txt"].contains(&extensie.as_str()) {
         return Err(
-            "Alleen CSV- en bronexports zijn toegestaan. Databases worden niet overschreven."
+            "Alleen CSV-, bron- en rapportexports zijn toegestaan. Databases worden niet overschreven."
                 .into(),
         );
     }
@@ -107,6 +107,9 @@ mod tests {
         assert!(exportnaam("bron.accdb", b"tekst").is_err());
         assert!(exportnaam("pagina.csv", b"").is_err());
         assert!(exportnaam("pagina.csv", &[255]).is_err());
+        assert!(exportnaam("bron.exe", b"tekst").is_err());
+        assert_eq!(exportnaam("rapport.json", b"{}").unwrap().1, "json");
+        assert_eq!(exportnaam("rapport.txt", b"tekst").unwrap().1, "txt");
         assert_eq!(
             exportnaam("../pagina.csv", b"tekst").unwrap().0,
             "pagina.csv"

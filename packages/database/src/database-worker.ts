@@ -1,5 +1,6 @@
 import type MDBReader from "mdb-reader";
 import { openDatabase } from "./database-parser";
+import { analyseerDatabase } from "./access-analyse.ts";
 
 // De parser blijft buiten de UI-thread; geen query’s, macro’s of gekoppelde bronnen uitvoeren.
 let database: MDBReader | null = null;
@@ -17,12 +18,14 @@ function tekst(waarde: unknown): string {
 context.onmessage = async ({ data }) => {
   try {
     if (data.type === "open") {
+      const bytes = new Uint8Array(data.bytes);
       database = await openDatabase(data.bytes);
       context.postMessage({
         id: data.id,
-        resultaat: database
-          .getTableNames()
-          .map((naam) => ({ id: naam, naam, soort: "Tabel" })),
+        resultaat: await analyseerDatabase(database, bytes, {
+          naam: data.naam ?? "database",
+          grootte: bytes.byteLength,
+        }),
       });
     } else if (data.type === "tabel" && database) {
       const tabel = database.getTable(data.naam);
