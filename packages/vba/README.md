@@ -121,20 +121,23 @@ met keuzeknoppen en `InputBox` worden dan geweigerd, zodat code nooit zelf “Ja
 
 ## DAO en Access
 
-- `CurrentDb`, `CodeDb`, `DBEngine(0)(0)`, `Workspaces(0)`, `BeginTrans/CommitTrans`
-  (zonder effect; `Rollback` wordt geweigerd).
+- `CurrentDb`, `CodeDb`, `DBEngine(0)(0)`, `Workspaces(0)`; `BeginTrans/CommitTrans/Rollback`
+  via de transacties van de werkkopie (`begin/bevestig/terugdraaien`, één niveau).
 - `Database.OpenRecordset(tabel | query | SQL, [type])`, `Execute sql|querynaam [, dbFailOnError]`,
-  `RecordsAffected`, `QueryDefs`, `TableDefs` (namen, velden, `Delete`), `CreateQueryDef`
-  (alleen in de sessie).
+  `RecordsAffected`, `QueryDefs` (ook `Delete`), `TableDefs` (namen, velden, `Delete`),
+  `CreateQueryDef` (met naam blijvend via `bewaarQuery`; zonder naam tijdelijk).
 - `Recordset`: `EOF/BOF`, `MoveFirst/Next/Previous/Last`, `Move`, `RecordCount`,
   `AbsolutePosition`, `Bookmark`, `NoMatch`, `Fields("x")`/`!x`/`("x")`/`Fields(i).Name/.Value/.Type`,
   `AddNew/Edit/Update/CancelUpdate/Delete`, `FindFirst/Next/Previous/Last`
   (criteria met vergelijkingen, `Like`, `Is Null`, `And/Or/Not` en VBA-functies), `Requery`,
-  `Clone`, `GetRows`, `Close`. Bewerken gaat via `voegToe`/`wijzig`/`verwijder` met de rowid.
-  Een tabel is bijwerkbaar; een eenvoudige `SELECT … FROM één tabel [WHERE] [ORDER BY]`
-  zonder parameters ook (de runtime vraagt de vertaalde SQLite-SQL op en voert die
-  opnieuw uit met de rowid); al het andere is alleen-lezen (fout 3027 bij bewerken).
-- `QueryDef`: `Parameters("x")`/`!x`, `OpenRecordset`, `Execute`, `SQL`, `Type`.
+  `Clone`, `GetRows`, `Close`. Bewerken gaat via `voegToe`/`wijzig`/`verwijder` met de rowid;
+  na `AddNew` wordt de rij met `rij(tabel, rowid)` teruggelezen (autonummering, standaardwaarden).
+  Een tabel is bijwerkbaar, en elke query of SQL waarvoor de werkkopie `QueryResultaat.bron`
+  (basistabel + rowids) teruggeeft, ook met parameters; de rest is alleen-lezen (fout 3027).
+  Veldtypen (o.a. datums) komen uit `QueryResultaat.kolomsoorten`; alleen bij een onbekende
+  soort wordt ISO-tekst als datum gelezen.
+- `QueryDef`: `Parameters("x")`/`!x`, `OpenRecordset`, `Execute`, `SQL` (wijzigen wordt
+  bij een opgeslagen query blijvend bewaard), `Type`.
   Ontbrekende parameters geven fout 3061.
 - Domeinfuncties: `DCount`, `DSum`, `DAvg`, `DMin`, `DMax`, `DLookup`, `DFirst`, `DLast`.
 - `DoCmd.RunSQL`, `DoCmd.SetWarnings`, `DoCmd.OpenQuery` (actiequery wordt uitgevoerd).
@@ -175,6 +178,7 @@ mee in `afscherming`. Een eigen procedure met dezelfde naam (bv. een eigen `Dir`
 
 `Mid`/`LSet`/`RSet` als toewijzing, `On x GoTo/GoSub`, `Eval`, `Application.Run` buiten de
 geladen modules, `Recordset.Filter/Sort/OpenRecordset`, `CreateTableDef`, `Relations`,
+geneste transacties,
 `Forms(index)`, `For Each` over `Forms`/`Controls`, `DoCmd.RunMacro`, `DeleteObject`, `Rename`,
 `CopyObject`, gebeurtenissen van klassen (`RaiseEvent` heeft geen ontvangers), UserForms
 (`Load`/`Unload`), `StrPtr/VarPtr/ObjPtr`. Currency en Decimal worden als

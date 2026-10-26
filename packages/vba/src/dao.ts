@@ -212,6 +212,19 @@ export async function voerSqlUit(rt: VbaRuntime, sqlOfNaam: string, parameters?:
   return r.gewijzigd;
 }
 
+/** Querysoort zoals Access hem bij het opslaan vastlegt, afgeleid uit de SQL. */
+export function querySoort(sql: string): "select" | "crosstab" | "delete" | "update" | "append" | "maketable" | "ddl" | "union" {
+  const t = sql.replace(/^\s*parameters\b[^;]*;/i, "").trim();
+  if (/^transform\b/i.test(t)) return "crosstab";
+  if (/^delete\b/i.test(t)) return "delete";
+  if (/^update\b/i.test(t)) return "update";
+  if (/^insert\b/i.test(t)) return "append";
+  if (/^(create|drop|alter)\b/i.test(t)) return "ddl";
+  if (/^select\b[\s\S]*\binto\b[\s\S]*\bfrom\b/i.test(t)) return "maketable";
+  if (/\bunion\b/i.test(t)) return "union";
+  return "select";
+}
+
 // ---------- Recordset ----------
 
 interface RsRij {
@@ -555,12 +568,10 @@ export class Recordset extends VbaObject {
 }
 
 async function herleesRij(db: Werkkopie, tabel: string, rowid: number, kolommen: string[], soorten: (Veldsoort | undefined)[]) {
-  // `rijen` heeft geen filter op rowid; voor kleine tabellen volstaat het zoeken in de laatste pagina.
-  const { totaal } = await db.rijen(tabel, { start: 0, aantal: 1 });
-  const { rijen } = await db.rijen(tabel, { start: Math.max(0, totaal - 50), aantal: 50 });
-  const rij = rijen.find((x) => x.rowid === rowid);
+  const rij = await db.rij(tabel, rowid);
   if (!rij) return null;
-  return kolommen.map((k, i) => naarVba(rij.waarden[k] ?? null, soorten[i]));
+  const sleutel = new Map(Object.keys(rij.waarden).map((k) => [k.toLowerCase(), k]));
+  return kolommen.map((k, i) => naarVba(rij.waarden[sleutel.get(k.toLowerCase().split(".").pop()!) ?? k] ?? null, soorten[i]));
 }
 
 export class FieldObject extends VbaObject {
@@ -719,14 +730,6 @@ async function evalueerCriterium(e: Expr, waarden: VbaWaarde[], kolommen: string
 
 // ---------- openen ----------
 
-/** Probeert een eenvoudige SELECT op één tabel bij te werken door de rowid mee te vragen. */
-function enkeleTabel(sql: string): string | null {
-  const m = /^\s*select\s+(?!distinct\b|top\b)([\s\S]+?)\s+from\s+(\[[^\]]+\]|[A-Za-z_][\w]*)\s*(?:as\s+\w+\s*)?((?:where|order\s+by)\b[\s\S]*)?;?\s*$/i.exec(sql);
-  if (!m) return null;
-  if (/\b(join|group\s+by|union|having)\b|,\s*(\[[^\]]+\]|\w+)\s*(where|$)/i.test(m[2] + " " + (m[3] ?? ""))) return null;
-  return zonderHaken(m[2]);
-}
-
 export async function openRecordset(
   rt: VbaRuntime,
   bron: string,
@@ -770,36 +773,19 @@ export async function openRecordset(
   const nodig = await metDb(() => db.parametersVan(query ? query.naam : sql));
   const ontbrekend = nodig.filter((p) => !parameters || !Object.keys(parameters).some((k) => k.toLowerCase() === p.toLowerCase()));
   if (ontbrekend.length) throw fout(3061, `Te weinig parameters. Verwacht: ${ontbrekend.length}.`);
-  const bijwerkTabel = !alleenLezen ? enkeleTabel(sql) : null;
-  const schemaTabel = bijwerkTabel ? tabellen.find((t) => t.naam.toLowerCase() === bijwerkTabel.toLowerCase()) : undefined;
-  const opties = { parameters, limiet: 1_000_000 };
-  let resultaat: QueryResultaat | null = null;
-  let metRowid = false;
-  if (schemaTabel && !parameters) {
-    // Bijwerkbaar maken: vraag de door de werkkopie vertaalde SQLite-SQL op en
-    // voer die opnieuw uit met de rowid erbij (alleen bij één tabel zonder parameters).
-    try {
-      const proef = await db.query(sql, { limiet: 1 });
-      const herschreven = proef.uitgevoerd.replace(/^\s*select\s+/i, "SELECT rowid AS ooo_rowid, ");
-      if (herschreven !== proef.uitgevoerd) {
-        resultaat = await db.query(herschreven, { dialect: "sqlite", limiet: opties.limiet });
-        metRowid = resultaat.kolommen[0]?.toLowerCase() === "ooo_rowid";
-        if (!metRowid) resultaat = null;
-      }
-    } catch {
-      resultaat = null;
-    }
-  }
-  if (!resultaat) resultaat = await metDb(() => (query ? db.voerQueryUit(query.naam, parameters) : db.query(sql, opties)));
-  const kolommen = metRowid ? resultaat.kolommen.slice(1) : resultaat.kolommen;
-  const veldSoort = (k: string) => schemaTabel?.velden.find((v) => v.naam.toLowerCase() === k.toLowerCase().split(".").pop())?.soort;
-  const soorten = kolommen.map(veldSoort);
-  const rijen: RsRij[] = resultaat.rijen.map((r) => ({
+  const resultaat = await metDb(() => (query ? db.voerQueryUit(query.naam, parameters) : db.query(sql, { parameters, limiet: 1_000_000 })));
+  // Bijwerkbaar als de werkkopie de basistabel en de rowids meegeeft (SELECT op één tabel).
+  const bijwerk = !alleenLezen && resultaat.bron && resultaat.bron.rowids.length === resultaat.rijen.length ? resultaat.bron : undefined;
+  const schemaTabel = resultaat.bron ? tabellen.find((t) => t.naam.toLowerCase() === resultaat.bron!.tabel.toLowerCase()) : undefined;
+  const soorten = resultaat.kolommen.map(
+    (k, i) => resultaat.kolomsoorten?.[i] ?? schemaTabel?.velden.find((v) => v.naam.toLowerCase() === k.toLowerCase().split(".").pop())?.soort ?? undefined,
+  );
+  const rijen: RsRij[] = resultaat.rijen.map((r, j) => ({
     id: volgendeRijId++,
-    rowid: metRowid ? Number(r[0]) : undefined,
-    waarden: (metRowid ? r.slice(1) : r).map((w, i) => naarVba(w, soorten[i])),
+    rowid: resultaat.bron?.rowids[j],
+    waarden: r.map((w, i) => naarVba(w, soorten[i])),
   }));
-  return new Recordset(kolommen, soorten, rijen, metRowid && schemaTabel ? schemaTabel.naam : null, bron, soort, herlaad, resultaat.afgekapt);
+  return new Recordset(resultaat.kolommen, soorten, rijen, bijwerk ? bijwerk.tabel : null, bron, soort, herlaad, resultaat.afgekapt);
 }
 
 // ---------- Database, QueryDef, TableDef ----------
@@ -862,9 +848,15 @@ class QueryDefObject extends VbaObject {
   override async zetLid(naam: string, args: VbaWaarde[], waarde: VbaWaarde, rt: unknown): Promise<void> {
     const r = rt as VbaRuntime;
     if (naam === "sql") {
-      if (!this.tijdelijk)
-        throw new VbaAfbreking("niet-ondersteund", "De SQL van een opgeslagen query wijzigen wordt niet ondersteund (het contract van de werkkopie kan geen query’s opslaan).");
-      this.sql = naarTekst(await r.deref(waarde), r.land);
+      const sql = naarTekst(await r.deref(waarde), r.land);
+      if (!this.tijdelijk) {
+        // Opgeslagen query: blijvend in de werkkopie, zoals in Access.
+        const soort = querySoort(sql);
+        await metDb(() => werkkopieVan(r).bewaarQuery({ naam: this.naam, sql, soort }));
+        this.soort = soort;
+        vergeetSchemas(r);
+      }
+      this.sql = sql;
       this.parameters.clear();
       return;
     }
@@ -1086,13 +1078,14 @@ export class DatabaseObject extends VbaObject {
       case "recordsaffected":
         return lng(this.recordsAffected);
       case "querydefs": {
+        const db = werkkopieVan(r);
         const v = new Verzameling("QueryDefs", async () => {
           const { querys } = await schemas(r);
           return [
             ...querys.map((q) => ({ naam: q.naam, obj: new QueryDefObject(q.naam, q.sql, q.soort, false) as VbaWaarde })),
             ...[...this.tijdelijk.values()].map((q) => ({ naam: q.naam, obj: q as VbaWaarde })),
           ];
-        });
+        }, (naam) => metDb(() => db.verwijderQuery(naam)));
         return args.length ? v.standaard(args, rt) : v;
       }
       case "tabledefs": {
@@ -1107,10 +1100,14 @@ export class DatabaseObject extends VbaObject {
       case "createquerydef": {
         const qnaam = ontbreekt(args[0]) ? "" : naarTekst(await r.deref(args[0]), r.land);
         const sql = ontbreekt(args[1]) ? "" : naarTekst(await r.deref(args[1]), r.land);
-        const q = new QueryDefObject(qnaam, sql, /^\s*select/i.test(sql) ? "select" : "update", true);
-        // Een benoemde querydef blijft alleen in deze sessie bestaan.
-        if (qnaam) this.tijdelijk.set(qnaam.toLowerCase(), q);
-        return q;
+        // Zonder naam: tijdelijke querydef. Met naam: blijvend opgeslagen in de werkkopie
+        // (in DAO na QueryDefs.Append; CreateQueryDef met naam doet dat direct).
+        if (!qnaam) return new QueryDefObject("", sql, querySoort(sql), true);
+        if (!sql) throw new VbaAfbreking("niet-ondersteund", "CreateQueryDef met een naam maar zonder SQL wordt niet ondersteund.");
+        const db = werkkopieVan(r);
+        await metDb(() => db.bewaarQuery({ naam: qnaam, sql, soort: querySoort(sql) }));
+        vergeetSchemas(r);
+        return new QueryDefObject(qnaam, sql, querySoort(sql), false);
       }
       case "close":
         return LEEG;
@@ -1145,10 +1142,15 @@ class WorkspaceObject extends VbaObject {
         if (args.length) return huidigeDatabase(r);
         return new Verzameling("Databases", async () => [{ naam: "db", obj: huidigeDatabase(r) }]);
       case "begintrans":
+        await metDb(() => werkkopieVan(r).begin());
+        return LEEG;
       case "committrans":
+        await metDb(() => werkkopieVan(r).bevestig());
         return LEEG;
       case "rollback":
-        throw new VbaAfbreking("niet-ondersteund", "Rollback (transactie terugdraaien) wordt niet ondersteund door de werkkopie.");
+        await metDb(() => werkkopieVan(r).terugdraaien());
+        vergeetSchemas(r);
+        return LEEG;
       case "opendatabase":
         return weigerLid("Workspace", "OpenDatabase");
       case "name":
@@ -1218,7 +1220,7 @@ function domein(aggregaat: string | null, positie: "eerste" | "laatste" = "eerst
       const r = await metDb(() => db.query(sql, { limiet: aggregaat ? 1 : positie === "eerste" ? 1 : 1_000_000 }));
       if (!r.rijen.length) return aggregaat === "Count" ? lng(0) : NULL;
       const rij = positie === "eerste" ? r.rijen[0] : r.rijen[r.rijen.length - 1];
-      const w = naarVba(rij[0]);
+      const w = naarVba(rij[0], r.kolomsoorten?.[0] ?? undefined);
       if (aggregaat === "Count") return lng(w instanceof Getal ? w.w : 0);
       return w;
     },

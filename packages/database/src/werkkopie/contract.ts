@@ -139,10 +139,8 @@ export interface Werkkopie {
     rijen: Rij[];
     totaal: number;
   }>;
-  // Toegevoegd voor de VBA-runtime. Optioneel, zodat bestaande implementaties
-  // geldig blijven; SqliteWerkkopie, WerkkopieClient en de poortproxy hebben ze allemaal.
   /** Eén rij op rowid, of null als die niet (meer) bestaat. */
-  rij?(tabel: string, rowid: number): Promise<Rij | null>;
+  rij(tabel: string, rowid: number): Promise<Rij | null>;
   /** Geeft de rowid van de nieuwe rij. */
   voegToe(tabel: string, waarden: Record<string, Waarde>): Promise<number>;
   wijzig(
@@ -154,15 +152,15 @@ export interface Werkkopie {
   maakTabel(schema: Omit<TabelSchema, "aantal" | "herkomst">): Promise<void>;
   verwijderTabel(naam: string): Promise<void>;
   /** Legt een opgeslagen query vast (nieuw of vervangen); de SQL moet ontleedbaar zijn. */
-  bewaarQuery?(query: OpgeslagenQuery): Promise<void>;
-  verwijderQuery?(naam: string): Promise<void>;
+  bewaarQuery(query: OpgeslagenQuery): Promise<void>;
+  verwijderQuery(naam: string): Promise<void>;
   /**
    * Transactie over alle verbindingen met deze werkkopie (één niveau;
    * een tweede `begin` wordt geweigerd met "beperking").
    */
-  begin?(): Promise<void>;
-  bevestig?(): Promise<void>;
-  terugdraaien?(): Promise<void>;
+  begin(): Promise<void>;
+  bevestig(): Promise<void>;
+  terugdraaien(): Promise<void>;
   ontwerpen(): Promise<Ontwerp[]>;
   bewaarOntwerp(ontwerp: Ontwerp): Promise<void>;
   verwijderOntwerp(soort: Ontwerp["soort"], naam: string): Promise<void>;

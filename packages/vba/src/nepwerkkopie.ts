@@ -122,6 +122,8 @@ export async function maakNepWerkkopie(opzet: string, querys: OpgeslagenQuery[] 
   const db = new SQL.Database();
   db.run(opzet);
   let gewijzigd = false;
+  let transactie = false;
+  querys = [...querys];
 
   const tabellen = async (): Promise<TabelSchema[]> => {
     const namen = db.exec("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' ORDER BY name")[0]?.values.map((r) => String(r[0])) ?? [];
@@ -160,7 +162,14 @@ export async function maakNepWerkkopie(opzet: string, querys: OpgeslagenQuery[] 
     if (ontbreekt.length) throw Object.assign(new Error(`Parameter ontbreekt: ${ontbreekt[0]}`), { code: "parameter-ontbreekt" });
     try {
       if (/^\s*select/i.test(vertaald)) {
-        const st = db.prepare(vertaald);
+        // Eén basistabel zonder groeperen/DISTINCT/aggregaten: rowid meegeven (QueryResultaat.bron).
+        const schema = await tabellen();
+        const m = /^\s*select\s+(?!distinct\b|top\b)([\s\S]+?)\s+from\s+"?([A-Za-z_]\w*)"?\s*(?:where\b[\s\S]*|order\s+by\b[\s\S]*)?;?\s*$/i.exec(vertaald);
+        const bronTabel =
+          m && !/\b(count|sum|avg|min|max)\s*\(/i.test(m[1]) && !/\b(group\s+by|join|union)\b/i.test(vertaald)
+            ? schema.find((t) => t.naam.toLowerCase() === m[2].toLowerCase())
+            : undefined;
+        const st = db.prepare(bronTabel ? vertaald.replace(/^\s*select\s+/i, "SELECT rowid AS ooo_rowid, ") : vertaald);
         st.bind(binding.map(naarSql));
         const rijen: Waarde[][] = [];
         const limiet = opties.limiet ?? 10_000;
@@ -172,9 +181,15 @@ export async function maakNepWerkkopie(opzet: string, querys: OpgeslagenQuery[] 
           }
           rijen.push(st.get() as Waarde[]);
         }
-        const kolommen = st.getColumnNames();
+        let kolommen = st.getColumnNames();
         st.free();
-        return { kolommen, rijen, gewijzigd: 0, afgekapt, uitgevoerd: vertaald };
+        const rowids = bronTabel ? rijen.map((r) => Number(r.shift())) : [];
+        if (bronTabel) kolommen = kolommen.slice(1);
+        const velden = bronTabel ? bronTabel.velden : schema.flatMap((t) => t.velden);
+        const kolomsoorten = kolommen.map((k) => velden.find((v) => v.naam.toLowerCase() === k.toLowerCase())?.soort ?? null);
+        const resultaat: QueryResultaat = { kolommen, rijen, gewijzigd: 0, afgekapt, uitgevoerd: vertaald, kolomsoorten };
+        if (bronTabel) resultaat.bron = { tabel: bronTabel.naam, rowids };
+        return resultaat;
       }
       db.run(vertaald, binding.map(naarSql));
       gewijzigd = true;
@@ -205,6 +220,38 @@ export async function maakNepWerkkopie(opzet: string, querys: OpgeslagenQuery[] 
         waarden: Object.fromEntries(r.columns.slice(1).map((k, i) => [k, v[i + 1] as Waarde])),
       }));
       return { rijen, totaal };
+    },
+    rij: async (tabel, rowid) => {
+      const r = db.exec(`SELECT rowid AS ooo_rowid, * FROM "${tabel}" WHERE rowid = ${Number(rowid)}`)[0];
+      if (!r?.values.length) return null;
+      return { rowid, waarden: Object.fromEntries(r.columns.slice(1).map((k, i) => [k, r.values[0][i + 1] as Waarde])) };
+    },
+    bewaarQuery: async (q) => {
+      const i = querys.findIndex((x) => x.naam.toLowerCase() === q.naam.toLowerCase());
+      if (i >= 0) querys.splice(i, 1);
+      querys.push({ ...q });
+      gewijzigd = true;
+    },
+    verwijderQuery: async (naam) => {
+      const i = querys.findIndex((x) => x.naam.toLowerCase() === naam.toLowerCase());
+      if (i < 0) throw Object.assign(new Error(`Query ${naam} bestaat niet`), { code: "onbekend-object" });
+      querys.splice(i, 1);
+    },
+    begin: async () => {
+      if (transactie) throw Object.assign(new Error("Er loopt al een transactie."), { code: "beperking" });
+      db.run("SAVEPOINT nep_transactie");
+      transactie = true;
+    },
+    bevestig: async () => {
+      if (!transactie) throw Object.assign(new Error("Er loopt geen transactie."), { code: "beperking" });
+      db.run("RELEASE nep_transactie");
+      transactie = false;
+    },
+    terugdraaien: async () => {
+      if (!transactie) throw Object.assign(new Error("Er loopt geen transactie."), { code: "beperking" });
+      db.run("ROLLBACK TO nep_transactie");
+      db.run("RELEASE nep_transactie");
+      transactie = false;
     },
     voegToe: async (tabel, waarden) => {
       const k = Object.keys(waarden);

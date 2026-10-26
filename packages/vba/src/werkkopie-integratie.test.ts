@@ -93,4 +93,31 @@ End Sub`);
 End Sub`);
     expect(uit).toEqual([" 2 Anna", "Bert", " 2  281 ", " 1  2 "]);
   });
+
+  it("parameterquery bijwerkbaar, transacties en blijvende querydefs", async () => {
+    const uit = await voer(`Sub Test()
+  Dim qd As DAO.QueryDef, rs As DAO.Recordset
+  Set qd = CurrentDb.QueryDefs("qryPlaats")
+  qd.Parameters("Welke plaats") = "Delft"
+  Set rs = qd.OpenRecordset
+  Debug.Print rs.Updatable; TypeName(rs.Fields(0).Value)
+  rs.Edit
+  rs!Naam = "Annie"
+  rs.Update
+  Set rs = CurrentDb.OpenRecordset("SELECT Naam, Geboren FROM Klant ORDER BY Geboren")
+  Debug.Print TypeName(rs!Geboren.Value); rs.Updatable
+  DBEngine.BeginTrans
+  CurrentDb.Execute "DELETE FROM Klant", dbFailOnError
+  Debug.Print DCount("*", "Klant")
+  DBEngine.Rollback
+  Debug.Print DCount("*", "Klant"); DLookup("Naam", "Klant", "Plaats = 'Delft' AND Saldo > 0")
+  CurrentDb.CreateQueryDef "qryRijk", "SELECT Naam FROM Klant WHERE Saldo > 60"
+  Debug.Print CurrentDb.OpenRecordset("qryRijk")!Naam
+  CurrentDb.QueryDefs("qryRijk").SQL = "SELECT Naam FROM Klant WHERE Saldo < 0"
+  Debug.Print CurrentDb.OpenRecordset("qryRijk")!Naam
+  CurrentDb.QueryDefs.Delete "qryRijk"
+End Sub`);
+    expect(uit).toEqual(["WaarString", "DateWaar", " 0 ", " 3 Annie", "Annie", "Chris"]);
+    expect((await w.querys()).map((q) => q.naam)).not.toContain("qryRijk");
+  });
 });

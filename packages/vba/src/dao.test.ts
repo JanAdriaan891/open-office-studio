@@ -199,6 +199,50 @@ End Sub`);
     rt.laad([{ naam: "M", soort: "module", bron: "Sub Test()\nSet db = CurrentDb\nEnd Sub" }]);
     await expect(rt.voerUit("M", "Test")).rejects.toThrow(/geen database gekoppeld/);
   });
+
+  it("transacties: BeginTrans/Rollback draait terug, CommitTrans bevestigt", async () => {
+    const uit = await voer(`Sub Test()
+  Dim ws As DAO.Workspace
+  Set ws = DBEngine.Workspaces(0)
+  ws.BeginTrans
+  CurrentDb.Execute "DELETE FROM Klanten", dbFailOnError
+  Debug.Print DCount("*", "Klanten")
+  ws.Rollback
+  Debug.Print DCount("*", "Klanten")
+  DBEngine.BeginTrans
+  CurrentDb.Execute "DELETE FROM Klanten WHERE ID = 4"
+  DBEngine.CommitTrans
+  Debug.Print DCount("*", "Klanten")
+End Sub`);
+    expect(uit).toEqual([" 0 ", " 4 ", " 3 "]);
+  });
+
+  it("CreateQueryDef met naam en QueryDef.SQL worden blijvend opgeslagen; QueryDefs.Delete verwijdert", async () => {
+    const uit = await voer(`Sub Test()
+  Dim qd As DAO.QueryDef
+  Set qd = CurrentDb.CreateQueryDef("qryNieuw", "SELECT Naam FROM Klanten WHERE Lid = True ORDER BY Naam")
+  Debug.Print CurrentDb.OpenRecordset("qryNieuw").RecordCount
+  CurrentDb.QueryDefs("qryUtrecht").SQL = "SELECT Naam FROM Klanten WHERE Plaats = 'Zwolle'"
+  Debug.Print CurrentDb.OpenRecordset("qryUtrecht")!Naam; CurrentDb.QueryDefs.Count
+  CurrentDb.QueryDefs.Delete "qryNieuw"
+  Debug.Print CurrentDb.QueryDefs.Count
+End Sub`);
+    expect(uit).toEqual([" 2 ", "Visser 4 ", " 3 "]);
+    expect((await werkkopie.querys()).find((q) => q.naam === "qryUtrecht")?.sql).toMatch(/Zwolle/);
+  });
+
+  it("een query met parameters op één tabel is bijwerkbaar via QueryResultaat.bron", async () => {
+    await voer(`Sub Test()
+  Dim qd As DAO.QueryDef, rs As DAO.Recordset
+  Set qd = CurrentDb.QueryDefs("qryPerPlaats")
+  qd.Parameters("WelkePlaats") = "Delft"
+  Set rs = qd.OpenRecordset(dbOpenDynaset)
+  rs.Edit
+  rs!Naam = "De Vries"
+  rs.Update
+End Sub`);
+    expect(rijenVan(werkkopie.db, "SELECT Naam FROM Klanten WHERE ID = 2")).toEqual([["De Vries"]]);
+  });
 });
 
 describe("DoCmd en formulieren via de host", () => {
