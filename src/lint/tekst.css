@@ -1,0 +1,123 @@
+.tekst-dialoog h2 {
+  margin-top: 0;
+}
+.tekst-dialoog-breed {
+  width: min(100%, 560px);
+}
+.tekst-dialoog .office-dialoogdoorgaan:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.tekst-veld {
+  display: grid;
+  gap: 6px;
+  margin-top: 14px;
+  font-size: 12px;
+  color: #5c6574;
+}
+.tekst-veld input,
+.tekst-veld textarea {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #dce1e8;
+  border-radius: 8px;
+  color: #333a46;
+  font: inherit;
+  font-size: 13px;
+  resize: vertical;
+}
+.tekst-veld input:focus-visible,
+.tekst-veld textarea:focus-visible {
+  outline: 2px solid #bc6a15;
+  outline-offset: 1px;
+}
+.tekst-telling {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.tekst-telling th,
+.tekst-telling td {
+  padding: 6px 4px;
+  border-bottom: 1px solid #edf0f3;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.tekst-telling th[scope="row"] {
+  text-align: left;
+  font-weight: 400;
+  color: #5c6574;
+}
+.tekst-telling thead th {
+  font-weight: 500;
+  color: #465164;
+}
+.tekst-tekens {
+  display: grid;
+  gap: 12px;
+  max-height: min(52vh, 420px);
+  overflow: auto;
+}
+.tekst-tekens h3 {
+  margin: 0 0 6px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #5c6574;
+}
+.tekst-tekens section > div {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(34px, 1fr));
+  gap: 4px;
+}
+.office-dialoog .tekst-teken {
+  height: 34px;
+  padding: 0;
+  font-size: 17px;
+  color: #333a46;
+}
+.office-dialoog .tekst-teken[aria-pressed="true"] {
+  border-color: #a95606;
+  background: #fbefdc;
+}
+.office-dialoog .tekst-teken-naam {
+  margin-top: 10px;
+  font-size: 12px;
+}
+.tekst-status {
+  position: absolute;
+  right: 22px;
+  bottom: 12px;
+  z-index: 5;
+  display: flex;
+  gap: 2px;
+  padding: 2px;
+  border: 1px solid #dce1e7;
+  border-radius: 8px;
+  background: #ffffffe6;
+  box-shadow: 0 2px 8px #15233814;
+  font-size: 11px;
+  pointer-events: auto;
+}
+.tekst-status button {
+  padding: 3px 8px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: #5c6574;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+}
+.tekst-status button:hover {
+  background: #f0f2f5;
+  color: #343843;
+}
+.tekst-status button + button {
+  border-left: 1px solid #edf0f3;
+  border-radius: 0 6px 6px 0;
+}
+@media print {
+  .tekst-status {
+    display: none;
+  }
+}
