@@ -1,5 +1,23 @@
-import { defineConfig } from "vite";
+import { defineConfig, type Plugin } from "vite";
+
+// De fontpakketten verwijzen naar hun bestanden via import.meta.url, waardoor
+// Vite ze nogmaals in assets/ zet. De app laadt ze uit public/fonts/.
+function fontsUitPublic(): Plugin {
+  return {
+    name: "fonts-uit-public",
+    enforce: "pre",
+    transform(code, id) {
+      if (!/@betteroffice\/fonts(-cjk)?\/dist\/[^/]+\.js$/.test(id)) return;
+      return code.replace(
+        /new URL\("\.\.\/assets\/([^"]+)", import\.meta\.url\)/g,
+        'new URL("/fonts/$1", globalThis.location?.href ?? "http://localhost/")',
+      );
+    },
+  };
+}
+
 export default defineConfig({
+  plugins: [fontsUitPublic()],
   worker: { format: "es" },
   resolve: {
     alias: {
