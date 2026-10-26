@@ -363,7 +363,8 @@ export function rekenbladMelding(
     }
   }
   if (afwijkend.length) {
-    waarschuwing = true;
+    // Vraagt het bestand zelf om herberekening, dan is een oude cache verwacht.
+    if (!controle.volledigHerberekenen) waarschuwing = true;
     regels.push(
       `${cellenTekst(afwijkend.length)} had${afwijkend.length === 1 ? "" : "den"} een verouderde opgeslagen uitkomst en ${afwijkend.length === 1 ? "is" : "zijn"} bij openen herberekend (${voorbeelden(afwijkend)}). Bij opslaan worden de nieuwe uitkomsten bewaard.`,
     );

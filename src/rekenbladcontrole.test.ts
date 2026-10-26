@@ -152,6 +152,11 @@ describe("opgeslagen uitkomst tegenover herberekening", () => {
     const afwijkend = vergelijkCache(controle, (b, c) => engine[`${b}!${c}`]);
     expect(afwijkend).toEqual(["Cache!A2"]);
     expect(rekenbladMelding(controle, afwijkend)?.ernst).toBe("waarschuwing");
+    // Vraagt het bestand zelf om herberekening, dan is een oude cache verwacht.
+    expect(
+      rekenbladMelding({ ...controle, volledigHerberekenen: true }, afwijkend)
+        ?.ernst,
+    ).toBe("info");
   });
   it("leest waarden uit een werkboekhandle in één aanvraag", () => {
     const aanvragen: number[] = [];
