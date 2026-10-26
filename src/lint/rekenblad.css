@@ -1,0 +1,134 @@
+.rekenblad-paneel {
+  position: fixed;
+  top: 150px;
+  right: 24px;
+  z-index: 900;
+  width: min(calc(100vw - 32px), 340px);
+  padding: 14px 16px 12px;
+  border: 1px solid #dfe3e9;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 14px 44px #15233833;
+  color: #333a46;
+  font-size: 12px;
+}
+.rekenblad-paneel header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.rekenblad-paneel h2 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+.rekenblad-paneel header button {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border: 0;
+  border-radius: 6px;
+  background: none;
+  color: #6b7380;
+  cursor: pointer;
+}
+.rekenblad-paneel header button:hover {
+  background: #f1f3f6;
+}
+.rekenblad-formulier {
+  display: grid;
+  gap: 9px;
+}
+.rekenblad-formulier label {
+  display: grid;
+  gap: 4px;
+  color: #5c6573;
+}
+.rekenblad-formulier input:not([type="checkbox"]) {
+  height: 30px;
+  padding: 0 9px;
+  border: 1px solid #d8dde4;
+  border-radius: 7px;
+  color: #2c323c;
+  font-size: 13px;
+}
+.rekenblad-formulier input:focus-visible,
+.rekenblad-formulier button:focus-visible {
+  outline: 2px solid #bc6a15;
+  outline-offset: 1px;
+}
+.rekenblad-formulier .rekenblad-vinkje {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.rekenblad-knoppen {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px;
+  margin-top: 2px;
+}
+.rekenblad-knoppen button {
+  padding: 6px 10px;
+  border: 1px solid #d8dde4;
+  border-radius: 7px;
+  background: #fff;
+  color: #3d4552;
+  font-size: 12px;
+  cursor: pointer;
+}
+.rekenblad-knoppen button:hover:not(:disabled) {
+  background: #f4f6f8;
+}
+.rekenblad-knoppen button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.rekenblad-knoppen .rekenblad-primair {
+  border-color: #a95606;
+  background: #a95606;
+  color: #fff;
+}
+.rekenblad-knoppen .rekenblad-primair:hover:not(:disabled) {
+  background: #914805;
+}
+.rekenblad-status {
+  min-height: 16px;
+  margin: 0;
+  color: #6b7380;
+  overflow-wrap: anywhere;
+}
+.rekenblad-namen {
+  display: grid;
+  gap: 2px;
+  max-height: 160px;
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+  list-style: none;
+}
+.rekenblad-namen button {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  padding: 5px 8px;
+  border: 0;
+  border-radius: 6px;
+  background: none;
+  color: #3d4552;
+  text-align: left;
+  cursor: pointer;
+}
+.rekenblad-namen button:hover {
+  background: #f4f6f8;
+}
+.rekenblad-namen span {
+  color: #8a919c;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
