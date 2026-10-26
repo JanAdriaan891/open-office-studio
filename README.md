@@ -59,12 +59,18 @@ Vanaf **2026-W43.4** kan iedere notitiesectie **Canvas** of **Markdown** zijn. M
 
 ## Modules
 
-- **Open Tekst Studio** — teksten schrijven, opmaken en opslaan.
-- **Open Rekenblad Studio** — tabellen, formules en celopmaak bewerken.
-- **Open Presentatie Studio** — dia’s maken, vormgeven en presenteren.
+- **Open Tekst Studio** — teksten schrijven, opmaken en opslaan; woorden tellen, hoofdletters wijzigen, opmerkingen, speciale tekens en ga naar pagina.
+- **Open Rekenblad Studio** — tabellen, formules en celopmaak bewerken; rijen, kolommen en bladen beheren, sorteren, doorvoeren, AutoSom, vensters fixeren, zoeken en vervangen. Nederlandse invoer zoals `1,5`, `12,5%`, `€ 1.234,50` en `26-10-2026` wordt als getal of datum herkend.
+- **Open Presentatie Studio** — dia’s maken, verplaatsen, verwijderen, uitlijnen, vormgeven en presenteren vanaf de eerste of huidige dia.
 - **Open Notities Studio** — notitieboeken, secties, pagina’s, takenlijsten, zoeken en lokale opslag.
 
-- **Open Database Studio** — experimentele MDB/ACCDB-tabelbrowser, alleen lezen, met zoeken en CSV-export per pagina. Query’s, formulieren en VBA ontbreken nog. Deze module heeft de laagste prioriteit.
+- **Open Database Studio** — experimentele MDB/ACCDB-browser, alleen lezen: tabellen, opgeslagen query’s als SQL, relaties, indexen en aanwezige VBA-bron, met een compatibiliteitsrapport per bestand. Formulieren, rapporten en macro’s worden alleen geïnventariseerd; niets wordt uitgevoerd. Deze module heeft de laagste prioriteit.
+
+### Bediening
+
+De linten volgen het werkpatroon en de standaardsneltoetsen van gangbare kantoorsuites, zoals Ctrl+1/2/3 voor koppen, Ctrl+E/L/R/J voor uitlijnen, Ctrl+Shift+1–6 voor getalnotaties, Alt+= voor AutoSom en F5 voor de diavoorstelling. De sneltoets staat in de tooltip van elke knop. **Ctrl + scrollwiel**, touchpadknijpen en **Ctrl + =/−** zoomen alleen het document, rond de muispositie; **Ctrl + 0** zet de zoom terug op 100%. Het percentage staat in de statusbalk en wordt per document onthouden.
+
+Wat de engines (nog) niet kunnen, ontbreekt bewust: onder meer een inhoudsopgave, voetnoten, spelling, autofilter, dia dupliceren en het uitvoeren van VBA.
 
 ## Status
 
@@ -73,6 +79,8 @@ Een lokale React-werkruimte met drie aangesloten kantoorengines en een Tauri-des
 DOCX, XLSX en PPTX werken rechtstreeks. De desktopversie kan met een **afzonderlijk geïnstalleerd conversieprogramma** ook ODF en oudere formaten omzetten en PDF exporteren; stel het in met `OPENAEC_CONVERSIE_PROGRAMMA` (zie [Conversieprogramma instellen](docs/formaten.md#conversieprogramma-instellen)). De runtime wordt nog niet met onze installers meegeleverd. Er zijn routes voor 81 invoerextensies; dit betekent niet dat elk bestand of elk formaat al correct werkt. Zie de [formaatmatrix en beperkingen](docs/formaten.md).
 
 De [corpusproef](docs/tests/2026-10-21-formaten.md) gebruikt 1.566 openbare bestanden met vastgelegde bronrevisies en hashes. De engines voltooiden 571 rechtstreekse en 775 geconverteerde open-/opslag-/heropenproeven; Database Studio las 79 databases. Weigeringen, tijdslimieten en de beperkte visuele controle staan eveneens in het verslag. De [browserproeven van 0.4.1](docs/tests/2026-10-21-browser.md) bevestigen opslag, annuleren, foutbehoud en echte MDB/ACCDB-pagina’s, inclusief een hierbij gevonden en herstelde browserfout. Voor eerdere bedieningstests: [ribbon en editors](docs/tests/2026-10-21.md), [opslagbeveiliging](docs/tests/2026-10-21-opslag.md).
+
+De proeven van 26 oktober 2026 doorlopen de [testmatrix](docs/onderzoek/testmatrix.md) met synthetische bestanden: [documenten](docs/tests/2026-10-26-documenten.md), [rekenbladen](docs/tests/2026-10-26-rekenbladen.md) met onafhankelijke formulecontrole, [presentaties](docs/tests/2026-10-26-presentaties.md), de [databasecorpusproef](docs/tests/2026-10-26-database.md) en de [bundelmeting](docs/tests/2026-10-26-bundel.md). Praktijkbestanden en de live Y-app-opslagproef ontbreken nog; zie [praktijkcorpus](docs/onderzoek/praktijkcorpus.md) en [integratie](docs/onderzoek/integratie.md).
 
 De [GUI-controle van 0.4.3](docs/tests/2026-10-22-gui.md) controleert de vier werkruimtes, het bestandsmenu, bewerken en echte downloads. Bewaarde DOCX-, XLSX- en PPTX-bestanden zijn daarnaast met onafhankelijke lezers gecontroleerd. Daarbij zijn de laagvolgorde van het bestandsmenu, de algemene database-openknop en de donkere databaseweergave hersteld.
 
@@ -96,6 +104,8 @@ De [downloadbare testreleases](https://github.com/JanAdriaan891/open-office-stud
 
 - [Routekeuze en licentieafweging](docs/onderzoek/README.md)
 - [Bestaande Y-app-integratie](docs/onderzoek/integratie.md)
+- [ODF-criteria en -proeven](docs/onderzoek/odf.md)
+- [Praktijkcorpus: selectie en procedure](docs/onderzoek/praktijkcorpus.md)
 
 ## Controles
 
@@ -115,6 +125,9 @@ Zie de [testmatrix](docs/onderzoek/testmatrix.md) voor het vergelijken van DOCX-
 - `pnpm test`: adapter- en exportcontroles.
 
 - `pnpm test:engines`: documenten wijzigen, opslaan en opnieuw openen met de echte engines.
+- `node scripts/test-matrix-documenten.mjs`, `node scripts/test-matrix-rekenbladen.mjs`: testmatrix D1–D3, P1–P3 en R1–R3 met synthetische fixtures in `.local/matrix/`.
+- `node scripts/test-rekenblad-opdrachten.mjs`, `node scripts/test-presentatie-opdrachten.mjs`: lintopdrachten tegen de echte engines.
+- `node scripts/database-corpusproef.mjs`, `node scripts/meet-bundel.mjs`, `node scripts/praktijkcorpus.mjs`: databasecorpus, bundelmeting en praktijkroundtrips.
 - `pnpm desktop:dev`: Tauri-desktopomgeving.
 - `pnpm desktop:build`: native pakket voor het huidige platform.
 - `pnpm database:dev`, `pnpm database:build`, `pnpm database:desktop:build`: de afzonderlijke database-app ontwikkelen en bouwen.
