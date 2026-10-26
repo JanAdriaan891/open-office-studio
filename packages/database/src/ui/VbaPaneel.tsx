@@ -1,6 +1,6 @@
 /** VBA-module: bron, procedures met “Uitvoeren”, en het uitvoervenster. */
 import { useEffect, useRef, useState } from "react";
-import { Code2, Eraser, Pencil, Play, Save, Square, X } from "lucide-react";
+import { Code2, Eraser, Pencil, Play, Save, Square, Trash2, X } from "lucide-react";
 import type { LaadResultaat, ProcedureInfo } from "../../../vba/src/protocol.ts";
 import { kleurTokens } from "../syntaxis.ts";
 import type { VbaModule } from "./vba-sessie.ts";
@@ -41,14 +41,20 @@ export function VbaPaneel({
   vba,
   modules,
   onWijzig,
+  onVerwijder,
 }: {
   module: VbaModule;
   vba: VbaBediening;
   modules: VbaModule[];
-  onWijzig: (bron: string) => void;
+  /** Bewaart de bron in de werkkopie (`bewaarModule`); een fout blijft in de editor staan. */
+  onWijzig: (bron: string) => void | Promise<void>;
+  /** Verwijdert de module uit de werkkopie (na bevestiging door de aanroeper). */
+  onVerwijder?: () => void | Promise<void>;
 }) {
   const [info, setInfo] = useState<{ procedures: ProcedureInfo[]; laad: LaadResultaat } | null>(null);
   const [fout, setFout] = useState("");
+  const [bewaarFout, setBewaarFout] = useState("");
+  const [bewaren, setBewaren] = useState(false);
   const [bewerken, setBewerken] = useState(false);
   const [concept, setConcept] = useState(module.bron);
   const sessie = vba.sessie;
@@ -56,6 +62,7 @@ export function VbaPaneel({
   useEffect(() => {
     setConcept(module.bron);
     setBewerken(false);
+    setBewaarFout("");
   }, [module.naam, module.bron]);
 
   useEffect(() => {
@@ -146,36 +153,64 @@ export function VbaPaneel({
             <>
               <button
                 className="primary"
-                onClick={() => {
-                  onWijzig(concept);
-                  setBewerken(false);
+                disabled={bewaren}
+                onClick={async () => {
+                  setBewaren(true);
+                  setBewaarFout("");
+                  try {
+                    await onWijzig(concept);
+                    setBewerken(false);
+                  } catch (e) {
+                    setBewaarFout(e instanceof Error ? e.message : String(e));
+                  } finally {
+                    setBewaren(false);
+                  }
                 }}
               >
-                <Save size={14} /> Wijziging toepassen
+                <Save size={14} /> Opslaan in werkkopie
               </button>
               <button
+                disabled={bewaren}
                 onClick={() => {
                   setConcept(module.bron);
                   setBewerken(false);
+                  setBewaarFout("");
                 }}
               >
                 <X size={14} /> Annuleren
               </button>
             </>
           ) : (
-            <button onClick={() => setBewerken(true)}>
-              <Pencil size={14} /> Bewerken
-            </button>
+            <>
+              <button onClick={() => setBewerken(true)}>
+                <Pencil size={14} /> Bewerken
+              </button>
+              {onVerwijder && (
+                <button className="is-gevaar" onClick={() => void onVerwijder()}>
+                  <Trash2 size={14} /> Module verwijderen
+                </button>
+              )}
+            </>
           )}
         </div>
+        {bewaarFout && (
+          <p className="melding fout" role="alert">
+            {bewaarFout}
+          </p>
+        )}
         {bewerken ? (
           <textarea className="database-vba-editor" aria-label={`Broncode van ${module.naam}`} spellCheck={false} value={concept} onChange={(e) => setConcept(e.target.value)} />
         ) : (
           <Bron bron={module.bron} taal="vba" />
         )}
         <p className="muted">
-          {module.herkomst === "access" ? "Uit het Access-origineel." : "Gemaakt of bewerkt in deze sessie."} Wijzigingen aan VBA gelden alleen
-          voor deze sessie: de werkkopie bewaart (nog) geen modules.
+          {module.herkomst === "access"
+            ? module.gewijzigd
+              ? "Uit het Access-origineel, bewerkt in de werkkopie."
+              : "Uit het Access-origineel."
+            : "Gemaakt in de werkkopie."}{" "}
+          Opslaan bewaart de module in de werkkopie (_openaec_modules); bewaar de werkkopie als .sqlite om de wijziging te houden. Het
+          origineel blijft ongewijzigd.
         </p>
       </section>
     </div>

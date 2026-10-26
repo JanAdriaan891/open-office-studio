@@ -7,6 +7,7 @@
 import type {
   QueryResultaat,
   TabelSchema,
+  VeldSchema,
   Veldsoort,
   Waarde,
   Werkkopie,
@@ -102,6 +103,25 @@ const DAO_TYPE: Record<Veldsoort, number> = {
   autonummer: 4,
   binair: 11,
   guid: 15,
+};
+
+/** DAO-veldtype (CreateField) naar veldsoort van de werkkopie. */
+const SOORT_UIT_DAO: Record<number, Veldsoort> = {
+  1: "jaNee",
+  2: "geheel",
+  3: "geheel",
+  4: "geheel",
+  5: "valuta",
+  6: "getal",
+  7: "getal",
+  8: "datum",
+  9: "binair",
+  10: "tekst",
+  11: "binair",
+  12: "memo",
+  15: "guid",
+  16: "geheel",
+  20: "getal",
 };
 
 const QUERY_TYPE: Record<string, number> = {
@@ -947,6 +967,7 @@ class Verzameling extends VbaObject {
     readonly typeNaam: string,
     private readonly items: () => Promise<{ naam: string; obj: VbaWaarde }[]>,
     private readonly verwijder?: (naam: string) => Promise<void>,
+    private readonly toevoegen?: (obj: VbaWaarde, rt: VbaRuntime) => Promise<void>,
   ) {
     super();
   }
@@ -959,6 +980,11 @@ class Verzameling extends VbaObject {
     }
     if (naam === "delete" && this.verwijder) {
       await this.verwijder(naarTekst(await (rt as VbaRuntime).deref(args[0]), (rt as VbaRuntime).land));
+      vergeetSchemas(rt as VbaRuntime);
+      return LEEG;
+    }
+    if (naam === "append" && this.toevoegen) {
+      await this.toevoegen(await (rt as VbaRuntime).deref(args[0]), rt as VbaRuntime);
       vergeetSchemas(rt as VbaRuntime);
       return LEEG;
     }
@@ -990,12 +1016,36 @@ class Verzameling extends VbaObject {
 
 class TableDefObject extends VbaObject {
   readonly typeNaam = "TableDef";
-  constructor(readonly schema: TabelSchema) {
+  /**
+   * `nieuw`: gemaakt met CreateTableDef en nog niet met TableDefs.Append
+   * vastgelegd; velden worden dan verzameld. Anders gaan Fields.Append en
+   * Fields.Delete direct naar de werkkopie (voegVeldToe/verwijderVeld).
+   */
+  constructor(
+    readonly schema: TabelSchema,
+    public nieuw = false,
+  ) {
     super();
+  }
+  override async zetLid(naam: string, args: VbaWaarde[], waarde: VbaWaarde, rt: unknown): Promise<void> {
+    if (naam === "name" && this.nieuw) {
+      this.schema.naam = naarTekst(await (rt as VbaRuntime).deref(waarde), (rt as VbaRuntime).land);
+      return;
+    }
+    return super.zetLid(naam, args, waarde, rt);
   }
   override async lid(naam: string, args: VbaWaarde[], rt: unknown): Promise<VbaWaarde> {
     const r = rt as VbaRuntime;
     switch (naam) {
+      case "createfield": {
+        const veldnaam = ontbreekt(args[0]) ? "" : naarTekst(await r.deref(args[0]), r.land);
+        const type = ontbreekt(args[1]) ? 10 : bankAfronden(naarGetal(await r.deref(args[1]), r.land));
+        const soort = SOORT_UIT_DAO[type];
+        if (!soort) throw fout(3259, `Veldtype ${type} wordt niet ondersteund.`);
+        const v: VeldSchema = { naam: veldnaam, soort };
+        if (soort === "tekst") v.lengte = ontbreekt(args[2]) ? 255 : bankAfronden(naarGetal(await r.deref(args[2]), r.land));
+        return new VeldDefObject(v, -1, true);
+      }
       case "name":
       case "sourcetablename":
         return this.schema.naam;
@@ -1006,7 +1056,25 @@ class TableDefObject extends VbaObject {
       case "connect":
         return "";
       case "fields": {
-        const velden = new Verzameling("Fields", async () => this.schema.velden.map((v, i) => ({ naam: v.naam, obj: new VeldDefObject(v, i) })));
+        const db = werkkopieVan(r);
+        const velden = new Verzameling(
+          "Fields",
+          async () => this.schema.velden.map((v, i) => ({ naam: v.naam, obj: new VeldDefObject(v, i) })),
+          async (veld) => {
+            if (this.nieuw) {
+              this.schema.velden = this.schema.velden.filter((v) => v.naam.toLowerCase() !== veld.toLowerCase());
+              return;
+            }
+            await metDb(() => db.verwijderVeld(this.schema.naam, veld));
+          },
+          async (obj) => {
+            if (!(obj instanceof VeldDefObject) || !obj.los) throw fout(3367, "Fields.Append verwacht een veld uit CreateField.");
+            if (!obj.v.naam) throw fout(3264, "Het veld heeft geen naam.");
+            if (!this.nieuw) await metDb(() => db.voegVeldToe(this.schema.naam, { ...obj.v }));
+            this.schema.velden.push({ ...obj.v });
+            obj.los = false;
+          },
+        );
         return args.length ? velden.standaard(args, rt) : velden;
       }
       case "openrecordset":
@@ -1021,8 +1089,44 @@ class VeldDefObject extends VbaObject {
   constructor(
     readonly v: TabelSchema["velden"][number],
     readonly index: number,
+    /** Uit CreateField en nog niet toegevoegd: eigenschappen zijn dan in te stellen. */
+    public los = false,
   ) {
     super();
+  }
+  override async zetLid(naam: string, args: VbaWaarde[], waarde: VbaWaarde, rt: unknown): Promise<void> {
+    const r = rt as VbaRuntime;
+    if (!this.los) return super.zetLid(naam, args, waarde, rt);
+    const w = await r.deref(waarde);
+    switch (naam) {
+      case "name":
+        this.v.naam = naarTekst(w, r.land);
+        return;
+      case "type": {
+        const soort = SOORT_UIT_DAO[bankAfronden(naarGetal(w, r.land))];
+        if (!soort) throw fout(3259);
+        this.v.soort = soort;
+        return;
+      }
+      case "size":
+        this.v.lengte = bankAfronden(naarGetal(w, r.land));
+        return;
+      case "required":
+        this.v.verplicht = naarGetal(w, r.land) !== 0;
+        return;
+      case "attributes":
+        if (bankAfronden(naarGetal(w, r.land)) & 16) this.v.soort = "autonummer";
+        return;
+      case "defaultvalue": {
+        const tekst = naarTekst(w, r.land).trim();
+        if (!tekst) delete this.v.standaard;
+        else this.v.standaard = /^".*"$/s.test(tekst) ? tekst.slice(1, -1) : /^-?\d+([.,]\d+)?$/.test(tekst) ? Number(tekst.replace(",", ".")) : tekst;
+        return;
+      }
+      case "allowzerolength":
+        return;
+    }
+    return super.zetLid(naam, args, waarde, rt);
   }
   override async lid(naam: string, args: VbaWaarde[], rt: unknown): Promise<VbaWaarde> {
     switch (naam) {
@@ -1092,10 +1196,20 @@ export class DatabaseObject extends VbaObject {
         const db = werkkopieVan(r);
         const v = new Verzameling(
           "TableDefs",
-          async () => (await schemas(r)).tabellen.map((t) => ({ naam: t.naam, obj: new TableDefObject(t) })),
+          async () => (await schemas(r)).tabellen.map((t) => ({ naam: t.naam, obj: new TableDefObject(structuredClone(t)) })),
           (naam) => metDb(() => db.verwijderTabel(naam)),
+          async (obj) => {
+            if (!(obj instanceof TableDefObject) || !obj.nieuw) throw fout(3367, "TableDefs.Append verwacht een TableDef uit CreateTableDef.");
+            if (!obj.schema.velden.length) throw fout(3264, "De tabel heeft nog geen velden (Fields.Append).");
+            await metDb(() => db.maakTabel({ naam: obj.schema.naam, velden: obj.schema.velden }));
+            obj.nieuw = false;
+          },
         );
         return args.length ? v.standaard(args, rt) : v;
+      }
+      case "createtabledef": {
+        const tnaam = ontbreekt(args[0]) ? "" : naarTekst(await r.deref(args[0]), r.land);
+        return new TableDefObject({ naam: tnaam, velden: [], aantal: 0, herkomst: "werkkopie" }, true);
       }
       case "createquerydef": {
         const qnaam = ontbreekt(args[0]) ? "" : naarTekst(await r.deref(args[0]), r.land);
@@ -1119,7 +1233,6 @@ export class DatabaseObject extends VbaObject {
         return "";
       case "updatable":
         return true;
-      case "createtabledef":
       case "createrelation":
       case "relations":
       case "containers":

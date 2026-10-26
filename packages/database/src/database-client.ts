@@ -7,6 +7,11 @@ import {
 import type { Analyse } from "./access-analyse.ts";
 import {
   WerkkopieFout,
+  type NieuweRelatie,
+  type StructuurResultaat,
+  type VbaModuleRecord,
+  type VeldSchema,
+  type VeldWijziging,
   type OpgeslagenQuery,
   type Ontwerp,
   type QueryOpties,
@@ -145,7 +150,18 @@ export interface WerkkopieClientOpties {
   voortgang?: (stap: Voortgang) => void;
   /** Afbreken van de opbouw; stopt de worker. */
   signal?: AbortSignal;
+  /**
+   * Alleen bij `open`: VBA-modules met bron uit de alleen-lezen-analyse, voor
+   * `_openaec_modules`. Ontbreekt de lijst, dan leest de worker ze zelf uit
+   * het origineel (dezelfde analyse).
+   */
+  modules?: Pick<VbaModuleRecord, "naam" | "soort" | "bron">[];
+  /** Alleen bij `laad`: een SQLite-bestand dat geen werkkopie is toch openen (zie `LaadOpties`). */
+  vreemdeSqlite?: boolean;
 }
+
+/** Grootste werkkopie die `laad` accepteert. */
+const MAX_WERKKOPIE = 100 * 1024 * 1024;
 
 const ZWARE_METHODEN = new Set<WerkkopieMethode>([
   "query",
@@ -154,6 +170,13 @@ const ZWARE_METHODEN = new Set<WerkkopieMethode>([
   "exporteer",
   "verwijderTabel",
   "tabellen",
+  "voegVeldToe",
+  "hernoemVeld",
+  "verwijderVeld",
+  "wijzigVeld",
+  "zetPrimaireSleutel",
+  "maakRelatie",
+  "verwijderRelatie",
 ]);
 
 /**
@@ -166,6 +189,7 @@ const ZWARE_METHODEN = new Set<WerkkopieMethode>([
 export class WerkkopieClient implements Werkkopie {
   private _bron: { naam: string; sha256: string };
   private _rapport: OpbouwRapport | null = null;
+  private _meldingen: string[] = [];
   private worker: Worker;
   private limieten: Required<WerkkopieTijdslimieten>;
   private nummer = 0;
@@ -197,6 +221,75 @@ export class WerkkopieClient implements Werkkopie {
   get rapport() {
     return this._rapport;
   }
+  /** Meldingen bij het heropenen van een `.sqlite` (schema bijgewerkt, vreemd bestand). */
+  get meldingen(): readonly string[] {
+    return this._meldingen;
+  }
+
+  private static maak(naam: string, opties: WerkkopieClientOpties) {
+    return new WerkkopieClient(naam, {
+      opbouw: opties.tijdslimiet?.opbouw ?? 300_000,
+      query: opties.tijdslimiet?.query ?? 120_000,
+      overig: opties.tijdslimiet?.overig ?? 15_000,
+    });
+  }
+
+  /** Start de worker met één openingsverzoek; bij een fout of afbreken wordt de worker gestopt. */
+  private static async start(
+    client: WerkkopieClient,
+    bericht: Record<string, unknown>,
+    overdracht: Transferable[],
+    opties: WerkkopieClientOpties,
+    mislukt: string,
+  ): Promise<WerkkopieClient> {
+    const afbreken = () => client.annuleer("Het openen van de werkkopie is afgebroken.");
+    opties.signal?.addEventListener("abort", afbreken, { once: true });
+    try {
+      if (opties.signal?.aborted) afbreken();
+      const { bron, rapport, meldingen } = await client.vraag<{
+        bron: { naam: string; sha256: string };
+        rapport: OpbouwRapport | null;
+        meldingen?: string[];
+      }>(bericht, client.limieten.opbouw, overdracht, opties.voortgang);
+      client._bron = bron;
+      client._rapport = rapport;
+      client._meldingen = meldingen ?? [];
+      return client;
+    } catch (fout) {
+      client.annuleer(mislukt);
+      throw fout;
+    } finally {
+      opties.signal?.removeEventListener("abort", afbreken);
+    }
+  }
+
+  /** Nieuwe, lege werkkopie zonder Access-origineel. */
+  static async nieuw(naam = "Nieuwe database", opties: WerkkopieClientOpties = {}): Promise<WerkkopieClient> {
+    const client = WerkkopieClient.maak(naam, opties);
+    return WerkkopieClient.start(client, { type: "werkkopie:nieuw", naam }, [], opties, "De nieuwe database kon niet worden gemaakt.");
+  }
+
+  /**
+   * Heropent een eerder bewaarde werkkopie (`.sqlite`). Kop en schemaversie
+   * worden gecontroleerd; een SQLite-bestand dat geen werkkopie is wordt
+   * geweigerd (melding begint met `VREEMDE_SQLITE`), tenzij `vreemdeSqlite`.
+   */
+  static async laad(bestand: Blob, opties: WerkkopieClientOpties = {}): Promise<WerkkopieClient> {
+    const naam = (bestand as Partial<File>).name ?? "werkkopie.sqlite";
+    if (!bestand.size) throw new WerkkopieFout("syntaxis", "Dit bestand is leeg.");
+    if (bestand.size > MAX_WERKKOPIE) throw new WerkkopieFout("beperking", "Kies een werkkopie van maximaal 100 MB.");
+    const kop = new Uint8Array(await bestand.slice(0, 16).arrayBuffer());
+    if (!kopIsSqlite(kop)) throw new WerkkopieFout("syntaxis", "Dit is geen SQLite-bestand. Kies een eerder bewaarde werkkopie (.sqlite).");
+    const client = WerkkopieClient.maak(naam, opties);
+    const bytes = await bestand.arrayBuffer();
+    return WerkkopieClient.start(
+      client,
+      { type: "werkkopie:laad", bytes, naam, vreemdeSqlite: !!opties.vreemdeSqlite },
+      [bytes],
+      opties,
+      "De werkkopie kon niet worden geopend.",
+    );
+  }
 
   /** Bouwt een werkkopie uit een MDB/ACCDB. Het bestand zelf wordt alleen gelezen. */
   static async open(
@@ -204,34 +297,15 @@ export class WerkkopieClient implements Werkkopie {
     opties: WerkkopieClientOpties = {},
   ): Promise<WerkkopieClient> {
     controleerDatabaseBestand(bestand);
-    const client = new WerkkopieClient(bestand.name, {
-      opbouw: opties.tijdslimiet?.opbouw ?? 300_000,
-      query: opties.tijdslimiet?.query ?? 120_000,
-      overig: opties.tijdslimiet?.overig ?? 15_000,
-    });
-    const afbreken = () => client.annuleer("De opbouw van de werkkopie is afgebroken.");
-    opties.signal?.addEventListener("abort", afbreken, { once: true });
-    try {
-      if (opties.signal?.aborted) afbreken();
-      const bytes = await bestand.arrayBuffer();
-      const { bron, rapport } = await client.vraag<{
-        bron: { naam: string; sha256: string };
-        rapport: OpbouwRapport | null;
-      }>(
-        { type: "werkkopie:open", bytes, naam: bestand.name },
-        client.limieten.opbouw,
-        [bytes],
-        opties.voortgang,
-      );
-      client._bron = bron;
-      client._rapport = rapport;
-      return client;
-    } catch (fout) {
-      client.annuleer("De werkkopie kon niet worden opgebouwd.");
-      throw fout;
-    } finally {
-      opties.signal?.removeEventListener("abort", afbreken);
-    }
+    const client = WerkkopieClient.maak(bestand.name, opties);
+    const bytes = await bestand.arrayBuffer();
+    return WerkkopieClient.start(
+      client,
+      { type: "werkkopie:open", bytes, naam: bestand.name, modules: opties.modules },
+      [bytes],
+      opties,
+      "De werkkopie kon niet worden opgebouwd.",
+    );
   }
 
   private koppel() {
@@ -371,6 +445,36 @@ export class WerkkopieClient implements Werkkopie {
   verwijderTabel(naam: string) {
     return this.roep<void>("verwijderTabel", naam);
   }
+  voegVeldToe(tabel: string, veld: VeldSchema) {
+    return this.roep<StructuurResultaat>("voegVeldToe", tabel, veld);
+  }
+  hernoemVeld(tabel: string, veld: string, nieuweNaam: string) {
+    return this.roep<StructuurResultaat>("hernoemVeld", tabel, veld, nieuweNaam);
+  }
+  verwijderVeld(tabel: string, veld: string) {
+    return this.roep<StructuurResultaat>("verwijderVeld", tabel, veld);
+  }
+  wijzigVeld(tabel: string, veld: string, wijziging: VeldWijziging) {
+    return this.roep<StructuurResultaat>("wijzigVeld", tabel, veld, wijziging);
+  }
+  zetPrimaireSleutel(tabel: string, velden: string[]) {
+    return this.roep<StructuurResultaat>("zetPrimaireSleutel", tabel, velden);
+  }
+  maakRelatie(relatie: NieuweRelatie) {
+    return this.roep<string>("maakRelatie", relatie);
+  }
+  verwijderRelatie(naam: string) {
+    return this.roep<void>("verwijderRelatie", naam);
+  }
+  modules() {
+    return this.roep<VbaModuleRecord[]>("modules");
+  }
+  bewaarModule(module: Pick<VbaModuleRecord, "naam" | "soort" | "bron">) {
+    return this.roep<void>("bewaarModule", module);
+  }
+  verwijderModule(naam: string) {
+    return this.roep<void>("verwijderModule", naam);
+  }
   ontwerpen() {
     return this.roep<Ontwerp[]>("ontwerpen");
   }
@@ -394,4 +498,12 @@ export class WerkkopieClient implements Werkkopie {
       this.annuleer("De werkkopie is gesloten.");
     }
   }
+}
+
+/** Controleert de kop `SQLite format 3\0` (eerste 16 bytes). */
+export function kopIsSqlite(kop: Uint8Array): boolean {
+  const verwacht = "SQLite format 3\0";
+  if (kop.byteLength < verwacht.length) return false;
+  for (let i = 0; i < verwacht.length; i++) if (kop[i] !== verwacht.charCodeAt(i)) return false;
+  return true;
 }

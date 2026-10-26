@@ -120,4 +120,26 @@ End Sub`);
     expect(uit).toEqual(["WaarString", "DateWaar", " 0 ", " 3 Annie", "Annie", "Chris"]);
     expect((await w.querys()).map((q) => q.naam)).not.toContain("qryRijk");
   });
+
+  it("CreateTableDef, CreateField, Fields.Append en TableDefs.Append via de structuurmethoden", async () => {
+    const uit = await voer(`Sub Test()
+  Dim db As DAO.Database, td As DAO.TableDef, f As DAO.Field
+  Set db = CurrentDb
+  Set td = db.CreateTableDef("Project")
+  Set f = td.CreateField("Nr", dbLong)
+  f.Attributes = dbAutoIncrField
+  td.Fields.Append f
+  td.Fields.Append td.CreateField("Titel", dbText, 80)
+  db.TableDefs.Append td
+  db.TableDefs("Klant").Fields.Append db.TableDefs("Klant").CreateField("Opmerking", dbMemo)
+  db.TableDefs("Klant").Fields.Delete "Geboren"
+  db.Execute "INSERT INTO Project (Titel) VALUES ('Brug')"
+  Debug.Print db.TableDefs("Project").Fields.Count; db.TableDefs("Project").Fields("Titel").Size; DCount("*", "Project")
+  Debug.Print db.TableDefs("Klant").Fields.Count; db.TableDefs("Klant").Fields("Opmerking").Type
+End Sub`);
+    expect(uit).toEqual([" 2  80  1 ", " 6  12 "]);
+    const tabellen = await w.tabellen();
+    expect(tabellen.find((t) => t.naam === "Project")?.velden.map((v) => v.soort)).toEqual(["autonummer", "tekst"]);
+    expect(tabellen.find((t) => t.naam === "Klant")?.velden.map((v) => v.naam)).not.toContain("Geboren");
+  });
 });

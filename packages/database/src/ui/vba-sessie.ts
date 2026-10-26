@@ -7,23 +7,42 @@
 import { VbaClient } from "../../../vba/src/vba-client.ts";
 import type { FormulierDoel, FormulierHost, HostWaarde, VbaHost } from "../../../vba/src/host.ts";
 import type { LaadResultaat, ProcedureInfo, VoerUitResultaat } from "../../../vba/src/protocol.ts";
-import type { Waarde } from "../werkkopie/contract.ts";
+import type { VbaModuleRecord, VbaModuleSoort, Waarde } from "../werkkopie/contract.ts";
 import type { BedienbareWerkkopie } from "./werkkopie-sessie.ts";
 
-export type VbaModuleSoort = "module" | "klasse" | "formulier";
+export type { VbaModuleSoort };
+export { moduleSoort } from "../werkkopie/modules.ts";
+
 export interface VbaModule {
   naam: string;
   bron: string;
   soort: VbaModuleSoort;
-  /** Uit het Access-origineel of in deze sessie gemaakt/bewerkt. */
+  /** Uit het Access-origineel of in de werkkopie gemaakt. */
   herkomst: "access" | "eigen";
+  /** Sinds de opbouw in de werkkopie gewijzigd (ISO-tijdstip), of null. */
+  gewijzigd?: string | null;
 }
 
-/** Soort module uit de naam en het moduletype van de analyse. */
-export function moduleSoort(naam: string, moduletype?: string): VbaModuleSoort {
-  if (/^(form|report)_/i.test(naam)) return "formulier";
-  if (moduletype && /klasse|document/i.test(moduletype)) return "klasse";
-  return "module";
+/** Module zoals de werkkopie hem bewaart (`_openaec_modules`) naar de vorm van de interface. */
+export function moduleUitRecord(r: VbaModuleRecord): VbaModule {
+  return { naam: r.naam, bron: r.bron, soort: r.soort, herkomst: r.herkomst === "access" ? "access" : "eigen", gewijzigd: r.gewijzigd };
+}
+
+/** Controleert een nieuwe modulenaam; geeft een melding of null. */
+export function controleerModulenaam(naam: string, bestaand: string[]): string | null {
+  const n = naam.trim();
+  if (!/^[A-Za-z][A-Za-z0-9_]*$/.test(n)) return "Gebruik een letter gevolgd door letters, cijfers of _.";
+  if (n.length > 64) return "Gebruik hoogstens 64 tekens.";
+  if (bestaand.some((b) => b.toLowerCase() === n.toLowerCase())) return "Deze module bestaat al.";
+  return null;
+}
+
+/** Startbron voor een nieuwe module van de gegeven soort. */
+export function nieuweModuleBron(naam: string, soort: VbaModuleSoort): string {
+  if (soort === "formulier")
+    return `Option Compare Database\nOption Explicit\n\nPrivate Sub Form_Load()\n    Debug.Print "Formulier geladen: " & Me.Name\nEnd Sub\n`;
+  if (soort === "klasse") return `Option Compare Database\nOption Explicit\n\nPrivate Sub Class_Initialize()\nEnd Sub\n`;
+  return `Option Compare Database\nOption Explicit\n\nPublic Sub Test()\n    Debug.Print "Hallo vanuit ${naam}"\nEnd Sub\n`;
 }
 
 export function naarHostWaarde(w: Waarde | undefined): HostWaarde {

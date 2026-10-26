@@ -47,6 +47,48 @@ export interface RelatieSchema {
   naarVelden: string[];
   /** Referentiële integriteit afdwingen (als FOREIGN KEY in SQLite). */
   integriteit: boolean;
+  /** Trapsgewijs bijwerken (ON UPDATE CASCADE); alleen zinvol met integriteit. */
+  trapsBijwerken?: boolean;
+  /** Trapsgewijs verwijderen (ON DELETE CASCADE); alleen zinvol met integriteit. */
+  trapsVerwijderen?: boolean;
+}
+
+/** Nieuwe relatie; zonder naam kiest de werkkopie er een (zoals Access: naarTabel + tabel). */
+export type NieuweRelatie = Omit<RelatieSchema, "naam"> & { naam?: string };
+
+/** Wijziging van een bestaand veld; ontbrekende eigenschappen blijven gelijk. */
+export interface VeldWijziging {
+  soort?: Veldsoort;
+  lengte?: number;
+  verplicht?: boolean;
+  /** `null` wist de standaardwaarde. */
+  standaard?: Waarde;
+}
+
+/** Uitkomst van een structuurwijziging van een tabel. */
+export interface StructuurResultaat {
+  /** Via de veilige herbouwprocedure uitgevoerd (in plaats van ALTER TABLE). */
+  herbouwd: boolean;
+  /**
+   * Opgeslagen query’s die de tabel én het betrokken veld noemen. Ze worden
+   * niet automatisch bijgewerkt; controleer ze zelf.
+   */
+  querys: string[];
+  /** Toelichting, bijvoorbeeld welke indexen zijn vervallen. */
+  meldingen: string[];
+}
+
+export type VbaModuleSoort = "module" | "klasse" | "formulier";
+
+/** VBA-module zoals de werkkopie hem bewaart (`_openaec_modules`). */
+export interface VbaModuleRecord {
+  naam: string;
+  soort: VbaModuleSoort;
+  bron: string;
+  /** Uit het Access-origineel overgenomen of in de werkkopie gemaakt. */
+  herkomst: "access" | "werkkopie";
+  /** ISO-tijdstip van de laatste wijziging in de werkkopie; null = ongewijzigd sinds de opbouw. */
+  gewijzigd: string | null;
 }
 
 export interface OpgeslagenQuery {
@@ -151,6 +193,28 @@ export interface Werkkopie {
   verwijder(tabel: string, rowid: number): Promise<void>;
   maakTabel(schema: Omit<TabelSchema, "aantal" | "herkomst">): Promise<void>;
   verwijderTabel(naam: string): Promise<void>;
+  /**
+   * Structuurwijzigingen. Waar SQLite het kan met ALTER TABLE, anders met de
+   * veilige herbouwprocedure (nieuwe tabel, gegevens kopiëren met
+   * typeconversie, indexen/foreign keys/triggers herstellen, alles in één
+   * transactie). Niet-converteerbare gegevens: weigering met aantal en
+   * voorbeeld-rowids; er is dan niets gewijzigd. Herbouw is niet mogelijk
+   * tijdens een lopende transactie (“beperking”).
+   */
+  voegVeldToe(tabel: string, veld: VeldSchema): Promise<StructuurResultaat>;
+  hernoemVeld(tabel: string, veld: string, nieuweNaam: string): Promise<StructuurResultaat>;
+  verwijderVeld(tabel: string, veld: string): Promise<StructuurResultaat>;
+  wijzigVeld(tabel: string, veld: string, wijziging: VeldWijziging): Promise<StructuurResultaat>;
+  /** Stelt de primaire sleutel in (lege lijst: geen sleutel). */
+  zetPrimaireSleutel(tabel: string, velden: string[]): Promise<StructuurResultaat>;
+  /**
+   * Legt een relatie vast in `_openaec_relaties`; met integriteit ook als
+   * FOREIGN KEY (tabel-herbouw). Integriteit vereist een primaire sleutel of
+   * unieke index op de doelvelden en kloppende bestaande gegevens.
+   * Geeft de naam van de relatie.
+   */
+  maakRelatie(relatie: NieuweRelatie): Promise<string>;
+  verwijderRelatie(naam: string): Promise<void>;
   /** Legt een opgeslagen query vast (nieuw of vervangen); de SQL moet ontleedbaar zijn. */
   bewaarQuery(query: OpgeslagenQuery): Promise<void>;
   verwijderQuery(naam: string): Promise<void>;
@@ -164,12 +228,20 @@ export interface Werkkopie {
   ontwerpen(): Promise<Ontwerp[]>;
   bewaarOntwerp(ontwerp: Ontwerp): Promise<void>;
   verwijderOntwerp(soort: Ontwerp["soort"], naam: string): Promise<void>;
+  /** VBA-modules in de werkkopie (`_openaec_modules`). */
+  modules(): Promise<VbaModuleRecord[]>;
+  /** Bewaart een module (nieuw of vervangen); herkomst blijft bij vervangen behouden. */
+  bewaarModule(module: Pick<VbaModuleRecord, "naam" | "soort" | "bron">): Promise<void>;
+  verwijderModule(naam: string): Promise<void>;
   /** Ongedaan maken is niet nodig: de werkkopie kan opnieuw uit het origineel worden opgebouwd. */
   gewijzigd(): Promise<boolean>;
   /** SQLite-bestand van de werkkopie. */
   exporteer(): Promise<Uint8Array>;
   sluit(): Promise<void>;
 }
+
+/** Begin van de melding over een SQLite-bestand dat geen werkkopie is (herkenbaar voor de interface). */
+export const VREEMDE_SQLITE = "Dit SQLite-bestand is geen werkkopie van Open Database Studio";
 
 /**
  * Fouten met een vaste code, zodat de interface en de VBA-runtime ze

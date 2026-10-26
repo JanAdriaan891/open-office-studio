@@ -9,7 +9,11 @@ import type {
   OpgeslagenQuery,
   QueryOpties,
   QueryResultaat,
+  RelatieSchema,
+  StructuurResultaat,
   TabelSchema,
+  VbaModuleRecord,
+  VeldSchema,
   Veldsoort,
   Waarde,
   Werkkopie,
@@ -117,6 +121,23 @@ export function vertaal(sql: string, parameters: Map<string, Waarde>): { sql: st
 
 const naarSql = (w: Waarde) => (typeof w === "boolean" ? (w ? 1 : 0) : w);
 
+/** SQLite-type voor de nep-werkkopie; `SOORT` hierboven leest het terug. */
+const NEP_TYPE: Record<Veldsoort, string> = {
+  tekst: "TEXT",
+  memo: "MEMO",
+  geheel: "INTEGER",
+  getal: "DOUBLE",
+  valuta: "CURRENCY",
+  datum: "DATETIME",
+  jaNee: "BOOLEAN",
+  autonummer: "AUTONUMMER INTEGER",
+  binair: "BLOB",
+  guid: "TEXT",
+};
+const nepKolom = (v: VeldSchema) => `"${v.naam}" ${NEP_TYPE[v.soort]}${v.verplicht ? " NOT NULL" : ""}`;
+const nietOndersteund = (wat: string) => Object.assign(new Error(`${wat} wordt in de nep-werkkopie niet ondersteund.`), { code: "niet-ondersteund" });
+const structuur = (): StructuurResultaat => ({ herbouwd: false, querys: [], meldingen: [] });
+
 export async function maakNepWerkkopie(opzet: string, querys: OpgeslagenQuery[] = []): Promise<Werkkopie & { db: SqlDatabase }> {
   const SQL = await laadSqlJs();
   const db = new SQL.Database();
@@ -124,6 +145,9 @@ export async function maakNepWerkkopie(opzet: string, querys: OpgeslagenQuery[] 
   let gewijzigd = false;
   let transactie = false;
   querys = [...querys];
+  // Minimaal: relaties en modules alleen in het geheugen (geen FOREIGN KEY).
+  const relaties: RelatieSchema[] = [];
+  const modules: VbaModuleRecord[] = [];
 
   const tabellen = async (): Promise<TabelSchema[]> => {
     const namen = db.exec("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' ORDER BY name")[0]?.values.map((r) => String(r[0])) ?? [];
@@ -203,7 +227,7 @@ export async function maakNepWerkkopie(opzet: string, querys: OpgeslagenQuery[] 
     db,
     bron: { naam: "test.accdb", sha256: "0".repeat(64) },
     tabellen,
-    relaties: async () => [],
+    relaties: async () => relaties.map((r) => ({ ...r })),
     querys: async () => querys,
     query,
     voerQueryUit: async (naam, parameters) => {
@@ -271,11 +295,56 @@ export async function maakNepWerkkopie(opzet: string, querys: OpgeslagenQuery[] 
       db.run(`DELETE FROM "${tabel}" WHERE rowid = ?`, [rowid]);
       gewijzigd = true;
     },
-    maakTabel: async () => {
-      throw new Error("niet nodig in de tests");
+    maakTabel: async (schema) => {
+      const sleutel = schema.velden.filter((v) => v.primair).map((v) => `"${v.naam}"`);
+      db.run(`CREATE TABLE "${schema.naam}" (${[...schema.velden.map(nepKolom), ...(sleutel.length ? [`PRIMARY KEY (${sleutel.join(", ")})`] : [])].join(", ")})`);
+      gewijzigd = true;
     },
     verwijderTabel: async (naam) => {
       db.run(`DROP TABLE "${naam}"`);
+    },
+    voegVeldToe: async (tabel, veld) => {
+      db.run(`ALTER TABLE "${tabel}" ADD COLUMN ${nepKolom({ ...veld, verplicht: false })}`);
+      gewijzigd = true;
+      return structuur();
+    },
+    hernoemVeld: async (tabel, veld, nieuweNaam) => {
+      db.run(`ALTER TABLE "${tabel}" RENAME COLUMN "${veld}" TO "${nieuweNaam}"`);
+      gewijzigd = true;
+      return structuur();
+    },
+    verwijderVeld: async (tabel, veld) => {
+      db.run(`ALTER TABLE "${tabel}" DROP COLUMN "${veld}"`);
+      gewijzigd = true;
+      return structuur();
+    },
+    wijzigVeld: async () => {
+      throw nietOndersteund("Een veld wijzigen");
+    },
+    zetPrimaireSleutel: async () => {
+      throw nietOndersteund("De primaire sleutel instellen");
+    },
+    maakRelatie: async (r) => {
+      const naam = r.naam ?? `${r.naarTabel}${r.tabel}`;
+      relaties.push({ ...r, naam });
+      return naam;
+    },
+    verwijderRelatie: async (naam) => {
+      const i = relaties.findIndex((r) => r.naam.toLowerCase() === naam.toLowerCase());
+      if (i < 0) throw Object.assign(new Error(`Relatie ${naam} bestaat niet`), { code: "onbekend-object" });
+      relaties.splice(i, 1);
+    },
+    modules: async () => modules.map((m) => ({ ...m })),
+    bewaarModule: async (m) => {
+      const i = modules.findIndex((x) => x.naam.toLowerCase() === m.naam.toLowerCase());
+      const record: VbaModuleRecord = { naam: m.naam, soort: m.soort, bron: m.bron, herkomst: i >= 0 ? modules[i].herkomst : "werkkopie", gewijzigd: new Date().toISOString() };
+      if (i >= 0) modules[i] = record;
+      else modules.push(record);
+    },
+    verwijderModule: async (naam) => {
+      const i = modules.findIndex((x) => x.naam.toLowerCase() === naam.toLowerCase());
+      if (i < 0) throw Object.assign(new Error(`Module ${naam} bestaat niet`), { code: "onbekend-object" });
+      modules.splice(i, 1);
     },
     ontwerpen: async () => [],
     bewaarOntwerp: async () => {},

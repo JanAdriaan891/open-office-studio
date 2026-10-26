@@ -15,13 +15,15 @@ import { reconstrueerQuery, type QueryRij, type Querysoort } from "../access-que
 import {
   WerkkopieFout,
   type OpgeslagenQuery,
+  type VbaModuleRecord,
   type Veldsoort,
 } from "./contract.ts";
 import { citeer, indexNaam, typeVoorSoort } from "./access-sql.ts";
 import { isoUitMs, registreerAccessFuncties } from "./functies.ts";
 import { levendeRecords, scanDatapaginas, type Datascan } from "./rijfilter.ts";
 
-export const SCHEMAVERSIE = 1;
+/** 1: eerste versie; 2: `_openaec_modules` (VBA-modules). */
+export const SCHEMAVERSIE = 2;
 export const MAX_INVOER = 100 * 1024 * 1024;
 
 export interface OpbouwMelding {
@@ -49,6 +51,8 @@ export interface OpbouwRapport {
   indexen: { aangemaakt: number; mislukt: number };
   relaties: { totaal: number; afgedwongen: number };
   querys: { totaal: number; opgeslagen: number };
+  /** Aantal VBA-modules dat in `_openaec_modules` is gezet (ontbreekt bij oudere werkkopieën). */
+  modules?: number;
   meldingen: OpbouwMelding[];
 }
 export interface Voortgang {
@@ -61,6 +65,12 @@ export interface OpbouwOpties {
   /** Rijen per leesblok en per transactie; standaard 5000. */
   batch?: number;
   voortgang?: (stap: Voortgang) => void;
+  /**
+   * VBA-modules met bron uit de alleen-lezen-analyse (`analyseerDatabase`).
+   * De opbouw leest het VBA-project niet zelf; zonder deze lijst blijft
+   * `_openaec_modules` leeg.
+   */
+  modules?: Pick<VbaModuleRecord, "naam" | "soort" | "bron">[];
 }
 
 type Rij = Record<string, unknown>;
@@ -78,12 +88,16 @@ const QUERYSOORT: Record<Querysoort, OpgeslagenQuery["soort"] | null> = {
   ONBEKEND: null,
 };
 
+export const MODULES_TABEL =
+  "CREATE TABLE _openaec_modules (naam TEXT PRIMARY KEY COLLATE NOCASE, soort TEXT NOT NULL CHECK (soort IN ('module', 'klasse', 'formulier')), bron TEXT NOT NULL, herkomst TEXT NOT NULL CHECK (herkomst IN ('access', 'werkkopie')), gewijzigd TEXT);";
+
 export const META_TABELLEN = `
 CREATE TABLE _openaec_meta (sleutel TEXT PRIMARY KEY, waarde TEXT);
 CREATE TABLE _openaec_querys (naam TEXT PRIMARY KEY COLLATE NOCASE, sql TEXT NOT NULL, soort TEXT NOT NULL);
 CREATE TABLE _openaec_ontwerpen (soort TEXT NOT NULL CHECK (soort IN ('formulier', 'rapport')), naam TEXT NOT NULL COLLATE NOCASE, bron TEXT NOT NULL, definitie TEXT NOT NULL, PRIMARY KEY (soort, naam));
 CREATE TABLE _openaec_relaties (naam TEXT PRIMARY KEY, tabel TEXT NOT NULL, velden TEXT NOT NULL, naarTabel TEXT NOT NULL, naarVelden TEXT NOT NULL, integriteit INTEGER NOT NULL, toegangIntegriteit INTEGER NOT NULL, trapsBijwerken INTEGER NOT NULL, trapsVerwijderen INTEGER NOT NULL);
 CREATE TABLE _openaec_bijlagen (tabel TEXT NOT NULL, rij INTEGER NOT NULL, veld TEXT NOT NULL, naam TEXT, type TEXT, data BLOB);
+${MODULES_TABEL}
 `;
 
 function melding(fout: unknown) {
@@ -700,6 +714,19 @@ export async function bouwWerkkopie(
       }
     }
 
+    // ------------------------------------------------------------ VBA-modules (bron uit de analyse)
+    let modules = 0;
+    if (opties.modules?.length) {
+      const mStmt = db.prepare("INSERT OR REPLACE INTO _openaec_modules (naam, soort, bron, herkomst, gewijzigd) VALUES (?, ?, ?, 'access', NULL)");
+      for (const m of opties.modules) {
+        if (!m.naam || typeof m.bron !== "string" || !["module", "klasse", "formulier"].includes(m.soort)) continue;
+        mStmt.run([m.naam, m.soort, m.bron]);
+        modules++;
+      }
+      mStmt.free();
+      meld("VBA-modules", "info", `${modules} VBA-module(s) met broncode overgenomen in _openaec_modules. VBA wordt nooit automatisch uitgevoerd.`);
+    }
+
     const formulieren = msys.filter((o) => o.type === -32768).length;
     const rapporten = msys.filter((o) => o.type === -32764).length;
     if (formulieren || rapporten)
@@ -721,6 +748,7 @@ export async function bouwWerkkopie(
       indexen: { aangemaakt, mislukt },
       relaties: { totaal: relaties.length, afgedwongen: relaties.filter((r) => r.afdwingen).length },
       querys: { totaal: queryObjecten.length, opgeslagen },
+      modules,
       meldingen,
     };
     const metaStmt = db.prepare("INSERT OR REPLACE INTO _openaec_meta (sleutel, waarde) VALUES (?, ?)");

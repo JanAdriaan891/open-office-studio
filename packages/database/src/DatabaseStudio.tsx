@@ -32,10 +32,11 @@ import { DatabaseClient, DatabaseFout, WerkkopieClient } from "./database-client
 import { Ribbon, Groep, Actie } from "../../../src/Ribbon";
 import { past } from "../../../src/lint/sneltoetsen";
 import { downloadDatabaseUitvoer, type DatabaseUitvoer } from "./uitvoer";
-import type { OpgeslagenQuery, Ontwerp, RelatieSchema, TabelSchema, Veldsoort, Waarde } from "./werkkopie/contract";
+import { VREEMDE_SQLITE, type OpgeslagenQuery, type Ontwerp, type RelatieSchema, type TabelSchema, type Veldsoort, type Waarde } from "./werkkopie/contract";
+import { modulesUitAnalyse as analyseModules } from "./werkkopie/modules";
 import type { Voortgang } from "./werkkopie/opbouw";
 import { DialoogBron, useDialogen } from "./ui/Dialoog";
-import { LosseWerkkopie, type WerkkopieSessie } from "./ui/werkkopie-sessie";
+import type { WerkkopieSessie } from "./ui/werkkopie-sessie";
 import { TabelWeergave } from "./ui/TabelWeergave";
 import { NieuweTabel, TabelOntwerp } from "./ui/TabelOntwerp";
 import { QueryEditor, type QueryUitvoer } from "./ui/QueryEditor";
@@ -43,11 +44,12 @@ import { Formulier } from "./ui/Formulier";
 import { FormulierOntwerper } from "./ui/FormulierOntwerper";
 import { RapportOntwerper, RapportVoorbeeld } from "./ui/Rapport";
 import { VbaPaneel, VbaUitvoer } from "./ui/VbaPaneel";
-import { CompatibiliteitWeergave, OpbouwRapportWeergave, OpbouwVoortgang, RelatieWeergave } from "./ui/Overzichten";
+import { CompatibiliteitWeergave, OpbouwRapportWeergave, OpbouwVoortgang } from "./ui/Overzichten";
+import { RelatieVenster } from "./ui/Relaties";
 import { AlleenLezenObject } from "./ui/AlleenLezen";
 import { Foutgrens } from "./ui/Foutgrens";
 import { useVba } from "./ui/useVba";
-import { moduleSoort, type VbaModule } from "./ui/vba-sessie";
+import { controleerModulenaam, moduleSoort, moduleUitRecord, nieuweModuleBron, type VbaModule } from "./ui/vba-sessie";
 import { automatischFormulier, leesFormulierDefinitie } from "./ui/formulier-logica";
 import { leegRapport, leesRapportDefinitie, type RapportDefinitie } from "./ui/rapport-logica";
 import { kolommenVan } from "./ui/bron";
@@ -102,6 +104,8 @@ export function DatabaseStudio(props: {
   bewaarUitvoer?: DatabaseUitvoer;
   /** Binaire export (SQLite-werkkopie); standaard een browserdownload. */
   bewaarBinair?: DatabaseBinaireUitvoer;
+  /** Meldt of de werkkopie niet-opgeslagen wijzigingen heeft (voor sluitbeveiliging van de host). */
+  gewijzigd?: (waarde: boolean) => void;
 } = {}) {
   const [donker, setDonker] = useState(false);
   return (
@@ -118,6 +122,7 @@ function Werkruimte({
   registreerOpenen,
   bewaarUitvoer = downloadDatabaseUitvoer,
   bewaarBinair = downloadBinair,
+  gewijzigd: meldGewijzigd,
   donker,
   setDonker,
 }: {
@@ -125,6 +130,7 @@ function Werkruimte({
   registreerOpenen?: (openen: (() => void) | null) => void;
   bewaarUitvoer?: DatabaseUitvoer;
   bewaarBinair?: DatabaseBinaireUitvoer;
+  gewijzigd?: (waarde: boolean) => void;
   donker: boolean;
   setDonker: (d: boolean) => void;
 }) {
@@ -147,6 +153,10 @@ function Werkruimte({
   const queryUitvoeren = useRef<(() => void) | null>(null);
   const bronBestand = useRef<File | null>(null);
   const werkkopie = sessie?.werkkopie ?? null;
+  useEffect(() => {
+    meldGewijzigd?.(!!werkkopie && gewijzigd);
+  }, [meldGewijzigd, werkkopie, gewijzigd]);
+  useEffect(() => () => meldGewijzigd?.(false), [meldGewijzigd]);
 
   // ---------------------------------------------------------------- VBA
   const toon = (w: Weergave) => setWeergave(w);
@@ -189,15 +199,19 @@ function Werkruimte({
   const vernieuw = useCallback(async () => {
     if (!werkkopie) return setObjecten(LEEG);
     try {
-      const [tabellen, querys, ontwerpen, relaties, isGewijzigd] = await Promise.all([
+      const [tabellen, querys, ontwerpen, relaties, opgeslagenModules, isGewijzigd] = await Promise.all([
         werkkopie.tabellen(),
         werkkopie.querys(),
         werkkopie.ontwerpen(),
         werkkopie.relaties(),
+        werkkopie.modules(),
         werkkopie.gewijzigd(),
       ]);
       if (!actief.current) return;
       setObjecten({ tabellen, querys, ontwerpen, relaties });
+      // VBA-modules komen uit de werkkopie (_openaec_modules); gelijke inhoud niet vervangen (geen onnodig herladen).
+      const nieuw = opgeslagenModules.map(moduleUitRecord);
+      setModules((oud) => (JSON.stringify(oud) === JSON.stringify(nieuw) ? oud : nieuw));
       setGewijzigd(isGewijzigd || sessie?.herkomst === "nieuw");
     } catch (e) {
       if (actief.current) setFout("De objectenlijst kon niet worden gelezen: " + leesbareFout(e));
@@ -240,14 +254,24 @@ function Werkruimte({
   }
 
   function modulesUitAnalyse(a: DatabaseSession): VbaModule[] {
-    return a.objecten
-      .filter((o) => o.soort === "VBA" && o.bron)
-      .map((o) => ({
-        naam: o.naam,
-        bron: o.bron!,
-        soort: moduleSoort(o.naam, o.eigenschappen?.find(([k]) => k === "Moduletype")?.[1]),
-        herkomst: "access" as const,
-      }));
+    return analyseModules(a.objecten).map((m) => ({ ...m, herkomst: "access" as const, gewijzigd: null }));
+  }
+
+  /** Heropent een .sqlite; een SQLite-bestand dat geen werkkopie is alleen na bevestiging. */
+  async function laadSqlite(bestand: File) {
+    try {
+      return await WerkkopieClient.laad(bestand);
+    } catch (e) {
+      if (!(e instanceof Error) || !e.message.startsWith(VREEMDE_SQLITE)) throw e;
+      const ja = await dialogen.bevestig({
+        titel: "Geen werkkopie van Open Database Studio",
+        tekst: `‘${bestand.name}’ is een SQLite-bestand, maar niet door Open Database Studio gemaakt. Toch openen als nieuwe werkkopie? De metatabellen worden dan toegevoegd (pas in het bestand na opslaan); het bestand zelf wordt niet gewijzigd.`,
+        ja: "Toch openen",
+        standaardNee: true,
+      });
+      if (!ja) return null;
+      return WerkkopieClient.laad(bestand, { vreemdeSqlite: true });
+    }
   }
 
   async function openBestand(bestand: File) {
@@ -256,10 +280,11 @@ function Werkruimte({
     setBezig(true);
     try {
       if (/\.(sqlite|sqlite3|db)$/i.test(bestand.name)) {
-        const w = await LosseWerkkopie.laad(bestand);
+        const w = await laadSqlite(bestand);
+        if (!w) return;
         if (!actief.current) return void w.annuleer();
         setSessie({ werkkopie: w, herkomst: "sqlite", naam: bestand.name });
-        setMelding(`Werkkopie ‘${bestand.name}’ heropend (bron: ${w.bron.naam}). VBA-modules worden niet in de werkkopie bewaard.`);
+        setMelding([`Werkkopie ‘${bestand.name}’ heropend (bron: ${w.bron.naam}).`, ...w.meldingen].join(" "));
         if (w.rapport) setWeergave({ soort: "opbouw" });
         return;
       }
@@ -284,9 +309,9 @@ function Werkruimte({
       setAnalyse(a);
       setModules(modulesUitAnalyse(a));
       setBezig(false);
-      // 2. Werkkopie opbouwen, met voortgang en annuleren.
+      // 2. Werkkopie opbouwen, met voortgang en annuleren; de VBA-bron uit de analyse gaat mee naar _openaec_modules.
       bronBestand.current = bestand;
-      await bouwWerkkopie(bestand);
+      await bouwWerkkopie(bestand, a);
     } catch (e) {
       if (actief.current) setFout(e instanceof Error ? e.message : "Bestand kon niet worden gelezen.");
     } finally {
@@ -295,12 +320,13 @@ function Werkruimte({
   }
 
   /** Bouwt de werkkopie uit het origineel (ook opnieuw na annuleren). */
-  async function bouwWerkkopie(bestand: File) {
+  async function bouwWerkkopie(bestand: File, a: DatabaseSession | null = analyse) {
     setFout("");
     const afbreken = new AbortController();
     setOpbouw({ naam: bestand.name, voortgang: null, klaar: 0, afbreken });
     try {
       const w = await WerkkopieClient.open(bestand, {
+        modules: a ? analyseModules(a.objecten) : undefined,
         signal: afbreken.signal,
         voortgang: (v) =>
           setOpbouw((o) =>
@@ -348,12 +374,14 @@ function Werkruimte({
     reset();
     setBezig(true);
     try {
-      const w = await LosseWerkkopie.nieuw(naam);
-      if (voorbeeld) await vulVoorbeeld(w);
+      const w = await WerkkopieClient.nieuw(naam);
+      if (voorbeeld) {
+        await vulVoorbeeld(w);
+        for (const m of VOORBEELD_MODULES) await w.bewaarModule(m);
+      }
       if (!actief.current) return void w.annuleer();
       setSessie({ werkkopie: w, herkomst: voorbeeld ? "voorbeeld" : "nieuw", naam });
       if (voorbeeld) {
-        setModules(VOORBEELD_MODULES);
         setMelding("Demonstratie met ingebouwde voorbeeldgegevens. Dit zijn geen gegevens uit een geopend databasebestand.");
         setWeergave({ soort: "tabel", naam: "Materialen", modus: "gegevens" });
       } else {
@@ -491,26 +519,59 @@ function Werkruimte({
   }
 
   async function nieuweModule() {
+    if (!werkkopie) return;
+    let vrij = modules.length + 1;
+    while (modules.some((m) => m.naam.toLowerCase() === `module${vrij}`)) vrij++;
     const naam = await dialogen.vraag({
       titel: "Nieuwe VBA-module",
       label: "Modulenaam (Form_<formulier> voor een formuliermodule)",
-      standaard: `Module${modules.length + 1}`,
-      controleer: (w) =>
-        !/^[A-Za-z][A-Za-z0-9_]*$/.test(w.trim())
-          ? "Gebruik een letter gevolgd door letters, cijfers of _."
-          : modules.some((m) => m.naam.toLowerCase() === w.trim().toLowerCase())
-            ? "Deze module bestaat al."
-            : null,
+      standaard: `Module${vrij}`,
+      controleer: (w) => controleerModulenaam(w, modules.map((m) => m.naam)),
     });
     if (!naam) return;
     const schoon = naam.trim();
     const soort = moduleSoort(schoon);
-    const bron =
-      soort === "formulier"
-        ? `Option Compare Database\nOption Explicit\n\nPrivate Sub Form_Load()\n    Debug.Print "Formulier geladen: " & Me.Name\nEnd Sub\n`
-        : `Option Compare Database\nOption Explicit\n\nPublic Sub Test()\n    Debug.Print "Hallo vanuit ${schoon}"\nEnd Sub\n`;
-    setModules((m) => [...m, { naam: schoon, soort, bron, herkomst: "eigen" }]);
-    setWeergave({ soort: "vba", module: schoon });
+    try {
+      await werkkopie.bewaarModule({ naam: schoon, soort, bron: nieuweModuleBron(schoon, soort) });
+      await vernieuw();
+      setMelding(`Module ‘${schoon}’ gemaakt in de werkkopie.`);
+      setWeergave({ soort: "vba", module: schoon });
+    } catch (e) {
+      setFout("De module kon niet worden gemaakt: " + leesbareFout(e));
+    }
+  }
+
+  async function bewaarModule(m: VbaModule, bron: string) {
+    if (!werkkopie) return;
+    await werkkopie.bewaarModule({ naam: m.naam, soort: m.soort, bron });
+    await vernieuw();
+    setMelding(`Module ‘${m.naam}’ opgeslagen in de werkkopie.`);
+  }
+
+  async function verwijderModule(m: VbaModule) {
+    if (!werkkopie) return;
+    const ja = await dialogen.bevestig({
+      titel: "Module verwijderen",
+      tekst: `VBA-module ‘${m.naam}’ uit de werkkopie verwijderen?${m.herkomst === "access" ? " Hij blijft in het Access-origineel staan; na opnieuw opbouwen is hij terug." : ""}`,
+      ja: "Verwijderen",
+      gevaarlijk: true,
+    });
+    if (!ja) return;
+    try {
+      await werkkopie.verwijderModule(m.naam);
+      setWeergave({ soort: "welkom" });
+      await vernieuw();
+      setMelding(`Module ‘${m.naam}’ verwijderd uit de werkkopie.`);
+    } catch (e) {
+      setFout("De module kon niet worden verwijderd: " + leesbareFout(e));
+    }
+  }
+
+  /** Na een structuurwijziging (tabelontwerp, relaties): lijst vernieuwen en de uitkomst tonen. */
+  async function structuurGewijzigd(tekst: string) {
+    await vernieuw();
+    setFout("");
+    setMelding(tekst);
   }
 
   // ---------------------------------------------------------------- sneltoetsen
@@ -734,6 +795,7 @@ function Werkruimte({
                 werkkopie={werkkopie}
                 schema={schema}
                 relaties={objecten.relaties}
+                onGewijzigd={structuurGewijzigd}
                 onVerwijderd={() => {
                   setWeergave({ soort: "welkom" });
                   setMelding(`Tabel ‘${schema.naam}’ verwijderd uit de werkkopie.`);
@@ -901,13 +963,14 @@ function Werkruimte({
               module={m}
               vba={vba}
               modules={modules}
-              onWijzig={(bron) => setModules((l) => l.map((x) => (x.naam === m.naam ? { ...x, bron, herkomst: "eigen" } : x)))}
+              onWijzig={(bron) => bewaarModule(m, bron)}
+              onVerwijder={() => verwijderModule(m)}
             />
           </>
         );
       }
       case "relaties":
-        return <RelatieWeergave relaties={objecten.relaties} />;
+        return <RelatieVenster werkkopie={werkkopie} relaties={objecten.relaties} tabellen={objecten.tabellen} onGewijzigd={structuurGewijzigd} />;
       case "opbouw":
         return werkkopie.rapport ? <OpbouwRapportWeergave rapport={werkkopie.rapport} onExporteer={exporteerOpbouw} /> : null;
       default:

@@ -1,7 +1,6 @@
-/** Opbouwvoortgang, opbouwrapport, compatibiliteitsrapport en relatieoverzicht. */
+/** Opbouwvoortgang, opbouwrapport en compatibiliteitsrapport (relaties: zie Relaties.tsx). */
 import { FileJson, FileText, X } from "lucide-react";
 import type { Compatibiliteitsrapport } from "../model.ts";
-import type { RelatieSchema } from "../werkkopie/contract.ts";
 import type { OpbouwRapport, Voortgang } from "../werkkopie/opbouw.ts";
 
 const FASEN: Record<Voortgang["fase"], string> = {
@@ -187,44 +186,6 @@ export function CompatibiliteitWeergave({
         Gelezen met {rapport.lezer}. Het rapport bevat alleen aantallen, namen en meldingen, geen tabelgegevens. Het beschrijft het
         alleen-lezen-pad; zie het opbouwrapport voor wat in de werkkopie is overgenomen.
       </p>
-    </div>
-  );
-}
-
-export function RelatieWeergave({ relaties }: { relaties: RelatieSchema[] }) {
-  return (
-    <div className="database-overzicht">
-      <h2>Relaties</h2>
-      {!relaties.length ? (
-        <p>Er zijn geen relaties vastgelegd in de werkkopie.</p>
-      ) : (
-        <div className="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th scope="col">Naam</th>
-                <th scope="col">Van</th>
-                <th scope="col">Naar</th>
-                <th scope="col">Referentiële integriteit</th>
-              </tr>
-            </thead>
-            <tbody>
-              {relaties.map((r) => (
-                <tr key={r.naam}>
-                  <td>{r.naam}</td>
-                  <td>
-                    {r.tabel} ({r.velden.join(", ")})
-                  </td>
-                  <td>
-                    {r.naarTabel} ({r.naarVelden.join(", ")})
-                  </td>
-                  <td>{r.integriteit ? "Afgedwongen" : "Niet afgedwongen"}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
     </div>
   );
 }

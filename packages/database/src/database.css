@@ -1413,3 +1413,50 @@
     break-after: avoid;
   }
 }
+
+/* Relatievenster en bewerkbaar tabelontwerp */
+.database-app .database-relatieformulier {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+  max-width: 900px;
+}
+.database-app .database-relatieformulier fieldset {
+  margin: 0;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  min-width: 0;
+}
+.database-app .database-relatieformulier legend {
+  padding: 0 4px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.database-app .database-relatieformulier > p,
+.database-app .database-relatieformulier > .database-knoppen {
+  grid-column: 1 / -1;
+}
+.database-app .database-vink {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 0 8px;
+  font-size: 13px;
+}
+.database-app .database-ontwerp tr.is-gewijzigd td {
+  background: color-mix(in srgb, var(--accent, #d97706) 10%, transparent);
+}
+.database-app .database-ontwerp td:first-child {
+  white-space: nowrap;
+}
+.database-app .database-ontwerp td:first-child svg {
+  margin-left: 4px;
+  vertical-align: middle;
+}
+.database-app .database-vba-modulebalk {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}

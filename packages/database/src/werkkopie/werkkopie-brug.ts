@@ -26,6 +26,13 @@ export const WERKKOPIE_METHODEN = [
   "verwijder",
   "maakTabel",
   "verwijderTabel",
+  "voegVeldToe",
+  "hernoemVeld",
+  "verwijderVeld",
+  "wijzigVeld",
+  "zetPrimaireSleutel",
+  "maakRelatie",
+  "verwijderRelatie",
   "bewaarQuery",
   "verwijderQuery",
   "begin",
@@ -34,11 +41,18 @@ export const WERKKOPIE_METHODEN = [
   "ontwerpen",
   "bewaarOntwerp",
   "verwijderOntwerp",
+  "modules",
+  "bewaarModule",
+  "verwijderModule",
   "gewijzigd",
   "exporteer",
   "sluit",
 ] as const satisfies readonly (keyof Werkkopie)[];
 export type WerkkopieMethode = (typeof WERKKOPIE_METHODEN)[number];
+// Elke contractmethode moet in de lijst staan (anders is hij via een poort onbereikbaar).
+type Ontbrekend = Exclude<keyof Werkkopie, WerkkopieMethode | "bron">;
+const _volledig: [Ontbrekend] extends [never] ? true : Ontbrekend = true;
+void _volledig;
 
 export interface FoutBericht {
   code: WerkkopieFoutcode;

@@ -95,19 +95,50 @@ context.onmessage = async ({ data }) => {
       // Eigen lezer: de werkkopie kan in een aparte worker draaien naast het alleen-lezen-pad.
       const bytes = new Uint8Array(data.bytes);
       const lezer = await openDatabase(data.bytes);
-      const [{ laadSqlJs }, { openWerkkopie }] = await Promise.all([
+      const [{ laadSqlJs }, { openWerkkopie }, { modulesUitAnalyse }] = await Promise.all([
+        import("./werkkopie/sqljs-browser.ts"),
+        import("./werkkopie/werkkopie.ts"),
+        import("./werkkopie/modules.ts"),
+      ]);
+      // VBA-bron uit de analyse; zonder meegegeven lijst dezelfde analyse hier (alleen lezen).
+      let modules = Array.isArray(data.modules) ? data.modules : null;
+      if (!modules)
+        try {
+          const naam = data.naam ?? "database";
+          modules = modulesUitAnalyse((await analyseerDatabase(lezer, bytes, { naam, grootte: bytes.byteLength })).objecten);
+        } catch {
+          modules = [];
+        }
+      const SQL = await laadSqlJs();
+      await werkkopie?.sluit();
+      werkkopie = null;
+      werkkopie = await openWerkkopie(SQL, lezer, bytes, data.naam ?? "database", {
+        modules,
+        voortgang: (stap) => context.postMessage({ id: data.id, voortgang: stap }),
+      });
+      context.postMessage({
+        id: data.id,
+        resultaat: { bron: werkkopie.bron, rapport: werkkopie.opbouwrapport },
+      });
+    } else if (data.type === "werkkopie:nieuw" || data.type === "werkkopie:laad") {
+      // Werkkopie zonder Access-origineel: nieuw en leeg, of een eerder bewaarde .sqlite.
+      const [{ laadSqlJs }, { nieuweWerkkopie, laadWerkkopie }] = await Promise.all([
         import("./werkkopie/sqljs-browser.ts"),
         import("./werkkopie/werkkopie.ts"),
       ]);
       const SQL = await laadSqlJs();
       await werkkopie?.sluit();
       werkkopie = null;
-      werkkopie = await openWerkkopie(SQL, lezer, bytes, data.naam ?? "database", {
-        voortgang: (stap) => context.postMessage({ id: data.id, voortgang: stap }),
-      });
+      werkkopie =
+        data.type === "werkkopie:nieuw"
+          ? nieuweWerkkopie(SQL, String(data.naam || "Nieuwe database"))
+          : laadWerkkopie(SQL, new Uint8Array(data.bytes as ArrayBuffer), {
+              vreemdeSqlite: !!data.vreemdeSqlite,
+              naam: typeof data.naam === "string" ? data.naam : undefined,
+            });
       context.postMessage({
         id: data.id,
-        resultaat: { bron: werkkopie.bron, rapport: werkkopie.opbouwrapport },
+        resultaat: { bron: werkkopie.bron, rapport: werkkopie.opbouwrapport, meldingen: werkkopie.laadmeldingen },
       });
     } else if (data.type === "werkkopie" && werkkopie) {
       const { voerWerkkopieMethodeUit } = await import("./werkkopie/werkkopie-brug.ts");
