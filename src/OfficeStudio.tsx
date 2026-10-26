@@ -25,7 +25,7 @@ import "./office.css";
 import { StartScherm, modules } from "./StartScherm";
 import { DocumentOpslag, type BewaarUitkomst } from "./opslag";
 import { VerlaatDialoog } from "./VerlaatDialoog";
-import { controleerPakket } from "./pakketcontrole";
+import { controleerPakket, risicoBeleid } from "./pakketcontrole";
 import versie from "../versie.json";
 import openaecSymbool from "./stijl/openaec-symbol.svg";
 import { ThemaKnop, useOfficeThema } from "./stijl/ThemaKnop";
@@ -165,6 +165,19 @@ export function OfficeStudio() {
     const uitvoernaam = naam.replace(/\.[^.]+$/, "") + "." + exportFormaat;
     let uitvoer = bytes;
     let toelichting: string | undefined;
+    if (!markdown) {
+      // Bewaking op basis van de testmatrix: aangetoond verlies blokkeert
+      // opslaan via de engine en wordt bij een conversie expliciet gemeld.
+      const conversie = exportFormaat !== bestand.soort;
+      const beleid = risicoBeleid(
+        controleerPakket(bytes, bestand.soort).risicos,
+        bestand.soort,
+        conversie ? "conversie" : "engine",
+      );
+      if (beleid.opslaanGeblokkeerd) throw new Error(beleid.waarschuwing!);
+      if (conversie && !["pdf", "txt", "csv", "html"].includes(exportFormaat))
+        toelichting = beleid.waarschuwing ?? undefined;
+    }
     if (markdown) {
       const { exporteerMarkdown } = await import("./markdown");
       const resultaat = await exporteerMarkdown(bytes);
@@ -476,6 +489,17 @@ export function OfficeStudio() {
                     "Dit bestand bevat VBA. Macro’s worden niet uitgevoerd; behoud van VBA bij export is niet gegarandeerd. Bewaar het origineel.",
                   );
               } else {
+                let bronRisico: string | null = null;
+                try {
+                  // OOXML-varianten (zoals .docm, .dotx, .pptm) gaan via conversie.
+                  bronRisico = risicoBeleid(
+                    controleerPakket(bytes, soort).risicos,
+                    soort,
+                    "conversie",
+                  ).waarschuwing;
+                } catch {
+                  bronRisico = null;
+                }
                 const omgezet = await converteer(bytes, ext, soort, soort);
                 controleerPakket(omgezet, soort);
                 const id = open(
@@ -487,7 +511,8 @@ export function OfficeStudio() {
                   setExportFormaat(ext);
                 bewerkt(id);
                 setMelding(
-                  "Geïmporteerd als bewerkbare kopie. Het origineel is behouden. Opmaak kan afwijken; macro’s en actieve inhoud zijn niet uitgevoerd en worden niet overgenomen in deze kopie.",
+                  "Geïmporteerd als bewerkbare kopie. Het origineel is behouden. Opmaak kan afwijken; macro’s en actieve inhoud zijn niet uitgevoerd en worden niet overgenomen in deze kopie." +
+                    (bronRisico ? " " + bronRisico : ""),
                 );
               }
               setDatabaseOpen(false);

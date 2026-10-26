@@ -6,7 +6,9 @@ Maak de bestaande DOCX-adapter uit de Y-app herbruikbaar in Open Office Studio. 
 
 ## Acceptatiecriteria
 
-- [ ] Editor lokaal openen, wijzigen, opslaan en heropenen.
-- [ ] Gevallen D1–D3 uit docs/onderzoek/testmatrix.md uitvoeren; pakket- en visuele verschillen vastleggen.
-- [ ] Revisies, kop-/voetteksten en onbekende onderdelen behouden of de bewerking expliciet weigeren.
-- [ ] Vastgezette versies, licenties en notices opnemen; oorspronkelijke Y-app-werking behouden.
+- [ ] Editor lokaal openen, wijzigen, opslaan en heropenen. *(Engine-sessieroute aangetoond met D1–D3; GUI-heropenen met de matrixbestanden nog niet uitgevoerd.)*
+- [x] Gevallen D1–D3 uit docs/onderzoek/testmatrix.md uitvoeren; pakket- en visuele verschillen vastleggen. *(Synthetische fixtures; zie [verslag](../tests/2026-10-26-documenten.md).)*
+- [x] Revisies, kop-/voetteksten en onbekende onderdelen behouden of de bewerking expliciet weigeren. *(Engine behoudt alles; conversieroute waarschuwt expliciet; engineverlies blokkeert opslaan via `src/pakketcontrole.ts`.)*
+- [ ] Vastgezette versies, licenties en notices opnemen; oorspronkelijke Y-app-werking behouden. *(Versies en licentieteksten aanwezig; Y-app-werking niet getoetst.)*
+
+De vergelijking met een alternatieve browserengine is niet gemeten: er is geen tweede DOCX-browserengine geïnstalleerd. Wel vergeleken: twee API-routes van de huidige engine en LibreOffice als volledige suite.
