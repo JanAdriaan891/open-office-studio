@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { DocxEditor, type DocxEditorRef } from "@betteroffice/docx-react";
 import { configureDefaultFonts } from "@betteroffice/docx/layout";
 import { XlsxEditor, type XlsxEditorApi } from "@betteroffice/xlsx-react";
@@ -29,6 +29,8 @@ export interface EditorProps {
   opslaan: () => void;
   bestandsmenu: () => void;
   inactief: boolean;
+  /** Actuele documentzoom voor de statusbalk; null zolang onbekend. */
+  zoom: (zoom: number | null) => void;
 }
 export default function OfficeEditor(props: EditorProps) {
   const docx = useRef<DocxEditorRef>(null);
@@ -39,8 +41,16 @@ export default function OfficeEditor(props: EditorProps) {
   const [documentGereed, setDocumentGereed] = useState(false);
   const rekenbladHost = useRef<HTMLDivElement>(null);
   const [rekenbladApi, setRekenbladApi] = useState<XlsxEditorApi | null>(null);
+  const [diaBreedte, setDiaBreedte] = useState<number>();
   const recent = useRef(props);
   recent.current = props;
+  const zoomKoppeling = useMemo(
+    () => ({
+      sleutel: `${props.soort}:${props.naam}:${props.bytes.byteLength}`,
+      melden: (zoom: number | null) => recent.current.zoom(zoom),
+    }),
+    [props.soort, props.naam, props.bytes],
+  );
   useEffect(() => {
     if (props.soort !== "docx" || !documentGereed) return;
     props.registreer(async () => {
@@ -100,6 +110,8 @@ export default function OfficeEditor(props: EditorProps) {
   );
   const gereedPptx = useCallback(
     (api: PptxEditorApi) => {
+      // EMU naar CSS-pixels bij 96 dpi.
+      setDiaBreedte(api.handle.snapshot().widthEmu / 9525);
       props.registreer(async () => {
         await api.flushPendingInput();
         return api.save();
@@ -138,6 +150,7 @@ export default function OfficeEditor(props: EditorProps) {
               navigatie={navigatie}
               wijzigLiniaal={() => setLiniaal(!liniaal)}
               wijzigNavigatie={() => setNavigatie(!navigatie)}
+              zoomKoppeling={zoomKoppeling}
             />
           }
         />
@@ -156,7 +169,12 @@ export default function OfficeEditor(props: EditorProps) {
             i18n={rekenbladNl}
             className="office-rekenblad"
             readOnly={props.inactief}
-            toolbar={<RekenbladRibbon bestand={props.bestandsmenu} />}
+            toolbar={
+              <RekenbladRibbon
+                bestand={props.bestandsmenu}
+                zoomKoppeling={zoomKoppeling}
+              />
+            }
           />
           <RekenbladKoppen host={rekenbladHost} api={rekenbladApi} />
         </div>
@@ -176,7 +194,13 @@ export default function OfficeEditor(props: EditorProps) {
         i18n={diaNl}
         className="office-presentatie"
         readOnly={props.inactief}
-        toolbar={<PresentatieRibbon bestand={props.bestandsmenu} />}
+        toolbar={
+          <PresentatieRibbon
+            bestand={props.bestandsmenu}
+            zoomKoppeling={zoomKoppeling}
+            diaBreedte={diaBreedte}
+          />
+        }
       />
     </RibbonFout.Provider>
   );

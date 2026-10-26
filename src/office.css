@@ -334,6 +334,13 @@ select {
 .office-statusbalk .office-statusrechts {
   margin-left: auto;
 }
+.office-statusbalk .office-statuszoom {
+  padding-right: 12px;
+  margin-right: 4px;
+  border-right: 1px solid currentColor;
+  border-right-color: color-mix(in srgb, currentColor 30%, transparent);
+  font-variant-numeric: tabular-nums;
+}
 .office-statusbalk kbd {
   font: inherit;
   padding-left: 12px;

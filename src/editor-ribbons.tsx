@@ -1,4 +1,3 @@
-import { useContext, useEffect, useRef } from "react";
 import {
   useDocxCommand,
   ToolbarCommand as TekstControl,
@@ -99,8 +98,8 @@ import {
   OpdrachtGetal,
   type GebondenOpdracht,
   type RibbonTab,
-  RibbonFout,
 } from "./Ribbon";
+import { useDocumentZoom, type ZoomKoppeling } from "./useDocumentZoom";
 
 type Knop = { naam: string; icoon: LucideIcon; groot?: boolean };
 function W<K extends DocxCommandId>({
@@ -298,20 +297,35 @@ function Zoom({ opdracht }: { opdracht: GebondenOpdracht }) {
     </Groep>
   );
 }
+function scrollvlakVan(element: Element | null) {
+  for (let vlak = element?.parentElement; vlak; vlak = vlak.parentElement)
+    if (/(auto|scroll)/.test(getComputedStyle(vlak).overflow)) return vlak;
+  return null;
+}
 export function TekstRibbon({
   bestand,
   liniaal,
   navigatie,
   wijzigLiniaal,
   wijzigNavigatie,
+  zoomKoppeling,
 }: {
   bestand: () => void;
   liniaal: boolean;
   navigatie: boolean;
   wijzigLiniaal: () => void;
   wijzigNavigatie: () => void;
+  zoomKoppeling?: ZoomKoppeling;
 }) {
   const zoom = useDocxCommand("zoom");
+  useDocumentZoom({
+    opdracht: zoom,
+    vlak: () =>
+      document.querySelector<HTMLElement>(
+        ".office-tekst .docx-editor__scroll-container",
+      ),
+    koppeling: zoomKoppeling,
+  });
   const tabel = useDocxCommand("tableAction");
   const afbeelding = useDocxCommand("imageProperties");
   const contextTabs: RibbonTab[] = [];
@@ -732,9 +746,24 @@ function RekenbladGetal() {
     </Groep>
   );
 }
-export function RekenbladRibbon({ bestand }: { bestand: () => void }) {
+export function RekenbladRibbon({
+  bestand,
+  zoomKoppeling,
+}: {
+  bestand: () => void;
+  zoomKoppeling?: ZoomKoppeling;
+}) {
   const zoom = useXlsxCommand("zoom"),
     randkleur = useXlsxCommand("borderColor");
+  useDocumentZoom({
+    opdracht: zoom,
+    vlak: () =>
+      document.querySelector<HTMLElement>(
+        '.office-rekenblad-host [data-testid="xlsx-scroll"]',
+      ),
+    bereik: ".rekenblad-koppen",
+    koppeling: zoomKoppeling,
+  });
   return (
     <RekenbladToolbar mode="commands" className="editor-chrome">
       <Ribbon
@@ -879,24 +908,34 @@ function DiaUitlijning() {
     </Groep>
   );
 }
-export function PresentatieRibbon({ bestand }: { bestand: () => void }) {
+export function PresentatieRibbon({
+  bestand,
+  zoomKoppeling,
+  diaBreedte,
+}: {
+  bestand: () => void;
+  zoomKoppeling?: ZoomKoppeling;
+  /** Diabreedte bij 100%, in CSS-pixels. */
+  diaBreedte?: number;
+}) {
   const zoom = usePptxCommand("zoom"),
     vulling = usePptxCommand("shapeFill"),
     rand = usePptxCommand("shapeStrokeColor");
-  const passendIngesteld = useRef(false);
-  const fout = useContext(RibbonFout);
-  useEffect(() => {
-    if (passendIngesteld.current || !zoom.state.enabled) return;
-    passendIngesteld.current = true;
-    void zoom
-      .execute({ scale: "fit" })
-      .then((resultaat) => {
-        if (!resultaat.ok) fout(resultaat.failure.message);
-      })
-      .catch((error) =>
-        fout(error instanceof Error ? error.message : String(error)),
-      );
-  }, [zoom.state.enabled]);
+  const dia = () =>
+    document.querySelector<HTMLElement>(
+      '.office-presentatie [data-testid="pptx-slide-canvas"]',
+    );
+  useDocumentZoom({
+    opdracht: zoom,
+    vlak: () => scrollvlakVan(dia()),
+    koppeling: zoomKoppeling,
+    // ‘Passend’ is geen getal: reken de getekende dia terug naar 100%.
+    huidig: () => {
+      const breedte = dia()?.getBoundingClientRect().width;
+      return breedte && diaBreedte ? breedte / diaBreedte : null;
+    },
+    standaard: { scale: "fit" },
+  });
   return (
     <Ribbon
       bestand={bestand}

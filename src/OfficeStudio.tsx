@@ -66,7 +66,8 @@ export function OfficeStudio() {
     [gereed, setGereed] = useState(false),
     [databaseGereed, setDatabaseGereed] = useState(false),
     [verlaatvraag, setVerlaatvraag] = useState(false),
-    [exportFormaat, setExportFormaat] = useState("docx");
+    [exportFormaat, setExportFormaat] = useState("docx"),
+    [documentZoom, setDocumentZoom] = useState<number | null>(null);
   const input = useRef<HTMLInputElement>(null),
     serialiseer = useRef<(() => Promise<Uint8Array>) | null>(null),
     bezigRef = useRef(false);
@@ -534,6 +535,7 @@ export function OfficeStudio() {
                   inactief={
                     bestandsmenu || verlaatvraag || (bezig && !opslag.bezig)
                   }
+                  zoom={setDocumentZoom}
                 />
               </Suspense>
             </EditorGrens>
@@ -626,6 +628,14 @@ export function OfficeStudio() {
                   : "OpenAEC Office Studio")}
           </span>
           <span className="office-statusrechts">
+            {bestand && documentZoom !== null && (
+              <span
+                className="office-statuszoom"
+                title="Ctrl + scrollwiel of Ctrl + = en Ctrl + − om te zoomen, Ctrl + 0 voor 100%"
+              >
+                {Math.round(documentZoom * 100)}%
+              </span>
+            )}
             {bestand
               ? !gereed
                 ? "Laden…"
