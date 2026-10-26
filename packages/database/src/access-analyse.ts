@@ -3,9 +3,15 @@ import {
   leesFormaat,
   leesRijenRuw,
   leesTabeldefinitie,
+  leesVersleuteling,
   telRijenRuw,
   type RuwFormaat,
 } from "./access-pagina.ts";
+import {
+  levendeRecords,
+  scanDatapaginas,
+  type Datascan,
+} from "./werkkopie/rijfilter.ts";
 import { reconstrueerQuery, type QueryRij } from "./access-query.ts";
 import { leesCfb } from "./cfb.ts";
 import {
@@ -14,10 +20,11 @@ import {
   leesVbaModuleBron,
   decodeerVbaTekst,
 } from "./ovba.ts";
-import type {
-  Compatibiliteitsrapport,
-  DatabaseObject,
-  Rapportregel,
+import {
+  VERSLEUTELD_MELDING,
+  type Compatibiliteitsrapport,
+  type DatabaseObject,
+  type Rapportregel,
 } from "./model.ts";
 
 // Leest alleen metadata en broncode. Macro’s, VBA, query’s en gekoppelde bronnen worden nooit uitgevoerd.
@@ -28,6 +35,8 @@ const inventaris: Record<number, "Formulier" | "Rapport" | "Macro"> = {
   [-32766]: "Macro",
 };
 const MODULE = -32761;
+const LEZER =
+  "mdb-reader 3.2.0 met eigen MSysQueries-, tabeldefinitie-, CFB- en MS-OVBA-lezer";
 
 function melding(fout: unknown) {
   return fout instanceof Error ? fout.message : String(fout);
@@ -412,35 +421,51 @@ export async function analyseerDatabase(
   try {
     const namen = db.getTableNames({ normalTables: false, systemTables: true });
     let opslag: VbaStromen | null = null;
-    if (namen.includes("MSysAccessStorage"))
-      opslag = vbaUitOpslag(
-        db.getTable("MSysAccessStorage").getData() as Rij[],
-      );
-    else if (namen.includes("MSysAccessObjects")) {
-      let rijen: Rij[];
+    let ruweRoute = "";
+    let ruwOvergeslagen = 0;
+    // mdb-reader weigert soms een systeemtabel (bijvoorbeeld een paginaverwijzing
+    // buiten een afgebroken bestand); dan leest de eigen ruwe rijlezer de rijen
+    // die wel bereikbaar zijn.
+    const leesSysteemtabel = (naam: string): Rij[] => {
       try {
-        rijen = db.getTable("MSysAccessObjects").getData() as Rij[];
-      } catch {
+        return db.getTable(naam).getData() as Rij[];
+      } catch (oorzaak) {
         const pagina =
-          msysObjecten.find((o) => o.naam === "MSysAccessObjects")!.id &
-          0xffffff;
-        if (!formaat) throw new Error("Bestandskop onleesbaar.");
-        rijen = leesRijenRuw(bytes, formaat, pagina);
+          (msysObjecten.find((o) => o.naam === naam)?.id ?? 0) & 0xffffff;
+        if (!formaat || !pagina) throw oorzaak;
+        let overgeslagen = 0;
+        const rijen = leesRijenRuw(bytes, formaat, pagina, {
+          overgeslagen: () => overgeslagen++,
+        });
+        ruwOvergeslagen = overgeslagen;
+        ruweRoute =
+          `${naam} is met de eigen rijlezer gelezen omdat mdb-reader faalde (${melding(oorzaak)})` +
+          (overgeslagen
+            ? `; ${overgeslagen} onleesbare rij(en) overgeslagen. `
+            : ". ");
+        return rijen;
       }
-      opslag = vbaUitObjecten(rijen);
-    }
+    };
+    if (namen.includes("MSysAccessStorage"))
+      opslag = vbaUitOpslag(leesSysteemtabel("MSysAccessStorage"));
+    else if (namen.includes("MSysAccessObjects"))
+      opslag = vbaUitObjecten(leesSysteemtabel("MSysAccessObjects"));
     const dir = [...(opslag?.stromen ?? [])].find(([pad]) =>
       /(^|\/)vba\/vbaproject\/vba\/dir$/.test(pad),
     );
     if (!opslag || !dir) {
       const reden = namen.includes("MSysModules2")
         ? "Access 97-moduleopslag (MSysModules2) wordt niet gedecodeerd."
-        : "Geen VBA-projectopslag gevonden.";
+        : ruwOvergeslagen
+          ? "Geen VBA-project gevonden in de leesbare rijen; het kan in de overgeslagen rijen staan."
+          : "Geen VBA-projectopslag gevonden.";
       regel(
         "VBA-modules",
-        moduleObjecten.length ? "niet gelezen" : "niet aanwezig",
+        moduleObjecten.length || ruwOvergeslagen
+          ? "niet gelezen"
+          : "niet aanwezig",
         moduleObjecten.length,
-        `${reden} MSysObjects vermeldt ${moduleObjecten.length} module(s).`,
+        `${ruweRoute}${reden} MSysObjects vermeldt ${moduleObjecten.length} module(s).`,
       );
       for (const o of moduleObjecten)
         objecten.push({
@@ -510,6 +535,7 @@ export async function analyseerDatabase(
             : "gedeeltelijk",
         info.modules.length,
         `VBA-project ‘${info.projectnaam}’ gevonden in ${opslag.bron} (codepagina ${info.codepagina}). ` +
+          ruweRoute +
           (info.modules.length
             ? `Broncode teruggewonnen voor ${metBron} van ${info.modules.length} module(s) met eigen MS-OVBA-decompressie. `
             : "De dir-stroom vermeldt geen modules. ") +
@@ -547,10 +573,165 @@ export async function analyseerDatabase(
       grootte: bestand.grootte,
       sha256: await sha256(bytes),
       formaat: formaatNaam,
-      lezer:
-        "mdb-reader 3.2.0 met eigen MSysQueries-, tabeldefinitie-, CFB- en MS-OVBA-lezer",
+      lezer: LEZER,
       datum: new Date().toISOString(),
       regels,
+    },
+  };
+}
+
+/** Foutmeldingen van mdb-reader die op Office-versleuteling of een databasewachtwoord wijzen. */
+export function isVersleutelingsfout(fout: unknown): boolean {
+  for (let f = fout, stap = 0; f && stap < 4; stap++) {
+    const tekst = melding(f);
+    if (
+      /Wrong password|Not implemented yet|encryption|The value of "end" is out of range/i.test(
+        tekst,
+      )
+    )
+      return true;
+    f = f instanceof Error ? f.cause : null;
+  }
+  return false;
+}
+
+/**
+ * Herkent versleuteling in de bestandskop vóór het openen. Geeft een
+ * omschrijving (bijvoorbeeld "Office-agileversleuteling") of null.
+ */
+export function herkenVersleuteling(bytes: Uint8Array): string | null {
+  try {
+    return leesVersleuteling(bytes);
+  } catch {
+    return null;
+  }
+}
+
+/** Compatibiliteitsrapport voor een database die versleuteld is en dus niet gelezen wordt. */
+export async function analyseVersleuteld(
+  bytes: Uint8Array,
+  bestand: { naam: string; grootte: number },
+  soort: string | null,
+): Promise<Analyse> {
+  let formaat = "Onbekend";
+  try {
+    formaat = leesFormaat(bytes).naam;
+  } catch {
+    /* kop onleesbaar; formaat blijft onbekend */
+  }
+  return {
+    objecten: [],
+    rapport: {
+      bestand: bestand.naam,
+      grootte: bestand.grootte,
+      sha256: await sha256(bytes),
+      formaat: formaat + (soort ? ` · ${soort}` : " · versleuteld"),
+      lezer: LEZER,
+      datum: new Date().toISOString(),
+      regels: [
+        {
+          onderdeel: "Versleuteling",
+          status: "niet gelezen",
+          aantal: null,
+          toelichting:
+            VERSLEUTELD_MELDING +
+            (soort ? ` Herkend: ${soort}.` : "") +
+            " Er is geen wachtwoord gevraagd of geprobeerd; tabellen, query’s, relaties en VBA zijn niet gelezen.",
+        },
+        {
+          onderdeel: "Uitvoering",
+          status: "niet uitgevoerd",
+          aantal: null,
+          toelichting:
+            "Openen voert geen query’s, macro’s, VBA, AutoExec of gekoppelde bronnen uit. Het origineel wordt niet gewijzigd.",
+        },
+      ],
+    },
+  };
+}
+
+/**
+ * Rijcorrectie voor het alleen-lezen-tabelpad, gelijk aan die van de
+ * werkkopie (zie werkkopie/rijfilter.ts): mdb-reader 3.2.0 leest verwijderde
+ * rijplaatsen (0x8000) mee en slaat levende overlooprijen (0x4000) over. De
+ * correctie wordt alleen toegepast als de eigen paginascan precies aansluit op
+ * mdb-reader en op het rijaantal in de tabeldefinitie; anders blijven de rijen
+ * van mdb-reader staan.
+ */
+export interface Rijfilter {
+  /** Indexen (in mdb-reader-volgorde) van de levende rijen, of null als er niets te corrigeren valt. */
+  levend(naam: string): number[] | null;
+  /** Leest een pagina levende rijen. */
+  lees(
+    naam: string,
+    start: number,
+    aantal: number,
+  ): { rijen: Rij[]; totaal: number; overgeslagen: number };
+}
+export function maakRijfilter(db: MDBReader, bytes: Uint8Array): Rijfilter {
+  let formaat: RuwFormaat | null = null;
+  try {
+    formaat = leesFormaat(bytes);
+  } catch {
+    formaat = null;
+  }
+  let paginas: Map<string, number> | null = null;
+  let scan: Datascan | null = null;
+  const cache = new Map<string, number[] | null>();
+  const ruwTotaal = new Map<string, number>();
+  const levend = (naam: string): number[] | null => {
+    if (cache.has(naam)) return cache.get(naam)!;
+    let uitkomst: number[] | null = null;
+    try {
+      paginas ??= new Map(
+        (db.getTable("MSysObjects").getData() as Rij[])
+          .filter((o) => o.Type === 1)
+          .map((o) => [String(o.Name), (getal(o.Id) ?? 0) & 0xffffff]),
+      );
+      const pagina = paginas.get(naam);
+      if (formaat && pagina) {
+        scan ??= scanDatapaginas(bytes, formaat);
+        const kandidaat = levendeRecords(scan, pagina);
+        if (kandidaat) {
+          const tabel = db.getTable(naam);
+          const totaal = tabel.getData({ columns: [] }).length;
+          const indexen: number[] = [];
+          kandidaat.forEach((houden, i) => houden && indexen.push(i));
+          if (totaal === kandidaat.length && indexen.length === tabel.rowCount) {
+            uitkomst = indexen;
+            ruwTotaal.set(naam, totaal);
+          }
+        }
+      }
+    } catch {
+      uitkomst = null;
+    }
+    cache.set(naam, uitkomst);
+    return uitkomst;
+  };
+  return {
+    levend,
+    lees(naam, start, aantal) {
+      const tabel = db.getTable(naam);
+      const indexen = levend(naam);
+      if (!indexen)
+        return {
+          rijen: tabel.getData({ rowOffset: start, rowLimit: aantal }) as Rij[],
+          totaal: tabel.rowCount,
+          overgeslagen: 0,
+        };
+      const deel = indexen.slice(start, start + aantal);
+      const ruw = deel.length
+        ? (tabel.getData({
+            rowOffset: deel[0],
+            rowLimit: deel[deel.length - 1] - deel[0] + 1,
+          }) as Rij[])
+        : [];
+      return {
+        rijen: deel.map((i) => ruw[i - deel[0]]),
+        totaal: indexen.length,
+        overgeslagen: (ruwTotaal.get(naam) ?? indexen.length) - indexen.length,
+      };
     },
   };
 }

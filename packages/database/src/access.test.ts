@@ -7,7 +7,13 @@ import {
   leesProjectBeveiliging,
 } from "./ovba";
 import { reconstrueerQuery, type QueryRij } from "./access-query";
-import { vbaUitOpslag } from "./access-analyse";
+import { isVersleutelingsfout, vbaUitOpslag } from "./access-analyse";
+import {
+  leesFormaat,
+  leesRijenRuw,
+  leesTabeldefinitie,
+  leesVersleuteling,
+} from "./access-pagina";
 import { rapportAlsTekst } from "./model";
 import { kleurTokens } from "./syntaxis";
 
@@ -301,5 +307,159 @@ describe("Syntaxiskleuring", () => {
       "sleutelwoord:WHERE",
       "tekst:'x'",
     ]);
+  });
+});
+
+// ---------------------------------------------------------------- synthetisch ACE-bestand
+function rc4(sleutel: number[], data: Uint8Array) {
+  const s = Array.from({ length: 256 }, (_, i) => i);
+  for (let i = 0, j = 0; i < 256; i++) {
+    j = (j + s[i] + sleutel[i % sleutel.length]) & 255;
+    [s[i], s[j]] = [s[j], s[i]];
+  }
+  const uit = new Uint8Array(data.length);
+  for (let n = 0, i = 0, j = 0; n < data.length; n++) {
+    i = (i + 1) & 255;
+    j = (j + s[i]) & 255;
+    [s[i], s[j]] = [s[j], s[i]];
+    uit[n] = data[n] ^ s[(s[i] + s[j]) & 255];
+  }
+  return uit;
+}
+const P = 4096;
+function aceBestand(paginas: number, sleutel = [0, 0, 0, 0]) {
+  const bytes = new Uint8Array(paginas * P);
+  bytes[1] = 1;
+  bytes[0x14] = 2; // ACE 12
+  const kop = new Uint8Array(128);
+  kop.set(sleutel, 0x3e - 0x18);
+  bytes.set(rc4([0xc7, 0xda, 0x39, 0x6b], kop), 0x18);
+  return bytes;
+}
+const u16 = (w: number) => [w & 255, (w >> 8) & 255];
+const naamBytes = (naam: string) => {
+  const utf = [...naam].flatMap((c) => u16(c.charCodeAt(0)));
+  return [...u16(utf.length), ...utf];
+};
+/** Tabeldefinitie op pagina 1: Id (Long), Naam (tekst), Lv (OLE) met drie logische indexen. */
+function schrijfTabeldefinitie(bytes: Uint8Array) {
+  const d: number[] = new Array(63).fill(0);
+  d[0] = 0x02;
+  d[1] = 0x01;
+  d.splice(16, 4, ...u32(2));
+  d.splice(45, 2, ...u16(3));
+  d.splice(47, 4, ...u32(3));
+  d.splice(51, 4, ...u32(2));
+  d.push(...new Array(2 * 12).fill(0));
+  const kolom = (type: number, nummer: number, varIdx: number, vast: boolean, lengte: number) => {
+    const k = new Array(25).fill(0);
+    k[0] = type;
+    k.splice(5, 2, ...u16(nummer));
+    k.splice(7, 2, ...u16(varIdx));
+    k[15] = vast ? 1 : 0;
+    k.splice(23, 2, ...u16(lengte));
+    return k;
+  };
+  d.push(...kolom(4, 0, 0, true, 4), ...kolom(10, 1, 0, false, 100), ...kolom(11, 2, 1, false, 0));
+  d.push(...naamBytes("Id"), ...naamBytes("Naam"), ...naamBytes("Lv"));
+  const echt = (kolomNr: number, vlagOud: number, vlag: number) => {
+    const e = new Array(52).fill(0);
+    for (let k = 0; k < 10; k++) e.splice(4 + k * 3, 3, 0xff, 0xff, 0);
+    e.splice(4, 3, ...u16(kolomNr), 1);
+    e[4 + 38] = vlagOud; // laatste byte van de eerste indexpagina (de oude, foute plek)
+    e[4 + 42] = vlag;
+    return e;
+  };
+  // Echte index 0: niet uniek, maar met een 0x01 op de oude plek. Echte index 1: uniek (0x89).
+  d.push(...echt(1, 0x01, 0x80), ...echt(0, 0x00, 0x89));
+  const logisch = (nummer: number, echtNr: number, type: number) => {
+    const l = new Array(28).fill(0);
+    l.splice(4, 4, ...u32(nummer));
+    l.splice(8, 4, ...u32(echtNr));
+    l[4 + 19] = type;
+    return l;
+  };
+  d.push(...logisch(0, 1, 1), ...logisch(1, 0, 0), ...logisch(2, 1, 2));
+  d.push(...naamBytes("PrimaryKey"), ...naamBytes("Naam"), ...naamBytes("Verwijzing"));
+  bytes.set(d, P);
+}
+function dataRij(id: number, naam: number[], lv: number[]) {
+  const vast = u32(id);
+  const off0 = 2 + vast.length;
+  const off1 = off0 + naam.length;
+  const eod = off1 + lv.length;
+  return [...u16(3), ...vast, ...naam, ...lv, ...u16(eod), ...u16(off1), ...u16(off0), ...u16(2), 0b111];
+}
+function schrijfDatapagina(bytes: Uint8Array, nummer: number, eigenaar: number, rijen: { inhoud: number[]; vlag?: number }[]) {
+  const basis = nummer * P;
+  bytes[basis] = 0x01;
+  bytes.set(u32(eigenaar), basis + 4);
+  bytes.set(u16(rijen.length), basis + 12);
+  let einde = P;
+  rijen.forEach((r, i) => {
+    const start = einde - r.inhoud.length;
+    bytes.set(r.inhoud, basis + start);
+    bytes.set(u16(start | (r.vlag ?? 0)), basis + 14 + i * 2);
+    einde = start;
+  });
+}
+
+describe("Eigen paginalezer", () => {
+  it("leest de unieke vlag van Jet 4/ACE-indexen op de juiste plek", () => {
+    const bytes = aceBestand(2);
+    schrijfTabeldefinitie(bytes);
+    const { indexen } = leesTabeldefinitie(bytes, leesFormaat(bytes), 1);
+    expect(indexen.map((i) => [i.naam, i.primair, i.uniek, i.extern])).toEqual([
+      ["PrimaryKey", true, true, false],
+      ["Naam", false, false, false],
+      // Deelt de fysieke index van de primaire sleutel en is daardoor uniek.
+      ["Verwijzing", false, true, true],
+    ]);
+  });
+  it("leest tekst, OLE in de rij en via LVAL, slaat verwijderde en onbereikbare rijen over", () => {
+    const bytes = aceBestand(4);
+    schrijfTabeldefinitie(bytes);
+    const gecomprimeerd = [0xff, 0xfe, ...ascii("Alfa")];
+    const inline = [...u32(3 | 0x80000000), ...new Array(8).fill(0), 7, 8, 9];
+    const lval = [...u32(5 | 0x40000000), 0, ...u16(3), 0, ...u32(0)];
+    schrijfDatapagina(bytes, 2, 1, [
+      { inhoud: dataRij(1, gecomprimeerd, inline) },
+      { inhoud: dataRij(2, [...u16(0x42), ...u16(0x20ac)], lval) },
+      { inhoud: dataRij(3, [], []), vlag: 0x8000 },
+      // Overloopverwijzing naar pagina 99, buiten het bestand.
+      { inhoud: [0, 99, 0, 0], vlag: 0x4000 },
+    ]);
+    bytes[3 * P] = 0x01;
+    bytes.set(ascii("LVAL"), 3 * P + 4);
+    bytes.set(u16(1), 3 * P + 12);
+    bytes.set(u16(P - 5), 3 * P + 14);
+    bytes.set([1, 2, 3, 4, 5], 3 * P + P - 5);
+    const meldingen: string[] = [];
+    const rijen = leesRijenRuw(bytes, leesFormaat(bytes), 1, {
+      overgeslagen: (reden) => meldingen.push(reden),
+    });
+    expect(rijen).toEqual([
+      { Id: 1, Naam: "Alfa", Lv: Uint8Array.of(7, 8, 9) },
+      { Id: 2, Naam: "B€", Lv: Uint8Array.of(1, 2, 3, 4, 5) },
+    ]);
+    expect(meldingen).toEqual(["pagina 2, rij 3: Pagina 99 ligt buiten het bestand."]);
+  });
+});
+
+describe("Versleutelde databases", () => {
+  it("herkent Office-versleuteling in de kop en laat onversleutelde bestanden door", () => {
+    expect(leesVersleuteling(aceBestand(1))).toBeNull();
+    const versleuteld = aceBestand(1, [1, 2, 3, 4]);
+    versleuteld.set([...u16(8), ...u16(4), ...u16(4)], 0x299);
+    expect(leesVersleuteling(versleuteld)).toBe("Office-agileversleuteling (wachtwoord)");
+    versleuteld.set([...u16(2), ...u16(2), ...u32(0x24)], 0x29b);
+    expect(leesVersleuteling(versleuteld)).toBe("Office-standaardversleuteling (AES, wachtwoord)");
+  });
+  it("herkent de foutsoort van mdb-reader, ook als oorzaak", () => {
+    expect(isVersleutelingsfout(new Error("Wrong password"))).toBe(true);
+    expect(
+      isVersleutelingsfout(new Error("Onleesbaar", { cause: new Error("Not implemented yet") })),
+    ).toBe(true);
+    expect(isVersleutelingsfout(new Error("Wrong page type."))).toBe(false);
   });
 });

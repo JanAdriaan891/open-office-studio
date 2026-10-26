@@ -1,12 +1,22 @@
 import type MDBReader from "mdb-reader";
 import { openDatabase } from "./database-parser";
-import { analyseerDatabase } from "./access-analyse.ts";
+import {
+  analyseerDatabase,
+  analyseVersleuteld,
+  herkenVersleuteling,
+  isVersleutelingsfout,
+  maakRijfilter,
+  type Rijfilter,
+} from "./access-analyse.ts";
+import { VERSLEUTELD_MELDING } from "./model.ts";
 import type { SqliteWerkkopie } from "./werkkopie/werkkopie.ts";
 
 // De parser blijft buiten de UI-thread. Het alleen-lezen-pad (open/tabel) voert geen
 // query’s, macro’s of gekoppelde bronnen uit. De werkkopie (SQLite) wordt alleen op
 // verzoek opgebouwd en laadt sql.js pas dan; het origineel blijft ongewijzigd.
 let database: MDBReader | null = null;
+// Zelfde rijcorrectie als de werkkopie (verwijderde rijplaatsen weg, levende overlooprijen erbij).
+let rijfilter: Rijfilter | null = null;
 let werkkopie: SqliteWerkkopie | null = null;
 const context = self as unknown as {
   onmessage: ((event: MessageEvent) => void) | null;
@@ -23,18 +33,47 @@ context.onmessage = async ({ data }) => {
   try {
     if (data.type === "open") {
       const bytes = new Uint8Array(data.bytes);
-      database = await openDatabase(data.bytes);
+      const bestand = { naam: data.naam ?? "database", grootte: bytes.byteLength };
+      database = null;
+      rijfilter = null;
+      // Versleuteling vóór het openen herkennen (kop), en anders aan de fout van mdb-reader.
+      const versleuteling = herkenVersleuteling(bytes);
+      let lezer: MDBReader | null = null;
+      let fout: unknown = null;
+      if (!versleuteling)
+        try {
+          lezer = await openDatabase(data.bytes);
+        } catch (oorzaak) {
+          if (!isVersleutelingsfout(oorzaak)) throw oorzaak;
+          fout = oorzaak;
+        }
+      if (!lezer) {
+        const { rapport } = await analyseVersleuteld(bytes, bestand, versleuteling);
+        context.postMessage({
+          id: data.id,
+          fout: VERSLEUTELD_MELDING,
+          code: "versleuteld",
+          oorzaak: fout ? String((fout as Error).cause ?? fout) : undefined,
+          rapport,
+        });
+        return;
+      }
+      database = lezer;
+      rijfilter = maakRijfilter(lezer, bytes);
       context.postMessage({
         id: data.id,
-        resultaat: await analyseerDatabase(database, bytes, {
-          naam: data.naam ?? "database",
-          grootte: bytes.byteLength,
-        }),
+        resultaat: await analyseerDatabase(lezer, bytes, bestand),
       });
     } else if (data.type === "tabel" && database) {
       const tabel = database.getTable(data.naam);
       const kolommen = tabel.getColumnNames();
-      const rijen = tabel.getData({ rowOffset: data.start, rowLimit: 200 });
+      const { rijen, totaal, overgeslagen } = rijfilter
+        ? rijfilter.lees(data.naam, data.start, 200)
+        : {
+            rijen: tabel.getData({ rowOffset: data.start, rowLimit: 200 }),
+            totaal: tabel.rowCount,
+            overgeslagen: 0,
+          };
       context.postMessage({
         id: data.id,
         resultaat: {
@@ -44,7 +83,12 @@ context.onmessage = async ({ data }) => {
           kolommen,
           kolomtypen: tabel.getColumns().map((k) => k.type),
           rijen: rijen.map((rij) => kolommen.map((kolom) => tekst(rij[kolom]))),
-          totaalRijen: tabel.rowCount,
+          totaalRijen: totaal,
+          beperkingen: overgeslagen
+            ? [
+                `${overgeslagen} verwijderde of verouderde rijversie(s) in het bestand zijn overgeslagen (eigen paginascan, zoals de werkkopie).`,
+              ]
+            : [],
         },
       });
     } else if (data.type === "werkkopie:open") {

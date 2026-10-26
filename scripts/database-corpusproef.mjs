@@ -3,7 +3,13 @@ import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { execFileSync } from "node:child_process";
 import assert from "node:assert/strict";
 import MDBReader from "mdb-reader";
-import { analyseerDatabase } from "../packages/database/src/access-analyse.ts";
+import {
+  analyseerDatabase,
+  analyseVersleuteld,
+  herkenVersleuteling,
+  isVersleutelingsfout,
+  maakRijfilter,
+} from "../packages/database/src/access-analyse.ts";
 import {
   leesFormaat,
   leesTabeldefinitie,
@@ -74,7 +80,31 @@ for (const bestand of bestanden) {
   try {
     const buffer = await readFile(bestand.bestand);
     const bytes = new Uint8Array(buffer);
-    const db = new MDBReader(buffer);
+    // Versleuteling: herkend in de kop vóór het openen, of aan de fout van mdb-reader.
+    let versleuteling = herkenVersleuteling(bytes);
+    let db = null;
+    if (!versleuteling)
+      try {
+        db = new MDBReader(buffer);
+      } catch (fout) {
+        if (!isVersleutelingsfout(fout)) throw fout;
+        versleuteling = `alleen aan de fout herkend (${fout.message})`;
+      }
+    if (!db) {
+      const { rapport } = await analyseVersleuteld(
+        bytes,
+        { naam: bestand.naam, grootte: bytes.byteLength },
+        versleuteling,
+      );
+      assert.equal(rapport.sha256, voor, "Rapporthash wijkt af.");
+      resultaat.versleuteld = versleuteling;
+      resultaat.rapportregels = Object.fromEntries(
+        rapport.regels.map((r) => [r.onderdeel, r.status]),
+      );
+      resultaat.ongewijzigd = (await hash(bestand.bestand)) === voor;
+      assert.ok(resultaat.ongewijzigd, `${bestand.naam}: bestand gewijzigd!`);
+      continue;
+    }
     const { objecten, rapport } = await analyseerDatabase(db, bytes, {
       naam: bestand.naam,
       grootte: bytes.byteLength,
@@ -120,7 +150,10 @@ for (const bestand of bestanden) {
     );
     resultaat.rijenMdbReader = 0;
     resultaat.rijenGelezen = 0;
+    resultaat.rijenAlleenLezen = 0;
     resultaat.rijenEigenScan = 0;
+    resultaat.tabellenGecorrigeerd = 0;
+    const rijfilter = maakRijfilter(db, bytes);
     resultaat.afwijkingen = [];
     for (const naam of db.getTableNames()) {
       const pagina = ids.get(naam);
@@ -142,13 +175,24 @@ for (const bestand of bestanden) {
             `${naam}: rijen niet leesbaar via mdb-reader (${fout.message})`,
           );
         }
+        // Alleen-lezen-tabelpad (zelfde rijcorrectie als de werkkopie).
+        let alleenLezen = null;
+        if (gelezen !== null) {
+          const levend = rijfilter.levend(naam);
+          if (levend) resultaat.tabellenGecorrigeerd++;
+          alleenLezen = rijfilter.lees(naam, 0, gelezen + 1).rijen.length;
+        }
         const eigen = tellingen.get(pagina) ?? 0;
         resultaat.rijenMdbReader += tabel.rowCount;
         resultaat.rijenGelezen += gelezen ?? 0;
+        resultaat.rijenAlleenLezen += alleenLezen ?? 0;
         resultaat.rijenEigenScan += eigen;
-        if (eigen !== tabel.rowCount || (gelezen !== null && gelezen !== eigen))
+        if (
+          eigen !== tabel.rowCount ||
+          (alleenLezen !== null && alleenLezen !== eigen)
+        )
           resultaat.afwijkingen.push(
-            `${naam}: tabeldefinitie ${tabel.rowCount}, mdb-reader gelezen ${gelezen}, eigen scan ${eigen}`,
+            `${naam}: tabeldefinitie ${tabel.rowCount}, mdb-reader gelezen ${gelezen}, alleen-lezen-pad ${alleenLezen}, eigen scan ${eigen}`,
           );
       } catch (fout) {
         resultaat.afwijkingen.push(`${naam}: ${fout.message}`);
@@ -178,6 +222,7 @@ const samenvatting = {
   bestanden: resultaten.length,
   geopend: resultaten.filter((r) => r.geopend).length,
   fouten: resultaten.filter((r) => r.fout).length,
+  versleuteld: resultaten.filter((r) => r.versleuteld).length,
   ongewijzigd: resultaten.filter((r) => r.ongewijzigd).length,
   mdbTools,
   tabellen: som("tabellen"),
@@ -197,6 +242,12 @@ const samenvatting = {
   rapporten: som("rapporten"),
   macros: som("macros"),
   rijenMdbReader: som("rijenMdbReader"),
+  rijenGelezen: som("rijenGelezen"),
+  rijenAlleenLezen: som("rijenAlleenLezen"),
+  tabellenGecorrigeerd: som("tabellenGecorrigeerd"),
+  vbaRuweRoute: resultaten.filter((r) =>
+    /met de eigen rijlezer gelezen/.test(r.vbaToelichting ?? ""),
+  ).length,
   rijenEigenScan: som("rijenEigenScan"),
   bestandenMetAfwijking: resultaten.filter((r) => r.afwijkingen?.length).length,
 };
@@ -204,8 +255,10 @@ await mkdir(uitvoer.replace(/\/[^/]+$/, ""), { recursive: true });
 await writeFile(uitvoer, JSON.stringify({ samenvatting, resultaten }, null, 2));
 console.log(JSON.stringify(samenvatting, null, 2));
 for (const r of resultaten)
-  if (r.fout || r.afwijkingen?.length)
-    console.log(`- ${r.pad}: ${r.fout ?? r.afwijkingen.join("; ")}`);
+  if (r.fout || r.versleuteld || r.afwijkingen?.length)
+    console.log(
+      `- ${r.pad}: ${r.fout ?? (r.versleuteld ? `versleuteld: ${r.versleuteld}` : r.afwijkingen.join("; "))}`,
+    );
 assert.equal(samenvatting.ongewijzigd, resultaten.length);
 assert.equal(
   queryGelijk,

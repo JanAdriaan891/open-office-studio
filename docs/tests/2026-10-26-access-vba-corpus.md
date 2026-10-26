@@ -42,36 +42,45 @@ Het script bewaart de zoekresultaten in `.local/corpus/access-vba/kandidaten.jso
 
 ## Uitkomsten van de corpusproef
 
-| Onderdeel | Uitkomst |
-|---|---|
-| Bestanden | 347 |
-| Geopend en geanalyseerd | 339; 8 fouten, alle in mdb-reader bij versleutelde databases (zie hieronder) |
-| Origineel ongewijzigd (SHA-256 vóór = na = manifest) | 347 van 347 |
-| VBA-projecten gelezen | 329 (294 uit `MSysAccessStorage`, 35 uit `MSysAccessObjects`); 229 daarvan zonder modules |
-| VBA-modules | 1.565 |
-| Modules met teruggewonnen broncode | 1.556 (200.932 regels) |
-| Modules zonder bron | 9, in 2 Access 97-bestanden (Jet 3) met `MSysModules2`-opslag (niet gedecodeerd, bekende beperking) |
-| Alleen gecompileerde modules | 0 |
-| Beveiligde projecten | 3 vergrendeld voor weergave, 2 met projectwachtwoord; bij alle 5 is de broncode toch teruggewonnen (de vergrendeling beschermt alleen de weergave in de editor) |
-| VBA-project niet gelezen | 1 bestand (zie hieronder) |
-| Tabellen / gekoppelde tabellen | 1.813 / 440 |
-| Query’s (met SQL) | 4.442 (4.442) |
-| Relaties / indexen | 671 / 4.394 |
-| Formulieren / rapporten / macro’s | 1.612 / 658 / 209 (alleen geïnventariseerd) |
-| Rijen | mdb-reader 626.696 · eigen paginascan 623.780 |
-| Bestanden met rijafwijking | 49 |
+Tweede kolom: de eerste proef. Derde kolom: na het herstel van de vier punten hieronder (zelfde 347 bestanden, zelfde dag).
 
-### Fouten en afwijkingen
+| Onderdeel | Eerste proef | Na herstel |
+|---|---|---|
+| Bestanden | 347 | 347 |
+| Geopend en geanalyseerd | 339; 8 fouten in mdb-reader | 339; 0 fouten, 8 herkend als versleuteld (zie hieronder) |
+| Origineel ongewijzigd (SHA-256 vóór = na = manifest) | 347 van 347 | 347 van 347 |
+| VBA-projecten gelezen | 329 (294 uit `MSysAccessStorage`, 35 uit `MSysAccessObjects`); 229 daarvan zonder modules | 329, ongewijzigd |
+| VBA-modules / met teruggewonnen broncode | 1.565 / 1.556 (200.932 regels) | 1.565 / 1.556 |
+| Modules zonder bron | 9, in 2 Access 97-bestanden (Jet 3) met `MSysModules2`-opslag (niet gedecodeerd, bekende beperking) | 9, ongewijzigd |
+| Alleen gecompileerde modules | 0 | 0 |
+| Beveiligde projecten | 3 vergrendeld voor weergave, 2 met projectwachtwoord; bij alle 5 is de broncode toch teruggewonnen | ongewijzigd |
+| VBA-opslag via de eigen ruwe rijlezer | 35 (`MSysAccessObjects`, stil) | 36: 35 `MSysAccessObjects` + 1 `MSysAccessStorage`; nu ook vermeld in het rapport |
+| VBA-project niet gelezen | 1 bestand (fout in mdb-reader) | 0 met een fout; het ene bestand is afgebroken (zie hieronder) |
+| Tabellen / gekoppelde tabellen | 1.813 / 440 | 1.813 / 440 |
+| Query’s (met SQL) | 4.442 (4.442) | 4.442 (4.442) |
+| Relaties / indexen | 671 / 4.394 | 671 / 4.394 |
+| Indexen gemarkeerd als uniek (beide corpora samen) | 2.027, waarvan 160 met dubbele waarden in de levende rijen | 2.311, waarvan 23 met „dubbele” waarden (alle op samengestelde velden, zie hieronder) |
+| Formulieren / rapporten / macro’s | 1.612 / 658 / 209 (alleen geïnventariseerd) | ongewijzigd |
+| Rijen: tabeldefinitie · eigen paginascan | 626.696 · 623.780 | 626.696 · 623.780 |
+| Rijen: door mdb-reader gelezen · alleen-lezen-tabelpad | (niet gemeten) | 600.375 · 600.318 |
+| Tabellen met rijcorrectie (verwijderde/verplaatste rijversies) | 0 | 14 |
+| Bestanden met rijafwijking | 49 | 43 |
 
-- **Geen fouten in de eigen VBA-lezers.** De CFB-lezer, de dir-stroomlezer, de MS-OVBA-decompressie en de lezer van `MSysAccessStorage` gaven bij geen enkel bestand een fout of crash. Alle modules die een modulestroom hadden, leverden broncode op. Geen worker liep in de tijdslimiet.
-- 8 versleutelde databases weigert mdb-reader al bij het openen (de analyse komt niet aan VBA toe): 3× `The value of "end" is out of range … Received 32` (Office-agileversleuteling, in `verifyPassword` van mdb-reader), 3× `Not implemented yet` (andere Office-versleuteling) en 2× `Wrong password` (databasewachtwoord). Het gaat om onder meer `lenard123/fastfood-pos-csharp` (`FastFoodPOS/Resources/FastFoodDatabase.accdb`), `CarlosS1L/AtlantidaSol` (`dados/wgbdtables.accdb`), `irahulksingh/Leave-Application` (`Connection/LappwithPwd.accdb`), `karenpayneoregon/SecureConnectionAccess` en twee testbestanden van `spannm/jackcess-encrypt`. De foutmelding van mdb-reader bij agileversleuteling is onduidelijk; een herkenbare melding “versleuteld” zou beter zijn.
-- `az_analyst_msaccessprojects-eb608defc8a3930b32deb4010ee310229ee23de1` (`Access_ SelectQueries.accdb`): VBA-project niet gelezen, `Wrong page type. Expected 1 but received undefined.` De fout komt uit mdb-reader bij het lezen van `MSysAccessStorage` (een paginaverwijzing buiten het bestand). Voor `MSysAccessObjects` heeft de analyse een eigen terugvalroute met de ruwe rijlezer, voor `MSysAccessStorage` niet.
-- Rijafwijkingen (49 bestanden), geen VBA-onderdeel:
-  - 39 tabellen in 31 bestanden: het rijaantal in de tabeldefinitie wijkt af, maar mdb-reader en de eigen scan zijn het eens. Dit is gebruikelijk bij niet-gecomprimeerde Access-bestanden.
-  - 14 tabellen in 7 bestanden: eigen scan gelijk aan de tabeldefinitie, maar mdb-reader leest meer of minder rijen (bijvoorbeeld `itsmediwas_java_student_information_mana-b63bc0e…`, `mhamzap10_parking_management_system-da0533c…`). Nader te onderzoeken in de eigen paginascan (`access-pagina.ts`) of in mdb-reader.
-  - 4 tabellen in 4 bestanden: alle drie de tellingen verschillen (o.a. `bmullan91_seneca_msaccess_store-d37f542…`, `naharcomputer_msaccess_vba_e2sc-331a88f…`).
-  - mdb-reader leest de rijen niet bij 12 tabellen: `Failed to read complex column` (8, 6 bestanden) en `Wrong page type` (4, 4 bestanden).
+Het hoofdcorpus (`.local/corpus/manifest.json`, 82 Jackcess-testbestanden) blijft gelijk: 82 van 82 geopend, 0 fouten, 0 versleuteld, 45 van 45 query’s gelijk aan Jackcess, 4 bestanden met een (bekende) afwijking (2× samengesteld veld, 1× niet-ondersteund veldtype, 1× verouderd rijaantal in de tabeldefinitie). Daar was geen rijcorrectie nodig.
+
+### Herstel
+
+1. **Terugvalroute voor `MSysAccessStorage`.** Als mdb-reader een VBA-opslagtabel niet kan lezen, leest de analyse die nu altijd met de eigen ruwe rijlezer (`leesRijenRuw` in `access-pagina.ts`), voor `MSysAccessStorage` en `MSysAccessObjects`. De rijlezer leest nu ook tekst (gecomprimeerde Unicode), OLE- en memovelden (in de rij, één LVAL-rij of een LVAL-keten), en slaat onleesbare rijen over met een melding in plaats van de hele tabel op te geven. Controle: op alle 295 Jet 4/ACE-bestanden waar mdb-reader de opslag wél leest, levert de ruwe lezer exact dezelfde 22.149 rijen (145 MB aan lange waarden, byte voor byte gelijk). In `az_analyst_msaccessprojects-eb608de…` (`Access_ SelectQueries.accdb`) verwijzen 5 van de 23 rijen naar pagina’s voorbij het einde van het bestand (3.889 pagina’s, verwijzing naar 3.894): het bestand in de repository is afgebroken. De 18 leesbare rijen bevatten geen VBA-project; het rapport meldt nu „niet gelezen” met die reden, in plaats van een fout. MSysObjects vermeldt in dit bestand 0 modules.
+2. **Versleutelde databases.** De bestandskop wordt vóór het openen gecontroleerd: bij ACE (Access 2007+) betekent een coderingssleutel op 0x3E in de ontsleutelde kop dat het bestand met een databasewachtwoord versleuteld is; het schema staat op 0x299 (zoals in Jackcess-encrypt). Alle 8 bestanden worden zo herkend (5× Office-agileversleuteling, 3× Office-RC4-CryptoAPI), zonder mdb-reader aan te roepen; de foutsoorten van mdb-reader (`Wrong password`, `Not implemented yet`, `The value of "end" is out of range`) blijven als vangnet. De gebruiker krijgt de melding „Deze database is versleuteld of met een wachtwoord beveiligd; dat wordt nog niet ondersteund.” (foutcode `versleuteld`); de worker stuurt daarbij een compatibiliteitsrapport mee met de regel *Versleuteling — niet gelezen* en het herkende schema. Er wordt geen wachtwoord gevraagd of geprobeerd. Jet 4-RC4-paginacodering zonder wachtwoord was al leesbaar en blijft dat.
+3. **Rijen in het alleen-lezen-tabelpad.** Het `tabel`-pad gebruikt nu dezelfde correctie als de werkkopie (`werkkopie/rijfilter.ts`): verwijderde rijplaatsen (0x8000) vallen weg, levende overlooprijen (0x4000) komen erbij, alleen als de eigen paginascan precies aansluit op mdb-reader en op de tabeldefinitie. Bladeren (200 rijen per pagina) en het totaal volgen de levende rijen. Alle 14 tabellen in 7 bestanden uit de eerste proef (eigen scan = tabeldefinitie, mdb-reader anders) tonen nu het juiste aantal en staan niet meer bij de afwijkingen.
+4. **Unieke indexen.** De unieke vlag werd op de verkeerde plek gelezen. Bij Jet 4/ACE staan na de kolomplaatsen, de usage map en de eerste indexpagina nog 4 onbekende bytes vóór de vlaggen (Jackcess: `SKIP_BEFORE_INDEX_FLAGS`); de lezer nam de laatste byte van het paginanummer. Na herstel: in clinic.accdb (`rizwansafi043_clinic_managment_system-b2525e5…`) is index PID op `BillT` niet uniek (vlag 0x80), de primaire sleutel wel (0x89). Een logische index die de fysieke index van de primaire sleutel deelt, geldt nu ook als uniek. De dubbele sleutels in `PatientT` daar kwamen uit verwijderde rijversies (punt 3). De 23 overgebleven gevallen zijn verborgen indexen op samengestelde velden (bijlagen, meerwaardige velden, versiegeschiedenis): die zijn uniek op de verborgen ID van het samengestelde veld, terwijl mdb-reader de inhoud teruggeeft; dat is geen leesfout.
+
+### Overige afwijkingen (ongewijzigd)
+
+- 39 tabellen in 31 bestanden: het rijaantal in de tabeldefinitie wijkt af, maar mdb-reader, het alleen-lezen-pad en de eigen scan zijn het eens. Dit is gebruikelijk bij niet-gecomprimeerde Access-bestanden; de correctie wordt dan bewust niet toegepast.
+- 4 tabellen in 4 bestanden waar de eigen scan afwijkt: 2× zijn tabeldefinitie en mdb-reader het eens maar telt de eigen scan meer rijplaatsen (`bmullan91_seneca_msaccess_store-d37f542…` `test/TestDB.accdb`, `eliomarsouza_gerenciadormsaccesssimple-017cc69…` `BANCO.mdb`; de correctie wordt daar niet toegepast), 2× leest mdb-reader de tabel niet (`Wrong page type`) en wijkt de eigen scan af van de tabeldefinitie (`naharcomputer_msaccess_vba_e2sc-331a88f…` en `-a21566c…`).
+- mdb-reader leest de rijen niet bij 12 tabellen: `Failed to read complex column` (8, 6 bestanden) en `Wrong page type` (4, 4 bestanden).
 
 ## Conclusie
 
-Het teruggewinnen van Access-modulebron is nu aangetoond op 100 echte databases uit 74 openbare projecten: 1.556 modules en ruim 200.000 regels uit `MSysAccessStorage` (Access 2007+) en `MSysAccessObjects` (Access 2000–2003), zonder één fout in de eigen CFB-, dir- of MS-OVBA-lezer. Open punten: een eigen terugvalroute voor `MSysAccessStorage`, een duidelijke melding bij versleutelde ACCDB’s, Access 97-moduleopslag (`MSysModules2`), en de rijtelling bij de 11 bestanden waar de eigen scan en mdb-reader verschillen.
+Het teruggewinnen van Access-modulebron is nu aangetoond op 100 echte databases uit 74 openbare projecten: 1.556 modules en ruim 200.000 regels uit `MSysAccessStorage` (Access 2007+) en `MSysAccessObjects` (Access 2000–2003), zonder één fout in de eigen CFB-, dir- of MS-OVBA-lezer. Na het herstel heeft `MSysAccessStorage` een eigen terugvalroute, geven versleutelde ACCDB’s een duidelijke melding en een rapport, tonen het alleen-lezen-pad en de werkkopie dezelfde rijen, en kloppen de unieke vlaggen van indexen. Open punten: Access 97-moduleopslag (`MSysModules2`), samengestelde velden en de `Wrong page type`-tabellen in mdb-reader, en de 4 tabellen waar de eigen paginascan afwijkt.

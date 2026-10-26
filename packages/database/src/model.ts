@@ -49,6 +49,9 @@ export interface Compatibiliteitsrapport {
   datum: string;
   regels: Rapportregel[];
 }
+/** Melding voor versleutelde of met een wachtwoord beveiligde databases. */
+export const VERSLEUTELD_MELDING =
+  "Deze database is versleuteld of met een wachtwoord beveiligd; dat wordt nog niet ondersteund.";
 export interface DatabaseSession {
   naam: string;
   grootte?: number;

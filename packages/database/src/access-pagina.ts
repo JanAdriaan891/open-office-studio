@@ -71,6 +71,38 @@ export function leesFormaat(bytes: Uint8Array): RuwFormaat {
   };
 }
 
+/**
+ * Herkent Office-versleuteling van een ACCDB (een databasewachtwoord in
+ * Access 2007+ versleutelt het hele bestand). De coderingssleutel staat op
+ * 0x3E in de RC4-ontsleutelde kop; het versleutelingsschema op 0x299
+ * (zoals Jackcess-encrypt en mdb-reader). Jet 4-RC4-paginacodering zonder
+ * wachtwoord leest de eigen lezer en mdb-reader wel; die geeft null.
+ */
+export function leesVersleuteling(bytes: Uint8Array): string | null {
+  if (bytes.length < 0x2a3 || bytes[0] !== 0 || bytes[1] !== 1) return null;
+  const versie = bytes[0x14];
+  if (versie < 2) return null;
+  const kop = rc4(
+    Uint8Array.of(0xc7, 0xda, 0x39, 0x6b),
+    bytes.subarray(0x18, 0x18 + 128),
+  );
+  const sleutel = kop.subarray(0x3e - 0x18, 0x3e - 0x18 + 4);
+  if (sleutel.every((b) => b === 0)) return null;
+  const z = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+  const hoofd = z.getUint16(0x29b, true);
+  const sub = z.getUint16(0x29d, true);
+  const vlaggen = bytes.length >= 0x2a3 ? z.getUint32(0x29f, true) : 0;
+  if (hoofd === 4 && sub === 4) return "Office-agileversleuteling (wachtwoord)";
+  if ((hoofd === 3 || hoofd === 4) && sub === 3)
+    return "Office-uitbreidbare versleuteling (wachtwoord)";
+  if ([2, 3, 4].includes(hoofd) && sub === 2)
+    return vlaggen & 0x20
+      ? "Office-standaardversleuteling (AES, wachtwoord)"
+      : "Office-RC4-CryptoAPI-versleuteling (wachtwoord)";
+  if (hoofd === 1 && sub === 1) return "Office-RC4-versleuteling (wachtwoord)";
+  return "Office-versleuteling (wachtwoord)";
+}
+
 export function leesPagina(
   bytes: Uint8Array,
   formaat: RuwFormaat,
@@ -91,7 +123,6 @@ export function leesPagina(
 }
 
 function naamLezer(data: Uint8Array, jet3: boolean) {
-  const utf16 = new TextDecoder("utf-16le");
   const latin = new TextDecoder("windows-1252");
   return (positie: number): [string, number] => {
     if (jet3) {
@@ -103,22 +134,7 @@ function naamLezer(data: Uint8Array, jet3: boolean) {
     }
     const lengte = data[positie] | (data[positie + 1] << 8);
     const ruw = data.subarray(positie + 2, positie + 2 + lengte);
-    if (ruw[0] === 0xff && ruw[1] === 0xfe) {
-      let tekst = "";
-      let gecomprimeerd = true;
-      for (let i = 2; i < ruw.length; ) {
-        if (ruw[i] === 0) {
-          gecomprimeerd = !gecomprimeerd;
-          i++;
-        } else if (gecomprimeerd) tekst += String.fromCharCode(ruw[i++]);
-        else {
-          tekst += String.fromCharCode(ruw[i] | (ruw[i + 1] << 8));
-          i += 2;
-        }
-      }
-      return [tekst, positie + 2 + lengte];
-    }
-    return [utf16.decode(ruw), positie + 2 + lengte];
+    return [decodeerJet4Tekst(ruw), positie + 2 + lengte];
   };
 }
 
@@ -185,7 +201,13 @@ export function leesTabeldefinitie(
           oplopend: data[basis + k * 3 + 2] !== 2,
         });
     }
-    echt.push({ kolommen: lijst, uniek: !!(data[basis + 38] & 0x01) });
+    // Na de tien kolomplaatsen (30 bytes) volgen de usage map (4) en de eerste
+    // indexpagina (4). Jet 4/ACE heeft daarna nog 4 onbekende bytes vóór de
+    // vlaggen (Jackcess: SKIP_BEFORE_INDEX_FLAGS); Jet 3 niet. Vlag 0x01 = uniek.
+    echt.push({
+      kolommen: lijst,
+      uniek: !!(data[basis + (j3 ? 38 : 42)] & 0x01),
+    });
     positie += j3 ? 39 : 52;
   }
   const logisch: { echt: number; type: number }[] = [];
@@ -197,6 +219,11 @@ export function leesTabeldefinitie(
     });
     positie += j3 ? 20 : 28;
   }
+  // Een fysieke index die de primaire sleutel draagt is altijd uniek, ook voor
+  // andere logische indexen die hem delen (zoals Jackcess isBackingPrimaryKey).
+  const draagtSleutel = new Set(
+    logisch.filter((l) => l.type === 1).map((l) => l.echt),
+  );
   const indexen = logisch.map((item) => {
     let indexNaam: string;
     [indexNaam, positie] = naam(positie);
@@ -205,7 +232,7 @@ export function leesTabeldefinitie(
       naam: indexNaam,
       kolommen: bron?.kolommen ?? [],
       primair: item.type === 1,
-      uniek: item.type === 1 || !!bron?.uniek,
+      uniek: draagtSleutel.has(item.echt) || !!bron?.uniek,
       extern: item.type === 2,
     };
   });
@@ -234,37 +261,99 @@ export function telRijenRuw(
   return tellingen;
 }
 
-/** Leest rijen ruw (alleen Jet 4/ACE, alleen Long- en binaire kolommen); bedoeld voor systeemtabellen die mdb-reader weigert. */
+/** Jet 4/ACE-tekst: UTF-16LE, of met 0xFF 0xFE gecomprimeerde Unicode. */
+function decodeerJet4Tekst(ruw: Uint8Array): string {
+  if (ruw[0] !== 0xff || ruw[1] !== 0xfe)
+    return new TextDecoder("utf-16le").decode(ruw);
+  let tekst = "";
+  let gecomprimeerd = true;
+  for (let i = 2; i < ruw.length; ) {
+    if (ruw[i] === 0) {
+      gecomprimeerd = !gecomprimeerd;
+      i++;
+    } else if (gecomprimeerd) tekst += String.fromCharCode(ruw[i++]);
+    else {
+      tekst += String.fromCharCode(ruw[i] | (ruw[i + 1] << 8));
+      i += 2;
+    }
+  }
+  return tekst;
+}
+
+export type RuweWaarde = number | string | Uint8Array | null;
+export interface RuweRijenOpties {
+  /** Krijgt per overgeslagen rij de reden (bijvoorbeeld een verwijzing buiten het bestand). */
+  overgeslagen?: (reden: string) => void;
+}
+
+/**
+ * Leest rijen ruw (alleen Jet 4/ACE): Long-, tekst-, binaire, OLE- en
+ * memokolommen (lange waarden via LVAL-pagina’s); andere typen worden null.
+ * Bedoeld voor systeemtabellen die mdb-reader weigert. Rijen die niet te
+ * lezen zijn (bijvoorbeeld een verwijzing naar een pagina buiten een
+ * afgebroken bestand) worden overgeslagen en via `opties.overgeslagen` gemeld.
+ */
 export function leesRijenRuw(
   bytes: Uint8Array,
   formaat: RuwFormaat,
   tabelPagina: number,
-): Record<string, number | Uint8Array | null>[] {
+  opties: RuweRijenOpties = {},
+): Record<string, RuweWaarde>[] {
   if (formaat.jet3)
     throw new Error("Ruwe rijen worden alleen voor Jet 4/ACE gelezen.");
   const { kolommen } = leesTabeldefinitie(bytes, formaat, tabelPagina);
-  const rijen: Record<string, number | Uint8Array | null>[] = [];
+  const rijen: Record<string, RuweWaarde>[] = [];
+  const plaats = (pagina: Uint8Array, rij: number) => {
+    const z = new DataView(pagina.buffer, pagina.byteOffset, pagina.byteLength);
+    if (rij >= z.getUint16(12, true))
+      throw new Error("Rijverwijzing buiten de pagina.");
+    const offset = z.getUint16(14 + rij * 2, true);
+    const start = offset & 0x1fff;
+    const einde = rij
+      ? z.getUint16(14 + (rij - 1) * 2, true) & 0x1fff
+      : pagina.length;
+    if (start > einde) throw new Error("Ongeldige rijgrenzen.");
+    return { offset, inhoud: pagina.subarray(start, einde) };
+  };
+  const verwijzing = (data: Uint8Array, positie: number) => ({
+    rij: data[positie],
+    pagina:
+      data[positie + 1] | (data[positie + 2] << 8) | (data[positie + 3] << 16),
+  });
   const leesRij = (
     pagina: Uint8Array,
     rij: number,
     diepte: number,
   ): Uint8Array | null => {
-    const z = new DataView(pagina.buffer, pagina.byteOffset, pagina.byteLength);
-    const offset = z.getUint16(14 + rij * 2, true);
+    const { offset, inhoud } = plaats(pagina, rij);
     if (offset & 0x8000 && !diepte) return null;
-    const start = offset & 0x1fff;
-    const einde = rij
-      ? z.getUint16(14 + (rij - 1) * 2, true) & 0x1fff
-      : pagina.length;
-    const inhoud = pagina.subarray(start, einde);
     if (!(offset & 0x4000)) return inhoud;
     if (diepte > 3) throw new Error("Te diepe overloopverwijzing.");
-    const doel = leesPagina(
-      bytes,
-      formaat,
-      inhoud[1] | (inhoud[2] << 8) | (inhoud[3] << 16),
-    );
-    return leesRij(doel, inhoud[0], diepte + 1);
+    const doel = verwijzing(inhoud, 0);
+    return leesRij(leesPagina(bytes, formaat, doel.pagina), doel.rij, diepte + 1);
+  };
+  // Lange waarde (OLE/memo): 12 bytes kop; 0x80000000 = in de rij,
+  // 0x40000000 = één LVAL-rij, anders een keten van LVAL-rijen.
+  const langeWaarde = (veld: Uint8Array): Uint8Array => {
+    if (veld.length < 12) throw new Error("Ongeldige lange waarde.");
+    const kop = new DataView(veld.buffer, veld.byteOffset, 12).getUint32(0, true);
+    const lengte = kop & 0x3fffffff;
+    if (kop & 0x80000000) return veld.slice(12, 12 + lengte);
+    let doel = verwijzing(veld, 4);
+    if (kop & 0x40000000)
+      return plaats(leesPagina(bytes, formaat, doel.pagina), doel.rij).inhoud.slice(0, lengte);
+    const uit = new Uint8Array(lengte);
+    let gevuld = 0;
+    for (let stap = 0; gevuld < lengte && doel.pagina; stap++) {
+      if (stap > 100000) throw new Error("Te lange LVAL-keten.");
+      const deel = plaats(leesPagina(bytes, formaat, doel.pagina), doel.rij).inhoud;
+      const stuk = deel.subarray(4, 4 + Math.min(deel.length - 4, lengte - gevuld));
+      uit.set(stuk, gevuld);
+      gevuld += stuk.length;
+      doel = verwijzing(deel, 0);
+    }
+    if (gevuld < lengte) throw new Error("Lange waarde is onvolledig.");
+    return uit;
   };
   const aantal = Math.floor(bytes.length / formaat.paginagrootte);
   for (let n = 1; n < aantal; n++) {
@@ -273,47 +362,68 @@ export function leesRijenRuw(
     const z = new DataView(pagina.buffer, pagina.byteOffset, pagina.byteLength);
     if (pagina[0] !== 0x01 || z.getUint32(4, true) !== tabelPagina) continue;
     for (let r = 0; r < z.getUint16(12, true); r++) {
-      const rij = leesRij(pagina, r, 0);
-      if (!rij) continue;
-      const rz = new DataView(rij.buffer, rij.byteOffset, rij.byteLength);
-      const aantalKolommen = rz.getUint16(0, true);
-      const maskerLengte = Math.ceil(aantalKolommen / 8);
-      const masker = rij.subarray(rij.length - maskerLengte);
-      const variabel = rz.getUint16(rij.length - maskerLengte - 2, true);
-      const varOffset = (i: number) =>
-        rz.getUint16(rij.length - maskerLengte - 4 - i * 2, true);
-      const waarden: Record<string, number | Uint8Array | null> = {};
-      for (const kolom of kolommen) {
-        const aanwezig =
-          kolom.nummer < aantalKolommen &&
-          (masker[kolom.nummer >> 3] >> (kolom.nummer & 7)) & 1;
-        const inhoud = !aanwezig
-          ? null
-          : kolom.vast
-            ? rij.subarray(
-                2 + kolom.vasteOffset,
-                2 + kolom.vasteOffset + kolom.lengte,
-              )
-            : kolom.variabelIndex < variabel
-              ? rij.subarray(
-                  varOffset(kolom.variabelIndex),
-                  varOffset(kolom.variabelIndex + 1),
-                )
-              : null;
-        waarden[kolom.naam] =
-          !inhoud || ![4, 9, 17].includes(kolom.type)
-            ? null
-            : kolom.type === 4
-              ? inhoud.length === 4
-                ? new DataView(inhoud.buffer, inhoud.byteOffset, 4).getInt32(
-                    0,
-                    true,
-                  )
-                : null
-              : inhoud.slice();
+      try {
+        const rij = leesRij(pagina, r, 0);
+        if (rij) rijen.push(decodeerRij(rij));
+      } catch (fout) {
+        opties.overgeslagen?.(
+          `pagina ${n}, rij ${r}: ${fout instanceof Error ? fout.message : String(fout)}`,
+        );
       }
-      rijen.push(waarden);
     }
+  }
+  function decodeerRij(rij: Uint8Array) {
+    const rz = new DataView(rij.buffer, rij.byteOffset, rij.byteLength);
+    const aantalKolommen = rz.getUint16(0, true);
+    const maskerLengte = Math.ceil(aantalKolommen / 8);
+    const masker = rij.subarray(rij.length - maskerLengte);
+    const variabel = rz.getUint16(rij.length - maskerLengte - 2, true);
+    const varOffset = (i: number) =>
+      rz.getUint16(rij.length - maskerLengte - 4 - i * 2, true);
+    const waarden: Record<string, RuweWaarde> = {};
+    for (const kolom of kolommen) {
+      const aanwezig =
+        kolom.nummer < aantalKolommen &&
+        (masker[kolom.nummer >> 3] >> (kolom.nummer & 7)) & 1;
+      const inhoud = !aanwezig
+        ? null
+        : kolom.vast
+          ? rij.subarray(
+              2 + kolom.vasteOffset,
+              2 + kolom.vasteOffset + kolom.lengte,
+            )
+          : kolom.variabelIndex < variabel
+            ? rij.subarray(
+                varOffset(kolom.variabelIndex),
+                varOffset(kolom.variabelIndex + 1),
+              )
+            : null;
+      let waarde: RuweWaarde = null;
+      if (inhoud)
+        switch (kolom.type) {
+          case 4:
+            waarde =
+              inhoud.length === 4
+                ? new DataView(inhoud.buffer, inhoud.byteOffset, 4).getInt32(0, true)
+                : null;
+            break;
+          case 9:
+          case 17:
+            waarde = inhoud.slice();
+            break;
+          case 10:
+            waarde = decodeerJet4Tekst(inhoud);
+            break;
+          case 11:
+            waarde = langeWaarde(inhoud);
+            break;
+          case 12:
+            waarde = decodeerJet4Tekst(langeWaarde(inhoud));
+            break;
+        }
+      waarden[kolom.naam] = waarde;
+    }
+    return waarden;
   }
   return rijen;
 }
