@@ -14,6 +14,7 @@ import {
 import { RibbonFout } from "./Ribbon";
 import { tekstNl, rekenbladNl, diaNl } from "./nederlands";
 import { RekenbladKoppen } from "./RekenbladKoppen";
+import { EditorApi } from "./lint/editorApi";
 configureDefaultFonts({
   fonts,
   baseUrl: new URL("/fonts/", location.href).href,
@@ -42,8 +43,19 @@ export default function OfficeEditor(props: EditorProps) {
   const rekenbladHost = useRef<HTMLDivElement>(null);
   const [rekenbladApi, setRekenbladApi] = useState<XlsxEditorApi | null>(null);
   const [diaBreedte, setDiaBreedte] = useState<number>();
+  const [presentatieApi, setPresentatieApi] = useState<PptxEditorApi | null>(
+    null,
+  );
   const recent = useRef(props);
   recent.current = props;
+  const apis = useMemo(
+    () => ({
+      tekst: () => docx.current,
+      rekenblad: rekenbladApi,
+      presentatie: presentatieApi,
+    }),
+    [rekenbladApi, presentatieApi],
+  );
   const zoomKoppeling = useMemo(
     () => ({
       sleutel: `${props.soort}:${props.naam}:${props.bytes.byteLength}`,
@@ -112,6 +124,7 @@ export default function OfficeEditor(props: EditorProps) {
     (api: PptxEditorApi) => {
       // EMU naar CSS-pixels bij 96 dpi.
       setDiaBreedte(api.handle.snapshot().widthEmu / 9525);
+      setPresentatieApi(api);
       props.registreer(async () => {
         await api.flushPendingInput();
         return api.save();
@@ -122,86 +135,92 @@ export default function OfficeEditor(props: EditorProps) {
   if (props.soort === "docx")
     return (
       <RibbonFout.Provider value={(bericht) => props.fout(new Error(bericht))}>
-        <DocxEditor
-          ref={docx}
-          documentBuffer={props.bytes}
-          showFileOpen={false}
-          showHelpMenu={false}
-          downloadOnSave={false}
-          onSave={() => {
-            if (!exporteren.current) props.opslaan();
-          }}
-          onChange={props.gewijzigd}
-          onError={props.fout}
-          rulerUnit="cm"
-          onFirstPagePainted={() => setDocumentGereed(true)}
-          loadingIndicator={<p className="office-loading">Document laden…</p>}
-          showRuler={liniaal}
-          showOutline={navigatie}
-          showOutlineButton={false}
-          colorMode="light"
-          i18n={tekstNl}
-          className="office-tekst"
-          readOnly={props.inactief}
-          toolbar={
-            <TekstRibbon
-              bestand={props.bestandsmenu}
-              liniaal={liniaal}
-              navigatie={navigatie}
-              wijzigLiniaal={() => setLiniaal(!liniaal)}
-              wijzigNavigatie={() => setNavigatie(!navigatie)}
-              zoomKoppeling={zoomKoppeling}
-            />
-          }
-        />
+        <EditorApi.Provider value={apis}>
+          <DocxEditor
+            ref={docx}
+            documentBuffer={props.bytes}
+            showFileOpen={false}
+            showHelpMenu={false}
+            downloadOnSave={false}
+            onSave={() => {
+              if (!exporteren.current) props.opslaan();
+            }}
+            onChange={props.gewijzigd}
+            onError={props.fout}
+            rulerUnit="cm"
+            onFirstPagePainted={() => setDocumentGereed(true)}
+            loadingIndicator={<p className="office-loading">Document laden…</p>}
+            showRuler={liniaal}
+            showOutline={navigatie}
+            showOutlineButton={false}
+            colorMode="light"
+            i18n={tekstNl}
+            className="office-tekst"
+            readOnly={props.inactief}
+            toolbar={
+              <TekstRibbon
+                bestand={props.bestandsmenu}
+                liniaal={liniaal}
+                navigatie={navigatie}
+                wijzigLiniaal={() => setLiniaal(!liniaal)}
+                wijzigNavigatie={() => setNavigatie(!navigatie)}
+                zoomKoppeling={zoomKoppeling}
+              />
+            }
+          />
+        </EditorApi.Provider>
       </RibbonFout.Provider>
     );
   if (props.soort === "xlsx")
     return (
       <RibbonFout.Provider value={(bericht) => props.fout(new Error(bericht))}>
-        <div className="office-rekenblad-host" ref={rekenbladHost}>
-          <XlsxEditor
-            file={props.bytes}
-            fileName={props.naam}
-            onReady={gereedXlsx}
-            onChange={props.gewijzigd}
-            onSave={props.opslaan}
-            i18n={rekenbladNl}
-            className="office-rekenblad"
-            readOnly={props.inactief}
-            toolbar={
-              <RekenbladRibbon
-                bestand={props.bestandsmenu}
-                zoomKoppeling={zoomKoppeling}
-              />
-            }
-          />
-          <RekenbladKoppen host={rekenbladHost} api={rekenbladApi} />
-        </div>
+        <EditorApi.Provider value={apis}>
+          <div className="office-rekenblad-host" ref={rekenbladHost}>
+            <XlsxEditor
+              file={props.bytes}
+              fileName={props.naam}
+              onReady={gereedXlsx}
+              onChange={props.gewijzigd}
+              onSave={props.opslaan}
+              i18n={rekenbladNl}
+              className="office-rekenblad"
+              readOnly={props.inactief}
+              toolbar={
+                <RekenbladRibbon
+                  bestand={props.bestandsmenu}
+                  zoomKoppeling={zoomKoppeling}
+                />
+              }
+            />
+            <RekenbladKoppen host={rekenbladHost} api={rekenbladApi} />
+          </div>
+        </EditorApi.Provider>
       </RibbonFout.Provider>
     );
   if (!fontFaces.length) return <p role="status">Lettertypen laden…</p>;
   return (
     <RibbonFout.Provider value={(bericht) => props.fout(new Error(bericht))}>
-      <PptxEditor
-        file={props.bytes}
-        fileName={props.naam}
-        fonts={fontFaces}
-        onReady={gereedPptx}
-        onChange={props.gewijzigd}
-        onError={props.fout}
-        onSave={props.opslaan}
-        i18n={diaNl}
-        className="office-presentatie"
-        readOnly={props.inactief}
-        toolbar={
-          <PresentatieRibbon
-            bestand={props.bestandsmenu}
-            zoomKoppeling={zoomKoppeling}
-            diaBreedte={diaBreedte}
-          />
-        }
-      />
+      <EditorApi.Provider value={apis}>
+        <PptxEditor
+          file={props.bytes}
+          fileName={props.naam}
+          fonts={fontFaces}
+          onReady={gereedPptx}
+          onChange={props.gewijzigd}
+          onError={props.fout}
+          onSave={props.opslaan}
+          i18n={diaNl}
+          className="office-presentatie"
+          readOnly={props.inactief}
+          toolbar={
+            <PresentatieRibbon
+              bestand={props.bestandsmenu}
+              zoomKoppeling={zoomKoppeling}
+              diaBreedte={diaBreedte}
+            />
+          }
+        />
+      </EditorApi.Provider>
     </RibbonFout.Provider>
   );
 }
