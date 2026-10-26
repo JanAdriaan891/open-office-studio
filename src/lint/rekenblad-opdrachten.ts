@@ -1,4 +1,5 @@
 import type { XlsxEditorApi } from "@betteroffice/xlsx-react";
+import { meldWijziging } from "./editorApi";
 import type {
   CapturedFormat,
   XlsxCellValue,
@@ -43,8 +44,18 @@ export interface Selectie {
 type Pane = { rows: number; cols: number; top_left: Cel } | null;
 /** Ruwe structurele engine-opdrachten die `applyOps` aantoonbaar accepteert. */
 export type RuweOp =
-  | { type: "insertRows" | "deleteRows"; sheet: number; at: number; count: number }
-  | { type: "insertCols" | "deleteCols"; sheet: number; at: number; count: number }
+  | {
+      type: "insertRows" | "deleteRows";
+      sheet: number;
+      at: number;
+      count: number;
+    }
+  | {
+      type: "insertCols" | "deleteCols";
+      sheet: number;
+      at: number;
+      count: number;
+    }
   | { type: "addSheet"; index: number; name: string }
   | { type: "removeSheet"; index: number }
   | { type: "renameSheet"; sheet: number; name: string }
@@ -104,8 +115,7 @@ const foutteksten: Record<string, string> = {
   "locked-target":
     "Het bereik bevat samengevoegde cellen, matrixformules of een beveiligd blad.",
   "read-only": "Het rekenblad is alleen-lezen.",
-  "stale-version":
-    "Het rekenblad is intussen gewijzigd. Probeer het opnieuw.",
+  "stale-version": "Het rekenblad is intussen gewijzigd. Probeer het opnieuw.",
   "limit-exceeded": "Het bereik is te groot voor deze opdracht.",
 };
 
@@ -127,33 +137,12 @@ async function bewerk(
   return resultaat;
 }
 
-/**
- * `applyOps` loopt buiten de wijzigingsmelding van de editor om; een
- * omkeerbare stijlwijziging zonder geschiedenis laat de app de wijziging zien.
- */
-async function meldWijziging(api: XlsxEditorApi) {
-  const info = api.handle.sheetInfo();
-  const vet = api.handle.selectionFormatting(info.activeSheet, "A1").bold;
-  const target = doel(info.sheetIds[info.activeSheet], {
-    top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0,
-  });
-  const stap = (bold: boolean): XlsxEditStep[] => [
-    { op: "patchStyle", target, patch: { bold } },
-  ];
-  try {
-    await bewerk(api, stap(vet !== true), { history: "none" });
-    await bewerk(api, stap(vet === true), { history: "none" });
-  } catch {
-    // Een beveiligd blad: de wijziging zelf staat al in het werkboek.
-  }
-}
-
 const engineteksten: [RegExp, string][] = [
   [/duplicate sheet name/i, "Er is al een blad met deze naam."],
-  [/last (visible )?sheet|only sheet/i, "Een werkmap moet minstens één blad houden."],
+  [
+    /last (visible )?sheet|only sheet/i,
+    "Een werkmap moet minstens één blad houden.",
+  ],
   [/out of (range|bounds)/i, "Dit valt buiten het rekenblad."],
 ];
 
@@ -168,7 +157,8 @@ export async function voerOpsUit(api: XlsxEditorApi, ops: RuweOp[]) {
     const vertaald = engineteksten.find(([patroon]) => patroon.test(tekst));
     throw new Melding(vertaald ? vertaald[1] : tekst);
   }
-  if (resultaat.applied) await meldWijziging(api);
+  // applyOps loopt buiten de wijzigingsmelding van de editor om.
+  if (resultaat.applied) meldWijziging(api.handle);
   return resultaat;
 }
 
@@ -233,10 +223,16 @@ function verborgen(api: XlsxEditorApi, blad: number, bereik: Bereik) {
   };
 }
 
-export async function rijenZichtbaarheid(api: XlsxEditorApi, verbergen: boolean) {
+export async function rijenZichtbaarheid(
+  api: XlsxEditorApi,
+  verbergen: boolean,
+) {
   const { blad, bereik } = leesSelectie(api);
   const rijen = verbergen
-    ? Array.from({ length: bereik.bottom - bereik.top + 1 }, (_, i) => bereik.top + i)
+    ? Array.from(
+        { length: bereik.bottom - bereik.top + 1 },
+        (_, i) => bereik.top + i,
+      )
     : verborgen(api, blad, bereik).rijen;
   if (!rijen.length)
     throw new Melding("Er zijn geen verborgen rijen in de selectie.");
@@ -251,10 +247,16 @@ export async function rijenZichtbaarheid(api: XlsxEditorApi, verbergen: boolean)
   );
 }
 
-export async function kolommenZichtbaarheid(api: XlsxEditorApi, verbergen: boolean) {
+export async function kolommenZichtbaarheid(
+  api: XlsxEditorApi,
+  verbergen: boolean,
+) {
   const { blad, bereik } = leesSelectie(api);
   const kolommen = verbergen
-    ? Array.from({ length: bereik.right - bereik.left + 1 }, (_, i) => bereik.left + i)
+    ? Array.from(
+        { length: bereik.right - bereik.left + 1 },
+        (_, i) => bereik.left + i,
+      )
     : verborgen(api, blad, bereik).kolommen;
   if (!kolommen.length)
     throw new Melding("Er zijn geen verborgen kolommen in de selectie.");
@@ -271,13 +273,21 @@ export async function kolommenZichtbaarheid(api: XlsxEditorApi, verbergen: boole
 
 export async function gaNaarBlad(api: XlsxEditorApi, index: number) {
   const info = api.handle.sheetInfo();
-  if (index < 0 || index >= info.sheetNames.length || index === info.activeSheet)
+  if (
+    index < 0 ||
+    index >= info.sheetNames.length ||
+    index === info.activeSheet
+  )
     return;
   const tab = rekenbladHost()?.querySelectorAll<HTMLButtonElement>(
     '[data-testid="xlsx-sheet-tabs"] [role="tab"]',
   )[index];
   if (tab) tab.click();
-  else api.selectCells(index, { anchor: { row: 0, col: 0 }, focus: { row: 0, col: 0 } });
+  else
+    api.selectCells(index, {
+      anchor: { row: 0, col: 0 },
+      focus: { row: 0, col: 0 },
+    });
   await api.version();
 }
 
@@ -314,8 +324,10 @@ export async function fixeren(api: XlsxEditorApi, soort: Fixeren) {
   const info = api.handle.sheetInfo();
   const blad = info.activeSheet;
   let pane: Pane = null;
-  if (soort === "rij") pane = { rows: 1, cols: 0, top_left: { row: 1, col: 0 } };
-  if (soort === "kolom") pane = { rows: 0, cols: 1, top_left: { row: 0, col: 1 } };
+  if (soort === "rij")
+    pane = { rows: 1, cols: 0, top_left: { row: 1, col: 0 } };
+  if (soort === "kolom")
+    pane = { rows: 0, cols: 1, top_left: { row: 0, col: 1 } };
   if (soort === "cel") {
     const { focus } = leesSelectie(api);
     if (!focus.row && !focus.col)
@@ -522,7 +534,11 @@ export async function datumTijdInvoegen(api: XlsxEditorApi, tijd: boolean) {
   const nu = new Date();
   const actief = document.activeElement;
   if (tekstveld(actief) && rekenbladHost()?.contains(actief)) {
-    document.execCommand("insertText", false, tijd ? tijdTekst(nu) : datumTekst(nu));
+    document.execCommand(
+      "insertText",
+      false,
+      tijd ? tijdTekst(nu) : datumTekst(nu),
+    );
     return;
   }
   const { sheetId, focus } = leesSelectie(api);
@@ -609,7 +625,8 @@ export async function gaNaar(api: XlsxEditorApi, tekst: string) {
       : info.sheetNames.findIndex(
           (n) => n.toLowerCase() === verwijzing.blad!.toLowerCase(),
         );
-  if (blad < 0) throw new Melding(`Het blad "${verwijzing.blad}" bestaat niet.`);
+  if (blad < 0)
+    throw new Melding(`Het blad "${verwijzing.blad}" bestaat niet.`);
   await gaNaarBlad(api, blad);
   const { top, left, bottom, right } = verwijzing.bereik;
   api.selectCells(blad, {
@@ -704,7 +721,10 @@ export async function vervangHuidige(
   );
   const stap = treffer && vervangStap(api, treffer, zoek, door, hoofdletters);
   if (stap) await bewerk(api, [stap]);
-  return { vervangen: Boolean(stap), volgende: await zoekVolgende(api, zoek, hoofdletters) };
+  return {
+    vervangen: Boolean(stap),
+    volgende: await zoekVolgende(api, zoek, hoofdletters),
+  };
 }
 
 export async function allesVervangen(
@@ -718,5 +738,8 @@ export async function allesVervangen(
     .map((t) => vervangStap(api, t, zoek, door, hoofdletters))
     .filter((stap): stap is XlsxEditStep => stap !== null);
   await bewerk(api, stappen);
-  return { vervangen: stappen.length, overgeslagen: lijst.length - stappen.length };
+  return {
+    vervangen: stappen.length,
+    overgeslagen: lijst.length - stappen.length,
+  };
 }

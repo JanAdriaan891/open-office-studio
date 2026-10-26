@@ -17,3 +17,18 @@ export const EditorApi = createContext<EditorApis>({
 });
 
 export const useEditorApi = () => useContext(EditorApi);
+
+const wijzigingen = new WeakMap<object, () => void>();
+
+/** De editor koppelt hier zijn wijzigingsmelding aan een engine-handle. */
+export function registreerWijziging(handle: object, melden: () => void) {
+  wijzigingen.set(handle, melden);
+  return () => {
+    if (wijzigingen.get(handle) === melden) wijzigingen.delete(handle);
+  };
+}
+
+/** Voor engine-bewerkingen die de editor zelf niet als wijziging meldt. */
+export function meldWijziging(handle: object) {
+  wijzigingen.get(handle)?.();
+}

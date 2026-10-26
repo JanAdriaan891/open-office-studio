@@ -14,7 +14,7 @@ import {
 import { RibbonFout } from "./Ribbon";
 import { tekstNl, rekenbladNl, diaNl } from "./nederlands";
 import { RekenbladKoppen } from "./RekenbladKoppen";
-import { EditorApi } from "./lint/editorApi";
+import { EditorApi, registreerWijziging } from "./lint/editorApi";
 import { useNederlandseInvoer } from "./useNederlandseInvoer";
 configureDefaultFonts({
   fonts,
@@ -47,6 +47,8 @@ export default function OfficeEditor(props: EditorProps) {
   const [presentatieApi, setPresentatieApi] = useState<PptxEditorApi | null>(
     null,
   );
+  const stopDiaWijzigingen = useRef<(() => void) | null>(null);
+  useEffect(() => () => stopDiaWijzigingen.current?.(), []);
   const recent = useRef(props);
   recent.current = props;
   const apis = useMemo(
@@ -111,6 +113,9 @@ export default function OfficeEditor(props: EditorProps) {
   const gereedXlsx = useCallback(
     (api: XlsxEditorApi) => {
       setRekenbladApi(api);
+      const stopWijziging = registreerWijziging(api.handle, () =>
+        recent.current.gewijzigd(),
+      );
       // De engine rekent stil opnieuw en laat onbekende functies op hun oude
       // uitkomst staan; meld dat vóór de eerste bewerking.
       void import("./rekenbladcontrole")
@@ -140,6 +145,7 @@ export default function OfficeEditor(props: EditorProps) {
         return api.save();
       });
       return () => {
+        stopWijziging();
         setRekenbladApi(null);
         props.registreer(null);
       };
@@ -151,6 +157,11 @@ export default function OfficeEditor(props: EditorProps) {
       // EMU naar CSS-pixels bij 96 dpi.
       setDiaBreedte(api.handle.snapshot().widthEmu / 9525);
       setPresentatieApi(api);
+      // Directe engine-bewerkingen uit het lint lopen buiten onChange om.
+      stopDiaWijzigingen.current?.();
+      stopDiaWijzigingen.current = api.handle.onUpdate((_, herkomst) => {
+        if (herkomst === "local") recent.current.gewijzigd();
+      });
       props.registreer(async () => {
         await api.flushPendingInput();
         return api.save();

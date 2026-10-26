@@ -109,15 +109,11 @@ describe("diabewerkingen", () => {
     await expect(verwijderDia(handle, toepassen, 0)).rejects.toThrow();
     expect(handle.deleteSlide).not.toHaveBeenCalled();
   });
-  it("verwijdert als eigen ongedaan-maakstap en meldt de wijziging", async () => {
+  it("verwijdert als eigen ongedaan-maakstap", async () => {
     const { handle, toepassen, dias } = nepHandle(3);
     await verwijderDia(handle, toepassen, 1);
     expect(dias()).toEqual(["d0", "d2"]);
     expect(handle.addUndoBoundary).toHaveBeenCalledTimes(2);
-    expect(toepassen).toHaveBeenCalledTimes(2);
-    expect(toepassen).toHaveBeenCalledWith(
-      expect.objectContaining({ history: "none" }),
-    );
   });
   it("verplaatst en geeft de nieuwe positie", async () => {
     const { handle, toepassen, dias } = nepHandle(3);

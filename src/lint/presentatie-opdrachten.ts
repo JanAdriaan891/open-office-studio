@@ -150,25 +150,6 @@ export const specialeTekens: readonly { teken: string; naam: string }[] = [
   { teken: "✓", naam: "Vinkje" },
 ];
 
-/**
- * Directe engine-bewerkingen melden de editor geen wijziging. Een onzichtbare,
- * niet-ongedaan-te-maken bewerking via de editor-API doet dat wel: zet de
- * notities van de eerste dia heen en terug.
- */
-export async function meldWijziging(handle: DiaHandle, toepassen: Toepassen) {
-  const dia = handle.snapshot().slides[0];
-  if (!dia) return;
-  const notities = dia.notes ?? "";
-  for (const text of [`${notities}\u200b`, notities]) {
-    const resultaat = await toepassen({
-      expectVersion: handle.version(),
-      history: "none",
-      steps: [{ op: "setSlideNotes", target: { slideId: dia.id }, text }],
-    });
-    if (!resultaat.ok) throw new Error(resultaat.failure.message);
-  }
-}
-
 /** Voert directe bewerkingen uit als één eigen ongedaan-maakstap. */
 export async function alsStap<T>(
   handle: DiaHandle,
@@ -178,7 +159,6 @@ export async function alsStap<T>(
   handle.addUndoBoundary();
   const uitkomst = bewerking();
   handle.addUndoBoundary();
-  await meldWijziging(handle, toepassen);
   return uitkomst;
 }
 
