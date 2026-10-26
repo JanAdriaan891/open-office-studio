@@ -1,8 +1,12 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 use std::{
+    ffi::OsString,
     io::Write,
-    path::Path,
-    sync::atomic::{AtomicBool, Ordering},
+    path::{Path, PathBuf},
+    sync::{
+        atomic::{AtomicBool, Ordering},
+        Mutex,
+    },
 };
 use tauri::Manager;
 mod conversie;
@@ -140,9 +144,50 @@ async fn bewaar_kopie(request: tauri::ipc::Request<'_>) -> Result<Option<String>
     .map_err(|e| e.to_string())?
 }
 
+/// Het bestand waarmee de app is gestart, bijvoorbeeld via een bestandskoppeling.
+struct Startbestand(Mutex<Option<PathBuf>>);
+
+fn startpad(argumenten: impl Iterator<Item = OsString>) -> Option<PathBuf> {
+    argumenten
+        .skip(1)
+        .map(PathBuf::from)
+        .find(|pad| pad.is_file())
+}
+
+fn lees_beperkt(pad: &Path) -> Result<Vec<u8>, String> {
+    let grootte = std::fs::metadata(pad).map_err(|e| e.to_string())?.len();
+    if grootte == 0 || grootte > 100 * 1024 * 1024 {
+        return Err("Het bestand is leeg of groter dan 100 MB.".into());
+    }
+    std::fs::read(pad).map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+fn startbestand(start: tauri::State<Startbestand>) -> Option<String> {
+    let pad = start.0.lock().ok()?;
+    Some(pad.as_ref()?.file_name()?.to_string_lossy().into_owned())
+}
+
+// Het pad komt uitsluitend uit de opstartargumenten en wordt één keer afgegeven.
+#[tauri::command]
+async fn lees_startbestand(
+    start: tauri::State<'_, Startbestand>,
+) -> Result<tauri::ipc::Response, String> {
+    let pad = start
+        .0
+        .lock()
+        .map_err(|e| e.to_string())?
+        .take()
+        .ok_or("Er is geen startbestand.")?;
+    tauri::async_runtime::spawn_blocking(move || lees_beperkt(&pad).map(tauri::ipc::Response::new))
+        .await
+        .map_err(|e| e.to_string())?
+}
+
 fn main() {
     tauri::Builder::default()
         .manage(AtomicBool::new(false))
+        .manage(Startbestand(Mutex::new(startpad(std::env::args_os()))))
         .on_window_event(|venster, gebeurtenis| {
             if let tauri::WindowEvent::CloseRequested { api, .. } = gebeurtenis {
                 if venster.state::<AtomicBool>().load(Ordering::SeqCst) {
@@ -160,7 +205,9 @@ fn main() {
             bewaar_kopie,
             wijzigingsstatus,
             bevestig_verlaten,
-            converteer_document
+            converteer_document,
+            startbestand,
+            lees_startbestand
         ])
         .run(tauri::generate_context!())
         .expect("De kantooromgeving kon niet starten");
@@ -185,5 +232,36 @@ mod tests {
         std::fs::write(&origineel, b"behouden").unwrap();
         assert!(schrijf_atomair(&map.path().join("ontbreekt/test.docx"), b"nieuw").is_err());
         assert_eq!(std::fs::read(origineel).unwrap(), b"behouden");
+    }
+    #[test]
+    fn startpad_neemt_alleen_een_bestaand_bestand() {
+        let map = tempfile::tempdir().unwrap();
+        let pad = map.path().join("notitie.docx");
+        std::fs::write(&pad, b"inhoud").unwrap();
+        let argumenten = |rest: Vec<OsString>| {
+            std::iter::once(OsString::from("open-office-studio.exe")).chain(rest)
+        };
+        let ontbreekt = map.path().join("ontbreekt.docx");
+        assert_eq!(startpad(argumenten(vec![])), None);
+        assert_eq!(
+            startpad(argumenten(vec!["--vlag".into(), ontbreekt.into()])),
+            None
+        );
+        assert_eq!(
+            startpad(argumenten(vec!["--vlag".into(), pad.clone().into()])),
+            Some(pad.clone())
+        );
+        // Het programma zelf telt nooit mee als startbestand.
+        assert_eq!(startpad(std::iter::once(pad.into_os_string())), None);
+    }
+    #[test]
+    fn startbestand_lezen_weigert_leeg_bestand() {
+        let map = tempfile::tempdir().unwrap();
+        let leeg = map.path().join("leeg.xlsx");
+        std::fs::write(&leeg, b"").unwrap();
+        assert!(lees_beperkt(&leeg).is_err());
+        let gevuld = map.path().join("gevuld.xlsx");
+        std::fs::write(&gevuld, b"PK").unwrap();
+        assert_eq!(lees_beperkt(&gevuld).unwrap(), b"PK");
     }
 }

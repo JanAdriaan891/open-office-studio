@@ -59,10 +59,12 @@ export function OfficeStudio() {
     [gereed, setGereed] = useState(false),
     [databaseGereed, setDatabaseGereed] = useState(false),
     [verlaatvraag, setVerlaatvraag] = useState(false),
-    [exportFormaat, setExportFormaat] = useState("docx");
+    [exportFormaat, setExportFormaat] = useState("docx"),
+    [databaseStart, setDatabaseStart] = useState<File | null>(null);
   const input = useRef<HTMLInputElement>(null),
     serialiseer = useRef<(() => Promise<Uint8Array>) | null>(null),
-    bezigRef = useRef(false);
+    bezigRef = useRef(false),
+    startGeladen = useRef(false);
   const verlaatAntwoord = useRef<((doorgaan: boolean) => void) | null>(null);
   const databaseOpenen = useRef<(() => void) | null>(null);
   const registreerDatabaseOpenen = useCallback(
@@ -122,6 +124,35 @@ export function OfficeStudio() {
         );
     }
   }, [gewijzigd]);
+  useEffect(() => {
+    const titel = bestand
+      ? `${bestand.naam} — Open Office Studio`
+      : "Open Office Studio";
+    document.title = bestand ? titel : "Open Office Studio · OpenAEC";
+    if ("__TAURI_INTERNALS__" in window) {
+      void import("@tauri-apps/api/window")
+        .then(({ getCurrentWindow }) => getCurrentWindow().setTitle(titel))
+        .catch(() => undefined);
+    }
+  }, [bestand]);
+  // Een bestand uit de opstartargumenten, bijvoorbeeld na een dubbelklik in Verkenner.
+  useEffect(() => {
+    if (startGeladen.current || !("__TAURI_INTERNALS__" in window)) return;
+    startGeladen.current = true;
+    void (async () => {
+      const { invoke } = await import("@tauri-apps/api/core");
+      const naam = await invoke<string | null>("startbestand");
+      if (!naam) return;
+      const lees = () => invoke<ArrayBuffer>("lees_startbestand");
+      if (/\.(mdb|accdb)$/i.test(naam)) {
+        setDatabaseStart(new File([await lees()], naam));
+        setDatabaseOpen(true);
+        setBestandsmenu(false);
+        return;
+      }
+      await openBestand(naam, lees);
+    })().catch((e) => setMelding("Openen mislukt: " + String(e)));
+  }, []);
   useEffect(() => {
     const sluit = (e: BeforeUnloadEvent) => {
       if (opslag.gewijzigd) {
@@ -252,6 +283,48 @@ export function OfficeStudio() {
     setBestand({ id, soort, naam, bytes });
     setExportFormaat(soort);
     return id;
+  }
+  async function openBestand(naam: string, lees: () => Promise<ArrayBuffer>) {
+    if (bezigRef.current) return;
+    const ext = naam.split(".").pop()?.toLowerCase();
+    const soort = bestandssoort(ext ?? "");
+    if (!ext || !soort) {
+      setMelding("Dit bestandsformaat wordt nog niet ondersteund.");
+      return;
+    }
+    bezigRef.current = true;
+    setBezig(true);
+    try {
+      const bytes = new Uint8Array(await lees());
+      const controle = ext === soort ? controleerPakket(bytes, soort) : null;
+      if (ext === soort && !controle?.strict) {
+        open(soort, naam, bytes);
+        if (controle?.macros)
+          setMelding(
+            "Dit bestand bevat VBA. Macro’s worden niet uitgevoerd; behoud van VBA bij export is niet gegarandeerd. Bewaar het origineel.",
+          );
+      } else {
+        const omgezet = await converteer(bytes, ext, soort, soort);
+        controleerPakket(omgezet, soort);
+        const id = open(
+          soort,
+          naam.replace(/\.[^.]+$/, "") + "." + soort,
+          omgezet,
+        );
+        if (Object.hasOwn(bestandstypen[soort].uitvoer, ext))
+          setExportFormaat(ext);
+        bewerkt(id);
+        setMelding(
+          "Geïmporteerd als bewerkbare kopie. Het origineel is behouden. Opmaak kan afwijken; macro’s en actieve inhoud zijn niet uitgevoerd en worden niet overgenomen in deze kopie.",
+        );
+      }
+      setDatabaseOpen(false);
+    } catch (error) {
+      setMelding("Openen mislukt: " + String(error));
+    } finally {
+      bezigRef.current = false;
+      setBezig(false);
+    }
   }
   async function nieuw(soort: Soort) {
     if (bezigRef.current) return;
@@ -404,53 +477,13 @@ export function OfficeStudio() {
             const file = e.target.files?.[0];
             e.target.value = "";
             if (!file) return;
-            if (bezigRef.current) return;
-            const ext = file.name.split(".").pop()?.toLowerCase();
-            const soort = bestandssoort(ext ?? "");
-            if (!ext || !soort) {
-              setMelding("Dit bestandsformaat wordt nog niet ondersteund.");
-              return;
-            }
             if (!file.size || file.size > 100 * 1024 * 1024) {
               setMelding(
                 "Kies een bestand van maximaal 100 MB dat niet leeg is.",
               );
               return;
             }
-            bezigRef.current = true;
-            setBezig(true);
-            try {
-              const bytes = new Uint8Array(await file.arrayBuffer());
-              const controle =
-                ext === soort ? controleerPakket(bytes, soort) : null;
-              if (ext === soort && !controle?.strict) {
-                open(soort, file.name, bytes);
-                if (controle?.macros)
-                  setMelding(
-                    "Dit bestand bevat VBA. Macro’s worden niet uitgevoerd; behoud van VBA bij export is niet gegarandeerd. Bewaar het origineel.",
-                  );
-              } else {
-                const omgezet = await converteer(bytes, ext, soort, soort);
-                controleerPakket(omgezet, soort);
-                const id = open(
-                  soort,
-                  file.name.replace(/\.[^.]+$/, "") + "." + soort,
-                  omgezet,
-                );
-                if (Object.hasOwn(bestandstypen[soort].uitvoer, ext))
-                  setExportFormaat(ext);
-                bewerkt(id);
-                setMelding(
-                  "Geïmporteerd als bewerkbare kopie. Het origineel is behouden. Opmaak kan afwijken; macro’s en actieve inhoud zijn niet uitgevoerd en worden niet overgenomen in deze kopie.",
-                );
-              }
-              setDatabaseOpen(false);
-            } catch (error) {
-              setMelding("Openen mislukt: " + String(error));
-            } finally {
-              bezigRef.current = false;
-              setBezig(false);
-            }
+            await openBestand(file.name, () => file.arrayBuffer());
           }}
         />
         {melding && (
@@ -495,6 +528,7 @@ export function OfficeStudio() {
           </div>
         ) : databaseOpen ? (
           <DatabaseStudio
+            startbestand={databaseStart}
             bestandsmenu={() => setBestandsmenu(true)}
             inactief={bestandsmenu || verlaatvraag}
             registreerOpenen={registreerDatabaseOpenen}

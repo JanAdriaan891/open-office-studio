@@ -30,10 +30,12 @@ function downloaden(naam: string, inhoud: string, type: string) {
 }
 const soorten: Objectsoort[] = ["Tabel", "Query", "VBA"];
 export function DatabaseStudio({
+  startbestand,
   bestandsmenu,
   inactief = false,
   registreerOpenen,
 }: {
+  startbestand?: File | null;
   bestandsmenu?: () => void;
   inactief?: boolean;
   registreerOpenen?: (openen: (() => void) | null) => void;
@@ -63,6 +65,44 @@ export function DatabaseStudio({
       lezer.current = null;
     };
   }, []);
+  useEffect(() => {
+    if (startbestand) void lees(startbestand);
+  }, [startbestand]);
+  async function lees(bestand: File) {
+    setBezig(true);
+    setFout("");
+    let client: DatabaseClient | null = null;
+    // Alleen de laatst gestarte leesopdracht werkt de weergave bij.
+    const actueel = () => actief.current && inlezen.current === client;
+    try {
+      client = new DatabaseClient();
+      inlezen.current = client;
+      const nieuw = await client.open(bestand);
+      if (!actueel()) {
+        client.sluit();
+        return;
+      }
+      lezer.current?.sluit();
+      lezer.current = client;
+      setSessie(nieuw);
+      setSelectie("");
+      setZoeken("");
+      setPaginaStart(0);
+    } catch (error) {
+      client?.sluit();
+      if (actueel())
+        setFout(
+          error instanceof Error
+            ? error.message
+            : "Bestand kon niet worden gelezen.",
+        );
+    } finally {
+      if (actueel() || client === null) {
+        inlezen.current = null;
+        if (actief.current) setBezig(false);
+      }
+    }
+  }
   const object = sessie?.objecten.find((item) => item.id === selectie);
   const rijen =
     object?.rijen?.filter((rij) =>
@@ -221,39 +261,10 @@ export function DatabaseStudio({
         hidden
         type="file"
         accept=".mdb,.accdb"
-        onChange={async (event) => {
+        onChange={(event) => {
           const bestand = event.target.files?.[0];
           event.target.value = "";
-          if (!bestand) return;
-          setBezig(true);
-          setFout("");
-          let client: DatabaseClient | null = null;
-          try {
-            client = new DatabaseClient();
-            inlezen.current = client;
-            const nieuw = await client.open(bestand);
-            if (!actief.current) {
-              client.sluit();
-              return;
-            }
-            lezer.current?.sluit();
-            lezer.current = client;
-            setSessie(nieuw);
-            setSelectie("");
-            setZoeken("");
-            setPaginaStart(0);
-          } catch (error) {
-            client?.sluit();
-            if (actief.current)
-              setFout(
-                error instanceof Error
-                  ? error.message
-                  : "Bestand kon niet worden gelezen.",
-              );
-          } finally {
-            if (inlezen.current === client) inlezen.current = null;
-            if (actief.current) setBezig(false);
-          }
+          if (bestand) void lees(bestand);
         }}
       />
       {fout && (
