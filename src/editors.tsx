@@ -15,6 +15,7 @@ import { RibbonFout } from "./Ribbon";
 import { tekstNl, rekenbladNl, diaNl } from "./nederlands";
 import { RekenbladKoppen } from "./RekenbladKoppen";
 import { EditorApi } from "./lint/editorApi";
+import { useNederlandseInvoer } from "./useNederlandseInvoer";
 configureDefaultFonts({
   fonts,
   baseUrl: new URL("/fonts/", location.href).href,
@@ -56,6 +57,7 @@ export default function OfficeEditor(props: EditorProps) {
     }),
     [rekenbladApi, presentatieApi],
   );
+  useNederlandseInvoer(rekenbladHost, rekenbladApi);
   const zoomKoppeling = useMemo(
     () => ({
       sleutel: `${props.soort}:${props.naam}:${props.bytes.byteLength}`,
