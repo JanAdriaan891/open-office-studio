@@ -1,0 +1,166 @@
+/**
+ * VBA-uitvoering voor één werkkopie: een `VbaClient` (eigen worker, afgeschermd)
+ * met een poort naar de werkkopie, plus een register van geopende formulieren
+ * dat `FormulierHost` implementeert (`Me`, `Me!veld`, `Forms!frm!ctl`).
+ * Er wordt nooit iets automatisch uitgevoerd; alleen op verzoek van de gebruiker.
+ */
+import { VbaClient } from "../../../vba/src/vba-client.ts";
+import type { FormulierDoel, FormulierHost, HostWaarde, VbaHost } from "../../../vba/src/host.ts";
+import type { LaadResultaat, ProcedureInfo, VoerUitResultaat } from "../../../vba/src/protocol.ts";
+import type { Waarde } from "../werkkopie/contract.ts";
+import type { BedienbareWerkkopie } from "./werkkopie-sessie.ts";
+
+export type VbaModuleSoort = "module" | "klasse" | "formulier";
+export interface VbaModule {
+  naam: string;
+  bron: string;
+  soort: VbaModuleSoort;
+  /** Uit het Access-origineel of in deze sessie gemaakt/bewerkt. */
+  herkomst: "access" | "eigen";
+}
+
+/** Soort module uit de naam en het moduletype van de analyse. */
+export function moduleSoort(naam: string, moduletype?: string): VbaModuleSoort {
+  if (/^(form|report)_/i.test(naam)) return "formulier";
+  if (moduletype && /klasse|document/i.test(moduletype)) return "klasse";
+  return "module";
+}
+
+export function naarHostWaarde(w: Waarde | undefined): HostWaarde {
+  if (w === undefined || w === null) return null;
+  if (w instanceof Uint8Array) return null;
+  if (typeof w === "string" && /^\d{4}-\d{2}-\d{2}(T\d{2}:\d{2}(:\d{2})?)?$/.test(w)) return { datum: w };
+  return w;
+}
+export function vanHostWaarde(w: HostWaarde): Waarde {
+  if (w === null) return null;
+  if (Array.isArray(w)) return null;
+  if (typeof w === "object") return "datum" in w ? w.datum : null;
+  return w;
+}
+
+/** Wat een geopend formulier aan de VBA-runtime aanbiedt. */
+export interface OpenFormulier {
+  naam: string;
+  lees(besturing: string | undefined, eigenschap: string, args: HostWaarde[]): HostWaarde | Promise<HostWaarde>;
+  zet(besturing: string | undefined, eigenschap: string, waarde: HostWaarde): void | Promise<void>;
+  roepAan(besturing: string | undefined, methode: string, args: HostWaarde[]): HostWaarde | Promise<HostWaarde>;
+  heeftBesturing(naam: string): boolean;
+}
+
+export class FormulierRegister implements FormulierHost {
+  private open = new Map<string, OpenFormulier>();
+  actief: string | null = null;
+  registreer(f: OpenFormulier) {
+    this.open.set(f.naam.toLowerCase(), f);
+    this.actief = f.naam;
+    return () => {
+      if (this.open.get(f.naam.toLowerCase()) === f) this.open.delete(f.naam.toLowerCase());
+      if (this.actief === f.naam) this.actief = null;
+    };
+  }
+  private zoek(doel: FormulierDoel): OpenFormulier {
+    const naam = doel.naam || this.actief || "";
+    const f = doel.soort === "formulier" ? this.open.get(naam.split("/")[0].toLowerCase()) : undefined;
+    if (!f)
+      throw new Error(
+        doel.soort === "rapport"
+          ? `Rapport ‘${naam}’ is niet geopend als formulier; rapportgebeurtenissen worden niet uitgevoerd.`
+          : `Formulier ‘${naam}’ is niet geopend.`,
+      );
+    return f;
+  }
+  async isGeopend(doel: FormulierDoel) {
+    return doel.soort === "formulier" && this.open.has(doel.naam.toLowerCase());
+  }
+  async lees(doel: FormulierDoel, eigenschap: string, args: HostWaarde[]): Promise<HostWaarde> {
+    if (!doel.naam && eigenschap === "activeform") {
+      if (!this.actief) throw new Error("Er is geen formulier actief.");
+      return this.actief;
+    }
+    if (!doel.naam && eigenschap === "activecontrol") return null;
+    return this.zoek(doel).lees(doel.besturing, eigenschap, args);
+  }
+  async zet(doel: FormulierDoel, eigenschap: string, waarde: HostWaarde) {
+    await this.zoek(doel).zet(doel.besturing, eigenschap, waarde);
+  }
+  async roepAan(doel: FormulierDoel, methode: string, args: HostWaarde[]): Promise<HostWaarde> {
+    return this.zoek(doel).roepAan(doel.besturing, methode, args);
+  }
+  async heeftBesturing(doel: FormulierDoel, naam: string) {
+    try {
+      return this.zoek(doel).heeftBesturing(naam);
+    } catch {
+      return false;
+    }
+  }
+}
+
+export class VbaSessie {
+  readonly formulieren = new FormulierRegister();
+  private client: VbaClient;
+  private geladen: string | null = null;
+  private laadresultaat: LaadResultaat | null = null;
+
+  constructor(
+    werkkopie: BedienbareWerkkopie,
+    host: VbaHost,
+    readonly tijdslimiet = 30_000,
+  ) {
+    this.client = new VbaClient({
+      werkkopiePoort: () => werkkopie.poort(),
+      tijdslimiet,
+      host,
+      formulieren: this.formulieren,
+    });
+  }
+
+  /** Laadt de modules opnieuw als ze sinds de vorige keer veranderd zijn. */
+  async laad(modules: VbaModule[]): Promise<LaadResultaat> {
+    const sleutel = JSON.stringify(modules.map((m) => [m.naam, m.soort, m.bron]));
+    if (this.geladen === sleutel && this.laadresultaat) return this.laadresultaat;
+    this.laadresultaat = await this.client.laad(modules.map((m) => ({ naam: m.naam, bron: m.bron, soort: m.soort })));
+    this.geladen = sleutel;
+    return this.laadresultaat;
+  }
+
+  async procedures(modules: VbaModule[]): Promise<{ procedures: ProcedureInfo[]; laad: LaadResultaat }> {
+    const laad = await this.laad(modules);
+    return { procedures: await this.client.procedures(), laad };
+  }
+
+  async voerUit(modules: VbaModule[], module: string, procedure: string, args: HostWaarde[] = []): Promise<VoerUitResultaat> {
+    await this.laad(modules);
+    return this.client.voerUit(module, procedure, args);
+  }
+
+  /** Stopt de lopende uitvoering; de worker start opnieuw bij de volgende aanroep. */
+  stop() {
+    this.client.stop();
+  }
+
+  sluit() {
+    this.client.sluit();
+  }
+}
+
+/** Foutmelding met module, procedure en regel. */
+export function foutTekst(r: Extract<VoerUitResultaat, { ok: false }>): string {
+  const f = r.fout;
+  const plaats = [f.module, f.procedure].filter(Boolean).join(".");
+  const waar = plaats ? ` (${plaats}${f.regel ? `, regel ${f.regel}` : ""})` : f.regel ? ` (regel ${f.regel})` : "";
+  const nummer = f.nummer ? `Fout ${f.nummer}: ` : "";
+  const soort =
+    f.soort === "afbreking"
+      ? f.reden === "afgeschermd"
+        ? "Geweigerd (afgeschermd): "
+        : f.reden === "tijdslimiet"
+          ? "Tijdslimiet: "
+          : f.reden === "gestopt"
+            ? "Gestopt: "
+            : "Afgebroken: "
+      : f.soort === "parseer"
+        ? "Syntaxisfout: "
+        : "";
+  return `${soort}${nummer}${f.beschrijving.replace(/\s+$/, "")}${waar}`;
+}

@@ -1,5 +1,6 @@
 import {
   controleerDatabaseBestand,
+  type Compatibiliteitsrapport,
   type DatabaseObject,
   type DatabaseSession,
 } from "./model";
@@ -23,6 +24,21 @@ import {
   type WerkkopieMethode,
 } from "./werkkopie/werkkopie-brug.ts";
 
+/**
+ * Fout van de alleen-lezende lezer, met een vaste code (bijv. "versleuteld")
+ * en, als de worker dat meestuurt, het compatibiliteitsrapport van het bestand.
+ */
+export class DatabaseFout extends Error {
+  readonly code?: string;
+  readonly rapport?: Compatibiliteitsrapport;
+  constructor(melding: string, code?: string, rapport?: Compatibiliteitsrapport) {
+    super(melding);
+    this.name = "DatabaseFout";
+    this.code = code;
+    this.rapport = rapport;
+  }
+}
+
 export class DatabaseClient {
   private worker = new Worker(
     new URL("./database-worker.ts", import.meta.url),
@@ -44,7 +60,14 @@ export class DatabaseClient {
       if (!verzoek) return;
       clearTimeout(verzoek.timer);
       this.wachtend.delete(data.id);
-      if (data.fout) verzoek.fout(new Error(data.fout));
+      if (data.fout)
+        verzoek.fout(
+          new DatabaseFout(
+            data.fout,
+            typeof data.code === "string" ? data.code : undefined,
+            data.rapport ?? undefined,
+          ),
+        );
       else verzoek.klaar(data.resultaat);
     };
     this.worker.onerror = () =>

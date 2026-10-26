@@ -48,6 +48,7 @@
   flex-direction: column;
 }
 .database-app[data-theme="dark"] {
+  color-scheme: dark;
   --surface: #36363e;
   --bg: #2a2a32;
   --text: #fafaf9;
@@ -611,4 +612,804 @@
 .database-app[data-theme="dark"] .status-gedeeltelijk,
 .database-app[data-theme="dark"] .status-niet-gelezen {
   color: #fcd34d;
+}
+
+/* ------------------------------------------------------------------ werkruimte (werkkopie) */
+.database-app .database-werkruimte {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+}
+.database-app .database-ontwerp td input:not([type="checkbox"]) {
+  width: 100%;
+  min-width: 70px;
+}
+.database-app .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+.database-app select,
+.database-app textarea {
+  font: inherit;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+}
+.database-app input:not([type="checkbox"]):not([type="radio"]) {
+  color: var(--text);
+}
+.database-app select:focus-visible,
+.database-app textarea:focus-visible,
+.database-app td:focus-visible {
+  outline: 3px solid #f59e0b;
+  outline-offset: -2px;
+}
+.database-app .is-gevaar {
+  color: #b91c1c;
+  border-color: #fca5a5;
+}
+.database-app[data-theme="dark"] .is-gevaar {
+  color: #fca5a5;
+  border-color: #b91c1c;
+}
+.database-app .database-knoppen {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 14px 0;
+}
+.database-app .database-welkomknoppen {
+  justify-content: flex-start;
+}
+.database-app .database-balkmelding {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  border-radius: 0;
+}
+.database-app .database-balkmelding > span {
+  flex: 1;
+}
+.database-app .database-balkmelding button {
+  padding: 4px 6px;
+  border-color: transparent;
+  background: transparent;
+}
+.database-app .database-werkkopiestatus {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: auto;
+  color: #15803d;
+  font-size: 11px;
+}
+.database-app .database-werkkopiestatus em {
+  color: #b45309;
+  font-style: normal;
+}
+.database-app[data-theme="dark"] .database-werkkopiestatus {
+  color: #86efac;
+}
+.database-app:not(.office *) .database-documentbalk {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 6px 20px;
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+}
+
+/* Objectbrowser */
+.database-app aside ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.database-app aside li > button {
+  display: flex;
+  min-width: 0;
+}
+.database-app aside li > button > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+  min-width: 0;
+}
+.database-app aside .database-objectsub {
+  margin: 0 0 0 auto;
+  font-size: 10px;
+  white-space: nowrap;
+  color: var(--muted);
+}
+.database-app aside button.selected {
+  background: var(--soft);
+  box-shadow: inset 3px 0 #d97706;
+}
+
+/* Werkbalken */
+.database-app .database-werkbalk {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 12px;
+}
+.database-app .database-werkbalk h3 {
+  margin: 0 auto 0 0;
+  font-size: 14px;
+}
+.database-app .database-werkbalk .zoek {
+  margin: 0;
+  flex: 1 1 220px;
+  padding: 7px 12px;
+}
+.database-app .database-werkbalk button,
+.database-app .database-paginering button,
+.database-app .database-recordnavigatie button,
+.database-app .database-knoppen button,
+.database-app .database-weergavekeuze button {
+  padding: 7px 11px;
+  font-size: 13px;
+}
+.database-app .database-weergavekeuze {
+  display: inline-flex;
+}
+.database-app .database-weergavekeuze button {
+  border-radius: 0;
+}
+.database-app .database-weergavekeuze button:first-child {
+  border-radius: 6px 0 0 6px;
+}
+.database-app .database-weergavekeuze button:last-child {
+  border-radius: 0 6px 6px 0;
+  margin-left: -1px;
+}
+.database-app [aria-pressed="true"]:not(.ribbon-actie) {
+  background: #d9770614;
+  border-color: #d97706;
+}
+.database-app .database-paginering {
+  align-items: center;
+}
+.database-app .database-paginering span {
+  font-size: 12px;
+  color: var(--muted);
+  padding: 0 6px;
+}
+.database-app .database-querysoort {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* Raster */
+.database-app .database-raster-wrap {
+  max-height: 62vh;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+.database-app .database-raster {
+  font-size: 13px;
+}
+.database-app .database-raster th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: 6px 10px;
+  white-space: nowrap;
+  vertical-align: bottom;
+}
+.database-app .database-raster td {
+  padding: 6px 10px;
+  max-width: 340px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border-right: 1px solid var(--border);
+  cursor: cell;
+}
+.database-app .database-raster td.soort-geheel,
+.database-app .database-raster td.soort-getal,
+.database-app .database-raster td.soort-valuta,
+.database-app .database-raster td.soort-autonummer {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.database-app .database-raster tr.is-actief td {
+  background: #d977060a;
+}
+.database-app .database-raster td.is-cel {
+  box-shadow: inset 0 0 0 2px #d97706;
+}
+.database-app .database-raster td.is-fout {
+  box-shadow: inset 0 0 0 2px #dc2626;
+}
+.database-app .database-raster td input {
+  width: 100%;
+  min-width: 80px;
+  border: 0;
+  padding: 2px 0;
+  background: transparent;
+  font: inherit;
+  outline: none;
+}
+.database-app .database-kolomknop {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  font-weight: 600;
+  gap: 4px;
+}
+.database-app .database-janee input {
+  pointer-events: none;
+}
+.database-app .database-rasterfout {
+  margin: 8px 0 0;
+}
+.database-app .database-rasterhulp {
+  margin: 6px 0;
+}
+.database-app .database-raster-leeg {
+  padding: 24px;
+  border: 1px dashed var(--border);
+  border-radius: 6px;
+  color: var(--muted);
+  text-align: center;
+}
+
+/* Velden en formulieren */
+.database-app .database-veld {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0 0 10px;
+  font-size: 13px;
+}
+.database-app .database-veld > span {
+  color: var(--muted);
+  font-weight: 500;
+}
+.database-app .database-veld small {
+  display: inline;
+  margin: 0 0 0 6px;
+  font-size: 10px;
+}
+.database-app .database-veld input:not([type="checkbox"]),
+.database-app .database-veld select,
+.database-app .database-ontwerp td input:not([type="checkbox"]),
+.database-app .database-ontwerp td select,
+.database-app .database-ontwerper input:not([type="checkbox"]),
+.database-app .database-ontwerper select,
+.database-app .database-formulierveld input:not([type="checkbox"]),
+.database-app .database-formulierveld textarea {
+  padding: 7px 10px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: var(--surface);
+  min-width: 0;
+}
+.database-app .database-veld-rij {
+  flex-direction: row;
+  align-items: center;
+}
+.database-app .database-veld-breed {
+  max-width: 420px;
+}
+.database-app .database-veldfout {
+  color: #b91c1c;
+  font-size: 12px;
+  margin: 0;
+}
+.database-app .database-nieuwe-rij {
+  padding: 14px;
+  margin-bottom: 14px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+}
+.database-app .database-nieuwe-rij-velden {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 4px 14px;
+}
+.database-app .database-ontwerp td,
+.database-app .database-ontwerper td {
+  padding: 6px 8px;
+}
+.database-app .database-rij-acties {
+  white-space: nowrap;
+}
+.database-app .database-rij-acties button {
+  padding: 4px 6px;
+}
+.database-app .database-relatielijst {
+  font-size: 13px;
+}
+.database-app .database-formulier-titel {
+  font-size: 18px;
+}
+.database-app .database-formulier-vlak {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 10px;
+  max-width: 640px;
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+}
+.database-app .database-formulierveld {
+  display: grid;
+  grid-template-columns: 170px minmax(0, 1fr);
+  align-items: center;
+  gap: 4px 14px;
+  font-size: 13px;
+}
+.database-app .database-formulierveld > span {
+  color: var(--muted);
+  text-align: right;
+}
+.database-app .database-formulierveld > input[type="checkbox"] {
+  justify-self: start;
+  width: 18px;
+  height: 18px;
+}
+.database-app .database-formulierveld > small {
+  grid-column: 2;
+  margin: 0;
+  font-size: 10px;
+}
+.database-app .database-formulierveld input[readonly],
+.database-app .database-formulierveld textarea[readonly] {
+  background: var(--soft);
+}
+.database-app .database-formulierknoppen {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border);
+}
+.database-app .database-recordnavigatie {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin: 12px 0;
+}
+.database-app .database-recordnavigatie span {
+  min-width: 190px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+}
+.database-app .database-ontwerper-raster {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 4px 16px;
+}
+.database-app .database-ontwerper-delen {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin-top: 12px;
+}
+.database-app .database-ontwerper-delen fieldset {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 12px 14px;
+  min-width: 0;
+}
+.database-app .database-ontwerper-delen fieldset.is-breed {
+  grid-column: 1 / -1;
+}
+.database-app .database-ontwerper-delen legend {
+  font-weight: 600;
+  font-size: 13px;
+  padding: 0 4px;
+}
+.database-app .database-ontwerper-regel {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+.database-app .database-ontwerper-regel > :is(input, select) {
+  flex: 1;
+}
+.database-app .database-keuzelijst {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 13px;
+}
+.database-app .database-keuzelijst li {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 0;
+}
+.database-app .database-keuzelijst li label {
+  flex: 1;
+}
+.database-app .database-keuzelijst li.is-uit {
+  color: var(--muted);
+}
+.database-app .database-keuzelijst button {
+  padding: 3px 5px;
+}
+
+/* SQL-editor: kleuring achter een doorzichtige textarea */
+.database-app .database-sqlinvoer {
+  position: relative;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+}
+.database-app .database-sqlinvoer pre,
+.database-app .database-sqlinvoer textarea {
+  margin: 0;
+  padding: 12px 14px;
+  border: 0;
+  border-radius: 6px;
+  font:
+    13px/1.6 "JetBrains Mono",
+    ui-monospace,
+    monospace;
+  white-space: pre;
+  overflow: auto;
+  tab-size: 4;
+  letter-spacing: 0;
+}
+.database-app .database-sqlinvoer pre {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: transparent;
+}
+.database-app .database-sqlinvoer textarea {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-height: 160px;
+  resize: vertical;
+  color: transparent;
+  caret-color: var(--text);
+  background: transparent;
+}
+.database-app .database-sqlinvoer textarea::selection {
+  background: #d977064d;
+  color: transparent;
+}
+.database-app .database-diagnose {
+  margin-top: 12px;
+  font-size: 12px;
+}
+.database-app .database-diagnose pre {
+  padding: 10px;
+  white-space: pre-wrap;
+  font-size: 12px;
+}
+
+/* VBA */
+.database-app .database-vba {
+  display: grid;
+  grid-template-columns: minmax(220px, 300px) minmax(0, 1fr);
+  gap: 18px;
+}
+.database-app .database-vba h3 {
+  font-size: 14px;
+  margin: 0 0 8px;
+}
+.database-app .database-vba-procedures ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.database-app .database-vba-procedures li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+.database-app .database-vba-procedures li small {
+  display: inline;
+  margin-left: 6px;
+}
+.database-app .database-vba-procedures li button {
+  padding: 4px 9px;
+  font-size: 12px;
+}
+.database-app .database-vba-bron .database-bron {
+  max-height: 60vh;
+  margin: 0;
+}
+.database-app .database-vba-editor {
+  width: 100%;
+  min-height: 360px;
+  padding: 14px;
+  font:
+    13px/1.6 "JetBrains Mono",
+    ui-monospace,
+    monospace;
+  white-space: pre;
+}
+.database-app .database-vba-uitvoer {
+  margin-top: 18px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  padding: 10px 12px;
+}
+.database-app .database-vba-uitvoer .database-werkbalk {
+  margin-bottom: 6px;
+}
+.database-app .database-vba-bezig {
+  font-size: 12px;
+  color: #b45309;
+}
+.database-app .database-vba-log {
+  max-height: 220px;
+  overflow: auto;
+  font:
+    12px/1.5 "JetBrains Mono",
+    ui-monospace,
+    monospace;
+  white-space: pre-wrap;
+}
+.database-app .database-vba-log .regel-info {
+  color: var(--muted);
+}
+.database-app .database-vba-log .regel-fout {
+  color: #b91c1c;
+}
+.database-app[data-theme="dark"] .database-vba-log .regel-fout {
+  color: #fca5a5;
+}
+
+/* Opbouw en overzichten */
+.database-app .database-opbouw {
+  max-width: 640px;
+  margin: 40px auto;
+}
+.database-app .database-opbouw progress {
+  display: block;
+  width: 100%;
+  height: 10px;
+  margin: 12px 0 16px;
+  accent-color: #d97706;
+}
+.database-app .database-overzicht h3 {
+  font-size: 14px;
+  margin: 18px 0 8px;
+}
+.database-app .database-overzicht tr.is-waarschuwing td {
+  background: #fef3c780;
+}
+.database-app .database-meldingen {
+  list-style: none;
+  padding: 0;
+  font-size: 13px;
+}
+.database-app .database-meldingen li {
+  padding: 6px 0;
+  border-bottom: 1px solid var(--border);
+}
+.database-app .database-meldingen .database-status {
+  margin-right: 8px;
+}
+.database-app .database-meldingen .ernst-fout .database-status {
+  color: #b91c1c;
+}
+.database-app .database-meldingen .ernst-waarschuwing .database-status {
+  color: #b45309;
+}
+
+/* Dialogen */
+.database-dialoog-achtergrond {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: rgb(20 20 24 / 45%);
+}
+.database-app .database-dialoog {
+  width: min(480px, 100%);
+  max-height: calc(100vh - 32px);
+  overflow: auto;
+  padding: 20px 22px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: 0 20px 60px rgb(0 0 0 / 30%);
+}
+.database-app .database-dialoog.is-breed {
+  width: min(760px, 100%);
+}
+.database-app .database-dialoog h2 {
+  margin: 0 0 12px;
+  font-size: 18px;
+}
+.database-app .database-dialoog-inhoud {
+  font-size: 14px;
+  line-height: 1.55;
+}
+.database-app .database-dialoog-inhoud ul {
+  padding-left: 20px;
+}
+.database-app .database-dialoog-acties {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 16px;
+}
+.database-app .database-dialoog-acties button {
+  padding: 8px 14px;
+}
+.database-app .database-msgbox-tekst {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+.database-app .database-msgbox-tekst p {
+  margin: 0;
+  white-space: pre-wrap;
+}
+.database-app .database-msgbox-tekst svg {
+  flex: none;
+  color: #d97706;
+}
+
+/* Rapport: afdrukvoorbeeld op papier */
+.database-app .database-afdruk {
+  max-width: 210mm;
+  margin: 0 auto;
+  padding: 16mm 14mm;
+  background: #fff;
+  color: #1c1917;
+  box-shadow: 0 2px 14px rgb(0 0 0 / 14%);
+  font-size: 12px;
+}
+.database-app .database-afdruk.is-liggend {
+  max-width: 297mm;
+}
+.database-app .database-afdruk h1 {
+  font-size: 22px;
+  margin: 0 0 4px;
+}
+.database-app .database-afdruk > .database-afdrukkop,
+.office .database-app .database-afdruk > .database-afdrukkop {
+  display: block;
+  height: auto;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+}
+.database-app .database-afdruk header p {
+  margin: 0 0 12px;
+  color: #57534e;
+}
+.database-app .database-afdruk table {
+  background: #fff;
+  font-size: 12px;
+}
+.database-app .database-afdruk th,
+.database-app .database-afdruk td {
+  padding: 4px 8px;
+  border-bottom: 1px solid #e7e5e4;
+  color: #1c1917;
+}
+.database-app .database-afdruk thead th {
+  background: #f5f5f4;
+  border-bottom: 2px solid #a8a29e;
+}
+.database-app .database-afdruk .is-getal {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.database-app .database-afdruk .database-groepkop th {
+  background: #fff;
+  padding-top: 12px;
+  font-size: 13px;
+  border-bottom: 1px solid #a8a29e;
+}
+.database-app .database-afdruk .database-groepvoet td,
+.database-app .database-afdruk tfoot td {
+  font-weight: 600;
+  border-bottom: 0;
+}
+.database-app .database-afdruk tfoot td {
+  border-top: 2px solid #57534e;
+}
+.database-app .database-afdruk .database-totaal small {
+  display: inline;
+  margin: 0;
+  font-size: 10px;
+  color: #57534e;
+  font-weight: 400;
+}
+.database-app .database-afdruk > .database-afdrukvoet,
+.office .database-app .database-afdruk > .database-afdrukvoet {
+  height: auto;
+  min-height: 0;
+  background: none;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 18px;
+  padding: 8px 0 0;
+  border-top: 1px solid #d6d3d1;
+  color: #57534e;
+  font-size: 10px;
+}
+
+@media (max-width: 800px) {
+  .database-app .database-vba {
+    grid-template-columns: 1fr;
+  }
+  .database-app .database-formulierveld {
+    grid-template-columns: 1fr;
+  }
+  .database-app .database-formulierveld > span {
+    text-align: left;
+  }
+  .database-app .database-formulierveld > input[type="checkbox"] {
+  justify-self: start;
+  width: 18px;
+  height: 18px;
+}
+.database-app .database-formulierveld > small {
+    grid-column: 1;
+  }
+}
+
+@media print {
+  /* Alleen het rapport: alles wat geen voorouder of deel ervan is, verdwijnt. */
+  body.database-afdrukken *:not(:has(.database-afdruk)):not(.database-afdruk):not(.database-afdruk *) {
+    display: none !important;
+  }
+  body.database-afdrukken :has(.database-afdruk) {
+    overflow: visible !important;
+    position: static !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 0 !important;
+    background: #fff !important;
+    box-shadow: none !important;
+    transform: none !important;
+  }
+  body.database-afdrukken .database-afdruk {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+  }
+  body.database-afdrukken .database-afdruk thead {
+    display: table-header-group;
+  }
+  body.database-afdrukken .database-afdruk tr {
+    break-inside: avoid;
+  }
+  body.database-afdrukken .database-afdruk .database-groepkop {
+    break-after: avoid;
+  }
 }

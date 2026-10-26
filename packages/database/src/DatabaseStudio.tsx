@@ -1,302 +1,937 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
-  Database,
-  FolderOpen,
-  Table2,
-  Code2,
-  Search,
-  Download,
-  Sun,
-  Moon,
-  ShieldCheck,
   Braces,
-  X,
-  Link2,
-  FileText,
-  FileJson,
   ClipboardList,
+  Code2,
+  Database,
+  Download,
+  FileCode2,
+  FileJson,
+  FilePlus2,
+  FileText,
+  FolderOpen,
+  Hammer,
   LayoutTemplate,
+  Link2,
+  ListTree,
+  Moon,
+  Play,
+  RefreshCw,
+  Save,
+  ShieldCheck,
+  Square,
+  Sun,
+  Table2,
+  TableProperties,
+  Terminal,
+  X,
   type LucideIcon,
 } from "lucide-react";
-import {
-  csv,
-  rapportAlsTekst,
-  voorbeeld,
-  type DatabaseObject,
-  type DatabaseSession,
-  type Objectsoort,
-} from "./model";
-import { kleurTokens } from "./syntaxis";
-import { DatabaseClient } from "./database-client";
+import { rapportAlsTekst, VERSLEUTELD_MELDING, type DatabaseObject, type DatabaseSession, type Objectsoort } from "./model";
+import { DatabaseClient, DatabaseFout, WerkkopieClient } from "./database-client";
 import { Ribbon, Groep, Actie } from "../../../src/Ribbon";
+import { past } from "../../../src/lint/sneltoetsen";
 import { downloadDatabaseUitvoer, type DatabaseUitvoer } from "./uitvoer";
-const soorten: {
-  soort: Objectsoort;
-  titel: string;
-  icoon: LucideIcon;
-  rapport: string;
-  altijd?: boolean;
-}[] = [
-  {
-    soort: "Tabel",
-    titel: "Tabellen",
-    icoon: Table2,
-    rapport: "Tabellen",
-    altijd: true,
-  },
-  {
-    soort: "Gekoppelde tabel",
-    titel: "Gekoppelde tabellen",
-    icoon: Link2,
-    rapport: "Gekoppelde tabellen",
-  },
-  {
-    soort: "Query",
-    titel: "Query’s",
-    icoon: Braces,
-    rapport: "Opgeslagen query’s",
-    altijd: true,
-  },
-  {
-    soort: "Relatie",
-    titel: "Relaties",
-    icoon: Link2,
-    rapport: "Relaties",
-    altijd: true,
-  },
-  {
-    soort: "VBA",
-    titel: "VBA-modules",
-    icoon: Code2,
-    rapport: "VBA-modules",
-    altijd: true,
-  },
-  {
-    soort: "Formulier",
-    titel: "Formulieren",
-    icoon: LayoutTemplate,
-    rapport: "Formulieren",
-  },
-  {
-    soort: "Rapport",
-    titel: "Rapporten",
-    icoon: FileText,
-    rapport: "Rapporten",
-  },
-  {
-    soort: "Macro",
-    titel: "Macro’s",
-    icoon: ClipboardList,
-    rapport: "Macro’s",
-  },
-];
-const RAPPORT = "__rapport";
-function Bron({ bron, taal }: { bron: string; taal: "vba" | "sql" }) {
-  return (
-    <pre className="database-bron">
-      <code>
-        {kleurTokens(bron, taal).map((token, index) =>
-          token.soort === "gewoon" ? (
-            token.tekst
-          ) : (
-            <span key={index} className={`syntax-${token.soort}`}>
-              {token.tekst}
-            </span>
-          ),
-        )}
-      </code>
-    </pre>
-  );
+import type { OpgeslagenQuery, Ontwerp, RelatieSchema, TabelSchema, Veldsoort, Waarde } from "./werkkopie/contract";
+import type { Voortgang } from "./werkkopie/opbouw";
+import { DialoogBron, useDialogen } from "./ui/Dialoog";
+import { LosseWerkkopie, type WerkkopieSessie } from "./ui/werkkopie-sessie";
+import { TabelWeergave } from "./ui/TabelWeergave";
+import { NieuweTabel, TabelOntwerp } from "./ui/TabelOntwerp";
+import { QueryEditor, type QueryUitvoer } from "./ui/QueryEditor";
+import { Formulier } from "./ui/Formulier";
+import { FormulierOntwerper } from "./ui/FormulierOntwerper";
+import { RapportOntwerper, RapportVoorbeeld } from "./ui/Rapport";
+import { VbaPaneel, VbaUitvoer } from "./ui/VbaPaneel";
+import { CompatibiliteitWeergave, OpbouwRapportWeergave, OpbouwVoortgang, RelatieWeergave } from "./ui/Overzichten";
+import { AlleenLezenObject } from "./ui/AlleenLezen";
+import { Foutgrens } from "./ui/Foutgrens";
+import { useVba } from "./ui/useVba";
+import { moduleSoort, type VbaModule } from "./ui/vba-sessie";
+import { automatischFormulier, leesFormulierDefinitie } from "./ui/formulier-logica";
+import { leegRapport, leesRapportDefinitie, type RapportDefinitie } from "./ui/rapport-logica";
+import { kolommenVan } from "./ui/bron";
+import { leesbareFout } from "./ui/invoer";
+import { ACTIENAMEN, veiligeNaam } from "./ui/sql";
+import { csvUitWaarden, downloadBinair, type DatabaseBinaireUitvoer } from "./ui/export";
+import { vulVoorbeeld, VOORBEELD_MODULES } from "./ui/voorbeeld";
+
+export type { DatabaseBinaireUitvoer } from "./ui/export";
+
+type Weergave =
+  | { soort: "welkom" }
+  | { soort: "tabel"; naam: string; modus: "gegevens" | "ontwerp" }
+  | { soort: "nieuwe-tabel" }
+  | { soort: "query"; naam: string | null; sql?: string; nr: number }
+  | { soort: "formulier"; naam: string; metVba: boolean; nr: number }
+  | { soort: "formulier-ontwerp"; naam: string | null; bron?: string; nr: number }
+  | { soort: "rapport"; naam: string; bron: string; definitie: RapportDefinitie; nr: number }
+  | { soort: "rapport-ontwerp"; naam: string | null; bron?: string; nr: number }
+  | { soort: "vba"; module: string }
+  | { soort: "relaties" }
+  | { soort: "compat" }
+  | { soort: "opbouw" }
+  | { soort: "analyse"; id: string };
+
+interface Objecten {
+  tabellen: TabelSchema[];
+  querys: OpgeslagenQuery[];
+  ontwerpen: Ontwerp[];
+  relaties: RelatieSchema[];
 }
-function Details({ object }: { object: DatabaseObject }) {
-  return (
-    <>
-      {!!object.eigenschappen?.length && (
-        <dl className="database-eigenschappen">
-          {object.eigenschappen.map(([sleutel, waarde]) => (
-            <div key={sleutel}>
-              <dt>{sleutel}</dt>
-              <dd>{waarde}</dd>
-            </div>
-          ))}
-        </dl>
-      )}
-      {!!object.beperkingen?.length && (
-        <ul className="database-beperkingen" aria-label="Beperkingen">
-          {object.beperkingen.map((beperking) => (
-            <li key={beperking}>{beperking}</li>
-          ))}
-        </ul>
-      )}
-    </>
-  );
-}
-function exportBestand(object: DatabaseObject) {
-  if (object.soort === "Tabel") return ".csv";
-  if (object.soort === "VBA") return object.bron ? ".bas" : null;
-  if (object.soort === "Query") return object.bron ? ".sql" : null;
-  return null;
-}
-export function DatabaseStudio({
-  bestandsmenu,
-  inactief = false,
-  registreerOpenen,
-  bewaarUitvoer = downloadDatabaseUitvoer,
-}: {
+const LEEG: Objecten = { tabellen: [], querys: [], ontwerpen: [], relaties: [] };
+
+const MEERVOUD: Record<Objectsoort, string> = {
+  Tabel: "Tabellen",
+  "Gekoppelde tabel": "Gekoppelde tabellen",
+  Query: "Query’s",
+  Relatie: "Relaties",
+  VBA: "VBA-modules",
+  Formulier: "Formulieren",
+  Rapport: "Rapporten",
+  Macro: "Macro’s",
+};
+
+const VERSLEUTELD = /versleuteld|wachtwoord|encrypt|password/i;
+
+/** Werkruimte voor Access-databases: werkkopie, query’s, formulieren, rapporten en VBA. */
+export function DatabaseStudio(props: {
   bestandsmenu?: () => void;
   inactief?: boolean;
   registreerOpenen?: (openen: (() => void) | null) => void;
   bewaarUitvoer?: DatabaseUitvoer;
+  /** Binaire export (SQLite-werkkopie); standaard een browserdownload. */
+  bewaarBinair?: DatabaseBinaireUitvoer;
 } = {}) {
-  const [sessie, setSessie] = useState<DatabaseSession | null>(null);
-  const [selectie, setSelectie] = useState("");
-  const [zoeken, setZoeken] = useState("");
-  const [fout, setFout] = useState("");
-  const [exportmelding, setExportmelding] = useState("");
-  const [exportBezig, setExportBezig] = useState(false);
-  const [bezig, setBezig] = useState(false);
   const [donker, setDonker] = useState(false);
+  return (
+    <div className="database-app" data-theme={donker ? "dark" : "light"} inert={props.inactief}>
+      <DialoogBron>
+        <Werkruimte {...props} donker={donker} setDonker={setDonker} />
+      </DialoogBron>
+    </div>
+  );
+}
+
+function Werkruimte({
+  bestandsmenu,
+  registreerOpenen,
+  bewaarUitvoer = downloadDatabaseUitvoer,
+  bewaarBinair = downloadBinair,
+  donker,
+  setDonker,
+}: {
+  bestandsmenu?: () => void;
+  registreerOpenen?: (openen: (() => void) | null) => void;
+  bewaarUitvoer?: DatabaseUitvoer;
+  bewaarBinair?: DatabaseBinaireUitvoer;
+  donker: boolean;
+  setDonker: (d: boolean) => void;
+}) {
+  const dialogen = useDialogen();
+  const [analyse, setAnalyse] = useState<DatabaseSession | null>(null);
+  const [sessie, setSessie] = useState<WerkkopieSessie | null>(null);
+  const [objecten, setObjecten] = useState<Objecten>(LEEG);
+  const [modules, setModules] = useState<VbaModule[]>([]);
+  const [weergave, setWeergave] = useState<Weergave>({ soort: "welkom" });
+  const [opbouw, setOpbouw] = useState<{ naam: string; voortgang: Voortgang | null; klaar: number; afbreken: AbortController } | null>(null);
+  const [bezig, setBezig] = useState(false);
+  const [fout, setFout] = useState("");
+  const [melding, setMelding] = useState("");
+  const [gewijzigd, setGewijzigd] = useState(false);
+  const [queryUitvoer, setQueryUitvoer] = useState<QueryUitvoer | null>(null);
   const invoer = useRef<HTMLInputElement>(null);
   const lezer = useRef<DatabaseClient | null>(null);
-  const inlezen = useRef<DatabaseClient | null>(null);
   const actief = useRef(true);
-  const [paginaStart, setPaginaStart] = useState(0);
-  useEffect(() => {
-    registreerOpenen?.(
-      bezig || exportBezig ? null : () => invoer.current?.click(),
-    );
-    return () => registreerOpenen?.(null);
-  }, [registreerOpenen, bezig, exportBezig]);
+  const teller = useRef(1);
+  const queryUitvoeren = useRef<(() => void) | null>(null);
+  const bronBestand = useRef<File | null>(null);
+  const werkkopie = sessie?.werkkopie ?? null;
+
+  // ---------------------------------------------------------------- VBA
+  const toon = (w: Weergave) => setWeergave(w);
+  const vba = useVba(werkkopie, modules, dialogen, {
+    openFormulier: (naam) => openFormulier(naam, true),
+    openRapport: (naam) => void openRapport(naam),
+    openQuery: (naam) => {
+      const q = objecten.querys.find((x) => x.naam.toLowerCase() === naam.toLowerCase());
+      if (!q) throw new Error(`Query ‘${naam}’ bestaat niet.`);
+      toon({ soort: "query", naam: q.naam, nr: teller.current++ });
+    },
+    openTabel: (naam) => {
+      const t = objecten.tabellen.find((x) => x.naam.toLowerCase() === naam.toLowerCase());
+      if (!t) throw new Error(`Tabel ‘${naam}’ bestaat niet.`);
+      toon({ soort: "tabel", naam: t.naam, modus: "gegevens" });
+    },
+    sluit: (soort, naam) =>
+      setWeergave((w) =>
+        (w.soort === "formulier" && soort !== "rapport" && (!naam || w.naam.toLowerCase() === naam.toLowerCase())) ||
+        (w.soort === "rapport" && soort !== "formulier" && (!naam || w.naam.toLowerCase() === naam.toLowerCase()))
+          ? { soort: "welkom" }
+          : w,
+      ),
+  });
+
+  // ---------------------------------------------------------------- levenscyclus
   useEffect(() => {
     actief.current = true;
     return () => {
       actief.current = false;
-      inlezen.current?.sluit();
       lezer.current?.sluit();
-      inlezen.current = null;
-      lezer.current = null;
     };
   }, []);
-  const object = sessie?.objecten.find((item) => item.id === selectie);
-  const rijen =
-    object?.rijen?.filter((rij) =>
-      rij.some((cel) => cel.toLowerCase().includes(zoeken.toLowerCase())),
-    ) ?? [];
-  function sluit() {
-    lezer.current?.sluit();
-    lezer.current = null;
-    setSessie(null);
-    setSelectie("");
-    setZoeken("");
-    setFout("");
-    setExportmelding("");
-  }
-  const extensie = object ? exportBestand(object) : null;
-  const exporteerbaar =
-    !!object && !!extensie && !(object.soort === "Tabel" && !object.rijen);
-  async function bewaar(naam: string, inhoud: string, type: string) {
-    if (bezig || exportBezig) return;
-    setExportBezig(true);
-    setFout("");
-    setExportmelding("");
+  useEffect(() => () => void sessie?.werkkopie.sluit().catch(() => undefined), [sessie]);
+  useEffect(() => {
+    registreerOpenen?.(bezig || opbouw ? null : () => invoer.current?.click());
+    return () => registreerOpenen?.(null);
+  }, [registreerOpenen, bezig, opbouw]);
+
+  const vernieuw = useCallback(async () => {
+    if (!werkkopie) return setObjecten(LEEG);
     try {
-      const resultaat = await bewaarUitvoer(naam, inhoud, type);
-      if (actief.current)
-        setExportmelding(
-          resultaat.status === "opgeslagen"
-            ? `Opgeslagen: ${resultaat.pad}`
-            : resultaat.status === "geannuleerd"
-              ? "Exporteren geannuleerd."
-              : "Download aangevraagd. Controleer het bestand in je downloads.",
-        );
-    } catch (error) {
-      if (actief.current)
-        setFout(
-          "Exporteren mislukt: " +
-            (error instanceof Error ? error.message : String(error)),
-        );
-    } finally {
-      if (actief.current) setExportBezig(false);
+      const [tabellen, querys, ontwerpen, relaties, isGewijzigd] = await Promise.all([
+        werkkopie.tabellen(),
+        werkkopie.querys(),
+        werkkopie.ontwerpen(),
+        werkkopie.relaties(),
+        werkkopie.gewijzigd(),
+      ]);
+      if (!actief.current) return;
+      setObjecten({ tabellen, querys, ontwerpen, relaties });
+      setGewijzigd(isGewijzigd || sessie?.herkomst === "nieuw");
+    } catch (e) {
+      if (actief.current) setFout("De objectenlijst kon niet worden gelezen: " + leesbareFout(e));
     }
+  }, [werkkopie, sessie?.herkomst]);
+  useEffect(() => {
+    void vernieuw();
+  }, [vernieuw]);
+
+  // ---------------------------------------------------------------- openen en sluiten
+  async function magVervangen(): Promise<boolean> {
+    if (!werkkopie || !gewijzigd) return true;
+    return dialogen.bevestig({
+      titel: "Werkkopie niet opgeslagen",
+      tekst: "De huidige werkkopie heeft wijzigingen die niet als .sqlite zijn bewaard. Die gaan verloren. Doorgaan?",
+      ja: "Doorgaan zonder opslaan",
+      nee: "Annuleren",
+      gevaarlijk: true,
+    });
   }
-  function exporteer() {
-    if (!object || !extensie || !exporteerbaar) return;
-    const bestandsnaam = object.naam.replace(/[\\/:*?"<>|~]+/g, "_") + extensie;
-    void bewaar(
-      bestandsnaam,
-      object.soort === "Tabel"
-        ? csv(object.kolommen ?? [], rijen)
-        : object.soort === "VBA"
-          ? object.bron!.replace(/\r?\n/g, "\r\n")
-          : object.bron!,
-      object.soort === "Tabel"
-        ? "text/csv;charset=utf-8"
-        : "text/plain;charset=utf-8",
-    );
-  }
-  function exporteerRapport(soort: "json" | "txt") {
-    const rapport = sessie?.rapport;
-    if (!rapport) return;
-    const basis = rapport.bestand.replace(/\.[^.]+$/, "");
-    void bewaar(
-      `${basis}-compatibiliteit.${soort}`,
-      soort === "json"
-        ? JSON.stringify(rapport, null, 2)
-        : rapportAlsTekst(rapport),
-      soort === "json"
-        ? "application/json;charset=utf-8"
-        : "text/plain;charset=utf-8",
-    );
-  }
-  function openVoorbeeld() {
+
+  function reset() {
     lezer.current?.sluit();
     lezer.current = null;
-    setSessie(voorbeeld);
-    setSelectie("materialen");
-    setZoeken("");
+    setAnalyse(null);
+    setSessie(null);
+    setObjecten(LEEG);
+    setModules([]);
+    setWeergave({ soort: "welkom" });
     setFout("");
-    setPaginaStart(0);
-    setExportmelding("");
+    setMelding("");
+    setGewijzigd(false);
+    setQueryUitvoer(null);
+    bronBestand.current = null;
   }
-  async function kiesObject(id: string, start = 0) {
-    setSelectie(id);
-    setZoeken("");
-    setFout("");
-    const client = lezer.current;
-    const doel = sessie?.objecten.find((item) => item.id === id);
-    if (!client || doel?.soort !== "Tabel") {
-      setPaginaStart(start);
-      return;
-    }
+
+  async function sluitDatabase() {
+    if (!(await magVervangen())) return;
+    reset();
+  }
+
+  function modulesUitAnalyse(a: DatabaseSession): VbaModule[] {
+    return a.objecten
+      .filter((o) => o.soort === "VBA" && o.bron)
+      .map((o) => ({
+        naam: o.naam,
+        bron: o.bron!,
+        soort: moduleSoort(o.naam, o.eigenschappen?.find(([k]) => k === "Moduletype")?.[1]),
+        herkomst: "access" as const,
+      }));
+  }
+
+  async function openBestand(bestand: File) {
+    if (!(await magVervangen())) return;
+    reset();
     setBezig(true);
     try {
-      const tabel = await client.tabel(id, start);
-      if (lezer.current === client) {
-        setPaginaStart(start);
-        setSessie((huidig) =>
-          huidig
-            ? {
-                ...huidig,
-                objecten: huidig.objecten.map((item) =>
-                  item.id === id ? { ...item, ...tabel } : item,
-                ),
-              }
-            : huidig,
-        );
+      if (/\.(sqlite|sqlite3|db)$/i.test(bestand.name)) {
+        const w = await LosseWerkkopie.laad(bestand);
+        if (!actief.current) return void w.annuleer();
+        setSessie({ werkkopie: w, herkomst: "sqlite", naam: bestand.name });
+        setMelding(`Werkkopie ‘${bestand.name}’ heropend (bron: ${w.bron.naam}). VBA-modules worden niet in de werkkopie bewaard.`);
+        if (w.rapport) setWeergave({ soort: "opbouw" });
+        return;
       }
-    } catch (error) {
-      if (lezer.current === client)
-        setFout("Deze tabel kon niet worden gelezen: " + String(error));
+      // 1. Alleen-lezen-analyse: objecten, VBA-bron en het compatibiliteitsrapport.
+      const client = new DatabaseClient();
+      let a: DatabaseSession;
+      try {
+        a = await client.open(bestand);
+      } catch (e) {
+        client.sluit();
+        if (e instanceof DatabaseFout && e.code === "versleuteld") {
+          if (e.rapport)
+            setAnalyse({ naam: bestand.name, grootte: bestand.size, voorbeeld: false, objecten: [], rapport: e.rapport, melding: e.message });
+          setFout(e.message);
+          if (e.rapport) setWeergave({ soort: "compat" });
+          return;
+        }
+        throw e;
+      }
+      if (!actief.current) return void client.sluit();
+      lezer.current = client;
+      setAnalyse(a);
+      setModules(modulesUitAnalyse(a));
+      setBezig(false);
+      // 2. Werkkopie opbouwen, met voortgang en annuleren.
+      bronBestand.current = bestand;
+      await bouwWerkkopie(bestand);
+    } catch (e) {
+      if (actief.current) setFout(e instanceof Error ? e.message : "Bestand kon niet worden gelezen.");
     } finally {
-      if (lezer.current === client) setBezig(false);
+      if (actief.current) setBezig(false);
     }
   }
+
+  /** Bouwt de werkkopie uit het origineel (ook opnieuw na annuleren). */
+  async function bouwWerkkopie(bestand: File) {
+    setFout("");
+    const afbreken = new AbortController();
+    setOpbouw({ naam: bestand.name, voortgang: null, klaar: 0, afbreken });
+    try {
+      const w = await WerkkopieClient.open(bestand, {
+        signal: afbreken.signal,
+        voortgang: (v) =>
+          setOpbouw((o) =>
+            o ? { ...o, voortgang: v, klaar: o.klaar + (o.voortgang?.fase === "tabel" && o.voortgang.tabel !== v.tabel ? 1 : 0) } : o,
+          ),
+      });
+      if (!actief.current) return void w.annuleer();
+      setSessie({ werkkopie: w, herkomst: "access", naam: bestand.name });
+      setWeergave({ soort: "welkom" });
+      const overgeslagen = w.rapport?.tabellen.reduce((s, t) => s + t.overgeslagen, 0) ?? 0;
+      const fouten = w.rapport?.meldingen.filter((m) => m.ernst !== "info").length ?? 0;
+      setMelding(
+        `Werkkopie opgebouwd: ${w.rapport?.tabellen.length ?? 0} tabellen, ${w.rapport?.querys.opgeslagen ?? 0} query’s` +
+          (overgeslagen || fouten ? ` · ${overgeslagen} rijen overgeslagen, ${fouten} meldingen (zie opbouwrapport)` : "") +
+          ".",
+      );
+    } catch (e) {
+      if (!actief.current) return;
+      const tekst = leesbareFout(e);
+      setFout(
+        afbreken.signal.aborted
+          ? "De opbouw van de werkkopie is geannuleerd. Je bekijkt de database nu alleen-lezen."
+          : VERSLEUTELD.test(tekst)
+            ? VERSLEUTELD_MELDING + " Je bekijkt alleen wat zonder ontsleutelen leesbaar is."
+            : `De werkkopie kon niet worden opgebouwd: ${tekst} Je bekijkt de database nu alleen-lezen.`,
+      );
+    } finally {
+      if (actief.current) setOpbouw(null);
+    }
+  }
+
+  async function nieuweDatabase(voorbeeld = false) {
+    if (!(await magVervangen())) return;
+    let naam = "Voorbeelddatabase";
+    if (!voorbeeld) {
+      const gekozen = await dialogen.vraag({
+        titel: "Nieuwe lege database",
+        label: "Naam van de database",
+        standaard: "Nieuwe database",
+        controleer: (w) => (w.trim() ? null : "Geef een naam."),
+      });
+      if (!gekozen) return;
+      naam = gekozen.trim();
+    }
+    reset();
+    setBezig(true);
+    try {
+      const w = await LosseWerkkopie.nieuw(naam);
+      if (voorbeeld) await vulVoorbeeld(w);
+      if (!actief.current) return void w.annuleer();
+      setSessie({ werkkopie: w, herkomst: voorbeeld ? "voorbeeld" : "nieuw", naam });
+      if (voorbeeld) {
+        setModules(VOORBEELD_MODULES);
+        setMelding("Demonstratie met ingebouwde voorbeeldgegevens. Dit zijn geen gegevens uit een geopend databasebestand.");
+        setWeergave({ soort: "tabel", naam: "Materialen", modus: "gegevens" });
+      } else {
+        setMelding(`Nieuwe lege database ‘${naam}’. Maak een tabel via Maken › Tabel en bewaar het geheel via Start › Opslaan (.sqlite).`);
+        setWeergave({ soort: "nieuwe-tabel" });
+      }
+    } catch (e) {
+      setFout("De database kon niet worden gemaakt: " + leesbareFout(e));
+    } finally {
+      if (actief.current) setBezig(false);
+    }
+  }
+
+  // ---------------------------------------------------------------- export
+  async function meld<T extends { status: string; pad?: string }>(p: Promise<T>, wat: string) {
+    setFout("");
+    try {
+      const r = await p;
+      setMelding(
+        r.status === "opgeslagen" ? `${wat} opgeslagen: ${r.pad}` : r.status === "geannuleerd" ? "Exporteren geannuleerd." : `${wat}: download aangevraagd. Controleer je downloads.`,
+      );
+      return r.status !== "geannuleerd";
+    } catch (e) {
+      setFout("Exporteren mislukt: " + (e instanceof Error ? e.message : String(e)));
+      return false;
+    }
+  }
+  const bewaarTekst = (naam: string, inhoud: string, type: string, wat = "Export") =>
+    meld(bewaarUitvoer(veiligeNaam(naam), inhoud, type), wat);
+  const exporteerCsv = (naam: string, kolommen: string[], rijen: Waarde[][], soorten: (Veldsoort | null)[] = []) =>
+    bewaarTekst(`${naam}.csv`, csvUitWaarden(kolommen, rijen, soorten), "text/csv;charset=utf-8", "CSV");
+
+  async function exporteerTabel(naam: string) {
+    if (!werkkopie) return;
+    try {
+      const t = objecten.tabellen.find((x) => x.naam === naam);
+      const r = await werkkopie.query(`SELECT * FROM [${naam}]`, { limiet: 1_000_000 });
+      await exporteerCsv(naam, r.kolommen, r.rijen, r.kolommen.map((k) => t?.velden.find((v) => v.naam === k)?.soort ?? null));
+    } catch (e) {
+      setFout("Exporteren mislukt: " + leesbareFout(e));
+    }
+  }
+
+  async function bewaarWerkkopie() {
+    if (!werkkopie) return;
+    try {
+      const bytes = await werkkopie.exporteer();
+      const basis = (sessie?.naam ?? "werkkopie").replace(/\.(mdb|accdb|sqlite|sqlite3|db)$/i, "");
+      if (await meld(bewaarBinair(veiligeNaam(`${basis}.sqlite`), bytes, "application/vnd.sqlite3"), "Werkkopie (SQLite)")) setGewijzigd(false);
+    } catch (e) {
+      setFout("De werkkopie kon niet worden bewaard: " + leesbareFout(e));
+    }
+  }
+
+  function exporteerHuidig() {
+    if (weergave.soort === "tabel") return void exporteerTabel(weergave.naam);
+    if (weergave.soort === "query" && queryUitvoer)
+      return void exporteerCsv(queryUitvoer.titel, queryUitvoer.resultaat.kolommen, queryUitvoer.resultaat.rijen, queryUitvoer.resultaat.kolomsoorten ?? []);
+  }
+  const csvMogelijk = (weergave.soort === "tabel" && !!werkkopie) || (weergave.soort === "query" && !!queryUitvoer);
+
+  function exporteerCompat(soort: "json" | "txt") {
+    const r = analyse?.rapport;
+    if (!r) return;
+    const basis = r.bestand.replace(/\.[^.]+$/, "");
+    void bewaarTekst(
+      `${basis}-compatibiliteit.${soort}`,
+      soort === "json" ? JSON.stringify(r, null, 2) : rapportAlsTekst(r),
+      soort === "json" ? "application/json;charset=utf-8" : "text/plain;charset=utf-8",
+      "Compatibiliteitsrapport",
+    );
+  }
+  function exporteerOpbouw() {
+    const r = werkkopie?.rapport;
+    if (!r) return;
+    void bewaarTekst(`${r.bron.replace(/\.[^.]+$/, "")}-opbouwrapport.json`, JSON.stringify(r, null, 2), "application/json;charset=utf-8", "Opbouwrapport");
+  }
+  function exporteerBron() {
+    if (weergave.soort === "vba") {
+      const m = modules.find((x) => x.naam === weergave.module);
+      if (m) void bewaarTekst(`${m.naam}.bas`, m.bron.replace(/\r?\n/g, "\r\n"), "text/plain;charset=utf-8", "VBA-bron");
+    } else if (weergave.soort === "query" && weergave.naam) {
+      const q = objecten.querys.find((x) => x.naam === weergave.naam);
+      if (q) void bewaarTekst(`${q.naam}.sql`, q.sql, "text/plain;charset=utf-8", "SQL");
+    }
+  }
+
+  // ---------------------------------------------------------------- formulieren en rapporten
+  const formModule = (naam: string) => modules.find((m) => m.naam.toLowerCase() === `form_${naam}`.toLowerCase()) ?? null;
+
+  async function openFormulier(naam: string, vanuitVba = false) {
+    const zoek = (lijst: Ontwerp[]) => lijst.find((x) => x.soort === "formulier" && x.naam.toLowerCase() === naam.toLowerCase());
+    // Net opgeslagen ontwerpen staan mogelijk nog niet in de (vernieuwde) objectenlijst.
+    const o = zoek(objecten.ontwerpen) ?? (werkkopie ? zoek(await werkkopie.ontwerpen()) : undefined);
+    if (!o) {
+      const access = analyse?.objecten.some((x) => x.soort === "Formulier" && x.naam.toLowerCase() === naam.toLowerCase());
+      const tekst = access
+        ? `Formulier ‘${naam}’ bestaat in het Access-origineel, maar Access-formulierontwerpen zijn niet leesbaar. Maak een formulier met dezelfde naam via Maken › Formulierontwerp; dan wordt de VBA-module Form_${naam} eraan gekoppeld.`
+        : `Formulier ‘${naam}’ bestaat niet in de werkkopie.`;
+      if (vanuitVba) throw new Error(tekst);
+      setFout(tekst);
+      return;
+    }
+    const module = formModule(o.naam);
+    let metVba = false;
+    if (module) metVba = vanuitVba || (await vba.vraagToestemming(`Formulier ‘${o.naam}’ heeft VBA-code (module ${module.naam}). Gebeurtenissen zoals Form_Load en knopklikken uitvoeren?`));
+    setFout("");
+    setWeergave({ soort: "formulier", naam: o.naam, metVba, nr: teller.current++ });
+  }
+
+  function openRapport(naam: string) {
+    const o = objecten.ontwerpen.find((x) => x.soort === "rapport" && x.naam.toLowerCase() === naam.toLowerCase());
+    if (!o) throw new Error(`Rapport ‘${naam}’ bestaat niet in de werkkopie (Access-rapportontwerpen zijn niet leesbaar).`);
+    setWeergave({ soort: "rapport", naam: o.naam, bron: o.bron, definitie: leesRapportDefinitie(o.definitie, o.naam), nr: teller.current++ });
+  }
+
+  /** Huidige tabel of query, als bron voor Maken › Formulier/Rapport. */
+  const huidigeBron =
+    weergave.soort === "tabel" ? weergave.naam : weergave.soort === "query" && weergave.naam ? weergave.naam : (objecten.tabellen[0]?.naam ?? "");
+
+  async function automatischFormulierMaken() {
+    if (!werkkopie || !huidigeBron) return;
+    try {
+      const bestaand = new Set(objecten.ontwerpen.filter((o) => o.soort === "formulier").map((o) => o.naam.toLowerCase()));
+      let naam = huidigeBron;
+      for (let i = 2; bestaand.has(naam.toLowerCase()); i++) naam = `${huidigeBron} ${i}`;
+      const kolommen = await kolommenVan(werkkopie, huidigeBron);
+      await werkkopie.bewaarOntwerp({ naam, soort: "formulier", bron: huidigeBron, definitie: automatischFormulier(naam, kolommen) });
+      await vernieuw();
+      setMelding(`Automatisch formulier ‘${naam}’ gemaakt voor ${huidigeBron}.`);
+      setWeergave({ soort: "formulier", naam, metVba: false, nr: teller.current++ });
+    } catch (e) {
+      setFout("Automatisch formulier maken mislukt: " + leesbareFout(e));
+    }
+  }
+
+  async function nieuweModule() {
+    const naam = await dialogen.vraag({
+      titel: "Nieuwe VBA-module",
+      label: "Modulenaam (Form_<formulier> voor een formuliermodule)",
+      standaard: `Module${modules.length + 1}`,
+      controleer: (w) =>
+        !/^[A-Za-z][A-Za-z0-9_]*$/.test(w.trim())
+          ? "Gebruik een letter gevolgd door letters, cijfers of _."
+          : modules.some((m) => m.naam.toLowerCase() === w.trim().toLowerCase())
+            ? "Deze module bestaat al."
+            : null,
+    });
+    if (!naam) return;
+    const schoon = naam.trim();
+    const soort = moduleSoort(schoon);
+    const bron =
+      soort === "formulier"
+        ? `Option Compare Database\nOption Explicit\n\nPrivate Sub Form_Load()\n    Debug.Print "Formulier geladen: " & Me.Name\nEnd Sub\n`
+        : `Option Compare Database\nOption Explicit\n\nPublic Sub Test()\n    Debug.Print "Hallo vanuit ${schoon}"\nEnd Sub\n`;
+    setModules((m) => [...m, { naam: schoon, soort, bron, herkomst: "eigen" }]);
+    setWeergave({ soort: "vba", module: schoon });
+  }
+
+  // ---------------------------------------------------------------- sneltoetsen
+  function toets(e: React.KeyboardEvent) {
+    if (e.defaultPrevented || (e.target as HTMLElement).closest("[role='dialog']")) return;
+    const n = e.nativeEvent;
+    if (weergave.soort === "query" && (past("F5", n) || past("Ctrl+Enter", n))) {
+      e.preventDefault();
+      queryUitvoeren.current?.();
+    } else if (past("Ctrl+S", n) && werkkopie) {
+      e.preventDefault();
+      void bewaarWerkkopie();
+    }
+  }
+  // Alleen afmelden als de eigen actie nog geregistreerd is (een nieuwe editor kan al aangemeld zijn).
+  const registreerQuery = useCallback((a: (() => void) | null, vorige: (() => void) | null) => {
+    if (a) queryUitvoeren.current = a;
+    else if (queryUitvoeren.current === vorige) queryUitvoeren.current = null;
+  }, []);
+
+  // ---------------------------------------------------------------- objectbrowser
+  const formulieren = objecten.ontwerpen.filter((o) => o.soort === "formulier");
+  const rapporten = objecten.ontwerpen.filter((o) => o.soort === "rapport");
+  const accessFormulieren = (analyse?.objecten ?? []).filter(
+    (o) => (o.soort === "Formulier" || o.soort === "Rapport" || o.soort === "Macro") && !objecten.ontwerpen.some((x) => x.naam.toLowerCase() === o.naam.toLowerCase()),
+  );
+  const bronnen = useMemo(() => [...objecten.tabellen.map((t) => t.naam), ...objecten.querys.filter((q) => !["delete", "update", "append", "maketable", "ddl"].includes(q.soort)).map((q) => q.naam)], [objecten]);
+  const geselecteerd = (w: Weergave) => JSON.stringify({ ...w, nr: 0, metVba: 0 }) === JSON.stringify({ ...weergave, nr: 0, metVba: 0 });
+
+
+  const analyseLijst = (soort: Objectsoort) => (analyse?.objecten ?? []).filter((o) => o.soort === soort);
+
+  const objectbrowser = (
+    <aside aria-label="Databaseobjecten">
+      <h2>Databaseobjecten</h2>
+      <p className="bestandsnaam">{sessie?.naam ?? analyse?.naam ?? "Geen database geopend"}</p>
+      {werkkopie ? (
+        <>
+          <Sectie titel="Tabellen" leeg="Nog geen tabellen">
+            {objecten.tabellen.map((t) => (
+              <ObjectKnop key={t.naam} gekozen={weergave.soort === "tabel" && weergave.naam === t.naam} uit={bezig || !!opbouw} icoon={Table2} naam={t.naam} sub={t.aantal.toLocaleString("nl-NL")} doel={() => toon({ soort: "tabel", naam: t.naam, modus: "gegevens" })} />
+            ))}
+          </Sectie>
+          <Sectie titel="Query’s" leeg="Geen opgeslagen query’s">
+            {objecten.querys.filter((q) => !q.naam.startsWith("~")).map((q) => (
+              <ObjectKnop key={q.naam} gekozen={weergave.soort === "query" && weergave.naam === q.naam} uit={bezig || !!opbouw} icoon={Braces} naam={q.naam} sub={q.soort === "select" ? undefined : ACTIENAMEN[q.soort]} doel={() => toon({ soort: "query", naam: q.naam, nr: teller.current++ })} />
+            ))}
+          </Sectie>
+          <Sectie titel="Formulieren" leeg="Nog geen formulieren">
+            {formulieren.map((f) => (
+              <ObjectKnop key={f.naam} gekozen={weergave.soort === "formulier" && weergave.naam === f.naam} uit={bezig || !!opbouw} icoon={LayoutTemplate} naam={f.naam} sub={formModule(f.naam) ? "VBA" : undefined} doel={() => void openFormulier(f.naam)} />
+            ))}
+            {accessFormulieren
+              .filter((o) => o.soort === "Formulier")
+              .map((o) => (
+                <ObjectKnop key={o.id} gekozen={weergave.soort === "analyse" && weergave.id === o.id} uit={bezig || !!opbouw} icoon={LayoutTemplate} naam={o.naam} sub="Access" doel={() => toon({ soort: "analyse", id: o.id })} />
+              ))}
+          </Sectie>
+          <Sectie titel="Rapporten" leeg="Nog geen rapporten">
+            {rapporten.map((r) => (
+              <ObjectKnop key={r.naam} gekozen={weergave.soort === "rapport" && weergave.naam === r.naam} uit={bezig || !!opbouw} icoon={FileText} naam={r.naam} doel={() => openRapport(r.naam)} />
+            ))}
+            {accessFormulieren
+              .filter((o) => o.soort === "Rapport")
+              .map((o) => (
+                <ObjectKnop key={o.id} gekozen={weergave.soort === "analyse" && weergave.id === o.id} uit={bezig || !!opbouw} icoon={FileText} naam={o.naam} sub="Access" doel={() => toon({ soort: "analyse", id: o.id })} />
+              ))}
+          </Sectie>
+          {accessFormulieren.some((o) => o.soort === "Macro") && (
+            <Sectie titel="Macro’s">
+              {accessFormulieren
+                .filter((o) => o.soort === "Macro")
+                .map((o) => (
+                  <ObjectKnop key={o.id} gekozen={weergave.soort === "analyse" && weergave.id === o.id} uit={bezig || !!opbouw} icoon={ClipboardList} naam={o.naam} sub="niet uitgevoerd" doel={() => toon({ soort: "analyse", id: o.id })} />
+                ))}
+            </Sectie>
+          )}
+          <Sectie titel="VBA-modules" leeg={analyse && analyseLijst("VBA").length ? "Geen leesbare VBA-bron" : "Geen modules"}>
+            {modules.map((m) => (
+              <ObjectKnop key={m.naam} gekozen={geselecteerd({ soort: "vba", module: m.naam })} uit={bezig || !!opbouw} icoon={Code2} naam={m.naam} sub={m.soort === "formulier" ? "formulier" : m.soort === "klasse" ? "klasse" : undefined} doel={() => toon({ soort: "vba", module: m.naam })} />
+            ))}
+          </Sectie>
+          <Sectie titel="Database">
+            <ObjectKnop gekozen={geselecteerd({ soort: "relaties" })} uit={bezig || !!opbouw} icoon={Link2} naam={`Relaties (${objecten.relaties.length})`} doel={() => toon({ soort: "relaties" })} />
+            {werkkopie.rapport && (
+              <ObjectKnop gekozen={geselecteerd({ soort: "opbouw" })} uit={bezig || !!opbouw} icoon={ListTree} naam="Opbouwrapport" doel={() => toon({ soort: "opbouw" })} />
+            )}
+            {analyse?.rapport && (
+              <ObjectKnop gekozen={geselecteerd({ soort: "compat" })} uit={bezig || !!opbouw} icoon={ShieldCheck} naam="Compatibiliteitsrapport" doel={() => toon({ soort: "compat" })} />
+            )}
+          </Sectie>
+        </>
+      ) : analyse ? (
+        <>
+          {(["Tabel", "Gekoppelde tabel", "Query", "Relatie", "VBA", "Formulier", "Rapport", "Macro"] as Objectsoort[]).map((soort) => {
+            const lijst = analyseLijst(soort);
+            if (!lijst.length) return null;
+            return (
+              <Sectie key={soort} titel={MEERVOUD[soort]}>
+                {lijst.map((o) => (
+                  <ObjectKnop key={o.id} gekozen={weergave.soort === "analyse" && weergave.id === o.id} uit={bezig || !!opbouw} icoon={soort === "Tabel" ? Table2 : soort === "Query" ? Braces : soort === "VBA" ? Code2 : FileText} naam={o.naam} doel={() => toon({ soort: "analyse", id: o.id })} />
+                ))}
+              </Sectie>
+            );
+          })}
+          {analyse.rapport && (
+            <Sectie titel="Compatibiliteit">
+              <ObjectKnop gekozen={geselecteerd({ soort: "compat" })} uit={bezig || !!opbouw} icoon={ShieldCheck} naam="Rapport" doel={() => toon({ soort: "compat" })} />
+            </Sectie>
+          )}
+        </>
+      ) : (
+        <p className="muted">Open een database, maak een nieuwe of verken het voorbeeld.</p>
+      )}
+      <div className="aside-note">
+        {werkkopie
+          ? "Je werkt in een werkkopie. Het origineel blijft ongewijzigd; bewaar de werkkopie als .sqlite om wijzigingen te houden."
+          : "Formulieren, rapporten en macro’s uit Access worden alleen geïnventariseerd. Niets wordt automatisch uitgevoerd."}
+      </div>
+    </aside>
+  );
+
+  // ---------------------------------------------------------------- hoofdvlak
+  function hoofdvlak() {
+    if (opbouw)
+      return (
+        <OpbouwVoortgang
+          naam={opbouw.naam}
+          voortgang={opbouw.voortgang}
+          tabellenKlaar={opbouw.klaar}
+          onAnnuleer={() => opbouw.afbreken.abort()}
+        />
+      );
+    if (weergave.soort === "compat" && analyse?.rapport) return <CompatibiliteitWeergave rapport={analyse.rapport} onExporteer={exporteerCompat} />;
+    if (weergave.soort === "analyse" && analyse) {
+      const o: DatabaseObject | undefined = analyse.objecten.find((x) => x.id === weergave.id);
+      if (!o) return null;
+      return (
+        <>
+          <div className="object-toolbar">
+            <h2>
+              {o.naam}
+              <small>{o.soort} · uit het Access-origineel</small>
+            </h2>
+          </div>
+          {(o.soort === "Formulier" || o.soort === "Rapport") && (
+            <p className="melding">
+              Access-{o.soort === "Formulier" ? "formulier" : "rapport"}ontwerpen (indeling, besturingselementen) zijn in het bestand
+              opgeslagen in een niet-gedocumenteerde binaire vorm en kunnen niet worden gelezen. Maak in Open Database Studio een eigen{" "}
+              {o.soort === "Formulier" ? "formulier" : "rapport"} met dezelfde naam (Maken ›{" "}
+              {o.soort === "Formulier" ? "Formulierontwerp" : "Rapport"}){o.soort === "Formulier" ? `; de VBA-module Form_${o.naam} wordt dan gekoppeld.` : "."}
+            </p>
+          )}
+          {(o.soort === "Formulier" || o.soort === "Rapport") && werkkopie && (
+            <div className="database-knoppen">
+              <button
+                className="primary"
+                onClick={() =>
+                  toon(
+                    o.soort === "Formulier"
+                      ? { soort: "formulier-ontwerp", naam: o.naam, bron: huidigeBron, nr: teller.current++ }
+                      : { soort: "rapport-ontwerp", naam: o.naam, bron: huidigeBron, nr: teller.current++ },
+                  )
+                }
+              >
+                <Hammer size={16} /> {o.soort === "Formulier" ? "Formulier" : "Rapport"} ‘{o.naam}’ ontwerpen
+              </button>
+            </div>
+          )}
+          {o.soort === "Macro" && <p className="melding">Macro’s worden alleen geïnventariseerd en nooit uitgevoerd.</p>}
+          <AlleenLezenObject key={o.id} object={o} lezer={lezer.current} />
+        </>
+      );
+    }
+    if (!werkkopie && analyse)
+      return (
+        <div className="welkom">
+          <div className="db-icon">
+            <Database size={40} />
+          </div>
+          <h2>{analyse.naam} · alleen lezen</h2>
+          <p>{analyse.melding}</p>
+          <p>
+            Er is geen werkkopie: bewerken, query’s uitvoeren, formulieren, rapporten en VBA zijn daardoor niet beschikbaar. Kies links een
+            object om het alleen-lezen te bekijken.
+          </p>
+          {bronBestand.current && analyse.objecten.length > 0 && (
+            <div className="database-knoppen database-welkomknoppen">
+              <button className="primary" disabled={bezig} onClick={() => void bouwWerkkopie(bronBestand.current!)}>
+                <RefreshCw size={16} /> Werkkopie alsnog opbouwen
+              </button>
+            </div>
+          )}
+        </div>
+      );
+    if (!werkkopie) return <Welkom bezig={bezig} openen={() => invoer.current?.click()} nieuw={() => void nieuweDatabase()} voorbeeld={() => void nieuweDatabase(true)} />;
+    switch (weergave.soort) {
+      case "tabel": {
+        const schema = objecten.tabellen.find((t) => t.naam === weergave.naam);
+        if (!schema) return <p role="status">Tabel laden…</p>;
+        return (
+          <>
+            <div className="object-toolbar">
+              <h2>
+                {schema.naam}
+                <small>Tabel · {schema.herkomst === "access" ? "uit Access" : "in de werkkopie"}</small>
+              </h2>
+              <div className="database-weergavekeuze" role="group" aria-label="Weergave">
+                <button aria-pressed={weergave.modus === "gegevens"} onClick={() => toon({ ...weergave, modus: "gegevens" })}>
+                  <Table2 size={16} /> Gegevens
+                </button>
+                <button aria-pressed={weergave.modus === "ontwerp"} onClick={() => toon({ ...weergave, modus: "ontwerp" })}>
+                  <TableProperties size={16} /> Ontwerp
+                </button>
+              </div>
+            </div>
+            {weergave.modus === "gegevens" ? (
+              <TabelWeergave key={schema.naam} werkkopie={werkkopie} schema={schema} onGewijzigd={() => void vernieuw()} onExporteer={() => void exporteerTabel(schema.naam)} />
+            ) : (
+              <TabelOntwerp
+                werkkopie={werkkopie}
+                schema={schema}
+                relaties={objecten.relaties}
+                onVerwijderd={() => {
+                  setWeergave({ soort: "welkom" });
+                  setMelding(`Tabel ‘${schema.naam}’ verwijderd uit de werkkopie.`);
+                  void vernieuw();
+                }}
+              />
+            )}
+          </>
+        );
+      }
+      case "nieuwe-tabel":
+        return (
+          <>
+            <div className="object-toolbar">
+              <h2>Nieuwe tabel</h2>
+            </div>
+            <NieuweTabel
+              werkkopie={werkkopie}
+              onGemaakt={async (naam) => {
+                await vernieuw();
+                setMelding(`Tabel ‘${naam}’ gemaakt.`);
+                toon({ soort: "tabel", naam, modus: "gegevens" });
+              }}
+            />
+          </>
+        );
+      case "query": {
+        const q = weergave.naam ? (objecten.querys.find((x) => x.naam === weergave.naam) ?? null) : null;
+        return (
+          <>
+            <div className="object-toolbar">
+              <h2>
+                {q?.naam ?? "Nieuwe query"}
+                <small>{q ? `${ACTIENAMEN[q.soort]} · opgeslagen query` : "SQL-weergave"}</small>
+              </h2>
+            </div>
+            <QueryEditor
+              key={weergave.nr}
+              werkkopie={werkkopie}
+              opgeslagen={q}
+              tabellen={objecten.tabellen}
+              beginSql={weergave.sql}
+              registreerUitvoeren={registreerQuery}
+              onResultaat={setQueryUitvoer}
+              onBewaard={async (naam) => {
+                await vernieuw();
+                setWeergave({ soort: "query", naam, nr: teller.current++ });
+              }}
+              onGewijzigd={() => void vernieuw()}
+              onExporteer={(u) => void exporteerCsv(u.titel, u.resultaat.kolommen, u.resultaat.rijen, u.resultaat.kolomsoorten ?? [])}
+            />
+          </>
+        );
+      }
+      case "formulier": {
+        const o = formulieren.find((x) => x.naam === weergave.naam);
+        if (!o) return <p role="status">Formulier laden…</p>;
+        return (
+          <Formulier
+            key={weergave.nr}
+            werkkopie={werkkopie}
+            naam={o.naam}
+            bronnaam={o.bron}
+            definitie={leesFormulierDefinitie(o.definitie, o.naam)}
+            tabellen={objecten.tabellen}
+            vba={vba}
+            module={formModule(o.naam)}
+            metVba={weergave.metVba}
+            onSluit={() => setWeergave((w) => (w.soort === "formulier" && w.nr === weergave.nr ? { soort: "welkom" } : w))}
+            onOntwerp={() => toon({ soort: "formulier-ontwerp", naam: o.naam, nr: teller.current++ })}
+            onGewijzigd={() => void vernieuw()}
+            onExporteer={(k, r, s) => void exporteerCsv(o.naam, k, r, s)}
+          />
+        );
+      }
+      case "formulier-ontwerp": {
+        const o = weergave.naam ? formulieren.find((x) => x.naam === weergave.naam) : undefined;
+        return (
+          <>
+            <div className="object-toolbar">
+              <h2>
+                {o ? `Ontwerp van ${o.naam}` : "Nieuw formulier"}
+                <small>Formulierontwerp</small>
+              </h2>
+            </div>
+            <FormulierOntwerper
+              key={weergave.nr}
+              werkkopie={werkkopie}
+              bronnen={bronnen}
+              naam={o?.naam ?? weergave.naam ?? ""}
+              bron={o?.bron ?? weergave.bron ?? ""}
+              definitie={o ? leesFormulierDefinitie(o.definitie, o.naam) : null}
+              bestaandeNamen={formulieren.map((f) => f.naam)}
+              moduleKnoppen={(naam) => {
+                const m = formModule(naam);
+                return m ? [...m.bron.matchAll(/^\s*(?:Private\s+|Public\s+)?Sub\s+([A-Za-z]\w*)_Click\s*\(/gim)].map((x) => x[1]).filter((k) => !/^form$/i.test(k)) : [];
+              }}
+              onBewaard={() => void vernieuw()}
+              onOpenen={async (naam) => {
+                await vernieuw();
+                await openFormulier(naam);
+              }}
+            />
+          </>
+        );
+      }
+      case "rapport":
+        return (
+          <>
+            <div className="object-toolbar">
+              <h2>
+                {weergave.naam}
+                <small>Afdrukvoorbeeld · bron {weergave.bron}</small>
+              </h2>
+            </div>
+            <RapportVoorbeeld
+              key={weergave.nr}
+              werkkopie={werkkopie}
+              naam={weergave.naam}
+              bron={weergave.bron}
+              definitie={weergave.definitie}
+              onOntwerp={() => toon({ soort: "rapport-ontwerp", naam: rapporten.some((r) => r.naam === weergave.naam) ? weergave.naam : null, bron: weergave.bron, nr: teller.current++ })}
+            />
+          </>
+        );
+      case "rapport-ontwerp": {
+        const o = weergave.naam ? rapporten.find((x) => x.naam === weergave.naam) : undefined;
+        return (
+          <>
+            <div className="object-toolbar">
+              <h2>
+                {o ? `Ontwerp van ${o.naam}` : "Nieuw rapport"}
+                <small>Rapportontwerp</small>
+              </h2>
+            </div>
+            <RapportOntwerper
+              key={weergave.nr}
+              werkkopie={werkkopie}
+              bronnen={bronnen}
+              naam={o?.naam ?? weergave.naam ?? vrijeNaam("Rapport", rapporten.map((r) => r.naam))}
+              nieuw={!o}
+              bron={o?.bron ?? weergave.bron ?? ""}
+              definitie={o ? leesRapportDefinitie(o.definitie, o.naam) : leegRapport("")}
+              bestaandeNamen={rapporten.map((r) => r.naam)}
+              onBewaard={() => void vernieuw()}
+              onVoorbeeld={(naam, bron, definitie) => toon({ soort: "rapport", naam, bron, definitie, nr: teller.current++ })}
+            />
+          </>
+        );
+      }
+      case "vba": {
+        const m = modules.find((x) => x.naam === weergave.module);
+        if (!m) return null;
+        return (
+          <>
+            <div className="object-toolbar">
+              <h2>
+                {m.naam}
+                <small>
+                  VBA-{m.soort === "formulier" ? "formuliermodule" : m.soort === "klasse" ? "klassemodule" : "module"} · afgeschermd uitvoeren op de werkkopie
+                </small>
+              </h2>
+            </div>
+            <VbaPaneel
+              module={m}
+              vba={vba}
+              modules={modules}
+              onWijzig={(bron) => setModules((l) => l.map((x) => (x.naam === m.naam ? { ...x, bron, herkomst: "eigen" } : x)))}
+            />
+          </>
+        );
+      }
+      case "relaties":
+        return <RelatieWeergave relaties={objecten.relaties} />;
+      case "opbouw":
+        return werkkopie.rapport ? <OpbouwRapportWeergave rapport={werkkopie.rapport} onExporteer={exporteerOpbouw} /> : null;
+      default:
+        return (
+          <div className="welkom">
+            <div className="db-icon">
+              <Database size={40} />
+            </div>
+            <h2>{sessie?.naam}</h2>
+            <p>
+              {objecten.tabellen.length} tabellen · {objecten.querys.length} query’s · {formulieren.length} formulieren · {rapporten.length} rapporten ·{" "}
+              {modules.length} VBA-modules
+            </p>
+            <p>Kies links een object, of gebruik het lint: Maken voor nieuwe tabellen, query’s, formulieren en rapporten.</p>
+          </div>
+        );
+    }
+  }
+
+  const statusWerkkopie = werkkopie ? `Werkkopie — het origineel blijft ongewijzigd${gewijzigd ? " · niet-opgeslagen wijzigingen" : ""}` : analyse ? "Alleen lezen" : "";
+  const geenWk = !werkkopie || bezig || !!opbouw;
+
   return (
-    <div
-      className="database-app"
-      data-theme={donker ? "dark" : "light"}
-      inert={inactief}
-    >
+    <div className="database-werkruimte" onKeyDown={toets}>
       <Ribbon
         bestand={bestandsmenu}
         tabs={[
@@ -306,60 +941,83 @@ export function DatabaseStudio({
             inhoud: (
               <>
                 <Groep naam="Database">
+                  <Actie icoon={FolderOpen} naam={bezig ? "Bestand lezen…" : "Openen"} groot disabled={bezig || !!opbouw} onClick={() => invoer.current?.click()} title="Database of werkkopie openen (Ctrl+O)" />
+                  <Actie icoon={FilePlus2} naam="Nieuw" groot disabled={bezig || !!opbouw} onClick={() => void nieuweDatabase()} title="Nieuwe lege database" />
+                  <Actie icoon={Database} naam="Voorbeeld" disabled={bezig || !!opbouw} onClick={() => void nieuweDatabase(true)} title="Voorbeelddatabase verkennen" />
+                </Groep>
+                <Groep naam="Werkkopie">
+                  <Actie icoon={Save} naam="Opslaan" groot disabled={geenWk} onClick={() => void bewaarWerkkopie()} title="Werkkopie bewaren als .sqlite (Ctrl+S)" />
+                  <Actie icoon={RefreshCw} naam="Vernieuwen" disabled={geenWk} onClick={() => void vernieuw()} />
+                  <Actie icoon={X} naam="Sluiten" disabled={(!werkkopie && !analyse) || bezig || !!opbouw} onClick={() => void sluitDatabase()} />
+                </Groep>
+                {weergave.soort === "query" && (
+                  <Groep naam="Query">
+                    <Actie icoon={Play} naam="Uitvoeren" groot onClick={() => queryUitvoeren.current?.()} title="Uitvoeren (F5 of Ctrl+Enter)" />
+                  </Groep>
+                )}
+              </>
+            ),
+          },
+          {
+            id: "maken",
+            naam: "Maken",
+            inhoud: (
+              <>
+                <Groep naam="Tabellen">
+                  <Actie icoon={Table2} naam="Tabel" groot disabled={geenWk} onClick={() => toon({ soort: "nieuwe-tabel" })} />
+                </Groep>
+                <Groep naam="Query’s">
+                  <Actie icoon={Braces} naam="Query" groot disabled={geenWk} onClick={() => toon({ soort: "query", naam: null, sql: huidigeBron ? `SELECT *\nFROM [${huidigeBron}];` : undefined, nr: teller.current++ })} title="Nieuwe query in SQL-weergave" />
+                </Groep>
+                <Groep naam="Formulieren">
+                  <Actie icoon={LayoutTemplate} naam="Formulier" groot disabled={geenWk || !huidigeBron} onClick={() => void automatischFormulierMaken()} title={huidigeBron ? `Automatisch formulier voor ${huidigeBron}` : "Automatisch formulier"} />
+                  <Actie icoon={Hammer} naam="Formulierontwerp" disabled={geenWk} onClick={() => toon({ soort: "formulier-ontwerp", naam: null, bron: huidigeBron, nr: teller.current++ })} />
+                </Groep>
+                <Groep naam="Rapporten">
+                  <Actie icoon={FileText} naam="Rapport" groot disabled={geenWk} onClick={() => toon({ soort: "rapport-ontwerp", naam: null, bron: huidigeBron, nr: teller.current++ })} title="Rapportontwerp" />
+                </Groep>
+                <Groep naam="Code">
+                  <Actie icoon={FileCode2} naam="Module" groot disabled={geenWk} onClick={() => void nieuweModule()} title="Nieuwe VBA-module" />
+                </Groep>
+              </>
+            ),
+          },
+          {
+            id: "extern",
+            naam: "Externe gegevens",
+            inhoud: (
+              <>
+                <Groep naam="Exporteren">
+                  <Actie icoon={Download} naam="CSV" groot disabled={!csvMogelijk || bezig} onClick={exporteerHuidig} title="Huidige tabel of queryresultaat als CSV" />
+                  <Actie icoon={Database} naam="SQLite" groot disabled={geenWk} onClick={() => void bewaarWerkkopie()} title="Werkkopie als SQLite-bestand" />
                   <Actie
-                    icoon={FolderOpen}
-                    naam={bezig ? "Bestand lezen…" : "Database kiezen"}
-                    groot
-                    disabled={bezig || exportBezig}
-                    onClick={() => invoer.current?.click()}
-                  />
-                  <Actie
-                    icoon={Database}
-                    naam="Voorbeeld verkennen"
-                    groot
-                    disabled={bezig || exportBezig}
-                    onClick={openVoorbeeld}
+                    icoon={FileCode2}
+                    naam="Bron (.sql/.bas)"
+                    disabled={!(weergave.soort === "vba" || (weergave.soort === "query" && !!weergave.naam))}
+                    onClick={exporteerBron}
                   />
                 </Groep>
-                <Groep naam="Object">
-                  <Actie
-                    icoon={Download}
-                    naam="Exporteren"
-                    groot
-                    disabled={!exporteerbaar || bezig || exportBezig}
-                    onClick={exporteer}
-                  />
+                <Groep naam="Rapporten">
+                  <Actie icoon={FileJson} naam="Compatibiliteit (JSON)" disabled={!analyse?.rapport} onClick={() => exporteerCompat("json")} />
+                  <Actie icoon={FileText} naam="Compatibiliteit (tekst)" disabled={!analyse?.rapport} onClick={() => exporteerCompat("txt")} />
+                  <Actie icoon={ListTree} naam="Opbouwrapport (JSON)" disabled={!werkkopie?.rapport} onClick={exporteerOpbouw} />
                 </Groep>
-                <Groep naam="Compatibiliteit">
-                  <Actie
-                    icoon={ShieldCheck}
-                    naam="Rapport tonen"
-                    groot
-                    disabled={!sessie?.rapport || bezig}
-                    actief={selectie === RAPPORT}
-                    onClick={() => setSelectie(RAPPORT)}
-                  />
-                  <Actie
-                    icoon={FileJson}
-                    naam="Rapport als JSON"
-                    disabled={!sessie?.rapport || bezig || exportBezig}
-                    onClick={() => exporteerRapport("json")}
-                  />
-                  <Actie
-                    icoon={FileText}
-                    naam="Rapport als tekst"
-                    disabled={!sessie?.rapport || bezig || exportBezig}
-                    onClick={() => exporteerRapport("txt")}
-                  />
+              </>
+            ),
+          },
+          {
+            id: "hulpmiddelen",
+            naam: "Databasehulpmiddelen",
+            inhoud: (
+              <>
+                <Groep naam="Overzicht">
+                  <Actie icoon={Link2} naam="Relaties" groot disabled={geenWk} onClick={() => toon({ soort: "relaties" })} />
+                  <Actie icoon={ShieldCheck} naam="Compatibiliteit" groot disabled={!analyse?.rapport} actief={weergave.soort === "compat"} onClick={() => toon({ soort: "compat" })} />
+                  <Actie icoon={ListTree} naam="Opbouwrapport" groot disabled={!werkkopie?.rapport} actief={weergave.soort === "opbouw"} onClick={() => toon({ soort: "opbouw" })} />
                 </Groep>
-                <Groep naam="Bestand">
-                  <Actie
-                    icoon={X}
-                    naam="Database sluiten"
-                    groot
-                    disabled={!sessie || bezig || exportBezig}
-                    onClick={sluit}
-                  />
+                <Groep naam="VBA">
+                  <Actie icoon={Terminal} naam="Visual Basic" groot disabled={geenWk || !modules.length} onClick={() => modules[0] && toon({ soort: "vba", module: modules[0].naam })} title="VBA-modules en procedures" />
+                  <Actie icoon={Square} naam="Stop" disabled={!vba.bezig} onClick={vba.stop} title="Lopende VBA stoppen" />
                 </Groep>
               </>
             ),
@@ -369,442 +1027,160 @@ export function DatabaseStudio({
             naam: "Beeld",
             inhoud: (
               <Groep naam="Weergave">
-                <Actie
-                  icoon={Sun}
-                  naam="Licht"
-                  groot
-                  actief={!donker}
-                  onClick={() => setDonker(false)}
-                />
-                <Actie
-                  icoon={Moon}
-                  naam="Donker"
-                  groot
-                  actief={donker}
-                  onClick={() => setDonker(true)}
-                />
+                <Actie icoon={Sun} naam="Licht" groot actief={!donker} onClick={() => setDonker(false)} />
+                <Actie icoon={Moon} naam="Donker" groot actief={donker} onClick={() => setDonker(true)} />
               </Groep>
             ),
           },
         ]}
       />
       <div className="database-documentbalk">
-        <Database size={15} />
-        <strong>{sessie?.naam ?? "Geen database geopend"}</strong>
-        <span>Alleen lezen · experimenteel</span>
+        <Database size={15} aria-hidden />
+        <strong>{sessie?.naam ?? analyse?.naam ?? "Geen database geopend"}</strong>
+        {werkkopie ? (
+          <span className="database-werkkopiestatus" role="status">
+            <ShieldCheck size={13} aria-hidden /> Werkkopie — het origineel blijft ongewijzigd
+            {gewijzigd && <em> · niet opgeslagen</em>}
+          </span>
+        ) : (
+          <span>{analyse ? "Alleen lezen" : "Lokaal · geen uploads"}</span>
+        )}
       </div>
       <input
         ref={invoer}
         hidden
         type="file"
-        accept=".mdb,.accdb"
-        onChange={async (event) => {
+        accept=".mdb,.accdb,.sqlite,.sqlite3,.db"
+        aria-label="Database of werkkopie kiezen"
+        onChange={(event) => {
           const bestand = event.target.files?.[0];
           event.target.value = "";
-          if (!bestand) return;
-          setBezig(true);
-          setFout("");
-          setExportmelding("");
-          let client: DatabaseClient | null = null;
-          try {
-            client = new DatabaseClient();
-            inlezen.current = client;
-            const nieuw = await client.open(bestand);
-            if (!actief.current) {
-              client.sluit();
-              return;
-            }
-            lezer.current?.sluit();
-            lezer.current = client;
-            setSessie(nieuw);
-            setSelectie("");
-            setZoeken("");
-            setPaginaStart(0);
-          } catch (error) {
-            client?.sluit();
-            if (actief.current)
-              setFout(
-                error instanceof Error
-                  ? error.message
-                  : "Bestand kon niet worden gelezen.",
-              );
-          } finally {
-            if (inlezen.current === client) inlezen.current = null;
-            if (actief.current) setBezig(false);
-          }
+          if (bestand) void openBestand(bestand);
         }}
       />
       {fout && (
-        <div role="alert" className="melding fout">
-          {fout}
+        <div role="alert" className="melding fout database-balkmelding">
+          <span>{fout}</span>
+          <button aria-label="Melding sluiten" onClick={() => setFout("")}>
+            <X size={14} />
+          </button>
         </div>
       )}
-      {exportmelding && (
-        <div role="status" className="melding">
-          {exportmelding}
+      {melding && !fout && (
+        <div role="status" className="melding database-balkmelding">
+          <span>{melding}</span>
+          <button aria-label="Melding sluiten" onClick={() => setMelding("")}>
+            <X size={14} />
+          </button>
         </div>
       )}
       <main>
-        <aside>
-          <h2>Databaseobjecten</h2>
-          <p className="bestandsnaam">
-            {sessie?.naam ?? "Geen database geselecteerd"}
-          </p>
-          {soorten.map(({ soort, titel, icoon: Icoon, rapport, altijd }) => {
-            const lijst =
-              sessie?.objecten.filter((item) => item.soort === soort) ?? [];
-            if (!lijst.length && !altijd) return null;
-            const status = sessie?.rapport?.regels.find(
-              (regel) => regel.onderdeel === rapport,
-            )?.status;
-            return (
-              <section key={soort}>
-                <h3>{titel}</h3>
-                {lijst.map((item) => (
-                  <button
-                    disabled={bezig || exportBezig}
-                    className={selectie === item.id ? "selected" : ""}
-                    key={item.id}
-                    onClick={() => void kiesObject(item.id)}
-                  >
-                    <Icoon size={16} /> {item.naam}
-                  </button>
-                ))}
-                {!lijst.length && (
-                  <p className="muted">
-                    {!sessie
-                      ? "Nog niet uitgelezen"
-                      : sessie.voorbeeld
-                        ? "Niet in het voorbeeld"
-                        : status === "niet gelezen"
-                          ? "Niet gelezen · zie rapport"
-                          : "Niet aanwezig"}
-                  </p>
-                )}
-              </section>
-            );
-          })}
-          {sessie?.rapport && (
-            <section>
-              <h3>Compatibiliteit</h3>
-              <button
-                disabled={bezig || exportBezig}
-                className={selectie === RAPPORT ? "selected" : ""}
-                onClick={() => setSelectie(RAPPORT)}
-              >
-                <ShieldCheck size={16} /> Rapport
-              </button>
-            </section>
-          )}
-          <div className="aside-note">
-            Formulieren, rapporten en macro’s worden alleen geïnventariseerd.
-            Niets wordt uitgevoerd.
-          </div>
-        </aside>
+        {objectbrowser}
         <article>
-          {!sessie ? (
-            <div className="welkom">
-              <div className="db-icon">
-                <Database size={44} />
-              </div>
-              <h2>Geef oude databases een nieuwe werkplek</h2>
-              <p>
-                Kies een .mdb- of .accdb-bestand, of verken de objectbrowser met
-                voorbeeldgegevens.
-              </p>
-              <div className="kaarten">
-                <section>
-                  <Table2 />
-                  <h3>Tabellen</h3>
-                  <p>
-                    Tabellen lokaal bekijken, per pagina doorzoeken en
-                    exporteren.
-                  </p>
-                </section>
-                <section>
-                  <Braces />
-                  <h3>Query’s</h3>
-                  <p>
-                    Opgeslagen query’s als SQL reconstrueren, bekijken en als
-                    .sql bewaren.
-                  </p>
-                </section>
-                <section>
-                  <Code2 />
-                  <h3>VBA-scripts</h3>
-                  <p>
-                    Aanwezige VBA-bron tonen en als .bas bewaren. Er wordt niets
-                    uitgevoerd.
-                  </p>
-                </section>
-              </div>
-              <p className="melding">
-                MDB/ACCDB-bestanden worden lokaal en alleen-lezen geopend, met
-                een compatibiliteitsrapport per bestand. Macro’s en VBA worden
-                nooit uitgevoerd; bewerken volgt later.
-              </p>
-            </div>
-          ) : (
-            <>
-              <div className="melding" role="status">
-                {sessie.melding}
-              </div>
-              {selectie === RAPPORT && sessie.rapport ? (
-                <>
-                  <div className="object-toolbar">
-                    <h2>
-                      Compatibiliteitsrapport
-                      <small>
-                        {sessie.rapport.formaat} · SHA-256{" "}
-                        {sessie.rapport.sha256.slice(0, 16)}…
-                      </small>
-                    </h2>
-                    <button
-                      disabled={bezig || exportBezig}
-                      onClick={() => exporteerRapport("json")}
-                    >
-                      <FileJson size={16} /> JSON
-                    </button>
-                    <button
-                      disabled={bezig || exportBezig}
-                      onClick={() => exporteerRapport("txt")}
-                    >
-                      <FileText size={16} /> Tekst
-                    </button>
-                  </div>
-                  <div className="table-wrap">
-                    <table className="database-rapport">
-                      <thead>
-                        <tr>
-                          <th>Onderdeel</th>
-                          <th>Status</th>
-                          <th>Aantal</th>
-                          <th>Toelichting</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {sessie.rapport.regels.map((regel) => (
-                          <tr key={regel.onderdeel}>
-                            <td>{regel.onderdeel}</td>
-                            <td>
-                              <span
-                                className={`database-status status-${regel.status.replaceAll(" ", "-")}`}
-                              >
-                                {regel.status}
-                              </span>
-                            </td>
-                            <td>{regel.aantal ?? "–"}</td>
-                            <td>{regel.toelichting}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                  <p className="muted">
-                    Gelezen met {sessie.rapport.lezer}. Het rapport bevat alleen
-                    aantallen, namen en meldingen, geen tabelgegevens.
-                  </p>
-                </>
-              ) : object ? (
-                <>
-                  <div className="object-toolbar">
-                    <h2>
-                      {object.naam}
-                      <small>
-                        {sessie.voorbeeld ? "Voorbeeld · " : ""}
-                        {object.soort}
-                      </small>
-                    </h2>
-                    {extensie && (
-                      <button
-                        disabled={!exporteerbaar || bezig || exportBezig}
-                        onClick={exporteer}
-                      >
-                        <Download size={16} />
-                        {object.soort === "Tabel"
-                          ? sessie.voorbeeld
-                            ? "CSV exporteren"
-                            : "Pagina als CSV"
-                          : object.soort === "VBA"
-                            ? "Als .bas downloaden"
-                            : "Als .sql downloaden"}
-                      </button>
-                    )}
-                  </div>
-                  <Details
-                    object={
-                      object.soort === "Tabel"
-                        ? { ...object, eigenschappen: [] }
-                        : object
-                    }
-                  />
-                  {object.soort === "Tabel" ? (
-                    bezig ? (
-                      <p role="status">Tabelpagina laden…</p>
-                    ) : !object.rijen ? (
-                      <p>
-                        Deze tabel is niet uitgelezen. Probeer een andere tabel
-                        of open het bestand opnieuw.
-                      </p>
-                    ) : (
-                      <>
-                        <label className="zoek">
-                          <Search size={17} />
-                          <input
-                            aria-label="Zoeken in geladen rijen"
-                            placeholder="Zoeken in deze pagina…"
-                            value={zoeken}
-                            onChange={(e) => setZoeken(e.target.value)}
-                          />
-                        </label>
-                        <div className="table-wrap">
-                          <table>
-                            <thead>
-                              <tr>
-                                {object.kolommen?.map((k, index) => (
-                                  <th key={k}>
-                                    {k}
-                                    {object.kolomtypen?.[index] && (
-                                      <small className="database-kolomtype">
-                                        {object.kolomtypen[index]}
-                                      </small>
-                                    )}
-                                  </th>
-                                ))}
-                              </tr>
-                            </thead>
-                            <tbody>
-                              {rijen.map((rij, i) => (
-                                <tr key={i}>
-                                  {rij.map((cel, j) => (
-                                    <td key={j}>{cel}</td>
-                                  ))}
-                                </tr>
-                              ))}
-                            </tbody>
-                          </table>
-                        </div>
-                        <p className="muted">
-                          {rijen.length} rijen getoond
-                          {object.totaalRijen !== undefined &&
-                            ` · pagina vanaf rij ${object.totaalRijen ? paginaStart + 1 : 0} van ${object.totaalRijen}`}
-                        </p>
-                        {!!object.indexen?.length && (
-                          <details className="database-indexen">
-                            <summary>
-                              Indexen en sleutels ({object.indexen.length})
-                            </summary>
-                            <table>
-                              <thead>
-                                <tr>
-                                  <th>Naam</th>
-                                  <th>Kolommen</th>
-                                  <th>Soort</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                {object.indexen.map((index) => (
-                                  <tr key={index.naam}>
-                                    <td>{index.naam}</td>
-                                    <td>{index.kolommen.join(", ")}</td>
-                                    <td>
-                                      {[
-                                        index.primair && "Primaire sleutel",
-                                        !index.primair &&
-                                          index.uniek &&
-                                          "Uniek",
-                                        index.extern && "Relatie-index",
-                                      ]
-                                        .filter(Boolean)
-                                        .join(" · ") || "Index"}
-                                    </td>
-                                  </tr>
-                                ))}
-                              </tbody>
-                            </table>
-                          </details>
-                        )}
-                        {!sessie.voorbeeld && (
-                          <div className="database-paginering">
-                            <button
-                              disabled={bezig || paginaStart === 0}
-                              onClick={() =>
-                                void kiesObject(
-                                  object.id,
-                                  Math.max(0, paginaStart - 200),
-                                )
-                              }
-                            >
-                              Vorige pagina
-                            </button>
-                            <button
-                              disabled={
-                                bezig ||
-                                paginaStart + 200 >= (object.totaalRijen ?? 0)
-                              }
-                              onClick={() =>
-                                void kiesObject(object.id, paginaStart + 200)
-                              }
-                            >
-                              Volgende pagina
-                            </button>
-                          </div>
-                        )}
-                      </>
-                    )
-                  ) : object.soort === "Query" || object.soort === "VBA" ? (
-                    object.bron ? (
-                      <>
-                        <Bron
-                          bron={object.bron}
-                          taal={object.soort === "VBA" ? "vba" : "sql"}
-                        />
-                        <p className="muted">
-                          Alleen bronweergave.{" "}
-                          {object.soort === "VBA"
-                            ? "VBA wordt niet uitgevoerd; uitvoering vereist een afzonderlijk technisch ontwerp."
-                            : "Query’s worden niet uitgevoerd."}
-                        </p>
-                      </>
-                    ) : (
-                      <p role="status">
-                        Er is geen bron beschikbaar. Er is niets teruggewonnen
-                        of gegokt; zie de beperking hierboven.
-                      </p>
-                    )
-                  ) : null}
-                </>
-              ) : (
-                <div className="welkom">
-                  <Database size={40} />
-                  <h2>Selecteer een object</h2>
-                  <p>
-                    {sessie.naam} · {sessie.grootte?.toLocaleString("nl-NL")}{" "}
-                    bytes
-                  </p>
-                  <p>
-                    Kies links een tabel, query, relatie of VBA-module, of open
-                    het compatibiliteitsrapport.{" "}
-                    {!sessie.objecten.some((o) => o.soort === "Tabel") &&
-                      "Er zijn geen gebruikerstabellen gevonden."}
-                  </p>
-                </div>
-              )}
-            </>
-          )}
+          <Foutgrens key={JSON.stringify(weergave)}>{hoofdvlak()}</Foutgrens>
+          <VbaUitvoer vba={vba} />
         </article>
       </main>
       <footer>
         <span>Open Database Studio</span>
-        <span>
-          {sessie?.voorbeeld
-            ? "Voorbeeldgegevens"
-            : sessie
-              ? `${sessie.rapport?.formaat ?? "Database"} · alleen lezen`
-              : "Klaar om te beginnen"}
-        </span>
-        <span>Geen uploads · geen wijzigingen aan het origineel</span>
+        <span>{statusWerkkopie || "Klaar om te beginnen"}</span>
+        <span>{vba.bezig ? `VBA: ${vba.bezig}` : "Geen uploads · VBA alleen op verzoek"}</span>
       </footer>
+    </div>
+  );
+}
+
+/** Eerste vrije naam “Basis 1”, “Basis 2”, … */
+function vrijeNaam(basis: string, bezet: string[]) {
+  const set = new Set(bezet.map((n) => n.toLowerCase()));
+  let i = 1;
+  while (set.has(`${basis} ${i}`.toLowerCase())) i++;
+  return `${basis} ${i}`;
+}
+
+function ObjectKnop({
+  icoon: Icoon,
+  naam,
+  doel,
+  sub,
+  uit,
+  gekozen,
+}: {
+  icoon: LucideIcon;
+  naam: string;
+  doel: () => void;
+  sub?: string;
+  uit: boolean;
+  gekozen: boolean;
+}) {
+  return (
+    <button disabled={uit} onClick={doel} title={sub ? `${naam} · ${sub}` : naam} className={gekozen ? "selected" : ""} aria-current={gekozen ? "page" : undefined}>
+      <Icoon size={16} aria-hidden /> <span>{naam}</span>
+      {sub && <small className="database-objectsub">{sub}</small>}
+    </button>
+  );
+}
+
+function Sectie({ titel, children, leeg }: { titel: string; children?: React.ReactNode; leeg?: string }) {
+  const items = (Array.isArray(children) ? children.flat() : [children]).filter(Boolean);
+  return (
+    <section>
+      <h3>{titel}</h3>
+      {items.length ? (
+        <ul>
+          {items.map((c, i) => (
+            <li key={i}>{c}</li>
+          ))}
+        </ul>
+      ) : (
+        <p className="muted">{leeg ?? "Niet aanwezig"}</p>
+      )}
+    </section>
+  );
+}
+
+function Welkom({ bezig, openen, nieuw, voorbeeld }: { bezig: boolean; openen: () => void; nieuw: () => void; voorbeeld: () => void }) {
+  return (
+    <div className="welkom">
+      <div className="db-icon">
+        <Database size={44} />
+      </div>
+      <h2>Geef oude databases een nieuwe werkplek</h2>
+      <p>
+        Open een .mdb- of .accdb-bestand: Open Database Studio bouwt er een bewerkbare werkkopie van. Het origineel blijft ongewijzigd.
+      </p>
+      <div className="database-knoppen database-welkomknoppen">
+        <button className="primary" disabled={bezig} onClick={openen}>
+          <FolderOpen size={16} /> Database openen
+        </button>
+        <button disabled={bezig} onClick={nieuw}>
+          <FilePlus2 size={16} /> Nieuwe lege database
+        </button>
+        <button disabled={bezig} onClick={voorbeeld}>
+          <Database size={16} /> Voorbeeld verkennen
+        </button>
+      </div>
+      <div className="kaarten">
+        <section>
+          <Table2 />
+          <h3>Tabellen en query’s</h3>
+          <p>Gegevens bewerken met typecontrole, query’s in Access-SQL uitvoeren en resultaten als CSV bewaren.</p>
+        </section>
+        <section>
+          <LayoutTemplate />
+          <h3>Formulieren en rapporten</h3>
+          <p>Automatische formulieren, een eenvoudige ontwerper en rapporten met groepen en totalen, af te drukken als PDF.</p>
+        </section>
+        <section>
+          <Code2 />
+          <h3>VBA</h3>
+          <p>VBA-procedures afgeschermd uitvoeren op de werkkopie: alleen op verzoek, zonder bestanden, COM of Shell.</p>
+        </section>
+      </div>
+      <p className="melding">
+        Alles gebeurt lokaal. Macro’s, AutoExec en VBA worden nooit automatisch uitgevoerd. Bewaar je werk als .sqlite-werkkopie en heropen
+        die later via Openen.
+      </p>
     </div>
   );
 }

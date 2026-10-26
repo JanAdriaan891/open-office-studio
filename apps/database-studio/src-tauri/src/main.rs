@@ -1,8 +1,10 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 use std::{io::Write, path::Path};
 
+const SQLITE_KOP: &[u8] = b"SQLite format 3\0";
+
 fn exportnaam(naam: &str, bytes: &[u8]) -> Result<(String, String), String> {
-    if bytes.is_empty() || bytes.len() > 100 * 1024 * 1024 || std::str::from_utf8(bytes).is_err() {
+    if bytes.is_empty() || bytes.len() > 100 * 1024 * 1024 {
         return Err("De export is leeg, ongeldig of groter dan 100 MB.".into());
     }
     let naam = Path::new(naam)
@@ -15,11 +17,21 @@ fn exportnaam(naam: &str, bytes: &[u8]) -> Result<(String, String), String> {
         .and_then(|e| e.to_str())
         .unwrap_or("")
         .to_lowercase();
+    if extensie == "sqlite" {
+        // Alleen een echte SQLite-werkkopie; nooit een MDB/ACCDB onder een andere naam.
+        if !bytes.starts_with(SQLITE_KOP) {
+            return Err("Dit is geen SQLite-werkkopie.".into());
+        }
+        return Ok((naam, extensie));
+    }
     if !["csv", "sql", "bas", "json", "txt"].contains(&extensie.as_str()) {
         return Err(
-            "Alleen CSV-, bron- en rapportexports zijn toegestaan. Databases worden niet overschreven."
+            "Alleen CSV-, bron-, rapport- en SQLite-werkkopie-exports zijn toegestaan. Access-databases worden niet overschreven."
                 .into(),
         );
+    }
+    if std::str::from_utf8(bytes).is_err() {
+        return Err("De export is leeg, ongeldig of groter dan 100 MB.".into());
     }
     Ok((naam, extensie))
 }
@@ -54,7 +66,10 @@ async fn bewaar_database_export(
     let bestand = rfd::AsyncFileDialog::new()
         .set_title("Database-export opslaan")
         .set_file_name(&naam)
-        .add_filter("Database-export", &[&extensie])
+        .add_filter(
+            if extensie == "sqlite" { "SQLite-werkkopie" } else { "Database-export" },
+            &[&extensie],
+        )
         .save_file()
         .await;
     let Some(bestand) = bestand else {
@@ -114,6 +129,20 @@ mod tests {
             exportnaam("../pagina.csv", b"tekst").unwrap().0,
             "pagina.csv"
         );
+    }
+    #[test]
+    fn sqlite_werkkopie_alleen_met_echte_kop() {
+        let mut werkkopie = b"SQLite format 3\0".to_vec();
+        werkkopie.extend_from_slice(&[0, 1, 2, 255, 254]);
+        let (naam, extensie) = exportnaam("map/Klanten.SQLITE", &werkkopie).unwrap();
+        assert_eq!(naam, "Klanten.SQLITE");
+        assert_eq!(extensie, "sqlite");
+        // Een Access-bestand of willekeurige bytes met .sqlite-extensie worden geweigerd.
+        assert!(exportnaam("bron.sqlite", b"\0\x01\0\0Standard Jet DB").is_err());
+        assert!(exportnaam("bron.sqlite", b"").is_err());
+        // Binaire inhoud blijft voor tekstexports geweigerd, ook met een SQLite-kop.
+        assert!(exportnaam("pagina.csv", &werkkopie).is_err());
+        assert!(exportnaam("bron.mdb", &werkkopie).is_err());
     }
     #[test]
     fn export_wordt_volledig_en_atomair_bewaard() {

@@ -8,6 +8,7 @@ import "@fontsource/space-grotesk/600.css";
 import "@fontsource/space-grotesk/700.css";
 import { DatabaseStudio } from "../../../packages/database/src/DatabaseStudio";
 import type { DatabaseUitvoer } from "../../../packages/database/src/uitvoer";
+import type { DatabaseBinaireUitvoer } from "../../../packages/database/src/DatabaseStudio";
 import versie from "../../../versie.json";
 import "../../../src/office.css";
 import "../../../packages/database/src/database.css";
@@ -16,17 +17,20 @@ import "../../../src/stijl/openaec-office.css";
 import openaecSymbool from "../../../src/stijl/openaec-symbol.svg";
 import { ThemaKnop, useOfficeThema } from "../../../src/stijl/ThemaKnop";
 
-const bewaar: DatabaseUitvoer = async (naam, inhoud) => {
+/** Bewaart via de native opslagdialoog; de Rust-kant staat alleen bekende exporttypen toe. */
+async function bewaarNatief(naam: string, bytes: Uint8Array) {
   const { invoke } = await import("@tauri-apps/api/core");
-  const pad = await invoke<string | null>(
-    "bewaar_database_export",
-    new TextEncoder().encode(inhoud),
-    {
-      headers: { "x-database-naam": encodeURIComponent(naam) },
-    },
-  );
-  return pad ? { status: "opgeslagen", pad } : { status: "geannuleerd" };
-};
+  const pad = await invoke<string | null>("bewaar_database_export", bytes, {
+    headers: { "x-database-naam": encodeURIComponent(naam) },
+  });
+  return pad
+    ? ({ status: "opgeslagen", pad } as const)
+    : ({ status: "geannuleerd" } as const);
+}
+const bewaar: DatabaseUitvoer = (naam, inhoud) =>
+  bewaarNatief(naam, new TextEncoder().encode(inhoud));
+const bewaarBinair: DatabaseBinaireUitvoer = (naam, inhoud) =>
+  bewaarNatief(naam, inhoud);
 
 function ZelfstandigeDatabaseStudio() {
   const { thema, wisselThema } = useOfficeThema();
@@ -65,7 +69,7 @@ function ZelfstandigeDatabaseStudio() {
           {versie.label}
         </span>
         <span className="database-lokaal">
-          <ShieldCheck size={14} /> Lokaal · alleen lezen
+          <ShieldCheck size={14} /> Lokaal · origineel blijft ongewijzigd
         </span>
         <ThemaKnop thema={thema} wissel={wisselThema} />
         <button
@@ -81,6 +85,7 @@ function ZelfstandigeDatabaseStudio() {
       <DatabaseStudio
         registreerOpenen={registreer}
         bewaarUitvoer={"__TAURI_INTERNALS__" in window ? bewaar : undefined}
+        bewaarBinair={"__TAURI_INTERNALS__" in window ? bewaarBinair : undefined}
       />
     </div>
   );
