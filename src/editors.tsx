@@ -109,6 +109,30 @@ export default function OfficeEditor(props: EditorProps) {
   const gereedXlsx = useCallback(
     (api: XlsxEditorApi) => {
       setRekenbladApi(api);
+      // De engine rekent stil opnieuw en laat onbekende functies op hun oude
+      // uitkomst staan; meld dat vóór de eerste bewerking.
+      void import("./rekenbladcontrole")
+        .then(
+          ({
+            inventariseerRekenblad,
+            vergelijkCache,
+            leesUitWerkboek,
+            rekenbladMelding,
+          }) => {
+            const controle = inventariseerRekenblad(recent.current.bytes);
+            const melding = rekenbladMelding(
+              controle,
+              vergelijkCache(controle, leesUitWerkboek(api.handle, controle)),
+            );
+            if (melding?.ernst === "waarschuwing")
+              recent.current.fout(
+                new Error(`${melding.titel}. ${melding.regels.join(" ")}`),
+              );
+          },
+        )
+        .catch(() => {
+          // Een mislukte controle mag het openen niet blokkeren.
+        });
       props.registreer(async () => {
         await api.version();
         return api.save();
