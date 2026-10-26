@@ -232,6 +232,9 @@ jobs:
           mkdir uitgave
           find artefacten -type f \( -name '*-setup.exe' -o -name '*.dmg' -o -name '*.deb' -o -name '*.AppImage' -o -name 'pakketcontrole-*.json' \) -exec cp {} uitgave/ \;
           cd uitgave
+          # GitHub vervangt spaties in namen van uitgavebestanden door punten;
+          # zelf hernoemen houdt SHA256SUMS gelijk aan de downloadnamen.
+          for bestand in *' '*; do [ -e "$bestand" ] && mv -- "$bestand" "${bestand// /.}"; done
           sha256sum -- * > ../SHA256SUMS
           mv ../SHA256SUMS .
           cat SHA256SUMS
