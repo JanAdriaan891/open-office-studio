@@ -7,6 +7,14 @@
 import { VbaClient } from "../../../vba/src/vba-client.ts";
 import type { FormulierDoel, FormulierHost, HostWaarde, VbaHost } from "../../../vba/src/host.ts";
 import type { LaadResultaat, ProcedureInfo, VoerUitResultaat } from "../../../vba/src/protocol.ts";
+import type {
+  ExterneAnalyse,
+  GekoppeldeTabelInvoer,
+  UitvoerOpties,
+  VerwijzingInvoer,
+  WatWerktOpties,
+  WatWerktSamenvatting,
+} from "../../../vba/src/extern-typen.ts";
 import type { VbaModuleRecord, VbaModuleSoort, Waarde } from "../werkkopie/contract.ts";
 import type { BedienbareWerkkopie } from "./werkkopie-sessie.ts";
 
@@ -148,9 +156,31 @@ export class VbaSessie {
     return { procedures: await this.client.procedures(), laad };
   }
 
-  async voerUit(modules: VbaModule[], module: string, procedure: string, args: HostWaarde[] = []): Promise<VoerUitResultaat> {
+  async voerUit(modules: VbaModule[], module: string, procedure: string, args: HostWaarde[] = [], opties: UitvoerOpties = {}): Promise<VoerUitResultaat> {
     await this.laad(modules);
-    return this.client.voerUit(module, procedure, args);
+    return this.client.voerUit(module, procedure, args, opties);
+  }
+
+  private analyse: { sleutel: string; resultaat: Promise<ExterneAnalyse> } | null = null;
+
+  /** Statische analyse van externe afhankelijkheden (voert niets uit); bewaard zolang modules en invoer gelijk blijven. */
+  async analyseerExtern(modules: VbaModule[], verwijzingen: VerwijzingInvoer[] | undefined, gekoppeldeTabellen: GekoppeldeTabelInvoer[]): Promise<ExterneAnalyse> {
+    await this.laad(modules);
+    const sleutel = JSON.stringify([this.geladen, verwijzingen ?? null, gekoppeldeTabellen]);
+    if (this.analyse?.sleutel !== sleutel) {
+      const resultaat = this.client.analyseerExtern(verwijzingen, { gekoppeldeTabellen });
+      this.analyse = { sleutel, resultaat };
+      resultaat.catch(() => {
+        if (this.analyse?.resultaat === resultaat) this.analyse = null;
+      });
+    }
+    return this.analyse.resultaat;
+  }
+
+  /** `voerUitWatWerkt` van de client op de geladen modules (zie extern-typen.ts). */
+  async voerUitWatWerkt(modules: VbaModule[], opties: WatWerktOpties): Promise<WatWerktSamenvatting> {
+    await this.laad(modules);
+    return this.client.voerUitWatWerkt(opties);
   }
 
   /** Stopt de lopende uitvoering; de worker start opnieuw bij de volgende aanroep. */

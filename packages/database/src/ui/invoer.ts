@@ -228,7 +228,8 @@ export function toonWaarde(w: Waarde | undefined, soort?: Veldsoort | null): str
   if (soort === "jaNee" && typeof w === "number") return w ? "Ja" : "Nee";
   if (typeof w === "number") {
     if (soort === "valuta") return valutaNotatie.format(w);
-    if (soort === "geheel" || soort === "autonummer") return String(w);
+    // Onbekende soort (berekende kolom, bv. Year()): gehele getallen zonder duizendtallen, zoals Access.
+    if (soort === "geheel" || soort === "autonummer" || (soort == null && Number.isInteger(w))) return String(w);
     return getalNotatie.format(w);
   }
   if (soort === "datum" || (soort == null && isIsoDatum(w) && w.length <= 19))

@@ -1460,3 +1460,578 @@
   gap: 6px;
   align-items: center;
 }
+
+/* Externe verwijzingen */
+.database-app .database-vba-modus {
+  display: grid;
+  gap: 4px;
+  margin: 0 0 12px;
+  font-size: 12px;
+}
+.database-app .database-vba-modus label {
+  display: grid;
+  gap: 4px;
+  font-weight: 600;
+}
+.database-app .database-vba-modus select {
+  padding: 4px 6px;
+  font-weight: 400;
+}
+.database-app .database-vba-modus small {
+  margin: 0;
+}
+.database-app .database-bron.heeft-markering {
+  position: relative;
+}
+.database-app .database-bron-markering {
+  position: absolute;
+  left: 0;
+  right: 0;
+  background: color-mix(in srgb, #f59e0b 22%, transparent);
+  border-left: 3px solid #d97706;
+  pointer-events: none;
+}
+.database-app .database-extern {
+  position: relative; /* houdt sr-only-bijschriften binnen het scrollvlak */
+  max-width: 1280px;
+}
+.database-app .database-extern .object-toolbar .database-knoppen {
+  margin: 0;
+}
+.database-app .database-extern h3 {
+  font-size: 14px;
+  margin: 18px 0 6px;
+}
+.database-app .database-extern-uitleg {
+  margin: 0 0 16px;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  font-size: 13px;
+  line-height: 1.6;
+}
+.database-app .database-extern-uitleg summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+.database-app .database-extern-uitleg dl > div {
+  margin: 0 0 6px;
+}
+.database-app .database-extern-uitleg dt {
+  font-weight: 600;
+}
+.database-app .database-extern-uitleg dd {
+  margin: 0 0 0 14px;
+}
+.database-app .database-extern-overzicht {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(220px, 2fr);
+  gap: 18px;
+  align-items: start;
+}
+.database-app .database-extern-overzicht h3 {
+  margin-top: 0;
+}
+.database-app .database-extern-tegels {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 10px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.database-app .database-extern-tegels li {
+  display: grid;
+  gap: 6px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-left-width: 4px;
+  border-radius: 6px;
+  background: var(--surface);
+  font-size: 12px;
+}
+.database-app .database-extern-tegels strong {
+  font-size: 24px;
+  line-height: 1;
+}
+.database-app .database-extern-tegels .tegel-uitvoerbaar {
+  border-left-color: #16a34a;
+}
+.database-app .database-extern-tegels .tegel-deels {
+  border-left-color: #d97706;
+}
+.database-app .database-extern-tegels .tegel-niet {
+  border-left-color: #dc2626;
+}
+.database-app .database-extern-oorzaken {
+  margin: 0;
+  padding-left: 20px;
+  font-size: 13px;
+}
+.database-app .database-extern-oorzaken small {
+  display: inline;
+  margin: 0 0 0 4px;
+}
+.database-app .database-extern-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 1px 8px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--soft);
+  font-size: 12px;
+  white-space: nowrap;
+}
+.database-app .database-extern-status.status-ingebouwd,
+.database-app .database-extern-status.status-uitvoerbaar,
+.database-app .database-extern-status.status-geslaagd {
+  color: #15803d;
+  border-color: #86efac;
+}
+.database-app .database-extern-status.status-deels,
+.database-app .database-extern-status.status-tijdslimiet,
+.database-app .database-extern-status.status-gestopt {
+  color: #b45309;
+  border-color: #fcd34d;
+}
+.database-app .database-extern-status.status-ontbreekt,
+.database-app .database-extern-status.status-niet,
+.database-app .database-extern-status.status-fout {
+  color: #b91c1c;
+  border-color: #fca5a5;
+}
+.database-app[data-theme="dark"] .database-extern-status.status-ingebouwd,
+.database-app[data-theme="dark"] .database-extern-status.status-uitvoerbaar,
+.database-app[data-theme="dark"] .database-extern-status.status-geslaagd {
+  color: #86efac;
+}
+.database-app[data-theme="dark"] .database-extern-status.status-deels,
+.database-app[data-theme="dark"] .database-extern-status.status-tijdslimiet,
+.database-app[data-theme="dark"] .database-extern-status.status-gestopt {
+  color: #fcd34d;
+}
+.database-app[data-theme="dark"] .database-extern-status.status-ontbreekt,
+.database-app[data-theme="dark"] .database-extern-status.status-niet,
+.database-app[data-theme="dark"] .database-extern-status.status-fout {
+  color: #fca5a5;
+}
+.database-app .database-extern-voortgang {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 14px 0 0;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  font-size: 13px;
+}
+.database-app .database-extern-voortgang label {
+  flex: 1;
+  display: grid;
+  gap: 6px;
+}
+.database-app .database-extern-voortgang progress {
+  width: 100%;
+  height: 10px;
+  accent-color: #d97706;
+}
+.database-app .database-extern-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  margin: 18px 0 0;
+  border-bottom: 1px solid var(--border);
+}
+.database-app .database-extern-tabs button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: -1px;
+  padding: 7px 12px;
+  border: 1px solid transparent;
+  border-radius: 6px 6px 0 0;
+  background: transparent;
+  font-size: 13px;
+}
+.database-app .database-extern-tabs button[aria-selected="true"] {
+  border-color: var(--border);
+  border-bottom-color: var(--bg);
+  background: var(--bg);
+  font-weight: 600;
+  box-shadow: inset 0 2px 0 #d97706;
+}
+.database-app .database-extern-aantal {
+  min-width: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: var(--soft);
+  font-size: 11px;
+  text-align: center;
+}
+.database-app .database-extern-paneel {
+  padding: 4px 0 0;
+}
+.database-app .database-extern-tabel {
+  min-width: 680px; /* liever horizontaal scrollen dan GUID’s en ketens platdrukken */
+  font-size: 13px;
+}
+.database-app .database-extern-tabel th,
+.database-app .database-extern-tabel td {
+  padding: 8px 10px;
+  vertical-align: top;
+}
+.database-app .database-extern-tabel tbody th {
+  background: transparent;
+  font-weight: 600;
+}
+.database-app .database-extern-tabel small {
+  margin-top: 3px;
+  font-weight: 400;
+}
+.database-app .database-extern-tabel details summary {
+  cursor: pointer;
+  white-space: nowrap;
+}
+.database-app .database-extern-guid {
+  display: block;
+  font-size: 11px;
+  word-break: break-all;
+}
+.database-app .database-extern-pad {
+  display: inline-block;
+  margin-top: 2px;
+  border-bottom: 1px dotted var(--muted);
+  cursor: help;
+}
+.database-app .database-extern-plekken,
+.database-app .database-extern-redenen {
+  list-style: none;
+  margin: 4px 0 0;
+  padding: 0;
+}
+.database-app .database-extern-plekken li,
+.database-app .database-extern-redenen li {
+  padding: 2px 0;
+}
+.database-app .database-extern-plekken small,
+.database-app .database-extern-redenen small {
+  display: inline;
+  margin: 0;
+}
+.database-app .database-extern-redenen .database-extern-status {
+  margin-right: 4px;
+}
+.database-app .database-extern-keten {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 12px;
+}
+.database-app .database-link {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #b45309;
+  text-align: left;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  font: inherit;
+}
+.database-app[data-theme="dark"] .database-link {
+  color: #fcd34d;
+}
+.database-app .database-extern-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 12px;
+  margin: 0 0 10px;
+  font-size: 12px;
+}
+.database-app .database-extern-filters label {
+  display: grid;
+  gap: 4px;
+  font-weight: 600;
+}
+.database-app .database-extern-filters select,
+.database-app .database-extern-filters input {
+  padding: 5px 8px;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  background: var(--surface);
+  font-weight: 400;
+}
+.database-app .database-extern-uitvoer {
+  max-height: 200px;
+  margin: 6px 0 0;
+  padding: 8px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+.database-app .database-extern-modi {
+  display: grid;
+  gap: 8px;
+  margin: 12px 0;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+.database-app .database-extern-modi label {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+.database-app .database-extern-modi small {
+  margin-top: 2px;
+}
+@media (max-width: 900px) {
+  .database-app .database-extern-overzicht {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Raster: virtualisatie, selectie, klembord */
+.database-app .database-raster-buiten {
+  position: relative; /* houdt sr-only-tekst binnen het raster */
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.database-app .database-raster-buiten.is-vul {
+  flex: 1;
+  min-height: 0;
+}
+.database-app .database-raster-buiten.is-vul .database-raster-wrap {
+  flex: 1;
+  min-height: 140px;
+  max-height: none;
+}
+.database-app .database-raster {
+  table-layout: fixed;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.database-app .database-raster td input {
+  user-select: text;
+  -webkit-user-select: text;
+}
+.database-app .database-raster tbody td,
+.database-app .database-raster tbody th {
+  height: 30px;
+  padding: 0 10px;
+  line-height: 1.25;
+  vertical-align: middle;
+}
+.database-app .database-raster thead th {
+  cursor: s-resize;
+}
+.database-app .database-raster .database-kolomkop {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  max-width: 100%;
+  font-weight: 600;
+}
+.database-app .database-raster .database-kolomkop > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.database-app .database-raster .database-kolomtype {
+  margin-top: 2px;
+}
+.database-app .database-sorteerknop {
+  padding: 2px 3px !important;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+}
+.database-app .database-sorteerknop:hover {
+  border-color: var(--border);
+}
+.database-app .database-rijkiezer {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  padding: 0 6px !important;
+  background: var(--soft);
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 400;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  border-right: 1px solid var(--border);
+  cursor: e-resize;
+}
+.database-app .database-raster thead .database-rijkiezer {
+  z-index: 3;
+  cursor: cell;
+}
+.database-app .database-raster thead th {
+  z-index: 2;
+}
+.database-app .database-raster tr.is-gekozen .database-rijkiezer,
+.database-app .database-raster th.is-gekozen {
+  background: #fde7c4;
+  color: #7c4a03;
+}
+.database-app .database-raster td.is-gekozen {
+  background: #fdf0d9;
+}
+.database-app .database-raster tr.is-actief .database-rijkiezer {
+  box-shadow: inset -3px 0 #d97706;
+}
+.database-app[data-theme="dark"] .database-raster tr.is-gekozen .database-rijkiezer,
+.database-app[data-theme="dark"] .database-raster th.is-gekozen {
+  background: #5b3d12;
+  color: #fde7c4;
+}
+.database-app[data-theme="dark"] .database-raster td.is-gekozen {
+  background: #4a3518;
+}
+.database-app .database-raster td.is-cel.is-gekozen {
+  background: var(--surface);
+}
+.database-app .database-raster td.is-bewerk {
+  background: var(--surface);
+}
+.database-app .database-raster-vulling td {
+  padding: 0 !important;
+  border: 0 !important;
+}
+.database-app .database-raster-laden {
+  color: var(--muted);
+  font-style: italic;
+}
+.database-app .database-raster-status {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 12px;
+  padding: 5px 2px 0;
+  font-size: 12px;
+}
+.database-app .database-raster-buiten .database-rasterhulp {
+  margin: 2px 2px 0;
+}
+.database-app .database-rastermenu {
+  position: fixed;
+  z-index: 1100;
+  min-width: 230px;
+  margin: 0;
+  padding: 4px;
+  list-style: none;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  box-shadow: 0 10px 30px rgb(0 0 0 / 20%);
+}
+.database-app .database-rastermenu li.met-scheiding {
+  margin-top: 4px;
+  padding-top: 4px;
+  border-top: 1px solid var(--border);
+}
+.database-app .database-rastermenu button {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 6px 10px;
+  border: 0;
+  border-radius: 5px;
+  font-size: 13px;
+  text-align: left;
+}
+.database-app .database-rastermenu button:focus-visible,
+.database-app .database-rastermenu button:hover {
+  outline: none;
+  background: #d9770618;
+}
+.database-app .database-rastermenu kbd {
+  color: var(--muted);
+  font: 11px Inter, sans-serif;
+}
+.database-app .database-plakvoorbeeld {
+  font-size: 12px;
+}
+.database-app .database-plakvoorbeeld td {
+  padding: 3px 6px;
+  border: 1px solid var(--border);
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.database-app .database-plakfouten {
+  max-height: 220px;
+  overflow: auto;
+  font-size: 13px;
+}
+
+/* Tabel- en queryweergave vullen het vlak */
+.database-app .database-tabelweergave,
+.database-app .database-queryeditor {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+.database-app .database-tabelweergave > .database-werkbalk,
+.database-app .database-queryeditor > .database-werkbalk {
+  flex: none;
+}
+.database-app .database-queryeditor > .melding {
+  flex: none;
+  margin: 6px 0;
+  padding: 8px 12px;
+}
+.database-app .database-query-editorvlak {
+  flex: none;
+  min-height: 80px;
+}
+.database-app .database-query-editorvlak .database-sqlinvoer {
+  height: 100%;
+}
+.database-app .database-query-editorvlak .database-sqlinvoer textarea {
+  height: 100%;
+  min-height: 0;
+  resize: none;
+}
+.database-app .database-splitser {
+  flex: none;
+  height: 10px;
+  margin: 2px 0;
+  border-radius: 4px;
+  cursor: row-resize;
+  background: linear-gradient(var(--border), var(--border)) center / 48px 3px no-repeat;
+  touch-action: none;
+}
+.database-app .database-splitser:hover,
+.database-app .database-splitser:focus-visible {
+  outline: none;
+  background-color: #d9770622;
+}
+.database-app .database-query-resultaat {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+.database-app .database-queryeditor .database-diagnose {
+  flex: none;
+  margin-top: 6px;
+}
+.database-app .database-balkmelding.is-ingeklapt > span {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.database-app .database-balkmelding > button[aria-expanded] {
+  font-size: 12px;
+  text-decoration: underline;
+}
+.database-app .database-diagnose-sql {
+  max-height: 50vh;
+  padding: 10px;
+  white-space: pre-wrap;
+  font-size: 12px;
+}

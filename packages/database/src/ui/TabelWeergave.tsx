@@ -1,15 +1,124 @@
 /**
- * Gegevensweergave van een tabel in de werkkopie: paginering, sorteren,
- * zoeken, cellen bewerken, rijen toevoegen en verwijderen.
+ * Gegevensweergave van een tabel in de werkkopie: gevirtualiseerd raster
+ * waarvan blokken rijen op verzoek uit de werkkopie worden geladen,
+ * sorteren, zoeken, cellen bewerken, plakken, rijen toevoegen en verwijderen.
  */
-import { useCallback, useEffect, useId, useState } from "react";
-import { ChevronFirst, ChevronLast, ChevronLeft, ChevronRight, Plus, Search, Trash2, Download, RefreshCw } from "lucide-react";
+import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react";
+import { Plus, Search, Trash2, Download, RefreshCw } from "lucide-react";
 import type { Rij, TabelSchema, Waarde, Werkkopie } from "../werkkopie/contract.ts";
 import { bewerkbaar, leesbareFout, leesInvoer, SOORTNAMEN } from "./invoer.ts";
-import { Raster, type RasterKolom } from "./Raster.tsx";
+import { Raster, useVulHoogte, type RasterBron, type RasterKolom } from "./Raster.tsx";
+import type { PlakPlan } from "./raster-logica.ts";
 import { useDialogen } from "./Dialoog.tsx";
 
-export const PAGINA = 100;
+/** Rijen per blok dat uit de werkkopie wordt geladen. */
+export const PAGINA = 200;
+/** Rijen per verzoek bij kopiëren van alles. */
+const HAAL_BLOK = 2_000;
+
+/**
+ * Bron voor het raster: laadt blokken van PAGINA rijen op verzoek (met
+ * dezelfde zoekterm en sortering) en houdt ze vast tot er iets verandert.
+ */
+function useTabelBron(werkkopie: Werkkopie, schema: TabelSchema, zoek: string, sorteer: { kolom: string; aflopend: boolean } | null) {
+  const [versie, setVersie] = useState(0);
+  const [totaal, setTotaal] = useState<number | null>(null);
+  const [fout, setFout] = useState("");
+  const cache = useRef(new Map<number, Rij[]>());
+  const bezig = useRef(new Set<number>());
+  const generatie = useRef(0);
+  const verzoek = useMemo(
+    () => ({ zoek: zoek || undefined, sorteer: sorteer ? { veld: sorteer.kolom, aflopend: sorteer.aflopend } : undefined }),
+    [zoek, sorteer],
+  );
+
+  const laadBlok = useCallback(
+    async (blok: number) => {
+      if (cache.current.has(blok) || bezig.current.has(blok)) return;
+      const gen = generatie.current;
+      bezig.current.add(blok);
+      try {
+        const r = await werkkopie.rijen(schema.naam, { ...verzoek, start: blok * PAGINA, aantal: PAGINA });
+        if (gen !== generatie.current) return;
+        cache.current.set(blok, r.rijen);
+        setTotaal(r.totaal);
+        setFout("");
+        setVersie((v) => v + 1);
+      } catch (e) {
+        if (gen === generatie.current) setFout("De rijen konden niet worden gelezen: " + leesbareFout(e));
+      } finally {
+        if (gen === generatie.current) bezig.current.delete(blok);
+      }
+    },
+    [werkkopie, schema.naam, verzoek],
+  );
+
+  const herlaad = useCallback(() => {
+    generatie.current++;
+    cache.current = new Map();
+    bezig.current = new Set();
+    void laadBlok(0);
+  }, [laadBlok]);
+
+  useEffect(() => {
+    setTotaal(null);
+    herlaad();
+  }, [herlaad]);
+
+  const veldnamen = schema.velden.map((v) => v.naam);
+  const sleutel = veldnamen.join("|");
+  const rijVan = useCallback((i: number) => cache.current.get(Math.floor(i / PAGINA))?.[i % PAGINA], []);
+  const bron: RasterBron = useMemo(
+    () => ({
+      totaal: totaal ?? 0,
+      rij: (i: number) => {
+        const r = rijVan(i);
+        return r ? { sleutel: r.rowid, waarden: veldnamen.map((v) => r.waarden[v] ?? null) } : undefined;
+      },
+      laad: (van: number, tot: number) => {
+        for (let blok = Math.floor(van / PAGINA); blok <= Math.floor(Math.max(van, tot - 1) / PAGINA); blok++) void laadBlok(blok);
+      },
+      haal: async (van: number, tot: number) => {
+        const uit: Waarde[][] = [];
+        for (let s = van; s < tot; s += HAAL_BLOK) {
+          const r = await werkkopie.rijen(schema.naam, { ...verzoek, start: s, aantal: Math.min(HAAL_BLOK, tot - s) });
+          for (const rij of r.rijen) uit.push(veldnamen.map((v) => rij.waarden[v] ?? null));
+          if (r.rijen.length < Math.min(HAAL_BLOK, tot - s)) break;
+        }
+        return uit;
+      },
+    }),
+    // versie: nieuwe identiteit als er blokken bij zijn, zodat het raster opnieuw rendert.
+    [totaal, versie, sleutel, laadBlok, werkkopie, schema.naam, verzoek, rijVan], // eslint-disable-line react-hooks/exhaustive-deps
+  );
+
+  /** Rowids van rijen [van, tot) in de huidige volgorde (voor plakken buiten de geladen blokken). */
+  const rowids = useCallback(
+    async (van: number, tot: number) => {
+      const uit: number[] = [];
+      for (let i = van; i < tot; i++) {
+        const r = rijVan(i);
+        if (r) uit.push(r.rowid);
+        else {
+          const rest = await werkkopie.rijen(schema.naam, { ...verzoek, start: i, aantal: tot - i });
+          uit.push(...rest.rijen.map((x) => x.rowid));
+          break;
+        }
+      }
+      return uit;
+    },
+    [werkkopie, schema.naam, verzoek, rijVan],
+  );
+
+  const vervang = useCallback((i: number, rij: Rij) => {
+    const blok = cache.current.get(Math.floor(i / PAGINA));
+    if (!blok) return;
+    blok[i % PAGINA] = rij;
+    setVersie((v) => v + 1);
+  }, []);
+
+  return { bron, totaal, fout, herlaad, rijVan, rowids, vervang };
+}
 
 export function TabelWeergave({
   werkkopie,
@@ -23,47 +132,22 @@ export function TabelWeergave({
   onExporteer: () => void;
 }) {
   const dialogen = useDialogen();
-  const [start, setStart] = useState(0);
   const [zoek, setZoek] = useState("");
   const [zoekterm, setZoekterm] = useState("");
   const [sorteer, setSorteer] = useState<{ kolom: string; aflopend: boolean } | null>(null);
-  const [data, setData] = useState<{ rijen: Rij[]; totaal: number } | null>(null);
-  const [fout, setFout] = useState("");
-  const [laden, setLaden] = useState(false);
+  const [actieFout, setActieFout] = useState("");
   const [cel, setCel] = useState({ rij: 0, kolom: 0 });
   const [nieuw, setNieuw] = useState<Record<string, string> | null>(null);
   const [nieuwFout, setNieuwFout] = useState("");
   const id = useId();
+  const vlak = useVulHoogte<HTMLDivElement>(360);
+  const { bron, totaal, fout: laadFout, herlaad, rijVan, rowids, vervang } = useTabelBron(werkkopie, schema, zoekterm, sorteer);
+  const fout = actieFout || laadFout;
 
   useEffect(() => {
-    const t = setTimeout(() => {
-      setZoekterm(zoek.trim());
-      setStart(0);
-    }, 300);
+    const t = setTimeout(() => setZoekterm(zoek.trim()), 300);
     return () => clearTimeout(t);
   }, [zoek]);
-
-  const laad = useCallback(async () => {
-    setLaden(true);
-    try {
-      const r = await werkkopie.rijen(schema.naam, {
-        start,
-        aantal: PAGINA,
-        zoek: zoekterm || undefined,
-        sorteer: sorteer ? { veld: sorteer.kolom, aflopend: sorteer.aflopend } : undefined,
-      });
-      setData(r);
-      setFout("");
-    } catch (e) {
-      setFout("De rijen konden niet worden gelezen: " + leesbareFout(e));
-    } finally {
-      setLaden(false);
-    }
-  }, [werkkopie, schema.naam, start, zoekterm, sorteer]);
-
-  useEffect(() => {
-    void laad();
-  }, [laad]);
 
   const kolommen: RasterKolom[] = schema.velden.map((v) => ({
     naam: v.naam,
@@ -71,25 +155,49 @@ export function TabelWeergave({
     veld: bewerkbaar(v.soort) ? v : undefined,
     sleutel: v.primair,
   }));
-  const rijen = (data?.rijen ?? []).map((r) => ({
-    sleutel: r.rowid,
-    waarden: schema.velden.map((v) => r.waarden[v.naam] ?? null),
-  }));
-  const totaal = data?.totaal ?? 0;
-  const laatsteStart = Math.max(0, Math.floor((totaal - 1) / PAGINA) * PAGINA);
 
   async function wijzig(rij: number, kolom: number, waarde: Waarde) {
-    const r = data?.rijen[rij];
+    const r = rijVan(rij);
     if (!r) return;
     const veld = schema.velden[kolom].naam;
     await werkkopie.wijzig(schema.naam, r.rowid, { [veld]: waarde });
     const nieuw = await werkkopie.rij(schema.naam, r.rowid);
-    setData((d) => (d && nieuw ? { ...d, rijen: d.rijen.map((x) => (x.rowid === r.rowid ? nieuw : x)) } : d));
+    if (nieuw) vervang(rij, nieuw);
     onGewijzigd();
   }
 
+  /** Plakken als één bewerking: alles in een transactie, bij een fout niets. */
+  async function plak(plan: PlakPlan) {
+    const rijen = [...new Set(plan.wijzigingen.map((w) => w.rij))].sort((a, b) => a - b);
+    const ids = rijen.length ? await rowids(rijen[0], rijen[rijen.length - 1] + 1) : [];
+    const perRij = new Map<number, Record<string, Waarde>>();
+    for (const w of plan.wijzigingen) {
+      const rowid = ids[w.rij - rijen[0]];
+      if (rowid === undefined) throw new Error(`Rij ${w.rij + 1} bestaat niet (meer).`);
+      const veld = kolommen[w.kolom].veld!.naam;
+      perRij.set(rowid, { ...(perRij.get(rowid) ?? {}), [veld]: w.waarde });
+    }
+    await werkkopie.begin();
+    try {
+      for (const [rowid, waarden] of perRij) await werkkopie.wijzig(schema.naam, rowid, waarden);
+      for (const [i, waarden] of plan.nieuweRijen.entries())
+        try {
+          await werkkopie.voegToe(schema.naam, waarden);
+        } catch (e) {
+          throw new Error(`Nieuwe rij ${i + 1}: ${leesbareFout(e)}`);
+        }
+      await werkkopie.bevestig();
+    } catch (e) {
+      await werkkopie.terugdraaien().catch(() => undefined);
+      throw e;
+    } finally {
+      herlaad();
+      onGewijzigd();
+    }
+  }
+
   async function verwijderActief() {
-    const r = data?.rijen[cel.rij];
+    const r = rijVan(cel.rij);
     if (!r) return;
     const omschrijving = schema.velden
       .slice(0, 3)
@@ -110,12 +218,12 @@ export function TabelWeergave({
     if (!ja) return;
     try {
       await werkkopie.verwijder(schema.naam, r.rowid);
-      setFout("");
+      setActieFout("");
       onGewijzigd();
-      if (rijen.length === 1 && start > 0) setStart(Math.max(0, start - PAGINA));
-      else void laad();
+      if (cel.rij > 0 && cel.rij >= (totaal ?? 1) - 1) setCel({ rij: cel.rij - 1, kolom: cel.kolom });
+      herlaad();
     } catch (e) {
-      setFout("Verwijderen mislukt: " + leesbareFout(e));
+      setActieFout("Verwijderen mislukt: " + leesbareFout(e));
     }
   }
 
@@ -139,16 +247,16 @@ export function TabelWeergave({
       setZoek("");
       setZoekterm("");
       const t = (await werkkopie.rijen(schema.naam, { aantal: 0 })).totaal;
-      const doel = Math.max(0, Math.floor((t - 1) / PAGINA) * PAGINA);
-      if (doel === start) void laad();
-      else setStart(doel);
+      herlaad();
+      // Naar de nieuwe (laatste) rij.
+      setCel({ rij: Math.max(0, t - 1), kolom: cel.kolom });
     } catch (e) {
       setNieuwFout(leesbareFout(e));
     }
   }
 
   return (
-    <div className="database-tabelweergave">
+    <div ref={vlak} className="database-tabelweergave">
       <div className="database-werkbalk" role="toolbar" aria-label={`Bewerken van ${schema.naam}`}>
         <label className="zoek">
           <Search size={16} aria-hidden />
@@ -162,10 +270,10 @@ export function TabelWeergave({
         <button onClick={() => setNieuw(nieuw ? null : {})} aria-expanded={!!nieuw}>
           <Plus size={16} /> Rij toevoegen
         </button>
-        <button onClick={() => void verwijderActief()} disabled={!data?.rijen[cel.rij]}>
+        <button onClick={() => void verwijderActief()} disabled={!rijVan(cel.rij)}>
           <Trash2 size={16} /> Rij verwijderen
         </button>
-        <button onClick={() => void laad()} disabled={laden}>
+        <button onClick={() => herlaad()}>
           <RefreshCw size={16} /> Vernieuwen
         </button>
         <button onClick={onExporteer}>
@@ -228,44 +336,29 @@ export function TabelWeergave({
           {fout}
         </p>
       )}
-      {!data ? (
+      {totaal === null ? (
         <p role="status">Rijen laden…</p>
       ) : (
         <Raster
           label={`Tabel ${schema.naam}`}
           kolommen={kolommen}
-          rijen={rijen}
-          start={start}
-          totaal={totaal}
+          bron={bron}
+          vul
           sorteer={sorteer}
-          onSorteer={(kolom) => {
-            setSorteer((s) => (s?.kolom === kolom ? (s.aflopend ? null : { kolom, aflopend: true }) : { kolom, aflopend: false }));
-            setStart(0);
-          }}
+          onSorteer={(kolom, aflopend) =>
+            setSorteer((s) =>
+              aflopend !== undefined ? { kolom, aflopend } : s?.kolom === kolom ? (s.aflopend ? null : { kolom, aflopend: true }) : { kolom, aflopend: false },
+            )
+          }
           onWijzig={wijzig}
+          onPlak={plak}
+          kanToevoegen={!zoekterm}
           actief={cel}
           onActief={setCel}
-          leeg={zoekterm ? `Geen rijen gevonden met ‘${zoekterm}’.` : "Deze tabel is leeg. Gebruik ‘Rij toevoegen’."}
+          leeg={zoekterm ? `Geen rijen gevonden met ‘${zoekterm}’.` : "Deze tabel is leeg. Gebruik ‘Rij toevoegen’ of plak rijen (Ctrl+V) na het toevoegen van een eerste rij."}
+          voet={<span className="muted">{`${totaal.toLocaleString("nl-NL")} ${totaal === 1 ? "rij" : "rijen"}${zoekterm ? " (gefilterd)" : ""}`}</span>}
         />
       )}
-      <nav className="database-paginering" aria-label="Pagina’s">
-        <button aria-label="Eerste pagina" disabled={laden || start === 0} onClick={() => setStart(0)}>
-          <ChevronFirst size={16} />
-        </button>
-        <button aria-label="Vorige pagina" disabled={laden || start === 0} onClick={() => setStart(Math.max(0, start - PAGINA))}>
-          <ChevronLeft size={16} />
-        </button>
-        <span role="status">
-          {totaal ? `Rij ${(start + 1).toLocaleString("nl-NL")}–${Math.min(start + PAGINA, totaal).toLocaleString("nl-NL")} van ${totaal.toLocaleString("nl-NL")}` : "0 rijen"}
-          {zoekterm ? " (gefilterd)" : ""}
-        </span>
-        <button aria-label="Volgende pagina" disabled={laden || start + PAGINA >= totaal} onClick={() => setStart(start + PAGINA)}>
-          <ChevronRight size={16} />
-        </button>
-        <button aria-label="Laatste pagina" disabled={laden || start >= laatsteStart} onClick={() => setStart(laatsteStart)}>
-          <ChevronLast size={16} />
-        </button>
-      </nav>
     </div>
   );
 }
