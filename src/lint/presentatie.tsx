@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { zichtbaarElement } from "./editorApi";
 import {
   usePptxCommand,
   ToolbarCommand as DiaControl,
@@ -355,7 +356,7 @@ function SpeciaalTeken({ acties }: { acties: DiaActies }) {
 function useNotities() {
   const [zichtbaar, setZichtbaar] = useState(true);
   useEffect(() => {
-    const wortel = document.querySelector<HTMLElement>(".office-presentatie");
+    const wortel = zichtbaarElement<HTMLElement>(".office-presentatie");
     if (!wortel) return;
     if (zichtbaar) delete wortel.dataset.notities;
     else wortel.dataset.notities = "verborgen";
@@ -379,7 +380,7 @@ export function PresentatieRibbon({
   const acties = useDiaActies();
   const [notities, wisselNotities] = useNotities();
   const dia = () =>
-    document.querySelector<HTMLElement>(
+    zichtbaarElement<HTMLElement>(
       '.office-presentatie [data-testid="pptx-slide-canvas"]',
     );
   useDocumentZoom({

@@ -9,7 +9,7 @@ import {
 } from "@betteroffice/docx-react";
 import type { LucideIcon } from "lucide-react";
 import { Actie, OpdrachtKnop, RibbonFout } from "../Ribbon";
-import { useEditorApi } from "./editorApi";
+import { useEditorApi, zichtbaarElement } from "./editorApi";
 import { useSneltoetsen, type Sneltoets } from "./sneltoetsen";
 import {
   selectieBegin,
@@ -90,7 +90,7 @@ function bewaarAuteur(naam: string) {
 }
 
 function tekstVlak() {
-  const tekst = document.querySelector<HTMLElement>(".office-tekst");
+  const tekst = zichtbaarElement<HTMLElement>(".office-tekst");
   if (!tekst) return null;
   // De invoer van de engine hangt direct onder <body>.
   const actief = document.activeElement;
@@ -282,7 +282,7 @@ export function useTekstOpdrachten({
   }
 
   function toonStijlen() {
-    const lint = document.querySelector(".office-tekst .ribbon");
+    const lint = zichtbaarElement(".office-tekst .ribbon");
     if (!lint) return;
     const inhoud = lint.querySelector<HTMLElement>(".ribbon-inhoud");
     if (inhoud?.hidden)
@@ -773,7 +773,7 @@ export function TekstStatus({
     };
     const koppel = () => {
       const ref = api();
-      const vlak = document.querySelector<HTMLElement>(
+      const vlak = zichtbaarElement<HTMLElement>(
         ".office-tekst .docx-editor__viewport",
       );
       const scroll = vlak?.querySelector(".docx-editor__scroll-container");

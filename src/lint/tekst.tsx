@@ -1,3 +1,4 @@
+import { zichtbaarElement } from "./editorApi";
 import {
   useDocxCommand,
   ToolbarCommand as TekstControl,
@@ -364,7 +365,7 @@ export function TekstRibbon({
   useDocumentZoom({
     opdracht: zoom,
     vlak: () =>
-      document.querySelector<HTMLElement>(
+      zichtbaarElement<HTMLElement>(
         ".office-tekst .docx-editor__scroll-container",
       ),
     koppeling: zoomKoppeling,

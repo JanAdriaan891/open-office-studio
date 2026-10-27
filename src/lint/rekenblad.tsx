@@ -66,7 +66,7 @@ import {
 } from "../Ribbon";
 import { useDocumentZoom, type ZoomKoppeling } from "../useDocumentZoom";
 import { C, CK, Geschiedenis, Zoom } from "./gedeeld";
-import { useEditorApi } from "./editorApi";
+import { useEditorApi, zichtbaarElement } from "./editorApi";
 import { useSneltoetsen, type Sneltoets } from "./sneltoetsen";
 import {
   alleenLezen,
@@ -171,7 +171,9 @@ function CS<K extends XlsxCommandId>({
   groot?: boolean;
 }) {
   const opdracht = useXlsxCommand(id, args);
-  return <OpdrachtKnop {...props} opdracht={{ ...opdracht, shortcut: toets }} />;
+  return (
+    <OpdrachtKnop {...props} opdracht={{ ...opdracht, shortcut: toets }} />
+  );
 }
 
 function RekenbladLettertype() {
@@ -394,7 +396,7 @@ export function RekenbladRibbon({
   useDocumentZoom({
     opdracht: zoom,
     vlak: () =>
-      document.querySelector<HTMLElement>(
+      zichtbaarElement<HTMLElement>(
         '.office-rekenblad-host [data-testid="xlsx-scroll"]',
       ),
     bereik: ".rekenblad-koppen",
@@ -456,9 +458,18 @@ export function RekenbladRibbon({
       beschikbaar: geenTekst,
       uitvoeren: () => uitvoeren(autoSomInvoegen),
     },
-    { toets: "Ctrl+;", uitvoeren: () => uitvoeren((a) => datumTijdInvoegen(a, false)) },
-    { toets: "Ctrl+Shift+;", uitvoeren: () => uitvoeren((a) => datumTijdInvoegen(a, true)) },
-    { toets: "Ctrl+Shift+:", uitvoeren: () => uitvoeren((a) => datumTijdInvoegen(a, true)) },
+    {
+      toets: "Ctrl+;",
+      uitvoeren: () => uitvoeren((a) => datumTijdInvoegen(a, false)),
+    },
+    {
+      toets: "Ctrl+Shift+;",
+      uitvoeren: () => uitvoeren((a) => datumTijdInvoegen(a, true)),
+    },
+    {
+      toets: "Ctrl+Shift+:",
+      uitvoeren: () => uitvoeren((a) => datumTijdInvoegen(a, true)),
+    },
     {
       toets: "Ctrl+D",
       beschikbaar: geenTekst,
@@ -694,14 +705,18 @@ export function RekenbladRibbon({
                       icoon={ChevronLeft}
                       toets="Ctrl+Page Up"
                       uit={!stand || stand.actief === 0}
-                      doe={(a) => gaNaarBlad(a, a.handle.sheetInfo().activeSheet - 1)}
+                      doe={(a) =>
+                        gaNaarBlad(a, a.handle.sheetInfo().activeSheet - 1)
+                      }
                     />
                     <A
                       naam="Volgend blad"
                       icoon={ChevronRight}
                       toets="Ctrl+Page Down"
                       uit={!stand || stand.actief >= stand.bladen - 1}
-                      doe={(a) => gaNaarBlad(a, a.handle.sheetInfo().activeSheet + 1)}
+                      doe={(a) =>
+                        gaNaarBlad(a, a.handle.sheetInfo().activeSheet + 1)
+                      }
                     />
                   </div>
                 </Groep>
@@ -759,7 +774,9 @@ export function RekenbladRibbon({
                     icoon={Snowflake}
                     groot
                     uit={uit}
-                    doe={(a) => fixeren(a, stand?.bevroren ? "opheffen" : "cel")}
+                    doe={(a) =>
+                      fixeren(a, stand?.bevroren ? "opheffen" : "cel")
+                    }
                   />
                   <div className="ribbon-stapel">
                     <A
@@ -778,7 +795,13 @@ export function RekenbladRibbon({
                 </Groep>
                 {navigator}
                 <Groep naam="Uitvoer">
-                  <CS id="print" naam="Afdrukken" icoon={Printer} toets="Ctrl+P" groot />
+                  <CS
+                    id="print"
+                    naam="Afdrukken"
+                    icoon={Printer}
+                    toets="Ctrl+P"
+                    groot
+                  />
                   <C
                     id="exportPng"
                     naam="Afbeelding exporteren"
@@ -804,9 +827,13 @@ export function RekenbladRibbon({
       <div className="office-formulebalk">
         <RekenbladToolbar.FormulaBar />
       </div>
-      {api && paneel === "zoeken" && <ZoekenVervangen api={api} sluiten={sluiten} />}
+      {api && paneel === "zoeken" && (
+        <ZoekenVervangen api={api} sluiten={sluiten} />
+      )}
       {api && paneel === "ganaar" && <GaNaar api={api} sluiten={sluiten} />}
-      {api && paneel === "hernoemen" && <BladHernoemen api={api} sluiten={sluiten} />}
+      {api && paneel === "hernoemen" && (
+        <BladHernoemen api={api} sluiten={sluiten} />
+      )}
     </RekenbladToolbar>
   );
 }

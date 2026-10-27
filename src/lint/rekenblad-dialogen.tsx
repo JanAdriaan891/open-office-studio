@@ -43,7 +43,12 @@ function Paneel({
     >
       <header>
         <h2 id={id}>{titel}</h2>
-        <button type="button" aria-label="Sluiten" title="Sluiten (Esc)" onClick={sluiten}>
+        <button
+          type="button"
+          aria-label="Sluiten"
+          title="Sluiten (Esc)"
+          onClick={sluiten}
+        >
           <X size={15} />
         </button>
       </header>
@@ -54,7 +59,9 @@ function Paneel({
 }
 
 const tekstVan = (fout: unknown) =>
-  fout instanceof Melding || fout instanceof Error ? fout.message : String(fout);
+  fout instanceof Melding || fout instanceof Error
+    ? fout.message
+    : String(fout);
 
 export function ZoekenVervangen({
   api,
@@ -161,7 +168,13 @@ export function ZoekenVervangen({
   );
 }
 
-export function GaNaar({ api, sluiten }: { api: XlsxEditorApi; sluiten: () => void }) {
+export function GaNaar({
+  api,
+  sluiten,
+}: {
+  api: XlsxEditorApi;
+  sluiten: () => void;
+}) {
   const [tekst, setTekst] = useState("");
   const [status, setStatus] = useState("");
   const [namen] = useState(() => benoemdeBereiken(api));
@@ -212,7 +225,11 @@ export function GaNaar({ api, sluiten }: { api: XlsxEditorApi; sluiten: () => vo
           </>
         )}
         <div className="rekenblad-knoppen">
-          <button type="submit" className="rekenblad-primair" disabled={!tekst.trim()}>
+          <button
+            type="submit"
+            className="rekenblad-primair"
+            disabled={!tekst.trim()}
+          >
             Ga naar
           </button>
         </div>
@@ -250,7 +267,11 @@ export function BladHernoemen({
       >
         <label>
           Naam
-          <input value={naam} maxLength={31} onChange={(e) => setNaam(e.target.value)} />
+          <input
+            value={naam}
+            maxLength={31}
+            onChange={(e) => setNaam(e.target.value)}
+          />
         </label>
         <div className="rekenblad-knoppen">
           <button type="button" onClick={sluiten}>

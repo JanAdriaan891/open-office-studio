@@ -32,3 +32,16 @@ export function registreerWijziging(handle: object, melden: () => void) {
 export function meldWijziging(handle: object) {
   wijzigingen.get(handle)?.();
 }
+
+/** Onwaar voor een editor in een verborgen tabblad: die reageert dan niet op toetsen of zoom. */
+export const EditorZichtbaar = createContext(true);
+export const useEditorZichtbaar = () => useContext(EditorZichtbaar);
+
+/** Eerste overeenkomst buiten verborgen tabbladen. */
+export function zichtbaarElement<T extends Element = HTMLElement>(
+  selector: string,
+): T | null {
+  for (const element of document.querySelectorAll<T>(selector))
+    if (!element.closest("[inert], [hidden]")) return element;
+  return null;
+}

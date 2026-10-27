@@ -8,7 +8,7 @@ import {
 import type { PptxEditorApi } from "@betteroffice/pptx-react";
 import type { LucideIcon } from "lucide-react";
 import { Actie, RibbonFout } from "../Ribbon";
-import { useEditorApi } from "./editorApi";
+import { useEditorApi, zichtbaarElement } from "./editorApi";
 import { useSneltoetsen, type Sneltoets } from "./sneltoetsen";
 import {
   datumTekst,
@@ -22,7 +22,7 @@ import {
   type Verplaatsing,
 } from "./presentatie-opdrachten";
 
-const wortel = () => document.querySelector<HTMLElement>(".office-presentatie");
+const wortel = () => zichtbaarElement<HTMLElement>(".office-presentatie");
 const canvas = () =>
   wortel()?.querySelector<HTMLElement>('[data-testid="pptx-slide-canvas"]') ??
   null;

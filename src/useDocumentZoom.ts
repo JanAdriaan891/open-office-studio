@@ -1,5 +1,6 @@
 import { useContext, useEffect, useRef } from "react";
 import { RibbonFout, type GebondenOpdracht } from "./Ribbon";
+import { useEditorZichtbaar } from "./lint/editorApi";
 import {
   ankerScroll,
   bewaarZoom,
@@ -39,8 +40,9 @@ export function useDocumentZoom({
   standaard?: unknown;
 }) {
   const fout = useContext(RibbonFout);
-  const recent = useRef({ opdracht, koppeling, huidig, fout, vlak });
-  recent.current = { opdracht, koppeling, huidig, fout, vlak };
+  const zichtbaar = useEditorZichtbaar();
+  const recent = useRef({ opdracht, koppeling, huidig, fout, vlak, zichtbaar });
+  recent.current = { opdracht, koppeling, huidig, fout, vlak, zichtbaar };
   const doel = useRef<number | null>(null);
   const anker = useRef<{ x: number; y: number; oud: number } | null>(null);
   const frame = useRef(0);
@@ -122,6 +124,7 @@ export function useDocumentZoom({
 
   useEffect(() => {
     function wiel(e: WheelEvent) {
+      if (!recent.current.zichtbaar) return;
       if (!(e.ctrlKey || e.metaKey) || !(e.target instanceof Element)) return;
       const scroller = recent.current.vlak();
       if (
@@ -139,6 +142,7 @@ export function useDocumentZoom({
       );
     }
     function toets(e: KeyboardEvent) {
+      if (!recent.current.zichtbaar) return;
       if (!(e.ctrlKey || e.metaKey) || e.altKey) return;
       if (
         e.target instanceof Element &&
@@ -187,14 +191,21 @@ export function useDocumentZoom({
   useEffect(() => {
     // ‘Passend’ is pas na de volgende weergave in pixels om te rekenen.
     let id = requestAnimationFrame(() => {
-      id = requestAnimationFrame(() =>
-        recent.current.koppeling?.melden(
-          recent.current.opdracht.state.enabled ? schaal() : null,
-        ),
+      id = requestAnimationFrame(
+        () =>
+          recent.current.zichtbaar &&
+          recent.current.koppeling?.melden(
+            recent.current.opdracht.state.enabled ? schaal() : null,
+          ),
       );
     });
     return () => cancelAnimationFrame(id);
-  }, [opdracht.state.value, opdracht.state.enabled]);
+  }, [opdracht.state.value, opdracht.state.enabled, zichtbaar]);
 
-  useEffect(() => () => recent.current.koppeling?.melden(null), []);
+  useEffect(
+    () => () => {
+      if (recent.current.zichtbaar) recent.current.koppeling?.melden(null);
+    },
+    [],
+  );
 }

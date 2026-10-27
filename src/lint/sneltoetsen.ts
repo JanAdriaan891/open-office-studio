@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { useEditorZichtbaar } from "./editorApi";
 
 /** Toetscombinatie in leesbare vorm, bijvoorbeeld "Ctrl+Shift+P" of "F5". */
 export interface Sneltoets {
@@ -61,11 +62,12 @@ export function useSneltoetsen(
   vlak: () => HTMLElement | null,
   toetsen: Sneltoets[],
 ) {
-  const recent = useRef({ vlak, toetsen });
-  recent.current = { vlak, toetsen };
+  const zichtbaar = useEditorZichtbaar();
+  const recent = useRef({ vlak, toetsen, zichtbaar });
+  recent.current = { vlak, toetsen, zichtbaar };
   useEffect(() => {
     function toets(e: KeyboardEvent) {
-      if (e.defaultPrevented || e.repeat) return;
+      if (e.defaultPrevented || e.repeat || !recent.current.zichtbaar) return;
       const actief = document.activeElement;
       const doel = e.target instanceof Element ? e.target : actief;
       if (doel?.closest(".office-backstage, [role='dialog'], dialog")) return;

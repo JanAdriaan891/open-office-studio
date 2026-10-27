@@ -1,5 +1,5 @@
 import type { XlsxEditorApi } from "@betteroffice/xlsx-react";
-import { meldWijziging } from "./editorApi";
+import { meldWijziging, zichtbaarElement } from "./editorApi";
 import type {
   CapturedFormat,
   XlsxCellValue,
@@ -70,7 +70,7 @@ export type RuweOp =
     };
 
 export const rekenbladHost = () =>
-  document.querySelector<HTMLElement>(".office-rekenblad-host");
+  zichtbaarElement<HTMLElement>(".office-rekenblad-host");
 
 export const alleenLezen = (api: XlsxEditorApi) =>
   api.commands.getState("bold").disabledReason?.code === "read-only";

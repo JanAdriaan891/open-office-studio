@@ -23,7 +23,8 @@ export function kolomLetters(col: number) {
 
 export function kolomNummer(letters: string) {
   let n = 0;
-  for (const teken of letters.toUpperCase()) n = n * 26 + teken.charCodeAt(0) - 64;
+  for (const teken of letters.toUpperCase())
+    n = n * 26 + teken.charCodeAt(0) - 64;
   return n - 1;
 }
 
@@ -99,7 +100,11 @@ const leeg = (w: XlsxCellValue) =>
 const vergelijker = new Intl.Collator("nl", { sensitivity: "base" });
 
 function rang(w: XlsxCellValue) {
-  return w.kind === "number" || w.kind === "bool" ? 0 : w.kind === "text" ? 1 : 2;
+  return w.kind === "number" || w.kind === "bool"
+    ? 0
+    : w.kind === "text"
+      ? 1
+      : 2;
 }
 
 /** Volgorde zoals LibreOffice: getallen, dan tekst, dan fouten; lege cellen altijd onderaan. */
@@ -145,7 +150,11 @@ const verwijzing =
   /(^|[^A-Za-z0-9_.$'"])(\$?)([A-Za-z]{1,3})(\$?)(\d{1,7})(?![A-Za-z0-9_(!])/g;
 
 /** Verschuift relatieve A1-verwijzingen in een formule (zonder '='), zoals bij doorvoeren. */
-export function verschuifFormule(formule: string, rijen: number, kolommen: number) {
+export function verschuifFormule(
+  formule: string,
+  rijen: number,
+  kolommen: number,
+) {
   return formule
     .split(/("(?:[^"]|"")*")/)
     .map((deel, i) =>
@@ -167,7 +176,14 @@ export function verschuifFormule(formule: string, rijen: number, kolommen: numbe
 
 export type SomPlan =
   | { soort: "cel"; doel: Cel; bron: Bereik }
-  | { soort: "kolommen"; rij: number; vanaf: number; tot: number; links: number; rechts: number };
+  | {
+      soort: "kolommen";
+      rij: number;
+      vanaf: number;
+      tot: number;
+      links: number;
+      rechts: number;
+    };
 
 /**
  * AutoSom zoals in Calc. Eén cel: aaneengesloten getallen erboven, anders
@@ -224,7 +240,11 @@ export function autoSom(
 
 /** Seriële datum (1900-systeem) in lokale tijd, inclusief tijdfractie. */
 export function serieleDatum(moment: Date) {
-  const dag = Date.UTC(moment.getFullYear(), moment.getMonth(), moment.getDate());
+  const dag = Date.UTC(
+    moment.getFullYear(),
+    moment.getMonth(),
+    moment.getDate(),
+  );
   const dagen = Math.round((dag - Date.UTC(1899, 11, 30)) / 86400000);
   const seconden =
     moment.getHours() * 3600 + moment.getMinutes() * 60 + moment.getSeconds();
@@ -250,7 +270,8 @@ export function nieuweBladnaam(namen: string[]) {
 export function bladnaamFout(naam: string, namen: string[], huidige?: number) {
   const schoon = naam.trim();
   if (!schoon) return "Geef het blad een naam.";
-  if (schoon.length > 31) return "Een bladnaam mag maximaal 31 tekens lang zijn.";
+  if (schoon.length > 31)
+    return "Een bladnaam mag maximaal 31 tekens lang zijn.";
   if (/[[\]:*?/\\]/.test(schoon))
     return "Een bladnaam mag geen van de tekens [ ] : * ? / \\ bevatten.";
   if (schoon.startsWith("'") || schoon.endsWith("'"))

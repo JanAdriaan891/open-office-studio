@@ -14,7 +14,11 @@ import {
 import { RibbonFout } from "./Ribbon";
 import { tekstNl, rekenbladNl, diaNl } from "./nederlands";
 import { RekenbladKoppen } from "./RekenbladKoppen";
-import { EditorApi, registreerWijziging } from "./lint/editorApi";
+import {
+  EditorApi,
+  EditorZichtbaar,
+  registreerWijziging,
+} from "./lint/editorApi";
 import { useNederlandseInvoer } from "./useNederlandseInvoer";
 configureDefaultFonts({
   fonts,
@@ -31,6 +35,8 @@ export interface EditorProps {
   opslaan: () => void;
   bestandsmenu: () => void;
   inactief: boolean;
+  /** Onwaar als dit document in een verborgen tabblad staat. */
+  zichtbaar?: boolean;
   /** Actuele documentzoom voor de statusbalk; null zolang onbekend. */
   zoom: (zoom: number | null) => void;
 }
@@ -173,38 +179,42 @@ export default function OfficeEditor(props: EditorProps) {
     return (
       <RibbonFout.Provider value={(bericht) => props.fout(new Error(bericht))}>
         <EditorApi.Provider value={apis}>
-          <DocxEditor
-            ref={docx}
-            documentBuffer={props.bytes}
-            showFileOpen={false}
-            showHelpMenu={false}
-            downloadOnSave={false}
-            onSave={() => {
-              if (!exporteren.current) props.opslaan();
-            }}
-            onChange={props.gewijzigd}
-            onError={props.fout}
-            rulerUnit="cm"
-            onFirstPagePainted={() => setDocumentGereed(true)}
-            loadingIndicator={<p className="office-loading">Document laden…</p>}
-            showRuler={liniaal}
-            showOutline={navigatie}
-            showOutlineButton={false}
-            colorMode="light"
-            i18n={tekstNl}
-            className="office-tekst"
-            readOnly={props.inactief}
-            toolbar={
-              <TekstRibbon
-                bestand={props.bestandsmenu}
-                liniaal={liniaal}
-                navigatie={navigatie}
-                wijzigLiniaal={() => setLiniaal(!liniaal)}
-                wijzigNavigatie={() => setNavigatie(!navigatie)}
-                zoomKoppeling={zoomKoppeling}
-              />
-            }
-          />
+          <EditorZichtbaar.Provider value={props.zichtbaar ?? true}>
+            <DocxEditor
+              ref={docx}
+              documentBuffer={props.bytes}
+              showFileOpen={false}
+              showHelpMenu={false}
+              downloadOnSave={false}
+              onSave={() => {
+                if (!exporteren.current) props.opslaan();
+              }}
+              onChange={props.gewijzigd}
+              onError={props.fout}
+              rulerUnit="cm"
+              onFirstPagePainted={() => setDocumentGereed(true)}
+              loadingIndicator={
+                <p className="office-loading">Document laden…</p>
+              }
+              showRuler={liniaal}
+              showOutline={navigatie}
+              showOutlineButton={false}
+              colorMode="light"
+              i18n={tekstNl}
+              className="office-tekst"
+              readOnly={props.inactief}
+              toolbar={
+                <TekstRibbon
+                  bestand={props.bestandsmenu}
+                  liniaal={liniaal}
+                  navigatie={navigatie}
+                  wijzigLiniaal={() => setLiniaal(!liniaal)}
+                  wijzigNavigatie={() => setNavigatie(!navigatie)}
+                  zoomKoppeling={zoomKoppeling}
+                />
+              }
+            />
+          </EditorZichtbaar.Provider>
         </EditorApi.Provider>
       </RibbonFout.Provider>
     );
@@ -212,25 +222,27 @@ export default function OfficeEditor(props: EditorProps) {
     return (
       <RibbonFout.Provider value={(bericht) => props.fout(new Error(bericht))}>
         <EditorApi.Provider value={apis}>
-          <div className="office-rekenblad-host" ref={rekenbladHost}>
-            <XlsxEditor
-              file={props.bytes}
-              fileName={props.naam}
-              onReady={gereedXlsx}
-              onChange={props.gewijzigd}
-              onSave={props.opslaan}
-              i18n={rekenbladNl}
-              className="office-rekenblad"
-              readOnly={props.inactief}
-              toolbar={
-                <RekenbladRibbon
-                  bestand={props.bestandsmenu}
-                  zoomKoppeling={zoomKoppeling}
-                />
-              }
-            />
-            <RekenbladKoppen host={rekenbladHost} api={rekenbladApi} />
-          </div>
+          <EditorZichtbaar.Provider value={props.zichtbaar ?? true}>
+            <div className="office-rekenblad-host" ref={rekenbladHost}>
+              <XlsxEditor
+                file={props.bytes}
+                fileName={props.naam}
+                onReady={gereedXlsx}
+                onChange={props.gewijzigd}
+                onSave={props.opslaan}
+                i18n={rekenbladNl}
+                className="office-rekenblad"
+                readOnly={props.inactief}
+                toolbar={
+                  <RekenbladRibbon
+                    bestand={props.bestandsmenu}
+                    zoomKoppeling={zoomKoppeling}
+                  />
+                }
+              />
+              <RekenbladKoppen host={rekenbladHost} api={rekenbladApi} />
+            </div>
+          </EditorZichtbaar.Provider>
         </EditorApi.Provider>
       </RibbonFout.Provider>
     );
@@ -238,25 +250,27 @@ export default function OfficeEditor(props: EditorProps) {
   return (
     <RibbonFout.Provider value={(bericht) => props.fout(new Error(bericht))}>
       <EditorApi.Provider value={apis}>
-        <PptxEditor
-          file={props.bytes}
-          fileName={props.naam}
-          fonts={fontFaces}
-          onReady={gereedPptx}
-          onChange={props.gewijzigd}
-          onError={props.fout}
-          onSave={props.opslaan}
-          i18n={diaNl}
-          className="office-presentatie"
-          readOnly={props.inactief}
-          toolbar={
-            <PresentatieRibbon
-              bestand={props.bestandsmenu}
-              zoomKoppeling={zoomKoppeling}
-              diaBreedte={diaBreedte}
-            />
-          }
-        />
+        <EditorZichtbaar.Provider value={props.zichtbaar ?? true}>
+          <PptxEditor
+            file={props.bytes}
+            fileName={props.naam}
+            fonts={fontFaces}
+            onReady={gereedPptx}
+            onChange={props.gewijzigd}
+            onError={props.fout}
+            onSave={props.opslaan}
+            i18n={diaNl}
+            className="office-presentatie"
+            readOnly={props.inactief}
+            toolbar={
+              <PresentatieRibbon
+                bestand={props.bestandsmenu}
+                zoomKoppeling={zoomKoppeling}
+                diaBreedte={diaBreedte}
+              />
+            }
+          />
+        </EditorZichtbaar.Provider>
       </EditorApi.Provider>
     </RibbonFout.Provider>
   );
