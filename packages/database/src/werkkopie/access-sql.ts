@@ -1246,6 +1246,15 @@ class Vertaler {
           this.uitbreiden.delete(kl(naam));
         }
       }
+      // Access lost `[Tabel.Veld]` tussen één paar haken op als veldverwijzing.
+      if (e.haak[0] && naam.includes(".")) {
+        for (let i = naam.indexOf("."); i > 0; i = naam.indexOf(".", i + 1)) {
+          const bron = this.zoekBron(scope, naam.slice(0, i));
+          const veld = naam.slice(i + 1);
+          const kolom = bron?.kolommen?.find((k) => kl(k.naam) === kl(veld));
+          if (bron && kolom) return `${citeer(bron.alias)}.${citeer(kolom.naam)}`;
+        }
+      }
       if (this.onbekendeKolommen(scope)) return citeer(naam);
       if (!e.haak[0]) {
         const w = naam.toUpperCase();
