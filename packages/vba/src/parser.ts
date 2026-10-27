@@ -470,11 +470,11 @@ class Parser {
     const naam = this.naam("procedurenaam");
     this.verwachtWoord("lib");
     const lib = this.neem();
-    if (this.neemWoord("alias")) this.neem();
+    const alias = this.neemWoord("alias") ? this.neem().tekst : undefined;
     if (this.isOp("(")) this.parameters();
-    this.typeAanduiding();
+    const type = this.typeAanduiding();
     this.verwachtEinde();
-    return { naam, bibliotheek: lib.tekst, isFunctie, ...this.plek(t) };
+    return { naam, bibliotheek: lib.tekst, isFunctie, ...(alias ? { alias } : {}), ...(type ? { type: type.naam } : {}), ...this.plek(t) };
   }
 
   private parameters(): Parameter[] {

@@ -18,7 +18,9 @@ geen COM en geen Windows gebruikt.
 | `bibliotheek.ts`, `format.ts`, `objecten.ts` | VBA-functies, constanten, `Format`, `Err`, `Debug`, `Collection`, `Scripting.Dictionary` (alleen via `New`). |
 | `dao.ts` | DAO-subset en domeinfuncties op het werkkopiecontract. |
 | `access.ts` | `DoCmd`, `Application`, `Forms`/`Reports`, `Me` en besturingselementen, `Screen`, `CurrentProject`, `SysCmd`. |
-| `afscherming.ts` | Wat geweigerd wordt, de weigering zelf en een statische scan. |
+| `afscherming.ts` | Wat geweigerd wordt, de weigering zelf (met het VBA-foutnummer voor de modus `fout`) en een statische scan. |
+| `extern.ts`, `extern-typen.ts` | Statische analyse van externe afhankelijkheden (verwijzingen, Declare, CreateObject, bestanden, gekoppelde tabellen …), aanroepgraaf en status per procedure; alle typen voor de interface. |
+| `ontbrekend.ts` | Gedrag na een weigering per modus (`stoppen`/`fout`/`overslaan`) en het plaatsvervangende object. |
 | `host.ts`, `conversie.ts` | `VbaHost` (MsgBox, InputBox, Debug.Print, DoCmd-gebeurtenissen) en `FormulierHost`; kloonbare `HostWaarde`. |
 | `protocol.ts`, `worker-kern.ts`, `vba-worker.ts`, `vba-client.ts` | Dedicated Worker en `VbaClient`. |
 | `nepwerkkopie.ts`, `testhulp.ts`, `*.test.ts` | Alleen voor tests. |
@@ -65,6 +67,54 @@ const rt = new VbaRuntime({ werkkopie, host, formulieren, stappenlimiet: 5_000_0
 rt.laad(modules);
 const { resultaat, uitvoer } = await rt.voerUit("Module1", "Test");
 ```
+
+## Externe afhankelijkheden en ontbrekende onderdelen
+
+```ts
+import type { ExterneAnalyse, Uitvoering, WatWerktSamenvatting } from "@/packages/vba/src/extern-typen.ts";
+// verwijzingen: leesVbaVerwijzingen(mdbReader) uit packages/database/src/access-analyse.ts
+const analyse = await client.analyseerExtern(verwijzingen, { gekoppeldeTabellen });
+// analyse.verwijzingen: naam, GUID, versie, pad, status (ingebouwd/deels/ontbreekt), gebruiktDoor
+// analyse.procedures: status (uitvoerbaar/deels/niet), redenen met aanroepketen, roeptAan/aangeroepenDoor
+const r = await client.voerUit("Module1", "Export", [], { ontbrekend: "fout" });
+const u: Uitvoering = await client.voerUitVastgelegd("Module1", "Export", [], { ontbrekend: "overslaan" });
+const s: WatWerktSamenvatting = await client.voerUitWatWerkt({ ontbrekend: "overslaan", metDeels: true, analyse });
+```
+
+- **Analyse** (`analyseerExtern`, statisch, voert niets uit): COM-/typebibliotheekverwijzingen
+  met status (`ingebouwd`: VBA, Access, DAO/ACE-DAO, stdole; `deels`: Scripting, alleen
+  Dictionary; `ontbreekt`: Office, Excel, Word, Outlook, ADODB/ADOX, MSXML, Windows Script Host,
+  VBIDE, OCX’s, projectverwijzingen en onbekende bibliotheken) en de procedures die ze
+  werkelijk gebruiken (objecttypen, `New`, `TypeOf`, ProgID’s, enum-constanten zoals `xlUp`,
+  `adOpenStatic`). Verder `Declare` (DLL!functie), `CreateObject`/`GetObject` met ProgID,
+  bestanden, `Shell`/`SendKeys`/`Environ`, register, `CurrentProject.Path`, hyperlinks, export,
+  `OpenDatabase`, gekoppelde tabellen (alleen naam en soort bron, nooit een
+  verbindingsreeks) en onbekende functies. Per procedure: `uitvoerbaar` (niets externs, ook
+  niet indirect), `deels` (alleen op paden achter `On Error` of een voorwaarde, of een
+  gedeeltelijk ondersteund onderdeel) of `niet`, met redenen en de aanroepketen (over
+  modules heen, ook klassen via `Dim x As New Klasse`).
+- **Uitvoeren zonder ontbrekende onderdelen** (`ontbrekend`, standaard `stoppen`): in de modus
+  `fout` geeft een weigering een gewone, vangbare VBA-fout met het nummer dat VBA zelf zou
+  geven (429 CreateObject/GetObject/`New` van een onbekende bibliotheek, 453 Declare/AddressOf,
+  75 bestand/pad, 53 FileLen/GetAttr, 52 Print #/Close #, 5 Shell, 70 SendKeys/Environ/register,
+  490 FollowHyperlink, 2302 export, 3024 OpenDatabase, 35 onbekende functie). In de modus
+  `overslaan` wordt de instructie overgeslagen; een functie levert Empty, en wat een object
+  zou opleveren (CreateObject, `New Excel.Application`, OpenDatabase, FileDialog …) wordt een
+  plaatsvervanger die elke verdere aanroep ook overslaat (als waarde Empty, `For Each` leeg).
+  Een fout 91/424 die daarna volgt wordt (alleen als geen enkele aanroeper een
+  foutafhandeling heeft) ook overgeslagen. Alles komt in `overgeslagen` als
+  `overgeslagen: <wat>, <module>/<regel>`, zonder broncode.
+- **In elke modus is de afscherming gelijk**: het geweigerde onderdeel wordt nooit uitgevoerd
+  en de argumenten ervan worden niet geëvalueerd (`ontbrekend.test.ts`). Alleen
+  `CreateObject("Scripting.Dictionary")` met een letterlijke ProgID wordt in-proces
+  nagebootst.
+- **`voerUitWatWerkt`** voert alle publieke Subs/Functions zonder verplichte parameters met
+  status `uitvoerbaar` (met `metDeels` ook `deels`) na elkaar uit, elk met eigen tijds- en
+  stappenlimiet, standaard in een transactie op de werkkopie die daarna wordt teruggedraaid
+  (ook na een tijdslimiet). Klassenmodules, gebeurtenisprocedures en (zonder formulierhost)
+  formuliermodules worden overgeslagen, met reden in `nietUitgevoerd`. Elke uitvoering wordt
+  vastgelegd als `Uitvoering` (`status`: geslaagd/fout/tijdslimiet/gestopt; stappenlimiet telt
+  als tijdslimiet).
 
 ## Taal
 
@@ -139,6 +189,10 @@ met keuzeknoppen en `InputBox` worden dan geweigerd, zodat code nooit zelf “Ja
 - `QueryDef`: `Parameters("x")`/`!x`, `OpenRecordset`, `Execute`, `SQL` (wijzigen wordt
   bij een opgeslagen query blijvend bewaard), `Type`.
   Ontbrekende parameters geven fout 3061.
+- `Database.Properties` en `CreateProperty` (in het geheugen van de runtime; fout 3270 voor
+  een onbekende eigenschap), `Application.SetOption/GetOption` (zonder gevolg),
+  `SysCmd(acSysCmdRuntime)` (onwaar), `CurrentProject.AllForms/AllReports` (`Count`, `For Each`,
+  uit de ontwerpen in de werkkopie).
 - Domeinfuncties: `DCount`, `DSum`, `DAvg`, `DMin`, `DMax`, `DLookup`, `DFirst`, `DLast`.
 - `DoCmd.RunSQL`, `DoCmd.SetWarnings`, `DoCmd.OpenQuery` (actiequery wordt uitgevoerd).
   `OpenForm`, `OpenReport`, `Close`, `Requery`, `GoToRecord`, `GoToControl`, `ApplyFilter`,
@@ -155,7 +209,8 @@ met keuzeknoppen en `InputBox` worden dan geweigerd, zodat code nooit zelf “Ja
 ## Afscherming
 
 Geweigerd, met een Nederlandse melding en **vóórdat** argumenten worden geëvalueerd
-(`VbaAfbreking` met reden `afgeschermd`, niet af te vangen met `On Error`):
+(standaard een `VbaAfbreking` met reden `afgeschermd`, niet af te vangen met `On Error`; met
+`ontbrekend: "fout"` of `"overslaan"` gaat de code verder zonder het onderdeel, zie hierboven):
 
 - processen: `Shell`, `AppActivate`, `DoCmd.RunApp`, `Application.Shell`;
 - bestanden: `Kill`, `FileCopy`, `Dir`, `MkDir`, `RmDir`, `ChDir`, `ChDrive`, `CurDir`,
@@ -163,7 +218,8 @@ Geweigerd, met een Nederlandse melding en **vóórdat** argumenten worden geëva
   `Open … For`, `Close #`, `Print #`, `Write #`, `Input #`, `Line Input #`, `Get/Put #`,
   `Name … As`, `LoadPicture`, `SavePicture`, `CurrentProject.Path/FullName`,
   `CodeProject.Path/FullName`, `CurrentDb.Name`, `OpenDatabase`, `CompactDatabase`;
-- COM/ActiveX: `CreateObject`, `GetObject`;
+- COM/ActiveX: `CreateObject`, `GetObject`, `CurrentProject.Connection` (ADO);
+- het VBA-project: `VBE`, `Application.References`; de bestandskiezer `Application.FileDialog`;
 - Windows-API: elke met `Declare` gedeclareerde functie, `AddressOf`;
 - toetsenbord, omgeving en register: `SendKeys`, `Environ`, `GetSetting`, `SaveSetting`,
   `DeleteSetting`, `GetAllSettings`;
@@ -179,7 +235,9 @@ mee in `afscherming`. Een eigen procedure met dezelfde naam (bv. een eigen `Dir`
 `Mid`/`LSet`/`RSet` als toewijzing, `On x GoTo/GoSub`, `Eval`, `Application.Run` buiten de
 geladen modules, `Recordset.Filter/Sort/OpenRecordset`, `CreateTableDef`, `Relations`,
 geneste transacties,
-`Forms(index)`, `For Each` over `Forms`/`Controls`, `DoCmd.RunMacro`, `DeleteObject`, `Rename`,
+`Forms(index)` en `For Each` over `Forms`/`Controls` met een formulierhost (zonder host is er
+niets geopend: lege verzameling, en `Forms!x` buiten een formuliermodule geeft fout 2450),
+`DoCmd.RunMacro`, `DeleteObject`, `Rename`,
 `CopyObject`, gebeurtenissen van klassen (`RaiseEvent` heeft geen ontvangers), UserForms
 (`Load`/`Unload`), `StrPtr/VarPtr/ObjPtr`. Currency en Decimal worden als
 JavaScript-getal benaderd (Currency afgerond op 4 decimalen).
@@ -190,6 +248,12 @@ JavaScript-getal benaderd (Currency afgerond op 4 decimalen).
   DAO tegen een sql.js-database (`nepwerkkopie.ts`) én tegen de echte `SqliteWerkkopie`,
   afscherming (elke constructie geweigerd zonder bijwerking), worker/client (tijdslimiet,
   `stop()`, hostverzoeken).
+- `node scripts/vba-uitvoerproef.mjs`: kiest deterministisch 10 databases uit het
+  access-vba-corpus, bouwt per database een werkkopie, maakt de externe analyse en voert
+  `voerUitWatWerkt` uit (modus `overslaan`, automatische hostantwoorden, transactie per
+  procedure, hash van het origineel voor en na). Rapport in `.local/vba-uitvoerproef.json`,
+  verslag in `docs/tests/2026-10-27-vba-uitvoerproef.md`. Stand 27 oktober 2026: 134 van 165
+  kandidaten geslaagd (vóór de reparaties uit die proef 110 van 167), geen tijdslimiet.
 - `node scripts/vba-proef.mjs`: haalt de VBA-modules uit de corpusdatabases
   (`.local/corpus/manifest.json` en `.local/corpus/access-vba/manifest.json`) via
   `analyseerDatabase` en **parset** ze alleen; niets wordt uitgevoerd. Het rapport

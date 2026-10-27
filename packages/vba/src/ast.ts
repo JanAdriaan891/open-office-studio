@@ -62,6 +62,10 @@ export interface Declare extends Plek {
   naam: string;
   bibliotheek: string;
   isFunctie: boolean;
+  /** `Alias "GetUserNameA"` */
+  alias?: string;
+  /** Resultaattype (`As Long`). */
+  type?: string;
 }
 
 export interface TypeDef extends Plek {

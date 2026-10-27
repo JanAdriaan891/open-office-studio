@@ -652,3 +652,27 @@ describe("Option Explicit en compileerfouten", () => {
     await expect(rt.voerUit("M", "Test")).rejects.toThrow(/syntaxisfouten/);
   });
 });
+
+describe("enumtypen", () => {
+  it("een variabele, parameter of functie van een (eigen of bibliotheek-)enumtype is een Long", async () => {
+    const { print } = await import("./testhulp.ts");
+    expect(
+      await print(`Enum Kleur
+  Rood = 1
+  Blauw
+End Enum
+Private m As VbCompareMethod
+Function Dubbel(k As Kleur) As Kleur
+  Dubbel = k * 2
+End Function
+Sub Test()
+  Dim k As Kleur, d As DAO.RecordsetTypeEnum, v As VbMsgBoxResult
+  k = Blauw
+  m = vbTextCompare
+  d = dbOpenSnapshot
+  v = vbYes
+  Debug.Print k; Dubbel(k); m; d; v; TypeName(k)
+End Sub`),
+    ).toEqual([" 2  4  1  4  6 Long"]);
+  });
+});

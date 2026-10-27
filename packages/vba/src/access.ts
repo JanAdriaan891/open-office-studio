@@ -68,6 +68,12 @@ export const ACCESS_CONSTANTEN: Record<string, VbaWaarde> = {
   acsyscmdsetstatus: int(4),
   acsyscmdclearstatus: int(5),
   acsyscmdaccessver: int(7),
+  acsyscmdruntime: int(6),
+  acsyscmdprofile: int(8),
+  acsyscmdaccessdir: int(9),
+  acsyscmdclearhelptopic: int(11),
+  acsyscmdinifile: int(12),
+  acsyscmdgetworkgroupfile: int(13),
   acsyscmdgetobjectstate: int(10),
   acobjstateopen: int(1),
   acobjstatedirty: int(2),
@@ -119,6 +125,13 @@ export const ACCESS_CONSTANTEN: Record<string, VbaWaarde> = {
 
 function formulierHost(rt: VbaRuntime, doel: FormulierDoel) {
   const host = rt.opties.formulieren;
+  // Zonder formulierhost is er geen formulier geopend. Code buiten een formuliermodule
+  // krijgt dan dezelfde (vangbare) fout als in Access: 2450/2451 “kan het formulier niet vinden”.
+  if (!host && rt.frame && rt.frame.module.soort !== "formulier")
+    throw fout(
+      doel.soort === "rapport" ? 2451 : 2450,
+      `Access kan het ${doel.soort === "rapport" ? "rapport" : "formulier"} ‘${doel.naam.split("/")[0]}’ niet vinden (het is niet geopend).`,
+    );
   if (!host)
     throw new VbaAfbreking(
       "niet-ondersteund",
@@ -266,7 +279,13 @@ class FormulierenCollectie extends VbaObject {
   }
   override async lid(naam: string, args: VbaWaarde[], rt: unknown): Promise<VbaWaarde> {
     if (naam === "item") return this.standaard(args, rt);
+    // Zonder formulierhost is er niets geopend.
+    if (naam === "count" && !(rt as VbaRuntime).opties.formulieren) return int(0);
     throw new VbaAfbreking("niet-ondersteund", `${this.typeNaam}.${naam} wordt niet ondersteund.`);
+  }
+  override async elementen(rt: unknown): Promise<VbaWaarde[]> {
+    if (!(rt as VbaRuntime).opties.formulieren) return [];
+    throw new VbaAfbreking("niet-ondersteund", `For Each over ${this.typeNaam} wordt niet ondersteund; gebruik de naam.`);
   }
 }
 
@@ -458,9 +477,31 @@ class AlleObjecten extends VbaObject {
     const r = rt as VbaRuntime;
     return new AccessObjectInfo({ soort: this.soort, naam: naarTekst(await r.deref(args[0] ?? ""), r.land) });
   }
+  /** Namen van de formulieren of rapporten die de werkkopie kent. */
+  private async namen(rt: VbaRuntime): Promise<string[]> {
+    if (!rt.werkkopie) return [];
+    try {
+      return (await rt.werkkopie.ontwerpen()).filter((o) => o.soort === this.soort).map((o) => o.naam);
+    } catch {
+      return [];
+    }
+  }
   override async lid(naam: string, args: VbaWaarde[], rt: unknown) {
-    if (naam === "item") return this.standaard(args, rt);
+    if (naam === "item") {
+      const sleutel = await (rt as VbaRuntime).deref(args[0] ?? "");
+      if (sleutel instanceof Getal) {
+        const lijst = await this.namen(rt as VbaRuntime);
+        const n = naarGetal(sleutel, (rt as VbaRuntime).land);
+        if (n < 0 || n >= lijst.length) throw fout(2456);
+        return new AccessObjectInfo({ soort: this.soort, naam: lijst[n] });
+      }
+      return this.standaard(args, rt);
+    }
+    if (naam === "count") return lng((await this.namen(rt as VbaRuntime)).length);
     return super.lid(naam, args, rt);
+  }
+  override async elementen(rt: unknown): Promise<VbaWaarde[]> {
+    return (await this.namen(rt as VbaRuntime)).map((naam) => new AccessObjectInfo({ soort: this.soort, naam }));
   }
   override async bang(naam: string) {
     return new AccessObjectInfo({ soort: this.soort, naam });
@@ -475,8 +516,21 @@ class AccessObjectInfo extends VbaObject {
   override async lid(naam: string, args: VbaWaarde[], rt: unknown): Promise<VbaWaarde> {
     const r = rt as VbaRuntime;
     if (naam === "isloaded") return r.opties.formulieren ? r.opties.formulieren.isGeopend(this.doel) : false;
-    if (naam === "name") return this.doel.naam;
+    if (naam === "name" || naam === "fullname") return this.doel.naam;
+    if (naam === "type") return int(this.doel.soort === "rapport" ? 3 : 2);
+    if (naam === "currentview") return int(0);
     return super.lid(naam, args, rt);
+  }
+}
+
+/** `VBE` (de VBA-editor en het VBA-project): afgeschermd, net als Application.VBE. */
+class VbeObject extends VbaObject {
+  readonly typeNaam = "VBE";
+  override async lid(): Promise<VbaWaarde> {
+    return weigerLid("Application", "VBE");
+  }
+  override async zetLid(): Promise<void> {
+    weigerLid("Application", "VBE");
   }
 }
 
@@ -556,11 +610,15 @@ class ApplicationObject extends VbaObject {
         return true;
       case "syscmd":
         return sysCmd(args, r);
-      case "eval":
-      case "getoption":
       case "setoption":
+        // Instellingen van Access zelf: hebben in Open Office Studio geen gevolg.
+        return LEEG;
+      case "getoption":
+        return LEEG;
       case "references":
       case "vbe":
+        return weigerLid("Application", naam === "vbe" ? "VBE" : "References");
+      case "eval":
         throw new VbaAfbreking("niet-ondersteund", `Application.${naam} wordt niet ondersteund.`);
     }
     const f = r.ingebouwd(naam);
@@ -587,6 +645,14 @@ async function sysCmd(args: VbaWaarde[], rt: VbaRuntime): Promise<VbaWaarde> {
     case 4:
     case 5:
       return LEEG; // voortgangsbalk en statusregel: geen gevolg
+    case 6:
+      return false; // acSysCmdRuntime: geen Access-runtimeversie
+    case 8:
+      return ""; // acSysCmdProfile
+    case 9:
+      return weigerLid("SysCmd", "AccessDir");
+    case 13:
+      return weigerLid("SysCmd", "GetWorkgroupFile");
   }
   throw new VbaAfbreking("niet-ondersteund", `SysCmd met actie ${actie} wordt niet ondersteund.`);
 }
@@ -616,6 +682,7 @@ export function accessGlobalen(rt: VbaRuntime): [string, VbaWaarde][] {
     ["reports", new FormulierenCollectie("rapport")],
     ["screen", new ScreenObject()],
     ["currentproject", new ProjectObject(false)],
+    ["vbe", new VbeObject()],
     ["codeproject", new ProjectObject(true)],
   ];
 }

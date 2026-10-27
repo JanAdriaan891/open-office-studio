@@ -6,10 +6,13 @@
 import type { Bevinding } from "./afscherming.ts";
 import type { FormulierDoel, HostGebeurtenis, HostWaarde, InputBoxVerzoek, MsgBoxVerzoek } from "./host.ts";
 import type { ModuleBron } from "./interpreter.ts";
+import type { GekoppeldeTabelInvoer, OntbrekendModus, OvergeslagenOnderdeel, VerwijzingInvoer, Hostgebeurtenis } from "./extern-typen.ts";
 
 export interface WorkerOpties {
   stappenlimiet?: number;
   landinstelling?: "nl" | "en-us";
+  /** Standaardmodus voor ontbrekende onderdelen (standaard "stoppen"). */
+  ontbrekend?: OntbrekendModus;
   /** Welke hostfuncties de client aanbiedt; de rest geeft in de worker een duidelijke melding. */
   host: { msgBox: boolean; inputBox: boolean; gebeurtenis: boolean; formulieren: boolean };
 }
@@ -48,8 +51,18 @@ export interface LaadResultaat {
 }
 
 export type VoerUitResultaat =
-  | { ok: true; resultaat: HostWaarde; argumenten: HostWaarde[]; uitvoer: string[]; stappen: number }
-  | { ok: false; fout: VbaFoutInfo; uitvoer: string[] };
+  | {
+      ok: true;
+      resultaat: HostWaarde;
+      argumenten: HostWaarde[];
+      uitvoer: string[];
+      stappen: number;
+      /** Overgeslagen onderdelen (modus `overslaan`); ontbreekt als er niets is overgeslagen. */
+      overgeslagen?: OvergeslagenOnderdeel[];
+      /** Hostverzoeken tijdens de uitvoering (alleen in de client ingevuld; ontbreekt als er geen waren). */
+      hostgebeurtenissen?: Hostgebeurtenis[];
+    }
+  | { ok: false; fout: VbaFoutInfo; uitvoer: string[]; overgeslagen?: OvergeslagenOnderdeel[]; hostgebeurtenissen?: Hostgebeurtenis[] };
 
 export type HostVerzoek =
   | { soort: "msgBox"; verzoek: MsgBoxVerzoek }
@@ -65,12 +78,25 @@ export type NaarWorker =
   | { soort: "start"; id: number; opties: WorkerOpties; metWerkkopie: boolean }
   | { soort: "laad"; id: number; modules: ModuleBron[] }
   | { soort: "procedures"; id: number }
-  | { soort: "voerUit"; id: number; module: string; procedure: string; argumenten: HostWaarde[] }
+  | {
+      soort: "voerUit";
+      id: number;
+      module: string;
+      procedure: string;
+      argumenten: HostWaarde[];
+      ontbrekend?: OntbrekendModus;
+      stappenlimiet?: number;
+    }
+  /** Transactie op de werkkopie voor een proefuitvoering; geeft true als het lukte. */
+  | { soort: "transactie"; id: number; actie: "begin" | "terugdraaien" }
+  | { soort: "analyseerExtern"; id: number; verwijzingen?: VerwijzingInvoer[]; gekoppeldeTabellen?: GekoppeldeTabelInvoer[] }
   | { soort: "hostAntwoord"; id: number; ok: true; waarde: HostWaarde | null }
   | { soort: "hostAntwoord"; id: number; ok: false; melding: string };
 
 export type VanWorker =
   | { soort: "antwoord"; id: number; ok: true; resultaat: unknown }
-  | { soort: "antwoord"; id: number; ok: false; fout: VbaFoutInfo }
+  | { soort: "antwoord"; id: number; ok: false; fout: VbaFoutInfo; overgeslagen?: OvergeslagenOnderdeel[] }
+  /** Een onderdeel is voor het eerst overgeslagen (blijft bewaard als de worker wordt beëindigd). */
+  | { soort: "overgeslagen"; onderdeel: OvergeslagenOnderdeel }
   | { soort: "hostVerzoek"; id: number; verzoek: HostVerzoek }
   | { soort: "debug"; tekst: string };

@@ -19,6 +19,8 @@ import {
   leesVbaDir,
   leesVbaModuleBron,
   decodeerVbaTekst,
+  pakVbaUit,
+  type VbaVerwijzing,
 } from "./ovba.ts";
 import {
   VERSLEUTELD_MELDING,
@@ -734,4 +736,108 @@ export function maakRijfilter(db: MDBReader, bytes: Uint8Array): Rijfilter {
       };
     },
   };
+}
+
+/** Verwijzing uit het VBA-project met de gegevens uit de libid (voor de analyse van externe afhankelijkheden). */
+export interface VbaVerwijzingDetail {
+  naam: string;
+  soort: VbaVerwijzing["soort"];
+  /** Volledige libid zoals in de dir-stroom (`*\\G{GUID}#versie#lcid#pad#omschrijving`). */
+  libid?: string;
+  guid?: string;
+  versie?: string;
+  /** Pad van de typebibliotheek of het project; kan een gebruikersnaam bevatten. */
+  pad?: string;
+  omschrijving?: string;
+}
+
+/**
+ * Leest de verwijzingen (typebibliotheken, ActiveX-besturingselementen en
+ * projectverwijzingen) uit de dir-stroom van het VBA-project, met GUID, versie
+ * en pad uit de libid (MS-OVBA 2.3.4.2.2). Los van `analyseerDatabase`; voert
+ * niets uit. Geeft een lege lijst als er geen (leesbaar) VBA-project is.
+ */
+export function leesVbaVerwijzingen(db: MDBReader): VbaVerwijzingDetail[] {
+  let opslag: VbaStromen | null = null;
+  try {
+    const opslagRijen = systeemtabel(db, "MSysAccessStorage");
+    if (opslagRijen) opslag = vbaUitOpslag(opslagRijen);
+    else {
+      const objectRijen = systeemtabel(db, "MSysAccessObjects");
+      if (objectRijen) opslag = vbaUitObjecten(objectRijen);
+    }
+  } catch {
+    return [];
+  }
+  const dirStroom = [...(opslag?.stromen ?? [])].find(([pad]) =>
+    /(^|\/)vba\/vbaproject\/vba\/dir$/.test(pad),
+  )?.[1];
+  if (!dirStroom) return [];
+  let dir: Uint8Array;
+  try {
+    dir = pakVbaUit(dirStroom);
+  } catch {
+    return [];
+  }
+  const zicht = new DataView(dir.buffer, dir.byteOffset, dir.byteLength);
+  const uit: VbaVerwijzingDetail[] = [];
+  const utf16 = new TextDecoder("utf-16le");
+  let codepagina = 1252;
+  let huidig: VbaVerwijzingDetail | null = null;
+  let inControle = false;
+  let positie = 0;
+  const libidTekst = (data: Uint8Array, start = 0) => {
+    if (data.length < start + 4) return undefined;
+    const lengte = new DataView(data.buffer, data.byteOffset + start, 4).getUint32(0, true);
+    return decodeerVbaTekst(data.subarray(start + 4, start + 4 + lengte), codepagina);
+  };
+  const vulLibid = (v: VbaVerwijzingDetail, libid: string | undefined) => {
+    if (!libid) return;
+    v.libid = libid;
+    const guid = /\{([0-9a-f-]{36})\}/i.exec(libid)?.[1];
+    if (guid) v.guid = guid.toLowerCase();
+    const delen = libid.split("#");
+    if (delen.length >= 4) {
+      if (/^[0-9a-f.]+$/i.test(delen[1])) v.versie = delen[1];
+      if (delen[3]) v.pad = delen[3];
+      if (delen.length >= 5 && delen.slice(4).join("#")) v.omschrijving = delen.slice(4).join("#");
+    } else if (/^\*\\[CDH]/i.test(libid)) v.pad = libid.replace(/^\*\\[A-Z]/i, "");
+  };
+  while (positie + 6 <= dir.length) {
+    const id = zicht.getUint16(positie, true);
+    let grootte = zicht.getUint32(positie + 2, true);
+    if (id === 0x0009) grootte = 6;
+    if (positie + 6 + grootte > dir.length) break;
+    const data = dir.subarray(positie + 6, positie + 6 + grootte);
+    positie += 6 + grootte;
+    if (id === 0x0003 && grootte >= 2) codepagina = data[0] | (data[1] << 8);
+    else if (id === 0x0016) {
+      // Naam van een nieuwe verwijzing, of (direct na REFERENCECONTROL) de uitgebreide naam.
+      if (inControle) continue;
+      huidig = { naam: decodeerVbaTekst(data, codepagina) || "(naamloos)", soort: "Onbekend" };
+      uit.push(huidig);
+    } else if (id === 0x003e && huidig && !inControle) {
+      const naam = utf16.decode(data);
+      if (naam) huidig.naam = naam;
+    } else if (id === 0x000d && huidig) {
+      huidig.soort = "Geregistreerde bibliotheek";
+      vulLibid(huidig, libidTekst(data));
+    } else if (id === 0x000e && huidig) {
+      huidig.soort = "Projectverwijzing";
+      vulLibid(huidig, libidTekst(data));
+    } else if (id === 0x0033 && huidig) {
+      huidig.soort = "ActiveX-besturingselement";
+      vulLibid(huidig, decodeerVbaTekst(data, codepagina));
+    } else if (id === 0x002f && huidig) {
+      huidig.soort = "ActiveX-besturingselement";
+      inControle = true;
+      const twiddled = libidTekst(data);
+      if (!huidig.libid) vulLibid(huidig, twiddled);
+    } else if (id === 0x0030 && huidig) {
+      inControle = false;
+      // REFERENCECONTROL, uitgebreid deel: SizeOfLibidExtended + LibidExtended
+      vulLibid(huidig, libidTekst(data));
+    } else if (id === 0x000f || id === 0x0019) break;
+  }
+  return uit;
 }

@@ -63,14 +63,16 @@ import {
   naarGetal,
   naarTekst,
   naarType,
-  normaalType,
+  normaalType as normaalBasistype,
   standaardWaarde,
   type Cel,
   type VbaWaarde,
 } from "./waarden.ts";
 import type { Werkkopie } from "../../database/src/werkkopie/contract.ts";
 import { maakBibliotheek } from "./bibliotheek.ts";
-import { GEWEIGERDE_LEDEN, weigerLid } from "./afscherming.ts";
+import { ADDRESSOF, GEWEIGERDE_LEDEN, bestandsstatement, declareAfscherming, weigering, weigerLid } from "./afscherming.ts";
+import type { OntbrekendModus, OvergeslagenCategorie, OvergeslagenOnderdeel } from "./extern-typen.ts";
+import { NAGEBOOTSTE_PROGIDS, OntbrekendObject, afschermingVan, ontbrekendFout } from "./ontbrekend.ts";
 import { isFormulierLid, meVoorModule } from "./access.ts";
 
 // ---------- signalen (geen fouten) ----------
@@ -108,6 +110,13 @@ export interface RuntimeOpties {
   nu?: () => Date;
   /** Bron voor Rnd (tests). */
   willekeurig?: () => number;
+  /**
+   * Wat te doen met ontbrekende of afgeschermde onderdelen (standaard "stoppen").
+   * De afscherming zelf is in elke modus gelijk; zie extern-typen.ts.
+   */
+  ontbrekend?: OntbrekendModus;
+  /** Wordt aangeroepen zodra iets voor het eerst op een plek wordt overgeslagen. */
+  bijOvergeslagen?: (o: OvergeslagenOnderdeel) => void;
 }
 
 export interface ModuleInfo {
@@ -208,6 +217,8 @@ export interface Uitkomst {
   argumenten: VbaWaarde[];
   uitvoer: string[];
   stappen: number;
+  /** Overgeslagen onderdelen (modus `overslaan`). */
+  overgeslagen: OvergeslagenOnderdeel[];
 }
 
 export class VbaRuntime {
@@ -226,11 +237,71 @@ export class VbaRuntime {
   private uitArgumenten: VbaWaarde[] = [];
   /** Vrije opslag voor bibliotheekonderdelen (Err-object, Rnd-zaad, DoCmd-status …). */
   readonly staat = new Map<string, unknown>();
+  /** Modus voor ontbrekende onderdelen in de lopende uitvoering. */
+  ontbrekendModus: OntbrekendModus;
+  /** Overgeslagen onderdelen van de lopende (of laatste) uitvoering. */
+  overgeslagen: OvergeslagenOnderdeel[] = [];
+  private overgeslagenPerPlek = new Map<string, OvergeslagenOnderdeel>();
+  /** Actieve procedureframes (binnenste laatst). */
+  private stapel: Frame[] = [];
 
   constructor(opties: RuntimeOpties = {}) {
     this.opties = opties;
     this.land = opties.landinstelling ?? NEDERLANDS;
     this.bib = maakBibliotheek();
+    this.ontbrekendModus = opties.ontbrekend ?? "stoppen";
+  }
+
+  // ---------- ontbrekende onderdelen ----------
+
+  /** Registreert een overgeslagen onderdeel op de huidige plek (zonder broncode). */
+  registreerOvergeslagen(wat: string, categorie: OvergeslagenCategorie) {
+    const f = this.frame;
+    const module = f?.module.naam ?? "";
+    const procedure = f?.proc?.naam;
+    const regel = f?.regel ?? 0;
+    const sleutel = `${module}\u0000${regel}\u0000${categorie}\u0000${wat.toLowerCase()}`;
+    const bestaand = this.overgeslagenPerPlek.get(sleutel);
+    if (bestaand) {
+      bestaand.aantal++;
+      return;
+    }
+    const o: OvergeslagenOnderdeel = {
+      wat,
+      categorie,
+      module,
+      ...(procedure ? { procedure } : {}),
+      regel,
+      aantal: 1,
+      melding: `overgeslagen: ${wat}, ${module}/${regel}`,
+    };
+    this.overgeslagenPerPlek.set(sleutel, o);
+    this.overgeslagen.push(o);
+    this.opties.bijOvergeslagen?.(o);
+  }
+
+  /**
+   * Behandelt een afgeschermde weigering volgens de modus: stoppen (opnieuw
+   * gooien), fout (vangbare VBA-fout) of overslaan (standaardwaarde). Andere
+   * fouten worden ongewijzigd opnieuw gegooid. Het geweigerde onderdeel is op
+   * dit punt nooit uitgevoerd.
+   */
+  afgeschermd(e: unknown): VbaWaarde {
+    const a = afschermingVan(e);
+    if (!a || this.ontbrekendModus === "stoppen") throw e;
+    if (this.ontbrekendModus === "fout") throw ontbrekendFout(a.nummer, a.naam);
+    this.registreerOvergeslagen(a.naam, a.categorie as OvergeslagenCategorie);
+    return a.object ? new OntbrekendObject(a.naam) : LEEG;
+  }
+
+  /** Mag een fout 91/424 als vervolg op iets overgeslagens worden overgeslagen? */
+  private isVervolgfout(e: VbaFout) {
+    return (
+      this.ontbrekendModus === "overslaan" &&
+      (e.nummer === 91 || e.nummer === 424) &&
+      this.overgeslagen.length > 0 &&
+      this.stapel.every((fr) => fr.foutModus.soort === "uit" || fr.inHandler)
+    );
   }
 
   get werkkopie(): Werkkopie | undefined {
@@ -318,7 +389,7 @@ export class VbaRuntime {
   }
 
   /** Voert een procedure uit. Fouten worden gegooid als VbaFout of VbaAfbreking (met positie). */
-  async voerUit(module: string, procedure: string, args: VbaWaarde[] = []): Promise<Uitkomst> {
+  async voerUit(module: string, procedure: string, args: VbaWaarde[] = [], opties: { ontbrekend?: OntbrekendModus; stappenlimiet?: number } = {}): Promise<Uitkomst> {
     const m = this.modules.get(module.toLowerCase());
     if (!m) throw new VbaAfbreking("intern", `Module ‘${module}’ bestaat niet.`);
     if (m.fouten.length) {
@@ -331,6 +402,11 @@ export class VbaRuntime {
       throw new VbaAfbreking("intern", `‘${m.naam}’ is een klassenmodule; maak eerst een instantie met New.`);
     this.stappen = 0;
     this.diepte = 0;
+    this.stapel = [];
+    this.ontbrekendModus = opties.ontbrekend ?? this.opties.ontbrekend ?? "stoppen";
+    this.stappenlimietNu = opties.stappenlimiet;
+    this.overgeslagen = [];
+    this.overgeslagenPerPlek.clear();
     const startUitvoer = this.uitvoer.length;
     this.uitArgumenten = [];
     let resultaat: VbaWaarde = LEEG;
@@ -345,15 +421,17 @@ export class VbaRuntime {
       // Een Debug.Print die op ; of , eindigde, alsnog als regel afsluiten.
       if (this.printBuffer) this.debugPrint("", true);
     }
-    return { resultaat, argumenten: this.uitArgumenten, uitvoer: this.uitvoer.slice(startUitvoer), stappen: this.stappen };
+    return { resultaat, argumenten: this.uitArgumenten, uitvoer: this.uitvoer.slice(startUitvoer), stappen: this.stappen, overgeslagen: this.overgeslagen };
   }
 
   // ---------- stappen en annulering ----------
 
+  private stappenlimietNu?: number;
+
   async stap(f: Frame, s: { regel: number; kolom: number }) {
     f.regel = s.regel;
     f.kolom = s.kolom;
-    const limiet = this.opties.stappenlimiet ?? 5_000_000;
+    const limiet = this.stappenlimietNu ?? this.opties.stappenlimiet ?? 5_000_000;
     if (++this.stappen > limiet)
       throw new VbaAfbreking("stappenlimiet", `De stappenlimiet van ${limiet.toLocaleString("nl-NL")} instructies is bereikt; mogelijk een oneindige lus.`);
     if ((this.stappen & 0x1fff) === 0) await new Promise((r) => setTimeout(r, 0));
@@ -379,7 +457,7 @@ export class VbaRuntime {
     if (c.waarde === undefined) {
       c.waarde = LEEG; // tegen kringverwijzingen
       const w = await this.waarde(c.def.waarde, this.moduleFrame(m));
-      c.waarde = c.def.type ? naarType(w, normaalType(c.def.type.naam), this.land) : w;
+      c.waarde = c.def.type ? naarType(w, this.normaalType(c.def.type.naam), this.land) : w;
     }
     return c.waarde;
   }
@@ -414,6 +492,14 @@ export class VbaRuntime {
       if (m === f.module || m.soort !== "module") continue;
       const g = await this.inModule(m, k, null, false);
       if (g) return g;
+    }
+    // Publieke Enums uit klassen- en formuliermodules zijn in VBA overal zichtbaar.
+    for (const m of this.modules.values()) {
+      if (m === f.module || m.soort === "module") continue;
+      const lid = m.enumLeden.get(k);
+      if (lid?.def.publiek) return { s: "const", w: (await this.enumLid(m, k))! };
+      const en = m.enums.get(k);
+      if (en?.publiek) return { s: "enum", module: m, def: en };
     }
     const mod = this.modules.get(k);
     if (mod) return { s: "module", module: mod };
@@ -451,6 +537,22 @@ export class VbaRuntime {
   }
 
   // ---------- variabelen ----------
+
+  /**
+   * Genormaliseerd type van een declaratie. Enumtypen (eigen `Enum`s en die van
+   * VBA/Access/DAO/Office, zoals VbCompareMethod, AcFormView, RecordsetTypeEnum)
+   * zijn in VBA een Long.
+   */
+  normaalType(naam: string): string {
+    const t = normaalBasistype(naam);
+    if (EENVOUDIGE_TYPEN.has(t)) return t;
+    const laatste = naam.split(".").pop()!;
+    const k = laatste.toLowerCase();
+    if (this.modules.has(k) || this.zoekType(k)) return t; // klasse of eigen Type
+    for (const m of this.modules.values()) if (m.enums.has(k)) return "Long";
+    if (/^(Vb|Ac|Xl|Wd|Ol|Mso|Pp|Ad)[A-Z]\w*$/.test(laatste) || /^\w+Enum$/.test(laatste)) return "Long";
+    return t;
+  }
 
   zoekType(naam: string): TypeDef | undefined {
     const k = naam.toLowerCase().split(".").pop()!;
@@ -500,7 +602,7 @@ export class VbaRuntime {
 
   async maakCelAsync(v: Variabele, m: ModuleInfo, f: Frame | null): Promise<Cel> {
     const ctx = f ?? this.moduleFrame(m);
-    const type = v.type ? normaalType(v.type.naam) : this.defType(m, v.naam);
+    const type = v.type ? this.normaalType(v.type.naam) : this.defType(m, v.naam);
     const vasteLengte = v.type?.vasteLengte ? Math.round(naarGetal(await this.waarde(v.type.vasteLengte, ctx), this.land)) : undefined;
     const udt = !EENVOUDIGE_TYPEN.has(type) ? this.zoekType(type) : undefined;
     if (v.matrix) {
@@ -579,6 +681,10 @@ export class VbaRuntime {
     if (m && m.soort === "formulier") return m.instantie!;
     const w = this.bib.nieuw(type, this);
     if (w) return w;
+    if (this.ontbrekendModus === "overslaan") {
+      this.registreerOvergeslagen(`New ${type}`, "com");
+      return new OntbrekendObject(type);
+    }
     throw fout(429, `Kan geen object van het type ‘${type}’ maken: alleen klassenmodules, Collection en Scripting.Dictionary worden ondersteund.`);
   }
 
@@ -648,6 +754,12 @@ export class VbaRuntime {
     return me;
   }
   private meCache = new Map<ModuleInfo, VbaObject>();
+
+  /** Is dit een ingebouwde functie, constante of globaal object van de runtime? */
+  isBekend(naam: string): boolean {
+    const k = naam.toLowerCase().replace(/\$$/, "");
+    return this.bib.functies.has(k) || this.bib.constanten.has(k) || this.globalen.has(k);
+  }
 
   /** Ingebouwde functie op naam (voor criteria en Application.X). */
   ingebouwd(naam: string): Ingebouwd | undefined {
@@ -725,7 +837,7 @@ export class VbaRuntime {
         return w.isType(e.type);
       }
       case "addressof":
-        throw new VbaAfbreking("afgeschermd", "AddressOf (terugroepfuncties voor de Windows-API) is afgeschermd.");
+        return this.afgeschermd(weigering(ADDRESSOF, "AddressOf (terugroepfuncties voor de Windows-API) is afgeschermd."));
     }
   }
 
@@ -813,7 +925,7 @@ export class VbaRuntime {
       case "melid":
         return g.obj.lid(g.naam, [], this);
       case "declare":
-        throw this.declareGeweigerd(naam);
+        return this.afgeschermd(this.declareGeweigerd(naam));
       case "module":
       case "enum":
         throw fout(424, `‘${naam}’ is geen waarde.`);
@@ -821,14 +933,22 @@ export class VbaRuntime {
   }
 
   declareGeweigerd(naam: string) {
-    return new VbaAfbreking(
-      "afgeschermd",
+    return weigering(
+      declareAfscherming(naam),
       `‘${naam}’ is met Declare uit een Windows-DLL gehaald. Aanroepen van de Windows-API (Declare) zijn afgeschermd en worden niet uitgevoerd.`,
     );
   }
 
   /** Onbekende naam: impliciete variabele zonder Option Explicit. */
   private async onbekend(naam: string, f: Frame, alsAanroep: boolean): Promise<VbaWaarde> {
+    if (alsAanroep || f.module.ast.opties.expliciet) {
+      // Mogelijk uit een ontbrekende verwijzing (Excel-functie, ADO-constante …).
+      if (this.ontbrekendModus === "fout") throw ontbrekendFout(alsAanroep ? 35 : 5, naam);
+      if (this.ontbrekendModus === "overslaan") {
+        this.registreerOvergeslagen(naam, "onbekend");
+        return LEEG;
+      }
+    }
     if (alsAanroep)
       throw new VbaAfbreking("niet-ondersteund", `Sub of Function ‘${naam}’ is niet gedefinieerd (niet in de geladen modules en niet in de ondersteunde bibliotheek).`);
     if (f.module.ast.opties.expliciet)
@@ -857,19 +977,35 @@ export class VbaRuntime {
 
   /** Roept een ingebouwde functie aan met argumentexpressies. */
   async roepIngebouwdAanMet(fn: Ingebouwd, args: Argument[], f: Frame, typeteken?: string): Promise<VbaWaarde> {
-    if (fn.weiger) fn.weiger();
+    if (fn.weiger)
+      try {
+        fn.weiger();
+      } catch (e) {
+        return this.afgeschermd(e);
+      }
     return this.roepIngebouwdAan(fn, await this.argWaarden(args, f, fn.params, true), typeteken);
   }
 
   /** Roept een ingebouwde functie aan met waarden. */
   async roepIngebouwdAan(fn: Ingebouwd, args: VbaWaarde[], typeteken?: string): Promise<VbaWaarde> {
-    if (fn.weiger) fn.weiger();
+    if (fn.weiger)
+      try {
+        fn.weiger();
+      } catch (e) {
+        return this.afgeschermd(e);
+      }
     let waarden = args;
     if (!fn.ruw) {
       waarden = [];
       for (const w of args) waarden.push(await this.deref(w));
     }
-    const r = await fn.fn(waarden, this);
+    let r: VbaWaarde;
+    try {
+      r = await fn.fn(waarden, this);
+    } catch (e) {
+      // Een weigering binnen de functie zelf (bv. SysCmd(acSysCmdAccessDir)).
+      r = this.afgeschermd(e);
+    }
     if (typeteken === "$" && r instanceof NullWaarde) throw fout(94);
     // De meeste VBA-functies geven een Variant; alleen de C…-conversies een vast type.
     if (r instanceof Getal && !fn.getypeerd) return r.alsVariant();
@@ -892,10 +1028,15 @@ export class VbaRuntime {
         }
         case "proc":
           return this.roepProcedureAan(g.module, g.procs, g.instantie, args, f, "gewoon");
-        case "ingebouwd":
+        case "ingebouwd": {
+          // CreateObject("Scripting.Dictionary") met een letterlijke ProgID: in-proces nagebootst,
+          // er wordt geen COM gebruikt. Elke andere ProgID blijft afgeschermd.
+          const progid = args.length === 1 && args[0].waarde?.k === "lit" && args[0].waarde.w.t === "tekst" ? args[0].waarde.w.v : null;
+          if (g.naam === "createobject" && progid && NAGEBOOTSTE_PROGIDS.has(progid.toLowerCase())) return this.nieuw(progid);
           return this.roepIngebouwdAanMet(g.f, args, f, doel.typeteken);
+        }
         case "declare":
-          throw this.declareGeweigerd(doel.naam);
+          return this.afgeschermd(this.declareGeweigerd(doel.naam));
         case "globaal":
         case "const":
           return this.indexeer(g.w, await this.argWaarden(args, f));
@@ -922,7 +1063,7 @@ export class VbaRuntime {
         if (sub.s === "proc") return this.roepProcedureAan(m, sub.procs, sub.instantie, args, f, "gewoon");
         if (sub.s === "cel") return this.indexeer(await this.leesCel(sub.cel), await this.argWaarden(args, f));
         if (sub.s === "const") return sub.w;
-        if (sub.s === "declare") throw this.declareGeweigerd(e.naam);
+        if (sub.s === "declare") return this.afgeschermd(this.declareGeweigerd(e.naam));
         throw fout(438);
       }
       if (g?.s === "enum") {
@@ -943,9 +1084,18 @@ export class VbaRuntime {
     }
     if (obj instanceof VbaObject) {
       // Afgeschermde leden (DoCmd.TransferText …) weigeren vóórdat argumenten worden geëvalueerd.
-      if (GEWEIGERDE_LEDEN.has(`${obj.typeNaam}.${e.naam}`.toLowerCase())) weigerLid(obj.typeNaam, e.naam);
+      try {
+        if (GEWEIGERDE_LEDEN.has(`${obj.typeNaam}.${e.naam}`.toLowerCase())) weigerLid(obj.typeNaam, e.naam);
+      } catch (x) {
+        return this.afgeschermd(x);
+      }
       const namen = (obj as VbaObject & { parameterNamen?: (n: string) => string[] | undefined }).parameterNamen?.(e.naam.toLowerCase());
-      return obj.lid(e.naam.toLowerCase(), await this.argWaarden(args, f, namen), this);
+      const waarden = await this.argWaarden(args, f, namen);
+      try {
+        return await obj.lid(e.naam.toLowerCase(), waarden, this);
+      } catch (x) {
+        return this.afgeschermd(x);
+      }
     }
     if (obj instanceof VbaRecord) {
       const veld = obj.velden.get(e.naam.toLowerCase());
@@ -1091,9 +1241,15 @@ export class VbaRuntime {
     const maxDiepte = this.opties.maxDiepte ?? 1000;
     if (this.diepte >= maxDiepte) throw fout(28);
     const f = new Frame(m, m.soort === "module" ? null : (instantie ?? m.instantie ?? null), proc);
-    await this.bindParameters(proc, f, args, beller, vasteWaarden);
+    try {
+      await this.bindParameters(proc, f, args, beller, vasteWaarden);
+    } catch (e) {
+      if ((e instanceof VbaFout || e instanceof VbaAfbreking) && !e.positie)
+        e.positie = { module: m.naam, procedure: proc.naam, regel: proc.regel, kolom: proc.kolom };
+      throw e;
+    }
     if (proc.soort === "function" || proc.soort === "get") {
-      const type = proc.type ? normaalType(proc.type.naam) : this.defType(m, proc.naam);
+      const type = proc.type ? this.normaalType(proc.type.naam) : this.defType(m, proc.naam);
       const udt = !EENVOUDIGE_TYPEN.has(type) ? this.zoekType(type) : undefined;
       const cel = proc.type?.matrix
         ? new GewoneCel(new VbaMatrix([], [], type), type + "()")
@@ -1104,6 +1260,7 @@ export class VbaRuntime {
     const vorig = this.frame;
     this.frame = f;
     this.diepte++;
+    this.stapel.push(f);
     try {
       await this.voerLijstUit(proc.body, f);
     } catch (e) {
@@ -1117,6 +1274,7 @@ export class VbaRuntime {
       }
     } finally {
       this.diepte--;
+      this.stapel.pop();
       this.frame = vorig;
       if (f.inHandler) this.errObject()?.wis();
       if (!beller && vasteWaarden) this.uitArgumenten = proc.parameters.map((p) => f.locals.get(p.naam.toLowerCase())?.w ?? LEEG);
@@ -1125,7 +1283,7 @@ export class VbaRuntime {
   }
 
   private typeVanParameter(p: Parameter, m: ModuleInfo) {
-    const type = p.type ? normaalType(p.type.naam) : this.defType(m, p.naam);
+    const type = p.type ? this.normaalType(p.type.naam) : this.defType(m, p.naam);
     return p.matrix || p.paramArray ? type + "()" : type;
   }
 
@@ -1228,6 +1386,11 @@ export class VbaRuntime {
           i = j;
           break;
         }
+        if (signaal instanceof VbaFout && (signaal as VbaFout & { frame?: Frame }).frame !== f && this.isVervolgfout(signaal)) {
+          this.registreerOvergeslagen(`fout ${signaal.nummer} na overgeslagen onderdeel`, "vervolgfout");
+          i++;
+          break;
+        }
         if (signaal instanceof VbaFout && (signaal as VbaFout & { frame?: Frame }).frame !== f) {
           if (!signaal.positie && f.proc)
             signaal.positie = { module: f.module.naam, procedure: f.proc.naam, regel: f.regel, kolom: f.kolom };
@@ -1301,7 +1464,7 @@ export class VbaRuntime {
       case "const":
         for (const c of s.constanten) {
           const w = await this.waarde(c.waarde, f);
-          f.consts.set(c.naam.toLowerCase(), c.type ? naarType(w, normaalType(c.type.naam), this.land) : w);
+          f.consts.set(c.naam.toLowerCase(), c.type ? naarType(w, this.normaalType(c.type.naam), this.land) : w);
         }
         return;
       case "redim":
@@ -1446,7 +1609,8 @@ export class VbaRuntime {
         // Gebeurtenissen van klassen hebben hier geen ontvangers (WithEvents wordt niet gekoppeld).
         return;
       case "geweigerd":
-        throw new VbaAfbreking("afgeschermd", `${s.wat}: bestandstoegang vanuit VBA is afgeschermd en wordt niet uitgevoerd.`);
+        this.afgeschermd(weigering(bestandsstatement(s.wat), `${s.wat}: bestandstoegang vanuit VBA is afgeschermd en wordt niet uitgevoerd.`));
+        return;
       case "nietondersteund":
         throw nietOndersteund(s.wat);
     }
@@ -1500,7 +1664,7 @@ export class VbaRuntime {
     let cel = await this.celVan(v.doel, f, false);
     if (!cel) {
       if (v.doel.k !== "id") throw fout(13);
-      const type = v.type ? normaalType(v.type.naam) : this.defType(f.module, v.doel.naam);
+      const type = v.type ? this.normaalType(v.type.naam) : this.defType(f.module, v.doel.naam);
       cel = new GewoneCel(new VbaMatrix([], [], type), type + "()");
       f.locals.set(v.doel.naam.toLowerCase(), cel);
     }
@@ -1513,7 +1677,7 @@ export class VbaRuntime {
     }
     const oud = cel.w;
     if (oud instanceof VbaMatrix && oud.vast) throw fout(10);
-    const elementType = oud instanceof VbaMatrix ? oud.elementType : v.type ? normaalType(v.type.naam) : "Variant";
+    const elementType = oud instanceof VbaMatrix ? oud.elementType : v.type ? this.normaalType(v.type.naam) : "Variant";
     const nieuw = new VbaMatrix(grenzen, [], elementType, false, oud instanceof VbaMatrix ? oud.vasteLengte : undefined);
     await this.vulMatrix(nieuw, 0);
     if (behoud && oud instanceof VbaMatrix && oud.toegewezen) {

@@ -22,13 +22,21 @@ export type AfschermingCategorie =
   | "omgeving"
   | "register"
   | "hyperlink"
-  | "export";
+  | "export"
+  | "project";
 
 export interface Afscherming {
   /** Zoals in VBA geschreven, bv. `Shell` of `DoCmd.TransferText`. */
   naam: string;
   categorie: AfschermingCategorie;
   reden: string;
+  /**
+   * Foutnummer dat VBA zelf zou geven als het onderdeel niet beschikbaar is;
+   * wordt gebruikt in de modus `ontbrekend: "fout"` (vangbaar met On Error).
+   */
+  nummer: number;
+  /** Levert een object (Set x = …): in de modus `overslaan` een plaatsvervangend object. */
+  object?: boolean;
 }
 
 const REDENEN: Record<AfschermingCategorie, string> = {
@@ -41,11 +49,26 @@ const REDENEN: Record<AfschermingCategorie, string> = {
   register: "toegang tot het Windows-register",
   hyperlink: "openen van hyperlinks en externe programma’s",
   export: "exporteren of importeren via bestanden",
+  project: "het VBA-project en zijn verwijzingen (VBE, References)",
 };
 
-const f = (naam: string, categorie: AfschermingCategorie): [string, Afscherming] => [
+/** Standaardfoutnummer per categorie (zoals VBA zelf zou melden). */
+const NUMMERS: Record<AfschermingCategorie, number> = {
+  proces: 5,
+  bestand: 75,
+  com: 429,
+  "windows-api": 453,
+  toetsenbord: 70,
+  omgeving: 70,
+  register: 70,
+  hyperlink: 490,
+  export: 2302,
+  project: 438,
+};
+
+const f = (naam: string, categorie: AfschermingCategorie, nummer = NUMMERS[categorie], object = false): [string, Afscherming] => [
   naam.toLowerCase(),
-  { naam, categorie, reden: REDENEN[categorie] },
+  { naam, categorie, reden: REDENEN[categorie], nummer, ...(object ? { object } : {}) },
 ];
 
 /** Ingebouwde functies en statements die worden geweigerd. */
@@ -57,20 +80,20 @@ export const GEWEIGERDE_FUNCTIES = new Map<string, Afscherming>([
   f("Dir", "bestand"),
   f("MkDir", "bestand"),
   f("RmDir", "bestand"),
-  f("ChDir", "bestand"),
-  f("ChDrive", "bestand"),
+  f("ChDir", "bestand", 76),
+  f("ChDrive", "bestand", 68),
   f("CurDir", "bestand"),
-  f("FileLen", "bestand"),
-  f("FileDateTime", "bestand"),
-  f("GetAttr", "bestand"),
+  f("FileLen", "bestand", 53),
+  f("FileDateTime", "bestand", 53),
+  f("GetAttr", "bestand", 53),
   f("SetAttr", "bestand"),
   f("FreeFile", "bestand"),
-  f("LOF", "bestand"),
-  f("Loc", "bestand"),
-  f("LoadPicture", "bestand"),
+  f("LOF", "bestand", 52),
+  f("Loc", "bestand", 52),
+  f("LoadPicture", "bestand", 53, true),
   f("SavePicture", "bestand"),
-  f("CreateObject", "com"),
-  f("GetObject", "com"),
+  f("CreateObject", "com", 429, true),
+  f("GetObject", "com", 429, true),
   f("SendKeys", "toetsenbord"),
   f("Environ", "omgeving"),
   f("GetSetting", "register"),
@@ -86,7 +109,7 @@ export const GEWEIGERDE_LEDEN = new Map<string, Afscherming>([
   f("DoCmd.TransferDatabase", "export"),
   f("DoCmd.TransferSQLDatabase", "export"),
   f("DoCmd.OutputTo", "export"),
-  f("DoCmd.SendObject", "export"),
+  f("DoCmd.SendObject", "export", 2293),
   f("DoCmd.RunApp", "proces"),
   f("DoCmd.CopyDatabaseFile", "bestand"),
   f("DoCmd.FollowHyperlink", "hyperlink"),
@@ -102,14 +125,48 @@ export const GEWEIGERDE_LEDEN = new Map<string, Afscherming>([
   f("CodeProject.FullName", "bestand"),
   f("Database.Name", "bestand"),
   f("CurrentDb.Name", "bestand"),
+  f("Application.References", "project", 438, true),
+  f("Application.VBE", "project", 438, true),
+  f("SysCmd.AccessDir", "bestand"),
+  f("SysCmd.GetWorkgroupFile", "bestand"),
+  f("Application.FileDialog", "bestand", 75, true),
+  f("CurrentProject.Connection", "com", 429, true),
+  f("CurrentProject.AccessConnection", "com", 429, true),
+  f("CodeProject.Connection", "com", 429, true),
+  f("CodeProject.AccessConnection", "com", 429, true),
+  f("Workspace.OpenDatabase", "bestand", 3024, true),
+  f("DBEngine.OpenDatabase", "bestand", 3024, true),
+  f("DBEngine.CompactDatabase", "bestand", 3024),
+  f("DBEngine.RepairDatabase", "bestand", 3024),
 ]);
+
+/** Bestands-I/O-statements (Open … For, Print #, Close # …): foutnummer per statement. */
+export function bestandsstatement(wat: string): Afscherming {
+  const nummer = /^(open|name)/i.test(wat) ? 75 : 52;
+  return { naam: wat, categorie: "bestand", reden: REDENEN.bestand, nummer };
+}
+
+/** Een met Declare uit een DLL gehaalde functie. */
+export function declareAfscherming(naam: string): Afscherming {
+  return { naam: `Declare ${naam}`, categorie: "windows-api", reden: REDENEN["windows-api"], nummer: 453 };
+}
+
+/** AddressOf (terugroepfunctie voor de Windows-API). */
+export const ADDRESSOF: Afscherming = { naam: "AddressOf", categorie: "windows-api", reden: REDENEN["windows-api"], nummer: 453 };
 
 export function afschermingsmelding(a: Afscherming) {
   return `${a.naam} is afgeschermd (${a.reden}) en wordt in Open Office Studio niet uitgevoerd. De VBA-code werkt alleen met de werkkopie van de database.`;
 }
 
+/** De weigering zelf: een niet-vangbare afbreking die weet wát er geweigerd is. */
+export function weigering(a: Afscherming, melding = afschermingsmelding(a)): VbaAfbreking {
+  const e = new VbaAfbreking("afgeschermd", melding);
+  e.afscherming = { naam: a.naam, categorie: a.categorie, nummer: a.nummer, ...(a.object ? { object: true } : {}) };
+  return e;
+}
+
 export function weiger(a: Afscherming): never {
-  throw new VbaAfbreking("afgeschermd", afschermingsmelding(a));
+  throw weigering(a);
 }
 
 export function weigerLid(object: string, lid: string): never {
@@ -117,6 +174,7 @@ export function weigerLid(object: string, lid: string): never {
     naam: `${object}.${lid}`,
     categorie: "bestand" as const,
     reden: REDENEN.bestand,
+    nummer: NUMMERS.bestand,
   };
   return weiger(a);
 }

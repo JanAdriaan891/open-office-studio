@@ -9,3 +9,6 @@ export { NEDERLANDS, ENGELS_VS, type Landinstelling } from "./land.ts";
 export { scanAfscherming, GEWEIGERDE_FUNCTIES, GEWEIGERDE_LEDEN, type Bevinding, type Afscherming } from "./afscherming.ts";
 export { naarHost, vanHost } from "./conversie.ts";
 export { formatteer } from "./format.ts";
+export { analyseerExtern, analyseerExternGeparst, leesLibid, oorzaakGroep, NAGEBOOTSTE_PROGIDS, type ExternOpties, type GeparsteModule } from "./extern.ts";
+export type * from "./extern-typen.ts";
+export { OntbrekendObject } from "./ontbrekend.ts";

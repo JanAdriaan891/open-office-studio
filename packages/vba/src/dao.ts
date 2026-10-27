@@ -184,6 +184,8 @@ export function daoFout(e: unknown): unknown {
     beperking: 3251,
     intern: 3000,
   };
+  // CREATE TABLE of maakTabel op een bestaande tabel: in Access fout 3010.
+  if (code === "beperking" && /^(Tabel ‘[^’]*’ bestaat al|Er bestaat al een tabel of query)/.test(melding)) return new VbaFout(3010, melding, "DAO.Database");
   if (code && code in nummers) return new VbaFout(nummers[code], melding, "DAO.Database");
   return new VbaFout(3000, melding, "DAO.Database");
 }
@@ -1233,10 +1235,18 @@ export class DatabaseObject extends VbaObject {
         return "";
       case "updatable":
         return true;
+      case "properties": {
+        const v = databaseEigenschappen(r);
+        return args.length ? v.standaard(args, rt) : v;
+      }
+      case "createproperty": {
+        const pnaam = ontbreekt(args[0]) ? "" : naarTekst(await r.deref(args[0]), r.land);
+        const type = ontbreekt(args[1]) ? 10 : bankAfronden(naarGetal(await r.deref(args[1]), r.land));
+        return new EigenschapObject(pnaam, type, ontbreekt(args[2]) ? NULL : await r.deref(args[2]));
+      }
       case "createrelation":
       case "relations":
       case "containers":
-      case "properties":
         throw new VbaAfbreking("niet-ondersteund", `Database.${naam} wordt niet ondersteund.`);
     }
     return super.lid(naam, args, rt);
@@ -1244,6 +1254,115 @@ export class DatabaseObject extends VbaObject {
   override async bang(naam: string, rt: unknown) {
     return this.lid("tabledefs", [naam], rt);
   }
+  override async zetLid(naam: string, args: VbaWaarde[], waarde: VbaWaarde, rt: unknown): Promise<void> {
+    // db.Properties("AppTitle") = "…"
+    if (naam === "properties" && args.length) return databaseEigenschappen(rt as VbaRuntime).zetStandaard(args, waarde, rt);
+    return super.zetLid(naam, args, waarde, rt);
+  }
+}
+
+/**
+ * Eigenschap uit `Database.Properties` (AppTitle, AllowBypassKey, StartupForm …).
+ * Ze leven alleen in het geheugen van de runtime: Access-opstartinstellingen
+ * hebben in Open Office Studio geen gevolg.
+ */
+class EigenschapObject extends VbaObject {
+  readonly typeNaam = "Property";
+  constructor(
+    public naam: string,
+    public type: number,
+    public waarde: VbaWaarde,
+  ) {
+    super();
+  }
+  override heeftStandaardwaarde() {
+    return true;
+  }
+  override async standaard(): Promise<VbaWaarde> {
+    return this.waarde;
+  }
+  override async zetStandaard(_args: VbaWaarde[], waarde: VbaWaarde): Promise<void> {
+    this.waarde = waarde;
+  }
+  override async lid(naam: string, args: VbaWaarde[], rt: unknown): Promise<VbaWaarde> {
+    switch (naam) {
+      case "name":
+        return this.naam;
+      case "value":
+        return this.waarde;
+      case "type":
+        return int(this.type);
+      case "inherited":
+        return false;
+    }
+    return super.lid(naam, args, rt);
+  }
+  override async zetLid(naam: string, args: VbaWaarde[], waarde: VbaWaarde, rt: unknown): Promise<void> {
+    const r = rt as VbaRuntime;
+    if (naam === "value") this.waarde = await r.deref(waarde);
+    else if (naam === "name") this.naam = naarTekst(await r.deref(waarde), r.land);
+    else if (naam === "type") this.type = bankAfronden(naarGetal(await r.deref(waarde), r.land));
+    else return super.zetLid(naam, args, waarde, rt);
+  }
+}
+
+class EigenschappenVerzameling extends VbaObject {
+  readonly typeNaam = "Properties";
+  readonly items = new Map<string, EigenschapObject>();
+  private async zoek(args: VbaWaarde[], rt: VbaRuntime) {
+    const sleutel = await rt.deref(args[0] ?? int(0));
+    if (sleutel instanceof Getal) {
+      const p = [...this.items.values()][bankAfronden(sleutel.w)];
+      if (!p) throw fout(3265);
+      return p;
+    }
+    const p = this.items.get(naarTekst(sleutel, rt.land).toLowerCase());
+    if (!p) throw fout(3270, `Eigenschap ‘${naarTekst(sleutel, rt.land)}’ is niet gevonden.`);
+    return p;
+  }
+  override async standaard(args: VbaWaarde[], rt: unknown): Promise<VbaWaarde> {
+    return this.zoek(args, rt as VbaRuntime);
+  }
+  override async zetStandaard(args: VbaWaarde[], waarde: VbaWaarde, rt: unknown): Promise<void> {
+    const p = await this.zoek(args, rt as VbaRuntime);
+    p.waarde = await (rt as VbaRuntime).deref(waarde);
+  }
+  override async bang(naam: string, rt: unknown) {
+    return this.zoek([naam], rt as VbaRuntime);
+  }
+  override async lid(naam: string, args: VbaWaarde[], rt: unknown): Promise<VbaWaarde> {
+    const r = rt as VbaRuntime;
+    switch (naam) {
+      case "count":
+        return int(this.items.size);
+      case "item":
+        return this.zoek(args, r);
+      case "refresh":
+        return LEEG;
+      case "append": {
+        const p = args[0] ?? LEEG; // niet derefereren: dan komt de waarde terug
+        if (!(p instanceof EigenschapObject)) throw fout(3367, "Properties.Append verwacht een eigenschap uit CreateProperty.");
+        if (this.items.has(p.naam.toLowerCase())) throw fout(3367);
+        this.items.set(p.naam.toLowerCase(), p);
+        return LEEG;
+      }
+      case "delete": {
+        const n = naarTekst(await r.deref(args[0] ?? ""), r.land).toLowerCase();
+        if (!this.items.delete(n)) throw fout(3265);
+        return LEEG;
+      }
+    }
+    return super.lid(naam, args, rt);
+  }
+  override async elementen(): Promise<VbaWaarde[]> {
+    return [...this.items.values()];
+  }
+}
+
+function databaseEigenschappen(rt: VbaRuntime): EigenschappenVerzameling {
+  let v = rt.staat.get("dao.eigenschappen") as EigenschappenVerzameling | undefined;
+  if (!v) rt.staat.set("dao.eigenschappen", (v = new EigenschappenVerzameling()));
+  return v;
 }
 
 class WorkspaceObject extends VbaObject {

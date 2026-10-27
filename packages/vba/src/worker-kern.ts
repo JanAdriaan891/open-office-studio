@@ -8,6 +8,7 @@ import { naarHost, vanHost } from "./conversie.ts";
 import { VbaAfbreking, VbaFout, VbaParseerFout } from "./fouten.ts";
 import type { FormulierHost, HostWaarde, VbaHost } from "./host.ts";
 import { VbaRuntime } from "./interpreter.ts";
+import { analyseerExternGeparst } from "./extern.ts";
 import { ENGELS_VS, NEDERLANDS } from "./land.ts";
 import type { HostVerzoek, LaadResultaat, NaarWorker, VanWorker, VbaFoutInfo, WorkerOpties } from "./protocol.ts";
 
@@ -28,7 +29,12 @@ export function foutInfo(e: unknown): VbaFoutInfo {
  * Start de worker op `poort`. De werkkopie komt binnen als MessagePort in het
  * start-bericht (overdracht) en wordt met `werkkopieVanPoort` tot een Werkkopie gemaakt.
  */
-export function startVbaWorker(poort: WorkerPoort, werkkopieVanPoort?: (p: MessagePort) => Promise<Werkkopie>) {
+export function startVbaWorker(
+  poort: WorkerPoort,
+  werkkopieVanPoort?: (p: MessagePort) => Promise<Werkkopie>,
+  /** Alleen voor een worker in hetzelfde proces (tests, proeven): breekt de runtime af bij beëindigen. */
+  extra: { signaal?: AbortSignal } = {},
+) {
   let opties: WorkerOpties = { host: { msgBox: false, inputBox: false, gebeurtenis: false, formulieren: false } };
   let werkkopie: Werkkopie | undefined;
   let runtime: VbaRuntime | null = null;
@@ -97,6 +103,9 @@ export function startVbaWorker(poort: WorkerPoort, werkkopieVanPoort?: (p: Messa
             formulieren: maakFormulieren(),
             stappenlimiet: opties.stappenlimiet,
             landinstelling: opties.landinstelling === "en-us" ? ENGELS_VS : NEDERLANDS,
+            ontbrekend: opties.ontbrekend,
+            signaal: extra.signaal,
+            bijOvergeslagen: (onderdeel) => stuur({ soort: "overgeslagen", onderdeel: { ...onderdeel } }),
           });
           const fouten = runtime.laad(b.modules);
           const uit: LaadResultaat = {
@@ -112,14 +121,46 @@ export function startVbaWorker(poort: WorkerPoort, werkkopieVanPoort?: (p: Messa
           break;
         case "voerUit": {
           if (!runtime) throw new Error("Er zijn nog geen modules geladen.");
-          const u = await runtime.voerUit(b.module, b.procedure, b.argumenten.map(vanHost));
-          resultaat = { ok: true, resultaat: naarHost(u.resultaat), argumenten: u.argumenten.map(naarHost), uitvoer: u.uitvoer, stappen: u.stappen };
+          const u = await runtime.voerUit(b.module, b.procedure, b.argumenten.map(vanHost), {
+            ontbrekend: b.ontbrekend,
+            stappenlimiet: b.stappenlimiet,
+          });
+          resultaat = {
+            ok: true,
+            resultaat: naarHost(u.resultaat),
+            argumenten: u.argumenten.map(naarHost),
+            uitvoer: u.uitvoer,
+            stappen: u.stappen,
+            ...(u.overgeslagen.length ? { overgeslagen: u.overgeslagen } : {}),
+          };
+          break;
+        }
+        case "transactie": {
+          if (!werkkopie) {
+            resultaat = false;
+            break;
+          }
+          try {
+            await (b.actie === "begin" ? werkkopie.begin() : werkkopie.terugdraaien());
+            resultaat = true;
+          } catch {
+            resultaat = false;
+          }
+          break;
+        }
+        case "analyseerExtern": {
+          if (!runtime) throw new Error("Er zijn nog geen modules geladen.");
+          resultaat = analyseerExternGeparst(
+            [...runtime.modules.values()].map((m) => ({ naam: m.naam, soort: m.soort, ast: m.ast, parseerfout: m.fouten.length > 0 })),
+            { verwijzingen: b.verwijzingen, gekoppeldeTabellen: b.gekoppeldeTabellen },
+          );
           break;
         }
       }
       stuur({ soort: "antwoord", id: b.id, ok: true, resultaat });
     } catch (fout) {
-      stuur({ soort: "antwoord", id: b.id, ok: false, fout: foutInfo(fout) });
+      const overgeslagen = b.soort === "voerUit" && runtime?.overgeslagen.length ? { overgeslagen: runtime.overgeslagen } : {};
+      stuur({ soort: "antwoord", id: b.id, ok: false, fout: foutInfo(fout), ...overgeslagen });
     }
   });
 }
