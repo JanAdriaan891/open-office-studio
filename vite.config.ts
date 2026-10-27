@@ -1,3 +1,5 @@
+/// <reference types="vitest/config" />
+import { configDefaults } from "vitest/config";
 import { defineConfig, type Plugin } from "vite";
 
 // De fontpakketten verwijzen naar hun bestanden via import.meta.url, waardoor
@@ -18,6 +20,8 @@ function fontsUitPublic(): Plugin {
 
 export default defineConfig({
   plugins: [fontsUitPublic()],
+  // Worktrees van agents en lokale proefuitvoer niet dubbel meetellen.
+  test: { exclude: [...configDefaults.exclude, ".claude/**", ".local/**"] },
   worker: { format: "es" },
   resolve: {
     alias: {
