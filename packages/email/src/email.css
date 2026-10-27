@@ -1,0 +1,1504 @@
+/* OpenAEC Email Studio — volgt de OpenAEC-stijl van de kantooromgeving. */
+.office[data-module="email"] {
+  --module-accent: #a75c06;
+  --module-tint: #fff5df;
+}
+.email-studio,
+.email-studio-overlay {
+  --em-bg: #fafaf9;
+  --em-paneel: #ffffff;
+  --em-zijpaneel: #f5f5f4;
+  --em-rand: #e7e5e4;
+  --em-rand-sterk: #d6d3d1;
+  --em-tekst: #36363e;
+  --em-tekst-2: #57534e;
+  --em-tekst-3: #78716c;
+  --em-accent: #d97706;
+  --em-accent-donker: #a75c06;
+  --em-accent-zacht: #fff5df;
+  --em-accent-hover: rgba(217, 119, 6, 0.1);
+  --em-gekozen: #fdecd0;
+  --em-gevaar: #b42318;
+  --em-ok: #2f7a55;
+  --em-schaduw: 0 20px 70px rgba(21, 35, 56, 0.19);
+  font-family: var(--oa-font-family-body, Inter, system-ui, sans-serif);
+  color: var(--em-tekst);
+}
+.office[data-office-thema="forge"] .email-studio,
+.office[data-office-thema="forge"] .email-studio-overlay {
+  --em-bg: #2e2e36;
+  --em-paneel: #36363e;
+  --em-zijpaneel: #2a2a32;
+  --em-rand: #44444c;
+  --em-rand-sterk: #55555e;
+  --em-tekst: #fafaf9;
+  --em-tekst-2: #d6d3d1;
+  --em-tekst-3: #a1a1aa;
+  --em-accent-donker: #f59e0b;
+  --em-accent-zacht: rgba(217, 119, 6, 0.14);
+  --em-accent-hover: rgba(217, 119, 6, 0.16);
+  --em-gekozen: rgba(217, 119, 6, 0.26);
+  --em-gevaar: #f87171;
+  --em-ok: #6fcf97;
+  --em-schaduw: 0 20px 70px rgba(0, 0, 0, 0.5);
+}
+.email-studio {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--em-bg);
+}
+.email-studio button,
+.email-studio input,
+.email-studio select,
+.email-studio textarea,
+.email-studio-overlay button,
+.email-studio-overlay input,
+.email-studio-overlay select,
+.email-studio-overlay textarea {
+  font: inherit;
+  color: inherit;
+}
+.email-studio .ribbon-actie {
+  display: flex;
+}
+.email-demobalk {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  font-size: 12px;
+  color: #7a4504;
+  background: #fff5df;
+  border-bottom: 1px solid #f3d9a4;
+}
+.email-demobalk.is-fout {
+  color: var(--em-gevaar);
+  background: #fdecea;
+}
+.email-demobalk.is-zwevend {
+  position: fixed;
+  bottom: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1101;
+  border: 1px solid #f3d9a4;
+  border-radius: 8px;
+}
+.email-werkruimte {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr);
+}
+.email-splitter {
+  cursor: col-resize;
+  background: var(--em-rand);
+  touch-action: none;
+}
+.email-splitter:hover,
+.email-splitter:focus-visible {
+  background: var(--em-accent);
+  outline: none;
+}
+
+/* Mappen */
+.email-mappen {
+  overflow-y: auto;
+  padding: 12px 8px;
+  background: var(--em-zijpaneel);
+  min-width: 0;
+}
+.email-mappen ul {
+  list-style: none;
+  margin: 2px 0 12px;
+  padding: 0;
+}
+.email-accountkop {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  padding: 6px 8px;
+  border: 0;
+  background: none;
+  font-size: 11px !important;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: var(--em-tekst-3) !important;
+  text-align: left;
+}
+.email-accountkop span {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.email-map {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  min-height: 32px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 7px;
+  background: none;
+  text-align: left;
+  font-size: 13px;
+  color: var(--em-tekst-2);
+}
+.email-map span {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.email-map:hover:not(:disabled) {
+  background: var(--em-accent-hover);
+}
+.email-map.is-gekozen {
+  background: var(--em-gekozen);
+  color: var(--em-tekst);
+  font-weight: 600;
+}
+.email-map.heeft-ongelezen span {
+  font-weight: 600;
+  color: var(--em-tekst);
+}
+.email-teller {
+  min-width: 20px;
+  padding: 1px 6px;
+  border-radius: 10px;
+  background: var(--em-accent);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  text-align: center;
+}
+.email-mapfout {
+  padding: 6px 10px;
+  font-size: 12px;
+  color: var(--em-gevaar);
+}
+.email-mapladen {
+  padding: 6px 10px;
+  font-size: 12px;
+  color: var(--em-tekst-3);
+}
+
+/* Berichtenlijst */
+.email-lijstpaneel {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  background: var(--em-paneel);
+}
+.email-lijstkop {
+  display: grid;
+  gap: 8px;
+  padding: 10px 12px 8px;
+  border-bottom: 1px solid var(--em-rand);
+}
+.email-zoek {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  height: 32px;
+  padding: 0 6px 0 10px;
+  border: 1px solid var(--em-rand-sterk);
+  border-radius: 8px;
+  background: var(--em-bg);
+  color: var(--em-tekst-3);
+}
+.email-zoek:focus-within {
+  border-color: var(--em-accent);
+}
+.email-zoek input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: none;
+  background: none;
+  font-size: 13px;
+}
+.email-snelfilter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  align-items: center;
+}
+.email-snelfilter button {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 9px;
+  border: 1px solid var(--em-rand-sterk);
+  border-radius: 999px;
+  background: none;
+  font-size: 11.5px;
+  color: var(--em-tekst-2);
+}
+.email-snelfilter button[aria-pressed="true"] {
+  background: var(--em-accent-zacht);
+  border-color: var(--em-accent);
+  color: var(--em-accent-donker);
+  font-weight: 600;
+}
+.email-zoekinhoud {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+  font-size: 11.5px;
+  color: var(--em-tekst-3);
+}
+.email-lijstinfo {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 11.5px;
+  color: var(--em-tekst-3);
+}
+.email-lijstinfo strong {
+  color: var(--em-tekst);
+  font-family: var(--oa-font-family-heading, inherit);
+  font-size: 14px;
+}
+.email-lijst {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  outline: none;
+}
+.email-lijst:focus-visible {
+  box-shadow: inset 0 0 0 2px var(--em-accent);
+}
+.email-rij {
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3px;
+  padding: 0 12px 0 16px;
+  border-bottom: 1px solid var(--em-rand);
+  cursor: default;
+  user-select: none;
+  font-size: 12.5px;
+}
+.email-rij:hover {
+  background: var(--em-accent-hover);
+}
+.email-rij.is-gekozen {
+  background: var(--em-gekozen);
+}
+.email-rij.is-ongelezen::before {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 15px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--em-accent);
+}
+.email-rij.is-laden {
+  align-items: center;
+  color: var(--em-tekst-3);
+}
+.email-rij-kop,
+.email-rij-onder {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+}
+.email-rij-van {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--em-tekst);
+}
+.email-rij.is-ongelezen .email-rij-van,
+.email-rij.is-ongelezen .email-rij-onderwerp {
+  font-weight: 650;
+}
+.email-rij-iconen {
+  display: inline-flex;
+  gap: 3px;
+  color: var(--em-tekst-3);
+}
+.email-rij-datum {
+  flex-shrink: 0;
+  font-size: 11px;
+  color: var(--em-tekst-3);
+}
+.email-rij-onderwerp {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--em-tekst-2);
+}
+.email-sterknop {
+  display: inline-grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border: 0;
+  border-radius: 5px;
+  background: none;
+  color: var(--em-rand-sterk);
+}
+.email-sterknop:hover {
+  color: var(--em-accent);
+}
+.email-sterknop.is-ster,
+.email-iconknop.is-ster {
+  color: var(--em-accent);
+}
+
+/* Leesvenster */
+.email-leespaneel {
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--em-paneel);
+}
+.email-lezen {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+.email-leeskop {
+  padding: 14px 22px 12px;
+  border-bottom: 1px solid var(--em-rand);
+}
+.email-leeskop h1 {
+  margin: 10px 0 8px;
+  font-family: var(--oa-font-family-heading, inherit);
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -0.3px;
+  overflow-wrap: anywhere;
+}
+.email-leeskop dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 3px 12px;
+  margin: 0;
+  font-size: 12.5px;
+}
+.email-leeskop dt {
+  color: var(--em-tekst-3);
+}
+.email-leeskop dd {
+  margin: 0;
+  color: var(--em-tekst-2);
+  overflow-wrap: anywhere;
+}
+.email-leeskop dd strong {
+  color: var(--em-tekst);
+}
+.email-leesacties {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+.email-leeg {
+  flex: 1;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 10px;
+  padding: 24px;
+  text-align: center;
+  color: var(--em-tekst-3);
+}
+.email-externbalk {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 22px;
+  font-size: 12px;
+  color: #7a4504;
+  background: #fff5df;
+  border-bottom: 1px solid #f3d9a4;
+}
+.email-externbalk span {
+  flex: 1 1 260px;
+}
+.email-bijlagen {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 10px 22px;
+  list-style: none;
+  border-bottom: 1px solid var(--em-rand);
+  background: var(--em-bg);
+}
+.email-bijlagen li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px 6px 10px;
+  border: 1px solid var(--em-rand);
+  border-radius: 9px;
+  background: var(--em-paneel);
+  color: var(--em-accent-donker);
+  max-width: 100%;
+}
+.email-bijlagenaam {
+  display: grid;
+  min-width: 0;
+  color: var(--em-tekst);
+}
+.email-bijlagenaam strong {
+  font-size: 12.5px;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 220px;
+}
+.email-bijlagenaam small {
+  font-size: 11px;
+  color: var(--em-tekst-3);
+}
+.email-berichtframe {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  border: 0;
+  background: #fff;
+}
+
+/* Knoppen */
+.email-knop {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 11px;
+  border: 1px solid var(--em-rand-sterk);
+  border-radius: 7px;
+  background: var(--em-paneel);
+  color: var(--em-tekst) !important;
+  font-size: 12.5px !important;
+  white-space: nowrap;
+}
+.email-knop:hover:not(:disabled) {
+  border-color: var(--em-accent);
+  background: var(--em-accent-hover);
+}
+.email-knop.is-primair {
+  border-color: var(--em-accent);
+  background: var(--em-accent);
+  color: #fff !important;
+}
+.email-knop.is-primair:hover:not(:disabled) {
+  background: #ea580c;
+  border-color: #ea580c;
+}
+.email-knop.is-gevaar {
+  border-color: var(--em-gevaar);
+  color: var(--em-gevaar) !important;
+}
+.email-knop.is-gevaar:hover:not(:disabled) {
+  background: var(--em-gevaar);
+  color: #fff !important;
+}
+.email-knop:disabled {
+  opacity: 0.45;
+}
+.email-iconknop {
+  display: inline-grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  background: none;
+  color: var(--em-tekst-2);
+}
+.email-iconknop:hover {
+  border-color: var(--em-rand-sterk);
+  background: var(--em-accent-hover);
+}
+.email-tekstknop {
+  justify-self: start;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--em-accent-donker) !important;
+  text-decoration: underline;
+  font-size: 12.5px;
+}
+.email-studio :focus-visible,
+.email-studio-overlay :focus-visible {
+  outline: 2px solid var(--em-accent);
+  outline-offset: 1px;
+}
+
+/* Dialogen */
+.email-dialoogachtergrond,
+.email-opstelachtergrond {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(38, 50, 68, 0.4);
+  backdrop-filter: blur(2px);
+}
+.email-dialoog {
+  display: flex;
+  flex-direction: column;
+  width: min(100%, 460px);
+  max-height: calc(100dvh - 48px);
+  border: 1px solid var(--em-rand);
+  border-radius: 14px;
+  background: var(--em-paneel);
+  color: var(--em-tekst);
+  box-shadow: var(--em-schaduw);
+  outline: none;
+}
+.email-dialoog.is-breed {
+  width: min(100%, 760px);
+}
+.email-dialoog.is-groot {
+  width: min(100%, 980px);
+  height: min(100%, 720px);
+}
+.email-dialoogkop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 22px 8px;
+}
+.email-dialoogkop h2 {
+  margin: 0;
+  font-family: var(--oa-font-family-heading, inherit);
+  font-size: 18px;
+  letter-spacing: -0.3px;
+}
+.email-dialoog-sluit {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 0;
+  border-radius: 7px;
+  background: none;
+  color: var(--em-tekst-3);
+}
+.email-dialoog-sluit:hover {
+  background: var(--em-accent-hover);
+}
+.email-dialooginhoud {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 8px 22px 16px;
+  font-size: 13px;
+  line-height: 1.55;
+}
+.email-dialoogacties {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 22px 18px;
+  border-top: 1px solid var(--em-rand);
+}
+.email-vraagtekst {
+  color: var(--em-tekst-2);
+}
+.email-formulier {
+  display: grid;
+  gap: 14px;
+}
+.email-formulier label {
+  display: grid;
+  gap: 5px;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--em-tekst-2);
+}
+.email-formulier label > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.email-formulier input:not([type="checkbox"]),
+.email-formulier select,
+.email-formulier textarea,
+.email-servertabel input,
+.email-servertabel select {
+  padding: 7px 9px;
+  border: 1px solid var(--em-rand-sterk);
+  border-radius: 7px;
+  background: var(--em-paneel);
+  font-size: 13px;
+  font-weight: 400;
+  min-width: 0;
+}
+.email-formulier textarea {
+  resize: vertical;
+  font-family: var(--oa-font-family-mono, monospace) !important;
+  font-size: 12.5px;
+}
+.email-formulier small {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11.5px;
+  font-weight: 400;
+  color: var(--em-tekst-3);
+}
+.email-formulier .email-vinkje {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+}
+.email-vinkje span {
+  display: grid !important;
+  gap: 2px;
+}
+.email-intro {
+  margin: 0;
+  color: var(--em-tekst-2);
+}
+.email-hint {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin: 0;
+  font-size: 12px;
+  color: var(--em-tekst-3);
+}
+.email-waarschuwing {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 0;
+  padding: 9px 11px;
+  border: 1px solid #f3c27a;
+  border-radius: 8px;
+  background: #fff5df;
+  color: #7a4504;
+  font-size: 12.5px;
+}
+.email-foutregel {
+  margin: 0;
+  color: var(--em-gevaar);
+  font-size: 12.5px;
+}
+.email-okregel {
+  color: var(--em-ok);
+  font-size: 12.5px;
+  margin-right: auto;
+}
+.email-dialoogacties .email-foutregel {
+  margin-right: auto;
+}
+.email-gevonden {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0;
+  color: var(--em-ok);
+}
+.email-online {
+  display: grid;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid var(--em-rand);
+  border-radius: 9px;
+  background: var(--em-bg);
+}
+.email-online p {
+  margin: 0;
+}
+.email-online .email-knop {
+  justify-self: start;
+}
+.email-samenvatting {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 4px 14px;
+  margin: 0;
+  padding: 12px;
+  border-radius: 9px;
+  background: var(--em-bg);
+  font-size: 12.5px;
+}
+.email-samenvatting dt {
+  color: var(--em-tekst-3);
+}
+.email-samenvatting dd {
+  margin: 0;
+  font-family: var(--oa-font-family-mono, monospace);
+  font-size: 12px;
+}
+.email-testlijst {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 12.5px;
+}
+.email-testlijst .is-ok,
+.email-testuitkomst.is-ok {
+  color: var(--em-ok);
+}
+.email-testlijst .is-fout,
+.email-testuitkomst.is-fout {
+  color: var(--em-gevaar);
+}
+.email-servers {
+  display: grid;
+  gap: 10px;
+}
+.email-servertabel-houder {
+  overflow-x: auto;
+}
+.email-servertabel {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.email-servertabel th {
+  padding: 4px 6px;
+  text-align: left;
+  font-weight: 500;
+  color: var(--em-tekst-3);
+  white-space: nowrap;
+}
+.email-servertabel tbody th {
+  color: var(--em-tekst);
+  font-weight: 600;
+  vertical-align: top;
+  padding-top: 10px;
+}
+.email-servertabel td {
+  padding: 4px 4px;
+}
+.email-servertabel input,
+.email-servertabel select {
+  width: 100%;
+  font-size: 12.5px;
+}
+.email-servertabel .email-poort {
+  width: 74px;
+}
+.email-testuitkomst {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 4px;
+  font-size: 11.5px;
+  font-weight: 400;
+  white-space: normal;
+  max-width: 180px;
+}
+.email-mapkeuze {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.email-mapkeuze .email-knop {
+  width: 100%;
+}
+.email-bron {
+  margin: 0;
+  padding: 12px;
+  border-radius: 8px;
+  background: var(--em-bg);
+  font: 12px/1.5 var(--oa-font-family-mono, monospace);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.email-linkdoel {
+  display: block;
+  margin: 8px 0 12px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: var(--em-bg);
+  font: 12.5px/1.5 var(--oa-font-family-mono, monospace);
+  overflow-wrap: anywhere;
+}
+.email-linkdoel strong {
+  color: var(--em-accent-donker);
+}
+
+/* Accountinstellingen */
+.email-instellingen .email-dialooginhoud {
+  padding: 0;
+  display: flex;
+}
+.email-instellingen-indeling {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  min-height: 0;
+}
+.email-instellingen-indeling nav {
+  display: grid;
+  align-content: start;
+  gap: 4px;
+  padding: 12px 10px;
+  border-right: 1px solid var(--em-rand);
+  background: var(--em-zijpaneel);
+  overflow-y: auto;
+}
+.email-instellingen-indeling nav button {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  text-align: left;
+  font-size: 13px;
+}
+.email-instellingen-indeling nav button span {
+  display: grid;
+  min-width: 0;
+}
+.email-instellingen-indeling nav small {
+  font-size: 11px;
+  color: var(--em-tekst-3);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.email-instellingen-indeling nav button.is-gekozen {
+  background: var(--em-gekozen);
+  font-weight: 600;
+}
+.email-instellingen-indeling nav button:hover:not(.is-gekozen) {
+  background: var(--em-accent-hover);
+}
+.email-account-nieuw {
+  color: var(--em-accent-donker) !important;
+}
+.email-instellingen-paneel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 14px 22px 20px;
+  overflow-y: auto;
+}
+.email-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  border-bottom: 1px solid var(--em-rand);
+}
+.email-tabs button {
+  padding: 7px 12px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: none;
+  font-size: 13px;
+  color: var(--em-tekst-2);
+}
+.email-tabs button[aria-selected="true"] {
+  border-bottom-color: var(--em-accent);
+  color: var(--em-tekst);
+  font-weight: 600;
+}
+.email-afzenders ul {
+  margin: 6px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.email-afzenders li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12.5px;
+}
+.email-afzenders > span {
+  font-size: 12.5px;
+  color: var(--em-tekst-2);
+}
+.email-gevarenzone {
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px solid var(--em-rand);
+}
+
+/* Opstellen */
+.email-opstelachtergrond {
+  z-index: 1050;
+}
+.email-opstelvenster {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: min(100%, 900px);
+  height: min(100%, 760px);
+  border: 1px solid var(--em-rand);
+  border-radius: 14px;
+  background: var(--em-paneel);
+  box-shadow: var(--em-schaduw);
+  overflow: hidden;
+}
+.email-opstelvenster.is-slepen {
+  border-color: var(--em-accent);
+}
+.email-opstelkop {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px 10px 20px;
+  border-bottom: 1px solid var(--em-rand);
+}
+.email-opstelkop h2 {
+  flex: 1;
+  min-width: 0;
+  margin: 0;
+  font-family: var(--oa-font-family-heading, inherit);
+  font-size: 16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.email-opstelknoppen {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.email-opstelfout {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  background: #fdecea;
+  color: var(--em-gevaar);
+  font-size: 12.5px;
+}
+.email-opstelfout span {
+  flex: 1;
+}
+.email-opstelfout button {
+  border: 0;
+  background: none;
+  color: inherit;
+}
+.email-opstelvelden {
+  display: grid;
+  padding: 4px 20px;
+  border-bottom: 1px solid var(--em-rand);
+}
+.email-veldrij,
+.email-adresveld {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 38px;
+  border-bottom: 1px solid var(--em-rand);
+}
+.email-opstelvelden > :last-child {
+  border-bottom: 0;
+}
+.email-veldlabel {
+  flex: 0 0 74px;
+  font-size: 12.5px;
+  color: var(--em-tekst-3);
+}
+.email-veldrij input,
+.email-veldrij select {
+  flex: 1;
+  min-width: 0;
+  padding: 6px 0;
+  border: 0;
+  outline: none;
+  background: none;
+  font-size: 13.5px;
+}
+.email-ccknoppen {
+  display: flex;
+  gap: 4px;
+}
+.email-ccknoppen button {
+  padding: 2px 8px;
+  border: 1px solid var(--em-rand-sterk);
+  border-radius: 6px;
+  background: none;
+  font-size: 11.5px;
+  color: var(--em-tekst-2);
+}
+.email-chips {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 0;
+  min-width: 0;
+}
+.email-chips input {
+  flex: 1 0 140px;
+  min-width: 0;
+  padding: 4px 0;
+  border: 0;
+  outline: none;
+  background: none;
+  font-size: 13.5px;
+}
+.email-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  max-width: 100%;
+  padding: 2px 4px 2px 9px;
+  border: 1px solid var(--em-rand-sterk);
+  border-radius: 999px;
+  background: var(--em-bg);
+  font-size: 12.5px;
+}
+.email-chip small {
+  color: var(--em-tekst-3);
+}
+.email-chip.is-ongeldig {
+  border-color: var(--em-gevaar);
+  color: var(--em-gevaar);
+  text-decoration: wavy underline;
+}
+.email-chip button {
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: var(--em-tekst-3);
+}
+.email-chip button:hover {
+  background: var(--em-accent-hover);
+}
+.email-voorstellen {
+  position: absolute;
+  top: 100%;
+  left: 84px;
+  z-index: 10;
+  min-width: 280px;
+  margin: 0;
+  padding: 4px;
+  list-style: none;
+  border: 1px solid var(--em-rand);
+  border-radius: 9px;
+  background: var(--em-paneel);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
+}
+.email-voorstellen li {
+  display: grid;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12.5px;
+}
+.email-voorstellen li[aria-selected="true"],
+.email-voorstellen li:hover {
+  background: var(--em-gekozen);
+}
+.email-voorstellen small {
+  color: var(--em-tekst-3);
+}
+.email-opmaakbalk {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px;
+  padding: 5px 14px;
+  border-bottom: 1px solid var(--em-rand);
+  background: var(--em-bg);
+}
+.email-opmaakbalk > button {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 28px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: none;
+  color: var(--em-tekst-2);
+}
+.email-opmaakbalk > button:hover {
+  background: var(--em-accent-hover);
+  border-color: var(--em-rand-sterk);
+}
+.email-opmaakbalk > i {
+  width: 1px;
+  height: 18px;
+  margin: 0 6px;
+  background: var(--em-rand-sterk);
+}
+.email-koppelingsinvoer {
+  display: inline-flex;
+  gap: 6px;
+  margin-left: 8px;
+}
+.email-koppelingsinvoer input {
+  width: 260px;
+  padding: 4px 8px;
+  border: 1px solid var(--em-accent);
+  border-radius: 6px;
+  background: var(--em-paneel);
+  font-size: 12.5px;
+}
+.email-editor {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 16px 22px;
+  font-size: 14px;
+  line-height: 1.55;
+  outline: none;
+  background: #fff;
+  color: #2d3541;
+}
+.email-editor p {
+  margin: 0 0 0.6em;
+}
+.email-editor blockquote {
+  margin: 6px 0;
+  padding-left: 12px;
+  border-left: 3px solid #e7c58f;
+  color: #57534e;
+}
+.email-editor .handtekening {
+  color: #78716c;
+  margin: 10px 0 14px;
+}
+.email-editor img {
+  max-width: 100%;
+}
+.email-opstelbijlagen {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 20px;
+  border-top: 1px solid var(--em-rand);
+  background: var(--em-bg);
+  font-size: 12px;
+}
+.email-opstelbijlagen > span:first-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--em-tekst-3);
+  margin-right: 6px;
+}
+.email-sleepvlak {
+  position: absolute;
+  inset: 8px;
+  display: grid;
+  place-items: center;
+  border: 2px dashed var(--em-accent);
+  border-radius: 12px;
+  background: rgba(255, 245, 223, 0.85);
+  color: #7a4504;
+  font-weight: 600;
+  pointer-events: none;
+}
+.email-welkom {
+  flex: 1;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 10px;
+  padding: 32px;
+  text-align: center;
+  color: var(--em-tekst-2);
+}
+.email-welkom h2 {
+  margin: 0;
+  font-family: var(--oa-font-family-heading, inherit);
+  color: var(--em-tekst);
+}
+.email-welkom p {
+  max-width: 420px;
+  margin: 0 0 6px;
+}
+@media (max-width: 760px) {
+  .email-werkruimte {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+  .email-werkruimte > .email-mappen,
+  .email-werkruimte > .email-splitter {
+    display: none;
+  }
+  .email-instellingen-indeling {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .email-instellingen-indeling nav {
+    border-right: 0;
+    border-bottom: 1px solid var(--em-rand);
+  }
+}
+
+/* Account toevoegen: automatisch zoeken, kaarten en OAuth */
+.email-wizard-indeling {
+  display: grid;
+  grid-template-columns: minmax(240px, 320px) minmax(0, 1fr);
+  gap: 22px;
+  align-items: start;
+}
+.email-zoekresultaat {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+}
+.email-zoekresultaat h3 {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0;
+  font-family: var(--oa-font-family-heading, inherit);
+  font-size: 14px;
+}
+.email-zoekresultaat h3 small {
+  font-weight: 400;
+  color: var(--em-accent-donker);
+}
+.email-zoekstappen {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 12px;
+  color: var(--em-tekst-2);
+}
+.email-zoekstappen li {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.email-zoekstappen small {
+  color: var(--em-tekst-3);
+}
+.email-zoekstappen .is-gevonden {
+  color: var(--em-ok);
+}
+.email-draait {
+  animation: email-draai 1s linear infinite;
+}
+@keyframes email-draai {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .email-draait {
+    animation: none;
+  }
+}
+.email-kaarten {
+  display: grid;
+  gap: 8px;
+}
+.email-kaart {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 10px 4px 4px;
+  border: 1px solid var(--em-rand-sterk);
+  border-radius: 10px;
+  background: var(--em-paneel);
+}
+.email-kaart.is-gekozen {
+  border-color: var(--em-accent);
+  box-shadow: 0 0 0 1px var(--em-accent);
+  background: var(--em-accent-zacht);
+}
+.email-kaartkeuze {
+  flex: 1;
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  text-align: left;
+}
+.email-kaartkeuze strong {
+  font-size: 13.5px;
+}
+.email-kaartkeuze small {
+  font-size: 11.5px;
+  color: var(--em-tekst-3);
+}
+.email-kaartserver {
+  font: 12px/1.5 var(--oa-font-family-mono, monospace);
+  color: var(--em-tekst-2);
+  overflow-wrap: anywhere;
+}
+.email-bereik {
+  font-style: normal;
+  font-family: var(--oa-font-family-body, sans-serif);
+  font-size: 11.5px;
+  white-space: nowrap;
+}
+.email-bereik.is-bereikbaar {
+  color: var(--em-ok);
+}
+.email-bereik.is-niet-bereikbaar {
+  color: var(--em-gevaar);
+}
+.email-bereik.is-niet-getest {
+  color: var(--em-tekst-3);
+}
+.email-kaartwaarschuwing {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11.5px;
+  color: var(--em-gevaar);
+}
+.email-handmatig-kop {
+  margin-top: 6px !important;
+}
+.email-oauthblok {
+  display: grid;
+  gap: 8px;
+  padding: 10px 12px;
+  border: 1px solid var(--em-rand);
+  border-radius: 9px;
+  background: var(--em-bg);
+  font-size: 12.5px;
+  color: var(--em-tekst-2);
+}
+.email-oauthknoppen {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.email-aanbevolen {
+  margin-left: 2px;
+  padding: 0 5px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.25);
+  font-size: 10.5px;
+}
+.email-oauthuitleg {
+  display: flex;
+  gap: 8px;
+  padding: 10px 12px;
+  border: 1px solid #f3c27a;
+  border-radius: 8px;
+  background: #fff5df;
+  color: #7a4504;
+  font-size: 12.5px;
+}
+.email-oauthuitleg p {
+  margin: 4px 0 0;
+}
+.email-oauthwacht {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  padding: 36px 20px;
+  text-align: center;
+}
+.email-oauthwacht h3 {
+  margin: 0;
+  font-family: var(--oa-font-family-heading, inherit);
+  font-size: 17px;
+}
+.email-oauthwacht p {
+  max-width: 420px;
+  margin: 0;
+  color: var(--em-tekst-2);
+}
+.email-oauthaccount {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid var(--em-rand);
+  border-radius: 9px;
+  background: var(--em-bg);
+  font-size: 13px;
+  color: var(--em-ok);
+}
+.email-oauthaccount span {
+  flex: 1;
+  display: grid;
+  color: var(--em-tekst);
+}
+.email-oauthaccount small {
+  font-size: 11.5px;
+  color: var(--em-tekst-3);
+}
+.email-oauthclient {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 12px;
+  border: 1px solid var(--em-rand);
+  border-radius: 9px;
+}
+.email-oauthclient legend {
+  padding: 0 4px;
+  font-weight: 600;
+}
+.email-oauthclient p {
+  margin: 0;
+}
+@media (max-width: 860px) {
+  .email-wizard-indeling {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.email-servertabel input[aria-label$="-server"] {
+  min-width: 170px;
+}
+.email-servertabel input[aria-label$="-gebruikersnaam"] {
+  min-width: 140px;
+}
+.email-servertabel select {
+  min-width: 96px;
+}
+.email-bijlagevoorbeeld {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  padding: 2px 4px;
+  border: 0;
+  border-radius: 6px;
+  background: none;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.email-bijlagevoorbeeld:hover strong {
+  text-decoration: underline;
+}
