@@ -240,6 +240,8 @@ export function useTabbladen(opties: Opties) {
     opslag: (id: number) => opslagen.current.get(id),
     serialiseerder: (id: number) => serialiseerders.current.get(id),
     sluit,
+    /** Sluit zonder te vragen, bijv. na een bevestigde overdracht naar een ander venster. */
+    verwijder,
     verlaatvraag,
     beantwoord,
   };

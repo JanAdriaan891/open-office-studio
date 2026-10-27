@@ -1,12 +1,8 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
-use std::{
-    io::Write,
-    path::Path,
-    sync::atomic::{AtomicBool, Ordering},
-};
-use tauri::Manager;
+use std::{io::Write, path::Path};
 mod conversie;
 mod database_export;
+mod vensters;
 
 fn lees_bytes(request: &tauri::ipc::Request<'_>) -> Result<Vec<u8>, String> {
     lees_binaire_inhoud(request.body(), false)
@@ -49,22 +45,6 @@ async fn converteer_document(
     })
     .await
     .map_err(|e| e.to_string())?
-}
-
-#[tauri::command]
-fn wijzigingsstatus(gewijzigd: bool, status: tauri::State<AtomicBool>) {
-    status.store(gewijzigd, Ordering::SeqCst);
-}
-
-#[tauri::command]
-async fn bevestig_verlaten() -> bool {
-    rfd::AsyncMessageDialog::new()
-        .set_title("Niet-opgeslagen wijzigingen")
-        .set_description("Wijzigingen die nog niet zijn opgeslagen gaan verloren. Toch sluiten?")
-        .set_buttons(rfd::MessageButtons::YesNo)
-        .show()
-        .await
-        == rfd::MessageDialogResult::Yes
 }
 
 fn schrijf_atomair(pad: &Path, bytes: &[u8]) -> Result<(), String> {
@@ -148,25 +128,18 @@ async fn bewaar_kopie(request: tauri::ipc::Request<'_>) -> Result<Option<String>
 
 fn main() {
     tauri::Builder::default()
-        .manage(AtomicBool::new(false))
-        .on_window_event(|venster, gebeurtenis| {
-            if let tauri::WindowEvent::CloseRequested { api, .. } = gebeurtenis {
-                if venster.state::<AtomicBool>().load(Ordering::SeqCst) {
-                    api.prevent_close();
-                    let venster = venster.clone();
-                    tauri::async_runtime::spawn(async move {
-                        if bevestig_verlaten().await {
-                            let _ = venster.destroy();
-                        }
-                    });
-                }
-            }
-        })
+        .manage(vensters::Vensters::default())
+        .on_window_event(vensters::bij_venstergebeurtenis)
         .invoke_handler(tauri::generate_handler![
             bewaar_kopie,
             database_export::bewaar_database_export,
-            wijzigingsstatus,
-            bevestig_verlaten,
+            vensters::wijzigingsstatus,
+            vensters::bevestig_verlaten,
+            vensters::bied_overdracht,
+            vensters::neem_overdracht,
+            vensters::bevestig_overdracht,
+            vensters::weiger_overdracht,
+            vensters::trek_overdracht_in,
             converteer_document
         ])
         .run(tauri::generate_context!())

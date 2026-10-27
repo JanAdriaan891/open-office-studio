@@ -1,6 +1,10 @@
 {
   "identifier": "main",
-  "description": "Alleen de lokale kantooromgeving",
-  "windows": ["main"],
-  "permissions": ["core:default"]
+  "description": "Alleen de lokale kantooromgeving; losgemaakte documentvensters krijgen dezelfde rechten",
+  "windows": ["main", "document-*"],
+  "permissions": [
+    "core:default",
+    "core:window:allow-set-title",
+    "core:window:allow-close"
+  ]
 }

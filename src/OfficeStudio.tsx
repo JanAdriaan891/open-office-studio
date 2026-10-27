@@ -99,8 +99,10 @@ export function OfficeStudio() {
 
   const vensters = useVensters({
     tabs,
-    openDocument: (document) => tabs.openDocument(document),
-    openModule: (module) => tabs.openModule(module),
+    voorOverdracht: (tabblad) => {
+      if (tabblad.type === "module" && tabblad.module === "notities")
+        notitieActies.current?.bewaren();
+    },
   });
 
   const registreerNotities = useCallback((acties: NotitieActies | null) => {
