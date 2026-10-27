@@ -27,6 +27,8 @@
   "bundle": {
     "active": true,
     "category": "Productivity",
+    "publisher": "OpenAEC Foundation",
+    "copyright": "© 2026 OpenAEC Foundation",
     "shortDescription": "Open oude MDB- en ACCDB-databases lokaal",
     "icon": [
       "icons/32x32.png",

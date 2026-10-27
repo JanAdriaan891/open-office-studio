@@ -3,6 +3,7 @@ use std::{io::Write, path::Path};
 mod conversie;
 mod database_export;
 mod email;
+mod systeembestanden;
 mod vensters;
 
 fn lees_bytes(request: &tauri::ipc::Request<'_>) -> Result<Vec<u8>, String> {
@@ -144,9 +145,26 @@ async fn bewaar_kopie(request: tauri::ipc::Request<'_>) -> Result<Option<String>
 
 fn main() {
     tauri::Builder::default()
+        // Eerst registreren: een tweede instantie (dubbelklik terwijl de app al
+        // draait) geeft haar bestanden door en stopt meteen.
+        .plugin(tauri_plugin_single_instance::init(
+            |app, argumenten, map| {
+                let paden = systeembestanden::startpaden(
+                    argumenten.into_iter().map(Into::into),
+                    Some(std::path::Path::new(&map)),
+                );
+                systeembestanden::ontvang(app, paden);
+            },
+        ))
         .manage(vensters::Vensters::default())
         .manage(email::EmailStaat::default())
-        .on_window_event(vensters::bij_venstergebeurtenis)
+        .manage(systeembestanden::Systeembestanden::bij_start(
+            std::env::args_os(),
+        ))
+        .on_window_event(|venster, gebeurtenis| {
+            systeembestanden::bij_venstergebeurtenis(venster, gebeurtenis);
+            vensters::bij_venstergebeurtenis(venster, gebeurtenis);
+        })
         .invoke_handler(tauri::generate_handler![
             bewaar_kopie,
             database_export::bewaar_database_export,
@@ -158,6 +176,8 @@ fn main() {
             vensters::weiger_overdracht,
             vensters::trek_overdracht_in,
             converteer_document,
+            systeembestanden::systeembestanden,
+            systeembestanden::lees_systeembestand,
             conversie::conversie_status,
             conversie::kies_conversieprogramma,
             conversie::wis_conversieprogramma,
@@ -192,11 +212,20 @@ fn main() {
         ])
         .build(tauri::generate_context!())
         .expect("De kantooromgeving kon niet starten")
-        .run(|_, gebeurtenis| {
+        .run(|_app, gebeurtenis| match gebeurtenis {
             // Tijdelijk geopende e-mailbijlagen opruimen bij afsluiten.
-            if let tauri::RunEvent::Exit = gebeurtenis {
-                email::bestanden::ruim_tijdelijk_op();
+            tauri::RunEvent::Exit => email::bestanden::ruim_tijdelijk_op(),
+            // macOS geeft gekoppelde bestanden als gebeurtenis, niet als argument.
+            #[cfg(any(target_os = "macos", target_os = "ios"))]
+            tauri::RunEvent::Opened { urls } => {
+                let paden = urls
+                    .into_iter()
+                    .filter_map(|url| url.to_file_path().ok())
+                    .filter(|pad| pad.is_file())
+                    .collect();
+                systeembestanden::ontvang(_app, paden);
             }
+            _ => {}
         });
 }
 

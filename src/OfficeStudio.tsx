@@ -45,6 +45,7 @@ import { naamloos, titel, vingerafdruk, type Tabblad } from "./tabbladen";
 import { TabBalk, paneelId, tabId, tabbladIcoon } from "./TabBalk";
 import { useTabSneltoetsen } from "./useTabSneltoetsen";
 import { useVensters } from "./useVensters";
+import { useSysteembestanden } from "./systeembestanden";
 const Editor = lazy(() => import("./editors"));
 const tauri = "__TAURI_INTERNALS__" in window;
 /** Database-export via de native opslagdialoog; Rust staat alleen bekende exporttypen toe. */
@@ -97,7 +98,9 @@ export function OfficeStudio() {
       naam: string;
       bytes: Uint8Array;
     } | null>(null),
-    [verzendingOnverzonden, setVerzendingOnverzonden] = useState(false);
+    [verzendingOnverzonden, setVerzendingOnverzonden] = useState(false),
+    // Bestand dat Database Studio moet openen (bijlage of bestandskoppeling).
+    [databaseStart, setDatabaseStart] = useState<File | null>(null);
   const input = useRef<HTMLInputElement>(null),
     bezigRef = useRef(false);
   const databaseOpenen = useRef<(() => void) | null>(null);
@@ -148,6 +151,7 @@ export function OfficeStudio() {
   const registreerVerzending = useCallback((acties: EmailActies | null) => {
     verzendActies.current = acties;
   }, []);
+  const databaseStartGelezen = useCallback(() => setDatabaseStart(null), []);
   const databaseBewerkt = useCallback(
     (waarde: boolean) => tabs.moduleBewerkt("database", waarde),
     [tabs.moduleBewerkt],
@@ -488,40 +492,53 @@ export function OfficeStudio() {
       return;
     }
     if (kantoorModule(naam) === "database") {
-      const bestaand = tabs.toestandRef.current.tabbladen.find(
-        (t) => t.type === "module" && t.module === "database",
-      );
-      if (bestaand && tabs.isGewijzigd(bestaand)) {
-        tabs.verwerk({ type: "activeer", id: bestaand.id });
-        meld(
-          "Database Studio heeft een gewijzigde werkkopie. Bewaar of sluit die eerst en open de bijlage daarna opnieuw.",
-          bestaand.id,
-        );
-        return;
-      }
-      tabs.openModule("database");
-      // Database Studio leest bestanden via zijn eigen bestandskiezer; geef de
-      // bijlage daaraan door zodra het paneel klaarstaat en zichtbaar is.
-      let pogingen = 0;
-      const geefDoor = () => {
-        const kiezer = document.querySelector<HTMLInputElement>(
-          '.office-tabpaneel:not([hidden]) .database-app input[type="file"]',
-        );
-        if (!kiezer) {
-          if (++pogingen < 120) requestAnimationFrame(geefDoor);
-          else meld("Database Studio kon de bijlage niet ontvangen.");
-          return;
-        }
-        const overdracht = new DataTransfer();
-        overdracht.items.add(new File([new Uint8Array(bytes)], naam));
-        kiezer.files = overdracht.files;
-        kiezer.dispatchEvent(new Event("change", { bubbles: true }));
-      };
-      requestAnimationFrame(geefDoor);
+      openDatabaseBestand(naam, bytes, "de bijlage");
       return;
     }
     await importeer(naam, bytes);
   }
+
+  /** MDB/ACCDB in het Database-tabblad van dit venster (er is er hooguit één). */
+  function openDatabaseBestand(naam: string, bytes: Uint8Array, wat: string) {
+    const bestaand = tabs.toestandRef.current.tabbladen.find(
+      (t) => t.type === "module" && t.module === "database",
+    );
+    if (bestaand && tabs.isGewijzigd(bestaand)) {
+      tabs.verwerk({ type: "activeer", id: bestaand.id });
+      meld(
+        `Database Studio heeft een gewijzigde werkkopie. Bewaar of sluit die eerst en open ${wat} daarna opnieuw.`,
+        bestaand.id,
+      );
+      return;
+    }
+    tabs.openModule("database");
+    // Database Studio opent het zodra het paneel klaarstaat (prop startbestand).
+    setDatabaseStart(new File([new Uint8Array(bytes)], naam));
+  }
+
+  /**
+   * Bestand van het besturingssysteem (bestandskoppeling, "Openen met", tweede
+   * start): een nieuw tabblad, of het bestaande tabblad als hetzelfde bestand
+   * al openstaat; MDB/ACCDB gaan naar het Database-tabblad.
+   */
+  async function openSysteembestand(
+    naam: string,
+    lees: () => Promise<Uint8Array>,
+  ) {
+    // Wacht tot opslaan of een andere opening klaar is; niets valt weg.
+    while (bezigRef.current) await new Promise((r) => setTimeout(r, 100));
+    let bytes: Uint8Array;
+    try {
+      bytes = await lees();
+    } catch (error) {
+      meld(`${naam} openen mislukt: ${String(error)}`);
+      return;
+    }
+    if (kantoorModule(naam) === "database")
+      openDatabaseBestand(naam, bytes, "het bestand");
+    else await importeer(naam, bytes);
+  }
+  useSysteembestanden((naam, lees) => openSysteembestand(naam, lees));
 
   // Ongelezen e-mail voor de vaste ingang op Start (hooguit eens per minuut).
   const emailTabblad = toestand.tabbladen.some(
@@ -762,6 +779,8 @@ export function OfficeStudio() {
                     bewaarUitvoer={bewaarDatabaseUitvoer}
                     bewaarBinair={bewaarDatabaseBinair}
                     gewijzigd={databaseBewerkt}
+                    startbestand={databaseStart}
+                    startbestandGelezen={databaseStartGelezen}
                   />,
                 );
               return paneel(

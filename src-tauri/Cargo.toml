@@ -1,6 +1,6 @@
 [package]
 name = "open-office-studio"
-version = "2026.43.4"
+version = "2026.44.0"
 description = "Lokale OpenAEC-kantooromgeving"
 edition = "2021"
 
@@ -10,6 +10,8 @@ tauri-build = { version = "2", features = [] }
 [dependencies]
 tauri = { version = "2", features = [] }
 rfd = "0.15"
+# Een tweede start (dubbelklik op een gekoppeld bestand) gaat naar de draaiende app.
+tauri-plugin-single-instance = "2"
 tempfile = "3"
 serde_json = "1"
 percent-encoding = "2"

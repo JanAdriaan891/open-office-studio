@@ -1,0 +1,279 @@
+name: Uitgave bouwen, ondertekenen en publiceren
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: uitgave-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  versie:
+    runs-on: ubuntu-latest
+    outputs:
+      versie: ${{ steps.versie.outputs.versie }}
+    steps:
+      - uses: actions/checkout@v4
+      # Versies volgen JJJJ.WW.N, net als de andere OpenAEC-studio's. De tag,
+      # package.json, tauri.conf.json en Cargo.toml moeten gelijk zijn;
+      # Cargo.lock wordt via --locked in de bouwjob bewaakt. De weekversie
+      # (versie.json) en Database Studio volgen dezelfde versie; zet ze met
+      # `pnpm versie:week <datum> <volgnummer>`.
+      - name: Versie en tag vergelijken
+        id: versie
+        env:
+          REF_TYPE: ${{ github.ref_type }}
+          REF_NAME: ${{ github.ref_name }}
+        run: |
+          versie=$(node -p "require('./package.json').version")
+          tauri=$(node -p "require('./src-tauri/tauri.conf.json').version")
+          cargo=$(sed -n 's/^version = "\(.*\)"$/\1/p' src-tauri/Cargo.toml | head -n 1)
+          if ! [[ "$versie" =~ ^20[0-9]{2}\.[0-9]{1,2}\.[0-9]+$ ]]; then
+            echo "::error::Versie $versie volgt niet JJJJ.WW.N."; exit 1
+          fi
+          if [ "$versie" != "$tauri" ] || [ "$versie" != "$cargo" ]; then
+            echo "::error::Versies lopen uiteen: package.json $versie, tauri.conf.json $tauri, Cargo.toml $cargo."; exit 1
+          fi
+          if [ "$REF_TYPE" = tag ] && [ "$REF_NAME" != "v$versie" ]; then
+            echo "::error::Tag $REF_NAME hoort v$versie te zijn."; exit 1
+          fi
+          node scripts/controleer-weekversie.mjs
+          echo "versie=$versie" >> "$GITHUB_OUTPUT"
+
+  bouwen:
+    needs: versie
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            label: Windows
+            bundels: nsis
+          - os: macos-latest
+            label: macOS
+            bundels: dmg
+          - os: ubuntu-22.04
+            label: Linux
+            bundels: deb,appimage
+    name: Bouwen – ${{ matrix.label }}
+    runs-on: ${{ matrix.os }}
+    # Ondertekening komt uit de organisatiesecrets. Bij een tag is zij verplicht;
+    # een handmatige proefrun bouwt zonder secrets onondertekend.
+    env:
+      WIN_SIGN: ${{ secrets.AZURE_CLIENT_ID != '' && secrets.AZURE_ENDPOINT != '' && secrets.AZURE_TRUSTED_SIGNING_ACCOUNT_NAME != '' }}
+      MAC_SIGN: ${{ secrets.APPLE_CERTIFICATE != '' && secrets.APPLE_SIGNING_IDENTITY != '' && secrets.APPLE_API_KEY != '' }}
+      ONDERTEKENEN_VERPLICHT: ${{ github.ref_type == 'tag' }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Ondertekening beschikbaar
+        shell: bash
+        run: |
+          ontbreekt=""
+          if [ "$RUNNER_OS" = Windows ] && [ "$WIN_SIGN" != true ]; then ontbreekt="Azure Artifact Signing (AZURE_*)"; fi
+          if [ "$RUNNER_OS" = macOS ] && [ "$MAC_SIGN" != true ]; then ontbreekt="Apple Developer ID (APPLE_*)"; fi
+          if [ -n "$ontbreekt" ]; then
+            if [ "$ONDERTEKENEN_VERPLICHT" = true ]; then
+              echo "::error::Secrets voor $ontbreekt ontbreken; geef deze repository toegang tot de organisatiesecrets."; exit 1
+            fi
+            echo "::warning::Secrets voor $ontbreekt ontbreken; deze proefrun bouwt onondertekend."
+          fi
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.25.0
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Linux-bouwafhankelijkheden
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends libwebkit2gtk-4.1-dev libgtk-3-dev libayatana-appindicator3-dev librsvg2-dev patchelf squashfs-tools poppler-utils
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm versie:check
+      - run: pnpm test
+      - run: python -m unittest discover -s tests -v
+      - run: node scripts/test-kantoor-engines.mjs
+      - name: Windows-loader voorbereiden
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          ./scripts/voorbereiden-windows.ps1
+          ./scripts/voorbereiden-windows.ps1 -ProjectMap apps/database-studio/src-tauri
+      - run: cargo test --manifest-path src-tauri/Cargo.toml --locked
+      - run: cargo test --manifest-path apps/database-studio/src-tauri/Cargo.toml --locked
+
+      # De dlib van de signeerclient heeft .NET 8 nodig.
+      - name: .NET 8 voor de signeerclient
+        if: runner.os == 'Windows' && env.WIN_SIGN == 'true'
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+      - name: Authenticode voorbereiden
+        if: runner.os == 'Windows' && env.WIN_SIGN == 'true'
+        shell: pwsh
+        env:
+          AZURE_ENDPOINT: ${{ secrets.AZURE_ENDPOINT }}
+          AZURE_TRUSTED_SIGNING_ACCOUNT_NAME: ${{ secrets.AZURE_TRUSTED_SIGNING_ACCOUNT_NAME }}
+          AZURE_CERTIFICATE_PROFILE_NAME: ${{ secrets.AZURE_CERTIFICATE_PROFILE_NAME }}
+        run: pwsh -NoProfile -File scripts/windows-sign.ps1 -Setup
+      # Notarisatie via een App Store Connect API-sleutel.
+      - name: App Store Connect-sleutel klaarzetten
+        if: runner.os == 'macOS' && env.MAC_SIGN == 'true'
+        env:
+          APPLE_API_KEY_CONTENT: ${{ secrets.APPLE_API_KEY_CONTENT }}
+        run: printf '%s' "$APPLE_API_KEY_CONTENT" > "$RUNNER_TEMP/apple-api-key.p8"
+
+      - name: Pakket bouwen (onondertekend)
+        if: >-
+          !(runner.os == 'Windows' && env.WIN_SIGN == 'true') &&
+          !(runner.os == 'macOS' && env.MAC_SIGN == 'true')
+        shell: bash
+        run: |
+          pnpm desktop:build --bundles ${{ matrix.bundels }}
+          pnpm database:desktop:build --bundles ${{ matrix.bundels }}
+      # Tauri roept signCommand aan voor het programma, de uninstaller en de installer.
+      - name: Pakket bouwen (Windows, ondertekend)
+        if: runner.os == 'Windows' && env.WIN_SIGN == 'true'
+        shell: pwsh
+        env:
+          AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+          AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+        run: |
+          pnpm desktop:build --bundles ${{ matrix.bundels }} --config "$env:OPS_SIGN_CONFIG"
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          pnpm database:desktop:build --bundles ${{ matrix.bundels }} --config "$env:OPS_SIGN_CONFIG"
+      - name: Pakket bouwen (macOS, ondertekend en genotariseerd)
+        if: runner.os == 'macOS' && env.MAC_SIGN == 'true'
+        env:
+          APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
+          APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+          APPLE_SIGNING_IDENTITY: ${{ secrets.APPLE_SIGNING_IDENTITY }}
+          APPLE_API_ISSUER: ${{ secrets.APPLE_API_ISSUER }}
+          APPLE_API_KEY: ${{ secrets.APPLE_API_KEY }}
+          APPLE_API_KEY_PATH: ${{ runner.temp }}/apple-api-key.p8
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        run: |
+          pnpm desktop:build --bundles ${{ matrix.bundels }}
+          pnpm database:desktop:build --bundles ${{ matrix.bundels }}
+
+      # Poort: installer, geïnstalleerd programma en uninstaller dragen een geldige
+      # handtekening met tijdstempel. Het programma wordt gecontroleerd zoals het in
+      # de installer zit; target/release bevat na het bundelen een ongetekende kopie.
+      - name: Authenticode controleren (installer, programma en uninstaller)
+        if: runner.os == 'Windows' && env.WIN_SIGN == 'true'
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          function Controleer($label, $pad) {
+            if (-not (Test-Path $pad)) { throw "${label}: bestand ontbreekt ($pad)" }
+            $sig = Get-AuthenticodeSignature -FilePath $pad
+            Write-Host "${label}: $($sig.Status); $($sig.SignerCertificate.Subject); tijdstempel: $($sig.TimeStamperCertificate.Subject)"
+            if ($sig.Status -ne 'Valid' -or $null -eq $sig.TimeStamperCertificate) { throw "${label}: geen geldige Authenticode-handtekening met tijdstempel" }
+            & $env:OPS_SIGNTOOL verify /pa /v $pad
+            if ($LASTEXITCODE -ne 0) { throw "signtool verify faalde voor $label" }
+          }
+          # Office Studio en de zelfstandige Database Studio, elk met eigen installer.
+          function ControleerApp($bundel, $naam, $programma) {
+            $setup = Get-ChildItem "$env:GITHUB_WORKSPACE/$bundel/nsis/*-setup.exe" | Select-Object -First 1
+            if ($null -eq $setup) { throw "Geen *-setup.exe gebouwd voor $naam." }
+            Controleer "installer $naam" $setup.FullName
+            $p = Start-Process -FilePath $setup.FullName -ArgumentList '/S' -Wait -PassThru
+            if ($p.ExitCode -ne 0) { throw "Stil installeren van $naam faalde ($($p.ExitCode))." }
+            $sleutels = @('HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*',
+                          'HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*')
+            $item = Get-ItemProperty $sleutels -ErrorAction SilentlyContinue |
+              Where-Object { $_.DisplayName -like "$naam*" } | Select-Object -First 1
+            if ($null -eq $item) { throw "Geen Uninstall-sleutel na installeren van $naam." }
+            if ($item.Publisher -ne 'OpenAEC Foundation') { throw "Onverwachte uitgever van ${naam}: $($item.Publisher)" }
+            $uninstaller = $item.UninstallString.Trim('"')
+            $map = Split-Path $uninstaller
+            Controleer "$programma.exe (geïnstalleerd)" (Join-Path $map "$programma.exe")
+            if (-not (Test-Path (Join-Path $map 'WebView2Loader.dll'))) { throw "WebView2Loader.dll ontbreekt in de installatie van $naam." }
+            Controleer "uninstaller $naam" $uninstaller
+            $u = Start-Process -FilePath $uninstaller -ArgumentList '/S' -Wait -PassThru
+            if ($u.ExitCode -ne 0) { Write-Host "::warning::Stil verwijderen van $naam gaf $($u.ExitCode)." }
+          }
+          ControleerApp 'src-tauri/target/release/bundle' 'Open Office Studio' 'open-office-studio'
+          ControleerApp 'apps/database-studio/src-tauri/target/release/bundle' 'Open Database Studio' 'open-database-studio'
+      # De .app uit de DMG: handtekening, Gatekeeper en het geniete notarisatieticket.
+      - name: Handtekening en notarisatie controleren (macOS)
+        if: runner.os == 'macOS' && env.MAC_SIGN == 'true'
+        run: |
+          set -euo pipefail
+          for bundel in src-tauri/target/release/bundle apps/database-studio/src-tauri/target/release/bundle; do
+            dmg="$(find "$bundel/dmg" -name '*.dmg' -print -quit)"
+            test -n "$dmg"
+            koppel="$(mktemp -d)"
+            hdiutil attach -nobrowse -readonly -mountpoint "$koppel" "$dmg"
+            app="$(find "$koppel" -maxdepth 1 -name '*.app' -print -quit)"
+            test -n "$app"
+            mkdir -p "$RUNNER_TEMP/controle"
+            cp -R "$app" "$RUNNER_TEMP/controle/"
+            hdiutil detach "$koppel"
+            app="$RUNNER_TEMP/controle/$(basename "$app")"
+            codesign --verify --deep --strict --verbose=2 "$app"
+            spctl --assess --type execute --verbose=4 "$app"
+            xcrun stapler validate "$app"
+          done
+      - name: Linux-installers werkelijk uitpakken en controleren
+        if: runner.os == 'Linux'
+        run: |
+          python scripts/controleer-installers.py --platform linux --rapport .local/pakketcontrole-Linux.json
+          python scripts/controleer-installers.py --platform linux --programma open-database-studio --bundels apps/database-studio/src-tauri/target/release/bundle --rapport .local/pakketcontrole-Database-Linux.json
+      - name: Windows-installer werkelijk uitpakken en controleren
+        if: runner.os == 'Windows'
+        run: |
+          python scripts/controleer-installers.py --platform windows --rapport .local/pakketcontrole-Windows.json
+          python scripts/controleer-installers.py --platform windows --programma open-database-studio --bundels apps/database-studio/src-tauri/target/release/bundle --rapport .local/pakketcontrole-Database-Windows.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: uitgave-${{ matrix.label }}
+          path: |
+            src-tauri/target/release/bundle/**/*.deb
+            src-tauri/target/release/bundle/**/*.AppImage
+            src-tauri/target/release/bundle/**/*-setup.exe
+            src-tauri/target/release/bundle/**/*.dmg
+            apps/database-studio/src-tauri/target/release/bundle/**/*.deb
+            apps/database-studio/src-tauri/target/release/bundle/**/*.AppImage
+            apps/database-studio/src-tauri/target/release/bundle/**/*-setup.exe
+            apps/database-studio/src-tauri/target/release/bundle/**/*.dmg
+            .local/pakketcontrole-*.json
+          include-hidden-files: true
+          if-no-files-found: error
+
+  # Concept-uitgave: de ondertekende installer wordt eerst nog geïnstalleerd en
+  # bediend voordat de uitgave openbaar wordt.
+  publiceren:
+    needs: [versie, bouwen]
+    if: github.ref_type == 'tag'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: artefacten
+      - name: Bestanden en SHA256SUMS verzamelen
+        run: |
+          mkdir uitgave
+          find artefacten -type f \( -name '*-setup.exe' -o -name '*.dmg' -o -name '*.deb' -o -name '*.AppImage' -o -name 'pakketcontrole-*.json' \) -exec cp {} uitgave/ \;
+          cd uitgave
+          # GitHub vervangt spaties in namen van uitgavebestanden door punten;
+          # zelf hernoemen houdt SHA256SUMS gelijk aan de downloadnamen.
+          for bestand in *' '*; do [ -e "$bestand" ] && mv -- "$bestand" "${bestand// /.}"; done
+          sha256sum -- * > ../SHA256SUMS
+          mv ../SHA256SUMS .
+          cat SHA256SUMS
+      - name: Concept-uitgave aanmaken
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+          VERSIE: ${{ needs.versie.outputs.versie }}
+        run: |
+          gh release create "$TAG" uitgave/* --repo "$GITHUB_REPOSITORY" --verify-tag --draft --prerelease \
+            --title "Open Office Studio $VERSIE" \
+            --notes "Ontwikkelversie $VERSIE van Open Office Studio en de zelfstandige Open Database Studio. Windows x64 (ondertekend), macOS Apple Silicon (ondertekend en genotariseerd), Linux x64 (DEB en AppImage). Pakketrapporten en SHA256SUMS zijn bijgevoegd."

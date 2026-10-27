@@ -1,0 +1,311 @@
+//! Bestanden die het besturingssysteem meegeeft (bestandskoppeling, "Openen met").
+//!
+//! - Bij het starten staan ze in de opstartargumenten.
+//! - Draait de app al, dan start Windows/Linux een tweede instantie; de
+//!   single-instance-plugin geeft haar argumenten door aan de eerste en de
+//!   tweede stopt meteen.
+//! - Op macOS komen ze binnen als `RunEvent::Opened`.
+//!
+//! Elk pad krijgt een eenmalig nummer en een doelvenster. Dat venster haalt de
+//! lijst op (`systeembestanden`) en leest elk bestand precies één keer
+//! (`lees_systeembestand`). De webview kan zo alleen bestanden lezen die het
+//! besturingssysteem zelf heeft aangewezen, nooit een willekeurig pad.
+//!
+//! Doelvenster: het hoofdvenster ("main"). Is dat gesloten terwijl losgemaakte
+//! documentvensters nog openstaan, dan het laatst actieve venster. Zo landt een
+//! dubbelklik voorspelbaar in één vast venster, en nooit in een venster dat al
+//! weg is; wachtende bestanden van een venster dat sluit, verhuizen mee.
+use std::{
+    collections::BTreeMap,
+    ffi::OsString,
+    path::{Path, PathBuf},
+    sync::{
+        atomic::{AtomicU64, Ordering},
+        Mutex,
+    },
+};
+use tauri::{Emitter, Manager};
+
+const HOOFDVENSTER: &str = "main";
+/// Gebeurtenis voor het doelvenster: er staan nieuwe bestanden klaar.
+const GEBEURTENIS: &str = "office-systeembestanden";
+const MAX_GROOTTE: u64 = 100 * 1024 * 1024;
+
+struct Wachtend {
+    pad: PathBuf,
+    venster: String,
+}
+
+#[derive(Default)]
+pub struct Systeembestanden {
+    wachtrij: Mutex<BTreeMap<u64, Wachtend>>,
+    teller: AtomicU64,
+    laatst_actief: Mutex<Option<String>>,
+}
+
+#[derive(serde::Serialize, Clone, Debug, PartialEq)]
+pub struct Aangeboden {
+    id: u64,
+    naam: String,
+}
+
+impl Systeembestanden {
+    /// Bestanden uit de opstartargumenten; ze gaan naar het hoofdvenster.
+    pub fn bij_start(argumenten: impl Iterator<Item = OsString>) -> Self {
+        let staat = Self::default();
+        staat.voeg_toe(startpaden(argumenten, None), HOOFDVENSTER);
+        staat
+    }
+
+    fn voeg_toe(&self, paden: Vec<PathBuf>, venster: &str) -> usize {
+        let Ok(mut wachtrij) = self.wachtrij.lock() else {
+            return 0;
+        };
+        let aantal = paden.len();
+        for pad in paden {
+            let id = self.teller.fetch_add(1, Ordering::SeqCst) + 1;
+            wachtrij.insert(
+                id,
+                Wachtend {
+                    pad,
+                    venster: venster.to_owned(),
+                },
+            );
+        }
+        aantal
+    }
+
+    fn voor_venster(&self, venster: &str) -> Vec<Aangeboden> {
+        let Ok(wachtrij) = self.wachtrij.lock() else {
+            return Vec::new();
+        };
+        wachtrij
+            .iter()
+            .filter(|(_, w)| w.venster == venster)
+            .map(|(id, w)| Aangeboden {
+                id: *id,
+                naam: w
+                    .pad
+                    .file_name()
+                    .map(|n| n.to_string_lossy().into_owned())
+                    .unwrap_or_default(),
+            })
+            .collect()
+    }
+
+    fn neem(&self, id: u64, venster: &str) -> Option<PathBuf> {
+        let mut wachtrij = self.wachtrij.lock().ok()?;
+        if wachtrij.get(&id)?.venster != venster {
+            return None;
+        }
+        wachtrij.remove(&id).map(|w| w.pad)
+    }
+
+    /// Verplaatst wachtende bestanden van een gesloten venster; waar als er iets verhuisde.
+    fn verhuis(&self, van: &str, naar: &str) -> bool {
+        let Ok(mut wachtrij) = self.wachtrij.lock() else {
+            return false;
+        };
+        let mut verhuisd = false;
+        for w in wachtrij.values_mut().filter(|w| w.venster == van) {
+            w.venster = naar.to_owned();
+            verhuisd = true;
+        }
+        verhuisd
+    }
+}
+
+/// Alle bestaande bestanden na de programmanaam; relatieve paden ten opzichte van `map`.
+pub fn startpaden(argumenten: impl Iterator<Item = OsString>, map: Option<&Path>) -> Vec<PathBuf> {
+    argumenten
+        .skip(1)
+        .map(PathBuf::from)
+        .map(|pad| match map {
+            Some(map) if pad.is_relative() => map.join(pad),
+            _ => pad,
+        })
+        .filter(|pad| pad.is_file())
+        .collect()
+}
+
+pub fn lees_beperkt(pad: &Path) -> Result<Vec<u8>, String> {
+    let grootte = std::fs::metadata(pad).map_err(|e| e.to_string())?.len();
+    if grootte == 0 || grootte > MAX_GROOTTE {
+        return Err("Het bestand is leeg of groter dan 100 MB.".into());
+    }
+    std::fs::read(pad).map_err(|e| e.to_string())
+}
+
+/// Het venster dat nieuwe bestanden krijgt: hoofdvenster, anders het laatst actieve.
+fn doelvenster<R: tauri::Runtime>(app: &tauri::AppHandle<R>) -> Option<tauri::WebviewWindow<R>> {
+    if let Some(venster) = app.get_webview_window(HOOFDVENSTER) {
+        return Some(venster);
+    }
+    let laatst = app
+        .state::<Systeembestanden>()
+        .laatst_actief
+        .lock()
+        .ok()
+        .and_then(|l| l.clone());
+    laatst
+        .and_then(|label| app.get_webview_window(&label))
+        .or_else(|| app.webview_windows().into_values().next())
+}
+
+fn naar_voren<R: tauri::Runtime>(venster: &tauri::WebviewWindow<R>) {
+    let _ = venster.unminimize();
+    let _ = venster.show();
+    let _ = venster.set_focus();
+}
+
+/// Bestanden van een tweede instantie of van macOS: aanbieden aan het doelvenster.
+pub fn ontvang<R: tauri::Runtime>(app: &tauri::AppHandle<R>, paden: Vec<PathBuf>) {
+    let staat = app.state::<Systeembestanden>();
+    let Some(venster) = doelvenster(app) else {
+        // Nog geen venster (macOS kan vóór het eerste venster melden): het
+        // hoofdvenster haalt de lijst op zodra het geladen is.
+        staat.voeg_toe(paden, HOOFDVENSTER);
+        return;
+    };
+    naar_voren(&venster);
+    if staat.voeg_toe(paden, venster.label()) > 0 {
+        let _ = app.emit_to(venster.label(), GEBEURTENIS, ());
+    }
+}
+
+/// Houdt het laatst actieve venster bij en verhuist wachtende bestanden van een gesloten venster.
+pub fn bij_venstergebeurtenis<R: tauri::Runtime>(
+    venster: &tauri::Window<R>,
+    gebeurtenis: &tauri::WindowEvent,
+) {
+    let staat = venster.state::<Systeembestanden>();
+    match gebeurtenis {
+        tauri::WindowEvent::Focused(true) => {
+            if let Ok(mut laatst) = staat.laatst_actief.lock() {
+                *laatst = Some(venster.label().to_owned());
+            }
+        }
+        tauri::WindowEvent::Destroyed => {
+            let app = venster.app_handle();
+            if let Ok(mut laatst) = staat.laatst_actief.lock() {
+                if laatst.as_deref() == Some(venster.label()) {
+                    *laatst = None;
+                }
+            }
+            let ander = app
+                .webview_windows()
+                .into_keys()
+                .find(|label| label != venster.label());
+            if let Some(ander) = ander {
+                if staat.verhuis(venster.label(), &ander) {
+                    let _ = app.emit_to(ander.as_str(), GEBEURTENIS, ());
+                }
+            }
+        }
+        _ => {}
+    }
+}
+
+/// Bestanden die voor dit venster klaarstaan (naam en eenmalig nummer).
+#[tauri::command]
+pub fn systeembestanden(
+    venster: tauri::Window,
+    staat: tauri::State<Systeembestanden>,
+) -> Vec<Aangeboden> {
+    staat.voor_venster(venster.label())
+}
+
+/// Leest een aangeboden bestand één keer; daarna is het nummer verbruikt.
+#[tauri::command]
+pub async fn lees_systeembestand(
+    venster: tauri::Window,
+    staat: tauri::State<'_, Systeembestanden>,
+    id: u64,
+) -> Result<tauri::ipc::Response, String> {
+    let pad = staat
+        .neem(id, venster.label())
+        .ok_or("Dit bestand is al geopend of niet voor dit venster bedoeld.")?;
+    tauri::async_runtime::spawn_blocking(move || lees_beperkt(&pad).map(tauri::ipc::Response::new))
+        .await
+        .map_err(|e| e.to_string())?
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn argumenten(rest: Vec<OsString>) -> impl Iterator<Item = OsString> {
+        std::iter::once(OsString::from("open-office-studio.exe")).chain(rest)
+    }
+
+    #[test]
+    fn startpad_neemt_alleen_een_bestaand_bestand() {
+        let map = tempfile::tempdir().unwrap();
+        let pad = map.path().join("notitie.docx");
+        std::fs::write(&pad, b"inhoud").unwrap();
+        let ontbreekt = map.path().join("ontbreekt.docx");
+        assert!(startpaden(argumenten(vec![]), None).is_empty());
+        assert!(startpaden(argumenten(vec!["--vlag".into(), ontbreekt.into()]), None).is_empty());
+        assert_eq!(
+            startpaden(argumenten(vec!["--vlag".into(), pad.clone().into()]), None),
+            vec![pad.clone()]
+        );
+        // Het programma zelf telt nooit mee als startbestand.
+        assert!(startpaden(std::iter::once(pad.into_os_string()), None).is_empty());
+    }
+
+    #[test]
+    fn relatieve_paden_van_een_tweede_instantie() {
+        let map = tempfile::tempdir().unwrap();
+        std::fs::write(map.path().join("a.xlsx"), b"PK").unwrap();
+        std::fs::write(map.path().join("b.pptx"), b"PK").unwrap();
+        assert_eq!(
+            startpaden(
+                argumenten(vec!["a.xlsx".into(), "b.pptx".into()]),
+                Some(map.path())
+            ),
+            vec![map.path().join("a.xlsx"), map.path().join("b.pptx")]
+        );
+    }
+
+    #[test]
+    fn startbestand_lezen_weigert_leeg_bestand() {
+        let map = tempfile::tempdir().unwrap();
+        let leeg = map.path().join("leeg.xlsx");
+        std::fs::write(&leeg, b"").unwrap();
+        assert!(lees_beperkt(&leeg).is_err());
+        let gevuld = map.path().join("gevuld.xlsx");
+        std::fs::write(&gevuld, b"PK").unwrap();
+        assert_eq!(lees_beperkt(&gevuld).unwrap(), b"PK");
+    }
+
+    #[test]
+    fn elk_bestand_eenmalig_en_alleen_voor_het_doelvenster() {
+        let map = tempfile::tempdir().unwrap();
+        let pad = map.path().join("begroting.xlsx");
+        std::fs::write(&pad, b"PK").unwrap();
+        let staat = Systeembestanden::bij_start(argumenten(vec![pad.clone().into()]));
+        let aangeboden = staat.voor_venster("main");
+        assert_eq!(
+            aangeboden,
+            vec![Aangeboden {
+                id: 1,
+                naam: "begroting.xlsx".into()
+            }]
+        );
+        assert!(staat.voor_venster("document-2").is_empty());
+        assert_eq!(staat.neem(1, "document-2"), None);
+        assert_eq!(staat.neem(1, "main"), Some(pad));
+        assert_eq!(staat.neem(1, "main"), None);
+        assert!(staat.voor_venster("main").is_empty());
+    }
+
+    #[test]
+    fn wachtende_bestanden_verhuizen_bij_sluiten() {
+        let staat = Systeembestanden::default();
+        staat.voeg_toe(vec![PathBuf::from("/x/a.docx")], "document-3");
+        assert!(staat.verhuis("document-3", "main"));
+        assert!(!staat.verhuis("document-3", "main"));
+        assert_eq!(staat.voor_venster("main").len(), 1);
+    }
+}

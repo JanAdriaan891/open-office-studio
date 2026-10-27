@@ -115,6 +115,10 @@ export function DatabaseStudio(props: {
   bewaarBinair?: DatabaseBinaireUitvoer;
   /** Meldt of de werkkopie niet-opgeslagen wijzigingen heeft (voor sluitbeveiliging van de host). */
   gewijzigd?: (waarde: boolean) => void;
+  /** Bestand dat de host laat openen (bestandskoppeling, e-mailbijlage); elk File-object één keer. */
+  startbestand?: File | null;
+  /** Het startbestand is overgenomen; de host kan het vergeten. */
+  startbestandGelezen?: () => void;
 } = {}) {
   const [donker, setDonker] = useState(false);
   return (
@@ -132,6 +136,8 @@ function Werkruimte({
   bewaarUitvoer = downloadDatabaseUitvoer,
   bewaarBinair = downloadBinair,
   gewijzigd: meldGewijzigd,
+  startbestand,
+  startbestandGelezen,
   donker,
   setDonker,
 }: {
@@ -140,6 +146,8 @@ function Werkruimte({
   bewaarUitvoer?: DatabaseUitvoer;
   bewaarBinair?: DatabaseBinaireUitvoer;
   gewijzigd?: (waarde: boolean) => void;
+  startbestand?: File | null;
+  startbestandGelezen?: () => void;
   donker: boolean;
   setDonker: (d: boolean) => void;
 }) {
@@ -205,6 +213,14 @@ function Werkruimte({
     registreerOpenen?.(bezig || opbouw ? null : () => invoer.current?.click());
     return () => registreerOpenen?.(null);
   }, [registreerOpenen, bezig, opbouw]);
+  // Een bestand van de host opent zodra er geen andere lees- of bouwopdracht loopt.
+  const verwerkteStart = useRef<File | null>(null);
+  useEffect(() => {
+    if (!startbestand || bezig || opbouw || verwerkteStart.current === startbestand) return;
+    verwerkteStart.current = startbestand;
+    startbestandGelezen?.();
+    void openBestand(startbestand);
+  }, [startbestand, bezig, opbouw]);
 
   const vernieuw = useCallback(async () => {
     if (!werkkopie) return setObjecten(LEEG);
