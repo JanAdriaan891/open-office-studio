@@ -17,7 +17,10 @@ import {
   HardDrive,
   FileText,
   NotebookPen,
+  Mail,
 } from "lucide-react";
+import type { EmailActies } from "../packages/email/src/ui/EmailStudio";
+import { kantoorModule } from "../packages/email/src/kantoor";
 import type { NotitieActies } from "./notities/NotitiesStudio";
 import type { Soort } from "./editors";
 import {
@@ -29,6 +32,14 @@ import "./office.css";
 import { StartScherm, modules } from "./StartScherm";
 import { DocumentOpslag, type BewaarUitkomst } from "./opslag";
 import { VerlaatDialoog } from "./VerlaatDialoog";
+import { OpslaanAlsDialoog } from "./OpslaanAlsDialoog";
+import {
+  bewaarInFormaat,
+  standaardKeuze,
+  verliesmelding,
+  type OpslaanKeuze,
+} from "./export/bewaar";
+import { editorKoppeling } from "./export/koppeling";
 import { controleerPakket, risicoBeleid } from "./pakketcontrole";
 import versie from "../versie.json";
 import openaecSymbool from "./stijl/openaec-symbol.svg";
@@ -38,7 +49,6 @@ import {
   bestandssoort,
   converteer,
   invoerformaten,
-  uitvoerformaten,
 } from "./formaten";
 const Editor = lazy(() => import("./editors"));
 const tauri = "__TAURI_INTERNALS__" in window;
@@ -61,6 +71,10 @@ const bewaarDatabaseBinair: DatabaseBinaireUitvoer | undefined = tauri
   ? (naam, inhoud) => bewaarDatabaseNatief(naam, inhoud)
   : undefined;
 const NotitiesStudio = lazy(() => import("./notities/NotitiesStudio"));
+const EmailStudio = lazy(() => import("../packages/email/src/ui/EmailStudio"));
+const VerzendAlsBijlage = lazy(
+  () => import("../packages/email/src/ui/VerzendAlsBijlage"),
+);
 type Bestand = { id: number; naam: string; soort: Soort; bytes: Uint8Array };
 class EditorGrens extends Component<{ children: ReactNode }, { fout: string }> {
   state = { fout: "" };
@@ -82,6 +96,12 @@ export function OfficeStudio() {
   const [bestand, setBestand] = useState<Bestand | null>(null),
     [databaseOpen, setDatabaseOpen] = useState(false),
     [notitiesOpen, setNotitiesOpen] = useState(false),
+    [emailOpen, setEmailOpen] = useState(false),
+    [emailOngelezen, setEmailOngelezen] = useState<number | null>(null),
+    [verzending, setVerzending] = useState<{
+      naam: string;
+      bytes: Uint8Array;
+    } | null>(null),
     [bestandsmenu, setBestandsmenu] = useState(true),
     [gewijzigd, setGewijzigd] = useState(false),
     [melding, setMelding] = useState(""),
@@ -90,15 +110,20 @@ export function OfficeStudio() {
     [databaseGereed, setDatabaseGereed] = useState(false),
     [verlaatvraag, setVerlaatvraag] = useState(false),
     [exportFormaat, setExportFormaat] = useState("docx"),
+    [opslaanAls, setOpslaanAls] = useState(false),
     [documentZoom, setDocumentZoom] = useState<number | null>(null);
   const input = useRef<HTMLInputElement>(null),
     serialiseer = useRef<(() => Promise<Uint8Array>) | null>(null),
     bezigRef = useRef(false);
+  const opslaanKeuze = useRef<OpslaanKeuze | null>(null);
   const verlaatAntwoord = useRef<((doorgaan: boolean) => void) | null>(null);
   const databaseOpenen = useRef<(() => void) | null>(null);
   const notitieActies = useRef<NotitieActies | null>(null);
   const notitieGewijzigd = useRef(false);
   const databaseGewijzigd = useRef(false);
+  const emailGewijzigd = useRef(false);
+  const emailActies = useRef<EmailActies | null>(null);
+  const ongelezenGeteld = useRef(0);
   const databaseBewerkt = useCallback((waarde: boolean) => {
     // Na het verlaten van de database meldt het afsluitende paneel nog 'false';
     // dat mag de status van een intussen geopend document niet overschrijven.
@@ -112,6 +137,19 @@ export function OfficeStudio() {
   const notitiesBewerkt = useCallback((waarde: boolean) => {
     notitieGewijzigd.current = waarde;
     setGewijzigd(waarde);
+  }, []);
+  const emailBewerkt = useCallback(
+    (waarde: boolean) => {
+      // Een onverzonden opstelling telt mee voor verlaat- en sluitbeveiliging,
+      // zonder de status van een open document te wissen.
+      emailGewijzigd.current = waarde;
+      setGewijzigd(waarde || opslag.gewijzigd);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  );
+  const registreerEmail = useCallback((acties: EmailActies | null) => {
+    emailActies.current = acties;
   }, []);
   const registreerDatabaseOpenen = useCallback(
     (openen: (() => void) | null) => {
@@ -138,7 +176,8 @@ export function OfficeStudio() {
     if (
       !opslag.gewijzigd &&
       !notitieGewijzigd.current &&
-      !databaseGewijzigd.current
+      !databaseGewijzigd.current &&
+      !emailGewijzigd.current
     )
       return true;
     if (verlaatAntwoord.current) return false;
@@ -187,7 +226,8 @@ export function OfficeStudio() {
       if (
         opslag.gewijzigd ||
         notitieGewijzigd.current ||
-        databaseGewijzigd.current
+        databaseGewijzigd.current ||
+        emailGewijzigd.current
       ) {
         e.preventDefault();
         e.returnValue = "";
@@ -196,78 +236,57 @@ export function OfficeStudio() {
     window.addEventListener("beforeunload", sluit);
     return () => window.removeEventListener("beforeunload", sluit);
   }, [opslag]);
+  /** Laatste keuze uit Opslaan als; zonder keuze het formaat uit de opslagstatus. */
+  function huidigeKeuze(soort: Soort, naam: string) {
+    return opslaanKeuze.current ?? standaardKeuze(soort, naam, exportFormaat);
+  }
   async function bewaarKopie(
     naam: string,
     bytes: Uint8Array,
   ): Promise<BewaarUitkomst> {
     if (!bestand) throw new Error("Er is geen bestand geopend.");
-    const markdown = bestand.soort === "docx" && exportFormaat === "md";
-    const uitvoernaam = naam.replace(/\.[^.]+$/, "") + "." + exportFormaat;
-    let uitvoer = bytes;
-    let toelichting: string | undefined;
-    if (!markdown) {
-      // Bewaking op basis van de testmatrix: aangetoond verlies blokkeert
-      // opslaan via de engine en wordt bij een conversie expliciet gemeld.
-      const conversie = exportFormaat !== bestand.soort;
-      const beleid = risicoBeleid(
-        controleerPakket(bytes, bestand.soort).risicos,
-        bestand.soort,
-        conversie ? "conversie" : "engine",
+    return bewaarInFormaat(
+      bestand.soort,
+      bytes,
+      huidigeKeuze(bestand.soort, naam),
+    );
+  }
+  /** PDF zonder kantoorruntime: het afdrukvenster van de editor. */
+  async function drukAfNaarPdf(soort: Soort) {
+    try {
+      const { drukAf } = await import("./export");
+      await drukAf(soort);
+      setMelding(
+        "Kies in het afdrukvenster ‘Opslaan als PDF’ als printer. Het document blijft als gewijzigd gemarkeerd tot je het in het eigen formaat bewaart.",
       );
-      if (beleid.opslaanGeblokkeerd) throw new Error(beleid.waarschuwing!);
-      if (conversie && !["pdf", "txt", "csv", "html"].includes(exportFormaat))
-        toelichting = beleid.waarschuwing ?? undefined;
+    } catch (e) {
+      setMelding("Afdrukken mislukt: " + String(e));
     }
-    if (markdown) {
-      const { exporteerMarkdown } = await import("./markdown");
-      const resultaat = await exporteerMarkdown(bytes);
-      uitvoer = resultaat.bytes;
-      if (resultaat.waarschuwing)
-        toelichting =
-          "Sommige onderdelen kunnen niet in Markdown worden overgenomen. Bewaar ook een DOCX.";
-    }
-    if ("__TAURI_INTERNALS__" in window) {
-      const { invoke } = await import("@tauri-apps/api/core");
-      if (exportFormaat !== bestand.soort && !markdown)
-        uitvoer = await converteer(
-          bytes,
-          bestand.soort,
-          exportFormaat,
-          bestand.soort,
-        );
-      const pad = await invoke<string | null>("bewaar_kopie", uitvoer, {
-        headers: { "x-office-naam": encodeURIComponent(uitvoernaam) },
-      });
-      return pad
-        ? {
-            status: ["pdf", "csv", "txt", "html", "md"].includes(exportFormaat)
-              ? "geëxporteerd"
-              : "opgeslagen",
-            pad,
-            toelichting,
-          }
-        : { status: "geannuleerd" };
-    } else {
-      const url = URL.createObjectURL(
-        new Blob([new Uint8Array(uitvoer)], {
-          type: markdown
-            ? "text/markdown;charset=utf-8"
-            : "application/octet-stream",
-        }),
-      );
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = uitvoernaam;
-      document.body.append(a);
-      a.click();
-      a.remove();
-      setTimeout(() => URL.revokeObjectURL(url), 60000);
-      return { status: "download", toelichting };
-    }
+  }
+  function openOpslaanAls() {
+    if (!bestand || !gereed || bezigRef.current) return;
+    vorigeFocus.current =
+      document.activeElement instanceof HTMLElement
+        ? document.activeElement
+        : null;
+    setBestandsmenu(false);
+    setOpslaanAls(true);
   }
   async function opslaan() {
     if (notitiesOpen) {
       notitieActies.current?.bewaren();
+      return;
+    }
+    if (emailOpen || verzending) {
+      // In Email Studio bewaart Ctrl+S het concept van de open opstelling.
+      emailActies.current?.bewaren();
+      return;
+    }
+    if (
+      bestand &&
+      huidigeKeuze(bestand.soort, bestand.naam).route === "afdrukken"
+    ) {
+      void drukAfNaarPdf(bestand.soort);
       return;
     }
     const serialiseerDocument = serialiseer.current;
@@ -305,7 +324,18 @@ export function OfficeStudio() {
   }
   useEffect(() => {
     const toetsen = (e: KeyboardEvent) => {
-      if (verlaatvraag) return;
+      if (verlaatvraag || opslaanAls) return;
+      if (
+        (e.ctrlKey || e.metaKey) &&
+        e.shiftKey &&
+        e.key.toLowerCase() === "s" &&
+        bestand
+      ) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        openOpslaanAls();
+        return;
+      }
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "s") {
         e.preventDefault();
         e.stopImmediatePropagation();
@@ -319,7 +349,7 @@ export function OfficeStudio() {
       if (
         e.key === "Escape" &&
         bestandsmenu &&
-        (bestand || databaseOpen || notitiesOpen)
+        (bestand || databaseOpen || notitiesOpen || emailOpen)
       )
         setBestandsmenu(false);
     };
@@ -334,11 +364,14 @@ export function OfficeStudio() {
     setMelding("");
     setDatabaseOpen(false);
     setNotitiesOpen(false);
+    setEmailOpen(false);
     notitieGewijzigd.current = false;
     databaseGewijzigd.current = false;
+    emailGewijzigd.current = false;
     setBestandsmenu(false);
     setBestand({ id, soort, naam, bytes });
     setExportFormaat(soort);
+    opslaanKeuze.current = null;
     return id;
   }
   async function nieuw(soort: Soort) {
@@ -379,19 +412,176 @@ export function OfficeStudio() {
       setBezig(false);
     }
   }
+  /** Opent bytes als bewerkbaar bestand; niet-eigen formaten gaan via conversie. */
+  async function importeer(naam: string, bytes: Uint8Array) {
+    const ext = naam.split(".").pop()?.toLowerCase() ?? "";
+    const soort = bestandssoort(ext);
+    if (!soort) {
+      setMelding("Dit bestandsformaat wordt nog niet ondersteund.");
+      return;
+    }
+    bezigRef.current = true;
+    setBezig(true);
+    try {
+      const controle = ext === soort ? controleerPakket(bytes, soort) : null;
+      if (ext === soort && !controle?.strict) {
+        open(soort, naam, bytes);
+        if (controle?.macros)
+          setMelding(
+            "Dit bestand bevat VBA. Macro’s worden niet uitgevoerd; behoud van VBA bij export is niet gegarandeerd. Bewaar het origineel.",
+          );
+      } else {
+        let bronRisico: string | null = null;
+        try {
+          // OOXML-varianten (zoals .docm, .dotx, .pptm) gaan via conversie.
+          bronRisico = risicoBeleid(
+            controleerPakket(bytes, soort).risicos,
+            soort,
+            "conversie",
+          ).waarschuwing;
+        } catch {
+          bronRisico = null;
+        }
+        const omgezet = await converteer(bytes, ext, soort, soort);
+        controleerPakket(omgezet, soort);
+        const id = open(
+          soort,
+          naam.replace(/\.[^.]+$/, "") + "." + soort,
+          omgezet,
+        );
+        if (Object.hasOwn(bestandstypen[soort].uitvoer, ext))
+          setExportFormaat(ext);
+        bewerkt(id);
+        setMelding(
+          "Geïmporteerd als bewerkbare kopie. Het origineel is behouden. Opmaak kan afwijken; macro’s en actieve inhoud zijn niet uitgevoerd en worden niet overgenomen in deze kopie." +
+            (bronRisico ? " " + bronRisico : ""),
+        );
+      }
+      setDatabaseOpen(false);
+    } catch (error) {
+      setMelding("Openen mislukt: " + String(error));
+    } finally {
+      bezigRef.current = false;
+      setBezig(false);
+    }
+  }
+  /** Wisselt naar een module zonder document (Notities, Database of E-mail). */
+  async function wisselModule(module: "notities" | "database" | "email") {
+    if (bezigRef.current) return false;
+    const actief =
+      module === "notities"
+        ? notitiesOpen
+        : module === "database"
+          ? databaseOpen
+          : emailOpen;
+    if (actief) {
+      setBestandsmenu(false);
+      return true;
+    }
+    if (!(await verlaten())) return false;
+    opslag.wissel();
+    serialiseer.current = null;
+    setGereed(false);
+    setBestand(null);
+    setNotitiesOpen(module === "notities");
+    setDatabaseOpen(module === "database");
+    setEmailOpen(module === "email");
+    if (module !== "notities") notitieGewijzigd.current = false;
+    if (module !== "database") databaseGewijzigd.current = false;
+    emailGewijzigd.current = false;
+    setBestandsmenu(false);
+    setGewijzigd(false);
+    setMelding("");
+    return true;
+  }
+  /** Bijlage uit Email Studio openen als bewerkbare kopie in de juiste module. */
+  async function openUitEmail(naam: string, bytes: Uint8Array) {
+    if (bezigRef.current) return;
+    if (!bytes.length) {
+      setMelding("De bijlage is leeg.");
+      return;
+    }
+    if (kantoorModule(naam) === "database") {
+      if (!(await wisselModule("database"))) return;
+      // Database Studio leest bestanden via zijn eigen bestandskiezer; geef de
+      // bijlage daaraan door zodra het paneel klaarstaat.
+      let pogingen = 0;
+      const geefDoor = () => {
+        const kiezer = document.querySelector<HTMLInputElement>(
+          '.database-app input[type="file"]',
+        );
+        if (!kiezer) {
+          if (++pogingen < 120) requestAnimationFrame(geefDoor);
+          else setMelding("Database Studio kon de bijlage niet ontvangen.");
+          return;
+        }
+        const overdracht = new DataTransfer();
+        overdracht.items.add(new File([new Uint8Array(bytes)], naam));
+        kiezer.files = overdracht.files;
+        kiezer.dispatchEvent(new Event("change", { bubbles: true }));
+      };
+      requestAnimationFrame(geefDoor);
+      return;
+    }
+    if (!(await verlaten())) return;
+    emailGewijzigd.current = false;
+    await importeer(naam, bytes);
+  }
+  async function verzendAlsBijlage() {
+    const serialiseerDocument = serialiseer.current;
+    if (!bestand || !serialiseerDocument || bezigRef.current) return;
+    setBestandsmenu(false);
+    bezigRef.current = true;
+    setBezig(true);
+    try {
+      const bytes = await serialiseerDocument();
+      setVerzending({ naam: bestand.naam, bytes });
+    } catch (error) {
+      setMelding("Verzenden als bijlage mislukt: " + String(error));
+    } finally {
+      bezigRef.current = false;
+      setBezig(false);
+    }
+  }
+  // Ongelezen e-mail voor de vaste ingang op het startscherm (hooguit eens per minuut).
+  const startZichtbaar =
+    bestandsmenu || (!bestand && !databaseOpen && !notitiesOpen && !emailOpen);
+  useEffect(() => {
+    if (!startZichtbaar || emailOpen) return;
+    if (Date.now() - ongelezenGeteld.current < 60_000) return;
+    ongelezenGeteld.current = Date.now();
+    // Bewust niet afbreken bij een nieuwe render: de telling is goedkoop en
+    // de beperking tot eens per minuut zou een afgebroken telling laten hangen.
+    void import("../packages/email/src/backend")
+      .then(({ ongelezenInInbox }) => ongelezenInInbox())
+      .then(setEmailOngelezen)
+      .catch(() => setEmailOngelezen(null));
+  }, [startZichtbaar, emailOpen]);
   const module = modules.find((item) => item.soort === bestand?.soort);
   const ModuleIcoon =
     module?.icoon ??
-    (notitiesOpen ? NotebookPen : databaseOpen ? Database : FileText);
+    (notitiesOpen
+      ? NotebookPen
+      : databaseOpen
+        ? Database
+        : emailOpen
+          ? Mail
+          : FileText);
   return (
     <>
       <div
         className="office"
         data-office-thema={thema}
-        inert={verlaatvraag}
+        inert={verlaatvraag || opslaanAls}
         data-module={
           bestand?.soort ??
-          (notitiesOpen ? "notities" : databaseOpen ? "database" : "start")
+          (notitiesOpen
+            ? "notities"
+            : databaseOpen
+              ? "database"
+              : emailOpen
+                ? "email"
+                : "start")
         }
       >
         <header className="office-header">
@@ -411,11 +601,16 @@ export function OfficeStudio() {
           <span className="office-weekversie" title={`Versie ${versie.versie}`}>
             {versie.label}
           </span>
-          {(bestand || databaseOpen || notitiesOpen) && (
+          {(bestand || databaseOpen || notitiesOpen || emailOpen) && (
             <>
               <span className="office-header-scheiding" />
               <span className="office-modulenaam">
-                {module?.kort ?? (notitiesOpen ? "Notities" : "Database")}
+                {module?.kort ??
+                  (notitiesOpen
+                    ? "Notities"
+                    : emailOpen
+                      ? "E-mail"
+                      : "Database")}
               </span>
             </>
           )}
@@ -435,7 +630,7 @@ export function OfficeStudio() {
           </div>
           <div className="office-snelacties">
             <ThemaKnop thema={thema} wissel={wisselThema} />
-            {(bestand || databaseOpen || notitiesOpen) && (
+            {(bestand || databaseOpen || notitiesOpen || emailOpen) && (
               <button
                 className="office-iconknop"
                 onClick={() => setBestandsmenu(true)}
@@ -462,31 +657,11 @@ export function OfficeStudio() {
             </button>
             {bestand && (
               <>
-                {(bestand.soort === "docx" ||
-                  "__TAURI_INTERNALS__" in window) && (
-                  <select
-                    className="office-opslagformaat"
-                    aria-label="Opslagformaat"
-                    title="Bestandsformaat voor Opslaan als"
-                    value={exportFormaat}
-                    disabled={bezig}
-                    onChange={(event) => setExportFormaat(event.target.value)}
-                  >
-                    {uitvoerformaten(
-                      bestand.soort,
-                      "__TAURI_INTERNALS__" in window,
-                    ).map((ext) => (
-                      <option key={ext} value={ext}>
-                        {ext === "md" ? "Markdown (.md)" : ext.toUpperCase()}
-                      </option>
-                    ))}
-                  </select>
-                )}
                 <button
                   className="office-headerknop office-bewaren"
                   disabled={bezig || !gereed}
-                  onClick={() => void opslaan()}
-                  title="Opslaan als · Ctrl+S"
+                  onClick={openOpslaanAls}
+                  title="Opslaan als · Ctrl+Shift+S (Ctrl+S bewaart opnieuw in het laatst gekozen formaat)"
                 >
                   <Save size={16} />
                   <span>{bezig ? "Bezig…" : "Opslaan als"}</span>
@@ -506,8 +681,7 @@ export function OfficeStudio() {
             if (!file) return;
             if (bezigRef.current) return;
             const ext = file.name.split(".").pop()?.toLowerCase();
-            const soort = bestandssoort(ext ?? "");
-            if (!ext || !soort) {
+            if (!ext || !bestandssoort(ext)) {
               setMelding("Dit bestandsformaat wordt nog niet ondersteund.");
               return;
             }
@@ -517,52 +691,10 @@ export function OfficeStudio() {
               );
               return;
             }
-            bezigRef.current = true;
-            setBezig(true);
-            try {
-              const bytes = new Uint8Array(await file.arrayBuffer());
-              const controle =
-                ext === soort ? controleerPakket(bytes, soort) : null;
-              if (ext === soort && !controle?.strict) {
-                open(soort, file.name, bytes);
-                if (controle?.macros)
-                  setMelding(
-                    "Dit bestand bevat VBA. Macro’s worden niet uitgevoerd; behoud van VBA bij export is niet gegarandeerd. Bewaar het origineel.",
-                  );
-              } else {
-                let bronRisico: string | null = null;
-                try {
-                  // OOXML-varianten (zoals .docm, .dotx, .pptm) gaan via conversie.
-                  bronRisico = risicoBeleid(
-                    controleerPakket(bytes, soort).risicos,
-                    soort,
-                    "conversie",
-                  ).waarschuwing;
-                } catch {
-                  bronRisico = null;
-                }
-                const omgezet = await converteer(bytes, ext, soort, soort);
-                controleerPakket(omgezet, soort);
-                const id = open(
-                  soort,
-                  file.name.replace(/\.[^.]+$/, "") + "." + soort,
-                  omgezet,
-                );
-                if (Object.hasOwn(bestandstypen[soort].uitvoer, ext))
-                  setExportFormaat(ext);
-                bewerkt(id);
-                setMelding(
-                  "Geïmporteerd als bewerkbare kopie. Het origineel is behouden. Opmaak kan afwijken; macro’s en actieve inhoud zijn niet uitgevoerd en worden niet overgenomen in deze kopie." +
-                    (bronRisico ? " " + bronRisico : ""),
-                );
-              }
-              setDatabaseOpen(false);
-            } catch (error) {
-              setMelding("Openen mislukt: " + String(error));
-            } finally {
-              bezigRef.current = false;
-              setBezig(false);
-            }
+            await importeer(
+              file.name,
+              new Uint8Array(await file.arrayBuffer()),
+            );
           }}
         />
         {melding && (
@@ -582,7 +714,12 @@ export function OfficeStudio() {
         {bestand ? (
           <div
             className="office-editor"
-            inert={bestandsmenu || verlaatvraag || (bezig && !opslag.bezig)}
+            inert={
+              bestandsmenu ||
+              verlaatvraag ||
+              !!verzending ||
+              (bezig && !opslag.bezig)
+            }
           >
             <EditorGrens key={bestand.id}>
               <Suspense
@@ -599,7 +736,10 @@ export function OfficeStudio() {
                   opslaan={() => void opslaan()}
                   bestandsmenu={() => setBestandsmenu(true)}
                   inactief={
-                    bestandsmenu || verlaatvraag || (bezig && !opslag.bezig)
+                    bestandsmenu ||
+                    verlaatvraag ||
+                    !!verzending ||
+                    (bezig && !opslag.bezig)
                   }
                   zoom={setDocumentZoom}
                 />
@@ -617,6 +757,20 @@ export function OfficeStudio() {
               onOnopgeslagen={notitiesBewerkt}
             />
           </Suspense>
+        ) : emailOpen ? (
+          <Suspense
+            fallback={<p className="office-loading">Email Studio laden…</p>}
+          >
+            <EmailStudio
+              bestandsmenu={() => setBestandsmenu(true)}
+              inactief={bestandsmenu || verlaatvraag}
+              onOnverzonden={emailBewerkt}
+              openInKantoor={(naam, bytes) => void openUitEmail(naam, bytes)}
+              melding={setMelding}
+              ongelezen={setEmailOngelezen}
+              registreer={registreerEmail}
+            />
+          </Suspense>
         ) : databaseOpen ? (
           <DatabaseStudio
             bestandsmenu={() => setBestandsmenu(true)}
@@ -627,14 +781,14 @@ export function OfficeStudio() {
             gewijzigd={databaseBewerkt}
           />
         ) : null}
-        {(bestandsmenu || (!bestand && !databaseOpen && !notitiesOpen)) && (
+        {startZichtbaar && (
           <div
-            className={`office-backstage ${bestand || databaseOpen || notitiesOpen ? "is-overlay" : ""}`}
+            className={`office-backstage ${bestand || databaseOpen || notitiesOpen || emailOpen ? "is-overlay" : ""}`}
           >
             <StartScherm
               bezig={bezig || (databaseOpen && !databaseGereed)}
               terug={
-                bestand || databaseOpen || notitiesOpen
+                bestand || databaseOpen || notitiesOpen || emailOpen
                   ? () => setBestandsmenu(false)
                   : undefined
               }
@@ -643,47 +797,15 @@ export function OfficeStudio() {
               voorbeeld={(soort) => void voorbeeld(soort)}
               databaseActief={databaseOpen}
               notitiesActief={notitiesOpen}
-              openNotities={() =>
-                void (async () => {
-                  if (bezigRef.current) return;
-                  if (notitiesOpen) {
-                    setBestandsmenu(false);
-                    return;
-                  }
-                  if (!(await verlaten())) return;
-                  opslag.wissel();
-                  serialiseer.current = null;
-                  setGereed(false);
-                  setBestand(null);
-                  setDatabaseOpen(false);
-                  databaseGewijzigd.current = false;
-                  setNotitiesOpen(true);
-                  setBestandsmenu(false);
-                  setGewijzigd(false);
-                  setMelding("");
-                })()
+              openNotities={() => void wisselModule("notities")}
+              emailActief={emailOpen}
+              emailOngelezen={emailOngelezen}
+              openEmail={() => void wisselModule("email")}
+              verzend={
+                bestand && gereed ? () => void verzendAlsBijlage() : undefined
               }
               bewaar={bestand && gereed ? () => void opslaan() : undefined}
-              openDatabase={() =>
-                void (async () => {
-                  if (bezigRef.current) return;
-                  if (databaseOpen) {
-                    setBestandsmenu(false);
-                    return;
-                  }
-                  if (!(await verlaten())) return;
-                  opslag.wissel();
-                  serialiseer.current = null;
-                  setGereed(false);
-                  setBestand(null);
-                  setDatabaseOpen(true);
-                  setNotitiesOpen(false);
-                  notitieGewijzigd.current = false;
-                  setBestandsmenu(false);
-                  setGewijzigd(false);
-                  setMelding("");
-                })()
-              }
+              openDatabase={() => void wisselModule("database")}
             />
           </div>
         )}
@@ -699,7 +821,9 @@ export function OfficeStudio() {
                 ? "Open Notities Studio"
                 : databaseOpen
                   ? "Open Database Studio"
-                  : "OpenAEC Office Studio")}
+                  : emailOpen
+                    ? "OpenAEC Email Studio"
+                    : "OpenAEC Office Studio")}
           </span>
           <span className="office-statusrechts">
             {bestand && documentZoom !== null && (
@@ -716,10 +840,29 @@ export function OfficeStudio() {
                 : gewijzigd
                   ? "Niet-opgeslagen wijzigingen"
                   : "Gereed"
-              : `Ontwikkelversie ${versie.label}`}
+              : emailOpen
+                ? emailOngelezen
+                  ? `${emailOngelezen} ongelezen in Postvak IN`
+                  : "Gereed"
+                : `Ontwikkelversie ${versie.label}`}
             {bestand && <kbd>Ctrl+S</kbd>}
           </span>
         </footer>
+        {verzending && (
+          <Suspense fallback={null}>
+            <VerzendAlsBijlage
+              naam={verzending.naam}
+              bytes={verzending.bytes}
+              sluit={() => {
+                setVerzending(null);
+                emailBewerkt(false);
+              }}
+              melding={setMelding}
+              onOnverzonden={emailBewerkt}
+              registreer={registreerEmail}
+            />
+          </Suspense>
+        )}
       </div>
       {verlaatvraag && (
         <VerlaatDialoog
@@ -729,10 +872,32 @@ export function OfficeStudio() {
               ? "Je notities"
               : databaseOpen
                 ? "De databasewerkkopie"
-                : "Dit bestand")
+                : emailOpen
+                  ? "Je onverzonden bericht"
+                  : "Dit bestand")
           }
           antwoord={beantwoordVerlaten}
           vorigeFocus={vorigeFocus.current}
+        />
+      )}
+      {opslaanAls && bestand && (
+        <OpslaanAlsDialoog
+          soort={bestand.soort}
+          naam={opslaanKeuze.current?.naam ?? bestand.naam}
+          formaat={opslaanKeuze.current?.ext ?? exportFormaat}
+          verlies={(formaat, route) =>
+            verliesmelding(bestand.bytes, bestand.soort, formaat, route)
+          }
+          bladen={editorKoppeling(bestand.soort)?.bladen?.() ?? null}
+          dias={editorKoppeling(bestand.soort)?.dias?.() ?? null}
+          vorigeFocus={vorigeFocus.current}
+          annuleer={() => setOpslaanAls(false)}
+          bevestig={(keuze) => {
+            opslaanKeuze.current = keuze;
+            setExportFormaat(keuze.ext);
+            setOpslaanAls(false);
+            void opslaan();
+          }}
         />
       )}
     </>

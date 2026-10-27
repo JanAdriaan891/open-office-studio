@@ -11,8 +11,11 @@ import {
   Plus,
   ArrowUpRight,
   NotebookPen,
+  Mail,
+  Send,
 } from "lucide-react";
 import type { Soort } from "./editors";
+import "../packages/email/src/start.css";
 
 export const modules = [
   {
@@ -96,10 +99,14 @@ export function StartScherm({
   nieuw,
   openDatabase,
   openNotities,
+  openEmail,
   bewaar,
+  verzend,
   voorbeeld,
   databaseActief = false,
   notitiesActief = false,
+  emailActief = false,
+  emailOngelezen = null,
 }: {
   bezig: boolean;
   terug?: () => void;
@@ -107,10 +114,16 @@ export function StartScherm({
   nieuw: (soort: Soort) => void;
   openDatabase: () => void;
   openNotities: () => void;
+  openEmail: () => void;
   bewaar?: () => void;
+  /** "Verzenden als bijlage" voor het open document. */
+  verzend?: () => void;
   voorbeeld: (soort: Soort) => void;
   databaseActief?: boolean;
   notitiesActief?: boolean;
+  emailActief?: boolean;
+  /** Ongelezen in de inbox; null = geen e-mailaccount ingesteld. */
+  emailOngelezen?: number | null;
 }) {
   return (
     <div className="office-start">
@@ -137,6 +150,33 @@ export function StartScherm({
               Opslaan als
             </button>
           )}
+          {verzend && (
+            <button
+              disabled={bezig}
+              onClick={verzend}
+              title="Het huidige document als bijlage in een nieuw e-mailbericht zetten"
+            >
+              <Send size={18} />
+              Verzenden als bijlage
+            </button>
+          )}
+          <button
+            className={`start-email-ingang ${emailActief ? "geselecteerd" : ""}`}
+            disabled={bezig}
+            onClick={openEmail}
+            title="OpenAEC Email Studio"
+            aria-label={
+              emailOngelezen ? `E-mail, ${emailOngelezen} ongelezen` : "E-mail"
+            }
+          >
+            <Mail size={18} />
+            <span>E-mail</span>
+            {!!emailOngelezen && (
+              <b className="start-email-teller">
+                {emailOngelezen > 999 ? "999+" : emailOngelezen}
+              </b>
+            )}
+          </button>
         </div>
         <div className="start-navgroep">
           <span className="start-label">NIEUW BESTAND</span>
@@ -247,6 +287,26 @@ export function StartScherm({
           </span>
           <span className="start-notities-open">
             Open Notities <ArrowRight size={15} />
+          </span>
+        </button>
+        <button
+          className="start-notities start-email"
+          disabled={bezig}
+          onClick={openEmail}
+        >
+          <span className="start-notities-icoon">
+            <Mail size={27} strokeWidth={1.5} />
+          </span>
+          <span>
+            <strong>OpenAEC Email Studio</strong>
+            <small>
+              Je eigen e-mail via IMAP en SMTP. Bijlagen openen direct in Tekst,
+              Rekenblad, Presentatie of Database.
+            </small>
+          </span>
+          <span className="start-notities-open">
+            {emailOngelezen ? `${emailOngelezen} ongelezen` : "Open E-mail"}{" "}
+            <ArrowRight size={15} />
           </span>
         </button>
         <section

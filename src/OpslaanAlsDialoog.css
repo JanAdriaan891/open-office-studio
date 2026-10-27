@@ -1,0 +1,176 @@
+.office-dialoog.opslaanals {
+  width: min(100%, 640px);
+  max-height: calc(100vh - 48px);
+  overflow: auto;
+  padding: 24px 26px;
+}
+.opslaanals h2 {
+  margin: 0 0 14px;
+}
+.opslaanals label {
+  display: grid;
+  gap: 4px;
+  font-size: 12px;
+  color: #465164;
+}
+.opslaanals-naam span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.opslaanals-naam input {
+  flex: 1;
+  min-width: 0;
+  padding: 8px 10px;
+  border: 1px solid #ccd3dc;
+  border-radius: 8px;
+  font-size: 13px;
+}
+.opslaanals-naam em {
+  font-style: normal;
+  color: #707a89;
+  font-size: 13px;
+}
+.opslaanals-runtime {
+  margin: 12px 0;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: #f4f6f8;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #465164;
+}
+.opslaanals-runtime small {
+  color: #707a89;
+}
+.opslaanals-runtime svg {
+  vertical-align: -2px;
+  color: #a95606;
+}
+.office-dialoog .opslaanals-runtime button {
+  margin-left: 4px;
+  padding: 4px 8px;
+}
+.opslaanals-fout {
+  color: #a3261b !important;
+}
+.opslaanals-formaten {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  max-height: 44vh;
+  overflow: auto;
+}
+.opslaanals-formaten legend {
+  font-size: 12px;
+  color: #465164;
+  margin-bottom: 4px;
+}
+.opslaanals-formaten h3 {
+  margin: 10px 0 4px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: #8a6a3d;
+}
+.opslaanals .opslaanals-formaat {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 8px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.opslaanals-formaat:hover {
+  background: #f7f3ec;
+}
+.opslaanals-formaat.is-gekozen {
+  background: #fbefdc;
+}
+.opslaanals-formaat.is-uit {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.opslaanals-formaat span {
+  display: grid;
+}
+.opslaanals-formaat b {
+  font-weight: 500;
+  font-size: 13px;
+  color: #333a46;
+}
+.opslaanals-formaat code {
+  font-size: 11px;
+  color: #707a89;
+}
+.opslaanals-formaat small {
+  font-size: 11px;
+  color: #707a89;
+}
+.opslaanals-formaat i {
+  font-style: normal;
+  font-size: 11px;
+  white-space: nowrap;
+  color: #707a89;
+}
+.opslaanals-opties {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: end;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #e6e9ee;
+}
+.opslaanals-opties select,
+.opslaanals-opties input[type="text"] {
+  padding: 6px 8px;
+  border: 1px solid #ccd3dc;
+  border-radius: 6px;
+  font-size: 12px;
+  background: #fff;
+}
+.opslaanals-opties input[aria-invalid="true"] {
+  border-color: #a3261b;
+}
+.opslaanals .opslaanals-vink {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.office-dialoog .opslaanals-opties p,
+.office-dialoog .opslaanals-uitleg,
+.office-dialoog .opslaanals-verlies {
+  flex-basis: 100%;
+  margin: 10px 0 0;
+  font-size: 12px;
+  line-height: 1.6;
+}
+.office-dialoog .opslaanals-verlies {
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: #fdf0e1;
+  color: #7a3e04;
+}
+.opslaanals .office-dialoogacties {
+  margin-top: 18px;
+}
+.opslaanals .office-dialoogacties button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.opslaanals .office-dialoogacties button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+@media (max-width: 520px) {
+  .opslaanals .opslaanals-formaat {
+    grid-template-columns: auto 1fr;
+  }
+  .opslaanals-formaat i {
+    grid-column: 2;
+  }
+}

@@ -62,6 +62,11 @@ import { useDocumentZoom, type ZoomKoppeling } from "../useDocumentZoom";
 import { P, PK, Geschiedenis, Zoom, scrollvlakVan, type Knop } from "./gedeeld";
 import { useDiaActies, DiaKnop, type DiaActies } from "./presentatie-acties";
 import { specialeTekens } from "./presentatie-opdrachten";
+import {
+  DiaGrafiekontwerp,
+  GrafiekGroep,
+  useIngeslotenGrafieken,
+} from "../grafieken/ui/ingesloten";
 import "./presentatie.css";
 
 /** Een engine-opdracht met een sneltoets die het lint zelf afhandelt. */
@@ -378,6 +383,7 @@ export function PresentatieRibbon({
     vulling = usePptxCommand("shapeFill"),
     rand = usePptxCommand("shapeStrokeColor");
   const acties = useDiaActies();
+  const grafieken = useIngeslotenGrafieken("pptx");
   const [notities, wisselNotities] = useNotities();
   const dia = () =>
     zichtbaarElement<HTMLElement>(
@@ -395,6 +401,8 @@ export function PresentatieRibbon({
     standaard: { scale: "fit" },
   });
   return (
+    <>
+    {grafieken.venster}
     <Ribbon
       bestand={bestand}
       tabs={[
@@ -459,6 +467,7 @@ export function PresentatieRibbon({
                   <PK id="tool" naam="Vormen en gereedschap" breed />
                 </div>
               </Groep>
+              <GrafiekGroep g={grafieken} uit={!acties.bewerkbaar} />
               <Groep naam="Tekst">
                 <P
                   id="tool"
@@ -657,7 +666,19 @@ export function PresentatieRibbon({
             </>
           ),
         },
+        ...(grafieken.geselecteerd
+          ? [
+              {
+                id: "grafiekontwerp",
+                naam: "Grafiekontwerp",
+                inhoud: (
+                  <DiaGrafiekontwerp g={grafieken} uit={!acties.bewerkbaar} />
+                ),
+              },
+            ]
+          : []),
       ]}
     />
+    </>
   );
 }

@@ -90,6 +90,11 @@ import {
   sorteren,
 } from "./rekenblad-opdrachten";
 import { BladHernoemen, GaNaar, ZoekenVervangen } from "./rekenblad-dialogen";
+import {
+  Grafiekontwerp,
+  RekenbladGrafiekGroep,
+  useRekenbladGrafieken,
+} from "../grafieken/ui/rekenblad";
 import "./rekenblad.css";
 
 type Paneel = "zoeken" | "ganaar" | "hernoemen" | null;
@@ -408,6 +413,7 @@ export function RekenbladRibbon({
   const fout = useContext(RibbonFout);
   const [paneel, setPaneel] = useState<Paneel>(null);
   const uit = !stand?.schrijfbaar;
+  const grafieken = useRekenbladGrafieken();
   const sluiten = () => {
     setPaneel(null);
     api?.focus();
@@ -492,6 +498,17 @@ export function RekenbladRibbon({
     { toets: "F5", uitvoeren: () => setPaneel("ganaar") },
     { toets: "Ctrl+Shift+F5", uitvoeren: () => setPaneel("ganaar") },
     { toets: "Ctrl+P", uitvoeren: opdracht("print", null) },
+    // Zoals Excel: Alt+F1 op dit blad, F11 op een nieuw blad.
+    {
+      toets: "Alt+F1",
+      beschikbaar: () => !uit,
+      uitvoeren: () => grafieken.invoegen(),
+    },
+    {
+      toets: "F11",
+      beschikbaar: () => !uit,
+      uitvoeren: () => grafieken.invoegen(true),
+    },
   );
   useSneltoetsen(rekenbladHost, api ? sneltoetsen : []);
 
@@ -608,6 +625,7 @@ export function RekenbladRibbon({
                 <Cellen uit={uit} />
                 {bladen}
                 {functies}
+                <RekenbladGrafiekGroep g={grafieken} uit={uit} />
               </>
             ),
           },
@@ -822,6 +840,15 @@ export function RekenbladRibbon({
               </>
             ),
           },
+          ...(grafieken.geselecteerd
+            ? [
+                {
+                  id: "grafiekontwerp",
+                  naam: "Grafiekontwerp",
+                  inhoud: <Grafiekontwerp g={grafieken} uit={uit} />,
+                },
+              ]
+            : []),
         ]}
       />
       <div className="office-formulebalk">
@@ -834,6 +861,7 @@ export function RekenbladRibbon({
       {api && paneel === "hernoemen" && (
         <BladHernoemen api={api} sluiten={sluiten} />
       )}
+      {grafieken.venster}
     </RekenbladToolbar>
   );
 }

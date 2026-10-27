@@ -1,4 +1,5 @@
 import { zichtbaarElement } from "./editorApi";
+import { GrafiekGroep, useIngeslotenGrafieken } from "../grafieken/ui/ingesloten";
 import {
   useDocxCommand,
   ToolbarCommand as TekstControl,
@@ -371,6 +372,7 @@ export function TekstRibbon({
     koppeling: zoomKoppeling,
   });
   const opdrachten = useTekstOpdrachten({ wijzigLiniaal, wijzigNavigatie });
+  const grafieken = useIngeslotenGrafieken("docx");
   const tabel = useDocxCommand("tableAction");
   const afbeelding = useDocxCommand("imageProperties");
   const contextTabs: RibbonTab[] = [];
@@ -581,6 +583,7 @@ export function TekstRibbon({
                 <Groep naam="Illustraties">
                   <W id="insertImage" naam="Afbeelding" icoon={Image} groot />
                 </Groep>
+                <GrafiekGroep g={grafieken} uit={!opdrachten.bewerkbaar} />
                 <Groep naam="Koppelingen">
                   <W id="insertLink" naam="Hyperlink" icoon={Link} groot />
                 </Groep>
@@ -853,6 +856,7 @@ export function TekstRibbon({
       />
       <TekstDialogen opdrachten={opdrachten} />
       <TekstStatus opdrachten={opdrachten} />
+      {grafieken.venster}
     </>
   );
 }
