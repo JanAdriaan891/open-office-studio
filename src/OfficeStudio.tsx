@@ -24,6 +24,7 @@ import { VerlaatDialoog } from "./VerlaatDialoog";
 import { OpslaanAlsDialoog } from "./OpslaanAlsDialoog";
 import {
   bewaarInFormaat,
+  voorlaadExport,
   standaardKeuze,
   verliesmelding,
   type OpslaanKeuze,
@@ -122,6 +123,11 @@ export function OfficeStudio() {
   });
   const { toestand, actief, meld } = tabs;
   const actiefDocument = actief?.type === "document" ? actief : null;
+  const documentGereed = !!actiefDocument?.gereed;
+  useEffect(() => {
+    // Opslaan mag niet afhangen van onderdelen die later van de server moeten komen.
+    if (documentGereed) voorlaadExport();
+  }, [documentGereed]);
   const actieveModule = actief?.type === "module" ? actief.module : null;
   const opStart = actief === null;
   const verlaatvraag = tabs.verlaatvraag !== null;
@@ -332,7 +338,8 @@ export function OfficeStudio() {
     if (oud && document.activeElement === oud) oud.blur();
     if (!focusHerstellen.current) return;
     focusHerstellen.current = false;
-    const element = actiefId === null ? null : laatsteFocus.current.get(actiefId);
+    const element =
+      actiefId === null ? null : laatsteFocus.current.get(actiefId);
     if (element?.isConnected) element.focus({ preventScroll: true });
     else document.getElementById(tabId(actiefId))?.focus();
   }, [actiefId]);
@@ -343,7 +350,9 @@ export function OfficeStudio() {
       if (
         id === null ||
         !(doel instanceof HTMLElement) ||
-        doel.closest(".office-tabbalk, .office-header, .office-dialoogachtergrond")
+        doel.closest(
+          ".office-tabbalk, .office-header, .office-dialoogachtergrond",
+        )
       )
         return;
       laatsteFocus.current.set(id, doel);
@@ -376,7 +385,11 @@ export function OfficeStudio() {
     soort: Soort,
     naam: string,
     bytes: Uint8Array,
-    extra: { vingerafdruk?: string; gewijzigd?: boolean; melding?: string } = {},
+    extra: {
+      vingerafdruk?: string;
+      gewijzigd?: boolean;
+      melding?: string;
+    } = {},
   ) {
     return tabs.openDocument({ soort, naam, bytes, ...extra });
   }
@@ -589,9 +602,7 @@ export function OfficeStudio() {
         className="office"
         data-office-thema={thema}
         inert={dialoogOpen}
-        data-module={
-          actiefDocument?.soort ?? actieveModule ?? "start"
-        }
+        data-module={actiefDocument?.soort ?? actieveModule ?? "start"}
       >
         <header className="office-header">
           <button
@@ -685,7 +696,9 @@ export function OfficeStudio() {
           actief={toestand.actief}
           activeer={(id) => wissel(id)}
           sluit={(ids) => void sluit(ids)}
-          verplaats={(id, naar) => tabs.verwerk({ type: "verplaats", id, naar })}
+          verplaats={(id, naar) =>
+            tabs.verwerk({ type: "verplaats", id, naar })
+          }
           nieuw={toonStart}
           extraMenu={vensters.menu}
           losgesleept={vensters.losgesleept}
@@ -786,13 +799,17 @@ export function OfficeStudio() {
               return paneel(
                 tabblad,
                 <Suspense
-                  fallback={<p className="office-loading">Email Studio laden…</p>}
+                  fallback={
+                    <p className="office-loading">Email Studio laden…</p>
+                  }
                 >
                   <EmailStudio
                     bestandsmenu={toonStart}
                     inactief={!zichtbaar || dialoogOpen || !!verzending}
                     onOnverzonden={emailBewerkt}
-                    openInKantoor={(naam, bytes) => void openUitEmail(naam, bytes)}
+                    openInKantoor={(naam, bytes) =>
+                      void openUitEmail(naam, bytes)
+                    }
                     melding={(tekst) => meld(tekst, tabblad.id)}
                     ongelezen={setEmailOngelezen}
                     registreer={registreerEmail}
@@ -810,9 +827,7 @@ export function OfficeStudio() {
           >
             <StartScherm
               bezig={bezig}
-              terug={
-                vorigeTab ? () => wissel(vorigeTab.id, true) : undefined
-              }
+              terug={vorigeTab ? () => wissel(vorigeTab.id, true) : undefined}
               open={() => input.current?.click()}
               nieuw={(soort) => void nieuw(soort)}
               voorbeeld={(soort) => void voorbeeld(soort)}
@@ -867,8 +882,8 @@ export function OfficeStudio() {
               : actieveModule === "email" && emailOngelezen
                 ? `${emailOngelezen} ongelezen in Postvak IN`
                 : aantalGewijzigd
-                ? `${aantalGewijzigd} ${aantalGewijzigd === 1 ? "tabblad" : "tabbladen"} met niet-opgeslagen wijzigingen`
-                : `Ontwikkelversie ${versie.label}`}
+                  ? `${aantalGewijzigd} ${aantalGewijzigd === 1 ? "tabblad" : "tabbladen"} met niet-opgeslagen wijzigingen`
+                  : `Ontwikkelversie ${versie.label}`}
             {actiefDocument && <kbd>Ctrl+S</kbd>}
           </span>
         </footer>

@@ -113,8 +113,13 @@ export async function bewaarInFormaat(
     );
   } else if (keuze.route === "afdrukken") {
     throw new Error("PDF zonder kantoorruntime loopt via Afdrukken.");
+  } else if (eigen) {
+    // Het eigen formaat heeft geen exportmodule nodig: zo kan opslaan nooit
+    // stranden op een onderdeel dat nog van de server moet komen.
+    uitvoer = bytes;
+    mime = EIGEN_MIME[soort];
   } else {
-    const { maakExport } = await import("./index");
+    const { maakExport } = await laadExport();
     const resultaat = await maakExport(soort, keuze.ext, bytes, keuze.naam, {
       blad: keuze.blad,
       dia: keuze.dia,
@@ -132,7 +137,7 @@ export async function bewaarInFormaat(
   const toelichting = toelichtingen.join(" ") || undefined;
   const bestandsnaam = `${keuze.naam.replace(/[\\/:*?"<>|]+/g, "_").trim() || "Naamloos"}.${keuze.ext}`;
   if (desktop) {
-    const { invoke } = await import("@tauri-apps/api/core");
+    const { invoke } = await laad(() => import("@tauri-apps/api/core"));
     const pad = await invoke<string | null>("bewaar_kopie", uitvoer, {
       headers: { "x-office-naam": encodeURIComponent(bestandsnaam) },
     });
@@ -150,6 +155,49 @@ export async function bewaarInFormaat(
   a.remove();
   setTimeout(() => URL.revokeObjectURL(url), 60000);
   return { status: "download", toelichting };
+}
+
+const EIGEN_MIME: Record<Soort, string> = {
+  docx: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  xlsx: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+  pptx: "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+};
+
+/** Herkent een programmaonderdeel dat niet meer van de server te halen is. */
+export function isNalaadfout(fout: unknown) {
+  const tekst = fout instanceof Error ? fout.message : String(fout);
+  return /dynamically imported module|Importing a module script failed|error loading dynamically imported module|Loading chunk .* failed/i.test(
+    tekst,
+  );
+}
+
+async function laad<T>(ophalen: () => Promise<T>): Promise<T> {
+  try {
+    return await ophalen();
+  } catch (fout) {
+    if (!isNalaadfout(fout)) throw fout;
+    throw new Error(
+      "De app is intussen bijgewerkt en dit exportonderdeel is niet meer beschikbaar. Je document is niet verloren: sla het eerst op in het eigen formaat en laad daarna de pagina opnieuw.",
+    );
+  }
+}
+
+let exportModule: Promise<typeof import("./index")> | null = null;
+function laadExport() {
+  exportModule ??= laad(() => import("./index")).catch((fout) => {
+    exportModule = null;
+    throw fout;
+  });
+  return exportModule;
+}
+
+/** Laadt de exportonderdelen alvast, zodat Opslaan als later niets meer hoeft op te halen. */
+export function voorlaadExport() {
+  void laadExport().catch(() => {
+    // Een mislukte voorlading meldt zich pas bij opslaan.
+  });
+  if ("__TAURI_INTERNALS__" in window)
+    void import("@tauri-apps/api/core").catch(() => {});
 }
 
 /** Standaardkeuze voor Ctrl+S zonder eerder gekozen opties. */

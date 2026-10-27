@@ -261,3 +261,20 @@ describe("Formaatcatalogus", () => {
     expect(Object.keys(catalogus.pptx.uitvoer)).not.toContain("pptm");
   });
 });
+
+describe("nalaadfouten", () => {
+  it("herkent een onderdeel dat niet meer van de server komt", async () => {
+    const { isNalaadfout } = await import("./bewaar");
+    expect(
+      isNalaadfout(
+        new TypeError(
+          "Failed to fetch dynamically imported module: http://localhost:4330/assets/index-CUxCrpfw.js",
+        ),
+      ),
+    ).toBe(true);
+    expect(
+      isNalaadfout(new TypeError("Importing a module script failed.")),
+    ).toBe(true);
+    expect(isNalaadfout(new Error("Het bestand is te groot."))).toBe(false);
+  });
+});

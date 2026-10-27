@@ -76,7 +76,8 @@ export default function OfficeEditor(props: EditorProps) {
         return rekenbladApi.save();
       }
       if (props.soort === "pptx") {
-        if (!presentatieApi) throw new Error("De presentatie is nog niet gereed.");
+        if (!presentatieApi)
+          throw new Error("De presentatie is nog niet gereed.");
         await presentatieApi.flushPendingInput();
         return presentatieApi.save();
       }
@@ -114,7 +115,13 @@ export default function OfficeEditor(props: EditorProps) {
       rekenblad: rekenbladApi,
       presentatie: presentatieApi,
     });
-  }, [props.soort, props.zichtbaar, documentGereed, rekenbladApi, presentatieApi]);
+  }, [
+    props.soort,
+    props.zichtbaar,
+    documentGereed,
+    rekenbladApi,
+    presentatieApi,
+  ]);
   const zoomKoppeling = useMemo(
     () => ({
       sleutel: `${props.soort}:${props.naam}:${props.bytes.byteLength}`,
@@ -136,7 +143,25 @@ export default function OfficeEditor(props: EditorProps) {
         exporteren.current = false;
       }
     });
-    return () => props.registreer(null);
+    // Browser: één onzichtbare proef-opslag laadt de WASM die de engine pas bij
+    // opslaan ophaalt, zodat opslaan ook na een nieuwe uitrol blijft werken.
+    let proef = 0;
+    if (!("__TAURI_INTERNALS__" in window))
+      proef = window.setTimeout(() => {
+        if (exporteren.current || !docx.current?.getDocument()) return;
+        exporteren.current = true;
+        void Promise.resolve(docx.current.save())
+          .catch(() => {
+            // Alleen een voorbereiding; echte fouten verschijnen bij opslaan.
+          })
+          .finally(() => {
+            exporteren.current = false;
+          });
+      }, 2500);
+    return () => {
+      window.clearTimeout(proef);
+      props.registreer(null);
+    };
   }, [documentGereed]);
   useEffect(() => {
     if (props.soort !== "pptx") return;
