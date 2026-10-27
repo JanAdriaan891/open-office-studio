@@ -20,6 +20,8 @@ import {
   registreerWijziging,
 } from "./lint/editorApi";
 import { useNederlandseInvoer } from "./useNederlandseInvoer";
+import { useHerladen } from "./grafieken/ui/herladen";
+import { koppelEditor } from "./export/editorKoppeling";
 configureDefaultFonts({
   fonts,
   baseUrl: new URL("/fonts/", location.href).href,
@@ -57,15 +59,62 @@ export default function OfficeEditor(props: EditorProps) {
   useEffect(() => () => stopDiaWijzigingen.current?.(), []);
   const recent = useRef(props);
   recent.current = props;
+  // Grafieken bewerken het pakket zelf en laden de editor daarna opnieuw.
+  const herladen = useHerladen({
+    bytes: props.bytes,
+    gewijzigd: () => recent.current.gewijzigd(),
+    // De oude engine-handles worden bij het hermounten opgeruimd; niemand mag ze dan nog lezen.
+    voorVervangen: () => {
+      setDocumentGereed(false);
+      setRekenbladApi(null);
+      setPresentatieApi(null);
+    },
+    serialiseer: async () => {
+      if (props.soort === "xlsx") {
+        if (!rekenbladApi) throw new Error("Het rekenblad is nog niet gereed.");
+        await rekenbladApi.version();
+        return rekenbladApi.save();
+      }
+      if (props.soort === "pptx") {
+        if (!presentatieApi) throw new Error("De presentatie is nog niet gereed.");
+        await presentatieApi.flushPendingInput();
+        return presentatieApi.save();
+      }
+      if (!docx.current?.getDocument())
+        throw new Error("Het document is nog niet gereed.");
+      exporteren.current = true;
+      try {
+        await docx.current.flushPendingInput();
+        const bytes = await docx.current.save();
+        if (!bytes) throw new Error("Het document kon niet worden opgeslagen.");
+        return new Uint8Array(bytes);
+      } finally {
+        exporteren.current = false;
+      }
+    },
+  });
+  const herladenRecent = useRef(herladen);
+  herladenRecent.current = herladen;
   const apis = useMemo(
     () => ({
       tekst: () => docx.current,
       rekenblad: rekenbladApi,
       presentatie: presentatieApi,
+      herlaad: herladen.api,
+      grafiekSelectie: herladen.grafiekSelectie,
     }),
-    [rekenbladApi, presentatieApi],
+    [rekenbladApi, presentatieApi, herladen.api, herladen.grafiekSelectie],
   );
   useNederlandseInvoer(rekenbladHost, rekenbladApi);
+  // Opslaan als gebruikt het actieve blad, de huidige dia en het afdrukvenster.
+  useEffect(() => {
+    if (props.zichtbaar === false) return;
+    return koppelEditor(props.soort, {
+      tekst: documentGereed ? docx.current : null,
+      rekenblad: rekenbladApi,
+      presentatie: presentatieApi,
+    });
+  }, [props.soort, props.zichtbaar, documentGereed, rekenbladApi, presentatieApi]);
   const zoomKoppeling = useMemo(
     () => ({
       sleutel: `${props.soort}:${props.naam}:${props.bytes.byteLength}`,
@@ -150,6 +199,7 @@ export default function OfficeEditor(props: EditorProps) {
         await api.version();
         return api.save();
       });
+      herladenRecent.current.naXlsx(api);
       return () => {
         stopWijziging();
         setRekenbladApi(null);
@@ -181,8 +231,9 @@ export default function OfficeEditor(props: EditorProps) {
         <EditorApi.Provider value={apis}>
           <EditorZichtbaar.Provider value={props.zichtbaar ?? true}>
             <DocxEditor
+              key={herladen.sleutel}
               ref={docx}
-              documentBuffer={props.bytes}
+              documentBuffer={herladen.bytes}
               showFileOpen={false}
               showHelpMenu={false}
               downloadOnSave={false}
@@ -192,7 +243,10 @@ export default function OfficeEditor(props: EditorProps) {
               onChange={props.gewijzigd}
               onError={props.fout}
               rulerUnit="cm"
-              onFirstPagePainted={() => setDocumentGereed(true)}
+              onFirstPagePainted={() => {
+                setDocumentGereed(true);
+                herladenRecent.current.naDocx(docx.current);
+              }}
               loadingIndicator={
                 <p className="office-loading">Document laden…</p>
               }
@@ -225,7 +279,9 @@ export default function OfficeEditor(props: EditorProps) {
           <EditorZichtbaar.Provider value={props.zichtbaar ?? true}>
             <div className="office-rekenblad-host" ref={rekenbladHost}>
               <XlsxEditor
-                file={props.bytes}
+                key={herladen.sleutel}
+                file={herladen.bytes}
+                plugins={herladen.plugins}
                 fileName={props.naam}
                 onReady={gereedXlsx}
                 onChange={props.gewijzigd}
@@ -252,7 +308,9 @@ export default function OfficeEditor(props: EditorProps) {
       <EditorApi.Provider value={apis}>
         <EditorZichtbaar.Provider value={props.zichtbaar ?? true}>
           <PptxEditor
-            file={props.bytes}
+            key={herladen.sleutel}
+            file={herladen.bytes}
+            initialSlide={herladen.dia}
             fileName={props.naam}
             fonts={fontFaces}
             onReady={gereedPptx}

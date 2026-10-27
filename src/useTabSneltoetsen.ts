@@ -8,6 +8,7 @@ interface Opties {
   opStart: boolean;
   vorige: number | null;
   opslaan: () => void;
+  opslaanAls: () => void;
   openen: () => void;
   sluit: () => void;
   verwerk: (actie: TabbladActie) => void;
@@ -15,7 +16,7 @@ interface Opties {
 }
 
 export type TabToets =
-  | { opdracht: "opslaan" | "openen" | "sluit" | "terug" }
+  | { opdracht: "opslaan" | "opslaanAls" | "openen" | "sluit" | "terug" }
   | { opdracht: "actie"; actie: TabbladActie }
   | null;
 
@@ -35,7 +36,13 @@ export function tabToets(
 ): TabToets {
   const ctrl = e.ctrlKey || e.metaKey;
   const toets = e.key.toLowerCase();
-  if (ctrl && !e.altKey && toets === "s") return { opdracht: "opslaan" };
+  if (ctrl && !e.altKey && toets === "s")
+    return {
+      opdracht:
+        e.shiftKey && context.actief?.type === "document"
+          ? "opslaanAls"
+          : "opslaan",
+    };
   if (ctrl && !e.altKey && toets === "o") return { opdracht: "openen" };
   if (e.ctrlKey && !e.altKey && e.key === "Tab")
     return { opdracht: "actie", actie: { type: e.shiftKey ? "vorige" : "volgende" } };

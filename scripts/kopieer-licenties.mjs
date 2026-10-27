@@ -97,6 +97,12 @@ const uitvoermap = alleenDatabase
 await mkdir(uitvoermap, { recursive: true });
 await copyFile("src/stijl/LICENSE", `${uitvoermap}/OpenAEC-style-LICENSE.txt`);
 await copyFile("src/stijl/bron.json", `${uitvoermap}/OpenAEC-style-bron.json`);
+// E-mailbackend (Rust) bevat code uit Y-app-ERPNext onder de MIT-licentie.
+if (!alleenDatabase)
+  await copyFile(
+    "docs/licenties/Y-app-ERPNext-LICENSE.txt",
+    `${uitvoermap}/Y-app-ERPNext-LICENSE.txt`,
+  );
 await writeFile(
   `${uitvoermap}/npm.txt`,
   onderdelen.sort().join("\n\n" + "=".repeat(78) + "\n\n"),

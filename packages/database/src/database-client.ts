@@ -4,7 +4,7 @@ import {
   type DatabaseObject,
   type DatabaseSession,
 } from "./model";
-import type { Analyse } from "./access-analyse.ts";
+import type { Analyse, VbaVerwijzingDetail } from "./access-analyse.ts";
 import {
   WerkkopieFout,
   type NieuweRelatie,
@@ -105,7 +105,7 @@ export class DatabaseClient {
   async open(file: File): Promise<DatabaseSession> {
     controleerDatabaseBestand(file);
     const bytes = await file.arrayBuffer();
-    const { objecten, rapport } = await this.vraag<Analyse>(
+    const { objecten, rapport, verwijzingen } = await this.vraag<Analyse & { verwijzingen?: VbaVerwijzingDetail[] }>(
       { type: "open", bytes, naam: file.name },
       [bytes],
     );
@@ -115,6 +115,7 @@ export class DatabaseClient {
       voorbeeld: false,
       objecten,
       rapport,
+      vbaVerwijzingen: verwijzingen ?? [],
       melding:
         "Alleen-lezen: tabellen (200 rijen per pagina), relaties, indexen, querydefinities en aanwezige VBA-bron worden lokaal gelezen. Formulieren, rapporten en macro’s worden alleen geïnventariseerd. Niets wordt uitgevoerd; zie het compatibiliteitsrapport.",
     };

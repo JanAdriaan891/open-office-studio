@@ -66,7 +66,7 @@ export function useVensters({ tabs, voorOverdracht }: Opties) {
         return true;
       }
       // De zoom gaat via het geheugen per document mee naar de nieuwe editor.
-      if (overdracht.zoom)
+      if (overdracht.zoom && overdracht.zoom !== 1)
         bewaarZoom(
           `${overdracht.soort}:${overdracht.naam}:${overdracht.bytes.byteLength}`,
           overdracht.zoom,

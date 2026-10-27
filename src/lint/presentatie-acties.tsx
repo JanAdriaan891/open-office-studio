@@ -28,7 +28,7 @@ const canvas = () =>
   null;
 
 /** 0-gebaseerde index van de dia die het diapaneel als huidige toont. */
-function huidigeIndex() {
+export function huidigeIndex() {
   const knoppen = [
     ...(wortel()?.querySelectorAll<HTMLElement>("aside > button") ?? []),
   ];
@@ -68,7 +68,7 @@ function focusOpDia() {
 }
 
 /** De geselecteerde vorm (niet in tekstbewerking), herleid uit het selectiekader. */
-function geselecteerdeVorm(api: PptxEditorApi) {
+export function geselecteerdeVorm(api: PptxEditorApi) {
   const dia = canvas(),
     hoek = wortel()?.querySelector('[data-testid="pptx-resize-nw"]'),
     tegenhoek = wortel()?.querySelector('[data-testid="pptx-resize-se"]');

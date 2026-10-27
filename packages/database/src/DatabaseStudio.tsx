@@ -1,7 +1,11 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
+  BoxSelect,
   Braces,
+  ClipboardCopy,
   ClipboardList,
+  ClipboardPaste,
+  Copy,
   Code2,
   Database,
   Download,
@@ -24,6 +28,7 @@ import {
   Table2,
   TableProperties,
   Terminal,
+  Unplug,
   X,
   type LucideIcon,
 } from "lucide-react";
@@ -39,11 +44,14 @@ import { DialoogBron, useDialogen } from "./ui/Dialoog";
 import type { WerkkopieSessie } from "./ui/werkkopie-sessie";
 import { TabelWeergave } from "./ui/TabelWeergave";
 import { NieuweTabel, TabelOntwerp } from "./ui/TabelOntwerp";
-import { QueryEditor, type QueryUitvoer } from "./ui/QueryEditor";
+import { QueryEditor, type QueryModus, type QueryUitvoer } from "./ui/QueryEditor";
+import { RasterRegister, type RasterActies } from "./ui/Raster";
 import { Formulier } from "./ui/Formulier";
 import { FormulierOntwerper } from "./ui/FormulierOntwerper";
 import { RapportOntwerper, RapportVoorbeeld } from "./ui/Rapport";
 import { VbaPaneel, VbaUitvoer } from "./ui/VbaPaneel";
+import { ExterneVerwijzingen, useExterneStaat } from "./ui/ExterneVerwijzingen";
+import { gekoppeldeTabellenUit } from "./ui/extern-logica";
 import { CompatibiliteitWeergave, OpbouwRapportWeergave, OpbouwVoortgang } from "./ui/Overzichten";
 import { RelatieVenster } from "./ui/Relaties";
 import { AlleenLezenObject } from "./ui/AlleenLezen";
@@ -64,12 +72,13 @@ type Weergave =
   | { soort: "welkom" }
   | { soort: "tabel"; naam: string; modus: "gegevens" | "ontwerp" }
   | { soort: "nieuwe-tabel" }
-  | { soort: "query"; naam: string | null; sql?: string; nr: number }
+  | { soort: "query"; naam: string | null; sql?: string; nr: number; modus?: QueryModus }
   | { soort: "formulier"; naam: string; metVba: boolean; nr: number }
   | { soort: "formulier-ontwerp"; naam: string | null; bron?: string; nr: number }
   | { soort: "rapport"; naam: string; bron: string; definitie: RapportDefinitie; nr: number }
   | { soort: "rapport-ontwerp"; naam: string | null; bron?: string; nr: number }
-  | { soort: "vba"; module: string }
+  | { soort: "vba"; module: string; regel?: number }
+  | { soort: "extern" }
   | { soort: "relaties" }
   | { soort: "compat" }
   | { soort: "opbouw" }
@@ -144,6 +153,7 @@ function Werkruimte({
   const [bezig, setBezig] = useState(false);
   const [fout, setFout] = useState("");
   const [melding, setMelding] = useState("");
+  const [meldingOpen, setMeldingOpen] = useState(false);
   const [gewijzigd, setGewijzigd] = useState(false);
   const [queryUitvoer, setQueryUitvoer] = useState<QueryUitvoer | null>(null);
   const invoer = useRef<HTMLInputElement>(null);
@@ -599,7 +609,20 @@ function Werkruimte({
     (o) => (o.soort === "Formulier" || o.soort === "Rapport" || o.soort === "Macro") && !objecten.ontwerpen.some((x) => x.naam.toLowerCase() === o.naam.toLowerCase()),
   );
   const bronnen = useMemo(() => [...objecten.tabellen.map((t) => t.naam), ...objecten.querys.filter((q) => !["delete", "update", "append", "maketable", "ddl"].includes(q.soort)).map((q) => q.naam)], [objecten]);
-  const geselecteerd = (w: Weergave) => JSON.stringify({ ...w, nr: 0, metVba: 0 }) === JSON.stringify({ ...weergave, nr: 0, metVba: 0 });
+  const geselecteerd = (w: Weergave) => JSON.stringify({ ...w, nr: 0, metVba: 0, regel: 0 }) === JSON.stringify({ ...weergave, nr: 0, metVba: 0, regel: 0 });
+  // Voor Externe verwijzingen: gekoppelde tabellen (alleen naam en soort bron) en de verwijzingen uit het VBA-project.
+  const gekoppeldeTabellen = useMemo(
+    () => gekoppeldeTabellenUit(analyse?.objecten ?? [], objecten.tabellen.map((t) => t.naam)),
+    [analyse, objecten.tabellen],
+  );
+  const vbaVerwijzingen = analyse?.vbaVerwijzingen ?? null;
+  const externeStaat = useExterneStaat(werkkopie);
+  // Het raster met de laatste focus, voor Kopiëren/Plakken in het lint.
+  const [actiefRaster, setActiefRaster] = useState<RasterActies | null>(null);
+  const registreerRaster = useCallback(
+    (acties: RasterActies | null, eigenaar: object) => setActiefRaster((oud) => (acties ? acties : oud === eigenaar ? null : oud)),
+    [],
+  );
 
 
   const analyseLijst = (soort: Objectsoort) => (analyse?.objecten ?? []).filter((o) => o.soort === soort);
@@ -653,6 +676,9 @@ function Werkruimte({
             {modules.map((m) => (
               <ObjectKnop key={m.naam} gekozen={geselecteerd({ soort: "vba", module: m.naam })} uit={bezig || !!opbouw} icoon={Code2} naam={m.naam} sub={m.soort === "formulier" ? "formulier" : m.soort === "klasse" ? "klasse" : undefined} doel={() => toon({ soort: "vba", module: m.naam })} />
             ))}
+            {modules.length > 0 && (
+              <ObjectKnop gekozen={weergave.soort === "extern"} uit={bezig || !!opbouw} icoon={Unplug} naam="Externe verwijzingen" sub="analyse" doel={() => toon({ soort: "extern" })} />
+            )}
           </Sectie>
           <Sectie titel="Database">
             <ObjectKnop gekozen={geselecteerd({ soort: "relaties" })} uit={bezig || !!opbouw} icoon={Link2} naam={`Relaties (${objecten.relaties.length})`} doel={() => toon({ soort: "relaties" })} />
@@ -838,11 +864,12 @@ function Werkruimte({
               opgeslagen={q}
               tabellen={objecten.tabellen}
               beginSql={weergave.sql}
+              beginModus={weergave.modus}
               registreerUitvoeren={registreerQuery}
               onResultaat={setQueryUitvoer}
               onBewaard={async (naam) => {
                 await vernieuw();
-                setWeergave({ soort: "query", naam, nr: teller.current++ });
+                setWeergave({ soort: "query", naam, nr: teller.current++, modus: "sql" });
               }}
               onGewijzigd={() => void vernieuw()}
               onExporteer={(u) => void exporteerCsv(u.titel, u.resultaat.kolommen, u.resultaat.rijen, u.resultaat.kolomsoorten ?? [])}
@@ -965,10 +992,29 @@ function Werkruimte({
               modules={modules}
               onWijzig={(bron) => bewaarModule(m, bron)}
               onVerwijder={() => verwijderModule(m)}
+              regel={weergave.regel}
             />
           </>
         );
       }
+      case "extern":
+        return (
+          <ExterneVerwijzingen
+            vba={vba}
+            modules={modules}
+            databasenaam={sessie?.naam ?? analyse?.naam ?? "database"}
+            verwijzingen={vbaVerwijzingen}
+            staat={externeStaat}
+            gekoppeldeTabellen={gekoppeldeTabellen}
+            onSpring={(module, regel) => {
+              const m = modules.find((x) => x.naam.toLowerCase() === module.toLowerCase());
+              if (m) toon({ soort: "vba", module: m.naam, ...(regel ? { regel } : {}) });
+              else setFout(`Module ‘${module}’ staat niet in de werkkopie.`);
+            }}
+            onGewijzigd={() => void vernieuw()}
+            onExporteer={(naam, inhoud, type, wat) => void bewaarTekst(naam, inhoud, type, wat)}
+          />
+        );
       case "relaties":
         return <RelatieVenster werkkopie={werkkopie} relaties={objecten.relaties} tabellen={objecten.tabellen} onGewijzigd={structuurGewijzigd} />;
       case "opbouw":
@@ -994,6 +1040,7 @@ function Werkruimte({
   const geenWk = !werkkopie || bezig || !!opbouw;
 
   return (
+    <RasterRegister.Provider value={registreerRaster}>
     <div className="database-werkruimte" onKeyDown={toets}>
       <Ribbon
         bestand={bestandsmenu}
@@ -1007,6 +1054,12 @@ function Werkruimte({
                   <Actie icoon={FolderOpen} naam={bezig ? "Bestand lezen…" : "Openen"} groot disabled={bezig || !!opbouw} onClick={() => invoer.current?.click()} title="Database of werkkopie openen (Ctrl+O)" />
                   <Actie icoon={FilePlus2} naam="Nieuw" groot disabled={bezig || !!opbouw} onClick={() => void nieuweDatabase()} title="Nieuwe lege database" />
                   <Actie icoon={Database} naam="Voorbeeld" disabled={bezig || !!opbouw} onClick={() => void nieuweDatabase(true)} title="Voorbeelddatabase verkennen" />
+                </Groep>
+                <Groep naam="Klembord">
+                  <Actie icoon={Copy} naam="Kopiëren" groot disabled={!actiefRaster} onClick={() => actiefRaster?.kopieer()} title="Selectie kopiëren (Ctrl+C)" />
+                  <Actie icoon={ClipboardCopy} naam="Met kopteksten" disabled={!actiefRaster} onClick={() => actiefRaster?.kopieer(true)} title="Selectie kopiëren met kolomkoppen (Ctrl+Shift+C)" />
+                  <Actie icoon={ClipboardPaste} naam="Plakken" disabled={!actiefRaster?.kanPlakken} onClick={() => actiefRaster?.plak()} title="Plakken vanaf de actieve cel (Ctrl+V)" />
+                  <Actie icoon={BoxSelect} naam="Alles selecteren" disabled={!actiefRaster} onClick={() => actiefRaster?.selecteerAlles()} title="Alle rijen en kolommen selecteren (Ctrl+A)" />
                 </Groep>
                 <Groep naam="Werkkopie">
                   <Actie icoon={Save} naam="Opslaan" groot disabled={geenWk} onClick={() => void bewaarWerkkopie()} title="Werkkopie bewaren als .sqlite (Ctrl+S)" />
@@ -1080,6 +1133,7 @@ function Werkruimte({
                 </Groep>
                 <Groep naam="VBA">
                   <Actie icoon={Terminal} naam="Visual Basic" groot disabled={geenWk || !modules.length} onClick={() => modules[0] && toon({ soort: "vba", module: modules[0].naam })} title="VBA-modules en procedures" />
+                  <Actie icoon={Unplug} naam="Externe verwijzingen" disabled={geenWk || !modules.length} actief={weergave.soort === "extern"} onClick={() => toon({ soort: "extern" })} title="Externe afhankelijkheden van de VBA-code en Uitvoeren wat werkt" />
                   <Actie icoon={Square} naam="Stop" disabled={!vba.bezig} onClick={vba.stop} title="Lopende VBA stoppen" />
                 </Groep>
               </>
@@ -1130,8 +1184,13 @@ function Werkruimte({
         </div>
       )}
       {melding && !fout && (
-        <div role="status" className="melding database-balkmelding">
-          <span>{melding}</span>
+        <div role="status" className={`melding database-balkmelding${meldingOpen ? "" : " is-ingeklapt"}`}>
+          <span title={meldingOpen ? undefined : melding}>{melding}</span>
+          {melding.length > 80 && (
+            <button aria-expanded={meldingOpen} onClick={() => setMeldingOpen((o) => !o)}>
+              {meldingOpen ? "Minder" : "Meer"}
+            </button>
+          )}
           <button aria-label="Melding sluiten" onClick={() => setMelding("")}>
             <X size={14} />
           </button>
@@ -1150,6 +1209,7 @@ function Werkruimte({
         <span>{vba.bezig ? `VBA: ${vba.bezig}` : "Geen uploads · VBA alleen op verzoek"}</span>
       </footer>
     </div>
+    </RasterRegister.Provider>
   );
 }
 

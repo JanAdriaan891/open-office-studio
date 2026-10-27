@@ -5,6 +5,7 @@ import {
   analyseVersleuteld,
   herkenVersleuteling,
   isVersleutelingsfout,
+  leesVbaVerwijzingen,
   maakRijfilter,
   type Rijfilter,
 } from "./access-analyse.ts";
@@ -60,9 +61,16 @@ context.onmessage = async ({ data }) => {
       }
       database = lezer;
       rijfilter = maakRijfilter(lezer, bytes);
+      // Verwijzingen van het VBA-project (typebibliotheken) voor het scherm Externe verwijzingen; alleen lezen.
+      let verwijzingen: ReturnType<typeof leesVbaVerwijzingen> = [];
+      try {
+        verwijzingen = leesVbaVerwijzingen(lezer);
+      } catch {
+        verwijzingen = [];
+      }
       context.postMessage({
         id: data.id,
-        resultaat: await analyseerDatabase(lezer, bytes, bestand),
+        resultaat: { ...(await analyseerDatabase(lezer, bytes, bestand)), verwijzingen },
       });
     } else if (data.type === "tabel" && database) {
       const tabel = database.getTable(data.naam);

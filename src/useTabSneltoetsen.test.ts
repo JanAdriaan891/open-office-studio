@@ -54,6 +54,18 @@ describe("tabbladsneltoetsen", () => {
     ).toBeNull();
   });
 
+  it("opent Opslaan als met Ctrl+Shift+S in een document", () => {
+    expect(tabToets(toets("s", { ctrlKey: true }), context())).toEqual({
+      opdracht: "opslaan",
+    });
+    expect(
+      tabToets(toets("S", { ctrlKey: true, shiftKey: true }), context()),
+    ).toEqual({ opdracht: "opslaanAls" });
+    expect(
+      tabToets(toets("S", { ctrlKey: true, shiftKey: true }), context(null)),
+    ).toEqual({ opdracht: "opslaan" });
+  });
+
   it("sluit met Ctrl+W en Ctrl+F4, maar niet op Start", () => {
     expect(tabToets(toets("w", { ctrlKey: true }), context())).toEqual({
       opdracht: "sluit",

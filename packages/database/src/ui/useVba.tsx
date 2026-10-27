@@ -6,7 +6,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { HostGebeurtenis, HostWaarde } from "../../../vba/src/host.ts";
 import type { VoerUitResultaat } from "../../../vba/src/protocol.ts";
-import type { Dialogen } from "./Dialoog.tsx";
+import type { OntbrekendModus } from "../../../vba/src/extern-typen.ts";
+import { msgBoxOpbouw, type Dialogen } from "./Dialoog.tsx";
 import { foutTekst, VbaSessie, vanHostWaarde, type VbaModule } from "./vba-sessie.ts";
 import type { BedienbareWerkkopie } from "./werkkopie-sessie.ts";
 
@@ -33,9 +34,22 @@ export interface VbaBediening {
   toegestaan: boolean;
   /** Vraagt (eenmalig) toestemming; false als de gebruiker weigert. */
   vraagToestemming(reden?: string): Promise<boolean>;
-  voerUit(module: string, procedure: string, args?: HostWaarde[]): Promise<VoerUitResultaat | null>;
+  voerUit(module: string, procedure: string, args?: HostWaarde[], opties?: { ontbrekend?: OntbrekendModus }): Promise<VoerUitResultaat | null>;
   stop(): void;
   wisUitvoer(): void;
+  /** Wat de runtime doet bij ontbrekende onderdelen; onthouden per geopende database. */
+  ontbrekend: OntbrekendModus;
+  setOntbrekend(m: OntbrekendModus): void;
+  /**
+   * Voert een reeks uit (bv. “Uitvoeren wat werkt”) als één lopende taak: blokkeert
+   * andere uitvoeringen en zet de host zo nodig in de modus “automatisch beantwoorden”
+   * (MsgBox: eerste knop, InputBox: standaardwaarde) en “stil” (Debug.Print en
+   * DoCmd-acties alleen vastleggen, niet in het directvenster of de interface).
+   * Vraagt zelf geen toestemming; dat doet de aanroeper vooraf.
+   */
+  reeks<T>(label: string, host: { automatisch: boolean; stil: boolean }, actie: (s: VbaSessie) => Promise<T>): Promise<T | null>;
+  /** Telt elke Stop; een reeks vergelijkt dit om tussen procedures te stoppen. */
+  stopnummer(): number;
 }
 
 const ACCESS_RECORD: Record<number, string> = { 0: "vorige", 1: "volgende", 2: "eerste", 3: "laatste", 4: "naar", 5: "nieuw" };
@@ -54,11 +68,21 @@ export function useVba(
   recent.current = { dialogen, acties, modules, sessie };
   const loopt = useRef<string | null>(null);
   const toestemming = useRef(false);
+  const [ontbrekend, setOntbrekendState] = useState<OntbrekendModus>("stoppen");
+  const ontbrekendRef = useRef<OntbrekendModus>("stoppen");
+  const hostModus = useRef({ automatisch: false, stil: false });
+  const stops = useRef(0);
+  const setOntbrekend = useCallback((m: OntbrekendModus) => {
+    ontbrekendRef.current = m;
+    setOntbrekendState(m);
+  }, []);
   const voeg = useCallback((r: Uitvoerregel) => setUitvoer((u) => [...u.slice(-999), r]), []);
 
   useEffect(() => {
     setToegestaan(false);
     toestemming.current = false;
+    ontbrekendRef.current = "stoppen";
+    setOntbrekendState("stoppen");
     setUitvoer([]);
     setBezig(null);
     if (!werkkopie) {
@@ -66,10 +90,16 @@ export function useVba(
       return;
     }
     const s: VbaSessie = new VbaSessie(werkkopie, {
-      msgBox: (v) => recent.current.dialogen.msgBox(v),
-      inputBox: (v) => recent.current.dialogen.vraag({ titel: v.titel || "Open Database Studio", label: v.tekst, standaard: v.standaard }),
-      debugPrint: (tekst) => voeg({ soort: "uitvoer", tekst }),
-      gebeurtenis: (g) => gebeurtenis(g, s),
+      msgBox: async (v) => (hostModus.current.automatisch ? msgBoxOpbouw(v.knoppen).lijst[0][0] : recent.current.dialogen.msgBox(v)),
+      inputBox: async (v) =>
+        hostModus.current.automatisch
+          ? (v.standaard ?? "")
+          : recent.current.dialogen.vraag({ titel: v.titel || "Open Database Studio", label: v.tekst, standaard: v.standaard }),
+      debugPrint: (tekst) => {
+        if (!hostModus.current.stil) voeg({ soort: "uitvoer", tekst });
+      },
+      // In een reeks worden DoCmd-acties alleen vastgelegd (door de client), niet in de interface uitgevoerd.
+      gebeurtenis: async (g) => (hostModus.current.stil ? undefined : gebeurtenis(g, s)),
     });
     setSessie(s);
     return () => s.sluit();
@@ -171,7 +201,7 @@ export function useVba(
   );
 
   const voerUit = useCallback(
-    async (module: string, procedure: string, args: HostWaarde[] = []) => {
+    async (module: string, procedure: string, args: HostWaarde[] = [], opties: { ontbrekend?: OntbrekendModus } = {}) => {
       const s = recent.current.sessie;
       if (!s) return null;
       if (loopt.current) {
@@ -181,9 +211,11 @@ export function useVba(
       if (!(await vraagToestemming())) return null;
       loopt.current = `${module}.${procedure}`;
       setBezig(loopt.current);
-      voeg({ soort: "info", tekst: `▶ ${module}.${procedure}` });
+      const modus = opties.ontbrekend ?? ontbrekendRef.current;
+      voeg({ soort: "info", tekst: `▶ ${module}.${procedure}${modus === "stoppen" ? "" : ` (ontbrekende onderdelen: ${modus === "fout" ? "fout teruggeven" : "overslaan"})`}` });
       try {
-        const r = await s.voerUit(recent.current.modules, module, procedure, args);
+        const r = await s.voerUit(recent.current.modules, module, procedure, args, { ontbrekend: modus });
+        for (const o of r.overgeslagen ?? []) voeg({ soort: "info", tekst: o.aantal > 1 ? `${o.melding} (${o.aantal}×)` : o.melding });
         if (r.ok) voeg({ soort: "info", tekst: `■ Klaar (${r.stappen.toLocaleString("nl-NL")} stappen)` });
         else voeg({ soort: "fout", tekst: foutTekst(r) });
         return r;
@@ -198,8 +230,34 @@ export function useVba(
     [vraagToestemming, voeg],
   );
 
+  const reeks = useCallback(
+    async <T,>(label: string, host: { automatisch: boolean; stil: boolean }, actie: (s: VbaSessie) => Promise<T>): Promise<T | null> => {
+      const s = recent.current.sessie;
+      if (!s) return null;
+      if (loopt.current) {
+        voeg({ soort: "fout", tekst: `${label} niet gestart: ${loopt.current} loopt nog.` });
+        return null;
+      }
+      loopt.current = label;
+      setBezig(label);
+      hostModus.current = { ...host };
+      try {
+        return await actie(s);
+      } finally {
+        hostModus.current = { automatisch: false, stil: false };
+        loopt.current = null;
+        setBezig(null);
+      }
+    },
+    [voeg],
+  );
+
   return {
     sessie,
+    ontbrekend,
+    setOntbrekend,
+    reeks,
+    stopnummer: () => stops.current,
     uitvoer,
     bezig,
     isBezig: () => loopt.current !== null,
@@ -207,6 +265,7 @@ export function useVba(
     vraagToestemming,
     voerUit,
     stop: () => {
+      stops.current++;
       recent.current.sessie?.stop();
       voeg({ soort: "info", tekst: "Uitvoering gestopt." });
     },

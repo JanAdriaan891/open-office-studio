@@ -249,8 +249,24 @@
   box-shadow: none;
 }
 .office .ribbon-groep {
-  padding: 0 10px;
+  padding: 0 6px;
   border-color: var(--oa-shell-ribbon-group-separator);
+}
+/* Compact lint: knoppen dicht bij elkaar, zoals in gangbare kantoorsuites. */
+.office .ribbon-groep-inhoud,
+.office .ribbon-rij {
+  gap: 2px;
+}
+.office .ribbon-stapel {
+  gap: 1px;
+}
+.office .ribbon-iconen {
+  gap: 0;
+}
+.office .ribbon-iconen .ribbon-actie {
+  width: 26px;
+  min-width: 26px;
+  padding: 4px;
 }
 .office .ribbon-groep-naam {
   color: var(--oa-shell-text-secondary);
@@ -266,7 +282,8 @@
   color: var(--oa-shell-text);
   font-size: 11px;
   min-height: 26px;
-  padding-block: 4px;
+  gap: 5px;
+  padding: 3px 5px;
 }
 .office .ribbon-actie:hover:not(:disabled),
 .office .ribbon-actie[aria-pressed="true"] {
@@ -292,7 +309,9 @@
 }
 .office .ribbon-groot {
   min-height: 62px;
-  gap: 6px;
+  min-width: 46px;
+  gap: 4px;
+  padding: 4px 5px;
 }
 .office .ribbon-kleur,
 .office .ribbon-keuze > svg {

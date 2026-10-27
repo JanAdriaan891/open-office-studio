@@ -1,3 +1,4 @@
+import type { VbaVerwijzingDetail } from "./access-analyse.ts";
 /** Adaptercontract: onbekende onderdelen worden nooit als lege, gelezen lijsten gepresenteerd. */
 export type Objectsoort =
   | "Tabel"
@@ -59,6 +60,8 @@ export interface DatabaseSession {
   objecten: DatabaseObject[];
   melding: string;
   rapport?: Compatibiliteitsrapport;
+  /** Verwijzingen (typebibliotheken) uit het VBA-project; alleen bij een geopend Access-origineel. */
+  vbaVerwijzingen?: VbaVerwijzingDetail[];
 }
 export function controleerDatabaseBestand(file: File) {
   if (!/\.(mdb|accdb)$/i.test(file.name))

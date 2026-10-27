@@ -1,14 +1,31 @@
 /** VBA-module: bron, procedures met “Uitvoeren”, en het uitvoervenster. */
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useLayoutEffect, useRef, useState } from "react";
 import { Code2, Eraser, Pencil, Play, Save, Square, Trash2, X } from "lucide-react";
 import type { LaadResultaat, ProcedureInfo } from "../../../vba/src/protocol.ts";
 import { kleurTokens } from "../syntaxis.ts";
 import type { VbaModule } from "./vba-sessie.ts";
 import type { Uitvoerregel, VbaBediening } from "./useVba.tsx";
+import { MODI } from "./extern-logica.ts";
+import type { OntbrekendModus } from "../../../vba/src/extern-typen.ts";
 
-export function Bron({ bron, taal }: { bron: string; taal: "vba" | "sql" }) {
+/** Broncode met kleuren; `markeer` (regelnummer, 1 = eerste) markeert een regel en scrolt erheen. */
+export function Bron({ bron, taal, markeer }: { bron: string; taal: "vba" | "sql"; markeer?: number }) {
+  const pre = useRef<HTMLPreElement>(null);
+  const markering = useRef<HTMLSpanElement>(null);
+  useLayoutEffect(() => {
+    const p = pre.current;
+    const m = markering.current;
+    if (!p || !m || !markeer) return;
+    const stijl = getComputedStyle(p);
+    const hoogte = parseFloat(stijl.lineHeight) || 20;
+    m.style.top = `${parseFloat(stijl.paddingTop) + (markeer - 1) * hoogte}px`;
+    m.style.height = `${hoogte}px`;
+    p.scrollTop = Math.max(0, (markeer - 1) * hoogte - p.clientHeight / 3);
+    m.scrollIntoView?.({ block: "nearest" });
+  }, [markeer, bron]);
   return (
-    <pre className="database-bron">
+    <pre ref={pre} className={`database-bron${markeer ? " heeft-markering" : ""}`}>
+      {!!markeer && <span ref={markering} className="database-bron-markering" aria-hidden />}
       <code>
         {kleurTokens(bron, taal).map((token, index) =>
           token.soort === "gewoon" ? (
@@ -42,8 +59,11 @@ export function VbaPaneel({
   modules,
   onWijzig,
   onVerwijder,
+  regel,
 }: {
   module: VbaModule;
+  /** Regel om te markeren (sprong vanuit Externe verwijzingen). */
+  regel?: number;
   vba: VbaBediening;
   modules: VbaModule[];
   /** Bewaart de bron in de werkkopie (`bewaarModule`); een fout blijft in de editor staan. */
@@ -84,12 +104,33 @@ export function VbaPaneel({
   const parseerfouten = info?.laad.fouten.filter((f) => f.module?.toLowerCase() === module.naam.toLowerCase()) ?? [];
   const afgeschermd = info?.laad.afscherming.filter((b) => b.module.toLowerCase() === module.naam.toLowerCase()) ?? [];
   const formulier = module.soort === "formulier" ? module.naam.replace(/^(form|report)_/i, "") : null;
+  const modusId = useId();
 
   return (
     <div className="database-vba">
       <section className="database-vba-procedures" aria-label="Procedures">
         <h3>Procedures</h3>
         {!sessie && <p className="muted">Open eerst een werkkopie om VBA uit te voeren.</p>}
+        {sessie && (
+          <div className="database-vba-modus">
+            <label>
+              Bij ontbrekende onderdelen
+              <select
+                value={vba.ontbrekend}
+                disabled={!!vba.bezig}
+                aria-describedby={modusId}
+                onChange={(e) => vba.setOntbrekend(e.target.value as OntbrekendModus)}
+              >
+                {MODI.map((m) => (
+                  <option key={m.waarde} value={m.waarde}>
+                    {m.naam}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <small id={modusId}>{MODI.find((m) => m.waarde === vba.ontbrekend)?.uitleg} Er wordt nooit iets buiten de werkkopie aangesproken.</small>
+          </div>
+        )}
         {sessie && !info && !fout && <p role="status">Module ontleden…</p>}
         {fout && (
           <p className="melding fout" role="alert">
@@ -201,7 +242,10 @@ export function VbaPaneel({
         {bewerken ? (
           <textarea className="database-vba-editor" aria-label={`Broncode van ${module.naam}`} spellCheck={false} value={concept} onChange={(e) => setConcept(e.target.value)} />
         ) : (
-          <Bron bron={module.bron} taal="vba" />
+          <>
+            {!!regel && <p className="muted">Regel {regel} is gemarkeerd.</p>}
+            <Bron bron={module.bron} taal="vba" markeer={regel} />
+          </>
         )}
         <p className="muted">
           {module.herkomst === "access"

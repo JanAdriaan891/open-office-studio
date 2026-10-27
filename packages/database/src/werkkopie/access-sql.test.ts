@@ -524,3 +524,19 @@ describe("Format", () => {
     expect(formatteer(null, "0.00")).toBe("");
   });
 });
+
+describe("[Tabel.Veld] tussen één paar haken", () => {
+  it("leest een bestaand veld als kolomverwijzing, niet als parameter", () => {
+    const vt = vertaalAccessSql(
+      "SELECT [Order Details.Product], Sum([Order.Bedrag]) AS Totaal FROM [Order Details], [Order] WHERE [Order.Datum] > #1/1/2026# GROUP BY [Order Details.Product];",
+      ctx,
+    );
+    expect(vt.parameters).toEqual([]);
+    expect(vt.sql).toContain('"Order Details"."Product"');
+    expect(vt.sql).toContain('"Order"."Bedrag"');
+  });
+  it("blijft een parameter als tabel of veld niet bestaat", () => {
+    const vt = vertaalAccessSql("SELECT * FROM Klant WHERE Naam = [Klant.Bijnaam];", ctx);
+    expect(vt.parameters.map((p) => p.naam)).toEqual(["Klant.Bijnaam"]);
+  });
+});

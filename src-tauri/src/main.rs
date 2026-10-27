@@ -2,6 +2,7 @@
 use std::{io::Write, path::Path};
 mod conversie;
 mod database_export;
+mod email;
 mod vensters;
 
 fn lees_bytes(request: &tauri::ipc::Request<'_>) -> Result<Vec<u8>, String> {
@@ -26,6 +27,7 @@ fn lees_binaire_inhoud(
 
 #[tauri::command]
 async fn converteer_document(
+    app: tauri::AppHandle,
     request: tauri::ipc::Request<'_>,
 ) -> Result<tauri::ipc::Response, String> {
     let bytes = lees_bytes(&request)?;
@@ -40,8 +42,22 @@ async fn converteer_document(
     let bron = kop("x-office-bron")?;
     let doel = kop("x-office-doel")?;
     let module = kop("x-office-module")?;
+    // Optionele filteropties (CSV, PDF); Rust controleert en bouwt het filterargument zelf.
+    let opties = match kop("x-office-opties") {
+        Ok(tekst) => conversie::Opties::uit_json(&tekst)?,
+        Err(_) => conversie::Opties::default(),
+    };
+    let instelling = conversie::lees_instelling(&app);
     tauri::async_runtime::spawn_blocking(move || {
-        conversie::converteer(&bytes, &bron, &doel, &module).map(tauri::ipc::Response::new)
+        conversie::converteer_met(
+            &bytes,
+            &bron,
+            &doel,
+            &module,
+            &opties,
+            instelling.as_deref(),
+        )
+        .map(tauri::ipc::Response::new)
     })
     .await
     .map_err(|e| e.to_string())?
@@ -129,6 +145,7 @@ async fn bewaar_kopie(request: tauri::ipc::Request<'_>) -> Result<Option<String>
 fn main() {
     tauri::Builder::default()
         .manage(vensters::Vensters::default())
+        .manage(email::EmailStaat::default())
         .on_window_event(vensters::bij_venstergebeurtenis)
         .invoke_handler(tauri::generate_handler![
             bewaar_kopie,
@@ -140,10 +157,47 @@ fn main() {
             vensters::bevestig_overdracht,
             vensters::weiger_overdracht,
             vensters::trek_overdracht_in,
-            converteer_document
+            converteer_document,
+            conversie::conversie_status,
+            conversie::kies_conversieprogramma,
+            conversie::wis_conversieprogramma,
+            email::email_accounts,
+            email::email_bewaar_account,
+            email::email_verwijder_account,
+            email::email_stel_configuratie_voor,
+            email::email_test,
+            email::email_mappen,
+            email::email_maak_map,
+            email::email_hernoem_map,
+            email::email_verwijder_map,
+            email::email_berichten,
+            email::email_bericht,
+            email::email_bijlage,
+            email::email_bron,
+            email::email_markeer,
+            email::email_verplaats,
+            email::email_verwijder,
+            email::email_verstuur,
+            email::email_bewaar_concept,
+            email::email_contacten,
+            email::email_oauth_status,
+            email::email_meld_aan_met_oauth,
+            email::email_annuleer_oauth,
+            email::email_bewaar_oauth_client,
+            email::email_zoek_servers,
+            email::bestanden::email_bewaar_bestand,
+            email::bestanden::email_open_extern,
+            email::bestanden::email_externe_inhoud,
+            email::bestanden::email_open_link
         ])
-        .run(tauri::generate_context!())
-        .expect("De kantooromgeving kon niet starten");
+        .build(tauri::generate_context!())
+        .expect("De kantooromgeving kon niet starten")
+        .run(|_, gebeurtenis| {
+            // Tijdelijk geopende e-mailbijlagen opruimen bij afsluiten.
+            if let tauri::RunEvent::Exit = gebeurtenis {
+                email::bestanden::ruim_tijdelijk_op();
+            }
+        });
 }
 
 #[cfg(test)]
