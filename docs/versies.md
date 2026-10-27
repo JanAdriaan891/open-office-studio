@@ -14,3 +14,5 @@ De eerste opdracht werkt `package.json`, beide Tauri-configuraties, beide Cargo-
 Een ISO-weekjaar kan rond de jaarwisseling afwijken van het kalenderjaar. De controles omvatten die overgang en weigeren ongeldige datums. De bouwstraat controleert vóór het bouwen of alle versiebestanden overeenkomen.
 
 Beide apps zijn onderdelen van dezelfde bronrepository. Database krijgt een eigen installer en eigen applicatie-id, zodat beide programma’s naast elkaar kunnen worden geïnstalleerd. Een weekrelease kan de pakketten van beide apps en de bijbehorende pakketrapporten bevatten.
+
+Een uitgave start met de tag `v<versie>`, bijvoorbeeld `v2026.44.1`. [`release.yml`](../.github/workflows/release.yml) weigert de tag als die niet gelijk is aan de versiebestanden of als `versie.json` niet klopt, en bouwt en ondertekent daarna Office Studio en Database Studio samen. Op `main` stond kort `2026.44.0`; volgnummer 0 bestaat in het weekschema niet, de eerste uitgave van een week is `.1`.

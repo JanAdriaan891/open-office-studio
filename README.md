@@ -2,7 +2,7 @@
 
 Open-source kantoortoepassingen van het OpenAEC-ecosysteem voor tekstverwerking, rekenbladen, presentaties en notities.
 
-Actuele bronversie: **2026-W43.4** (`2026.43.4`). Zie [versieafspraken](docs/versies.md).
+Actuele bronversie: **2026-W44.1** (`2026.44.1`). Zie [versieafspraken](docs/versies.md).
 
 **[Open Database Studio](apps/database-studio)** is nu ook een afzonderlijke desktopapp voor oude MDB- en ACCDB-databases, met een eigen venster en installers. Tekst, Rekenblad, Presentatie en Notities zijn onderdeel van de kantooromgeving.
 
