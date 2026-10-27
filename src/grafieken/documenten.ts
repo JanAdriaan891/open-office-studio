@@ -14,7 +14,8 @@ import {
   NS_R,
   type GelezenGrafiek,
 } from "./chartxml.ts";
-import { controleerModel, type GrafiekModel, type GrafiekSoort } from "./model.ts";
+import { controleerModel, kolomLetters, type Bereik, type GrafiekModel, type GrafiekSoort } from "./model.ts";
+import type { Bladmodel } from "./plaatsing.ts";
 import { Pakket, REL, TYPE } from "./pakket.ts";
 import { ingeslotenWerkboek, metIngeslotenVerwijzingen } from "./werkboek.ts";
 import {
@@ -215,6 +216,71 @@ function maxId(el: XmlElement, lokaal: string) {
   return zoekAlle(el, lokaal).reduce((m, e) => Math.max(m, Number(attr(e, "id")) || 0), 0);
 }
 
+/** `B7` of `$B$7` → 0-gebaseerde rij en kolom. */
+const celAdres = (r: string) => {
+  const m = /^\$?([A-Za-z]{1,3})\$?(\d{1,7})$/.exec(r.trim());
+  if (!m) return null;
+  let col = 0;
+  for (const t of m[1].toUpperCase()) col = col * 26 + t.charCodeAt(0) - 64;
+  return { row: Number(m[2]) - 1, col: col - 1 };
+};
+
+/**
+ * Zet een lege cel (standaardstijl) op `row`/`col` als daar nog geen cel staat.
+ * De rekenblad-engine laat alleen scrollen tot de laatste cel van het blad en
+ * telt tekeningen niet mee; met deze cel op de hoek rechtsonder van de grafiek
+ * blijft de hele grafiek bereikbaar. Excel en LibreOffice negeren zo'n cel.
+ * Bladen zonder `r`-adressen laten we ongemoeid.
+ */
+function reikwijdteCel(pakket: Pakket, werkboek: string, bladPad: string, row: number, col: number) {
+  // `s="0"` moet naar een bestaande celopmaak wijzen; zonder `cellXfs` geen cel.
+  const stijlen = pakket.relaties(werkboek).find((r) => !r.extern && /\/styles$/.test(r.type));
+  const stijlPad = stijlen ? Pakket.doelPad(werkboek, stijlen.target) : null;
+  if (!stijlPad || !pakket.heeft(stijlPad)) return;
+  if (!kinderen(kind(leesXml(pakket.lees(stijlPad)), "cellXfs"), "xf").length) return;
+  const xml = pakket.lees(bladPad);
+  const wortel = leesXml(xml);
+  const data = kind(wortel, "sheetData");
+  if (!data) return;
+  const pre = data.voorvoegsel ? `${data.voorvoegsel}:` : "";
+  const adres = `${kolomLetters(col)}${row + 1}`;
+  const cel = `<${pre}c r="${adres}" s="0"/>`;
+  const rijen = kinderen(data, "row");
+  if (rijen.some((r) => !attr(r, "r"))) return;
+  const rij = rijen.find((r) => Number(attr(r, "r")) === row + 1);
+  const w: Vervanging[] = [];
+  if (rij) {
+    const cellen = kinderen(rij, "c");
+    const kolommen = cellen.map((c) => celAdres(attr(c, "r") ?? "")?.col);
+    if (kolommen.some((k) => k === undefined) || kolommen.includes(col)) return;
+    const volgende = cellen.find((_, i) => kolommen[i]! > col);
+    if (rij.leeg) {
+      w.push({ start: rij.inhoudStart - 2, eind: rij.eind, tekst: `>${cel}</${rij.naam}>` });
+    } else {
+      const p = volgende ? volgende.start : rij.inhoudEind;
+      w.push({ start: p, eind: p, tekst: cel });
+    }
+    // `spans` is een hint voor Excel; laat die de nieuwe cel omvatten.
+    const spans = attr(rij, "spans");
+    if (spans) {
+      const getallen = spans.split(/[\s:]+/).map(Number).filter(Number.isFinite);
+      const nieuw = `${Math.min(...getallen, col + 1)}:${Math.max(...getallen, col + 1)}`;
+      const begin = xml.slice(rij.start, rij.inhoudStart);
+      const m = /\sspans="[^"]*"/.exec(begin);
+      if (m) w.push({ start: rij.start + m.index, eind: rij.start + m.index + m[0].length, tekst: ` spans="${nieuw}"` });
+    }
+  } else {
+    const nieuweRij = `<${pre}row r="${row + 1}">${cel}</${pre}row>`;
+    const volgende = rijen.find((r) => Number(attr(r, "r")) > row + 1);
+    if (data.leeg) w.push({ start: data.inhoudStart - 2, eind: data.eind, tekst: `>${nieuweRij}</${data.naam}>` });
+    else {
+      const p = volgende ? volgende.start : data.inhoudEind;
+      w.push({ start: p, eind: p, tekst: nieuweRij });
+    }
+  }
+  pakket.schrijf(bladPad, vervang(xml, w));
+}
+
 export interface XlsxPlaatsing {
   /** Bladindex, of een nieuw blad met deze naam. */
   blad: number | { nieuw: string };
@@ -227,7 +293,7 @@ export interface XlsxPlaatsing {
 
 export function voegGrafiekToeXlsx(bytes: Uint8Array, model: GrafiekModel, plaatsing: XlsxPlaatsing) {
   const pakket = new Pakket(bytes);
-  const lijst = bladen(pakket).bladen;
+  const { werkboek, bladen: lijst } = bladen(pakket);
   const blad =
     typeof plaatsing.blad === "number"
       ? lijst[plaatsing.blad]
@@ -269,7 +335,62 @@ export function voegGrafiekToeXlsx(bytes: Uint8Array, model: GrafiekModel, plaat
     w.push({ start: wortel.start, eind: wortel.eind, tekst: xml.slice(wortel.start, wortel.inhoudStart - 2) + ">" + anker + `</${wortel.naam}>` });
   else w.push({ start: wortel.inhoudEind, eind: wortel.inhoudEind, tekst: anker });
   pakket.schrijf(tekening, vervang(xml, w));
+  reikwijdteCel(pakket, werkboek, blad.pad, tot.row, tot.col);
   return { bytes: pakket.inpakken(), blad: blad.index, chartPad, naam, cel: { row, col } };
+}
+
+/**
+ * Wat er op een werkblad staat, voor de plaatsing van een nieuwe grafiek:
+ * cellen met een waarde of formule, samengevoegde gebieden en bestaande
+ * tekeningobjecten, plus de vastgezette rijen en kolommen. Opgemaakte maar
+ * lege cellen tellen niet mee.
+ */
+export function bladmodelXlsx(bytes: Uint8Array, bladIndex: number): Bladmodel {
+  const pakket = new Pakket(bytes);
+  const blad = bladen(pakket).bladen[bladIndex];
+  if (!blad || !blad.pad || !pakket.heeft(blad.pad)) throw new GrafiekFout("Het gekozen blad bestaat niet of is geen werkblad.");
+  const wortel = leesXml(pakket.lees(blad.pad));
+  const bezet: Bereik[] = [];
+  const cel1 = (row: number, col: number) => bezet.push({ top: row, left: col, bottom: row, right: col });
+  let rijNr = -1;
+  for (const rij of kinderen(kind(wortel, "sheetData"), "row")) {
+    const r = Number(attr(rij, "r"));
+    rijNr = Number.isInteger(r) && r > 0 ? r - 1 : rijNr + 1;
+    let kolNr = -1;
+    for (const c of kinderen(rij, "c")) {
+      const adres = celAdres(attr(c, "r") ?? "");
+      kolNr = adres ? adres.col : kolNr + 1;
+      const rowNr = adres ? adres.row : rijNr;
+      const gevuld =
+        !!kind(c, "f") || tekstVan(kind(c, "v")).trim() !== "" || tekstVan(kind(c, "is")).trim() !== "";
+      if (gevuld) cel1(rowNr, kolNr);
+    }
+  }
+  for (const m of kinderen(kind(wortel, "mergeCells"), "mergeCell")) {
+    const [a, b] = (attr(m, "ref") ?? "").split(":");
+    const van = celAdres(a ?? ""), tot = celAdres(b ?? a ?? "");
+    if (van && tot)
+      bezet.push({ top: Math.min(van.row, tot.row), left: Math.min(van.col, tot.col), bottom: Math.max(van.row, tot.row), right: Math.max(van.col, tot.col) });
+  }
+  const tekeningEl = kind(wortel, "drawing");
+  const tekening = tekeningEl ? pakket.doel(blad.pad, ridVan(tekeningEl) ?? "") : null;
+  if (tekening && pakket.heeft(tekening)) {
+    const getal = (el: XmlElement | null, n: string) => Number(tekstVan(kind(el, n)));
+    for (const anker of elementen(leesXml(pakket.lees(tekening)))) {
+      const van = kind(anker, "from"), tot = kind(anker, "to");
+      if (!van) continue;
+      const r1 = getal(van, "row"), c1 = getal(van, "col");
+      const r2 = tot ? getal(tot, "row") : r1, c2 = tot ? getal(tot, "col") : c1;
+      if ([r1, c1, r2, c2].every(Number.isInteger)) bezet.push({ top: r1, left: c1, bottom: Math.max(r1, r2), right: Math.max(c1, c2) });
+    }
+  }
+  const paneel = pad(wortel, "sheetViews", "sheetView", "pane");
+  const vast = /^frozen/.test(attr(paneel, "state") ?? "");
+  return {
+    bezet,
+    vastRijen: vast ? Math.floor(Number(attr(paneel, "ySplit")) || 0) : 0,
+    vastKolommen: vast ? Math.floor(Number(attr(paneel, "xSplit")) || 0) : 0,
+  };
 }
 
 function grafiekenXlsx(pakket: Pakket): GrafiekVerwijzing[] {

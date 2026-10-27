@@ -9,6 +9,7 @@ import { bereikA1, ontleedVerwijzing } from "../../lint/rekenblad-logica";
 import { bladVerwijzing, standaardModel, type Bereik, type Cel } from "../model.ts";
 import { GrafiekFout, LIMIETEN } from "../fouten.ts";
 import {
+  bladmodelXlsx,
   bewerkGrafiek,
   leesGrafiek,
   lijstGrafieken,
@@ -17,6 +18,9 @@ import {
   type GrafiekVerwijzing,
 } from "../documenten.ts";
 import { bronUitModel } from "../bron.ts";
+import { GRAFIEKMAAT, plekVoorGrafiek } from "../plaatsing.ts";
+import type { GrafiekSelectieBron } from "./xlsxSelectie.ts";
+import type { XlsxDoel } from "./herladen.ts";
 import { GrafiekVenster, type GeladenBereik } from "./GrafiekVenster.tsx";
 import { Bevestig, GrafiekenLijst } from "./Keuzevensters.tsx";
 
@@ -125,7 +129,9 @@ export function useRekenbladGrafieken() {
       const info = api.handle.sheetInfo();
       let bereikTekst = "";
       try {
-        const s = leesSelectie(api);
+        // De selectie zoals de engine die meldt (ook na het naamvak); anders uit de weergave.
+        const gemeld = (selectie as Partial<GrafiekSelectieBron> | null | undefined)?.cellen?.();
+        const s = gemeld && gemeld.blad === info.activeSheet ? gemeld : leesSelectie(api);
         let b: Bereik | null = s.bereik;
         if (b.top === b.bottom && b.left === b.right) b = await huidigGebied(api, s.blad, s.focus);
         if (b) bereikTekst = `${bladVerwijzing(info.sheetNames[s.blad])}!${bereikA1(b)}`;
@@ -141,10 +147,19 @@ export function useRekenbladGrafieken() {
           bevestig={async ({ model, bron, nieuwBlad }) => {
             const bytes = await herlaad.bytes();
             const blad = nieuwBlad ? { nieuw: nieuwBlad } : (bron?.bladIndex ?? info.activeSheet);
-            const plek = nieuwBlad || !bron ? { col: 1, row: 1 } : { col: bron.bereik.right + 2, row: bron.bereik.top };
-            const r = voegGrafiekToeXlsx(bytes, model, { blad, ...plek });
+            // Op hetzelfde blad: naast (of onder) het gebruikte bereik, nooit over gegevens.
+            const plek =
+              typeof blad === "number" ? plekVoorGrafiek(bladmodelXlsx(bytes, blad), bron?.bereik ?? null) : { col: 1, row: 1 };
+            const r = voegGrafiekToeXlsx(bytes, model, { blad, ...plek, ...GRAFIEKMAAT });
             setVenster(null);
-            herlaad.vervang(r.bytes, { blad: r.blad, cel: nieuwBlad ? { row: 0, col: 0 } : r.cel });
+            const doel: XlsxDoel = nieuwBlad
+              ? { blad: r.blad, cel: { row: 0, col: 0 } }
+              : {
+                  blad: r.blad,
+                  cel: r.cel,
+                  zicht: { top: r.cel.row, left: r.cel.col, bottom: r.cel.row + GRAFIEKMAAT.rijen, right: r.cel.col + GRAFIEKMAAT.kolommen },
+                };
+            herlaad.vervang(r.bytes, doel);
           }}
           sluit={sluit}
         />,
@@ -177,7 +192,7 @@ export function useRekenbladGrafieken() {
         gegevens={{
           soort: "bereik",
           bereik: bron ? `${bladVerwijzing(bron.blad)}!${bereikA1(bron.bereik)}` : "",
-          opties: bron ? { koprij: bron.koprij, kopkolom: bron.kopkolom, reeksenIn: bron.reeksenIn } : undefined,
+          opties: bron ? { koprij: bron.koprij, kopkolom: bron.kopkolom, reeksenIn: bron.reeksenIn, overslaan: bron.overslaan } : undefined,
           laad,
         }}
         bevestig={async ({ model }) => {

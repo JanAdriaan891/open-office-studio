@@ -25,7 +25,7 @@ Proefomgeving: Node v24.19.0, Python 3.12, LibreOffice 24.2.7.2 en poppler
 
 ## Toetsen
 
-### Vitest (`src/grafieken/grafieken.test.ts`): 30 tests geslaagd
+### Vitest (`src/grafieken/grafieken.test.ts`): 37 tests geslaagd
 
 - Model: getallen in NL- en EN-notatie, herkenning van koprij en kopkolom, verwijzingen (ook met aanhalingstekens rond bladnamen) en validatie met Nederlandse meldingen.
 - Grafiek-XML: alle 11 soorten schrijven en teruglezen (soort, titel, ondertitel, decimalen, labels, waarden, verwijzingen, astitels). Elke `crossAx` wijst naar een bestaande as en elke `axId` is uniek. Bij bijwerken blijft `extLst` behouden. `bar3DChart` wordt geweigerd. De witte rand van taartpunten wordt niet als reekskleur overgenomen.
@@ -98,6 +98,31 @@ omdat andere agents bestanden wijzigden. Daarom is gewerkt met dezelfde
   - Via «Grafiek bewerken» is een waarde gewijzigd en de soort omgezet naar lijn met markeringen. Het resultaat is opnieuw getekend.
 - **Presentatie** (Ontwerpvisie): een ring op dia 2 en dia 3. Na herladen blijft dezelfde dia actief. Een klik op het frame toont het contexttabblad «Grafiekontwerp». Via «Gegevens en opmaak» is de ring omgezet naar een staaf.
 - Er zijn geen fouten in de console tijdens of na het herladen.
+
+## Gebruikerstest Materiaaloverzicht: drie fouten hersteld
+
+Scenario: `docs/voorbeelden/Materiaaloverzicht.xlsx`, blad «Materialen» (koppen
+in rij 6, gegevens vanaf rij 7, zes vaste rijen), selectie B6:D12 (Materiaal,
+Categorie, Aantal) en Alt+F1.
+
+| Fout | Oorzaak | Herstel |
+|---|---|---|
+| «Eerste kolom bevat namen» stond uit, dus categorieën 1..6 | De kopkolom werd alleen herkend als de kolom ernaast getallen had; daar stond Categorie (tekst). | `herkenKoppen` (`model.ts`): de eerste kolom is een kopkolom als ten minste twee derde van de gevulde gegevenscellen tekst of datum is (datum via de weergavetekst van het rekenblad) en er elders in het bereik getallen staan. Volgnummers tellen ook als namen: tekst met voorloopnul (`01`, ook als getal met notatie `00`), of opeenvolgende gehele getallen onder een tekstkop (kolom «Nr.»). Voor de eerste rij geldt hetzelfde (overwegend tekst of datums). |
+| Categorie werd als reeks opgenomen | Elke kolom naast de kopkolom werd een reeks. | Reeksen zonder getallen tellen standaard niet mee (`heeftGetallen`, `kiesReeksen`). Het venster toont onder «Reeksen» elke reeks met een vinkje; een reeks zonder getallen staat uitgevinkt en uitgeschakeld met «(geen getallen)». De gebruiker kan ook zelf reeksen uitvinken. De voorvertoning volgt. Blijft er niets over: «Geen enkele kolom in het bereik bevat getallen …» of «Kies minstens één reeks voor de grafiek.». Bij «Grafiek bewerken» leidt `bronUitModel` de overgeslagen kolommen af (`overslaan`), zodat het bereik B6:D12 blijft en Categorie weer uitgevinkt staat. |
+| Grafiek op F7, over Prijs per eenheid, Totaal en Beschikbaarheid | De plek was «selectie rechts + 2 kolommen». | `plaatsing.ts` (`plekVoorGrafiek`) met het bladmodel uit `bladmodelXlsx` (`documenten.ts`): cellen met een waarde of formule, samengevoegde gebieden, bestaande tekeningobjecten en de vaste rijen/kolommen; alleen opgemaakte lege cellen tellen niet mee. De grafiek komt rechts naast het gebruikte bereik (eerste lege kolom + 1 marge), op de hoogte van de bovenkant van de selectie. Begint dat voorbij kolom 30, dan onder het gebruikte bereik, links uitgelijnd met de selectie. Nooit in vaste rijen/kolommen, en een vangnet schuift de grafiek omlaag zolang hij iets bedekt. Bij Materiaaloverzicht: **J7**. |
+
+Gevonden tijdens het herstel:
+
+- **Scrollen tot de grafiek**: de rekenblad-engine (`xlsx` 0.3.0) laat alleen scrollen tot de laatste cel van het blad (`sheetInfo().contentWidth/Height`). Tekeningen tellen niet mee, dus een grafiek naast de gegevens viel in een smal venster buiten bereik. `voegGrafiekToeXlsx` zet nu een lege cel met standaardstijl (`<c r="R23" s="0"/>`) op de hoek rechtsonder van het anker, in de juiste rij- en celvolgorde en met bijgewerkte `spans`. Daarmee groeit het scrollbereik (getoetst met de engine, ook na opslaan en heropenen). Excel en LibreOffice negeren zo'n cel. Een kolomopmaak op die ene cel vervalt. Werkboeken zonder `cellXfs` krijgen de cel niet, want daar zou `s="0"` ongeldig zijn. In de eerste corpusrun gaf dat bij twee docx4j-bestanden de engine-fout «cell style index 0 is out of range».
+- **Na herladen in beeld**: het herlaaddoel krijgt het grafiekgebied mee (`XlsxDoel.zicht` in `herladen.ts`). Eerst wordt de hoek rechtsonder in beeld gebracht, daarna wordt de linkerbovencel van de grafiek geselecteerd.
+- **Selectie van de engine**: de plugin `openaec-grafiekselectie` volgt nu ook de celselectie (`cellen()`), zodat de grafiekmaker niet meer afhangt van de weergave (naamvak en `aria-selected`). Daarbij valt hij terug op de oude manier.
+- **Naamvak**: het naamvak van `xlsx-react` 0.3.0 is `readOnly`. Typen van `B6:D14` + Enter doet in de app zelf dus ook niets; dat komt niet door de testtool. Het is een beperking van de engine en buiten `src/grafieken` niet hersteld. Een bereik selecteren via **Navigator (F5)** werkt wel, en de grafiekmaker vult daarna `Materialen!B6:D12` voor.
+
+Toetsen:
+
+- Vitest, 7 nieuwe tests in «gebruikerstest Materiaaloverzicht» en de engine-rondgang: herkenning (tekst, datums, `01`, 1-2-3 onder «Nr.», geen kopkolom bij Aantal/Prijs), uitsluiten en meldingen, `bronUitModel` met `overslaan`, plaatsing met een fictief bladmodel (vaste rijen en kolommen, te breed blad → eronder, leeg blad, vangnet), het echte bladmodel van Materiaaloverzicht (J7, een tweede grafiek op T7) en de reikwijdtecel (nieuwe rij, bestaande rij met `spans`, bestaande cel ongemoeid).
+- Browser (productie-build, `vite preview` op poort 4341, eigen tab): Materiaaloverzicht openen, F5 → `B6:D12`, Alt+F1. Het venster toont `Materialen!B6:D12`, beide vinkjes «bevat namen» aan, «Categorie (geen getallen)» uitgevinkt, en een voorbeeld met 1 reeks (Aantal) en 6 categorieën met de materiaalnamen. Na Invoegen staat de grafiek op J7:R23 naast de tabel, onder de vaste rijen, met de selectie op J7 en kolom J in beeld. De console is foutloos.
+- `node scripts/test-grafieken.mjs` (opnieuw gedraaid): 66/66 op alle controles (engine-tekening 58/66, zoals eerder). Corpus ongewijzigd: engine 100/100, alle grafieken behouden 100/100, LibreOffice 99/100 (dezelfde `xceed-docx-66ae560a258d`).
 
 ## Beperkingen
 

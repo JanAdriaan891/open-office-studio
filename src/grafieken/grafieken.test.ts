@@ -1,11 +1,13 @@
 import { describe, expect, it } from "vitest";
 import { readFileSync } from "node:fs";
-import { strFromU8, unzipSync } from "fflate";
+import { strFromU8, strToU8, unzipSync, zipSync } from "fflate";
 import {
   controleerModel,
   gegevensUitRaster,
   getalnotatie,
+  heeftGetallen,
   herkenKoppen,
+  kiesReeksen,
   leesGetal,
   leesTabgescheiden,
   rasterUitModel,
@@ -16,6 +18,7 @@ import {
 } from "./model.ts";
 import { grafiekXml, leesGrafiekXml, werkGrafiekXmlBij } from "./chartxml.ts";
 import {
+  bladmodelXlsx,
   bewerkGrafiek,
   lijstGrafieken,
   verwijderGrafiek,
@@ -26,6 +29,7 @@ import {
 import { leesXml, zoekAlle, attr } from "./xml.ts";
 import { GrafiekFout } from "./fouten.ts";
 import { bronUitModel } from "./bron.ts";
+import { GRAFIEKMAAT, gebruiktBereik, plekVoorGrafiek, type Bladmodel } from "./plaatsing.ts";
 
 const lees = (pad: string) => new Uint8Array(readFileSync(pad));
 const delen = (bytes: Uint8Array) => {
@@ -278,6 +282,35 @@ describe("round-trip met de echte engines", () => {
     const bewerkt = bewerkGrafiek(opgeslagen, "xlsx", lijst[0].chartPad, { ...voorbeeld("vlak"), titel: "Nieuw" });
     expect(lijstGrafieken(bewerkt, "xlsx")[0]).toMatchObject({ soort: "vlak", titel: "Nieuw" });
   });
+  it("XLSX: de engine laat tot de hoek van een nieuwe grafiek naast de gegevens scrollen", async () => {
+    const xlsx = await import("@betteroffice/xlsx");
+    await xlsx.initWasm(readFileSync("node_modules/@betteroffice/xlsx/dist/generated/xlsx_wasm_bg.wasm"));
+    const voor = lees("docs/voorbeelden/Materiaaloverzicht.xlsx");
+    const breedte = (b: Uint8Array) => {
+      const boek = xlsx.openWorkbook(b);
+      const i = boek.sheetInfo();
+      boek.dispose();
+      return [i.contentWidth, i.contentHeight];
+    };
+    const r = voegGrafiekToeXlsx(voor, voorbeeld(), { blad: 0, col: 9, row: 6, ...GRAFIEKMAAT });
+    const blad = delen(r.bytes)["xl/worksheets/sheet1.xml"];
+    // Lege cel met standaardstijl op de hoek rechtsonder (R23), in een nieuwe rij na rij 22.
+    expect(blad).toContain('<row r="23"><c r="R23" s="0"/></row>');
+    const [b0, h0] = breedte(voor);
+    const [b1, h1] = breedte(r.bytes);
+    expect(b1).toBeGreaterThan(b0);
+    expect(h1).toBeGreaterThan(h0);
+    // In een bestaande rij komt de cel op volgorde en wordt `spans` bijgewerkt.
+    const z = unzipSync(voor);
+    z["xl/worksheets/sheet1.xml"] = strToU8(
+      strFromU8(z["xl/worksheets/sheet1.xml"]).replace(/<row r="20">.*?<\/row>/, '<row r="20" spans="2:8"><c r="B20" s="0"/><c r="K20" s="0"/></row>'),
+    );
+    const r2 = voegGrafiekToeXlsx(zipSync(z), voorbeeld(), { blad: 0, col: 1, row: 6, kolommen: 8, rijen: 13 });
+    expect(delen(r2.bytes)["xl/worksheets/sheet1.xml"]).toContain('<row r="20" spans="2:10"><c r="B20" s="0"/><c r="J20" s="0"/><c r="K20" s="0"/></row>');
+    // Staat er al een cel, dan verandert er niets.
+    const r3 = voegGrafiekToeXlsx(zipSync(z), voorbeeld(), { blad: 0, col: 1, row: 6, kolommen: 9, rijen: 13 });
+    expect(delen(r3.bytes)["xl/worksheets/sheet1.xml"]).toContain('<row r="20" spans="2:8"><c r="B20" s="0"/><c r="K20" s="0"/></row>');
+  });
   it("PPTX: invoegen → engine openen en opslaan → grafiekframe behouden", async () => {
     const pptx = await import("@betteroffice/pptx");
     await pptx.initWasm(readFileSync("node_modules/@betteroffice/pptx/dist/generated/pptx_wasm_bg.wasm"));
@@ -310,5 +343,105 @@ describe("gegevens uit een tabel in de tekst", () => {
     expect(raster?.length).toBe(3);
     expect(raster?.[0][0]).toBe("01");
     expect(tabelBijAlinea(bytes, "00000000", "Ruimte voor ideeën.")).toBeNull();
+  });
+});
+
+describe("gebruikerstest Materiaaloverzicht (B6:D12)", () => {
+  // Rij 6 koppen, daaronder gegevens; zoals het rekenblad ze leest (strikt).
+  const materialen: (string | number | null)[][] = [
+    ["Materiaal", "Categorie", "Aantal"],
+    ["Multiplex berken", "Plaatmateriaal", 24],
+    ["Houten latten", "Constructie", 60],
+    ["Gerecycled vilt", "Afwerking", 18],
+    ["Stalen hoekprofiel", "Verbindingen", 12],
+    ["Akoestische panelen", "Afwerking", 8],
+    ["Bevestigingsset", "Verbindingen", 6],
+  ];
+  it("herkent de eerste kolom met tekst als namen, ook als de kolom ernaast tekst is", () => {
+    expect(herkenKoppen(materialen, true)).toEqual({ koprij: true, kopkolom: true, reeksenIn: "kolommen" });
+    const data = gegevensUitRaster(materialen, herkenKoppen(materialen, true), { blad: "Materialen", top: 5, left: 1 }, undefined, true);
+    expect(data.categorieen).toEqual(["Multiplex berken", "Houten latten", "Gerecycled vilt", "Stalen hoekprofiel", "Akoestische panelen", "Bevestigingsset"]);
+    expect(data.categorieenRef).toBe("Materialen!$B$7:$B$12");
+  });
+  it("herkent datums (weergave) in de eerste kolom als namen", () => {
+    const cellen = [["Datum", "Omschrijving", "Uren"], [46000, "a", 3], [46001, "b", 4]];
+    const weergave = [["Datum", "Omschrijving", "Uren"], ["8-12-2025", "a", "3"], ["9-12-2025", "b", "4"]];
+    expect(herkenKoppen(cellen, true, weergave).kopkolom).toBe(true);
+    // Zonder datumweergave zijn het gewone getallen.
+    expect(herkenKoppen([["Meting", "x", "Uren"], [46000, "a", 3], [47000, "b", 4]], true).kopkolom).toBe(false);
+  });
+  it("herkent volgnummers als namen: tekst ‘01’ en opeenvolgende getallen onder een tekstkop", () => {
+    const nr = [["Nr.", "Aantal"], ["01", 24], ["02", 60], ["03", 18]];
+    expect(herkenKoppen(nr, true).kopkolom).toBe(true);
+    expect(herkenKoppen(nr, false).kopkolom).toBe(true); // gegevensblad: ‘01’ leest als getal
+    expect(herkenKoppen([["Nr.", "Aantal"], [1, 24], [2, 60], [3, 18]], true).kopkolom).toBe(true);
+    // Geen reeks: dan is de eerste kolom gewoon gegevens.
+    expect(herkenKoppen([["Aantal", "Prijs"], [24, 38.5], [60, 8.75], [18, 24]], true).kopkolom).toBe(false);
+    // Opgemaakt als ‘00’: getal 1 met weergave ‘01’.
+    expect(herkenKoppen([["Nr.", "Aantal"], [1, 24], [5, 60]], true, [["Nr.", "Aantal"], ["01", "24"], ["05", "60"]]).kopkolom).toBe(true);
+  });
+  it("sluit een tekstkolom standaard uit als reeks en meldt een bereik zonder getallen", () => {
+    const data = gegevensUitRaster(materialen, herkenKoppen(materialen, true), { blad: "Materialen", top: 5, left: 1 }, undefined, true);
+    expect(data.reeksen.map((r) => [r.naam, heeftGetallen(r)])).toEqual([["Categorie", false], ["Aantal", true]]);
+    const gekozen = kiesReeksen(data.reeksen, new Set());
+    expect(gekozen.map((r) => r.naam)).toEqual(["Aantal"]);
+    expect(gekozen[0].waardenRef).toBe("Materialen!$D$7:$D$12");
+    expect(() => kiesReeksen(data.reeksen, new Set([1]))).toThrow(/minstens één reeks/);
+    const tekst = materialen.map((r) => r.slice(0, 2));
+    const t = gegevensUitRaster(tekst, herkenKoppen(tekst, true), undefined, undefined, true);
+    expect(() => kiesReeksen(t.reeksen, new Set())).toThrow(/Geen enkele kolom in het bereik bevat getallen/);
+    // Terug naar het bereik: de overgeslagen kolom Categorie.
+    const model = standaardModel({ ...data, reeksen: gekozen });
+    expect(bronUitModel(model)).toEqual({
+      blad: "Materialen",
+      bereik: { top: 5, left: 1, bottom: 11, right: 3 },
+      reeksenIn: "kolommen",
+      koprij: true,
+      kopkolom: true,
+      overslaan: [0],
+    });
+  });
+  it("plaatst rechts naast het gebruikte bereik, onder de vaste rijen en nooit over gegevens", () => {
+    // Fictief blad: titel A1:H2 (samengevoegd), tabel A6:H14, totaal G17, voetnoot B20:H20; 6 vaste rijen.
+    const blad: Bladmodel = {
+      bezet: [
+        { top: 0, left: 0, bottom: 1, right: 7 },
+        { top: 5, left: 0, bottom: 13, right: 7 },
+        { top: 16, left: 6, bottom: 16, right: 6 },
+        { top: 19, left: 1, bottom: 19, right: 7 },
+      ],
+      vastRijen: 6,
+      vastKolommen: 0,
+    };
+    // Selectie B6:D12: niet F7 (over Prijs/Totaal/Beschikbaarheid) maar J7.
+    expect(plekVoorGrafiek(blad, { top: 5, left: 1, bottom: 11, right: 3 })).toEqual({ row: 6, col: 9 });
+    // Selectie lager op het blad: uitgelijnd met de bovenkant.
+    expect(plekVoorGrafiek(blad, { top: 8, left: 1, bottom: 13, right: 3 })).toEqual({ row: 8, col: 9 });
+    // Vaste kolommen tellen ook.
+    expect(plekVoorGrafiek({ ...blad, vastKolommen: 12 }, { top: 5, left: 1, bottom: 11, right: 3 })).toEqual({ row: 6, col: 12 });
+    // Te breed blad (tot kolom AH): onder het gebruikte bereik, links uitgelijnd met de selectie.
+    const breed: Bladmodel = { ...blad, bezet: [...blad.bezet, { top: 5, left: 33, bottom: 5, right: 33 }] };
+    expect(plekVoorGrafiek(breed, { top: 5, left: 1, bottom: 11, right: 3 })).toEqual({ row: 21, col: 1 });
+    // Een leeg blad: naast de selectie.
+    expect(plekVoorGrafiek({ bezet: [], vastRijen: 0, vastKolommen: 0 }, { top: 2, left: 0, bottom: 4, right: 1 })).toEqual({ row: 2, col: 3 });
+    // Vangnet: wat er ook staat, de grafiek bedekt niets.
+    const p = plekVoorGrafiek(breed, null);
+    const vlak = { top: p.row, left: p.col, bottom: p.row + GRAFIEKMAAT.rijen - 1, right: p.col + GRAFIEKMAAT.kolommen - 1 };
+    for (const b of breed.bezet) expect(vlak.top > b.bottom || vlak.bottom < b.top || vlak.left > b.right || vlak.right < b.left).toBe(true);
+  });
+  it("leest het bladmodel van Materiaaloverzicht en plaatst de grafiek op J7", () => {
+    const bytes = lees("docs/voorbeelden/Materiaaloverzicht.xlsx");
+    const blad = bladmodelXlsx(bytes, 0);
+    expect(blad.vastRijen).toBe(6);
+    expect(gebruiktBereik(blad)).toEqual({ top: 0, left: 0, bottom: 19, right: 7 });
+    // Opgemaakte lege cellen (rij 3 en 5) tellen niet mee.
+    expect(blad.bezet.some((b) => b.top === 2 && b.bottom === 2)).toBe(false);
+    const plek = plekVoorGrafiek(blad, { top: 5, left: 1, bottom: 11, right: 3 });
+    expect(plek).toEqual({ row: 6, col: 9 });
+    const r = voegGrafiekToeXlsx(bytes, voorbeeld(), { blad: 0, ...plek, ...GRAFIEKMAAT });
+    expect(lijstGrafieken(r.bytes, "xlsx")[0].anker).toEqual({ van: { col: 9, row: 6 }, tot: { col: 17, row: 22 } });
+    // Een tweede grafiek komt niet over de eerste heen.
+    const tweede = plekVoorGrafiek(bladmodelXlsx(r.bytes, 0), { top: 5, left: 1, bottom: 11, right: 3 });
+    expect(tweede).toEqual({ row: 6, col: 19 });
   });
 });

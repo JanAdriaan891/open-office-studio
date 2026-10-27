@@ -4,7 +4,9 @@ import { ChartColumnBig, Info, X } from "lucide-react";
 import {
   controleerModel,
   gegevensUitRaster,
+  heeftGetallen,
   herkenKoppen,
+  kiesReeksen,
   SOORTEN,
   type Bereik,
   type Cel,
@@ -94,6 +96,15 @@ export function GrafiekVenster({
   const [opties, setOpties] = useState<Gegevensopties | null>(gegevens.soort === "bereik" ? (gegevens.opties ?? null) : null);
   const [nieuwBlad, setNieuwBlad] = useState(gegevens.soort === "bereik" && !!gegevens.plaatsing?.nieuwBlad);
   const [bladnaam, setBladnaam] = useState(gegevens.soort === "bereik" ? (gegevens.plaatsing?.nieuweNaam ?? "") : "");
+  // Reeksen die de gebruiker uitvinkt (index binnen het bereik). Reeksen zonder getallen tellen nooit mee.
+  const [overslaan, setOverslaan] = useState<ReadonlySet<number>>(
+    () => new Set(gegevens.soort === "bereik" ? (gegevens.opties?.overslaan ?? []) : []),
+  );
+  /** Nieuwe gegevensopties: een eerdere keuze van reeksen geldt dan niet meer. */
+  const zetOpties = (o: Gegevensopties) => {
+    setOpties(o);
+    setOverslaan(new Set());
+  };
 
   async function laadBereik(tekst: string, herken: boolean) {
     if (gegevens.soort !== "bereik" || !tekst.trim()) return;
@@ -101,7 +112,7 @@ export function GrafiekVenster({
       const r = await gegevens.laad(tekst);
       setGeladen(r);
       setBereikTekst(r.tekst);
-      if (herken || !opties) setOpties(herkenKoppen(r.cellen, true));
+      if (herken || !opties) zetOpties(herkenKoppen(r.cellen, true, r.weergave));
       setMelding("");
     } catch (e) {
       setGeladen(null);
@@ -114,18 +125,29 @@ export function GrafiekVenster({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  /** Alle reeksen uit het geladen bereik, vóór het uitsluiten (voor de lijst met vinkjes). */
+  const bereikData = useMemo(() => {
+    if (gegevens.soort !== "bereik" || !geladen || !opties) return null;
+    try {
+      return gegevensUitRaster(geladen.cellen, opties, {
+        blad: geladen.blad,
+        top: geladen.bereik.top,
+        left: geladen.bereik.left,
+      }, geladen.weergave, true);
+    } catch (e) {
+      return { fout: tekstVan(e) };
+    }
+  }, [gegevens.soort, geladen, opties]);
+
   /** Het volledige model, of een melding waarom het (nog) niet kan. */
   const resultaat = useMemo((): { model: GrafiekModel } | { fout: string } => {
     try {
       let data: Pick<GrafiekModel, "categorieen" | "categorieenRef" | "reeksen">;
       if (gegevens.soort === "blad") {
         data = gegevensUitRaster(raster, { koprij: true, kopkolom: true, reeksenIn: richting });
-      } else if (geladen && opties) {
-        data = gegevensUitRaster(geladen.cellen, opties, {
-          blad: geladen.blad,
-          top: geladen.bereik.top,
-          left: geladen.bereik.left,
-        }, geladen.weergave, true);
+      } else if (bereikData && opties) {
+        if ("fout" in bereikData) return bereikData;
+        data = { ...bereikData, reeksen: kiesReeksen(bereikData.reeksen, overslaan, opties.reeksenIn) };
       } else if (!bereikTekst.trim() && begin.reeksen.length) {
         data = begin;
       } else return { fout: "Geef het celbereik met de gegevens op." };
@@ -137,7 +159,7 @@ export function GrafiekVenster({
     } catch (e) {
       return { fout: tekstVan(e) };
     }
-  }, [gegevens.soort, raster, richting, geladen, opties, bereikTekst, begin, opmaak]);
+  }, [gegevens.soort, raster, richting, bereikData, opties, overslaan, bereikTekst, begin, opmaak]);
 
 
   async function doorgaan() {
@@ -231,15 +253,40 @@ export function GrafiekVenster({
                   )}
                   {opties && (
                     <div className="grafiek-vinkjes">
-                      <label><input type="checkbox" checked={opties.koprij} onChange={(e) => setOpties({ ...opties, koprij: e.target.checked })} /> Eerste rij bevat namen</label>
-                      <label><input type="checkbox" checked={opties.kopkolom} onChange={(e) => setOpties({ ...opties, kopkolom: e.target.checked })} /> Eerste kolom bevat namen</label>
+                      <label><input type="checkbox" checked={opties.koprij} onChange={(e) => zetOpties({ ...opties, koprij: e.target.checked })} /> Eerste rij bevat namen</label>
+                      <label><input type="checkbox" checked={opties.kopkolom} onChange={(e) => zetOpties({ ...opties, kopkolom: e.target.checked })} /> Eerste kolom bevat namen</label>
                       <label className="grafiek-veld-rij">
                         <span>Reeksen in</span>
-                        <select value={opties.reeksenIn} onChange={(e) => setOpties({ ...opties, reeksenIn: e.target.value as "kolommen" | "rijen" })}>
+                        <select value={opties.reeksenIn} onChange={(e) => zetOpties({ ...opties, reeksenIn: e.target.value as "kolommen" | "rijen" })}>
                           <option value="kolommen">kolommen</option>
                           <option value="rijen">rijen</option>
                         </select>
                       </label>
+                    </div>
+                  )}
+                  {bereikData && !("fout" in bereikData) && bereikData.reeksen.length > 0 && (
+                    <div className="grafiek-reeksen" role="group" aria-label="Reeksen">
+                      <span className="grafiek-reeksen-kop">Reeksen</span>
+                      {bereikData.reeksen.map((r, i) => {
+                        const bruikbaar = heeftGetallen(r);
+                        return (
+                          <label key={i} className={bruikbaar ? undefined : "grafiek-reeks-uit"} title={bruikbaar ? r.waardenRef : `${r.naam}: geen getallen, telt niet mee`}>
+                            <input
+                              type="checkbox"
+                              checked={bruikbaar && !overslaan.has(i)}
+                              disabled={!bruikbaar}
+                              onChange={(e) => {
+                                const n = new Set(overslaan);
+                                if (e.target.checked) n.delete(i);
+                                else n.add(i);
+                                setOverslaan(n);
+                              }}
+                            />{" "}
+                            {r.naam}
+                            {!bruikbaar && <span className="grafiek-reden"> (geen getallen)</span>}
+                          </label>
+                        );
+                      })}
                     </div>
                   )}
                 </>

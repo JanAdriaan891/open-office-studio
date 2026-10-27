@@ -5,6 +5,13 @@ import type { HerlaadDoel, Herladen } from "../../lint/editorApi";
 import { maakGrafiekSelectie } from "./xlsxSelectie";
 
 /**
+ * Rekenbladdoel met optioneel een gebied (zoals een nieuwe grafiek) dat na
+ * herladen in beeld moet komen. `HerlaadDoel` zelf kent dat veld niet; het
+ * gaat als extra eigenschap mee.
+ */
+export type XlsxDoel = HerlaadDoel & { zicht?: { top: number; left: number; bottom: number; right: number } };
+
+/**
  * Laat een editor zijn document vervangen door nieuwe bytes: de editor wordt
  * met een nieuwe sleutel opnieuw gemount. Daarna gaat hij naar het doel (blad,
  * cel, dia of alinea) en wordt het document als gewijzigd gemeld.
@@ -64,14 +71,21 @@ export function useHerladen({
     naXlsx(editor: XlsxEditorApi) {
       if (!doel || doel.blad === undefined) return;
       const cel = doel.cel ?? { row: 0, col: 0 };
-      // Na de eerste weergave, zodat de editor het blad echt toont.
-      requestAnimationFrame(() => {
+      const zicht = (doel as XlsxDoel).zicht;
+      const kies = (c: { row: number; col: number }) => {
         try {
-          if (!editor.selectCells(doel.blad!, { anchor: cel, focus: cel }))
-            editor.handle.setActiveSheet(doel.blad!);
+          if (!editor.selectCells(doel.blad!, { anchor: c, focus: c })) editor.handle.setActiveSheet(doel.blad!);
         } catch {
           // Navigeren is een gemak; mislukken mag het openen niet hinderen.
         }
+      };
+      // Na de eerste weergave, zodat de editor het blad echt toont. Bij een
+      // gebied eerst de hoek rechtsonder in beeld brengen en dan de cel
+      // linksboven selecteren: zo staat het hele gebied (als het past) in beeld.
+      requestAnimationFrame(() => {
+        if (!zicht) return kies(cel);
+        kies({ row: zicht.bottom, col: zicht.right });
+        requestAnimationFrame(() => kies(cel));
       });
     },
     /** Na de eerste getekende pagina van een tekstdocument: naar de alinea. */

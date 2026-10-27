@@ -189,6 +189,8 @@ export interface Gegevensopties {
   reeksenIn: "kolommen" | "rijen";
   koprij: boolean;
   kopkolom: boolean;
+  /** Reeksen (0-gebaseerd binnen het bereik) die de gebruiker niet in de grafiek wil. */
+  overslaan?: number[];
 }
 export interface Gegevensbron extends Gegevensopties {
   /** Bladnaam zoals in het werkboek. */
@@ -201,30 +203,69 @@ const isGetal = (c: Cel, strikt = false) =>
   typeof c === "number" || (!strikt && typeof c === "string" && leesGetal(c) !== null);
 const isLeeg = (c: Cel) => c === null || (typeof c === "string" && !c.trim());
 
-/** Herkent een koprij en kopkolom zoals Excel en LibreOffice dat doen. */
-export function herkenKoppen(cellen: Cel[][], strikt = false): Gegevensopties {
+/** Weergavetekst die op een datum of tijd lijkt (zoals `12-3-2026`, `2026/03/12`, `mrt-26` of `8:30`). */
+const lijktDatum = (w: string | undefined) =>
+  !!w && (/^\s*\d{1,4}[-/.]\d{1,2}[-/.]\d{1,4}\b/.test(w) || /^\s*\d{1,2}:\d{2}(:\d{2})?\s*$/.test(w) || /^\s*(\d{1,2}[\s-])?[a-zà-ü]{3,}\.?([\s-]\d{2,4})?\s*$/i.test(w));
+/** Tekst met een voorloopnul, zoals `01`: een volgnummer, geen getal. */
+const voorloopnul = (c: Cel, w: string | undefined) =>
+  /^\s*0\d+\s*$/.test(typeof c === "string" ? c : (w ?? ""));
+
+/**
+ * Herkent een koprij en kopkolom zoals Excel en LibreOffice dat doen, met twee
+ * aanvullingen: een eerste kolom (of rij) met overwegend tekst of datums bevat
+ * de namen, ook als de kolom ernaast geen getallen heeft; en een eerste kolom
+ * met volgnummers (`01`, `02` … of 1, 2, 3 onder een tekstkop) ook.
+ * `weergave` is de weergavetekst per cel (rekenblad), om datums te herkennen.
+ */
+export function herkenKoppen(cellen: Cel[][], strikt = false, weergave?: string[][]): Gegevensopties {
   const rijen = cellen.length;
   const kolommen = Math.max(0, ...cellen.map((r) => r.length));
   const cel = (r: number, k: number) => cellen[r]?.[k] ?? null;
+  const getal = (r: number, k: number) => isGetal(cel(r, k), strikt);
+  /** Een naam: niet leeg en tekst, een datum of een volgnummer met voorloopnul. */
+  const naamAchtig = (r: number, k: number) => {
+    const c = cel(r, k);
+    if (isLeeg(c)) return false;
+    if (!isGetal(c, strikt)) return true;
+    const w = weergave?.[r]?.[k];
+    return (typeof c === "number" && lijktDatum(w)) || voorloopnul(c, w);
+  };
+  /** Ten minste twee derde van de gevulde cellen zijn namen. */
+  const overwegendNamen = (posities: [number, number][]) => {
+    const gevuld = posities.filter(([r, k]) => !isLeeg(cel(r, k)));
+    return gevuld.length > 0 && gevuld.filter(([r, k]) => naamAchtig(r, k)).length * 3 >= gevuld.length * 2;
+  };
+  const getallenIn = (r0: number, k0: number) => {
+    for (let r = r0; r < rijen; r++) for (let k = k0; k < kolommen; k++) if (getal(r, k)) return true;
+    return false;
+  };
   // Koprij: de eerste rij bevat (op de hoek na) tekst terwijl eronder getallen staan.
   const eerstKolom = kolommen > 1 ? 1 : 0;
   let koprij = false;
   if (rijen > 1) {
-    const kop = Array.from({ length: kolommen - eerstKolom }, (_, i) => cel(0, i + eerstKolom));
-    const onder = Array.from({ length: kolommen - eerstKolom }, (_, i) => cel(1, i + eerstKolom));
+    const kop = Array.from({ length: kolommen - eerstKolom }, (_, i): [number, number] => [0, i + eerstKolom]);
     koprij =
-      kop.some((c) => !isLeeg(c) && !isGetal(c, strikt)) &&
-      onder.some((c) => isGetal(c, strikt));
-    if (!koprij && isLeeg(cel(0, 0)) && kop.every((c) => !isLeeg(c)) && kolommen > 1)
+      kop.some(([r, k]) => !isLeeg(cel(r, k)) && !getal(r, k)) &&
+      kop.some(([, k]) => getal(1, k));
+    if (!koprij && overwegendNamen(kop) && getallenIn(1, eerstKolom)) koprij = true;
+    if (!koprij && isLeeg(cel(0, 0)) && kop.every(([r, k]) => !isLeeg(cel(r, k))) && kolommen > 1)
       koprij = true;
   }
   let kopkolom = false;
   if (kolommen > 1) {
     const vanaf = koprij ? 1 : 0;
-    const links = Array.from({ length: rijen - vanaf }, (_, i) => cel(i + vanaf, 0));
-    const rechts = Array.from({ length: rijen - vanaf }, (_, i) => cel(i + vanaf, 1));
-    kopkolom =
-      links.some((c) => !isLeeg(c) && !isGetal(c, strikt)) && rechts.some((c) => isGetal(c, strikt));
+    const links = Array.from({ length: rijen - vanaf }, (_, i): [number, number] => [i + vanaf, 0]);
+    const rechtsGetal = links.some(([r]) => getal(r, 1));
+    kopkolom = links.some(([r, k]) => !isLeeg(cel(r, k)) && !getal(r, k)) && rechtsGetal;
+    // Tekst of datums in de eerste kolom zijn namen, ook als de kolom ernaast tekst is.
+    if (!kopkolom && getallenIn(vanaf, 1) && overwegendNamen(links)) kopkolom = true;
+    // Volgnummers (1, 2, 3 …) onder een tekstkop, zoals een kolom ‘Nr.’.
+    if (!kopkolom && koprij && naamAchtig(0, 0) && !getal(0, 0) && getallenIn(vanaf, 1)) {
+      const nummers = links.map(([r, k]) => cel(r, k)).filter((c) => !isLeeg(c)).map((c) => leesGetal(c));
+      kopkolom =
+        nummers.length >= 2 &&
+        nummers.every((n, i) => n !== null && Number.isInteger(n) && (i === 0 || n === nummers[i - 1]! + 1));
+    }
     if (!kopkolom && koprij && isLeeg(cel(0, 0))) kopkolom = true;
   }
   const dataRijen = rijen - (koprij ? 1 : 0);
@@ -235,6 +276,30 @@ export function herkenKoppen(cellen: Cel[][], strikt = false): Gegevensopties {
     kopkolom,
     reeksenIn: dataRijen >= dataKolommen ? "kolommen" : "rijen",
   };
+}
+
+/** Of een reeks minstens één getal heeft; reeksen zonder getallen tellen standaard niet mee. */
+export const heeftGetallen = (r: Pick<Reeks, "waarden">) =>
+  r.waarden.some((w) => w !== null && Number.isFinite(w));
+
+/**
+ * Kiest de reeksen die in de grafiek komen: reeksen zonder getallen nooit,
+ * de overige tenzij hun index in `overslaan` staat. Geeft een Nederlandse
+ * melding als er niets overblijft.
+ */
+export function kiesReeksen(
+  reeksen: Reeks[],
+  overslaan: ReadonlySet<number>,
+  reeksenIn: Gegevensopties["reeksenIn"] = "kolommen",
+): Reeks[] {
+  const gekozen = reeksen.filter((r, i) => heeftGetallen(r) && !overslaan.has(i));
+  if (gekozen.length) return gekozen;
+  const wat = reeksenIn === "kolommen" ? "kolom" : "rij";
+  if (reeksen.length && !reeksen.some(heeftGetallen))
+    throw new GrafiekFout(
+      `Geen enkele ${wat} in het bereik bevat getallen, dus er is niets om te tekenen. Kies een bereik met minstens één ${wat} getallen, of zet ‘Reeksen in’ op ${reeksenIn === "kolommen" ? "rijen" : "kolommen"}.`,
+    );
+  throw new GrafiekFout("Kies minstens één reeks voor de grafiek.");
 }
 
 export function kolomLetters(col: number) {

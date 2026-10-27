@@ -23,7 +23,9 @@ export function ontleedVerwijzing(ref: string | undefined): { blad: string; bere
 
 /**
  * Het rechthoekige bereik waaruit de grafiek zijn gegevens haalt, als de
- * verwijzingen samen precies zo'n bereik vormen; anders null.
+ * verwijzingen samen zo'n bereik vormen; anders null. Reeksen mogen kolommen
+ * (of rijen) overslaan, bijvoorbeeld een tekstkolom zonder getallen: die
+ * staan dan in `overslaan`.
  */
 export function bronUitModel(model: GrafiekModel): Gegevensbron | null {
   const waarden = model.reeksen.map((r) => ontleedVerwijzing(r.waardenRef));
@@ -38,24 +40,32 @@ export function bronUitModel(model: GrafiekModel): Gegevensbron | null {
     eerste.left === eerste.right && (eerste.top !== eerste.bottom || waarden.length === 1 || waarden[1]!.bereik.left !== eerste.left);
   const koprijOfKolom = namen.every(Boolean);
   if (!koprijOfKolom && namen.some(Boolean)) return null;
-  // Reeksen moeten aaneensluiten en even lang zijn.
+  // Reeksen moeten oplopen, even lang zijn en op dezelfde hoogte (of breedte) staan.
+  const posities: number[] = [];
   for (let i = 0; i < waarden.length; i++) {
     const b = waarden[i]!.bereik;
+    const n = namen[i]?.bereik;
     if (inKolommen) {
-      if (b.left !== eerste.left + i || b.right !== b.left || b.top !== eerste.top || b.bottom !== eerste.bottom) return null;
-      const n = namen[i]?.bereik;
+      if (b.right !== b.left || b.top !== eerste.top || b.bottom !== eerste.bottom) return null;
       if (n && (n.left !== b.left || n.top !== b.top - 1 || n.bottom !== n.top)) return null;
+      posities.push(b.left);
     } else {
-      if (b.top !== eerste.top + i || b.bottom !== b.top || b.left !== eerste.left || b.right !== eerste.right) return null;
-      const n = namen[i]?.bereik;
+      if (b.bottom !== b.top || b.left !== eerste.left || b.right !== eerste.right) return null;
       if (n && (n.top !== b.top || n.left !== b.left - 1 || n.right !== n.left)) return null;
+      posities.push(b.top);
     }
+    if (i > 0 && posities[i] <= posities[i - 1]) return null;
   }
+  let begin = posities[0];
   if (cat) {
     const c = cat.bereik;
-    if (inKolommen && (c.left !== eerste.left - 1 || c.right !== c.left || c.top !== eerste.top || c.bottom !== eerste.bottom)) return null;
-    if (!inKolommen && (c.top !== eerste.top - 1 || c.bottom !== c.top || c.left !== eerste.left || c.right !== eerste.right)) return null;
+    if (inKolommen && (c.left >= eerste.left || c.right !== c.left || c.top !== eerste.top || c.bottom !== eerste.bottom)) return null;
+    if (!inKolommen && (c.top >= eerste.top || c.bottom !== c.top || c.left !== eerste.left || c.right !== eerste.right)) return null;
+    begin = (inKolommen ? c.left : c.top) + 1;
   }
+  const gebruikt = new Set(posities);
+  const overslaan: number[] = [];
+  for (let p = begin; p <= posities[posities.length - 1]; p++) if (!gebruikt.has(p)) overslaan.push(p - begin);
   const laatste = waarden[waarden.length - 1]!.bereik;
   const bereik = {
     top: Math.min(...alle.map((x) => x.bereik.top)),
@@ -69,5 +79,6 @@ export function bronUitModel(model: GrafiekModel): Gegevensbron | null {
     reeksenIn: inKolommen ? "kolommen" : "rijen",
     koprij: inKolommen ? koprijOfKolom : !!cat,
     kopkolom: inKolommen ? !!cat : koprijOfKolom,
+    ...(overslaan.length ? { overslaan } : {}),
   };
 }
