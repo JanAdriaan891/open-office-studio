@@ -16,7 +16,7 @@ import { tekstNl, rekenbladNl, diaNl } from "./nederlands";
 import { RekenbladKoppen } from "./RekenbladKoppen";
 configureDefaultFonts({
   fonts,
-  baseUrl: new URL("/fonts/", location.href).href,
+  baseUrl: new URL(`${import.meta.env.BASE_URL}fonts/`, location.href).href,
 });
 export type Soort = "docx" | "xlsx" | "pptx";
 export interface EditorProps {
@@ -68,7 +68,7 @@ export default function OfficeEditor(props: EditorProps) {
           italic: f.style === "italic",
           bytes: new Uint8Array(
             await fonts.loadBundledFontBytes(f, {
-              baseUrl: new URL("/fonts/", location.href).href,
+              baseUrl: new URL(`${import.meta.env.BASE_URL}fonts/`, location.href).href,
             }),
           ),
         }),

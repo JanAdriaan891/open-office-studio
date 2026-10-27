@@ -332,7 +332,7 @@ export function OfficeStudio() {
     setBezig(true);
     try {
       if (!(await verlaten())) return;
-      const r = await fetch(`/templates/nieuw.${soort}`);
+      const r = await fetch(`${import.meta.env.BASE_URL}templates/nieuw.${soort}`);
       if (!r.ok) throw new Error("Sjabloon niet beschikbaar");
       open(soort, `Naamloos.${soort}`, new Uint8Array(await r.arrayBuffer()));
     } catch (e) {
@@ -350,7 +350,7 @@ export function OfficeStudio() {
       if (!(await verlaten())) return;
       const module = modules.find((module) => module.soort === soort)!;
       const resultaat = await fetch(
-        `/voorbeelden/${module.voorbeeld}.${soort}`,
+        `${import.meta.env.BASE_URL}voorbeelden/${module.voorbeeld}.${soort}`,
       );
       if (!resultaat.ok)
         throw new Error("Het voorbeeld kon niet worden geopend.");
