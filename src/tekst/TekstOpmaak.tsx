@@ -93,7 +93,8 @@ export function TekstOpmaakProvider({ children }: { children: ReactNode }) {
   const api = editorApi.tekst;
   const herlaad = editorApi.herlaad ?? null;
   const meld = useContext(RibbonFout);
-  const bewerkbaar = useDocxCommand("insertPageBreak").state.enabled;
+  // Niet insertPageBreak: die staat uit in de bijhoudmodus, alineaopmaak niet.
+  const bewerkbaar = useDocxCommand("alignment").state.enabled;
   const opnemen = useDocxCommand("editingMode").state.value === "suggesting";
   const [venster, setVenster] = useState<Venster>(null);
   const zichtbaar = useEditorZichtbaar();
