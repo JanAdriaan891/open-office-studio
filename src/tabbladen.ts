@@ -1,5 +1,6 @@
 import type { Soort } from "./editors";
 import type { Rapport } from "./import/rapport";
+import type { Bronkenmerken } from "./import/bron";
 
 /** Modules die als tabblad openen; van elke module bestaat hooguit één tabblad. */
 export type ModuleNaam = "notities" | "database" | "email";
@@ -19,6 +20,8 @@ export interface DocumentTabblad {
   melding: string;
   /** Rapport over onvolledige ondersteuning na openen (niet-blokkerend). */
   rapport: Rapport | null;
+  /** Versleuteling en macro’s van het origineel, voor opslaan. */
+  bron: Bronkenmerken | null;
 }
 
 export interface ModuleTabblad {
@@ -61,6 +64,7 @@ export type TabbladActie =
       gewijzigd?: boolean;
       melding?: string;
       rapport?: Rapport | null;
+      bron?: Bronkenmerken | null;
     }
   | { type: "openModule"; module: ModuleNaam }
   | { type: "activeer"; id: number }
@@ -186,6 +190,7 @@ export function tabbladReducer(
         zoom: null,
         melding: actie.melding ?? "",
         rapport: actie.rapport ?? null,
+        bron: actie.bron ?? null,
       };
       return {
         ...toestand,

@@ -94,6 +94,7 @@ export function useTabbladen(opties: Opties) {
     gewijzigd?: boolean;
     melding?: string;
     rapport?: import("./import/rapport").Rapport | null;
+    bron?: import("./import/bron").Bronkenmerken | null;
   }) {
     const voor = aantalDocumenten(toestandRef.current);
     const na = verwerk({ type: "openDocument", ...document });

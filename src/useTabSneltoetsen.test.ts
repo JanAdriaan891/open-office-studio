@@ -24,6 +24,7 @@ const document = (soort: "docx" | "xlsx"): Tabblad => ({
   zoom: 1,
   melding: "",
   rapport: null,
+  bron: null,
 });
 const context = (actief: Tabblad | null = document("docx")) => ({
   actief,

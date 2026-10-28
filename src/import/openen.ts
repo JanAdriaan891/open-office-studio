@@ -20,6 +20,13 @@ import {
 import type { Rapportregel } from "./rapport";
 import { controleerPakket } from "../pakketcontrole";
 import { openRapport, type Rapport } from "./rapport";
+import type { Bronkenmerken } from "./bron";
+import {
+  VerkeerdWachtwoord,
+  herkenVersleuteling,
+  ontsleutel,
+  versleutelingsMelding,
+} from "./versleuteling";
 
 export interface Openhulp {
   /** Omzetting via de kantoorruntime (desktop); gooit een fout zonder runtime. */
@@ -37,6 +44,8 @@ export interface Openhulp {
     bytes: Uint8Array,
     ext: string,
   ) => Promise<CsvInstellingen | null>;
+  /** Wachtwoordvenster; null = geannuleerd. `fout` na een onjuist wachtwoord. */
+  vraagWachtwoord?: (naam: string, fout?: string) => Promise<string | null>;
 }
 
 export interface Openresultaat {
@@ -49,6 +58,8 @@ export interface Openresultaat {
   rapport: Rapport | null;
   /** Voorstel voor Ctrl+S als dat afwijkt van het eigen formaat. */
   exportFormaat?: string;
+  /** Kenmerken van het origineel (versleuteling, macro’s). */
+  bron?: Bronkenmerken;
 }
 
 export function extensieVan(naam: string) {
@@ -64,6 +75,42 @@ export async function bereidOpenen(
   naam: string,
   bytes: Uint8Array,
   hulp: Openhulp,
+): Promise<Openresultaat | null> {
+  const versleuteling = herkenVersleuteling(bytes);
+  if (!versleuteling) return bereidOnversleuteld(naam, bytes, hulp, []);
+  if (versleuteling.soort !== "agile" && versleuteling.soort !== "standard")
+    throw new Error(versleutelingsMelding(versleuteling));
+  if (!hulp.vraagWachtwoord)
+    throw new Error("Dit bestand is met een wachtwoord versleuteld.");
+  let fout: string | undefined;
+  let ontsleuteld: Uint8Array;
+  for (;;) {
+    const wachtwoord = await hulp.vraagWachtwoord(naam, fout);
+    if (wachtwoord === null) return null;
+    try {
+      ontsleuteld = await ontsleutel(versleuteling, wachtwoord);
+      break;
+    } catch (e) {
+      if (!(e instanceof VerkeerdWachtwoord)) throw e;
+      fout = "Onjuist wachtwoord. Probeer het opnieuw.";
+    }
+  }
+  const resultaat = await bereidOnversleuteld(naam, ontsleuteld, hulp, [
+    {
+      onderdeel: "Wachtwoordbeveiliging",
+      gevolg: `Het bestand is ontsleuteld (${versleuteling.soort === "agile" ? "ECMA-376 Agile" : "ECMA-376 Standard"}). Het wachtwoord is niet bewaard; kies bij Opslaan als opnieuw een wachtwoord om de kopie te beveiligen.`,
+    },
+  ]);
+  if (resultaat)
+    resultaat.bron = { ...resultaat.bron, versleuteling: versleuteling.soort };
+  return resultaat;
+}
+
+async function bereidOnversleuteld(
+  naam: string,
+  bytes: Uint8Array,
+  hulp: Openhulp,
+  bronregels: Rapportregel[],
 ): Promise<Openresultaat | null> {
   const ext = extensieVan(naam);
   const soort = bestandssoort(ext);
@@ -84,6 +131,7 @@ export async function bereidOpenen(
           macros: controle.macros,
           route: "engine",
           bronformaat: ext,
+          extra: bronregels,
         }),
       };
   }
@@ -123,7 +171,7 @@ export async function bereidOpenen(
         risicos: [],
         route: "import",
         bronformaat: ext,
-        extra: regels,
+        extra: [...bronregels, ...regels],
       }),
       exportFormaat: voorstel(
         ext === "markdown" ? "md" : ext === "htm" ? "html" : ext,
@@ -167,7 +215,7 @@ export async function bereidOpenen(
         risicos: [],
         route: "import",
         bronformaat: ext,
-        extra: regels,
+        extra: [...bronregels, ...regels],
       }),
       exportFormaat: voorstel(ext === "tab" ? "tsv" : ext),
     };
@@ -200,6 +248,7 @@ export async function bereidOpenen(
         macros,
         route: "conversie",
         bronformaat: ext,
+        extra: bronregels,
       }),
       exportFormaat: Object.hasOwn(bestandstypen[soort].uitvoer, ext)
         ? ext
