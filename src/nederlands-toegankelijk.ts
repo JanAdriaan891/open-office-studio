@@ -7,6 +7,7 @@ import type { Translations as TekstVertaling } from "@betteroffice/docx-i18n";
 import type { Translations as RekenbladVertaling } from "@betteroffice/xlsx-i18n";
 import type { Translations as DiaVertaling } from "@betteroffice/pptx-i18n";
 import { tekstNl, rekenbladNl, diaNl } from "./nederlands";
+import { tekstPaginaNl } from "./nederlands-pagina";
 
 type Boom = { [sleutel: string]: unknown };
 
@@ -77,7 +78,7 @@ const diaToegankelijk = {
   proposals: { targetLabel: "Wijzigen" },
 };
 
-export const tekstNlVolledig: TekstVertaling = voegSamen(tekstNl as Boom, tekstToegankelijk);
+export const tekstNlVolledig: TekstVertaling = voegSamen(voegSamen(tekstNl as Boom, tekstToegankelijk), tekstPaginaNl);
 export const rekenbladNlVolledig: RekenbladVertaling = voegSamen(
   rekenbladNl as Boom,
   rekenbladToegankelijk,
