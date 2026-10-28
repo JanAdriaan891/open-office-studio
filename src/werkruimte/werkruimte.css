@@ -1,0 +1,320 @@
+/* Vensters van de werkruimte: sneltoetsen en instellingen. */
+.werkruimte-dialoogachtergrond {
+  --w-bg: #ffffff;
+  --w-bg-zacht: #f5f5f4;
+  --w-tekst: #2b2f36;
+  --w-tekst-zacht: #5e636d;
+  --w-rand: #dcdfe4;
+  --w-accent: #a95606;
+  --w-accent-tekst: #ffffff;
+  --w-focus: #a95606;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: #1f262f80;
+  font:
+    13px Inter,
+    system-ui,
+    sans-serif;
+}
+.werkruimte-dialoogachtergrond[data-thema="forge"] {
+  --w-bg: #2a2a31;
+  --w-bg-zacht: #34343c;
+  --w-tekst: #f2f2f0;
+  --w-tekst-zacht: #c3c3c8;
+  --w-rand: #4a4a53;
+  --w-accent: #f59e0b;
+  --w-accent-tekst: #1c1c20;
+  --w-focus: #f5b13d;
+  background: #00000099;
+}
+.werkruimte-dialoog {
+  display: flex;
+  flex-direction: column;
+  width: min(100%, 620px);
+  max-height: min(100%, 720px);
+  border: 1px solid var(--w-rand);
+  border-radius: 12px;
+  background: var(--w-bg);
+  color: var(--w-tekst);
+  box-shadow: 0 20px 60px #0000004d;
+  overflow: hidden;
+}
+.werkruimte-dialoogkop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px 10px 20px;
+  border-bottom: 1px solid var(--w-rand);
+}
+.werkruimte-dialoogkop h2 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 600;
+}
+.werkruimte-dialoog button,
+.werkruimte-dialoog input,
+.werkruimte-dialoog select {
+  font: inherit;
+  color: inherit;
+}
+.werkruimte-sluit {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+  cursor: pointer;
+}
+.werkruimte-sluit:hover {
+  background: var(--w-bg-zacht);
+}
+.werkruimte-dialooginhoud {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 14px 20px 18px;
+}
+.werkruimte-dialoogacties {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 12px 20px;
+  border-top: 1px solid var(--w-rand);
+}
+.werkruimte-dialoog :focus-visible {
+  outline: 2px solid var(--w-focus);
+  outline-offset: 2px;
+}
+.werkruimte-knop {
+  padding: 7px 12px;
+  border: 1px solid var(--w-rand);
+  border-radius: 6px;
+  background: var(--w-bg);
+  cursor: pointer;
+}
+.werkruimte-knop:hover:not(:disabled) {
+  background: var(--w-bg-zacht);
+}
+.werkruimte-knop:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.werkruimte-knop.is-primair {
+  border-color: var(--w-accent);
+  background: var(--w-accent);
+  color: var(--w-accent-tekst);
+}
+.werkruimte-verborgen {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Sneltoetsen */
+.werkruimte-zoek {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 10px;
+  border: 1px solid var(--w-rand);
+  border-radius: 8px;
+  background: var(--w-bg-zacht);
+}
+.werkruimte-zoek input {
+  flex: 1;
+  min-width: 0;
+  height: 34px;
+  border: 0;
+  background: transparent;
+  outline: none;
+}
+.werkruimte-dialoog .werkruimte-zoek input:focus-visible {
+  outline: none;
+}
+.werkruimte-zoek:focus-within {
+  outline: 2px solid var(--w-focus);
+  outline-offset: 1px;
+}
+.werkruimte-aantal,
+.werkruimte-voetnoot {
+  margin: 8px 0 0;
+  color: var(--w-tekst-zacht);
+  font-size: 12px;
+}
+.werkruimte-sneltoetslijst h3 {
+  margin: 18px 0 6px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.werkruimte-sneltoetslijst h3 small,
+.werkruimte-sneltoetslijst td small {
+  color: var(--w-tekst-zacht);
+  font-weight: 400;
+}
+.werkruimte-sneltoetslijst table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.werkruimte-sneltoetslijst td {
+  padding: 5px 0;
+  border-bottom: 1px solid var(--w-rand);
+  vertical-align: middle;
+}
+.werkruimte-sneltoetslijst td:last-child {
+  text-align: right;
+  white-space: nowrap;
+  padding-left: 12px;
+}
+.werkruimte-sneltoetslijst tr[data-elders] {
+  opacity: 0.6;
+}
+.werkruimte-toets {
+  display: inline-flex;
+  gap: 3px;
+}
+.werkruimte-toets kbd {
+  min-width: 20px;
+  padding: 1px 6px;
+  border: 1px solid var(--w-rand);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  background: var(--w-bg-zacht);
+  font:
+    600 11px/1.6 Inter,
+    system-ui,
+    sans-serif;
+  text-align: center;
+}
+
+@media (forced-colors: active) {
+  .werkruimte-dialoog,
+  .werkruimte-toets kbd {
+    border-color: CanvasText;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .werkruimte-dialoog {
+    animation: werkruimte-in 120ms ease-out;
+  }
+}
+@keyframes werkruimte-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+/* Ingangen in het bestandsmenu (Start). */
+.start-hulp {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 8px;
+}
+.start-navigatie .start-hulp button {
+  min-height: 34px;
+  padding-block: 7px;
+  font-size: 12px;
+}
+
+/* Instellingen */
+.werkruimte-groep {
+  margin: 0 0 14px;
+  padding: 10px 14px 12px;
+  border: 1px solid var(--w-rand);
+  border-radius: 8px;
+}
+.werkruimte-groep legend {
+  padding: 0 6px;
+  font-weight: 600;
+}
+.werkruimte-keuzes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 16px;
+  margin-bottom: 8px;
+}
+.werkruimte-label {
+  flex-basis: 100%;
+  color: var(--w-tekst-zacht);
+  font-size: 12px;
+}
+.werkruimte-keuzes label,
+.werkruimte-vink {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 28px;
+}
+.werkruimte-veld {
+  display: grid;
+  grid-template-columns: minmax(120px, 34%) 1fr;
+  align-items: center;
+  gap: 10px;
+  margin: 6px 0;
+}
+.werkruimte-veld select,
+.werkruimte-veld input[type="text"],
+.werkruimte-eenheid input {
+  min-width: 0;
+  height: 30px;
+  padding: 3px 8px;
+  border: 1px solid var(--w-rand);
+  border-radius: 6px;
+  background: var(--w-bg);
+}
+.werkruimte-eenheid {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.werkruimte-eenheid input {
+  width: 72px;
+}
+.werkruimte-uitleg,
+.werkruimte-fout {
+  margin: 4px 0 8px;
+  color: var(--w-tekst-zacht);
+  font-size: 12px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+.werkruimte-fout {
+  color: #b42318;
+}
+.werkruimte-dialoogachtergrond[data-thema="forge"] .werkruimte-fout {
+  color: #fda29b;
+}
+.werkruimte-rij {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.werkruimte-melding {
+  margin-right: auto;
+  align-self: center;
+  color: var(--w-tekst-zacht);
+  font-size: 12px;
+}
+.werkruimte-dialoog input[type="radio"],
+.werkruimte-dialoog input[type="checkbox"] {
+  accent-color: var(--w-accent);
+}
+@media (max-width: 560px) {
+  .werkruimte-veld {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+}

@@ -11,7 +11,11 @@ import {
   PresentatieRibbon,
 } from "./editor-ribbons";
 import { RibbonFout } from "./Ribbon";
-import { tekstNl, rekenbladNl, diaNl } from "./nederlands";
+import {
+  tekstNlVolledig as tekstNl,
+  rekenbladNlVolledig as rekenbladNl,
+  diaNlVolledig as diaNl,
+} from "./nederlands-toegankelijk";
 import { RekenbladKoppen } from "./RekenbladKoppen";
 import {
   EditorApi,
@@ -23,6 +27,7 @@ import { useHerladen } from "./grafieken/ui/herladen";
 import { koppelEditor } from "./export/editorKoppeling";
 import { lettertypeModule } from "./lettertypen/provider";
 import { laadSysteemLettertypen } from "./lettertypen/systeem";
+import { usePresentatieStatus, useRekenbladStatus } from "./status/useEditorStatus";
 // Meegeleverde lettertypen, aangevuld met die van deze computer (#22).
 configureDefaultFonts({
   fonts: lettertypeModule,
@@ -110,6 +115,9 @@ export default function OfficeEditor(props: EditorProps) {
     [rekenbladApi, presentatieApi, herladen.api, herladen.grafiekSelectie],
   );
   useNederlandseInvoer(rekenbladHost, rekenbladApi);
+  // Selectie en huidige dia voor de statusbalk.
+  useRekenbladStatus(rekenbladApi, props.zichtbaar !== false);
+  usePresentatieStatus(presentatieApi, props.zichtbaar !== false);
   // Opslaan als gebruikt het actieve blad, de huidige dia en het afdrukvenster.
   useEffect(() => {
     if (props.zichtbaar === false) return;

@@ -1,0 +1,181 @@
+/*
+ * Structuur van het OpenAEC-lint: scrollen, inklappen en toetstips.
+ * Kleuren komen uit de app via custom properties, met OpenAEC-tokens en
+ * systeemkleuren als terugval, zodat licht, donker en hoog contrast werken.
+ */
+.ribbon .ribbon-inhoud {
+  position: relative;
+  display: flex;
+  overflow: hidden;
+}
+.ribbon .ribbon-baan {
+  display: flex;
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+.ribbon .ribbon-baan::-webkit-scrollbar {
+  display: none;
+}
+
+/* Scrollknoppen verschijnen alleen als het lint ook ingeklapt niet past. */
+.ribbon .ribbon-scroll {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 2;
+  width: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 0;
+  color: var(--lint-tekst-zacht, var(--oa-shell-text-secondary, #5b6472));
+  background: var(--lint-achtergrond, var(--oa-shell-bg, #fff));
+  box-shadow: 0 0 10px 6px var(--lint-achtergrond, var(--oa-shell-bg, #fff));
+  cursor: pointer;
+}
+.ribbon .ribbon-scroll[hidden] {
+  display: none;
+}
+.ribbon .ribbon-scroll:hover {
+  color: var(--lint-accent, var(--oa-color-brand-amber, #d97706));
+}
+.ribbon .ribbon-scroll-links {
+  left: 0;
+}
+.ribbon .ribbon-scroll-rechts {
+  right: 0;
+}
+
+/* Niveau 1: compact. Kleine knoppen tonen alleen hun icoon. */
+.ribbon .ribbon-groep[data-niveau="1"] .ribbon-actie:not(.ribbon-groot) > span,
+.ribbon .ribbon-groep[data-niveau="1"] .ribbon-ingebouwd > span {
+  display: none;
+}
+.ribbon .ribbon-groep[data-niveau="1"] .ribbon-actie:not(.ribbon-groot) {
+  justify-content: center;
+  min-width: 26px;
+}
+.ribbon .ribbon-groep[data-niveau="1"] .ribbon-keuze-breed {
+  width: 113px;
+}
+.ribbon .ribbon-groep[data-niveau="1"] .ribbon-groot > span {
+  max-width: 64px;
+}
+
+/* Niveau 2: de groep is één knop; de inhoud opent in een paneel eronder. */
+.ribbon .ribbon-groep-knop {
+  display: none;
+}
+.ribbon .ribbon-groep[data-niveau="2"] {
+  min-width: 0;
+  justify-content: center;
+}
+.ribbon .ribbon-groep[data-niveau="2"] > .ribbon-groep-knop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  min-width: 52px;
+  max-width: 84px;
+  height: 100%;
+  padding: 4px 6px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 11px;
+  line-height: 1.2;
+  text-align: center;
+  white-space: normal;
+  cursor: pointer;
+}
+.ribbon .ribbon-groep[data-niveau="2"] > .ribbon-groep-knop:hover,
+.ribbon .ribbon-groep[data-niveau="2"] > .ribbon-groep-knop[aria-expanded="true"] {
+  background: var(--lint-knop-actief, var(--oa-shell-ribbon-btn-active-bg, #0000000d));
+  border-color: var(--lint-rand-actief, var(--oa-shell-ribbon-btn-active-border, #0000001f));
+}
+.ribbon .ribbon-groep-icoon {
+  display: inline-flex;
+  min-height: 20px;
+}
+.ribbon .ribbon-groep-knop svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+.ribbon .ribbon-groep-knop > svg:last-child {
+  width: 12px;
+  height: 12px;
+}
+.ribbon .ribbon-groep[data-niveau="2"] > .ribbon-groep-naam,
+.ribbon .ribbon-groep[data-niveau="2"] > .ribbon-groep-inhoud:not([data-open]) {
+  display: none;
+}
+.ribbon .ribbon-groep-inhoud[data-open] {
+  position: fixed;
+  inset: auto;
+  z-index: 1000;
+  margin: 0;
+  width: max-content;
+  height: auto;
+  max-width: calc(100vw - 16px);
+  max-height: calc(100vh - 16px);
+  overflow: auto;
+  padding: 8px;
+  border: 1px solid var(--lint-rand, var(--oa-shell-border, #d6dae0));
+  border-radius: 6px;
+  color: var(--lint-tekst, var(--oa-shell-text, #2b2f36));
+  background: var(--lint-achtergrond, var(--oa-shell-bg, #fff));
+  box-shadow: 0 8px 24px #0000002e;
+}
+
+/* Toetstips liggen in de top layer, boven opengeklapte groepen. */
+.ribbon .ribbon-toetstips {
+  position: fixed;
+  inset: 0;
+  z-index: 1001;
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  overflow: visible;
+  pointer-events: none;
+}
+.ribbon .ribbon-toetstips > span {
+  position: fixed;
+  transform: translate(-50%, 0);
+  min-width: 16px;
+  padding: 1px 4px;
+  border: 1px solid var(--lint-tip-rand, #3d3d45);
+  border-radius: 3px;
+  color: var(--lint-tip-tekst, #fff);
+  background: var(--lint-tip-achtergrond, #36363e);
+  font: 600 11px/1.3 Inter, system-ui, sans-serif;
+  text-align: center;
+  box-shadow: 0 1px 3px #0000004d;
+}
+.ribbon .ribbon-toetstips > span[data-gedempt] {
+  opacity: 0.25;
+}
+
+@media (forced-colors: active) {
+  .ribbon .ribbon-scroll,
+  .ribbon .ribbon-groep-inhoud[data-open],
+  .ribbon .ribbon-toetstips > span {
+    border: 1px solid CanvasText;
+    forced-color-adjust: auto;
+  }
+  .ribbon .ribbon-scroll {
+    box-shadow: none;
+  }
+}

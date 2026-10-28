@@ -9,6 +9,7 @@ mod recent;
 mod systeembestanden;
 mod vensters;
 mod werkbestanden;
+mod voorkeuren;
 
 fn lees_bytes(request: &tauri::ipc::Request<'_>) -> Result<Vec<u8>, String> {
     lees_binaire_inhoud(request.body(), false)
@@ -231,6 +232,8 @@ fn main() {
             conversie::conversie_status,
             conversie::kies_conversieprogramma,
             conversie::wis_conversieprogramma,
+            voorkeuren::lees_voorkeuren,
+            voorkeuren::bewaar_voorkeuren,
             email::email_accounts,
             email::email_bewaar_account,
             email::email_verwijder_account,

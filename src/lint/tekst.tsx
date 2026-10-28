@@ -371,6 +371,10 @@ export function TekstRibbon({
         ".office-tekst .docx-editor__scroll-container",
       ),
     koppeling: zoomKoppeling,
+    // ‘Passend’: de paginabreedte vult het venster.
+    pasBreedte: () =>
+      zichtbaarElement<HTMLElement>(".office-tekst .canvas-page")?.getBoundingClientRect()
+        .width ?? null,
   });
   const opdrachten = useTekstOpdrachten({ wijzigLiniaal, wijzigNavigatie });
   const grafieken = useIngeslotenGrafieken("docx");

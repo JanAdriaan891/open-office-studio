@@ -9,10 +9,10 @@ import {
   ChevronRight,
   FileDown,
   Printer,
-  X,
   ZoomIn,
   ZoomOut,
 } from "lucide-react";
+import { Dialoog } from "../werkruimte/Dialoog";
 import type { AfdrukBron, RekenbladBron } from "./bron";
 import {
   PAPIER,
@@ -31,6 +31,7 @@ import {
   type PresentatieInstellingen,
 } from "./indeling";
 import { PaginaEinden } from "./PaginaEinden";
+import "../werkruimte/werkruimte.css";
 import "./afdrukvoorbeeld.css";
 
 export interface AfdrukvoorbeeldProps {
@@ -51,7 +52,6 @@ const ZOOMSTAPPEN = [0.5, 0.75, 1, 1.25, 1.5, 2];
 export default function Afdrukvoorbeeld(props: AfdrukvoorbeeldProps) {
   const { bron } = props;
   const id = useId();
-  const dialoog = useRef<HTMLElement>(null);
   const weergave = useRef<HTMLDivElement>(null);
   const [doc, setDoc] = useState<AfdrukDocument | null>(null);
   const [fout, setFout] = useState("");
@@ -192,10 +192,6 @@ export default function Afdrukvoorbeeld(props: AfdrukvoorbeeldProps) {
     }
   }, [doc, huidig]);
 
-  useEffect(() => {
-    dialoog.current?.querySelector<HTMLElement>(".afdruk-primair")?.focus();
-  }, []);
-
   const totaal = doc?.paginas.length ?? 0;
   const gekozen = useMemo(() => (doc ? ontleedBereik(bereik, totaal) : null), [bereik, doc, totaal]);
   const bereikGeldig = !!gekozen && gekozen.length > 0;
@@ -293,19 +289,48 @@ export default function Afdrukvoorbeeld(props: AfdrukvoorbeeldProps) {
     );
   const indelingGewijzigd = !!bladInstellingen && JSON.stringify(bladInstellingen) !== opgeslagen;
 
+  const acties = (
+    <>
+      {bezig && (
+        <span className="afdruk-bezig" role="status">
+          {bezig}
+        </span>
+      )}
+      <button type="button" className="werkruimte-knop" onClick={props.sluit}>
+        Sluiten
+      </button>
+      <button
+        type="button"
+        className="werkruimte-knop"
+        disabled={!doc || !bereikGeldig || !!bezig}
+        onClick={alsPdf}
+      >
+        <FileDown size={13} /> Opslaan als PDF
+      </button>
+      <button
+        type="button"
+        className="werkruimte-knop is-primair afdruk-primair"
+        data-autofocus
+        disabled={!doc || !bereikGeldig || !!bezig}
+        onClick={afdrukken}
+      >
+        <Printer size={13} /> Afdrukken
+      </button>
+    </>
+  );
+
   return (
-    <div className="office-dialoogachtergrond afdruk-achtergrond">
-      <section
-        ref={dialoog}
-        className="office-dialoog afdrukvoorbeeld"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby={`${id}-titel`}
+    <Dialoog
+      titel={`Afdrukvoorbeeld – ${bron.titel}`}
+      sluit={props.sluit}
+      className="afdrukvoorbeeld"
+      acties={acties}
+    >
+      <div
+        className="afdruk-toetsen"
+        aria-describedby={`${id}-uitleg`}
         onKeyDown={(e) => {
-          if (e.key === "Escape") {
-            e.preventDefault();
-            props.sluit();
-          } else if (e.key === "PageDown" || (e.key === "ArrowRight" && e.altKey)) {
+          if (e.key === "PageDown" || (e.key === "ArrowRight" && e.altKey)) {
             e.preventDefault();
             naar(huidig + 1);
           } else if (e.key === "PageUp" || (e.key === "ArrowLeft" && e.altKey)) {
@@ -317,12 +342,9 @@ export default function Afdrukvoorbeeld(props: AfdrukvoorbeeldProps) {
           }
         }}
       >
-        <header className="afdruk-kop">
-          <h2 id={`${id}-titel`}>Afdrukvoorbeeld – {bron.titel}</h2>
-          <button type="button" className="afdruk-sluit" aria-label="Sluiten" onClick={props.sluit}>
-            <X size={16} />
-          </button>
-        </header>
+        <span id={`${id}-uitleg`} className="werkruimte-verborgen">
+          Page Up en Page Down bladeren door de pagina's; Ctrl+P drukt af.
+        </span>
         <div className="afdruk-inhoud">
           <aside className="afdruk-opties" aria-label="Afdrukinstellingen">
             <fieldset>
@@ -445,7 +467,7 @@ export default function Afdrukvoorbeeld(props: AfdrukvoorbeeldProps) {
               />
             )}
             {bron.soort === "xlsx" && bron.bewaarInstellingen && (
-              <button type="button" disabled={!indelingGewijzigd} onClick={bewaarIndeling}>
+              <button type="button" className="werkruimte-knop" disabled={!indelingGewijzigd} onClick={bewaarIndeling}>
                 Pagina-indeling in werkmap opslaan
               </button>
             )}
@@ -548,27 +570,7 @@ export default function Afdrukvoorbeeld(props: AfdrukvoorbeeldProps) {
             )}
           </div>
         </div>
-        <footer className="office-dialoogacties">
-          {bezig && (
-            <span className="afdruk-bezig" role="status">
-              {bezig}
-            </span>
-          )}
-          <button type="button" onClick={props.sluit}>
-            Sluiten
-          </button>
-          <button type="button" disabled={!doc || !bereikGeldig || !!bezig} onClick={alsPdf}>
-            <FileDown size={13} /> Opslaan als PDF
-          </button>
-          <button
-            type="button"
-            className="office-dialoogdoorgaan afdruk-primair"
-            disabled={!doc || !bereikGeldig || !!bezig}
-            onClick={afdrukken}
-          >
-            <Printer size={13} /> Afdrukken
-          </button>
-        </footer>
+      </div>
         {einden && bron.soort === "xlsx" && bladInstellingen && (
           <PaginaEinden
             bron={bron}
@@ -578,8 +580,7 @@ export default function Afdrukvoorbeeld(props: AfdrukvoorbeeldProps) {
             wijzig={(rijEinden, kolomEinden) => wijzigBlad({ rijEinden, kolomEinden })}
           />
         )}
-      </section>
-    </div>
+    </Dialoog>
   );
 }
 
@@ -800,7 +801,7 @@ function RekenbladOpties(props: {
         <p className="afdruk-uitleg">
           Velden: &amp;[Pagina], &amp;[Pagina's], &amp;[Datum], &amp;[Tijd], &amp;[Bestand], &amp;[Blad].
         </p>
-        <button type="button" onClick={props.einden}>
+        <button type="button" className="werkruimte-knop" onClick={props.einden}>
           Pagina-eindevoorbeeld…
         </button>
       </fieldset>

@@ -1,36 +1,31 @@
-.afdrukvoorbeeld .office-dialoogacties {
-  margin-top: 0;
-  align-items: center;
-}
-.office-dialoog.afdrukvoorbeeld {
+.werkruimte-dialoog.afdrukvoorbeeld {
   position: relative;
-  width: min(1180px, calc(100vw - 32px));
-  height: min(820px, calc(100vh - 32px));
-  max-width: none;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 14px 16px;
+  width: min(1180px, 100%);
+  height: min(820px, 100%);
+  max-height: none;
 }
-.afdruk-kop {
+.afdrukvoorbeeld .werkruimte-dialooginhoud {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.afdruk-kop h2 {
-  margin: 0;
-  font-size: 15px;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  padding: 12px 16px;
 }
-.office-dialoog .afdruk-sluit {
-  border: 0;
-  background: transparent;
-  padding: 4px;
+.afdruk-toetsen {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+}
+.afdrukvoorbeeld .werkruimte-dialoogacties {
+  align-items: center;
+  padding: 10px 16px;
+}
+.afdrukvoorbeeld .werkruimte-dialoogacties .werkruimte-knop {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
 }
 .afdruk-inhoud {
   flex: 1;
+  width: 100%;
   min-height: 0;
   display: grid;
   grid-template-columns: 300px 1fr;
@@ -44,7 +39,7 @@
   padding-right: 6px;
 }
 .afdruk-opties fieldset {
-  border: 1px solid var(--office-lijn);
+  border: 1px solid var(--w-rand, #e0e2e6);
   border-radius: 6px;
   padding: 8px 10px 10px;
   margin: 0;
@@ -69,9 +64,9 @@
   font: inherit;
   font-size: 12px;
   padding: 4px 6px;
-  border: 1px solid var(--office-lijn);
+  border: 1px solid var(--w-rand, #e0e2e6);
   border-radius: 4px;
-  background: #fff;
+  background: var(--w-bg, #fff);
   min-width: 0;
 }
 .afdruk-opties input[aria-invalid="true"] {
@@ -99,7 +94,7 @@
 .afdruk-uitleg {
   margin: 0;
   font-size: 11px;
-  color: var(--office-gedempt);
+  color: var(--w-tekst-zacht, #747780);
 }
 .afdruk-voorbeeld {
   min-width: 0;
@@ -115,8 +110,12 @@
   font-size: 12px;
   flex-wrap: wrap;
 }
-.office-dialoog .afdruk-balk button {
+.afdruk-balk button {
   padding: 4px 6px;
+  border: 1px solid var(--w-rand, #e0e2e6);
+  border-radius: 5px;
+  background: var(--w-bg, #fff);
+  cursor: pointer;
   display: inline-flex;
   align-items: center;
 }
@@ -125,7 +124,7 @@
   font: inherit;
   font-size: 12px;
   padding: 3px 4px;
-  border: 1px solid var(--office-lijn);
+  border: 1px solid var(--w-rand, #e0e2e6);
   border-radius: 4px;
 }
 .afdruk-teller input {
@@ -134,17 +133,17 @@
 .afdruk-scheiding {
   width: 1px;
   height: 18px;
-  background: var(--office-lijn);
+  background: var(--w-rand, #e0e2e6);
 }
 .afdruk-label {
   margin-left: auto;
-  color: var(--office-gedempt);
+  color: var(--w-tekst-zacht, #747780);
 }
 .afdruk-weergave {
   flex: 1;
   min-height: 0;
   overflow: auto;
-  background: #e6e8eb;
+  background: var(--w-bg-zacht, #e6e8eb);
   border-radius: 6px;
   display: flex;
   padding: 24px;
@@ -164,7 +163,7 @@
   height: 100%;
 }
 .afdruk-laden {
-  color: var(--office-gedempt);
+  color: var(--w-tekst-zacht, #747780);
   font-size: 12px;
 }
 .afdruk-melding,
@@ -173,7 +172,7 @@
   font-size: 12px;
 }
 .afdruk-melding {
-  color: var(--office-gedempt);
+  color: var(--w-tekst-zacht, #747780);
 }
 .afdruk-fout {
   color: #b3261e;
@@ -181,18 +180,13 @@
 .afdruk-bezig {
   margin-right: auto;
   font-size: 12px;
-  color: var(--office-gedempt);
-}
-.afdrukvoorbeeld .office-dialoogacties button {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
+  color: var(--w-tekst-zacht, #747780);
 }
 .afdruk-einden {
   position: absolute;
-  inset: 24px;
-  background: #fff;
-  border: 1px solid var(--office-lijn);
+  inset: 56px 24px 24px;
+  background: var(--w-bg, #fff);
+  border: 1px solid var(--w-rand, #e0e2e6);
   border-radius: 8px;
   box-shadow: 0 8px 30px rgb(0 0 0 / 0.25);
   padding: 14px;

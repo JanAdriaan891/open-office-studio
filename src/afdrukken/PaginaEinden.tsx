@@ -68,7 +68,7 @@ export function PaginaEinden(props: {
     return (
       <div className="afdruk-einden" role="dialog" aria-modal="true" aria-label="Pagina-eindevoorbeeld">
         <p role="status">{fout || "Pagina-einden berekenen…"}</p>
-        <button type="button" onClick={props.sluit}>
+        <button type="button" className="werkruimte-knop" onClick={props.sluit}>
           Sluiten
         </button>
       </div>
@@ -116,7 +116,19 @@ export function PaginaEinden(props: {
   };
 
   return (
-    <div className="afdruk-einden" role="dialog" aria-modal="true" aria-label="Pagina-eindevoorbeeld">
+    <div
+      className="afdruk-einden"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Pagina-eindevoorbeeld"
+      onKeyDown={(e) => {
+        if (e.key === "Escape") {
+          e.preventDefault();
+          e.stopPropagation();
+          props.sluit();
+        }
+      }}
+    >
       <header>
         <strong>Pagina-eindevoorbeeld</strong>
         <span>
@@ -249,12 +261,13 @@ export function PaginaEinden(props: {
       <footer>
         <button
           type="button"
+          className="werkruimte-knop"
           disabled={!handRij.size && !handKolom.size}
           onClick={() => props.wijzig([], [])}
         >
           Handmatige einden wissen
         </button>
-        <button type="button" className="office-dialoogdoorgaan" onClick={props.sluit}>
+        <button type="button" className="werkruimte-knop is-primair" data-autofocus onClick={props.sluit}>
           Klaar
         </button>
       </footer>
