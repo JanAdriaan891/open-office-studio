@@ -22,6 +22,7 @@ import { DatabaseStudio } from "../packages/database/src/DatabaseStudio";
 import "./office.css";
 import { StartScherm, modules } from "./StartScherm";
 import { DocumentOpslag, type BewaarUitkomst } from "./opslag";
+import { HOST_SOORTEN, officeHost } from "./host";
 import { VerlaatDialoog } from "./VerlaatDialoog";
 import { controleerPakket } from "./pakketcontrole";
 import { version } from "../package.json";
@@ -202,6 +203,15 @@ export function OfficeStudio() {
           }
         : { status: "geannuleerd" };
     } else {
+      const host = officeHost();
+      if (host && HOST_SOORTEN.includes(exportFormaat)) {
+        const uit = await host.save(uitvoernaam, uitvoer);
+        return {
+          status: "opgeslagen",
+          pad: (uit && uit.naam) || uitvoernaam,
+          toelichting,
+        };
+      }
       const url = URL.createObjectURL(
         new Blob([new Uint8Array(uitvoer)], {
           type: markdown
