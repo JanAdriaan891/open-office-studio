@@ -1,0 +1,285 @@
+/* Stijlen in Open Tekst Studio (#45): galerij, stijlenvenster, stijl-editor. */
+.office .ribbon-stijlen.tekst-stijlgroep > .ribbon-groep-inhoud {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+}
+.office .tekst-galerij {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(2, 30px);
+  gap: 3px;
+  max-width: 470px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+.office .tekst-galerij-item {
+  display: flex;
+  align-items: stretch;
+  min-width: 86px;
+  max-width: 128px;
+  border: 1px solid #d6d9de;
+  border-radius: 4px;
+  background: #ffffff;
+  color: #1f2328;
+  overflow: hidden;
+}
+.office .tekst-galerij-item.is-actief {
+  border-color: var(--oa-shell-accent, #d97706);
+  box-shadow: inset 0 0 0 1px var(--oa-shell-accent, #d97706);
+}
+.office .tekst-galerij-voorbeeld {
+  flex: 1;
+  min-width: 0;
+  padding: 0 6px;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.office .tekst-galerij-voorbeeld:hover:not(:disabled),
+.office .tekst-galerij-pijl:hover {
+  background: #f0f2f5;
+}
+.office .tekst-galerij-voorbeeld:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+.office .tekst-galerij-tekst {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  line-height: 28px;
+}
+.office .tekst-galerij-teken {
+  margin-right: 4px;
+  opacity: 0.6;
+}
+.office .tekst-galerij-pijl {
+  width: 15px;
+  padding: 0;
+  border: 0;
+  border-left: 1px solid #e6e8eb;
+  background: transparent;
+  color: #5e636d;
+  cursor: pointer;
+}
+.office .tekst-galerij-acties {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+}
+.office .tekst-galerij-meer {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 7px;
+  border: 1px solid var(--oa-shell-border, #d6d9de);
+  border-radius: 4px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 11px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.office .tekst-galerij-meer:hover {
+  background: var(--oa-shell-hover, #0000000f);
+}
+.office .tekst-galerij-leeg {
+  align-self: center;
+  padding: 0 8px;
+  font-size: 11px;
+  opacity: 0.7;
+}
+.office .tekst-stijlgroep .ribbon-keuze {
+  width: 120px;
+}
+
+/* Contextmenu (staat buiten .office). */
+.tekst-contextmenu {
+  position: fixed;
+  z-index: 1200;
+  display: flex;
+  flex-direction: column;
+  min-width: 220px;
+  max-width: 360px;
+  padding: 4px;
+  border: 1px solid #d6d9de;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #1f2328;
+  box-shadow: 0 10px 30px #0000002e;
+  font:
+    12px Inter,
+    system-ui,
+    sans-serif;
+}
+.tekst-contextmenu[data-thema="forge"] {
+  border-color: #4a4a53;
+  background: #2a2a31;
+  color: #f2f2f0;
+}
+.tekst-contextmenu button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.tekst-contextmenu button:hover:not(:disabled),
+.tekst-contextmenu button:focus-visible {
+  background: #0000000f;
+  outline: none;
+}
+.tekst-contextmenu[data-thema="forge"] button:hover:not(:disabled),
+.tekst-contextmenu[data-thema="forge"] button:focus-visible {
+  background: #ffffff1a;
+}
+.tekst-contextmenu button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+.tekst-contextmenu-leeg {
+  width: 14px;
+}
+.tekst-contextmenu-scheiding {
+  height: 1px;
+  margin: 3px 4px;
+  background: currentColor;
+  opacity: 0.15;
+}
+
+/* Stijlenvenster */
+.werkruimte-dialoog.tekst-stijlenvenster {
+  width: min(100%, 460px);
+}
+.tekst-stijlen-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.tekst-stijlen-filters input[type="search"] {
+  flex: 1;
+  min-width: 140px;
+}
+.tekst-stijlen-filters input[type="search"],
+.tekst-stijlen-filters select {
+  height: 30px;
+  padding: 3px 8px;
+  border: 1px solid var(--w-rand);
+  border-radius: 6px;
+  background: var(--w-bg);
+}
+.tekst-stijlenlijst {
+  max-height: 320px;
+  margin: 0 0 10px;
+  padding: 4px;
+  overflow: auto;
+  border: 1px solid var(--w-rand);
+  border-radius: 8px;
+  background: #ffffff;
+  color: #1f2328;
+  list-style: none;
+}
+.tekst-stijlenlijst button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  min-height: 30px;
+  padding: 3px 8px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.tekst-stijlenlijst button:hover:not(:disabled) {
+  background: #f0f2f5;
+}
+.tekst-stijlenlijst button.is-actief {
+  border-color: var(--w-accent);
+}
+.tekst-stijlenlijst-naam {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.tekst-stijlenlijst-soort {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 6px;
+  color: #5e636d;
+}
+.tekst-inspecteren summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+.tekst-inspecteren dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 4px 12px;
+  margin: 8px 0 0;
+}
+.tekst-inspecteren dt {
+  color: var(--w-tekst-zacht);
+}
+.tekst-inspecteren dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.werkruimte-dialoog .werkruimte-knop svg {
+  vertical-align: -2px;
+}
+
+/* Stijl-editor */
+.werkruimte-dialoog.tekst-stijleditor {
+  width: min(100%, 560px);
+}
+.tekst-stijleditor input[type="number"] {
+  width: 80px;
+}
+.tekst-stijleditor input[type="color"] {
+  width: 36px;
+  height: 24px;
+  padding: 0;
+  border: 1px solid var(--w-rand);
+  vertical-align: middle;
+}
+.tekst-stijlvoorbeeld,
+.tekst-set-voorbeeld {
+  margin: 0 0 10px;
+  padding: 10px 14px;
+  border: 1px solid var(--w-rand);
+  border-radius: 8px;
+  background: #ffffff;
+  color: #1f2328;
+}
+.tekst-stijlvoorbeeld p {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.tekst-set-voorbeeld {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.tekst-set-voorbeeld strong {
+  font-size: 18px;
+}
