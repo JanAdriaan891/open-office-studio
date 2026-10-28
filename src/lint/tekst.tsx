@@ -62,7 +62,9 @@ import {
   WholeWord,
   ArrowDownToLine,
   PenLine,
+  SpellCheck,
 } from "lucide-react";
+import { openSpellingVenster } from "../spelling/tekst/menu";
 import {
   Ribbon,
   Groep,
@@ -312,7 +314,7 @@ function Opmerking({ opdrachten }: { opdrachten: Opdrachten }) {
       icoon={MessageSquarePlus}
       groot
       sneltoets="Ctrl+Alt+C"
-      disabled={!opdrachten.bewerkbaar}
+      disabled={!opdrachten.invoerbaar}
       onClick={() => opdrachten.setDialoog("opmerking")}
     />
   );
@@ -592,7 +594,7 @@ export function TekstRibbon({
                     naam="Speciaal teken"
                     icoon={Omega}
                     groot
-                    disabled={!opdrachten.bewerkbaar && !pagina.kopVoet}
+                    disabled={!opdrachten.invoerbaar && !pagina.kopVoet}
                     onClick={() => opdrachten.setDialoog("teken")}
                   />
                   <div className="ribbon-stapel">
@@ -756,6 +758,16 @@ export function TekstRibbon({
             inhoud: (
               <>
                 <Groep naam="Taal">
+                  <EigenKnop
+                    naam="Spelling en grammatica"
+                    icoon={SpellCheck}
+                    groot
+                    sneltoets="F7"
+                    uitleg="Deelvenster met onbekende woorden en suggesties"
+                    onClick={() => {
+                      if (!openSpellingVenster()) opdrachten.fout("De spellingcontrole is nog niet gereed.");
+                    }}
+                  />
                   <WoordenTellen opdrachten={opdrachten} />
                 </Groep>
                 <Groep naam="Opmerkingen">
@@ -842,7 +854,7 @@ export function TekstRibbon({
                     naam="Speciaal teken"
                     icoon={Omega}
                     groot
-                    disabled={!opdrachten.bewerkbaar}
+                    disabled={!opdrachten.invoerbaar && !pagina.kopVoet}
                     onClick={() => opdrachten.setDialoog("teken")}
                   />
                 </Groep>

@@ -92,11 +92,14 @@ export function OpdrachtKeuze({
   naam,
   breed,
   vertaal,
+  waardeTekst,
 }: {
   opdracht: GebondenOpdracht;
   naam: string;
   breed?: boolean;
   vertaal?: (naam: string) => string;
+  /** Tekst voor een waarde die geen van de opties is (bijv. zoom 110%). */
+  waardeTekst?: (waarde: unknown) => string | undefined;
 }) {
   const uitvoeren = useUitvoeren(opdracht);
   const opties = opdracht.state.options ?? [];
@@ -120,9 +123,10 @@ export function OpdrachtKeuze({
       >
         {gekozen < 0 && (
           <option value="">
-            {typeof opdracht.state.value === "string"
-              ? opdracht.state.value
-              : naam}
+            {waardeTekst?.(opdracht.state.value) ??
+              (typeof opdracht.state.value === "string"
+                ? opdracht.state.value
+                : naam)}
           </option>
         )}
         {opties.map((optie, index) => (

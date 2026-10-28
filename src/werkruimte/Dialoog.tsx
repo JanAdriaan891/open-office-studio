@@ -11,6 +11,9 @@ export function volgendeInDialoog(aantal: number, huidig: number, terug: boolean
   return (huidig + (terug ? -1 : 1) + aantal) % aantal;
 }
 
+/** Open vensters, de bovenste laatst (voor Esc zonder focus in een venster). */
+const openVensters: { current: () => void }[] = [];
+
 /**
  * Modaal venster van de werkruimte: focus naar binnen bij openen, Tab blijft
  * binnen, Esc sluit, en de focus gaat daarna terug naar waar hij vandaan kwam.
@@ -51,7 +54,21 @@ export function Dialoog({
       venster.current?.querySelector<HTMLElement>("[data-autofocus]") ??
       (venster.current ? focusbare(venster.current)[0] : null);
     doel?.focus();
+    // Valt de focus weg (bijvoorbeeld doordat de knop tijdens het werk
+    // uitgeschakeld werd), dan sluit Esc nog steeds het bovenste venster.
+    openVensters.push(sluitRef);
+    const esc = (event: KeyboardEvent) => {
+      if (event.key !== "Escape" || event.defaultPrevented) return;
+      const actief = document.activeElement;
+      if (actief && actief !== document.body) return;
+      if (openVensters[openVensters.length - 1] !== sluitRef) return;
+      event.preventDefault();
+      sluitRef.current();
+    };
+    window.addEventListener("keydown", esc);
     return () => {
+      window.removeEventListener("keydown", esc);
+      openVensters.splice(openVensters.indexOf(sluitRef), 1);
       for (const kind of inert) kind.removeAttribute("inert");
       if (vorige?.isConnected) vorige.focus();
     };

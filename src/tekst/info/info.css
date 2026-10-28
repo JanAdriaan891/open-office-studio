@@ -202,6 +202,18 @@
   width: 1em;
   text-indent: 0;
 }
+.tekst-leesmodus article p.is-genummerd {
+  padding-left: 2em;
+  text-indent: -2em;
+}
+.tekst-leesmodus article p.is-genummerd::before {
+  content: none;
+}
+.tekst-leesmodus-nummer {
+  display: inline-block;
+  min-width: 2em;
+  text-indent: 0;
+}
 .tekst-leesmodus article table {
   width: 100%;
   margin: 1em 0;

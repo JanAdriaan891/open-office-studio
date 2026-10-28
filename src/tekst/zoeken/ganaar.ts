@@ -159,15 +159,29 @@ export function afbeeldingDoelen(ref: DocxEditorRef): Doel[] {
   return uit;
 }
 
+/** De platte tekst van een opmerking (alinea's → runs → tekst), zonder opmaak. */
+export function opmerkingTekst(inhoud: unknown): string {
+  const delen: string[] = [];
+  const loop = (knoop: unknown): void => {
+    if (Array.isArray(knoop)) return knoop.forEach(loop);
+    if (!knoop || typeof knoop !== "object") return;
+    const k = knoop as { type?: string; text?: unknown; content?: unknown };
+    if (k.type === "deletion" || k.type === "moveFrom") return;
+    if (k.type === "text" && typeof k.text === "string") delen.push(k.text);
+    else if (k.type === "tab") delen.push(" ");
+    loop(k.content);
+    if (k.type === "paragraph") delen.push(" ");
+  };
+  loop(inhoud);
+  return delen.join("").replace(/\s+/g, " ").trim();
+}
+
 export function opmerkingDoelen(ref: DocxEditorRef): Doel[] {
   return ref
     .getComments()
     .filter((c) => c.parentId === undefined || c.parentId === null)
     .map((c, i) => {
-      const tekst = JSON.stringify(c.content ?? "")
-        .replace(/"type":"[^"]*"|[{}[\]"]|text:|content:/g, " ")
-        .replace(/\s+/g, " ")
-        .trim();
+      const tekst = opmerkingTekst(c.content);
       return {
         nr: i + 1,
         label: `${c.author ?? "Onbekend"}: ${tekst.slice(0, 50)}`,

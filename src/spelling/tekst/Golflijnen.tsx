@@ -112,8 +112,9 @@ export const Golflijnen = memo(function Golflijnen({ sessie, context, geometry }
     const ed = sessie.editor()?.getEditorRef();
     if (!ed || bereik === undefined) return uit;
     for (const { alinea, fout } of sessie.zichtbareFouten()) {
-      const a = ed.yrsLocToDisplayPosition({ story: alinea.story, paraId: alinea.paraId, offset: fout.start });
-      const b = ed.yrsLocToDisplayPosition({ story: alinea.story, paraId: alinea.paraId, offset: fout.eind });
+      // Foutoffsets gelden voor de geaccepteerde tekst; bijgehouden verwijderingen tellen in de sessie mee.
+      const a = ed.yrsLocToDisplayPosition({ story: alinea.story, paraId: alinea.paraId, offset: sessie.rauw(alinea, fout.start) });
+      const b = ed.yrsLocToDisplayPosition({ story: alinea.story, paraId: alinea.paraId, offset: sessie.rauw(alinea, fout.eind, true) });
       if (a === null || b === null || b <= a) continue;
       if (bereik && (b < van || a > tot)) continue;
       let delen: { x: number; y: number; width: number; height: number }[] = [];

@@ -85,3 +85,19 @@
   line-height: 18px;
   white-space: nowrap;
 }
+/* Smalle vensters: de modulenaam staat al in de kop; zo blijven pagina,
+   woorden en taal leesbaar in plaats van afgekapt ("Pagi…"). */
+.office-statusbalk .statusbalk-naam {
+  white-space: nowrap;
+}
+@media (max-width: 1180px) {
+  .office-statusbalk .statusbalk-naam {
+    display: none;
+  }
+  .office-statusbalk {
+    gap: 10px;
+  }
+  .office-statusbalk .statusbalk-module {
+    gap: 6px;
+  }
+}

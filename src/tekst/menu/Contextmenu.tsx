@@ -153,7 +153,7 @@ export function Contextmenu({
       {
         naam: "Nieuwe opmerking",
         icoon: MessageSquarePlus,
-        uit: !bewerkbaar,
+        uit: !opdrachten.invoerbaar,
         doe: () => opdrachten.setDialoog("opmerking"),
       },
     ],

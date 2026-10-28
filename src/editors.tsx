@@ -34,6 +34,7 @@ import { tekstSelectiePlugin } from "./lettertypen/koppeling";
 import { installeerFontCitering } from "./lettertypen/canvasFont";
 import { useTekstSpelling } from "./spelling/tekst/useTekstSpelling";
 import { TEKST_PLUGINS } from "./tekst/gedeeld/markering";
+import { auteur } from "./tekst/gedeeld/engine";
 
 const PRESENTATIE_PLUGINS = [tekstSelectiePlugin];
 import { usePresentatieStatus, useRekenbladStatus } from "./status/useEditorStatus";
@@ -312,6 +313,8 @@ export default function OfficeEditor(props: EditorProps) {
               pluginGrants={spelling.grants}
               onPluginError={spelling.pluginFout}
               downloadOnSave={false}
+              // Naam bij opmerkingen en bijgehouden wijzigingen (Instellingen), niet "User".
+              author={auteur()}
               onSave={() => {
                 if (!exporteren.current) props.opslaan();
               }}

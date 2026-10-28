@@ -4,7 +4,7 @@
  * en het resultaat met revisiemarkeringen in een nieuw tabblad openen. Daar
  * gaat het deelvenster Wijzigingen meteen open met de verschillen.
  */
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Dialoog } from "../../werkruimte/Dialoog";
 import "../../werkruimte/werkruimte.css";
 import { openNieuwDocument } from "../../werkruimte/gebeurtenissen";
@@ -40,6 +40,12 @@ export function VergelijkVenster({ sluit }: { sluit: () => void }) {
   const [fouttekst, setFouttekst] = useState("");
   const invoer = useRef<HTMLInputElement>(null);
   const kiesVoor = useRef<"origineel" | "gewijzigd">("origineel");
+
+  // Een andere keuze maakt de vorige uitkomst (of foutmelding) ongeldig.
+  useEffect(() => {
+    setUitkomst(null);
+    setFouttekst("");
+  }, [origineel, gewijzigd, korrel, accepteren]);
 
   const klaar = (k: Keuze) => k.bron === "dit" || !!k.bestand;
   const geldig = klaar(origineel) && klaar(gewijzigd) && !(origineel.bron === "dit" && gewijzigd.bron === "dit");

@@ -3,6 +3,7 @@ import { strFromU8, strToU8, unzipSync, zipSync } from "fflate";
 import { leesDocProps, leesEigenschappen, schrijfEigenschappen, wijzigApp, wijzigKern } from "./docprops";
 import { inspecteer, schoonOp } from "./inspectie";
 import { leesXml } from "../../grafieken/xml";
+import { leesBlokken } from "./Leesmodus";
 
 const W = 'xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"';
 const kern = `<?xml version='1.0' encoding='UTF-8' standalone='yes'?>
@@ -109,5 +110,68 @@ describe("document inspecteren", () => {
     expect(lees(schoon, "word/document.xml")).toContain('<w:ins w:id="1" w:author="Auteur" w:date="2026-01-01T00:00:00Z">');
     expect(lees(schoon, "word/comments.xml")).toContain('<w:comment w:id="0" w:author="Auteur">');
     expect(inspecteer(schoon).personen).toEqual(["Auteur"]);
+  });
+});
+
+describe("leesmodus", () => {
+  it("houdt het nummer van genummerde lijsten en een stip bij opsommingen", () => {
+    const alinea = (tekst: string, listRendering?: object) => ({
+      type: "paragraph",
+      formatting: listRendering ? { numPr: { numId: 1, ilvl: 0 } } : {},
+      listRendering,
+      content: [{ type: "run", content: [{ type: "text", text: tekst }] }],
+    });
+    const document = {
+      package: {
+        styles: { styles: [] },
+        document: {
+          content: [
+            alinea("Eerste", { marker: "1.", isBullet: false, level: 0, numId: 1 }),
+            alinea("Sub", { marker: "a)", isBullet: false, level: 1, numId: 1 }),
+            alinea("Stip", { marker: "•", isBullet: true, level: 0, numId: 2 }),
+            alinea("Gewoon"),
+          ],
+        },
+      },
+    };
+    const blokken = leesBlokken(document as never);
+    expect(blokken.map((b) => (b.soort === "alinea" ? [b.lijst, b.nummer, b.lijstniveau] : null))).toEqual([
+      [true, "1.", 0],
+      [true, "a)", 1],
+      [true, undefined, 0],
+      [false, undefined, 0],
+    ]);
+  });
+
+  it("telt nummers uit numbering.xml als het model geen listRendering heeft", () => {
+    const alinea = (tekst: string, numId?: number, ilvl = 0) => ({
+      type: "paragraph",
+      formatting: numId ? { numPr: { numId, ilvl } } : {},
+      content: [{ type: "run", content: [{ type: "text", text: tekst }] }],
+    });
+    const document = {
+      package: {
+        styles: { styles: [] },
+        numbering: {
+          abstractNums: [
+            {
+              abstractNumId: 0,
+              levels: [
+                { ilvl: 0, start: 1, numFmt: "decimal", lvlText: "%1." },
+                { ilvl: 1, start: 1, numFmt: "lowerLetter", lvlText: "%2)" },
+              ],
+            },
+            { abstractNumId: 1, levels: [{ ilvl: 0, numFmt: "bullet", lvlText: "•" }] },
+          ],
+          nums: [
+            { numId: 1, abstractNumId: 0 },
+            { numId: 2, abstractNumId: 1 },
+          ],
+        },
+        document: { content: [alinea("Een", 1), alinea("Sub", 1, 1), alinea("Sub2", 1, 1), alinea("Twee", 1), alinea("Stip", 2), alinea("Los")] },
+      },
+    };
+    const blokken = leesBlokken(document as never);
+    expect(blokken.map((b) => (b.soort === "alinea" ? (b.lijst ? (b.nummer ?? "•") : "-") : null))).toEqual(["1.", "a)", "b)", "2.", "•", "-"]);
   });
 });

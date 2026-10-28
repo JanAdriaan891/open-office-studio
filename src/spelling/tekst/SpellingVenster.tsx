@@ -79,9 +79,21 @@ export function SpellingVenster({ sessie, stand }: { sessie: SpellingSessie; sta
     };
   }, [doel?.fout]);
 
+  // Focus in het venster (dan werken Enter en Esc). ‘Wijzigen’ is uitgeschakeld
+  // tot de suggesties er zijn; val dan terug op de eerstvolgende knop.
+  const focusInVenster = () => {
+    const v = venster.current;
+    (
+      v?.querySelector<HTMLElement>("[data-autofocus]:not(:disabled)") ??
+      v?.querySelector<HTMLElement>(".spelling-knoppen button:not(:disabled)")
+    )?.focus();
+  };
+  useEffect(focusInVenster, [doel?.fout, klaar]);
   useEffect(() => {
-    venster.current?.querySelector<HTMLElement>("[data-autofocus]")?.focus();
-  }, [doel?.fout, klaar]);
+    const actief = document.activeElement;
+    // Niet weghalen uit het invoerveld of de suggestielijst.
+    if (!venster.current?.contains(actief) || actief?.closest(".spelling-knoppen")) focusInVenster();
+  }, [suggesties]);
 
   const naActie = (offset: number, overslaan = false) => {
     if (!doel) return;

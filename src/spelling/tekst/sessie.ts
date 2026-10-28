@@ -45,6 +45,64 @@ export interface MenuStand {
 
 type Ctx = DocxPluginContext<PluginStaat>;
 
+/** Eén segment van een alinea zoals de sessie het geeft (storySegments). */
+export interface Segment {
+  kind: string;
+  text?: string;
+  embedKind?: string;
+  attributes?: Record<string, unknown>;
+}
+
+/**
+ * Telt alleen in de sessie mee, niet in de geaccepteerde tekst: bijgehouden
+ * verwijderingen en een tabel die direct vóór de alinea staat.
+ */
+const alleenRauw = (d: Segment) => !!d.attributes?.del || (d.kind === "embed" && d.embedKind === "table");
+const segmentLengte = (d: Segment) => (d.kind === "text" ? (d.text ?? "").length : 1);
+
+/**
+ * Rekent een offset in de geaccepteerde tekst (zoals `readParagraphs` met
+ * view "accepted" die geeft) om naar een offset in de sessie (Yrs), waar
+ * verwijderde tekst nog meetelt. Een begin direct na een verwijdering komt
+ * erachter, een eind (`eind`) direct ervoor.
+ */
+export function naarRauw(segmenten: readonly Segment[], offset: number, eind = false): number {
+  let geaccepteerd = 0;
+  let rauw = 0;
+  for (const d of segmenten) {
+    if (d.kind === "pilcrow") break;
+    const lengte = segmentLengte(d);
+    if (alleenRauw(d)) {
+      if (eind ? geaccepteerd >= offset && geaccepteerd > 0 : geaccepteerd > offset) break;
+      rauw += lengte;
+      continue;
+    }
+    if (offset < geaccepteerd + lengte || (eind && offset <= geaccepteerd + lengte)) return rauw + (offset - geaccepteerd);
+    geaccepteerd += lengte;
+    rauw += lengte;
+  }
+  return rauw + (offset - geaccepteerd);
+}
+
+/** Omgekeerd: een sessie-offset naar de geaccepteerde tekst (binnen een verwijdering: het begin ervan). */
+export function naarGeaccepteerd(segmenten: readonly Segment[], rauw: number): number {
+  let geaccepteerd = 0;
+  let r = 0;
+  for (const d of segmenten) {
+    if (d.kind === "pilcrow") break;
+    const lengte = segmentLengte(d);
+    if (alleenRauw(d)) {
+      if (rauw < r + lengte) return geaccepteerd;
+      r += lengte;
+      continue;
+    }
+    if (rauw <= r + lengte) return geaccepteerd + (rauw - r);
+    geaccepteerd += lengte;
+    r += lengte;
+  }
+  return geaccepteerd + Math.max(0, rauw - r);
+}
+
 const VERTRAGING = 350;
 
 export class SpellingSessie {
@@ -149,7 +207,13 @@ export class SpellingSessie {
     if (!ed || !bereik) return null;
     try {
       const loc = ed.displayPositionToYrsLoc(bereik.from);
-      return loc ? { paraId: loc.paraId, offset: loc.offset, story: loc.story } : null;
+      if (!loc) return null;
+      // De sessie telt verwijderde tekst en een voorafgaande tabel mee; de
+      // fouten en de autocorrectie rekenen in de geaccepteerde tekst.
+      const r = ed.getYrsSession()?.readParagraphs({ view: "accepted", story: loc.story, paraIds: [loc.paraId] });
+      const lengte = r?.ok ? r.paragraphs[0]?.text.length : undefined;
+      const delen = lengte === undefined ? null : this.afwijkendeSegmenten(loc.story, loc.paraId, lengte);
+      return { paraId: loc.paraId, offset: delen ? naarGeaccepteerd(delen, loc.offset) : loc.offset, story: loc.story };
     } catch {
       return null;
     }
@@ -350,12 +414,55 @@ export class SpellingSessie {
     return na ?? lijst.find(({ alinea, fout }) => !(overslaan && alinea.paraId === overslaan.paraId && fout.start === overslaan.start)) ?? null;
   }
 
+  /** Segmenten per alinea met bijgehouden verwijderingen, per sessieversie. */
+  private segmentCache: { versie: string; per: Map<string, Segment[]> } | null = null;
+
+  /**
+   * De sessie-offset (Yrs) van een offset in de geaccepteerde tekst van een
+   * alinea. Zonder bijgehouden verwijderingen in de alinea zijn ze gelijk.
+   */
+  rauw(alinea: Alinea, offset: number, eind = false): number {
+    const delen = this.afwijkendeSegmenten(alinea.story, alinea.paraId, alinea.tekst.length);
+    return delen ? naarRauw(delen, offset, eind) : offset;
+  }
+
+  /**
+   * De segmenten van een alinea als de sessie er meer telt dan de
+   * geaccepteerde tekst lang is (verwijderingen, tabel ervoor); anders null.
+   */
+  private afwijkendeSegmenten(story: string, paraId: string, lengte: number): Segment[] | null {
+    const sessie = this.editor()?.getEditorRef()?.getYrsSession();
+    if (!sessie) return null;
+    try {
+      const span = sessie.locateParagraph(story, paraId);
+      if (span.end - span.start === lengte) return null;
+      const versie = String(sessie.version());
+      if (this.segmentCache?.versie !== versie) this.segmentCache = { versie, per: new Map() };
+      const sleutel = `${story}\u0000${paraId}`;
+      let delen = this.segmentCache.per.get(sleutel);
+      if (!delen) {
+        // Eén keer per versie en verhaal: alle alinea's van het verhaal opdelen.
+        let huidig: Segment[] = [];
+        for (const d of sessie.storySegments(story) as Segment[]) {
+          if (d.kind === "pilcrow") {
+            this.segmentCache.per.set(`${story}\u0000${(d as { paraId?: string }).paraId}`, huidig);
+            huidig = [];
+          } else huidig.push(d);
+        }
+        delen = this.segmentCache.per.get(sleutel) ?? [];
+      }
+      return delen;
+    } catch {
+      return null;
+    }
+  }
+
   /** Selecteert een fout in de editor en scrolt ernaartoe. */
   selecteer(alinea: Alinea, fout: Fout) {
     const ed = this.editor()?.getEditorRef();
     if (!ed) return;
-    const van = ed.yrsLocToDisplayPosition({ story: alinea.story, paraId: alinea.paraId, offset: fout.start });
-    const tot = ed.yrsLocToDisplayPosition({ story: alinea.story, paraId: alinea.paraId, offset: fout.eind });
+    const van = ed.yrsLocToDisplayPosition({ story: alinea.story, paraId: alinea.paraId, offset: this.rauw(alinea, fout.start) });
+    const tot = ed.yrsLocToDisplayPosition({ story: alinea.story, paraId: alinea.paraId, offset: this.rauw(alinea, fout.eind, true) });
     if (van !== null && tot !== null) ed.highlightRange(van, tot);
   }
 

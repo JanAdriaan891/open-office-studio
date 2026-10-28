@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { zichtbaarBereik } from "./Golflijnen";
 import { leesAlineatalen, leesStijlen, wijsTalenToe } from "./taal";
 import { spellingStatus } from "./useTekstSpelling";
+import { naarGeaccepteerd, naarRauw } from "./sessie";
 
 const W = 'xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"';
 const p = (tekst: string, taal?: string, stijl?: string) =>
@@ -83,5 +84,38 @@ describe("spellingstatus in de statusbalk", () => {
     expect(spellingStatus({ aan: true, aantal: 7, probleem: null })).toBe("7 spelfouten");
     expect(spellingStatus({ aan: true, aantal: 7, probleem: "x" })).toBe("spelling niet beschikbaar");
     expect(spellingStatus({ aan: false, aantal: 7, probleem: null })).toBeNull();
+  });
+});
+
+describe("offsets bij bijgehouden verwijderingen", () => {
+  // "en daarna " + verwijderd "oude woorden " + "en het huiz"
+  const delen = [
+    { kind: "text", text: "en daarna ", attributes: {} },
+    { kind: "text", text: "oude woorden ", attributes: { del: { author: "B" } } },
+    { kind: "text", text: "en het huiz", attributes: {} },
+    { kind: "pilcrow", attributes: {} },
+  ];
+  it("telt verwijderde tekst mee vóór de fout", () => {
+    // "huiz" staat in de geaccepteerde tekst op 17..21.
+    expect(naarRauw(delen, 17)).toBe(30);
+    expect(naarRauw(delen, 21, true)).toBe(34);
+  });
+  it("laat een begin direct na de verwijdering erachter en een eind ervoor", () => {
+    expect(naarRauw(delen, 10)).toBe(23);
+    expect(naarRauw(delen, 10, true)).toBe(10);
+  });
+  it("rekent terug naar de geaccepteerde tekst (cursor voor de autocorrectie)", () => {
+    expect(naarGeaccepteerd(delen, 30)).toBe(17);
+    expect(naarGeaccepteerd(delen, 15)).toBe(10); // midden in de verwijdering
+    expect(naarGeaccepteerd(delen, 34)).toBe(21);
+  });
+  it("telt een tabel direct vóór de alinea alleen in de sessie", () => {
+    const naTabel = [{ kind: "embed", embedKind: "table" }, { kind: "text", text: "Afbeelding: eigelijk " }];
+    expect(naarGeaccepteerd(naTabel, 22)).toBe(21);
+    expect(naarRauw(naTabel, 12)).toBe(13);
+    expect(naarRauw(naTabel, 0, true)).toBe(1);
+  });
+  it("verandert niets zonder verwijderingen", () => {
+    expect(naarRauw([{ kind: "text", text: "abc" }, { kind: "embed" }, { kind: "text", text: "de" }], 4)).toBe(4);
   });
 });

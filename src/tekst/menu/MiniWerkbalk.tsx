@@ -219,7 +219,7 @@ export function MiniWerkbalk({
         <Actie
           naam="Nieuwe opmerking"
           icoon={MessageSquarePlus}
-          disabled={!opdrachten.bewerkbaar}
+          disabled={!opdrachten.invoerbaar}
           onMouseDown={(e) => e.preventDefault()}
           onClick={() => {
             sluit();

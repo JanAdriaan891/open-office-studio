@@ -249,10 +249,17 @@ export function pastBijOpmaak(filter: Opmaakfilter, opmaak: readonly (TekenOpmaa
 /** Aaneengesloten stukken binnen alinea's waar het opmaakfilter geldt (zoeken zonder tekst). */
 export function opmaakStukken(tekst: string, opmaak: readonly (TekenOpmaak | null)[], stijlVan: (i: number) => string | undefined, filter: Opmaakfilter) {
   const uit: { start: number; eind: number }[] = [];
+  // Objecten (afbeeldingen, verwijzingen) hebben geen tekenopmaak: bij zoeken op
+  // vet, cursief of onderstreept zijn ze geen treffer.
+  const tekenfilter = filter.vet !== undefined || filter.cursief !== undefined || filter.onderstreept !== undefined;
   let begin = -1;
   for (let i = 0; i <= tekst.length; i++) {
     const past =
-      i < tekst.length && tekst[i] !== "\n" && tekst[i] !== "\f" && pastBijOpmaak(filter, [opmaak[i] ?? null], [stijlVan(i)]);
+      i < tekst.length &&
+      tekst[i] !== "\n" &&
+      tekst[i] !== "\f" &&
+      !(tekenfilter && !opmaak[i]) &&
+      pastBijOpmaak(filter, [opmaak[i] ?? null], [stijlVan(i)]);
     if (past && begin < 0) begin = i;
     if (!past && begin >= 0) {
       uit.push({ start: begin, eind: i });
