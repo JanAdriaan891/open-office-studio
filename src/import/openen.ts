@@ -114,6 +114,8 @@ async function bereidOnversleuteld(
   hulp: Openhulp,
   bronregels: Rapportregel[],
 ): Promise<Openresultaat | null> {
+  // Wordt aangevuld (bijv. datumsysteem 1904); de parameter zelf blijft ongewijzigd.
+  bronregels = [...bronregels];
   const ext = extensieVan(naam);
   const soort = bestandssoort(ext);
   if (!soort)
@@ -121,6 +123,7 @@ async function bereidOnversleuteld(
 
   if (ext === soort) {
     const controle = controleerPakket(bytes, soort);
+    if (controle.datum1904) bronregels = [...bronregels, DATUM1904];
     if (!controle.strict)
       return {
         soort,
@@ -285,7 +288,8 @@ async function bereidOnversleuteld(
       // Geen OOXML-pakket: niets te meten vóór de omzetting.
     }
     const omgezet = await hulp.converteer(bytes, ext, soort, soort);
-    controleerPakket(omgezet, soort);
+    if (controleerPakket(omgezet, soort).datum1904)
+      bronregels = [...bronregels, DATUM1904];
     return {
       soort,
       naam: metExtensie(naam, soort),
@@ -299,9 +303,31 @@ async function bereidOnversleuteld(
         bronformaat: ext,
         extra: bronregels,
       }),
-      exportFormaat: Object.hasOwn(bestandstypen[soort].uitvoer, ext)
-        ? ext
-        : undefined,
+      // Oude binaire formaten (DOC, XLS, PPT, …): standaardvoorstel is het
+      // eigen formaat; opslaan als het oude formaat kan, met een waarschuwing.
+      exportFormaat:
+        Object.hasOwn(bestandstypen[soort].uitvoer, ext) && !OUD_BINAIR.has(ext)
+          ? ext
+          : undefined,
     };
   }
 }
+
+/** Binaire Office 97–2003-formaten (en hun sjablonen en diavoorstellingen). */
+export const OUD_BINAIR = new Set([
+  "doc",
+  "dot",
+  "xls",
+  "xlt",
+  "xlsb",
+  "ppt",
+  "pps",
+  "pot",
+]);
+
+const DATUM1904: Rapportregel = {
+  onderdeel: "Datumsysteem 1904",
+  gevolg:
+    "Het werkboek telt datums vanaf 1 januari 1904 (zoals oudere Mac-Excel). Datums worden juist getoond en het datumsysteem blijft bij opslaan behouden; kopieer je datums naar een werkboek met het systeem 1900, dan verschuiven ze 1462 dagen.",
+  info: true,
+};

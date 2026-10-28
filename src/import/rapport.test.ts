@@ -210,7 +210,46 @@ describe("Openroute", () => {
     ))!;
     expect(resultaat.naam).toBe("Oud.docx");
     expect(resultaat.gewijzigd).toBe(true);
-    expect(resultaat.exportFormaat).toBe("doc");
+    // Standaardvoorstel voor oude binaire formaten is het eigen formaat (#34–#36).
+    expect(resultaat.exportFormaat).toBeUndefined();
     expect(resultaat.rapport!.regels[0].onderdeel).toBe("Omzetting");
+  });
+});
+
+describe("Oude binaire formaten en datumsysteem 1904 (#34–#36)", () => {
+  const omgezet = (bestand: string) =>
+    zipSync({
+      [bestand]: strToU8(
+        bestand === "xl/workbook.xml"
+          ? '<workbook><workbookPr date1904="1"/></workbook>'
+          : "<x/>",
+      ),
+    });
+  it("houdt ODF als voorstel en waarschuwt bij opslaan als DOC, XLS of PPT", async () => {
+    const odt = (await bereidOpenen("Brief.odt", new Uint8Array([1]), {
+      converteer: async () => omgezet("word/document.xml"),
+    }))!;
+    expect(odt.exportFormaat).toBe("odt");
+    for (const [soort, ext] of [
+      ["docx", "doc"],
+      ["xlsx", "xls"],
+      ["pptx", "ppt"],
+    ] as const) {
+      const rapport = opslagRapport({
+        soort,
+        formaat: formaat(soort, ext),
+        route: "runtime",
+        risicos: [],
+      })!;
+      expect(rapport.regels.map((r) => r.onderdeel)).toContain("Ouder binair formaat");
+    }
+  });
+  it("meldt het datumsysteem 1904 na omzetten van XLS", async () => {
+    const xls = (await bereidOpenen("Mac.xls", new Uint8Array([1]), {
+      converteer: async () => omgezet("xl/workbook.xml"),
+    }))!;
+    expect(xls.exportFormaat).toBeUndefined();
+    expect(xls.rapport!.regels.map((r) => r.onderdeel)).toContain("Datumsysteem 1904");
+    expect(controleerPakket(omgezet("xl/workbook.xml"), "xlsx").datum1904).toBe(true);
   });
 });

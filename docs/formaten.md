@@ -128,6 +128,15 @@ Opslaan:
 - Van een versleuteld document maakt automatisch herstel geen (onversleutelde) herstelkopieën.
 - Grenzen: geen certificaatversleuteling, geen IRM/DRM. Een versleuteld document dat naar een ander venster wordt gesleept, verliest de markering "versleuteld" (de inhoud gaat onversleuteld in het geheugen mee); bewaar het daarna opnieuw met wachtwoord.
 
+## Oude binaire formaten (DOC, XLS, PPT)
+
+DOC, DOT, XLS, XLT, XLSB, PPT, PPS en POT openen via de kantoorruntime (veilig profiel, macro’s nooit uitgevoerd). Daarna:
+
+- het standaardvoorstel in Opslaan als is DOCX, XLSX of PPTX; ODF-bestanden houden hun eigen formaat als voorstel;
+- kies je toch DOC, XLS of PPT (of hun sjablonen), dan noemt het verliesrapport vooraf dat het oude binaire formaat niet alle nieuwere opmaak en functies kent;
+- het datumsysteem 1904 (oudere Mac-Excel) blijft bij omzetten behouden en de rekenbladengine toont de datums juist; het rapport na openen noemt het. Beproefd: XLSX met 1904 → XLS → XLSX via LibreOffice 24.2 houdt `date1904` en de engine toont 31-12-2026 (`scripts/test-formaten-zonder-runtime.mjs`);
+- grenzen: zonder runtime openen deze formaten niet (RC4-versleutelde varianten worden wel herkend); PPS/PPSX openen niet direct in de diavoorstelling; opslaan als XLSB kan niet; een testset met ingesloten objecten uit verschillende Office-versies ontbreekt nog.
+
 ## Gedrag en grenzen
 
 - Import maakt een bewerkbare OOXML-kopie. Het origineel wordt niet overschreven. Opmaak en onbekende onderdelen kunnen wijzigen.

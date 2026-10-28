@@ -403,6 +403,62 @@ finally:
     );
   }
 
+  // ── #35 Datumsysteem 1904 via XLS en de runtime ─────────────────────
+  await proef(
+    "#35",
+    "datumsysteem 1904 blijft juist na XLS → XLSX (runtime) en in de engine",
+    async () => {
+      const { strFromU8, strToU8, zipSync } = await import("fflate");
+      const { controleerPakket } = await laad("/src/pakketcontrole.ts");
+      const { xlsx: basis } = csvNaarXlsx(enc("Datum\r\n31-12-2026\r\n"), {
+        ...herkenInstellingen(enc("Datum\r\n31-12-2026\r\n"), "csv"),
+        scheidingsteken: ";",
+      });
+      const p = unzipSync(basis);
+      p["xl/workbook.xml"] = strToU8(
+        strFromU8(p["xl/workbook.xml"]).replace(
+          "<bookViews>",
+          '<workbookPr date1904="1"/><bookViews>',
+        ),
+      );
+      // 31-12-2026 is 46387 in het systeem 1900 en 44925 in het systeem 1904.
+      p["xl/worksheets/sheet1.xml"] = strToU8(
+        strFromU8(p["xl/worksheets/sheet1.xml"]).replace(
+          "<v>46387</v>",
+          "<v>44925</v>",
+        ),
+      );
+      const mac = zipSync(p);
+      writeFileSync(join(uitmap, "datum1904.xlsx"), mac);
+      if (!soffice) return "geen LibreOffice";
+      const xls = libreOffice(mac, "xlsx", "xls");
+      writeFileSync(join(uitmap, "datum1904.xls"), xls);
+      const terug = libreOffice(xls, "xls", "xlsx");
+      if (!controleerPakket(terug, "xlsx").datum1904)
+        throw new Error("datumsysteem 1904 verdwenen");
+      const xlsxEngine = await import("@betteroffice/xlsx");
+      await xlsxEngine.initWasm(
+        readFileSync(
+          "node_modules/@betteroffice/xlsx/dist/generated/xlsx_wasm_bg.wasm",
+        ),
+      );
+      const inhoud = await xlsxEngine.exportXlsxStructured(terug, {
+        maxCells: 100,
+        maxBytes: 1 << 20,
+      });
+      const cel = inhoud.sheets[0].cells.find(
+        (c) => c.anchor.kind === "cell" && c.anchor.a1 === "A2",
+      );
+      if (
+        !/31[-/.]12[-/.](20)?26|2026-12-31|12\/31\/2026/.test(
+          cel?.displayText ?? "",
+        )
+      )
+        throw new Error(`engine toont ${cel?.displayText}`);
+      return `XLS behoudt 1904; de engine toont ${cel.displayText}`;
+    },
+  );
+
   // ── VERVOLG ──
 } finally {
   await server.close();

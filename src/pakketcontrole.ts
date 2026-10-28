@@ -117,12 +117,19 @@ function risicosVan(
   if (heeft(/^(word|ppt|xl)\/charts\//)) risicos.add("grafieken");
   if (heeft(/^(word|ppt|xl)\/(activeX|ctrlProps)\//))
     risicos.add("besturingselementen");
-  if (heeft(/^_xmlsignatures\//) || heeft(/(^|\/)vbaProjectSignature\w*\.bin$/i))
+  if (
+    heeft(/^_xmlsignatures\//) ||
+    heeft(/(^|\/)vbaProjectSignature\w*\.bin$/i)
+  )
     risicos.add("handtekening");
   // Beveiliging zonder versleuteling (alleen-lezen aanbevolen, bewerken beperkt).
   if (
-    /<(?:\w+:)?(?:writeProtection|documentProtection)\b/.test(tekst("word/settings.xml")) ||
-    /<(?:\w+:)?(?:workbookProtection|fileSharing)\b/.test(tekst("xl/workbook.xml")) ||
+    /<(?:\w+:)?(?:writeProtection|documentProtection)\b/.test(
+      tekst("word/settings.xml"),
+    ) ||
+    /<(?:\w+:)?(?:workbookProtection|fileSharing)\b/.test(
+      tekst("xl/workbook.xml"),
+    ) ||
     /<(?:\w+:)?modifyVerifier\b/.test(tekst("ppt/presentation.xml"))
   )
     risicos.add("beveiliging");
@@ -209,6 +216,12 @@ export function controleerPakket(bytes: Uint8Array, soort: Soort) {
       soort === "xlsx" &&
       strFromU8(bestanden["xl/workbook.xml"]).includes("purl.oclc.org/ooxml"),
     macros: [...namen].some((naam) => /(^|\/)vbaProject\.bin$/i.test(naam)),
+    /** Werkboek met het datumsysteem 1904 (Mac-Excel). */
+    datum1904:
+      soort === "xlsx" &&
+      /<(?:\w+:)?workbookPr\b[^>]*\bdate1904="(?:1|true)"/.test(
+        strFromU8(bestanden["xl/workbook.xml"]),
+      ),
     onderdelen: namen.size,
     uitgepakt: totaal,
     risicos: risicosVan(soort, namen, bestanden),

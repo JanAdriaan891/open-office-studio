@@ -154,6 +154,9 @@ export function openRapport(kenmerken: OpenKenmerken): Rapport | null {
 
 export const MACROS = "VBA-macro’s";
 
+/** Binaire Office 97–2003-uitvoerformaten. */
+const OUD = new Set(["doc", "dot", "xls", "xlt", "ppt", "pps", "pot"]);
+
 const BEWERKBAAR = new Set([
   "eigen",
   "opendocument",
@@ -241,6 +244,11 @@ export function opslagRapport(kenmerken: OpslaanKenmerken): Rapport | null {
       regels.push({
         onderdeel: "Digitale handtekening",
         gevolg: "Wordt niet overgenomen of is na opslaan niet meer geldig.",
+      });
+    if (OUD.has(formaat.ext))
+      regels.push({
+        onderdeel: "Ouder binair formaat",
+        gevolg: `.${formaat.ext} (Office 97–2003) kent nieuwere opmaak, grootte en functies niet allemaal; die kunnen veranderen of verdwijnen. Kies .${soort} om alles te behouden.`,
       });
   } else if (
     route === "tekst" ||
