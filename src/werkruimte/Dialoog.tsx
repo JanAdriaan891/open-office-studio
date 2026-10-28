@@ -1,7 +1,8 @@
-import { useEffect, useId, useRef, useState, type ReactNode } from "react";
+import { useEffect, useId, useRef, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { X } from "lucide-react";
 import { focusbare } from "../openaec-lint";
+import { useOfficeThema } from "../stijl/ThemaKnop";
 
 /** Volgende focus bij Tab binnen een dialoog: rond, zonder te ontsnappen. */
 export function volgendeInDialoog(aantal: number, huidig: number, terug: boolean) {
@@ -34,9 +35,7 @@ export function Dialoog({
   const sluitRef = useRef(sluit);
   sluitRef.current = sluit;
   // Het venster staat buiten .office; neem het thema van de werkruimte over.
-  const [thema] = useState(
-    () => document.querySelector(".office")?.getAttribute("data-office-thema") ?? "light",
-  );
+  const { thema } = useOfficeThema();
 
   useEffect(() => {
     const vorige =

@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { ChevronDown, type LucideIcon } from "lucide-react";
 import { Lint, LintActie, type LintProps } from "./openaec-lint";
+import { useInstellingen } from "./instellingen";
 
 export const RibbonFout = createContext<(bericht: string) => void>(() => {});
 const opdrachtToelichtingen: Record<string, string> = {
@@ -17,7 +18,8 @@ export type { LintTab as RibbonTab } from "./openaec-lint";
 
 /** Het OpenAEC-lint met de voorkeuren van Office Studio. */
 export function Ribbon(props: LintProps) {
-  return <Lint {...props} />;
+  const { lint } = useInstellingen();
+  return <Lint compact={lint.compact} standaardIngeklapt={lint.ingeklapt} {...props} />;
 }
 
 export interface GebondenOpdracht {

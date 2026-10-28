@@ -227,3 +227,94 @@
   padding-block: 7px;
   font-size: 12px;
 }
+
+/* Instellingen */
+.werkruimte-groep {
+  margin: 0 0 14px;
+  padding: 10px 14px 12px;
+  border: 1px solid var(--w-rand);
+  border-radius: 8px;
+}
+.werkruimte-groep legend {
+  padding: 0 6px;
+  font-weight: 600;
+}
+.werkruimte-keuzes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 16px;
+  margin-bottom: 8px;
+}
+.werkruimte-label {
+  flex-basis: 100%;
+  color: var(--w-tekst-zacht);
+  font-size: 12px;
+}
+.werkruimte-keuzes label,
+.werkruimte-vink {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 28px;
+}
+.werkruimte-veld {
+  display: grid;
+  grid-template-columns: minmax(120px, 34%) 1fr;
+  align-items: center;
+  gap: 10px;
+  margin: 6px 0;
+}
+.werkruimte-veld select,
+.werkruimte-veld input[type="text"],
+.werkruimte-eenheid input {
+  min-width: 0;
+  height: 30px;
+  padding: 3px 8px;
+  border: 1px solid var(--w-rand);
+  border-radius: 6px;
+  background: var(--w-bg);
+}
+.werkruimte-eenheid {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.werkruimte-eenheid input {
+  width: 72px;
+}
+.werkruimte-uitleg,
+.werkruimte-fout {
+  margin: 4px 0 8px;
+  color: var(--w-tekst-zacht);
+  font-size: 12px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+.werkruimte-fout {
+  color: #b42318;
+}
+.werkruimte-dialoogachtergrond[data-thema="forge"] .werkruimte-fout {
+  color: #fda29b;
+}
+.werkruimte-rij {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.werkruimte-melding {
+  margin-right: auto;
+  align-self: center;
+  color: var(--w-tekst-zacht);
+  font-size: 12px;
+}
+.werkruimte-dialoog input[type="radio"],
+.werkruimte-dialoog input[type="checkbox"] {
+  accent-color: var(--w-accent);
+}
+@media (max-width: 560px) {
+  .werkruimte-veld {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+}

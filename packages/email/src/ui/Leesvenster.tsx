@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useInstellingen } from "../../../../src/instellingen";
 import {
   Archive,
   Download,
@@ -80,7 +81,10 @@ export function Leesvenster({
   useEffect(() => setVoorbeeld(null), [bericht?.map, bericht?.uid]);
   useEffect(() => voorbeeldOpen?.(voorbeeld !== null), [voorbeeld, voorbeeldOpen]);
   const afzender = bericht?.van[0]?.adres ?? "";
-  const extern = !!bericht && (account.externeInhoud || externToegestaan(bericht.berichtId ?? `${bericht.map}:${bericht.uid}`, afzender));
+  // Instelling "nooit automatisch" gaat voor het account; zelf toestaan blijft kunnen.
+  const { emailExterneInhoud } = useInstellingen();
+  const accountExtern = account.externeInhoud && emailExterneInhoud !== "nooit";
+  const extern = !!bericht && (accountExtern || externToegestaan(bericht.berichtId ?? `${bericht.map}:${bericht.uid}`, afzender));
 
   // Desktopapp: de CSP laat geen externe bronnen toe; na toestemming haalt de
   // backend de afbeeldingen op en komen ze als blob-URL in het frame.

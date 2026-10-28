@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { SneltoetsenOverzicht } from "./SneltoetsenOverzicht";
+import { InstellingenVenster } from "./InstellingenVenster";
 import { bijVerzoek } from "./gebeurtenissen";
 import type { SneltoetsModule } from "../lint/sneltoetsenlijst";
 import { useRegioToetsen } from "./regios";
@@ -62,5 +63,6 @@ export function Werkruimtehulp({ soort }: { soort: string | null }) {
   }, []);
   if (open === "sneltoetsen")
     return <SneltoetsenOverzicht module={module} sluit={() => setOpen(null)} />;
+  if (open === "instellingen") return <InstellingenVenster sluit={() => setOpen(null)} />;
   return null;
 }

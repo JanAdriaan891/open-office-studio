@@ -48,6 +48,7 @@ import { useTabSneltoetsen } from "./useTabSneltoetsen";
 import { useVensters } from "./useVensters";
 import { useSysteembestanden } from "./systeembestanden";
 import { Werkruimtehulp } from "./werkruimte/Werkruimtehulp";
+import { leesInstellingen } from "./instellingen";
 const Editor = lazy(() => import("./editors"));
 const tauri = "__TAURI_INTERNALS__" in window;
 /** Database-export via de native opslagdialoog; Rust staat alleen bekende exporttypen toe. */
@@ -390,6 +391,7 @@ export function OfficeStudio() {
       vingerafdruk?: string;
       gewijzigd?: boolean;
       melding?: string;
+      exportFormaat?: string;
     } = {},
   ) {
     return tabs.openDocument({ soort, naam, bytes, ...extra });
@@ -417,6 +419,8 @@ export function OfficeStudio() {
         soort,
         naamloos(tabs.toestandRef.current, soort),
         new Uint8Array(await r.arrayBuffer()),
+        // Standaardformaat uit de instellingen (OOXML of ODF).
+        { exportFormaat: leesInstellingen().opslagformaat[soort] },
       );
     });
 
