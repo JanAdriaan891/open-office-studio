@@ -30,6 +30,8 @@ export interface Instellingen {
     hoofdletterwoordenNegeren: boolean;
     cijferwoordenNegeren: boolean;
   };
+  /** Tekst: sneltoetsprofiel (LibreOffice-achtig of Word) en de mini-werkbalk bij selectie. */
+  tekst: { sneltoetsprofiel: "standaard" | "word"; miniWerkbalk: boolean };
 }
 
 export const standaardInstellingen: Instellingen = {
@@ -44,6 +46,7 @@ export const standaardInstellingen: Instellingen = {
     hoofdletterwoordenNegeren: true,
     cijferwoordenNegeren: true,
   },
+  tekst: { sneltoetsprofiel: "standaard", miniWerkbalk: true },
 };
 
 const SLEUTEL = "openaec-office-instellingen";
@@ -65,6 +68,7 @@ export function normaliseerInstellingen(ruw: unknown): Instellingen {
   const lint = isObject(r.lint) ? r.lint : {};
   const status = isObject(r.statusbalk) ? r.statusbalk : {};
   const spelling = isObject(r.spelling) ? r.spelling : {};
+  const tekst = isObject(r.tekst) ? r.tekst : {};
   return {
     thema: kies(r.thema, ["light", "forge", "systeem"] as const, s.thema),
     opslagformaat: {
@@ -89,6 +93,10 @@ export function normaliseerInstellingen(ruw: unknown): Instellingen {
       autocorrectie: waarOnwaar(spelling.autocorrectie, true),
       hoofdletterwoordenNegeren: waarOnwaar(spelling.hoofdletterwoordenNegeren, true),
       cijferwoordenNegeren: waarOnwaar(spelling.cijferwoordenNegeren, true),
+    },
+    tekst: {
+      sneltoetsprofiel: kies(tekst.sneltoetsprofiel, ["standaard", "word"] as const, "standaard"),
+      miniWerkbalk: waarOnwaar(tekst.miniWerkbalk, s.tekst.miniWerkbalk),
     },
   };
 }
