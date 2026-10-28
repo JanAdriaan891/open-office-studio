@@ -1,4 +1,5 @@
 import { useCallback, useRef, useState } from "react";
+import i18next from "./i18n/config";
 import { DocumentOpslag } from "./opslag";
 import {
   GEHEUGENGRENS,
@@ -110,9 +111,7 @@ export function useTabbladen(opties: Opties) {
     }
     const aantal = aantalDocumenten(na);
     if (aantal > voor && aantal > GEHEUGENGRENS)
-      setMeldingAlgemeen(
-        `Er zijn ${aantal} documenten geopend. Elk open document gebruikt geheugen; sluit documenten die je niet meer nodig hebt.`,
-      );
+      setMeldingAlgemeen(i18next.t("shell:tabs.memoryWarning", { count: aantal }));
     return { id, nieuw: aantal > voor };
   }
 

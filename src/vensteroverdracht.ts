@@ -1,3 +1,4 @@
+import i18next from "./i18n/config";
 import type { Soort } from "./editors";
 import type { ModuleNaam } from "./tabbladen";
 import type { Werkbestand } from "./werkbestand";
@@ -215,7 +216,7 @@ export function browserkanaal(omgeving: BrowserOmgeving): Vensterkanaal {
     } else if (bericht.type === "geweigerd") {
       uitstaand
         .get(bericht.sleutel)
-        ?.klaar(new Error("Het andere venster kon het tabblad niet openen."));
+        ?.klaar(new Error(i18next.t("shell:windows.otherWindowFailed")));
     } else if (bericht.type === "vervallen" && bericht.naar === mijnId) {
       wachtOpBegin.get(bericht.sleutel)?.(null);
       wachtOpBegin.delete(bericht.sleutel);
@@ -231,9 +232,11 @@ export function browserkanaal(omgeving: BrowserOmgeving): Vensterkanaal {
           () =>
             klaar(
               new Error(
-                doel === "hoofd"
-                  ? "Het hoofdvenster reageert niet. Het tabblad blijft hier open."
-                  : "Het nieuwe venster heeft het document niet op tijd overgenomen. Het tabblad blijft hier open.",
+                i18next.t(
+                  doel === "hoofd"
+                    ? "shell:windows.mainWindowNoResponse"
+                    : "shell:windows.newWindowTimeout",
+                ),
               ),
             ),
           limiet,
@@ -246,7 +249,7 @@ export function browserkanaal(omgeving: BrowserOmgeving): Vensterkanaal {
         }
         if (doel === "hoofd") {
           if (!hoofdId) {
-            klaar(new Error("Dit is al het hoofdvenster."));
+            klaar(new Error(i18next.t("shell:windows.alreadyMainWindow")));
             return;
           }
           uitstaand.set(sleutel, { overdracht, naar: hoofdId, geclaimd: true, klaar });
@@ -262,9 +265,7 @@ export function browserkanaal(omgeving: BrowserOmgeving): Vensterkanaal {
         const url = `${omgeving.pad}?venster=document&overdracht=${encodeURIComponent(sleutel)}&bron=${encodeURIComponent(hoofdId ?? mijnId)}`;
         if (!omgeving.open(url, positie))
           klaar(
-            new Error(
-              "Het nieuwe venster kon niet worden geopend. Sta pop-upvensters toe voor deze pagina.",
-            ),
+            new Error(i18next.t("shell:windows.popupBlocked")),
           );
       });
     },

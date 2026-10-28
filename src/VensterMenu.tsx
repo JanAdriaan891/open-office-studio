@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Layers } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import i18next from "./i18n/config";
 import type { useTabbladen } from "./useTabbladen";
 import { titel } from "./tabbladen";
 import "./levenscyclus.css";
@@ -40,10 +42,10 @@ export function venstergroepen(lijst: VensterInfo[], eigen: string | null) {
       eigen: v.label === eigen,
       naam:
         v.label === eigen
-          ? "Dit venster"
+          ? i18next.t("shell:windowMenu.thisWindow")
           : v.hoofd
-            ? "Hoofdvenster"
-            : `Venster ${++nummer}`,
+            ? i18next.t("shell:windowMenu.mainWindow")
+            : i18next.t("shell:windowMenu.windowNumber", { number: ++nummer }),
     }));
 }
 
@@ -114,6 +116,7 @@ export function VensterMenu({
   tabs: ReturnType<typeof useTabbladen>;
   activeer: (id: number) => void;
 }) {
+  const { t } = useTranslation("shell");
   const [open, setOpen] = useState(false);
   const [groepen, setGroepen] = useState<ReturnType<typeof venstergroepen>>(
     [],
@@ -125,10 +128,10 @@ export function VensterMenu({
     const eigen: VensterInfo = {
       label: "eigen",
       hoofd: true,
-      tabbladen: tabs.toestandRef.current.tabbladen.map((t) => ({
-        id: t.id,
-        titel: titel(t),
-        gewijzigd: t.gewijzigd,
+      tabbladen: tabs.toestandRef.current.tabbladen.map((tab) => ({
+        id: tab.id,
+        titel: titel(tab),
+        gewijzigd: tab.gewijzigd,
       })),
     };
     let lijst = [eigen];
@@ -179,8 +182,8 @@ export function VensterMenu({
         aria-expanded={open}
         disabled={!aantal && !tauri}
         onClick={() => (open ? setOpen(false) : void toon())}
-        title="Open documenten · Ctrl+Tab of Ctrl+F6 om te wisselen"
-        aria-label="Open documenten"
+        title={t("windowMenu.buttonTitle")}
+        aria-label={t("windowMenu.button")}
       >
         <Layers size={16} />
       </button>
@@ -207,22 +210,25 @@ export function VensterMenu({
             }
           }}
         >
-          {!groepen.length && <p>Geen open documenten.</p>}
+          {!groepen.length && <p>{t("windowMenu.empty")}</p>}
           {groepen.map((v) => (
             <div key={v.label} role="group" aria-label={v.naam}>
               <span className="office-venstermenu-kop">{v.naam}</span>
-              {v.tabbladen.map((t) => (
+              {v.tabbladen.map((tab) => (
                 <button
-                  key={t.id}
+                  key={tab.id}
                   role="menuitem"
-                  onClick={() => kies(v.label, v.eigen, t.id)}
+                  onClick={() => kies(v.label, v.eigen, tab.id)}
                   aria-current={
-                    v.eigen && tabs.toestand.actief === t.id ? "true" : undefined
+                    v.eigen && tabs.toestand.actief === tab.id ? "true" : undefined
                   }
                 >
-                  <span>{t.titel}</span>
-                  {t.gewijzigd && (
-                    <i title="Niet-opgeslagen wijzigingen" aria-label="gewijzigd" />
+                  <span>{tab.titel}</span>
+                  {tab.gewijzigd && (
+                    <i
+                      title={t("windowMenu.unsavedTitle")}
+                      aria-label={t("windowMenu.modified")}
+                    />
                   )}
                 </button>
               ))}

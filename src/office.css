@@ -401,22 +401,21 @@ select {
   background: var(--module-accent);
   position: absolute;
   bottom: -5px;
-  left: 14px;
-  right: 14px;
+  inset-inline: 14px;
   border-radius: 2px;
 }
 .office .ribbon-tabs .ribbon-bestand {
   color: #5b6472;
   padding-inline: 13px;
-  margin-right: 5px;
+  margin-inline-end: 5px;
   font-weight: 600;
 }
 .office .ribbon-tabs .ribbon-inklap {
-  margin-left: auto;
+  margin-inline-start: auto;
   padding-inline: 10px;
   color: #6a7584;
   position: sticky;
-  right: 0;
+  inset-inline-end: 0;
   background: #f6f7f9;
 }.office .ribbon-inhoud[hidden] {
   display: none;
@@ -439,13 +438,13 @@ select {
   flex-direction: column;
   justify-content: space-between;
   flex-shrink: 0;
-  border-right: 1px solid #e5e7eb;
+  border-inline-end: 1px solid #e5e7eb;
   padding: 0 12px;
   min-width: 65px;
   margin: 0;
 }
 .office .ribbon-groep:last-child {
-  border-right: 0;
+  border-inline-end: 0;
 }
 .office .ribbon-groep-inhoud {
   flex: 1;
@@ -564,7 +563,8 @@ select {
   width: 100%;
   height: 100%;
   min-width: 0;
-  padding: 4px 24px 4px 8px;
+  padding-block: 4px;
+  padding-inline: 8px 24px;
   border: 1px solid #dce0e5;
   border-radius: 6px;
   color: #414650;
@@ -580,7 +580,7 @@ select {
 }
 .office .ribbon-keuze > svg {
   position: absolute;
-  right: 7px;
+  inset-inline-end: 7px;
   pointer-events: none;
   color: #89909b;
 }
@@ -588,7 +588,8 @@ select {
   width: 55px;
   min-width: 0;
   height: 30px;
-  padding: 4px 3px 4px 7px;
+  padding-block: 4px;
+  padding-inline: 7px 3px;
   border: 1px solid #dce0e5;
   border-radius: 6px;
   color: #414650;
@@ -617,7 +618,7 @@ select {
   position: absolute;
   height: 3px;
   bottom: 3px;
-  left: 5px;
+  inset-inline-start: 5px;
   width: 17px;
   border-radius: 1px;
 }

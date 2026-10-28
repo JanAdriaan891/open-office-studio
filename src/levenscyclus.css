@@ -235,7 +235,7 @@
 .office-venstermenu-lijst {
   position: absolute;
   top: calc(100% + 6px);
-  right: 0;
+  inset-inline-end: 0;
   z-index: 900;
   width: min(320px, calc(100vw - 32px));
   max-height: 60vh;
@@ -272,7 +272,7 @@
   background: none;
   color: inherit;
   font-size: 12px;
-  text-align: left;
+  text-align: start;
   cursor: pointer;
 }
 .office-venstermenu-lijst button span {
