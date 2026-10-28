@@ -11,29 +11,35 @@ import {
   type DocxCommandId,
 } from "@betteroffice/docx-react";
 import {
+  ArrowDownAZ,
   ClipboardPaste,
   ClipboardType,
   Columns2,
   Copy,
+  Crop,
   Grid2X2,
   Image,
+  ImageUp,
   Link,
   List,
   ListOrdered,
   Merge,
   MessageSquarePlus,
+  Move,
   Paintbrush,
   Pilcrow,
   RotateCw,
   Rows3,
   Scissors,
   Table2,
+  TextCursorInput,
   Trash2,
   Type,
   type LucideIcon,
 } from "lucide-react";
 import type { TekstOpdrachten } from "../bewerken/TekstBewerken";
 import { portaalDoel } from "./portaal";
+import { heeftOpdracht, voerOpdrachtUit } from "./opdrachten";
 
 export interface MenuPlek {
   x: number;
@@ -79,6 +85,9 @@ export function Contextmenu({
   const punt = { x: plek.x, y: plek.y };
 
   const tabel = (args: DocxCommandArgs["tableAction"]) => () => voerUit("tableAction", args);
+  /** Een item voor een opdracht uit de registry (W4: tabel- en afbeeldingsvensters), alleen als die is aangemeld. */
+  const aangemeld = (naam: string, icoon: LucideIcon, id: string, uit = !bewerkbaar): Item[] =>
+    heeftOpdracht(id) ? [{ naam, icoon, uit, doe: () => voerOpdrachtUit(id, { punt }) }] : [];
   const secties: Sectie[] = [
     [
       {
@@ -147,6 +156,7 @@ export function Contextmenu({
       },
     ],
   ];
+  if (!plek.tabel && !plek.afbeelding && selectie) secties.push(aangemeld("Tekst converteren naar tabel…", Table2, "tabel.tekstNaarTabel"));
   if (plek.tabel)
     secties.push(
       [
@@ -167,6 +177,14 @@ export function Contextmenu({
           doe: tabel({ type: "openTableProperties" }),
         },
       ],
+      [
+        ...aangemeld("Rij-eigenschappen…", Rows3, "tabel.rij"),
+        ...aangemeld("Celmarges…", Table2, "tabel.marges"),
+        ...aangemeld("Kolommen gelijk verdelen", Columns2, "tabel.kolommenGelijk"),
+        ...aangemeld("Sorteren…", ArrowDownAZ, "tabel.sorteren"),
+        ...aangemeld("Converteren naar tekst…", Pilcrow, "tabel.naarTekst"),
+        ...aangemeld("Tabel splitsen", Grid2X2, "tabel.splitsen"),
+      ],
     );
   if (plek.afbeelding)
     secties.push([
@@ -182,6 +200,10 @@ export function Contextmenu({
         uit: !kan("imageTransform"),
         doe: () => voerUit("imageTransform", { action: "rotateCW" }),
       },
+      ...aangemeld("Bijsnijden…", Crop, "afbeelding.bijsnijden"),
+      ...aangemeld("Afbeelding wijzigen…", ImageUp, "afbeelding.wijzigen"),
+      ...aangemeld("Alternatieve tekst…", TextCursorInput, "afbeelding.alt"),
+      ...aangemeld("Positie…", Move, "afbeelding.positie"),
     ]);
 
   // Binnen het venster houden.

@@ -13,3 +13,21 @@ export function bijVerzoek(soort: "sneltoetsen" | "instellingen", doe: () => voi
   window.addEventListener(naam, doe);
   return () => window.removeEventListener(naam, doe);
 }
+
+/** Een nieuw tekstdocument in een eigen tabblad, bijvoorbeeld het resultaat van Versies vergelijken. */
+export interface NieuwDocument {
+  naam: string;
+  bytes: Uint8Array;
+}
+const NIEUW_DOCUMENT = "openaec-office-nieuw-document";
+export function openNieuwDocument(document: NieuwDocument) {
+  window.dispatchEvent(new CustomEvent<NieuwDocument>(NIEUW_DOCUMENT, { detail: document }));
+}
+export function bijNieuwDocument(doe: (document: NieuwDocument) => void) {
+  const luister = (e: Event) => {
+    const detail = (e as CustomEvent<NieuwDocument>).detail;
+    if (detail?.bytes?.length) doe(detail);
+  };
+  window.addEventListener(NIEUW_DOCUMENT, luister);
+  return () => window.removeEventListener(NIEUW_DOCUMENT, luister);
+}

@@ -35,8 +35,6 @@ import {
   X,
   ChevronLeft,
   ChevronRight,
-  Search,
-  Replace,
   Printer,
   Ruler,
   PanelLeft,
@@ -85,6 +83,11 @@ import {
 } from "./tekst-opdrachten";
 import { datumTekst, tijdTekst, type Hoofdlettersoort } from "./tekst-logica";
 import { TabelKiezer } from "../tabelvoorbeeld/TabelKiezer";
+import { TabelIndeling, TekstNaarTabelKnop } from "../tekst/tabel/TabelIndeling";
+import { AfbeeldingGroepen } from "../tekst/afbeelding/AfbeeldingGroepen";
+import { ZoekKnoppen } from "../tekst/zoeken/ZoekPaneel";
+import { WordHost } from "../tekst/WordHost";
+import { WijzigingenGroepen } from "../tekst/wijzigingen/Wijzigingen";
 import { usePagina } from "../tekst/pagina/ui/usePagina";
 import {
   ExtraEindes,
@@ -277,24 +280,8 @@ function OpmaakWissen() {
     </Groep>
   );
 }
-function Zoeken({ groot }: { groot?: boolean }) {
-  const knoppen = (
-    <>
-      <W id="find" naam="Zoeken" icoon={Search} groot={groot} />
-      <W
-        id="replace"
-        naam="Zoeken en vervangen"
-        icoon={Replace}
-        groot={groot}
-      />
-    </>
-  );
-  return (
-    <Groep naam="Zoeken">
-      {groot ? knoppen : <div className="ribbon-stapel">{knoppen}</div>}
-    </Groep>
-  );
-}
+/** Zoeken, vervangen en Ga naar: het navigatievenster uit src/tekst/zoeken (#29). */
+const Zoeken = ZoekKnoppen;
 function WoordenTellen({ opdrachten }: { opdrachten: Opdrachten }) {
   return (
     <EigenKnop
@@ -455,6 +442,7 @@ export function TekstRibbon({
               groot
             />
           </Groep>
+          <TabelIndeling />
           <Groep naam="Verwijderen">
             <div className="ribbon-stapel">
               <W
@@ -490,6 +478,7 @@ export function TekstRibbon({
           <Groep naam="Afbeelding">
             <W id="imageProperties" naam="Eigenschappen" icoon={Image} groot />
           </Groep>
+          <AfbeeldingGroepen />
           <Groep naam="Tekstterugloop">
             <WK id="imageWrap" naam="Tekstterugloop" breed />
           </Groep>
@@ -566,6 +555,7 @@ export function TekstRibbon({
                 </Groep>
                 <Groep naam="Tabellen">
                   <TabelKiezer />
+                  <TekstNaarTabelKnop />
                 </Groep>
                 <Groep naam="Illustraties">
                   <W id="insertImage" naam="Afbeelding" icoon={Image} groot />
@@ -789,6 +779,7 @@ export function TekstRibbon({
                     <W id="reviewNext" naam="Volgende" icoon={ChevronRight} />
                   </div>
                 </Groep>
+                <WijzigingenGroepen />
                 <Zoeken groot />
               </>
             ),
@@ -854,6 +845,7 @@ export function TekstRibbon({
         ]}
       />
       <TekstDialogen opdrachten={opdrachten} />
+      <WordHost />
       <TekstStatus opdrachten={opdrachten} />
       <TekstInfo />
       {grafieken.venster}
