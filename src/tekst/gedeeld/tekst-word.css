@@ -442,3 +442,80 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Wijzigingen: deelvenster en alleen-lezen voorbeeld */
+.tw-wijziging {
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+}
+.tw-wijziging-tekst {
+  flex: 1;
+}
+.tw-wijziging-knoppen {
+  display: flex;
+  gap: 2px;
+  padding-top: 6px;
+}
+.tw-wijziging-knoppen button {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border: 1px solid #dce1e8;
+  border-radius: 5px;
+  background: #fff;
+  cursor: pointer;
+}
+.tw-wijziging-knoppen button:hover {
+  background: #f4f6f8;
+}
+.tw-wijziging-erbij {
+  color: #1f6f43;
+  text-decoration: underline;
+}
+.tw-wijziging-weg {
+  color: #b42318;
+  text-decoration: line-through;
+}
+.tw-voorbeeld {
+  position: fixed;
+  z-index: 940;
+  display: flex;
+  flex-direction: column;
+  background: #edf0f3;
+}
+.tw-voorbeeld-balk {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 12px;
+  border-bottom: 1px solid #e2a13d;
+  background: #fff6e5;
+  color: #4a3410;
+  font:
+    12px Inter,
+    system-ui,
+    sans-serif;
+}
+.tw-voorbeeld-balk span {
+  flex: 1;
+}
+.tw-voorbeeld-balk button {
+  padding: 4px 10px;
+  border: 1px solid #c58a2e;
+  border-radius: 6px;
+  background: #fff;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.tw-voorbeeld-melding {
+  margin: 24px;
+  color: #5e636d;
+  font: 13px Inter, system-ui, sans-serif;
+}
+.tw-voorbeeld-editor {
+  flex: 1;
+  min-height: 0;
+}

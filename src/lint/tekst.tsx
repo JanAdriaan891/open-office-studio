@@ -93,6 +93,7 @@ import { TabelIndeling, TekstNaarTabelKnop } from "../tekst/tabel/TabelIndeling"
 import { AfbeeldingGroepen } from "../tekst/afbeelding/AfbeeldingGroepen";
 import { ZoekKnoppen } from "../tekst/zoeken/ZoekPaneel";
 import { WordHost } from "../tekst/WordHost";
+import { WijzigingenGroepen } from "../tekst/wijzigingen/Wijzigingen";
 import {
   AlineaKnop,
   LettertypeKnop,
@@ -809,6 +810,7 @@ export function TekstRibbon({
                     <W id="reviewNext" naam="Volgende" icoon={ChevronRight} />
                   </div>
                 </Groep>
+                <WijzigingenGroepen />
                 <Zoeken groot />
               </>
             ),

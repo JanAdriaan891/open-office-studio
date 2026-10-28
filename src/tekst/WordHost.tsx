@@ -14,6 +14,8 @@ import { ZoekHost } from "./zoeken/ZoekPaneel";
 import { TabelVenster, openTekstNaarTabel, splitsHuidigeTabel } from "./tabel/TabelIndeling";
 import { kolommenGelijk } from "./tabel/opdrachten";
 import { AfbeeldingVenster, kiesNieuweAfbeelding } from "./afbeelding/AfbeeldingGroepen";
+import { MarkeringVoorbeeld, WijzigingenPaneel, wijzigingenWinkel } from "./wijzigingen/Wijzigingen";
+import { usePaneelStaat } from "./zoeken/paneelstaat";
 
 /** Opdrachten die het rechtermuismenu via de registry kan aanroepen. */
 export const MENU_OPDRACHTEN = [
@@ -36,6 +38,8 @@ export function WordHost() {
   const meld = useContext(RibbonFout);
   const zichtbaar = useEditorZichtbaar();
   const open = useOpenVenster(api);
+  const wijzigingen = wijzigingenWinkel.gebruik(api);
+  const zoeken = usePaneelStaat(api).zoeken;
   const recent = { apis, meld };
 
   useEffect(() => {
@@ -71,6 +75,8 @@ export function WordHost() {
   return (
     <>
       <ZoekHost />
+      {zichtbaar && wijzigingen.paneel && !zoeken && <WijzigingenPaneel />}
+      {zichtbaar && <MarkeringVoorbeeld />}
       {zichtbaar && open?.id.startsWith("tabel.") && <TabelVenster key={open.id} id={open.id} gegevens={open.gegevens} sluit={sluit} />}
       {zichtbaar && open?.id.startsWith("afbeelding.") && <AfbeeldingVenster key={open.id} id={open.id} sluit={sluit} />}
     </>

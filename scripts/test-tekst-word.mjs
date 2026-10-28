@@ -319,6 +319,50 @@ if (doe("zoeken")) {
 }
 
 // ---------------------------------------------------------------------------
+if (doe("wijzigingen")) {
+  console.log("#28 Wijzigingen");
+  const w = await import("../src/tekst/wijzigingen/opdrachten.ts");
+  // Extra alinea met een wijziging van Anna, zodat er per auteur te filteren valt.
+  const { strToU8, zipSync } = await import("fflate");
+  const bestanden = unzipSync(maakProefdocument());
+  bestanden["word/document.xml"] = strToU8(
+    documentXml(maakProefdocument()).replace(
+      "<w:sectPr",
+      `<w:p w14:paraId="10000050"><w:r><w:t xml:space="preserve">Slot </w:t></w:r><w:ins w:id="903" w:author="Anna" w:date="2026-10-03T10:00:00Z"><w:r><w:t>van Anna</w:t></w:r></w:ins></w:p><w:sectPr`,
+    ),
+  );
+  const bron = zipSync(bestanden);
+  let s = await sessie(bron);
+  let ref = nepRef(s);
+  controleer(w.revisies(s).length === 3, "drie bijgehouden wijzigingen van twee auteurs");
+  // Alleen getoonde auteurs: Bram verbergen.
+  let aantal = w.besluit(ref, "accepteren", { verborgen: new Set(["Bram"]) });
+  controleer(aantal === 2 && w.revisies(s).map((r) => r.author).join() === "Bram", "alle getoonde wijzigingen accepteren (Bram verborgen) laat Bram staan");
+  s.undo();
+  controleer(w.revisies(s).length === 3, "Ctrl+Z zet alle geaccepteerde wijzigingen in één stap terug");
+  // In de selectie: alleen de alinea met ‘ingevoegd’ en ‘weg’.
+  s.setSelection({ story: "body", paraId: "10000041", offset: 0 }, { story: "body", paraId: "10000041", offset: 30 });
+  aantal = w.besluit(ref, "weigeren", { selectie: true });
+  controleer(aantal === 2 && w.revisies(s).length === 1 && s.readParagraphs({ view: "accepted", paraIds: ["10000041"] }).paragraphs[0].text === "Begin midden weg einde.", "wijzigingen in de selectie weigeren");
+  aantal = w.besluit(ref, "accepteren");
+  let { xml } = await opslaanEnHeropenen(s, "wijzigingen-afgehandeld");
+  controleer(aantal === 1 && !/<w:(ins|del) /.test(xml) && xml.includes("van Anna") && xml.includes("weg "), "alles accepteren → geen w:ins/w:del meer in het opgeslagen document");
+
+  // Voorbeelden voor de markeringsweergave.
+  const geen = await w.voorbeeld(bron, "accepteren");
+  const origineel = await w.voorbeeld(bron, "weigeren");
+  await writeFile(join(UIT, "wijzigingen-geen-markeringen.docx"), geen.bytes);
+  await writeFile(join(UIT, "wijzigingen-origineel.docx"), origineel.bytes);
+  const xg = documentXml(geen.bytes),
+    xo = documentXml(origineel.bytes);
+  controleer(!/<w:(ins|del) /.test(xg) && xg.includes("ingevoegd") && !xg.includes("weg ") && xg.includes("van Anna"), "voorbeeld ‘geen markeringen’: alles geaccepteerd");
+  controleer(!/<w:(ins|del) /.test(xo) && !xo.includes("ingevoegd") && xo.includes("weg ") && !xo.includes("van Anna"), "voorbeeld ‘origineel’: alles geweigerd");
+  controleer(geen.gewijzigd.includes("10000041") && geen.gewijzigd.includes("10000050"), "eenvoudige markering kent de gewijzigde alinea’s");
+  const pdf = pdfTekst("wijzigingen-geen-markeringen");
+  if (pdf !== null) controleer(pdf.includes("ingevoegd") && !/\bweg\b/.test(pdf), "LibreOffice toont het geaccepteerde voorbeeld zonder verwijderde tekst");
+}
+
+// ---------------------------------------------------------------------------
 console.log(`\n${geslaagd} controles geslaagd, ${fouten.length} mislukt.`);
 if (fouten.length) {
   for (const f of fouten) console.log(`  - ${f}`);

@@ -33,6 +33,9 @@ const vorigeModus = new WeakMap<object, string>();
  */
 export function begin(e: Engine) {
   try {
+    // Sommige sessiebewerkingen (ruwe ops, acceptChange) starten de opname
+    // niet zelf; zonder dit is zo'n eerste stap na het openen niet terug te draaien.
+    e.sessie.beginUndoCapture();
     e.sessie.addUndoBoundary();
     vorigeModus.set(e.sessie, e.sessie.undoCaptureMode());
     e.sessie.setUndoCaptureMode("manual");

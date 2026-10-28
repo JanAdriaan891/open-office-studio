@@ -14,6 +14,9 @@ export interface TekstStatusInfo {
   selectie: { woorden: number; tekens: number } | null;
   naarPagina: () => void;
   woordenTellen: () => void;
+  /** Of wijzigingen worden bijgehouden (#28); ontbreekt bij oudere melders. */
+  bijhouden?: boolean;
+  wisselBijhouden?: () => void;
 }
 
 export interface Statistiek {
