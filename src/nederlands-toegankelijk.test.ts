@@ -39,7 +39,7 @@ describe("Nederlandse teksten voor schermlezers", () => {
   it("Tekst: zijbalk met opmerkingen en wijzigingen, foutmeldingen en redenen zijn Nederlands", () => {
     const en = tekstEn as unknown as Boom;
     const nl = tekstNlVolledig as unknown as Boom;
-    const delen = ["comments", "trackedChanges", "revisions", "commentMarkers", "errors", "unsaved"];
+    const delen = ["comments", "trackedChanges", "revisions", "commentMarkers", "errors", "unsaved", "colorPicker", "print"];
     const mist = delen.flatMap((deel) =>
       Object.keys(en[deel] as Boom).filter((k) => (nl[deel] as Boom | undefined)?.[k] === undefined).map((k) => `${deel}.${k}`),
     );
