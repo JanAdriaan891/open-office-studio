@@ -1,6 +1,6 @@
 {
   "name": "@openaec/office-studio",
-  "version": "2026.44.3",
+  "version": "2026.44.4",
   "private": true,
   "type": "module",
   "packageManager": "pnpm@11.25.0",
