@@ -33,6 +33,7 @@ import { DocumentLettertypen } from "./lettertypen/context";
 import { tekstSelectiePlugin } from "./lettertypen/koppeling";
 import { installeerFontCitering } from "./lettertypen/canvasFont";
 import { useTekstSpelling } from "./spelling/tekst/useTekstSpelling";
+import { TEKST_PLUGINS } from "./tekst/gedeeld/markering";
 
 const PRESENTATIE_PLUGINS = [tekstSelectiePlugin];
 import { usePresentatieStatus, useRekenbladStatus } from "./status/useEditorStatus";
@@ -134,6 +135,7 @@ export default function OfficeEditor(props: EditorProps) {
     props.soort === "docx" && props.zichtbaar !== false,
     () => herladenRecent.current.bytes,
   );
+  const tekstPlugins = useMemo(() => [...TEKST_PLUGINS, ...spelling.plugins], [spelling.plugins]);
   // Tekst: wijzigingen buiten de engine (zoals Bestand › Info) als gewijzigd melden.
   useEffect(
     () => registreerWijziging(herladen.api, () => recent.current.gewijzigd()),
@@ -306,7 +308,7 @@ export default function OfficeEditor(props: EditorProps) {
               documentBuffer={herladen.bytes}
               showFileOpen={false}
               showHelpMenu={false}
-              plugins={spelling.plugins}
+              plugins={tekstPlugins}
               pluginGrants={spelling.grants}
               onPluginError={spelling.pluginFout}
               downloadOnSave={false}

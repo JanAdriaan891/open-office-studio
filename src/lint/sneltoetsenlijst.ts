@@ -184,6 +184,10 @@ export const vasteSneltoetsen: readonly SneltoetsInfo[] = [
   tekst("F7", "Spelling en grammatica"),
   tekst("Ctrl+Shift+R", "Liniaal tonen of verbergen"),
   tekst("F11", "Alle stijlen"),
+  // Tekst: Word-functies (src/tekst/**).
+  tekst("Ctrl+F", "Zoeken in het navigatievenster"),
+  tekst("Ctrl+H", "Uitgebreid zoeken en vervangen"),
+  tekst("Ctrl+G", "Ga naar"),
   tekst("Ctrl+Alt+Shift+S", "Stijlenvenster"),
   // Tekst: opmaakvensters (src/tekst/TekstOpmaak.tsx).
   // Lettertype… en Alinea… zijn ook aangemeld bij src/tekst/menu/opdrachten.ts
@@ -204,8 +208,6 @@ export const vasteSneltoetsen: readonly SneltoetsInfo[] = [
   tekstEngine("Ctrl+Y", "Opnieuw; zonder iets om opnieuw te doen: laatste opmaak herhalen"),
   tekstEngine("Ctrl+Shift+Z", "Opnieuw"),
   tekstEngine("Ctrl+K", "Koppeling invoegen"),
-  tekstEngine("Ctrl+F", "Zoeken"),
-  tekstEngine("Ctrl+H", "Zoeken en vervangen"),
   tekstEngine("Ctrl+L", "Links uitlijnen"),
   tekstEngine("Ctrl+E", "Centreren"),
   tekstEngine("Ctrl+R", "Rechts uitlijnen"),
