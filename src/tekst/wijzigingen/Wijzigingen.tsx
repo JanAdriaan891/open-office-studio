@@ -133,7 +133,7 @@ export function WijzigingenGroepen() {
 
 function Actieknop({ naam, actief, onClick }: { naam: string; actief: boolean; onClick: () => void }) {
   return (
-    <button type="button" className="ribbon-actie" aria-pressed={actief} title="Deelvenster met alle wijzigingen" onMouseDown={(e) => e.preventDefault()} onClick={onClick}>
+    <button type="button" className="ribbon-actie" aria-pressed={actief} aria-label={naam} title="Deelvenster met alle wijzigingen" onMouseDown={(e) => e.preventDefault()} onClick={onClick}>
       <ListChecks size={17} strokeWidth={1.65} />
       <span>{naam}</span>
     </button>

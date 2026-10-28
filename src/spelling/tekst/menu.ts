@@ -42,6 +42,17 @@ export function registreerSessie(sessie: SpellingSessie, zichtbaar: () => boolea
   };
 }
 
+/** Opent het deelvenster Spelling en grammatica (F7) van het zichtbare document. */
+export function openSpellingVenster(): boolean {
+  for (const { sessie, zichtbaar } of sessies) {
+    if (!zichtbaar()) continue;
+    sessie.vensterOpen = true;
+    sessie.meld();
+    return true;
+  }
+  return false;
+}
+
 /** Of een ander (algemeen) rechtermuismenu de spellingitems toont. */
 export const heeftExternMenu = () => externeKoppelingen > 0;
 
