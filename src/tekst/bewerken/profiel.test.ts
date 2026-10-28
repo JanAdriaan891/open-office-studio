@@ -8,6 +8,7 @@ import {
   type SneltoetsProfiel,
 } from "../../lint/sneltoetsenlijst";
 import { ACTIES, isActie } from "./acties";
+import { toetsVoorProfiel } from "./profielToets";
 import {
   heeftOpdracht,
   meldOpdrachtAan,
@@ -91,6 +92,17 @@ describe("sneltoetsprofielen", () => {
     expect(toetsInProfiel("tekst", "Shift+F3", "word")).toBe(true);
     // Onbekend in het register: niet uitschakelen.
     expect(toetsInProfiel("tekst", "Ctrl+Alt+Shift+X", "word")).toBe(true);
+  });
+
+  it("vertaalt de knopuitleg naar het actieve profiel", () => {
+    expect(toetsVoorProfiel("Ctrl+1", "word")).toBe("Ctrl+Alt+1");
+    expect(toetsVoorProfiel("Ctrl+1", "standaard")).toBe("Ctrl+1");
+    expect(toetsVoorProfiel("Ctrl+Shift+P", "word")).toBe("Ctrl+Shift++");
+    expect(toetsVoorProfiel("Ctrl+M", "word")).toBe("Ctrl+Space");
+    expect(toetsVoorProfiel("Ctrl+Alt+C", "word")).toBe("Ctrl+Alt+M");
+    expect(toetsVoorProfiel("Ctrl+Shift+C", "word")).toBe("Ctrl+Shift+E");
+    expect(toetsVoorProfiel("Ctrl+Enter", "word")).toBe("Ctrl+Enter");
+    expect(toetsVoorProfiel("Ctrl+X", "word")).toBe("Ctrl+X");
   });
 
   it("beschrijft elke toets uit src/tekst/bewerken in het register", () => {

@@ -107,6 +107,12 @@ export function MiniWerkbalk({
     const beweeg = (e: MouseEvent) => {
       const r = vak.current?.getBoundingClientRect();
       if (!r) return;
+      // Bezig in de balk (keuzelijst, getal) of in het lettertypepaneel: blijven.
+      const doel = e.target instanceof Element ? e.target : null;
+      if (vak.current?.contains(document.activeElement) || doel?.closest(".lettertypekeuze-paneel")) {
+        setVervaag(0);
+        return;
+      }
       const dx = Math.max(r.left - e.clientX, 0, e.clientX - r.right);
       const dy = Math.max(r.top - e.clientY, 0, e.clientY - r.bottom);
       const afstand = Math.hypot(dx, dy);

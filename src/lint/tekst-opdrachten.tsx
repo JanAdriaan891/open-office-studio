@@ -15,6 +15,7 @@ import { publiceerStatus } from "../status/statusinfo";
 import { useSneltoetsen, type Sneltoets } from "./sneltoetsen";
 import { toetsInProfiel } from "./sneltoetsenlijst";
 import { useInstellingen } from "../instellingen";
+import { useProfielToets } from "../tekst/bewerken/profielToets";
 import {
   selectieBegin,
   specialeTekens,
@@ -43,10 +44,11 @@ export function WS<K extends DocxCommandId>({
   groot?: boolean;
 }) {
   const opdracht = useDocxCommand(id, args);
+  const toets = useProfielToets()(sneltoets);
   return (
     <OpdrachtKnop
       {...props}
-      opdracht={sneltoets ? { ...opdracht, shortcut: sneltoets } : opdracht}
+      opdracht={sneltoets ? { ...opdracht, shortcut: toets ?? null } : opdracht}
     />
   );
 }
@@ -67,11 +69,12 @@ export function EigenKnop({
   uitleg?: string;
   onClick: () => void;
 }) {
+  const toets = useProfielToets()(sneltoets);
   return (
     <Actie
       {...props}
       naam={naam}
-      title={[naam, uitleg, sneltoets].filter(Boolean).join(" · ")}
+      title={[naam, uitleg, toets].filter(Boolean).join(" · ")}
       onMouseDown={(event) => event.preventDefault()}
     />
   );

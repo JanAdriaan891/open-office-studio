@@ -741,6 +741,7 @@ export function TekstBewerken({
 /** Opmaakkwast: klik = één keer, dubbelklik = blijvend (Esc stopt). */
 export function KwastKnop({ groot }: { groot?: boolean }) {
   const b = useBewerken();
+  const word = useInstellingen().tekst.sneltoetsprofiel === "word";
   const actief = b.kwast.modus !== "uit";
   const uitleg = actief
     ? `Selecteer tekst om ${omschrijfOpmaak(b.kwast.opmaak?.delta ?? null)} toe te passen${b.kwast.modus === "blijvend" ? "; Esc stopt" : ""}`
@@ -752,7 +753,7 @@ export function KwastKnop({ groot }: { groot?: boolean }) {
       groot={groot}
       actief={actief}
       disabled={!b.opdrachten.bewerkbaar}
-      title={`Opmaak kopiëren en plakken · ${uitleg}`}
+      title={`Opmaak kopiëren en plakken · ${uitleg}${word ? " · Ctrl+Alt+C / Ctrl+Alt+V" : ""}`}
       onMouseDown={(event) => event.preventDefault()}
       onClick={(event) => {
         // De tweede klik van een dubbelklik telt niet als ‘uitzetten’.
