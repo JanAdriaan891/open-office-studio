@@ -1,5 +1,14 @@
+import type { Werkbestand } from "./werkbestand";
+
 export type BewaarUitkomst = (
-  | { status: "opgeslagen"; pad: string }
+  | {
+      status: "opgeslagen";
+      pad: string;
+      /** Na Opslaan als in het eigen formaat: het nieuwe werkbestand. */
+      werkbestand?: Werkbestand;
+    }
+  /** Terugschrijven kan niet (alleen-lezen, ander formaat): toon Opslaan als. */
+  | { status: "opslaan-als" }
   | { status: "geëxporteerd"; pad: string }
   | { status: "geannuleerd" }
   | { status: "download" }
@@ -28,6 +37,11 @@ export class DocumentOpslag {
 
   get gewijzigd() {
     return this.revisie !== this.opgeslagenRevisie;
+  }
+
+  /** Verandert bij elke wijziging; voor herstelkopieën. */
+  get versie() {
+    return `${this.documentId}:${this.revisie}`;
   }
 
   wissel() {

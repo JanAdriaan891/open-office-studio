@@ -36,6 +36,20 @@ const BEWERKBAAR = new Set([
   "sjablonen",
 ]);
 
+/** Aangetoond verlies via de eigen engine blokkeert opslaan in het eigen formaat. */
+export function blokkeerBijVerlies(
+  bytes: Uint8Array,
+  soort: Soort,
+  eigen: boolean,
+) {
+  const beleid = risicoBeleid(
+    controleerPakket(bytes, soort).risicos,
+    soort,
+    eigen ? "engine" : "conversie",
+  );
+  if (beleid.opslaanGeblokkeerd) throw new Error(beleid.waarschuwing!);
+}
+
 /** De verliesmelding die vóór het opslaan in dit formaat hoort, of null. */
 export function verliesmelding(
   bytes: Uint8Array,
@@ -85,19 +99,15 @@ export async function bewaarInFormaat(
   soort: Soort,
   bytes: Uint8Array,
   keuze: OpslaanKeuze,
+  /** Huidig pad-token van het tabblad (desktop); vervalt als het eigen formaat elders wordt bewaard. */
+  token?: string,
 ): Promise<BewaarUitkomst> {
   const formaat = uitvoerformaat(soort, keuze.ext);
   if (!formaat) throw new Error("Dit formaat wordt niet ondersteund.");
   const desktop = "__TAURI_INTERNALS__" in window;
   const eigen = keuze.ext === soort;
   const toelichtingen: string[] = [];
-  // Aangetoond verlies via de eigen engine blokkeert opslaan in het eigen formaat.
-  const beleid = risicoBeleid(
-    controleerPakket(bytes, soort).risicos,
-    soort,
-    eigen ? "engine" : "conversie",
-  );
-  if (beleid.opslaanGeblokkeerd) throw new Error(beleid.waarschuwing!);
+  blokkeerBijVerlies(bytes, soort, eigen);
   const melding = verliesmelding(bytes, soort, formaat, keuze.route);
   if (melding) toelichtingen.push(melding);
 
@@ -136,10 +146,37 @@ export async function bewaarInFormaat(
     );
   const toelichting = toelichtingen.join(" ") || undefined;
   const bestandsnaam = `${keuze.naam.replace(/[\\/:*?"<>|]+/g, "_").trim() || "Naamloos"}.${keuze.ext}`;
-  const pad = await bewaarUitvoer(uitvoer, bestandsnaam, mime);
-  if (pad === null) return { status: "geannuleerd" };
-  if (desktop)
-    return { status: eigen ? "opgeslagen" : "geëxporteerd", pad, toelichting };
+  if (desktop) {
+    const { invoke } = await laad(() => import("@tauri-apps/api/core"));
+    // Opslaan als: in het eigen formaat wordt het gekozen pad het nieuwe werkbestand.
+    const r = await invoke<
+      | { status: "geannuleerd" }
+      | { status: "opgeslagen"; naam: string; pad: string; token: string | null }
+    >("bewaar_als", uitvoer, {
+      headers: {
+        "x-office-naam": encodeURIComponent(bestandsnaam),
+        ...(token && { "x-office-token": token }),
+      },
+    });
+    if (r.status !== "opgeslagen") return { status: "geannuleerd" };
+    if (!eigen) return { status: "geëxporteerd", pad: r.pad, toelichting };
+    return {
+      status: "opgeslagen",
+      pad: r.pad,
+      toelichting,
+      ...(r.token && { werkbestand: { token: r.token, naam: r.naam } }),
+    };
+  }
+  const url = URL.createObjectURL(
+    new Blob([new Uint8Array(uitvoer)], { type: mime }),
+  );
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = bestandsnaam;
+  document.body.append(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 60000);
   return { status: "download", toelichting };
 }
 
