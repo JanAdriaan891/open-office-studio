@@ -45,8 +45,8 @@ import {
 } from "../kopvoet.ts";
 import { STANDAARD_INHOUD, leesInhoudsopgave, verwijderInhoudsopgave, voegInhoudsopgaveIn, werkInhoudsopgaveBij, type InhoudOpties } from "../inhoudsopgave.ts";
 import { leesNootInstellingen, voegNootIn, zetNootInstellingen, type NootSoort } from "../noten.ts";
-import { bewerkKopVoet, haalKoppen, haalNoten, kopVoetActief, sectieStand, sluitKopVoet, wachtOpIndeling, zetMarkering, type NootInfo } from "./engine.ts";
-import { leesMelding, herladenBevestigd, neemTaak, onthoudBevestiging, planNaHerladen, sluitMelding, toonMelding, volgMelding, type NaHerladen } from "./staat.ts";
+import { bewerkKopVoet, haalKoppen, haalNoten, herstelPlek, kopVoetActief, leesPlek, sectieStand, sluitKopVoet, wachtOpIndeling, zetMarkering, type NootInfo } from "./engine.ts";
+import { leesMelding, herladenBevestigd, neemBeurt, neemTaak, onthoudBevestiging, planNaHerladen, sluitMelding, toonMelding, volgMelding, type NaHerladen } from "./staat.ts";
 import {
   AfstandDialoog,
   BevestigHerladen,
@@ -70,6 +70,8 @@ interface Pakketopdracht {
   werk: (bytes: Uint8Array, plek: { markering: string | null; sectie: number }) => Uint8Array | null;
   /** Na herladen en indelen (bijvoorbeeld paginanummers van de inhoudsopgave nalopen). */
   na?: NaHerladen;
+  /** Als `werk` niets hoefde te veranderen (null): in plaats van alleen de focus terug. */
+  ongewijzigd?: (editor: DocxEditorRef) => void;
 }
 
 /** Het lint wordt bij herladen opnieuw gemount en springt dan naar Start; onthoud het tabblad. */
@@ -186,9 +188,17 @@ export function usePagina() {
 
   /** De pakketroute: markering (optioneel), opslaan, bewerken, herladen. */
   async function pakket(o: Pakketopdracht) {
+    // Eén bewerking tegelijk: een tweede klik wacht tot de vorige herladen is.
+    const vrij = await neemBeurt();
+    let doorgegeven = false;
     try {
       const { herlaad, editor } = klaarVoor();
-      if (!(await bevestigd("Document opnieuw laden"))) return;
+      if (!(await bevestigd("Document opnieuw laden"))) {
+        editor.focus();
+        return;
+      }
+      // Vóór de markering: de plek telt vanaf het eind, de markering valt dan weg.
+      const plek = await leesPlek(editor);
       let markering: Awaited<ReturnType<typeof zetMarkering>> = null;
       if (o.cursor) {
         markering = bewerkbaar || kopVoetActief() ? await zetMarkering(editor) : null;
@@ -214,21 +224,29 @@ export function usePagina() {
       }
       if (!uit) {
         markering?.ongedaan();
+        if (o.ongewijzigd) o.ongewijzigd(editor);
+        else editor.focus();
         return;
       }
-      const pagina = editor.getCurrentPage();
       const lintTab = actiefLintTab();
       planNaHerladen(herlaad, async (nieuw) => {
-        herstelLintTab(lintTab);
-        nieuw.focus();
-        if (pagina > 1) nieuw.scrollToPage(pagina);
-        toonMelding(`${o.klaar}. Ongedaan maken van eerdere wijzigingen is na het herladen niet meer mogelijk.`);
-        await o.na?.(nieuw);
+        try {
+          herstelLintTab(lintTab);
+          await herstelPlek(nieuw, plek, "eind");
+          toonMelding(`${o.klaar}. Ongedaan maken van eerdere wijzigingen is na het herladen niet meer mogelijk.`);
+          await o.na?.(nieuw);
+        } finally {
+          vrij();
+        }
       }, editor);
+      doorgegeven = true;
       setVenster(null);
       herlaad.vervang(uit);
     } catch (e) {
       fout(tekst(e));
+      api()?.focus();
+    } finally {
+      if (!doorgegeven) vrij();
     }
   }
 
@@ -290,8 +308,11 @@ export function usePagina() {
         if (!kopVoetActief()) fout(`De ${naam.toLowerCase()} kon niet worden geopend. Dubbelklik in de ${soort === "header" ? "boven" : "onder"}marge van een pagina.`);
       }, 600);
     };
-    if (refs?.length) return openen(editor);
-    // Nog geen kop/voettekst: eerst een lege toevoegen (pakketroute), daarna openen.
+    // Eerste pagina anders / even en oneven: die pagina's tonen een eigen onderdeel.
+    const stand = sectieStand(editor);
+    const nodig = ["default", ...(stand.titelpagina ? ["first"] : []), ...(stand.evenOneven ? ["even"] : [])];
+    if (nodig.every((t) => refs?.some((r) => (r.type ?? "default") === t))) return openen(editor);
+    // Nog geen (passende) kop/voettekst: eerst een lege toevoegen (pakketroute), daarna openen.
     void pakket({
       klaar: `${naam} toegevoegd`,
       cursor: "sectie",
@@ -299,6 +320,7 @@ export function usePagina() {
       na: (nieuw) => {
         setTimeout(() => openen(nieuw), 300);
       },
+      ongewijzigd: openen,
     });
   }
   function sluitBewerken() {
@@ -342,13 +364,19 @@ export function usePagina() {
   }
   const kolomeinde = () => void pakket({ klaar: "Kolomeinde ingevoegd", cursor: "nodig", werk: (b, { markering }) => voegKolomeindeIn(b, markering!) });
   /**
-   * Sectie-einde op een even of oneven pagina. Pakketroute: de engine voegt
-   * het via `applyYrsCommand({type:'insertSectionBreak'})` wel in, maar kan
-   * het daarna niet tekenen ("unsupported embed").
+   * Sectie-einde (volgende, even of oneven pagina, of doorlopend). Pakketroute:
+   * de engine voegt het via `insertSectionBreak*` wel in, maar kan het daarna
+   * niet tekenen ("unsupported embed"); zie engine-verzoeken.
    */
-  const sectieEinde = (soort: "evenPage" | "oddPage") =>
+  const SECTIE_EINDE = {
+    nextPage: "Sectie-einde (nieuwe pagina) ingevoegd",
+    continuous: "Doorlopend sectie-einde ingevoegd",
+    evenPage: "Sectie-einde (even pagina) ingevoegd",
+    oddPage: "Sectie-einde (oneven pagina) ingevoegd",
+  } as const;
+  const sectieEinde = (soort: keyof typeof SECTIE_EINDE) =>
     void pakket({
-      klaar: soort === "evenPage" ? "Sectie-einde (even pagina) ingevoegd" : "Sectie-einde (oneven pagina) ingevoegd",
+      klaar: SECTIE_EINDE[soort],
       cursor: "nodig",
       werk: (b, { markering }) => voegSectieEindeIn(b, markering!, soort),
     });
@@ -365,20 +393,26 @@ export function usePagina() {
     const herlaad = apis.herlaad;
     if (!herlaad) return;
     const koppen = await haalKoppen(nieuw);
+    const plek = await leesPlek(nieuw);
     const r = werkInhoudsopgaveBij(await herlaad.bytes(), koppen, "paginas");
     if (!r.gewijzigd) return;
-    const pagina = nieuw.getCurrentPage();
     const lintTab = actiefLintTab();
-    planNaHerladen(
-      herlaad,
-      (n) => {
-        herstelLintTab(lintTab);
-        n.focus();
-        if (pagina > 1) n.scrollToPage(pagina);
-      },
-      nieuw,
-    );
-    herlaad.vervang(r.bytes);
+    // Wachten tot ook dit herladen klaar is: pas dan mag een volgende bewerking.
+    await new Promise<void>((klaar) => {
+      planNaHerladen(
+        herlaad,
+        async (n) => {
+          try {
+            herstelLintTab(lintTab);
+            await herstelPlek(n, plek, "eind");
+          } finally {
+            klaar();
+          }
+        },
+        nieuw,
+      );
+      herlaad.vervang(r.bytes);
+    });
   };
   async function inhoudInvoegen(opties: InhoudOpties) {
     try {

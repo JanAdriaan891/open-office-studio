@@ -372,14 +372,20 @@ export function voegPaginanummerIn(bytes: Uint8Array, opties: PaginanummerOpties
  */
 export function zorgVoorKopVoet(bytes: Uint8Array, sectie: number, soort: KopVoetSoort): Uint8Array | null {
   return metPakket(bytes, (pakket) => {
-    zorgVoorStijlen(pakket, openDocument(pakket).pad, STIJLEN);
     const doc = openDocument(pakket);
     const lijst = secties(doc);
     const i = Math.max(0, Math.min(sectie, lijst.length - 1));
-    if (effectiefDeel(doc, i, soort, "default")) return null;
-    const { rid } = maakDeel(pakket, doc.pad, soort);
+    // Met ‘eerste pagina anders’ of ‘even en oneven anders’ toont de pagina een
+    // eigen onderdeel; zonder dat onderdeel valt er niets te bewerken (zoals Word: leeg).
+    const nodig: KopVoetType[] = ["default"];
+    if (aan(kind(lijst[i]?.el ?? null, "titlePg"))) nodig.push("first");
+    if (aan(kind(leesInstellingen(pakket, doc.pad), "evenAndOddHeaders"))) nodig.push("even");
+    const ontbreekt = nodig.filter((t) => !effectiefDeel(doc, i, soort, t));
+    if (!ontbreekt.length) return null;
+    zorgVoorStijlen(pakket, doc.pad, STIJLEN);
+    const nieuw = ontbreekt.map((type) => ({ type, rid: maakDeel(pakket, doc.pad, soort).rid }));
     const rp = rPrefix(openDocument(pakket)) || "r";
-    wijzigSectPrs(openDocument(pakket), [i], (s) => zetVerwijzing(s, soort, "default", rid, rp));
+    wijzigSectPrs(openDocument(pakket), [i], (s) => nieuw.reduce((x, r) => zetVerwijzing(x, soort, r.type, r.rid, rp), s));
     return pakket.inpakken();
   });
 }
