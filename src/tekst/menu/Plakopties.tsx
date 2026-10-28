@@ -36,6 +36,23 @@ export function Plakopties({
   useEffect(() => {
     if (open) vak.current?.querySelector<HTMLButtonElement>("[aria-checked='true']")?.focus();
   }, [open]);
+  // Zoals in Word: alleen Ctrl indrukken en loslaten opent de plakopties.
+  useEffect(() => {
+    let alleenCtrl = false;
+    const neer = (e: KeyboardEvent) => {
+      alleenCtrl = e.key === "Control" && !e.repeat && !e.shiftKey && !e.altKey && !e.metaKey;
+    };
+    const op = (e: KeyboardEvent) => {
+      if (e.key === "Control" && alleenCtrl) setOpen((o) => !o);
+      alleenCtrl = false;
+    };
+    window.addEventListener("keydown", neer, true);
+    window.addEventListener("keyup", op, true);
+    return () => {
+      window.removeEventListener("keydown", neer, true);
+      window.removeEventListener("keyup", op, true);
+    };
+  }, []);
   const left = Math.max(6, Math.min(plek.x + 4, innerWidth - 220));
   const top = Math.max(6, Math.min(plek.y + 4, innerHeight - (open ? 150 : 34)));
   return createPortal(

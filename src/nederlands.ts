@@ -229,6 +229,14 @@ export const tekstNl: TekstVertaling = {
     alignRight: "Rechts uitlijnen",
     justify: "Uitvullen",
   },
+  lineSpacing: {
+    label: "Regelafstand",
+    single: "Enkel",
+    double: "Dubbel",
+    lineSpacingTitle: "Regelafstand: {label}",
+    paragraphSpacing: "Alinea-afstand",
+  },
+  viewer: { pageIndicator: "{current} van {total}" },
   lists: {
     ariaLabel: "Lijsten",
     typeAriaLabel: "Lijsttype",

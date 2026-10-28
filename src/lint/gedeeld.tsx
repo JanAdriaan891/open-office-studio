@@ -26,6 +26,7 @@ import {
   voorbereidRekenblad,
 } from "../lettertypen/koppeling";
 import { useEditorApi } from "./editorApi";
+import { useHerhaalbaar } from "../tekst/bewerken/herhaalmelding";
 import {
   Groep,
   OpdrachtKnop,
@@ -39,7 +40,8 @@ export function W<K extends DocxCommandId>({
   args,
   ...props
 }: Knop & { id: K; args?: DocxCommandArgs[K] }) {
-  return <OpdrachtKnop {...props} opdracht={useDocxCommand(id, args)} />;
+  const opdracht = useHerhaalbaar(id, useDocxCommand(id, args), args);
+  return <OpdrachtKnop {...props} opdracht={opdracht} />;
 }
 export function C<K extends XlsxCommandId>({
   id,
@@ -59,13 +61,20 @@ export function WK({
   id,
   naam,
   breed,
+  vertaal,
 }: {
   id: DocxSelectCommandId;
   naam: string;
   breed?: boolean;
+  vertaal?: (naam: string) => string;
 }) {
   return (
-    <OpdrachtKeuze opdracht={useDocxCommand(id)} naam={naam} breed={breed} />
+    <OpdrachtKeuze
+      opdracht={useHerhaalbaar(id, useDocxCommand(id))}
+      naam={naam}
+      breed={breed}
+      vertaal={vertaal}
+    />
   );
 }
 export function CK({
@@ -141,7 +150,13 @@ export function scrollvlakVan(element: Element | null) {
 /** Lettertypekeuze met voorbeeld en recente lettertypen, per module. */
 export function WL() {
   const api = useEditorApi();
-  return <LettertypeKeuze opdracht={useDocxCommand("fontFamily")} voorbeeld={() => tekstVoorbeeld(api.tekst())} />;
+  return (
+    <LettertypeKeuze
+      opdracht={useDocxCommand("fontFamily")}
+      voorbeeld={() => tekstVoorbeeld(api.tekst())}
+      naKeuze={() => api.tekst()?.focus()}
+    />
+  );
 }
 export function CL() {
   return (
