@@ -1,0 +1,233 @@
+/* Paginafuncties van Tekst: uitklapmenu's, vensters en meldingen. */
+.pagina-keuzemenu {
+  position: relative;
+  display: flex;
+}
+.pagina-keuzepijl {
+  position: absolute;
+  right: 2px;
+  bottom: 4px;
+  color: #6b7480;
+  pointer-events: none;
+}
+.ribbon-groot + .pagina-keuzepijl {
+  right: 50%;
+  bottom: 1px;
+  transform: translateX(50%);
+}
+
+.pagina-menu {
+  position: fixed;
+  z-index: 1001;
+  display: grid;
+  min-width: 260px;
+  max-width: min(380px, calc(100vw - 16px));
+  max-height: calc(100vh - 16px);
+  overflow: auto;
+  padding: 6px;
+  border: 1px solid #dce1e8;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 12px 36px #15233830;
+  color: #333a46;
+  font-size: 12px;
+}
+.pagina-menukop {
+  padding: 6px 8px 2px;
+  color: #6b7480;
+  font-size: 11px;
+  font-weight: 600;
+}
+.pagina-menuscheiding {
+  height: 1px;
+  margin: 4px 2px;
+  background: #edf0f3;
+}
+.pagina-menuregel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 30px;
+  padding: 5px 8px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.pagina-menuregel:hover:not(:disabled),
+.pagina-menuregel:focus-visible {
+  background: #f4f6f8;
+  outline: none;
+}
+.pagina-menuregel:focus-visible {
+  box-shadow: inset 0 0 0 2px #bc6a15;
+}
+.pagina-menuregel:disabled {
+  color: #9aa1ab;
+  cursor: default;
+}
+.pagina-menuicoon {
+  display: inline-flex;
+  flex: 0 0 18px;
+  justify-content: center;
+  color: #5c6574;
+}
+.pagina-menuregel[aria-checked="true"] .pagina-menuicoon {
+  color: #bc6a15;
+}
+.pagina-menutekst {
+  display: grid;
+  flex: 1;
+  min-width: 0;
+}
+.pagina-menuuitleg {
+  color: #6b7480;
+  font-size: 11px;
+}
+.pagina-menuvoorbeeld,
+.pagina-menutoets {
+  color: #6b7480;
+  font-size: 11px;
+  white-space: nowrap;
+}
+.pagina-menuvoet {
+  margin-top: 4px;
+  padding: 6px 8px 2px;
+  border-top: 1px solid #edf0f3;
+  color: #6b7480;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+/* Vensters */
+.pagina-dialoog {
+  width: min(100%, 520px);
+}
+.pagina-voorbeeld {
+  margin: 4px 0 0;
+  font-size: 12px;
+}
+.pagina-kolomvoorbeeld {
+  display: flex;
+  justify-content: space-between;
+  height: 48px;
+  margin: 10px 0 4px;
+  padding: 6px;
+  border: 1px solid var(--w-rand, #dce1e8);
+  border-radius: 6px;
+}
+.pagina-kolomvoorbeeld span {
+  position: relative;
+  border-radius: 2px;
+  background: repeating-linear-gradient(to bottom, #c9d0da 0 2px, transparent 2px 6px);
+}
+.pagina-kolomvoorbeeld span[data-lijn]::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -6%;
+  border-left: 1px solid #8a93a0;
+}
+.pagina-tocvoorbeeld {
+  margin: 0 0 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--w-rand, #dce1e8);
+  border-radius: 6px;
+  font-size: 12px;
+}
+.pagina-toctitel {
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+.pagina-tocregel {
+  display: flex;
+  gap: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.pagina-tocvulling {
+  flex: 1;
+  overflow: hidden;
+  color: #8a93a0;
+}
+.pagina-nootveld {
+  display: grid;
+  gap: 6px;
+}
+.pagina-nootveld textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 6px 8px;
+  border: 1px solid var(--w-rand, #dce1e8);
+  border-radius: 6px;
+  font: inherit;
+  resize: vertical;
+}
+.pagina-noten {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.pagina-noten li {
+  display: grid;
+  gap: 4px;
+  padding: 8px 10px;
+  border: 1px solid var(--w-rand, #dce1e8);
+  border-radius: 6px;
+}
+.pagina-nootnummer {
+  font-size: 11px;
+  font-weight: 600;
+}
+.pagina-noottekst {
+  overflow-wrap: anywhere;
+}
+.pagina-nootacties {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.pagina-notenlijst .werkruimte-dialooginhoud {
+  max-height: 60vh;
+  overflow: auto;
+}
+
+/* Melding onderaan */
+.pagina-melding {
+  position: fixed;
+  z-index: 1002;
+  left: 50%;
+  bottom: 44px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  max-width: min(640px, calc(100vw - 32px));
+  padding: 8px 10px 8px 14px;
+  border-radius: 8px;
+  background: #24303f;
+  box-shadow: 0 8px 24px #15233840;
+  color: #fff;
+  font-size: 12px;
+  line-height: 1.4;
+  transform: translateX(-50%);
+}
+.pagina-melding.is-fout {
+  background: #8f1d14;
+}
+.pagina-melding button {
+  display: inline-flex;
+  padding: 4px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+.pagina-melding button:focus-visible {
+  outline: 2px solid #fff;
+}
