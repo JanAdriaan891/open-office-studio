@@ -67,14 +67,14 @@
   outline-offset: -2px;
 }
 .office-starttab {
-  /* Start blijft vast links staan, ook als de overige tabbladen scrollen. */
+  /* Start blijft vast aan het begin staan, ook als de overige tabbladen scrollen. */
   position: sticky;
-  left: 0;
+  inset-inline-start: 0;
   z-index: 1;
   background: var(--oa-shell-docbar-bg, #f5f5f4);
   flex: 0 0 auto;
   min-width: 0;
-  padding-right: 12px;
+  padding-inline-end: 12px;
   font-weight: 500;
 }
 .office-starttab.is-actief {
@@ -152,10 +152,10 @@
   background: var(--oa-shell-accent, #d97706);
 }
 .office-tab.sleepdoel-links::before {
-  left: -2px;
+  inset-inline-start: -2px;
 }
 .office-tab.sleepdoel-rechts::after {
-  right: -2px;
+  inset-inline-end: -2px;
 }
 .office .office-tabknop {
   flex-shrink: 0;
@@ -227,7 +227,7 @@
   border-radius: 4px;
   background: transparent;
   color: inherit;
-  text-align: left;
+  text-align: start;
   font-size: 12px;
   overflow: hidden;
   text-overflow: ellipsis;

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import i18next from "./i18n/config";
 import type { useTabbladen } from "./useTabbladen";
 import type { MenuItem } from "./TabBalk";
 import type { Tabblad } from "./tabbladen";
@@ -59,10 +60,7 @@ export function useVensters({ tabs, voorOverdracht }: Opties) {
       if (overdracht.type === "module") {
         const id = tabs.openModule(overdracht.module);
         if (overdracht.module === "database")
-          tabs.meld(
-            "Database Studio staat nu in dit venster. Open je database hier opnieuw als je verder wilt werken.",
-            id,
-          );
+          tabs.meld(i18next.t("shell:windows.databaseMovedHere"), id);
         return true;
       }
       // De zoom gaat via het geheugen per document mee naar de nieuwe editor.
@@ -79,9 +77,7 @@ export function useVensters({ tabs, voorOverdracht }: Opties) {
         gewijzigd: overdracht.gewijzigd,
         vingerafdruk: overdracht.vingerafdruk,
         werkbestand: overdracht.werkbestand ?? null,
-        melding: eersteKeer()
-          ? "Het document is verplaatst, inclusief niet-opgeslagen wijzigingen. De geschiedenis van Ongedaan maken gaat bij het verplaatsen niet mee."
-          : "",
+        melding: eersteKeer() ? i18next.t("shell:windows.documentMoved") : "",
       });
       return true;
     } catch {
@@ -104,7 +100,7 @@ export function useVensters({ tabs, voorOverdracht }: Opties) {
       })
       .catch((e) =>
         recent.current.tabs.meld(
-          "Vensterkoppeling niet beschikbaar: " + String(e),
+          i18next.t("shell:windows.linkUnavailable", { error: String(e) }),
         ),
       );
     return () => {
@@ -118,9 +114,7 @@ export function useVensters({ tabs, voorOverdracht }: Opties) {
     voorOverdracht(tabblad);
     if (tabblad.type === "module") {
       if (tabblad.module === "database" && tabs.isGewijzigd(tabblad))
-        throw new Error(
-          "Database Studio kan een gewijzigde werkkopie niet naar een ander venster meenemen. Exporteer of bewaar de database eerst.",
-        );
+        throw new Error(i18next.t("shell:windows.databaseModified"));
       return { type: "module", module: tabblad.module };
     }
     const serialiseer = tabs.serialiseerder(tabblad.id);
@@ -179,7 +173,7 @@ export function useVensters({ tabs, voorOverdracht }: Opties) {
   useEffect(() => {
     if (!kanaal || kanaal.hoofdvenster) return;
     // Losgemaakte vensters dragen de naam van hun actieve tabblad.
-    const tekst = vensterTitel ?? "Open Office Studio";
+    const tekst = vensterTitel ?? i18next.t("common:appName");
     document.title = tekst;
     if (tauri)
       void import("@tauri-apps/api/window")
@@ -192,14 +186,14 @@ export function useVensters({ tabs, voorOverdracht }: Opties) {
     menu: kanaal
       ? (tabblad: Tabblad): MenuItem[] => [
           {
-            label: "In nieuw venster openen",
+            label: i18next.t("shell:windows.openInNewWindow"),
             actie: () => void brengNaar(tabblad.id, "nieuw"),
           },
           ...(kanaal.hoofdvenster
             ? []
             : [
                 {
-                  label: "Terug naar hoofdvenster",
+                  label: i18next.t("shell:windows.backToMainWindow"),
                   actie: () => void brengNaar(tabblad.id, "hoofd"),
                 },
               ]),
@@ -221,7 +215,7 @@ export function useVensters({ tabs, voorOverdracht }: Opties) {
         )
         .catch((e) =>
           recent.current.tabs.meld(
-            "Sluitbeveiliging niet beschikbaar: " + String(e),
+            i18next.t("shell:windows.closeGuardUnavailable", { error: String(e) }),
           ),
         );
     },

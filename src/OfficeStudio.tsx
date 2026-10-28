@@ -9,6 +9,7 @@ import {
   type ReactNode,
 } from "react";
 import { FolderOpen, Save, Home, X } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import type { EmailActies } from "../packages/email/src/ui/EmailStudio";
 import { kantoorModule } from "../packages/email/src/kantoor";
 import type { NotitieActies } from "./notities/NotitiesStudio";
@@ -103,15 +104,22 @@ class EditorGrens extends Component<{ children: ReactNode }, { fout: string }> {
   }
   render() {
     return this.state.fout ? (
-      <div role="alert" className="office-editorfout">
-        De editor kon dit bestand niet openen: {this.state.fout}
-      </div>
+      <EditorFout fout={this.state.fout} />
     ) : (
       this.props.children
     );
   }
 }
+function EditorFout({ fout }: { fout: string }) {
+  const { t } = useTranslation("shell");
+  return (
+    <div role="alert" className="office-editorfout">
+      {t("errors.editorFailed", { error: fout })}
+    </div>
+  );
+}
 export function OfficeStudio() {
+  const { t } = useTranslation(["shell", "common"]);
   const { thema, wisselThema } = useOfficeThema();
   const [bezig, setBezig] = useState(false),
     [opslaanBezig, setOpslaanBezig] = useState(false),
@@ -228,7 +236,7 @@ export function OfficeStudio() {
       return;
     }
     kiesBestanden(invoerformaten.split(",")).catch((e) =>
-      meld("Openen mislukt: " + String(e)),
+      meld(t("errors.openFailed", { error: String(e) })),
     );
   }
 
@@ -334,7 +342,7 @@ export function OfficeStudio() {
             ),
       );
       if (resultaat.status === "mislukt") {
-        meld("Opslaan mislukt: " + resultaat.fout, tabblad.id);
+        meld(t("errors.saveFailed", { error: resultaat.fout }), tabblad.id);
         return false;
       }
       if (resultaat.status !== "afgerond") return false;
@@ -405,7 +413,7 @@ export function OfficeStudio() {
       const { drukAf } = await import("./export");
       await drukAf(soort);
     } catch (e) {
-      meld("Afdrukken mislukt: " + String(e), id);
+      meld(t("errors.printFailed", { error: String(e) }), id);
     }
   }
 
@@ -441,7 +449,7 @@ export function OfficeStudio() {
       try {
         setVerzending({ naam: tabblad.naam, bytes: await serialiseer() });
       } catch (error) {
-        meld("Verzenden als bijlage mislukt: " + String(error), id);
+        meld(t("errors.sendAsAttachmentFailed", { error: String(error) }), id);
       }
     });
   }
@@ -603,7 +611,7 @@ export function OfficeStudio() {
   const nieuw = (soort: Soort) =>
     bezigMet(async () => {
       const r = await fetch(`${import.meta.env.BASE_URL}templates/nieuw.${soort}`);
-      if (!r.ok) throw new Error("Sjabloon niet beschikbaar");
+      if (!r.ok) throw new Error(t("errors.templateUnavailable"));
       openDocument(
         soort,
         naamloos(tabs.toestandRef.current, soort),
@@ -619,7 +627,7 @@ export function OfficeStudio() {
       const naam = `${module.voorbeeld}.${soort}`;
       const resultaat = await fetch(`${import.meta.env.BASE_URL}voorbeelden/${naam}`);
       if (!resultaat.ok)
-        throw new Error("Het voorbeeld kon niet worden geopend.");
+        throw new Error(t("errors.exampleFailed"));
       const bytes = new Uint8Array(await resultaat.arrayBuffer());
       controleerPakket(bytes, soort);
       openDocument(soort, naam, bytes, {
@@ -629,12 +637,12 @@ export function OfficeStudio() {
 
   async function openBestand(file: File) {
     if (!file.size || file.size > 100 * 1024 * 1024) {
-      meld("Kies een bestand van maximaal 100 MB dat niet leeg is.");
+      meld(t("errors.fileSize"));
       return;
     }
     const bytes = new Uint8Array(await file.arrayBuffer());
     if (kantoorModule(file.name) === "database") {
-      openDatabaseBestand(file.name, bytes, "het bestand");
+      openDatabaseBestand(file.name, bytes, "bestand");
       return;
     }
     if (await importeer(file.name, bytes)) noteerBrowser(file.name);
@@ -653,7 +661,7 @@ export function OfficeStudio() {
     const soort = bestandssoort(ext ?? "");
     if (!ext || !soort) {
       meld(
-        neerzetMelding(naam) ?? `${naam}: dit formaat wordt niet ondersteund.`,
+        neerzetMelding(naam) ?? t("errors.unsupportedFormat", { name: naam }),
       );
       return false;
     }
@@ -688,7 +696,7 @@ export function OfficeStudio() {
           tabs.werkBij(id, { exportFormaat: resultaat.exportFormaat });
       } catch (error) {
         geopend = false;
-        meld("Openen mislukt: " + String(error));
+        meld(t("errors.openFailed", { error: String(error) }));
       }
     });
     return geopend;
@@ -698,25 +706,33 @@ export function OfficeStudio() {
   async function openUitEmail(naam: string, bytes: Uint8Array) {
     if (bezigRef.current) return;
     if (!bytes.length) {
-      meld("De bijlage is leeg.");
+      meld(t("errors.emptyAttachment"));
       return;
     }
     if (kantoorModule(naam) === "database") {
-      openDatabaseBestand(naam, bytes, "de bijlage");
+      openDatabaseBestand(naam, bytes, "bijlage");
       return;
     }
     await importeer(naam, bytes);
   }
 
   /** MDB/ACCDB in het Database-tabblad van dit venster (er is er hooguit één). */
-  function openDatabaseBestand(naam: string, bytes: Uint8Array, wat: string) {
+  function openDatabaseBestand(
+    naam: string,
+    bytes: Uint8Array,
+    wat: "bestand" | "bijlage",
+  ) {
     const bestaand = tabs.toestandRef.current.tabbladen.find(
       (t) => t.type === "module" && t.module === "database",
     );
     if (bestaand && tabs.isGewijzigd(bestaand)) {
       tabs.verwerk({ type: "activeer", id: bestaand.id });
       meld(
-        `Database Studio heeft een gewijzigde werkkopie. Bewaar of sluit die eerst en open ${wat} daarna opnieuw.`,
+        t(
+          wat === "bijlage"
+            ? "errors.databaseModifiedAttachment"
+            : "errors.databaseModifiedFile",
+        ),
         bestaand.id,
       );
       return;
@@ -742,12 +758,12 @@ export function OfficeStudio() {
     try {
       bytes = await lees();
     } catch (error) {
-      meld(`${naam} openen mislukt: ${String(error)}`);
+      meld(t("errors.openFileFailed", { name: naam, error: String(error) }));
       return false;
     }
     if (kantoorModule(naam) === "database") {
       // Database Studio werkt op een kopie; het pad is niet nodig.
-      openDatabaseBestand(naam, bytes, "het bestand");
+      openDatabaseBestand(naam, bytes, "bestand");
       return false;
     }
     return (await importeer(naam, bytes, werkbestand)) && !!werkbestand;
@@ -812,8 +828,8 @@ export function OfficeStudio() {
           <button
             className="office-merk"
             onClick={toonStart}
-            title="Naar Start"
-            aria-label="OpenAEC Office Studio · Start"
+            title={t("header.homeTitle")}
+            aria-label={t("header.homeLabel")}
           >
             <span className="office-beeldmerk">
               <img src={openaecSymbool} alt="" />
@@ -822,14 +838,14 @@ export function OfficeStudio() {
               OpenAEC<span>Office Studio</span>
             </strong>
           </button>
-          <span className="office-weekversie" title={`Versie ${versie.versie}`}>
+          <span className="office-weekversie" title={t("header.version", { version: versie.versie })}>
             {versie.label}
           </span>
           {actief && (
             <>
               <span className="office-header-scheiding" />
               <span className="office-modulenaam">
-                {module?.kort ?? titel(actief)}
+                {module ? t(`common:modules.${module.module}`) : titel(actief)}
               </span>
             </>
           )}
@@ -843,13 +859,13 @@ export function OfficeStudio() {
                   role="img"
                   aria-label={
                     actiefDocument.gewijzigd
-                      ? "Niet-opgeslagen wijzigingen"
-                      : "Ongewijzigd"
+                      ? t("header.unsaved")
+                      : t("header.unchanged")
                   }
                   title={
                     actiefDocument.gewijzigd
-                      ? "Niet-opgeslagen wijzigingen"
-                      : "Ongewijzigd"
+                      ? t("header.unsaved")
+                      : t("header.unchanged")
                   }
                 />
               </>
@@ -862,8 +878,8 @@ export function OfficeStudio() {
               <button
                 className="office-iconknop"
                 onClick={toonStart}
-                aria-label="Bestand en Start"
-                title="Bestand en Start"
+                aria-label={t("header.fileAndStart")}
+                title={t("header.fileAndStart")}
               >
                 <Home size={17} />
               </button>
@@ -876,15 +892,17 @@ export function OfficeStudio() {
               onClick={kiesBestand}
               title={
                 actieveModule === "notities"
-                  ? "Notitieback-up toevoegen · Ctrl+O"
+                  ? t("header.openNotesBackupTitle")
                   : actieveModule === "database"
-                    ? "Database openen · Ctrl+O"
-                    : "Bestand openen in een nieuw tabblad · Ctrl+O"
+                    ? t("header.openDatabaseTitle")
+                    : t("header.openFileTitle")
               }
             >
               <FolderOpen size={16} />
               <span>
-                {actieveModule === "notities" ? "Back-up toevoegen" : "Openen"}
+                {actieveModule === "notities"
+                  ? t("header.addBackup")
+                  : t("common:open")}
               </span>
             </button>
             {actiefDocument && (
@@ -893,10 +911,10 @@ export function OfficeStudio() {
                   className="office-headerknop office-bewaren"
                   disabled={bezig || !actiefDocument.gereed}
                   onClick={() => openOpslaanAls()}
-                  title="Opslaan als · F12 of Ctrl+Shift+S (Ctrl+S slaat op in het geopende bestand)"
+                  title={t("header.saveAsTitle")}
                 >
                   <Save size={16} />
-                  <span>{opslaanBezig ? "Bezig…" : "Opslaan als"}</span>
+                  <span>{opslaanBezig ? t("header.busy") : t("header.saveAs")}</span>
                 </button>
               </>
             )}
@@ -934,7 +952,7 @@ export function OfficeStudio() {
                   ? tabs.werkBij(actief.id, { melding: "" })
                   : meld("")
               }
-              aria-label="Melding sluiten"
+              aria-label={t("message.close")}
             >
               <X size={15} />
             </button>
@@ -951,8 +969,7 @@ export function OfficeStudio() {
         {actiefDocument?.soort === "docx" &&
           actiefDocument.exportFormaat === "md" && (
             <div className="office-exportuitleg" role="note">
-              Markdown bewaart tekst en structuur. Bewaar ook een DOCX voor
-              paginaopmaak, afbeeldingen en revisies.
+              {t("message.markdownNote")}
             </div>
           )}
         <div className="office-werkvlak">
@@ -967,7 +984,7 @@ export function OfficeStudio() {
                   tabblad,
                   <EditorGrens>
                     <Suspense
-                      fallback={<p className="office-loading">Editor laden…</p>}
+                      fallback={<p className="office-loading">{t("loading.editor")}</p>}
                     >
                       <Editor
                         soort={tabblad.soort}
@@ -991,7 +1008,7 @@ export function OfficeStudio() {
                 return paneel(
                   tabblad,
                   <Suspense
-                    fallback={<p className="office-loading">Notities laden…</p>}
+                    fallback={<p className="office-loading">{t("loading.notes")}</p>}
                   >
                     <NotitiesStudio
                       bestandsmenu={toonStart}
@@ -1019,7 +1036,7 @@ export function OfficeStudio() {
                 tabblad,
                 <Suspense
                   fallback={
-                    <p className="office-loading">Email Studio laden…</p>
+                    <p className="office-loading">{t("loading.email")}</p>
                   }
                 >
                   <EmailStudio

@@ -8,11 +8,15 @@ import "@fontsource/space-grotesk/600.css";
 import "@fontsource/space-grotesk/700.css";
 import { OfficeStudio } from "./OfficeStudio";
 import { bewaarWasmInGeheugen } from "./wasmGeheugen";
+import { gereed as taalGereed } from "./i18n/config";
 import "../packages/database/src/database.css";
 import "./stijl/openaec-office.css";
 bewaarWasmInGeheugen();
-createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
-    <OfficeStudio />
-  </React.StrictMode>,
+// Eerst de gekozen taal laden (een eigen chunk behalve nl/en), dan pas tekenen.
+void taalGereed.finally(() =>
+  createRoot(document.getElementById("root")!).render(
+    <React.StrictMode>
+      <OfficeStudio />
+    </React.StrictMode>,
+  ),
 );

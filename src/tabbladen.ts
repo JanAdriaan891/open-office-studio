@@ -1,3 +1,4 @@
+import i18next from "./i18n/config";
 import type { Soort } from "./editors";
 import type { Rapport } from "./import/rapport";
 import type { Bronkenmerken } from "./import/bron";
@@ -121,18 +122,23 @@ export function actiefTabblad(toestand: TabbladToestand) {
   return toestand.tabbladen.find((t) => t.id === toestand.actief) ?? null;
 }
 
-/** Laagste vrije nummer: "Naamloos 1.docx", "Naamloos 2.docx", … */
+const regexVeilig = (tekst: string) => tekst.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+/** Laagste vrije nummer: "Naamloos 1.docx", "Naamloos 2.docx", … (in de interfacetaal). */
 export function naamloos(toestand: TabbladToestand, soort: Soort) {
+  const [voor = "", na = ""] = i18next
+    .t("shell:tabs.untitled", { n: "\u0000" })
+    .split("\u0000");
+  const patroon = new RegExp(`^${regexVeilig(voor)}(\\d+)${regexVeilig(na)}\\.\\w+$`);
   const bezet = new Set(
     toestand.tabbladen.flatMap((t) => {
-      const m =
-        t.type === "document" ? /^Naamloos (\d+)\.\w+$/.exec(t.naam) : null;
+      const m = t.type === "document" ? patroon.exec(t.naam) : null;
       return m ? [Number(m[1])] : [];
     }),
   );
   let n = 1;
   while (bezet.has(n)) n++;
-  return `Naamloos ${n}.${soort}`;
+  return `${i18next.t("shell:tabs.untitled", { n })}.${soort}`;
 }
 
 /** Tabbladen rechts van `id`, voor "Rechts sluiten". */
@@ -155,9 +161,7 @@ export function aantalGewijzigd(toestand: TabbladToestand) {
 
 export function titel(tabblad: Tabblad) {
   if (tabblad.type === "document") return tabblad.naam;
-  return { notities: "Notities", database: "Database", email: "E-mail" }[
-    tabblad.module
-  ];
+  return i18next.t(`common:modules.${tabblad.module}`);
 }
 
 /** Wisselt rondgaand; Start (null) is de eerste positie. */
