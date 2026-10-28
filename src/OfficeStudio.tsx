@@ -845,7 +845,7 @@ export function OfficeStudio() {
             <>
               <span className="office-header-scheiding" />
               <span className="office-modulenaam">
-                {module?.kort ?? titel(actief)}
+                {module ? t(`common:modules.${module.module}`) : titel(actief)}
               </span>
             </>
           )}
