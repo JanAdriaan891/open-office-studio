@@ -119,6 +119,36 @@ export async function metTekstopname<T>(
   }
 }
 
+/**
+ * Voegt losse tekens op dezelfde basislijn samen tot woorden. Sommige
+ * lettertypen tekent de engine teken voor teken (bijvoorbeeld Source Serif 4);
+ * zonder samenvoegen zou de tekstlaag elk teken los zetten en vindt zoeken in
+ * de PDF het woord niet. Een zichtbaar gat wordt een spatie.
+ */
+export function voegTekensSamen(lijst: readonly OpgenomenTekst[]): OpgenomenTekst[] {
+  const uit: OpgenomenTekst[] = [];
+  for (const t of lijst) {
+    const vorige = uit[uit.length - 1];
+    if (vorige && ([...vorige.tekst].length <= 2 || [...t.tekst].length <= 2) && !/\s$/.test(vorige.tekst)) {
+      const eind = vorige.x + vorige.breedte;
+      const gat = t.x - eind;
+      const zelfdeRegel =
+        Math.abs(t.y - vorige.y) < vorige.grootte * 0.08 &&
+        Math.abs(t.grootte - vorige.grootte) < vorige.grootte * 0.05;
+      if (zelfdeRegel && gat > -vorige.grootte * 0.3 && gat < vorige.grootte * 0.6) {
+        uit[uit.length - 1] = {
+          ...vorige,
+          tekst: vorige.tekst + (gat > vorige.grootte * 0.18 && !/^\s/.test(t.tekst) ? " " : "") + t.tekst,
+          breedte: Math.max(eind, t.x + t.breedte) - vorige.x,
+        };
+        continue;
+      }
+    }
+    uit.push({ ...t });
+  }
+  return uit;
+}
+
 /** Zet opgenomen tekst om naar punten: `factor` punten per canvaspixel, plus een verschuiving in punten. */
 export function naarPunten(
   lijst: readonly OpgenomenTekst[],
@@ -126,7 +156,7 @@ export function naarPunten(
   dx = 0,
   dy = 0,
 ) {
-  return lijst.map((t) => ({
+  return voegTekensSamen(lijst).map((t) => ({
     tekst: t.tekst,
     x: dx + t.x * factor,
     y: dy + t.y * factor,

@@ -262,3 +262,26 @@ describe("pagina-indeling in het XLSX-pakket", () => {
     expect(strFromU8(unzipSync(zonder)["xl/workbook.xml"])).not.toContain("Print_Area");
   });
 });
+
+describe("tekstlaag: losse tekens samenvoegen", () => {
+  it("maakt woorden van teken-voor-teken getekende tekst en houdt spaties", async () => {
+    const { voegTekensSamen } = await import("./tekstopname");
+    const teken = (tekst: string, x: number, y = 100) => ({ tekst, x, y, grootte: 20, breedte: 10 });
+    const uit = voegTekensSamen([
+      teken("R", 0),
+      teken("u", 10),
+      teken("i", 20.5),
+      teken("m", 30),
+      teken("t", 50), // gat van een spatie
+      teken("e", 60),
+      teken("Volgende regel", 0, 130),
+    ]);
+    expect(uit.map((t) => t.tekst)).toEqual(["Ruim te", "Volgende regel"]);
+    expect(uit[0].breedte).toBe(70);
+  });
+  it("laat gewone tekststukken met rust", async () => {
+    const { voegTekensSamen } = await import("./tekstopname");
+    const stuk = (tekst: string, x: number) => ({ tekst, x, y: 50, grootte: 12, breedte: 60 });
+    expect(voegTekensSamen([stuk("Eerste stuk", 0), stuk("tweede stuk", 64)]).length).toBe(2);
+  });
+});

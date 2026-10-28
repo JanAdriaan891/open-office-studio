@@ -19,6 +19,14 @@ import {
 import { Undo2, Redo2, ZoomIn, type LucideIcon } from "lucide-react";
 import { LettertypeKeuze } from "../lettertypen/LettertypeKeuze";
 import {
+  presentatieVoorbeeld,
+  rekenbladVoorbeeld,
+  tekstVoorbeeld,
+  voorbereidPresentatie,
+  voorbereidRekenblad,
+} from "../lettertypen/koppeling";
+import { useEditorApi } from "./editorApi";
+import {
   Groep,
   OpdrachtKnop,
   OpdrachtKeuze,
@@ -131,6 +139,26 @@ export function scrollvlakVan(element: Element | null) {
 }
 
 /** Lettertypekeuze met voorbeeld en recente lettertypen, per module. */
-export const WL = () => <LettertypeKeuze opdracht={useDocxCommand("fontFamily")} />;
-export const CL = () => <LettertypeKeuze opdracht={useXlsxCommand("fontFamily")} />;
-export const PL = () => <LettertypeKeuze opdracht={usePptxCommand("fontFamily")} />;
+export function WL() {
+  const api = useEditorApi();
+  return <LettertypeKeuze opdracht={useDocxCommand("fontFamily")} voorbeeld={() => tekstVoorbeeld(api.tekst())} />;
+}
+export function CL() {
+  return (
+    <LettertypeKeuze
+      opdracht={useXlsxCommand("fontFamily")}
+      voorbeeld={rekenbladVoorbeeld}
+      voorbereiden={voorbereidRekenblad}
+    />
+  );
+}
+export function PL() {
+  const api = useEditorApi();
+  return (
+    <LettertypeKeuze
+      opdracht={usePptxCommand("fontFamily")}
+      voorbeeld={() => presentatieVoorbeeld(api.presentatie)}
+      voorbereiden={(familie) => voorbereidPresentatie(api.presentatie, familie)}
+    />
+  );
+}

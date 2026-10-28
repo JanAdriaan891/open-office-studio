@@ -7,16 +7,13 @@ import * as fonts from "@betteroffice/fonts";
 import type { PptxFontFace } from "@betteroffice/pptx";
 import { laadSysteemLettertypen, opSysteem, systeemLettertypeBytes } from "./systeem";
 import { lettertypenInDocument, vervangerVoor, type Vervanging } from "./vervanging";
+import { ALLE_STIJLEN as STIJLEN, extraFace, isExtraFamilie, laadExtraBytes, lettertypeBasis, registreerCss } from "./catalogus";
 
-const basis = () => new URL("/fonts/", location.href).href;
-const gebundeldExact = (familie: string) =>
-  fonts.BUNDLED_FONTS.some((f) => f.family.toLowerCase() === familie.toLowerCase());
-const STIJLEN = [
-  [false, false],
-  [true, false],
-  [false, true],
-  [true, true],
-] as const;
+const basis = lettertypeBasis;
+/** Komt mee met de app onder precies deze naam (meegeleverd of extra). */
+export const gebundeldExact = (familie: string) =>
+  fonts.BUNDLED_FONTS.some((f) => f.family.toLowerCase() === familie.toLowerCase()) ||
+  isExtraFamilie(familie);
 
 export interface DocumentLettertypen {
   namen: string[];
@@ -40,6 +37,8 @@ export async function documentLettertypen(bytes: Uint8Array): Promise<DocumentLe
 }
 
 async function bundelBytes(familie: string, vet: boolean, cursief: boolean) {
+  const extra = extraFace(familie, vet, cursief) ?? extraFace(familie, vet, false) ?? extraFace(familie, false, false);
+  if (extra) return new Uint8Array(await laadExtraBytes(extra));
   const face =
     fonts.resolveBundledFamilyFace(familie, vet, cursief) ??
     fonts.resolveBundledFamilyFace(familie, false, false);
@@ -82,12 +81,34 @@ export async function presentatieLettertypen(info: DocumentLettertypen): Promise
  * zodat canvas-tekst (rekenblad) met de juiste tekenbreedtes wordt getekend.
  */
 export async function registreerVervangers(info: DocumentLettertypen) {
+  const vervangen = new Set(info.vervangingen.map((v) => v.origineel.toLowerCase()));
+  await Promise.all([
+    ...info.vervangingen.map((v) => registreerCss(v.vervanger, v.origineel)),
+    // Extra lettertypen die het document bij naam noemt.
+    ...info.namen
+      .filter((n) => !vervangen.has(n.toLowerCase()) && isExtraFamilie(n) && !opSysteem(n))
+      .map((n) => registreerCss(n)),
+  ]);
+}
+
+/**
+ * Een lettertype dat de gebruiker kiest bruikbaar maken voor de engine die
+ * het niet zelf ophaalt: het rekenblad tekent met CSS-lettertypen, de
+ * presentatie-engine krijgt de bestanden via `registerFont`.
+ */
+export async function presentatieFaces(familie: string): Promise<PptxFontFace[]> {
+  const uit: PptxFontFace[] = [];
+  const systeem = opSysteem(familie) && !gebundeldExact(familie);
   await Promise.all(
-    info.vervangingen.flatMap((v) =>
-      STIJLEN.map(async ([vet, cursief]) => {
-        const face = fonts.resolveBundledFamilyFace(v.vervanger, vet, cursief);
-        if (face) await fonts.registerBundledFontFace(face, v.origineel, { baseUrl: basis() }).catch(() => {});
-      }),
-    ),
+    STIJLEN.map(async ([vet, cursief]) => {
+      let data: Uint8Array | null = null;
+      if (systeem) {
+        const b = await systeemLettertypeBytes(familie, vet, cursief);
+        data = b ? new Uint8Array(b) : null;
+      } else if (isExtraFamilie(familie) || fonts.resolveBundledFamilyFace(familie, false, false))
+        data = await bundelBytes(familie, vet, cursief).catch(() => null);
+      if (data) uit.push({ family: familie, bold: vet, italic: cursief, bytes: data });
+    }),
   );
+  return uit;
 }

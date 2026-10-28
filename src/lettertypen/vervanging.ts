@@ -16,7 +16,12 @@ export interface Vervanging {
 /**
  * Open vervangers met gelijke tekenbreedtes (metrisch) en, waar die niet
  * bestaan, een gangbare benadering. Sleutels in kleine letters. De
- * meegeleverde lettertypen staan in public/fonts.
+ * vervangers komen mee in public/fonts (@betteroffice/fonts) of
+ * public/fonts/extra (assets/lettertypen.json).
+ *
+ * Niet opgenomen: DejaVu Sans voor Verdana/Tahoma (Bitstream Vera-licentie,
+ * niet OFL/Apache) en Arimo/Tinos/Cousine (hetzelfde ontwerp en dezelfde
+ * breedtes als Liberation Sans/Serif/Mono, die al meekomen).
  */
 export const VERVANGINGEN: Record<string, { vervanger: string; soort: Vervangingssoort }> = {
   calibri: { vervanger: "Carlito", soort: "metrisch" },
@@ -24,27 +29,61 @@ export const VERVANGINGEN: Record<string, { vervanger: string; soort: Vervanging
   cambria: { vervanger: "Caladea", soort: "metrisch" },
   "cambria math": { vervanger: "Caladea", soort: "benadering" },
   arial: { vervanger: "Liberation Sans", soort: "metrisch" },
+  arimo: { vervanger: "Liberation Sans", soort: "metrisch" },
   helvetica: { vervanger: "Liberation Sans", soort: "metrisch" },
   "helvetica neue": { vervanger: "Liberation Sans", soort: "benadering" },
   "arial narrow": { vervanger: "Liberation Sans", soort: "benadering" },
   "times new roman": { vervanger: "Liberation Serif", soort: "metrisch" },
   times: { vervanger: "Liberation Serif", soort: "metrisch" },
+  tinos: { vervanger: "Liberation Serif", soort: "metrisch" },
   "courier new": { vervanger: "Liberation Mono", soort: "metrisch" },
   courier: { vervanger: "Liberation Mono", soort: "metrisch" },
+  cousine: { vervanger: "Liberation Mono", soort: "metrisch" },
   georgia: { vervanger: "Gelasio", soort: "metrisch" },
+  // Comic Relief deelt de breedtes van Comic Sans MS; Comic Neue lijkt er alleen op.
   "comic sans ms": { vervanger: "Comic Relief", soort: "metrisch" },
-  "segoe ui": { vervanger: "Open Sans", soort: "benadering" },
+  "segoe ui": { vervanger: "Selawik", soort: "metrisch" },
+  "segoe ui semibold": { vervanger: "Selawik", soort: "benadering" },
+  "segoe ui light": { vervanger: "Selawik", soort: "benadering" },
   tahoma: { vervanger: "Liberation Sans", soort: "benadering" },
-  verdana: { vervanger: "Liberation Sans", soort: "benadering" },
-  "trebuchet ms": { vervanger: "Source Sans 3", soort: "benadering" },
+  verdana: { vervanger: "Noto Sans", soort: "benadering" },
+  "trebuchet ms": { vervanger: "Fira Sans", soort: "benadering" },
   aptos: { vervanger: "Inter", soort: "benadering" },
   "aptos display": { vervanger: "Inter", soort: "benadering" },
-  consolas: { vervanger: "Liberation Mono", soort: "benadering" },
+  consolas: { vervanger: "JetBrains Mono", soort: "benadering" },
+  "cascadia code": { vervanger: "Fira Code", soort: "benadering" },
+  "cascadia mono": { vervanger: "JetBrains Mono", soort: "benadering" },
   "lucida console": { vervanger: "Liberation Mono", soort: "benadering" },
-  "book antiqua": { vervanger: "Liberation Serif", soort: "benadering" },
-  garamond: { vervanger: "Liberation Serif", soort: "benadering" },
+  "book antiqua": { vervanger: "PT Serif", soort: "benadering" },
+  "palatino linotype": { vervanger: "PT Serif", soort: "benadering" },
+  palatino: { vervanger: "PT Serif", soort: "benadering" },
+  garamond: { vervanger: "EB Garamond", soort: "benadering" },
+  baskerville: { vervanger: "Libre Baskerville", soort: "benadering" },
+  "baskerville old face": { vervanger: "Libre Baskerville", soort: "benadering" },
   "century gothic": { vervanger: "Montserrat", soort: "benadering" },
+  "gill sans mt": { vervanger: "Lato", soort: "benadering" },
+  "segoe print": { vervanger: "Comic Neue", soort: "benadering" },
 };
+
+/** Gangbare Office-lettertypen voor de keuzelijst (met hun open vervanger). */
+export const OFFICE_NAMEN = [
+  "Calibri",
+  "Cambria",
+  "Arial",
+  "Times New Roman",
+  "Courier New",
+  "Georgia",
+  "Segoe UI",
+  "Comic Sans MS",
+  "Verdana",
+  "Tahoma",
+  "Trebuchet MS",
+  "Consolas",
+  "Garamond",
+  "Book Antiqua",
+  "Century Gothic",
+  "Aptos",
+];
 
 /** Thema- en plaatshoudernamen die geen echt lettertype zijn. */
 const GEEN_LETTERTYPE = /^(\+m[jn]-(lt|ea|cs)|\+[a-z]{2}-|minor|major)/i;
@@ -118,9 +157,13 @@ export function vervangerVoor(
 /** Eén zin voor de melding bij het openen, of null als er niets is vervangen. */
 export function vervangingsMelding(vervangingen: Vervanging[]) {
   if (!vervangingen.length) return null;
-  const delen = vervangingen.map(
-    (v) =>
-      `${v.origineel} → ${v.vervanger}${v.soort === "metrisch" ? "" : " (benadering)"}`,
-  );
-  return `Lettertypen vervangen omdat ze niet op deze computer staan: ${delen.join(", ")}. In het bestand blijven de oorspronkelijke namen staan.`;
+  const delen = (soort: Vervangingssoort) =>
+    vervangingen.filter((v) => v.soort === soort).map((v) => `${v.origineel} → ${v.vervanger}`);
+  const metrisch = delen("metrisch");
+  const benadering = delen("benadering");
+  const zinnen = [
+    metrisch.length && `metrisch gelijk (zelfde regelval): ${metrisch.join(", ")}`,
+    benadering.length && `benadering (regels en pagina's kunnen verschuiven): ${benadering.join(", ")}`,
+  ].filter(Boolean);
+  return `Lettertypen vervangen omdat ze niet op deze computer staan — ${zinnen.join("; ")}. In het bestand blijven de oorspronkelijke namen staan.`;
 }

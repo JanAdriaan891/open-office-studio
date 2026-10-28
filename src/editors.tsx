@@ -27,13 +27,22 @@ import { useHerladen } from "./grafieken/ui/herladen";
 import { koppelEditor } from "./export/editorKoppeling";
 import { lettertypeModule } from "./lettertypen/provider";
 import { laadSysteemLettertypen } from "./lettertypen/systeem";
+import { lettertypeBasis } from "./lettertypen/catalogus";
+import { DocumentLettertypen } from "./lettertypen/context";
+import { tekstSelectiePlugin } from "./lettertypen/koppeling";
+import { installeerFontCitering } from "./lettertypen/canvasFont";
+
+const PRESENTATIE_PLUGINS = [tekstSelectiePlugin];
 import { usePresentatieStatus, useRekenbladStatus } from "./status/useEditorStatus";
-// Meegeleverde lettertypen, aangevuld met die van deze computer (#22).
+// Meegeleverde en extra lettertypen, aangevuld met die van deze computer (#22).
+// Relatief aan de app, zodat een build onder een submap ze ook vindt (#109).
 configureDefaultFonts({
   fonts: lettertypeModule,
-  baseUrl: new URL("/fonts/", location.href).href,
+  baseUrl: lettertypeBasis(),
 });
 void laadSysteemLettertypen();
+// "Source Serif 4" e.d. alleen geldig tussen aanhalingstekens op het canvas.
+installeerFontCitering();
 export type Soort = "docx" | "xlsx" | "pptx";
 export interface EditorProps {
   soort: Soort;
@@ -54,6 +63,7 @@ export default function OfficeEditor(props: EditorProps) {
   const docx = useRef<DocxEditorRef>(null);
   const exporteren = useRef(false);
   const [fontFaces, setFontFaces] = useState<PptxFontFace[]>([]);
+  const [documentLettertypen, setDocumentLettertypen] = useState<readonly string[]>([]);
   const [liniaal, setLiniaal] = useState(true);
   const [navigatie, setNavigatie] = useState(false);
   const [documentGereed, setDocumentGereed] = useState(false);
@@ -194,6 +204,7 @@ export default function OfficeEditor(props: EditorProps) {
       } catch {
         // Zonder inventaris: alleen de standaardvervanging (Calibri → Carlito).
       }
+      if (actief) setDocumentLettertypen(info.namen);
       if (props.soort === "pptx") {
         const faces = await lt.presentatieLettertypen(info);
         if (actief) setFontFaces(faces);
@@ -272,6 +283,7 @@ export default function OfficeEditor(props: EditorProps) {
     return (
       <RibbonFout.Provider value={(bericht) => props.fout(new Error(bericht))}>
         <EditorApi.Provider value={apis}>
+          <DocumentLettertypen.Provider value={documentLettertypen}>
           <EditorZichtbaar.Provider value={props.zichtbaar ?? true}>
             <DocxEditor
               key={herladen.sleutel}
@@ -312,6 +324,7 @@ export default function OfficeEditor(props: EditorProps) {
               }
             />
           </EditorZichtbaar.Provider>
+          </DocumentLettertypen.Provider>
         </EditorApi.Provider>
       </RibbonFout.Provider>
     );
@@ -319,6 +332,7 @@ export default function OfficeEditor(props: EditorProps) {
     return (
       <RibbonFout.Provider value={(bericht) => props.fout(new Error(bericht))}>
         <EditorApi.Provider value={apis}>
+          <DocumentLettertypen.Provider value={documentLettertypen}>
           <EditorZichtbaar.Provider value={props.zichtbaar ?? true}>
             <div className="office-rekenblad-host" ref={rekenbladHost}>
               <XlsxEditor
@@ -342,6 +356,7 @@ export default function OfficeEditor(props: EditorProps) {
               <RekenbladKoppen host={rekenbladHost} api={rekenbladApi} />
             </div>
           </EditorZichtbaar.Provider>
+          </DocumentLettertypen.Provider>
         </EditorApi.Provider>
       </RibbonFout.Provider>
     );
@@ -349,6 +364,7 @@ export default function OfficeEditor(props: EditorProps) {
   return (
     <RibbonFout.Provider value={(bericht) => props.fout(new Error(bericht))}>
       <EditorApi.Provider value={apis}>
+          <DocumentLettertypen.Provider value={documentLettertypen}>
         <EditorZichtbaar.Provider value={props.zichtbaar ?? true}>
           <PptxEditor
             key={herladen.sleutel}
@@ -356,6 +372,7 @@ export default function OfficeEditor(props: EditorProps) {
             initialSlide={herladen.dia}
             fileName={props.naam}
             fonts={fontFaces}
+            plugins={PRESENTATIE_PLUGINS}
             onReady={gereedPptx}
             onChange={props.gewijzigd}
             onError={props.fout}
@@ -372,7 +389,8 @@ export default function OfficeEditor(props: EditorProps) {
             }
           />
         </EditorZichtbaar.Provider>
-      </EditorApi.Provider>
+        </DocumentLettertypen.Provider>
+        </EditorApi.Provider>
     </RibbonFout.Provider>
   );
 }

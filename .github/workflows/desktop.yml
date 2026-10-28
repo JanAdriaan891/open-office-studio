@@ -36,6 +36,14 @@ jobs:
           PAKKETTEN: ${{ vars.CONVERSIE_APT_PAKKETTEN }}
         run: sudo apt-get install -y --no-install-recommends $PAKKETTEN
       - run: pnpm install --frozen-lockfile
+      # Extra open lettertypen (assets/lettertypen.json): bewaard per manifestversie,
+      # zodat een build zonder netwerk naar GitHub ook werkt.
+      - name: Lettertypencache
+        uses: actions/cache@v4
+        with:
+          path: .local/lettertypen-cache
+          key: lettertypen-${{ hashFiles('assets/lettertypen.json') }}
+      - run: node scripts/haal-lettertypen.mjs
       - run: pnpm versie:check
       - run: pnpm test
       - run: python -m unittest discover -s tests -v
