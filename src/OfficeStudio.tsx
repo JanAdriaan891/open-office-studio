@@ -20,6 +20,7 @@ import {
 import type { DatabaseUitvoer } from "../packages/database/src/uitvoer";
 import "./office.css";
 import { StartScherm, modules } from "./StartScherm";
+import { toonDocumentInfo } from "./tekst/info/winkel";
 import { VerlaatDialoog } from "./VerlaatDialoog";
 import { OpslaanAlsDialoog } from "./OpslaanAlsDialoog";
 import { AfdrukvoorbeeldHost } from "./afdrukken/AfdrukvoorbeeldHost";
@@ -1042,6 +1043,11 @@ export function OfficeStudio() {
               bewaar={
                 vorigDocument?.gereed
                   ? () => openOpslaanAls(vorigDocument.id)
+                  : undefined
+              }
+              info={
+                vorigDocument?.gereed && vorigDocument.soort === "docx"
+                  ? () => toonDocumentInfo(() => wissel(vorigDocument.id, true))
                   : undefined
               }
               verzend={

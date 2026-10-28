@@ -13,7 +13,7 @@ import { useEffect, useMemo, useRef, useSyncExternalStore } from "react";
 import { leesInstellingen, volgInstellingen } from "../../instellingen";
 import { SCHEIDING } from "../autocorrectie";
 import { spellingControleur } from "../dienst";
-import { publiceerSpelling } from "../status";
+import { registreerTaalAansluiting } from "../../tekst/info/winkel";
 import { genegeerd, persoonlijk } from "../woordenlijst";
 import { meldMenubronAan } from "../../tekst/menu/bronnen";
 import { heeftExternMenu, koppelSpellingMenu, registreerSessie } from "./menu";
@@ -23,6 +23,15 @@ import { SpellingMenu } from "./SpellingMenu";
 import { SpellingVenster } from "./SpellingVenster";
 
 const INVOER = ".paged-editor__yrs-input";
+
+/** Korte spellingstatus voor de statusbalk, of null als de controle uit staat. */
+export function spellingStatus(sessie: { aan: boolean; aantal: number | null; probleem: string | null }): string | null {
+  if (!sessie.aan) return null;
+  if (sessie.probleem) return "spelling niet beschikbaar";
+  if (sessie.aantal === null) return "spelling controleren…";
+  if (sessie.aantal === 0) return "geen spelfouten";
+  return `${sessie.aantal} ${sessie.aantal === 1 ? "spelfout" : "spelfouten"}`;
+}
 
 /** Een plug-infout van de engine (de plug-in staat dan uit): melden in de console. */
 function pluginFout(fout: DocxPluginError) {
@@ -107,22 +116,20 @@ export function useTekstSpelling(
     };
   }, [sessie, zichtbaar]);
 
-  // De statusbalk: taal en aantal fouten.
+  // De statusbalk (taalitem van src/tekst/info): het aantal spelfouten naast
+  // de taal. De taal zelf kiest het taalvenster daar; dat schrijft w:lang in
+  // het document, en na het herladen controleren we in die taal.
+  const aansluiting = useRef<ReturnType<typeof registreerTaalAansluiting> | null>(null);
   useEffect(() => {
-    if (!zichtbaar) return publiceerSpelling(sessie, null);
-    publiceerSpelling(sessie, {
-      taal: sessie.taalVanDocument(),
-      automatisch: sessie.documentTaal === null,
-      fouten: sessie.aan ? sessie.aantal : 0,
-      probleem: sessie.probleem,
-      openVenster: () => {
-        sessie.vensterOpen = true;
-        sessie.meld();
-      },
-      kiesTaal: (taal) => sessie.kiesDocumentTaal(taal),
-    });
-  }, [sessie, zichtbaar, stand]);
-  useEffect(() => () => publiceerSpelling(sessie, null), [sessie]);
+    if (!zichtbaar) return;
+    const a = registreerTaalAansluiting({ status: () => spellingStatus(sessie) });
+    aansluiting.current = a;
+    return () => {
+      a.stop();
+      aansluiting.current = null;
+    };
+  }, [sessie, zichtbaar]);
+  useEffect(() => aansluiting.current?.meld(), [stand]);
 
   const element = zichtbaar ? (
     <>

@@ -184,6 +184,7 @@ export const vasteSneltoetsen: readonly SneltoetsInfo[] = [
   tekst("F7", "Spelling en grammatica"),
   tekst("Ctrl+Shift+R", "Liniaal tonen of verbergen"),
   tekst("F11", "Alle stijlen"),
+  tekst("Ctrl+Alt+Shift+S", "Stijlenvenster"),
   // Tekst: opmaakvensters (src/tekst/TekstOpmaak.tsx).
   // Lettertype… en Alinea… zijn ook aangemeld bij src/tekst/menu/opdrachten.ts
   // (rechtermuismenu, en in het Word-profiel Ctrl+D en Ctrl+Shift+F).
