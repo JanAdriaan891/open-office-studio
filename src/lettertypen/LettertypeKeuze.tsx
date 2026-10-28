@@ -322,6 +322,8 @@ export function LettertypeKeuze({
     }
     tekst = tekst.replace(/\s+/g, " ").trim().slice(0, 60);
     setVoorbeeldTekst(tekst || STANDAARD_VOORBEELD);
+    // Na Esc of buiten klikken begint het zoeken weer leeg.
+    setZoek("");
     setOpen(true);
   }
 
