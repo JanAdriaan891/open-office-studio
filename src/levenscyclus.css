@@ -1,3 +1,4 @@
+/* Recente bestanden, herstelvenster en neerzetzone (pakket A). */
 .start-recent {
   max-width: 1080px;
   margin: 0 auto 28px;
@@ -137,5 +138,56 @@
   }
   .start-recent-actie {
     opacity: 1;
+  }
+}
+
+/* Herstelvenster (HerstelDialoog.tsx) */
+.office-dialoog.office-herstel {
+  width: min(100%, 620px);
+}
+.office-herstellijst {
+  list-style: none;
+  margin: 18px 0 0;
+  padding: 0;
+  max-height: 46vh;
+  overflow: auto;
+  border: 1px solid #e7e5e4;
+  border-radius: 8px;
+}
+.office-herstellijst li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+}
+.office-herstellijst li + li {
+  border-top: 1px solid #f0eeec;
+}
+.office-herstellijst li > span:first-child {
+  flex: 1;
+  min-width: 0;
+}
+.office-herstellijst strong,
+.office-herstellijst small {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.office-herstellijst small {
+  font-size: 11px;
+  color: #78716c;
+}
+.office-herstelknoppen {
+  display: flex;
+  flex-shrink: 0;
+  gap: 6px;
+}
+.office-dialoog .office-herstelknoppen button {
+  padding: 7px 10px;
+}
+@media (max-width: 560px) {
+  .office-herstellijst li {
+    flex-wrap: wrap;
   }
 }

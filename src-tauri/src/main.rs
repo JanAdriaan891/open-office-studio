@@ -3,6 +3,7 @@ use std::{io::Write, path::Path};
 mod conversie;
 mod database_export;
 mod email;
+mod herstel;
 mod recent;
 mod systeembestanden;
 mod vensters;
@@ -179,6 +180,7 @@ fn main() {
         .manage(vensters::Vensters::default())
         .manage(werkbestanden::Werkbestanden::default())
         .manage(recent::Recent::default())
+        .manage(herstel::Herstel::default())
         .manage(email::EmailStaat::default())
         .manage(systeembestanden::Systeembestanden::bij_start(
             std::env::args_os(),
@@ -187,6 +189,7 @@ fn main() {
             systeembestanden::bij_venstergebeurtenis(venster, gebeurtenis);
             vensters::bij_venstergebeurtenis(venster, gebeurtenis);
             werkbestanden::bij_venstergebeurtenis(venster, gebeurtenis);
+            herstel::bij_venstergebeurtenis(venster, gebeurtenis);
         })
         .invoke_handler(tauri::generate_handler![
             bewaar_kopie,
@@ -212,6 +215,11 @@ fn main() {
             recent::zet_recent_vast,
             recent::verwijder_recent,
             recent::wis_recente,
+            herstel::herstel_start,
+            herstel::herstel_bewaar,
+            herstel::herstel_verwijder,
+            herstel::herstel_lijst,
+            herstel::herstel_lees,
             conversie::conversie_status,
             conversie::kies_conversieprogramma,
             conversie::wis_conversieprogramma,

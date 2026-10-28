@@ -4,14 +4,13 @@ import {
   FileQuestion,
   FileText,
   Pin,
-  PinOff,
   Presentation,
   Sheet,
   X,
 } from "lucide-react";
 import { kantoorModule } from "../packages/email/src/kantoor";
 import { useRecent, type RecentBestand } from "./recent";
-import "./recent.css";
+import "./levenscyclus.css";
 
 const ICONEN = {
   docx: FileText,
@@ -142,7 +141,7 @@ export function RecenteBestanden({
                 aria-label={`${bestand.naam} ${bestand.vast ? "losmaken" : "vastzetten"}`}
                 title={bestand.vast ? "Losmaken" : "Bovenaan vastzetten"}
               >
-                {bestand.vast ? <PinOff size={14} /> : <Pin size={14} />}
+                <Pin size={14} fill={bestand.vast ? "currentColor" : "none"} />
               </button>
               <button
                 className="start-recent-actie"

@@ -49,6 +49,7 @@ import { useTabSneltoetsen } from "./useTabSneltoetsen";
 import { useVensters } from "./useVensters";
 import { useSysteembestanden } from "./systeembestanden";
 import { noteerBrowser } from "./recent";
+import { useHerstel } from "./useHerstel";
 import {
   bevestigFormaat,
   kiesBestanden,
@@ -453,8 +454,14 @@ export function OfficeStudio() {
     focusHerstellen.current = true;
   }
 
+  const herstel = useHerstel({
+    tabs,
+    bezig: () => bezigRef.current,
+    opslaanAls: (id) => void vraagOpslaanAls(id),
+  });
+
   useTabSneltoetsen({
-    uit: verlaatvraag || opslaanAls !== null,
+    uit: verlaatvraag || opslaanAls !== null || herstel.open,
     actief,
     opStart,
     vorige: toestand.vorige,
@@ -682,7 +689,7 @@ export function OfficeStudio() {
   const melding = actief?.melding || tabs.melding;
   const vorigeTab = toestand.tabbladen.find((t) => t.id === toestand.vorige);
   const vorigDocument = vorigeTab?.type === "document" ? vorigeTab : null;
-  const dialoogOpen = verlaatvraag || opslaanAls !== null;
+  const dialoogOpen = verlaatvraag || opslaanAls !== null || herstel.open;
   const editorInactief =
     dialoogOpen || !!verzending || (bezig && !opslaanBezig);
   const opslaanTabblad = toestand.tabbladen.find((t) => t.id === opslaanAls);
@@ -1022,6 +1029,7 @@ export function OfficeStudio() {
           vorigeFocus={vorigeFocus.current}
         />
       )}
+      {herstel.dialoog}
       {opslaanDocument && (
         <OpslaanAlsDialoog
           soort={opslaanDocument.soort}

@@ -39,6 +39,11 @@ export class DocumentOpslag {
     return this.revisie !== this.opgeslagenRevisie;
   }
 
+  /** Verandert bij elke wijziging; voor herstelkopieën. */
+  get versie() {
+    return `${this.documentId}:${this.revisie}`;
+  }
+
   wissel() {
     this.revisie = 0;
     this.opgeslagenRevisie = 0;
