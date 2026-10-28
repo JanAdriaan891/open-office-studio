@@ -13,6 +13,8 @@ import { Actie, OpdrachtKnop, RibbonFout } from "../Ribbon";
 import { useEditorApi, useEditorZichtbaar, zichtbaarElement } from "./editorApi";
 import { publiceerStatus } from "../status/statusinfo";
 import { useSneltoetsen, type Sneltoets } from "./sneltoetsen";
+import { toetsInProfiel } from "./sneltoetsenlijst";
+import { useInstellingen } from "../instellingen";
 import {
   selectieBegin,
   specialeTekens,
@@ -372,7 +374,13 @@ export function useTekstOpdrachten({
     { toets: "Ctrl+Shift+R", uitvoeren: wijzigLiniaal },
     { toets: "F11", uitvoeren: toonStijlen },
   ];
-  useSneltoetsen(tekstVlak, dialoog ? [] : sneltoetsen, "tekst");
+  // Het Word-profiel (src/tekst/bewerken) neemt een deel van deze toetsen over.
+  const profiel = useInstellingen().tekst.sneltoetsprofiel;
+  useSneltoetsen(
+    tekstVlak,
+    dialoog ? [] : sneltoetsen.filter((s) => toetsInProfiel("tekst", s.toets, profiel)),
+    "tekst",
+  );
 
   return {
     api,
