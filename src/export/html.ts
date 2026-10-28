@@ -1,6 +1,6 @@
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
-import Markdown from "react-markdown";
+import Markdown, { defaultUrlTransform } from "react-markdown";
 import remarkGfm from "remark-gfm";
 
 const ENTITEITEN: Record<string, string> = {
@@ -21,7 +21,15 @@ export function markdownNaarHtml(markdown: string) {
   return renderToStaticMarkup(
     createElement(
       Markdown,
-      { remarkPlugins: [remarkGfm], skipHtml: true },
+      {
+        remarkPlugins: [remarkGfm],
+        skipHtml: true,
+        // Ingesloten afbeeldingen uit het eigen document mogen als data-URL mee.
+        urlTransform: (url: string) =>
+          /^data:image\/(png|jpeg|gif);base64,[A-Za-z0-9+/=]+$/.test(url)
+            ? url
+            : defaultUrlTransform(url),
+      },
       markdown,
     ),
   );

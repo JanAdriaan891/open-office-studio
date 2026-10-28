@@ -15,7 +15,9 @@ export async function bewaarRapport(tekst: string, bestandsnaam: string) {
     });
     return;
   }
-  const url = URL.createObjectURL(new Blob([bytes], { type: "text/plain;charset=utf-8" }));
+  const url = URL.createObjectURL(
+    new Blob([bytes], { type: "text/plain;charset=utf-8" }),
+  );
   const a = document.createElement("a");
   a.href = url;
   a.download = naam;
@@ -51,7 +53,9 @@ export function Rapportdetails({
             navigator.clipboard
               .writeText(tekst())
               .then(() => setStatus("Rapport gekopieerd."))
-              .catch(() => setStatus("Kopiëren is niet toegestaan; gebruik Bewaren."))
+              .catch(() =>
+                setStatus("Kopiëren is niet toegestaan; gebruik Bewaren."),
+              )
           }
         >
           <ClipboardCopy size={13} /> Kopiëren

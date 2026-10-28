@@ -18,6 +18,8 @@ export interface Rapportregel {
   onderdeel: string;
   /** Wat de app ermee doet of wat er verloren gaat. */
   gevolg: string;
+  /** Alleen ter informatie (bijv. herkende codering); niet in de kopregel. */
+  info?: boolean;
 }
 
 export interface Rapport {
@@ -111,7 +113,8 @@ export function openRapport(kenmerken: OpenKenmerken): Rapport | null {
   } else if (route === "engine") {
     for (const risico of kenmerken.risicos) {
       const gevolg = bijOpenen(risico, soort);
-      if (gevolg) regels.push({ onderdeel: hoofdletter(risiconaam(risico)), gevolg });
+      if (gevolg)
+        regels.push({ onderdeel: hoofdletter(risiconaam(risico)), gevolg });
     }
   }
   regels.push(...(kenmerken.extra ?? []));
@@ -125,25 +128,38 @@ export function openRapport(kenmerken: OpenKenmerken): Rapport | null {
     });
   if (!regels.length) return null;
   const namen = regels
-    .filter((r) => r.onderdeel !== "Omzetting")
+    .filter((r) => r.onderdeel !== "Omzetting" && !r.info)
     .map((r) => r.onderdeel.toLowerCase());
   const kop =
     route === "conversie"
       ? "Geïmporteerd als bewerkbare kopie; het origineel is behouden." +
         (namen.length ? ` Let op: ${namen.join(", ")}.` : "")
       : route === "import"
-        ? `Geopend als bewerkbare kopie (.${soort}); het origineel is behouden.` +
-          (namen.length ? ` Beperkt: ${namen.join(", ")}.` : "")
+        ? `Omgezet naar een bewerkbare .${soort}-kopie; het origineel is behouden.` +
+          (namen.length ? ` Let op: ${namen.join(", ")}.` : "")
         : `Niet alles wordt volledig ondersteund: ${namen.join(", ")}.`;
   return { moment: "openen", kop, regels };
 }
 
 export const MACROS = "VBA-macro’s";
 
-const BEWERKBAAR = new Set(["eigen", "opendocument", "office-oud", "sjablonen"]);
+const BEWERKBAAR = new Set([
+  "eigen",
+  "opendocument",
+  "office-oud",
+  "sjablonen",
+]);
 
 /** Formaten die macro’s kunnen bevatten. */
-export const MACROFORMATEN = new Set(["docm", "dotm", "xlsm", "xltm", "pptm", "potm", "ppsm"]);
+export const MACROFORMATEN = new Set([
+  "docm",
+  "dotm",
+  "xlsm",
+  "xltm",
+  "pptm",
+  "potm",
+  "ppsm",
+]);
 
 export interface OpslaanKenmerken {
   soort: Soort;
@@ -180,13 +196,16 @@ export function opslagRapport(kenmerken: OpslaanKenmerken): Rapport | null {
       gevolg:
         "Het origineel was met een wachtwoord versleuteld; deze kopie wordt zonder wachtwoord bewaard en is voor iedereen leesbaar.",
     });
-  const opgeslagenRoute: Opslagroute | null = eigen || macroformaat
-    ? "engine"
-    : route === "runtime" && BEWERKBAAR.has(formaat.groep)
-      ? "conversie"
-      : null;
+  const opgeslagenRoute: Opslagroute | null =
+    eigen || macroformaat
+      ? "engine"
+      : route === "runtime" && BEWERKBAAR.has(formaat.groep)
+        ? "conversie"
+        : null;
   if (opgeslagenRoute) {
-    const verlies = risicos.filter((r) => matrix[soort][opgeslagenRoute].includes(r));
+    const verlies = risicos.filter((r) =>
+      matrix[soort][opgeslagenRoute].includes(r),
+    );
     if (verlies.length)
       regels.push({
         onderdeel: hoofdletter(verlies.map(risiconaam).join(", ")),
@@ -203,7 +222,8 @@ export function opslagRapport(kenmerken: OpslaanKenmerken): Rapport | null {
       if (soort === "xlsx" && ongemeten.length)
         regels.push({
           onderdeel: hoofdletter(ongemeten.map(risiconaam).join(", ")),
-          gevolg: "Behoud bij omzetten via de kantoorruntime is niet gemeten; controleer de kopie.",
+          gevolg:
+            "Behoud bij omzetten via de kantoorruntime is niet gemeten; controleer de kopie.",
         });
     }
     if (risicos.includes("handtekening") && (!eigen || route !== "engine"))
@@ -211,13 +231,21 @@ export function opslagRapport(kenmerken: OpslaanKenmerken): Rapport | null {
         onderdeel: "Digitale handtekening",
         gevolg: "Wordt niet overgenomen of is na opslaan niet meer geldig.",
       });
-  } else if (route === "tekst" || route === "html" || formaat.groep === "web-tekst") {
-    regels.push({ onderdeel: `Formaat .${formaat.ext}`, gevolg: hoofdletter(formaat.behoud) + "." });
+  } else if (
+    route === "tekst" ||
+    route === "html" ||
+    formaat.groep === "web-tekst"
+  ) {
+    regels.push({
+      onderdeel: `Formaat .${formaat.ext}`,
+      gevolg: hoofdletter(formaat.behoud) + ".",
+    });
     const weg = risicos.filter((r) => r !== "onbekende_extensies");
     if (weg.length)
       regels.push({
         onderdeel: hoofdletter(weg.map(risiconaam).join(", ")),
-        gevolg: "Aanwezig in het document; die komen niet of alleen als tekst in dit formaat.",
+        gevolg:
+          "Aanwezig in het document; die komen niet of alleen als tekst in dit formaat.",
       });
   }
   if (!regels.length) return null;

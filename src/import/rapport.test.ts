@@ -11,7 +11,12 @@ const formaat = (soort: "docx" | "xlsx" | "pptx", ext: string) =>
 describe("Rapport bij openen", () => {
   it("geeft geen rapport als alles volledig wordt ondersteund", () => {
     expect(
-      openRapport({ soort: "docx", risicos: [], route: "engine", bronformaat: "docx" }),
+      openRapport({
+        soort: "docx",
+        risicos: [],
+        route: "engine",
+        bronformaat: "docx",
+      }),
     ).toBeNull();
   });
   it("noemt ingebedde objecten, grafieken en macro’s bij direct geopende OOXML", () => {
@@ -24,7 +29,11 @@ describe("Rapport bij openen", () => {
     })!;
     expect(rapport.moment).toBe("openen");
     const onderdelen = rapport.regels.map((r) => r.onderdeel);
-    expect(onderdelen).toEqual(["Grafieken", "Ingebedde objecten", "VBA-macro’s"]);
+    expect(onderdelen).toEqual([
+      "Grafieken",
+      "Ingebedde objecten",
+      "VBA-macro’s",
+    ]);
     // Revisies worden gewoon ondersteund en horen niet in het rapport.
     expect(rapport.kop).not.toContain("revisies");
     expect(rapport.regels[2].gevolg).toContain("nooit uitgevoerd");
@@ -36,9 +45,9 @@ describe("Rapport bij openen", () => {
       route: "engine",
       bronformaat: "xlsx",
     })!;
-    expect(rapport.regels.find((r) => r.onderdeel === "Ingebedde objecten")!.gevolg).toContain(
-      "niet gemeten",
-    );
+    expect(
+      rapport.regels.find((r) => r.onderdeel === "Ingebedde objecten")!.gevolg,
+    ).toContain("niet gemeten");
     expect(rapport.regels.map((r) => r.onderdeel)).toContain("Draaitabellen");
   });
   it("meldt bij conversie de omzetting en het aangetoonde verlies", () => {
@@ -61,7 +70,12 @@ describe("Rapport bij openen", () => {
       route: "engine",
       bronformaat: "pptx",
     })!;
-    const tekst = rapportTekst(rapport, "Dia's.pptx", "2026-W44.1", new Date("2026-10-28T10:00:00Z"));
+    const tekst = rapportTekst(
+      rapport,
+      "Dia's.pptx",
+      "2026-W44.1",
+      new Date("2026-10-28T10:00:00Z"),
+    );
     expect(tekst).toContain("Bestand: Dia's.pptx");
     expect(tekst).toContain("2026-10-28 10:00:00");
     expect(tekst).toContain("- Ingebedde objecten: ");
@@ -71,7 +85,12 @@ describe("Rapport bij openen", () => {
 describe("Rapport vóór opslaan", () => {
   it("is leeg voor het eigen formaat zonder bijzonderheden", () => {
     expect(
-      opslagRapport({ soort: "docx", formaat: formaat("docx", "docx"), route: "engine", risicos: ["opmerkingen"] }),
+      opslagRapport({
+        soort: "docx",
+        formaat: formaat("docx", "docx"),
+        route: "engine",
+        risicos: ["opmerkingen"],
+      }),
     ).toBeNull();
   });
   it("meldt dat macro’s vervallen bij een formaat zonder macro’s", () => {
@@ -153,16 +172,22 @@ describe("Openroute", () => {
       "word/document.xml": strToU8("<document/>"),
       "word/embeddings/oleObject1.bin": new Uint8Array([1]),
     });
-    const resultaat = (await bereidOpenen("Brief.docx", bytes, { converteer: niet }))!;
+    const resultaat = (await bereidOpenen("Brief.docx", bytes, {
+      converteer: niet,
+    }))!;
     expect(resultaat.gewijzigd).toBe(false);
     expect(resultaat.bytes).toBe(bytes);
     expect(resultaat.rapport!.regels[0].onderdeel).toBe("Ingebedde objecten");
   });
   it("zet andere formaten om via de runtime en stelt het bronformaat voor", async () => {
     const omgezet = zipSync({ "word/document.xml": strToU8("<document/>") });
-    const resultaat = (await bereidOpenen("Oud.doc", new Uint8Array([0xd0, 0xcf]), {
-      converteer: async () => omgezet,
-    }))!;
+    const resultaat = (await bereidOpenen(
+      "Oud.doc",
+      new Uint8Array([0xd0, 0xcf]),
+      {
+        converteer: async () => omgezet,
+      },
+    ))!;
     expect(resultaat.naam).toBe("Oud.docx");
     expect(resultaat.gewijzigd).toBe(true);
     expect(resultaat.exportFormaat).toBe("doc");

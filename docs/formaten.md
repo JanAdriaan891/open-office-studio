@@ -56,7 +56,19 @@ Niet opgenomen:
 
 Database Studio opent MDB/ACCDB als SQLite-werkkopie; het origineel wordt nooit overschreven. De werkkopie kan als SQLite (.sqlite) worden bewaard en heropend, tabellen en queryresultaten als CSV, query’s als SQL en VBA-modules als BAS. Terugschrijven naar MDB/ACCDB wordt niet ondersteund.
 
-Markdown (.md) uit Tekst bewaart koppen, lijsten, links, tabellen en basisopmaak als UTF-8-tekst. Paginaopmaak, ingesloten afbeeldingen en revisies vragen een DOCX; een Markdown-export wist daarom de wijzigingsmarkering niet. Afgekapt resultaat wordt geweigerd. Markdown openen is nog niet aangesloten.
+Markdown (.md) uit Tekst bewaart koppen, lijsten, links, tabellen en basisopmaak als UTF-8-tekst. Paginaopmaak, ingesloten afbeeldingen en revisies vragen een DOCX; een Markdown-export wist daarom de wijzigingsmarkering niet. Afgekapt resultaat wordt geweigerd.
+
+### Tekstformaten openen zonder runtime
+
+TXT, Markdown, HTML en RTF zet de app zelf om naar een nieuwe DOCX-kopie in een nieuw tabblad (`src/import/`), ook in de browser. Het rapport na openen zegt wat er is overgenomen en wat niet.
+
+- **TXT**: codering herkend (BOM, UTF-8, UTF-16 met en zonder BOM, anders Windows-1252) en regeleinden (CRLF, LF, CR, gemengd). Elke regel wordt een alinea; tabs blijven tabs. Ctrl+S stelt weer TXT voor; Opslaan als TXT biedt UTF-8, UTF-8 met BOM of Windows-1252.
+- **Markdown** (`.md`, `.markdown`, CommonMark met GFM): koppen, opmaak, geneste en genummerde lijsten, takenlijsten, koppelingen, tabellen, codeblokken, citaten en ingesloten data-afbeeldingen (PNG, JPEG, GIF). Externe of lokale afbeeldingen worden niet opgehaald en staan als tekst. Ruwe HTML wordt alleen als tekst overgenomen. Voetnoten worden gewone tekst met een nummer.
+- **HTML** (`.htm`, `.html`, `.xhtml`): eigen, tolerante lezer zonder DOM. Koppen, alinea’s, opmaak (ook `style` voor vet, cursief, onderstreept en kleur), lijsten, tabellen, koppelingen (alleen http, https, mailto en tel) en data-afbeeldingen. Scripts, stijlbladen, formulieren, iframes en externe bronnen worden nooit geladen of uitgevoerd. Codering via BOM, `<meta charset>` of herkenning.
+- **RTF**: eigen eenvoudige lezer (`src/import/rtfbestand.ts`) voor tekst met codepagina’s en Unicode, vet, cursief, onderstreept, doorgehaald, super- en subschrift, grootte, kleur, uitlijning, koppen, tabs, regel- en pagina-einden, eenvoudige tabellen, hyperlinks en PNG/JPEG-afbeeldingen. Niet: kop- en voetteksten, voet- en eindnoten, opmerkingen, objecten, WMF/EMF, tekstvakken, geneste tabellen, samengevoegde cellen en echte lijstnummering (de zichtbare opsommingstekst blijft staan). Wat overgeslagen is, staat in het rapport.
+- In de desktopapp met kantoorruntime gaan HTML en RTF eerst via de runtime (hogere trouw). Mislukt dat, dan valt de app terug op de eigen lezer en meldt dat.
+- Opslaan als HTML vanuit Tekst sluit de afbeeldingen nu als data-URL in (alleen PNG, JPEG en GIF uit de hoofdtekst).
+- RTF opslaan kan alleen via de kantoorruntime.
 
 ## Rapport bij onvolledige ondersteuning
 

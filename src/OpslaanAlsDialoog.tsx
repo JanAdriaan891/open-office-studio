@@ -54,6 +54,7 @@ export function OpslaanAlsDialoog(props: OpslaanAlsProps) {
   const [ext, setExt] = useState(props.formaat);
   const [scheidingsteken, setScheidingsteken] = useState<Scheidingsteken>(";");
   const [codering, setCodering] = useState<Codering>("utf8-bom");
+  const [tekstcodering, setTekstcodering] = useState<Codering>("utf8");
   const [blad, setBlad] = useState(props.bladen?.actief ?? 0);
   const [dia, setDia] = useState(props.dias?.huidig ?? 0);
   const [pdfa, setPdfa] = useState<0 | 1 | 2 | 3>(0);
@@ -118,6 +119,9 @@ export function OpslaanAlsDialoog(props: OpslaanAlsProps) {
             codering,
             blad,
           }
+        : {}),
+      ...(gekozen.ext === "txt" && route === "tekst"
+        ? { codering: tekstcodering }
         : {}),
       ...(gekozen.ext === "png" && props.soort === "xlsx" ? { blad } : {}),
       ...(gekozen.ext === "png" && props.soort === "pptx" ? { dia } : {}),
@@ -320,6 +324,23 @@ export function OpslaanAlsDialoog(props: OpslaanAlsProps) {
               die met =, +, - of @ begint krijgt een apostrof, zodat een
               rekenprogramma die niet als formule uitvoert.
             </p>
+          </div>
+        )}
+        {gekozen.ext === "txt" && route === "tekst" && (
+          <div className="opslaanals-opties">
+            <label>
+              Codering
+              <select
+                value={tekstcodering}
+                onChange={(e) => setTekstcodering(e.target.value as Codering)}
+              >
+                <option value="utf8">UTF-8</option>
+                <option value="utf8-bom">
+                  UTF-8 met BOM (Kladblok, Excel)
+                </option>
+                <option value="windows-1252">Windows-1252 (ANSI)</option>
+              </select>
+            </label>
           </div>
         )}
         {gekozen.ext === "png" && props.soort === "xlsx" && bladkeuze && (

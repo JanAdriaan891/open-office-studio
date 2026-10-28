@@ -36,7 +36,12 @@ import { RapportMelding } from "./import/RapportMelding";
 import versie from "../versie.json";
 import openaecSymbool from "./stijl/openaec-symbol.svg";
 import { ThemaKnop, useOfficeThema } from "./stijl/ThemaKnop";
-import { bestandssoort, converteer, invoerformaten } from "./formaten";
+import {
+  bestandssoort,
+  conversieStatus,
+  converteer,
+  invoerformaten,
+} from "./formaten";
 import { opslagMelding } from "./documentOpslaan";
 import { useTabbladen } from "./useTabbladen";
 import { naamloos, titel, vingerafdruk, type Tabblad } from "./tabbladen";
@@ -452,7 +457,11 @@ export function OfficeStudio() {
         const vinger = await vingerafdruk(naam, bytes);
         // Hetzelfde bestand opnieuw openen springt naar het bestaande tabblad.
         if (tabs.openBestaand(vinger)) return;
-        const resultaat = await bereidOpenen(naam, bytes, { converteer });
+        const resultaat = await bereidOpenen(naam, bytes, {
+          converteer,
+          runtimeBeschikbaar: async () =>
+            tauri && (await conversieStatus()).gevonden,
+        });
         if (!resultaat) return;
         const { id } = openDocument(
           resultaat.soort,

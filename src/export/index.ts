@@ -54,9 +54,9 @@ function controleerVolledig(resultaat: {
     );
 }
 
-async function documentMarkdown(bytes: Uint8Array) {
+async function documentMarkdown(bytes: Uint8Array, metAfbeeldingen = false) {
   const { exporteerMarkdown } = await import("../markdown");
-  const resultaat = await exporteerMarkdown(bytes);
+  const resultaat = await exporteerMarkdown(bytes, { metAfbeeldingen });
   return {
     markdown: new TextDecoder().decode(resultaat.bytes),
     waarschuwing: resultaat.waarschuwing,
@@ -215,19 +215,39 @@ export async function maakExport(
     let html: string;
     let toelichting: string | undefined;
     if (soort === "docx") {
-      const { markdown, waarschuwing } = await documentMarkdown(bytes);
+      const { markdown, waarschuwing } = await documentMarkdown(
+        bytes,
+        ext === "html",
+      );
       html = markdownNaarHtml(markdown);
-      if (waarschuwing) toelichting = "Afbeeldingen zijn niet overgenomen.";
+      if (waarschuwing)
+        toelichting =
+          ext === "html"
+            ? "Niet alle afbeeldingen konden worden ingesloten."
+            : "Afbeeldingen zijn niet overgenomen.";
     } else if (soort === "pptx") {
       html = markdownNaarHtml(await presentatieMarkdown(bytes));
     } else {
       const inhoud = await rekenblad(bytes);
       html = inhoud.sheets.map(bladNaarHtml).join("\n");
     }
+    if (ext === "txt") {
+      // Platte tekst met keuze van codering (standaard UTF-8 zonder BOM).
+      const { bytes: uit, vervangen } = codeer(
+        htmlNaarTekst(html),
+        opties.codering ?? "utf8",
+      );
+      if (vervangen)
+        toelichting = [
+          toelichting,
+          `${vervangen} teken(s) bestaan niet in Windows-1252 en zijn vervangen door '?'.`,
+        ]
+          .filter(Boolean)
+          .join(" ");
+      return { bytes: uit, mime, toelichting };
+    }
     return {
-      bytes: tekst(
-        ext === "txt" ? htmlNaarTekst(html) : htmlDocument(titel, html),
-      ),
+      bytes: tekst(htmlDocument(titel, html)),
       mime,
       toelichting,
     };
