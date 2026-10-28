@@ -20,6 +20,8 @@ import {
   type GrafiekVerwijzing,
 } from "../documenten.ts";
 import { GrafiekVenster } from "./GrafiekVenster.tsx";
+import { herstelPlek, leesPlek } from "../../tekst/pagina/ui/engine.ts";
+import { planNaHerladen } from "../../tekst/pagina/ui/staat.ts";
 import { Bevestig, GrafiekenLijst } from "./Keuzevensters.tsx";
 
 const tekst = (e: unknown) => (e instanceof Error ? e.message : String(e));
@@ -96,10 +98,14 @@ export function useIngeslotenGrafieken(formaat: "docx" | "pptx") {
                 : undefined,
           }}
           bevestig={async ({ model }) => {
+            const editor = formaat === "docx" ? apis.tekst() : null;
+            const plek = editor ? await leesPlek(editor) : null;
             const bytes = await herlaad.bytes();
             if (formaat === "docx") {
               const r = voegGrafiekToeDocx(bytes, model, { paraId: selectie?.paraId, alineaTekst: selectie?.paragraphText });
               setVenster(null);
+              // De grafiek komt ná de alinea met de cursor: de cursor blijft daar (het beeld gaat naar de grafiek).
+              if (editor && plek) planNaHerladen(herlaad, (n) => herstelPlek(n, { ...plek, pagina: 0 }, "begin"), editor);
               herlaad.vervang(r.bytes, { paraId: r.paraId });
             } else {
               const r = voegGrafiekToePptx(bytes, model, { dia: diaIndex });
@@ -125,9 +131,12 @@ export function useIngeslotenGrafieken(formaat: "docx" | "pptx") {
         waarschuwingen={gelezen.waarschuwingen}
         gegevens={{ soort: "blad", raster: rasterUitModel(gelezen.model) }}
         bevestig={async ({ model }) => {
+          const editor = formaat === "docx" ? apis.tekst() : null;
+          const plek = editor ? await leesPlek(editor) : null;
           const actueel = await herlaad.bytes();
           const nieuw = bewerkGrafiek(actueel, formaat, g.chartPad, model);
           setVenster(null);
+          if (editor && plek) planNaHerladen(herlaad, (n) => herstelPlek(n, { ...plek, pagina: 0 }, "begin"), editor);
           herlaad.vervang(nieuw, formaat === "docx" ? { paraId: g.paraId } : { dia: g.dia });
         }}
         sluit={sluit}

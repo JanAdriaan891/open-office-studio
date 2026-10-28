@@ -24,6 +24,33 @@ export function neemTaak(herlaad: Herladen) {
 }
 
 // ---------------------------------------------------------------------------
+// Pakketbewerkingen na elkaar
+
+let rij: Promise<void> = Promise.resolve();
+/** Langer dan dit duurt een herlaadronde niet; daarna geeft de beurt zichzelf vrij. */
+const MAX_BEURT = 30000;
+
+/**
+ * Een beurt voor een bewerking via de pakketroute. Een tweede bewerking die
+ * start terwijl de eerste nog opslaat of herlaadt, wacht tot die klaar is en
+ * werkt dan op het nieuwe document (anders gaat één van beide verloren).
+ * Roep de teruggegeven functie aan als de bewerking klaar is of afbreekt.
+ */
+export function neemBeurt(): Promise<() => void> {
+  let vrijgeven!: () => void;
+  const klaar = new Promise<void>((r) => (vrijgeven = r));
+  const vorige = rij;
+  rij = vorige.then(() => klaar);
+  return vorige.then(() => {
+    const klok = setTimeout(vrijgeven, MAX_BEURT);
+    return () => {
+      clearTimeout(klok);
+      vrijgeven();
+    };
+  });
+}
+
+// ---------------------------------------------------------------------------
 // Meldingen (kort, onderaan in beeld)
 
 export interface Melding {

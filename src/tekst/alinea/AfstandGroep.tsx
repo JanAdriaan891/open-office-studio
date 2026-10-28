@@ -1,4 +1,4 @@
-import { useEffect, useId, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { ArrowDownToLine, ArrowUpToLine } from "lucide-react";
 import { Groep } from "../../Ribbon";
 import { useEditorApi } from "../../lint/editorApi";
@@ -73,6 +73,9 @@ function Veld({
   const id = useId();
   const [tekst, setTekst] = useState("");
   const [bewerken, setBewerken] = useState(false);
+  // Tekst bij het binnenkomen, en of Enter/Esc het veld al heeft afgehandeld.
+  const begin = useRef("");
+  const afgehandeld = useRef(false);
   const getoond = bewerken ? tekst : waarde === undefined ? "" : `${getalTekst(waarde, 2)} ${eenheid}`;
   const bevestig = (t: string) => {
     const n = leesGetal(t);
@@ -89,23 +92,35 @@ function Veld({
         inputMode="decimal"
         title={`${label} (${eenheid}); pijltjes = ${getalTekst(stap)} ${eenheid} op of af`}
         onFocus={(e) => {
+          const t = waarde === undefined ? "" : getalTekst(waarde, 2);
+          begin.current = t;
+          afgehandeld.current = false;
           setBewerken(true);
-          setTekst(waarde === undefined ? "" : getalTekst(waarde, 2));
+          setTekst(t);
           requestAnimationFrame(() => e.target.select());
         }}
-        onBlur={() => setBewerken(false)}
+        onBlur={() => {
+          // Zoals Word: Tab of wegklikken neemt een gewijzigde waarde over.
+          if (!afgehandeld.current && tekst.trim() !== begin.current) bevestig(tekst);
+          setBewerken(false);
+        }}
         onChange={(e) => setTekst(e.target.value)}
         onKeyDown={(e) => {
           if (e.key === "Enter") {
+            afgehandeld.current = true;
             bevestig(tekst);
             e.currentTarget.blur();
           } else if (e.key === "Escape") {
+            afgehandeld.current = true;
             setBewerken(false);
             e.currentTarget.blur();
           } else if (e.key === "ArrowUp" || e.key === "ArrowDown") {
             e.preventDefault();
             const n = Math.max(eenheid === "pt" ? 0 : -20, rond((leesGetal(tekst) ?? waarde ?? 0) + (e.key === "ArrowUp" ? stap : -stap)));
-            setTekst(getalTekst(n, 2));
+            const t = getalTekst(n, 2);
+            // Al toegepast: bij het verlaten niet nog eens.
+            begin.current = t;
+            setTekst(t);
             zet(n);
           }
         }}

@@ -1,4 +1,4 @@
-import { zichtbaarElement } from "./editorApi";
+import { useEditorApi, zichtbaarElement } from "./editorApi";
 import { vraagAfdrukvoorbeeld } from "../afdrukken/openen";
 import { GrafiekGroep, useIngeslotenGrafieken } from "../grafieken/ui/ingesloten";
 import {
@@ -28,7 +28,6 @@ import {
   Link,
   FilePlus2,
   LayoutTemplate,
-  Stamp,
   MessageSquare,
   MessageSquarePlus,
   Check,
@@ -96,6 +95,8 @@ import {
   KolommenGroep,
   KopVoetInvoegenGroep,
   PaginaIndelingKnoppen,
+  SectieEindes,
+  WatermerkKnop,
   kopVoetTab,
   verwijzingenTab,
 } from "../tekst/pagina/ui/PaginaLint";
@@ -124,6 +125,13 @@ import "./tekst.css";
 type Opdrachten = ReturnType<typeof useTekstOpdrachten>;
 /** Regelafstand "1.15" uit de engine als "1,15". */
 const decimaleKomma = (label: string) => label.replace(".", ",");
+
+/**
+ * Het lint hangt in de editor en wordt bij herladen (pakketroute: grafiek,
+ * paginanummers, randen …) opnieuw gemount; per document onthouden we het
+ * gekozen tabblad, zodat het lint niet terugspringt naar Start.
+ */
+const lintTabPerDocument = new WeakMap<object, string>();
 
 const hoofdletterKnoppen: {
   soort: Hoofdlettersoort | "rouleren";
@@ -353,6 +361,7 @@ export function TekstRibbon({
         .width ?? null,
   });
   const opdrachten = useTekstOpdrachten({ wijzigLiniaal, wijzigNavigatie });
+  const herlaad = useEditorApi().herlaad;
   const grafieken = useIngeslotenGrafieken("docx");
   const pagina = usePagina();
   const tabel = useDocxCommand("tableAction");
@@ -530,6 +539,10 @@ export function TekstRibbon({
     <StijlenBeheer>
       <Ribbon
         bestand={bestand}
+        beginTab={herlaad ? lintTabPerDocument.get(herlaad) : undefined}
+        bijTabKeuze={(id) => {
+          if (herlaad) lintTabPerDocument.set(herlaad, id);
+        }}
         tabs={[
           {
             id: "start",
@@ -576,11 +589,12 @@ export function TekstRibbon({
                   <Opmerking opdrachten={opdrachten} />
                 </Groep>
                 <Groep naam="Tekst">
+                  {/* Platte tekst kan ook in een kop- of voettekst die u bewerkt. */}
                   <EigenKnop
                     naam="Speciaal teken"
                     icoon={Omega}
                     groot
-                    disabled={!opdrachten.invoerbaar}
+                    disabled={!opdrachten.invoerbaar && !pagina.kopVoet}
                     onClick={() => opdrachten.setDialoog("teken")}
                   />
                   <div className="ribbon-stapel">
@@ -588,14 +602,14 @@ export function TekstRibbon({
                       naam="Datum"
                       icoon={CalendarDays}
                       uitleg="Voegt de datum van vandaag in als tekst"
-                      disabled={!opdrachten.bewerkbaar}
+                      disabled={!opdrachten.bewerkbaar && !pagina.kopVoet}
                       onClick={() => opdrachten.voegIn(datumTekst(new Date()))}
                     />
                     <EigenKnop
                       naam="Tijd"
                       icoon={Clock}
                       uitleg="Voegt de huidige tijd in als tekst"
-                      disabled={!opdrachten.bewerkbaar}
+                      disabled={!opdrachten.bewerkbaar && !pagina.kopVoet}
                       onClick={() => opdrachten.voegIn(tijdTekst(new Date()))}
                     />
                     <DatumTijdKnop />
@@ -714,7 +728,7 @@ export function TekstRibbon({
                     icoon={LayoutTemplate}
                     groot
                   />
-                  <W id="watermark" naam="Watermerk" icoon={Stamp} groot />
+                  <WatermerkKnop p={pagina} />
                 </Groep>
                 <KolommenGroep p={pagina} />
                 <Groep naam="Pagina-achtergrond">
@@ -728,18 +742,7 @@ export function TekstRibbon({
                     sneltoets="Ctrl+Enter"
                     groot
                   />
-                  <div className="ribbon-stapel">
-                    <W
-                      id="insertSectionBreakNextPage"
-                      naam="Sectie op nieuwe pagina"
-                      icoon={FilePlus2}
-                    />
-                    <W
-                      id="insertSectionBreakContinuous"
-                      naam="Doorlopende sectie"
-                      icoon={Columns2}
-                    />
-                  </div>
+                  <SectieEindes p={pagina} />
                   <ExtraEindes p={pagina} />
                 </Groep>
                 <AfstandGroep />
@@ -851,7 +854,7 @@ export function TekstRibbon({
                     naam="Speciaal teken"
                     icoon={Omega}
                     groot
-                    disabled={!opdrachten.bewerkbaar}
+                    disabled={!opdrachten.invoerbaar && !pagina.kopVoet}
                     onClick={() => opdrachten.setDialoog("teken")}
                   />
                 </Groep>

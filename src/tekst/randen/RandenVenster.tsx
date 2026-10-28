@@ -82,7 +82,7 @@ function RandBewerker({
   const rand = cssRand(f);
   return (
     <>
-      <Sectie titel="Instelling">
+      <Sectie titel="Rand">
         <Keuze label="Instelling" waarde={f.instelling} opties={instellingNamen} wijzig={(w) => zet(metInstelling(f, w))} />
         <Keuze label="Stijl" waarde={f.stijl} opties={randStijlen} wijzig={(w) => zet({ ...f, stijl: w })} />
         <KleurVeld label="Kleur" waarde={f.kleur} wijzig={(w) => zet({ ...f, kleur: w })} />
