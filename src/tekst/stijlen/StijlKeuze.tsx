@@ -3,10 +3,11 @@ import { OpdrachtKeuze, type GebondenOpdracht } from "../../Ribbon";
 import { useEditorApi } from "../../lint/editorApi";
 import { stijlNaam } from "./model";
 import { metHeleAlinea } from "./toepassen";
+import { useHerhaalbaar } from "../bewerken/herhaalmelding";
 
 /** Keuzelijst met alle alineastijlen (lint en mini-werkbalk), met Nederlandse namen. */
 export function AlineastijlKeuze({ naam, breed }: { naam: string; breed?: boolean }) {
-  const opdracht = useDocxCommand("paragraphStyle");
+  const opdracht = useHerhaalbaar("paragraphStyle", useDocxCommand("paragraphStyle"));
   const api = useEditorApi().tekst;
   const gebonden: GebondenOpdracht = {
     ...opdracht,

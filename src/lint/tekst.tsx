@@ -114,6 +114,7 @@ import {
 } from "../tekst/bewerken/TekstBewerken";
 import { StijlBeheerGroep, StijlenBeheer, StijlGalerij } from "../tekst/stijlen";
 import { AlineastijlKeuze } from "../tekst/stijlen/StijlKeuze";
+import { useHerhaalbaar } from "../tekst/bewerken/herhaalmelding";
 import { TekstInfo } from "../tekst/info/TekstInfo";
 import { WeergaveGroep } from "../tekst/info/WeergaveGroep";
 import "./tekst.css";
@@ -142,9 +143,9 @@ const hoofdletterKnoppen: {
 ];
 
 function TekstLettertype() {
-  const grootte = useDocxCommand("fontSize"),
-    kleur = useDocxCommand("textColor"),
-    markering = useDocxCommand("highlightColor");
+  const grootte = useHerhaalbaar("fontSize", useDocxCommand("fontSize")),
+    kleur = useHerhaalbaar("textColor", useDocxCommand("textColor")),
+    markering = useHerhaalbaar("highlightColor", useDocxCommand("highlightColor"));
   return (
     <Groep naam="Lettertype">
       <div className="ribbon-rij">
@@ -248,8 +249,9 @@ function Klembord({ opdrachten }: { opdrachten: Opdrachten }) {
         icoon={ClipboardPaste}
         groot
         disabled={!opdrachten.bewerkbaar}
-        uitleg="als ongeopmaakte tekst; Ctrl+V plakt met opmaak"
-        onClick={opdrachten.plakken}
+        sneltoets="Ctrl+V"
+        uitleg="met opmaak; Ctrl+Shift+V plakt als alleen tekst"
+        onClick={opdrachten.plakkenMetOpmaak}
       />
       <div className="ribbon-stapel">
         <EigenKnop

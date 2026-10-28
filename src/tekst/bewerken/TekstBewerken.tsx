@@ -52,6 +52,7 @@ import {
 } from "./kwast";
 import { puntStap, volgendeGrootte } from "./groottereeks";
 import { HERHAALBAAR, Herhaalgeheugen, naamVanOpdracht } from "./herhalen";
+import { Herhaalmelding } from "./herhaalmelding";
 import {
   deltaUitHtml,
   heeftHtmlOpmaak,
@@ -709,8 +710,22 @@ export function TekstBewerken({
     alinea,
   };
 
+  /** Lintknoppen melden hun opdracht hier, zodat F4 ook die herhaalt. */
+  function lintOpdracht(id: string, args: unknown) {
+    if (!HERHAALBAAR.has(id)) return;
+    const styleId = (args as { styleId?: unknown } | null)?.styleId;
+    geheugen.onthoud({
+      naam: naamVanOpdracht(id, args),
+      uitvoeren:
+        id === "paragraphStyle" && typeof styleId === "string"
+          ? () => stijl(styleId)
+          : () => voerUit(id as DocxCommandId, args as never),
+    });
+  }
+
   return (
     <BewerkenContext.Provider value={waarde}>
+    <Herhaalmelding.Provider value={lintOpdracht}>
       {children}
       {menu && (
         <Contextmenu
@@ -748,6 +763,7 @@ export function TekstBewerken({
           fout={melding}
         />
       )}
+    </Herhaalmelding.Provider>
     </BewerkenContext.Provider>
   );
 }
