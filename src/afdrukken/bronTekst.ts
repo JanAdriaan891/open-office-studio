@@ -9,7 +9,7 @@
  * de editor.
  */
 import type { DocxEditorRef } from "@betteroffice/docx-react";
-import type { AfdrukDocument, AfdrukPagina } from "./model";
+import type { AfdrukDocument, AfdrukPagina, Bladwijzer, Koppeling } from "./model";
 import { metTekstopname, naarPunten } from "./tekstopname";
 
 /** De afdrukroutine rastert met twee beeldpunten per CSS-pixel. */
@@ -94,6 +94,67 @@ async function vangPaginas(ref: DocxEditorRef) {
   }
 }
 
+/**
+ * Koppen (bladwijzers) en klikbare koppelingen uit de structuurexport met de
+ * paginakaart van de editor. Mislukt dit, dan blijft de PDF gewoon bruikbaar.
+ */
+async function koppenEnKoppelingen(ref: DocxEditorRef) {
+  const bladwijzers: Bladwijzer[] = [];
+  const koppelingen = new Map<number, Koppeling[]>();
+  try {
+    const r = await ref.exportStructuredWithPages({
+      revisionView: "accepted",
+      stories: ["body"],
+      includeGeometry: true,
+      maxFragments: 50_000,
+    });
+    if (!r.ok) return { bladwijzers, koppelingen };
+    const { structured, layout } = r.content;
+    const perNode = new Map<string, typeof layout.fragments>();
+    for (const f of layout.fragments) {
+      const lijst = perNode.get(f.nodeId) ?? [];
+      lijst.push(f);
+      perNode.set(f.nodeId, lijst);
+    }
+    const tekstVan = (inlines: { kind: string; text?: string }[]) =>
+      inlines.map((i) => (i.kind === "text" ? i.text : i.kind === "tab" ? " " : "")).join("").trim();
+    for (const story of structured.stories)
+      for (const blok of story.blocks) {
+        if (!("paragraph" in blok)) continue;
+        const kop = "heading" in blok ? blok.heading : null;
+        if (kop) {
+          const f = perNode.get(blok.id)?.[0];
+          const titel = tekstVan(blok.paragraph.inlines);
+          if (f && titel)
+            bladwijzers.push({
+              titel,
+              pagina: f.pageIndex,
+              y: (f.geometry?.rects[0]?.y ?? 0) * 0.75,
+              niveau: kop.outlineLevel,
+            });
+        }
+        for (const inline of blok.paragraph.inlines) {
+          if (!inline.link?.href) continue;
+          for (const f of perNode.get(inline.id) ?? [])
+            for (const rect of f.geometry?.rects ?? []) {
+              const lijst = koppelingen.get(f.pageIndex) ?? [];
+              lijst.push({
+                x: rect.x * 0.75,
+                y: rect.y * 0.75,
+                breedte: rect.width * 0.75,
+                hoogte: rect.height * 0.75,
+                url: inline.link.href,
+              });
+              koppelingen.set(f.pageIndex, lijst);
+            }
+        }
+      }
+  } catch {
+    // Zonder paginakaart: geen bladwijzers of koppelingen.
+  }
+  return { bladwijzers, koppelingen };
+}
+
 /** Pagina's met de maat uit het document; tekenen gebeurt eenmalig op 192 dpi. */
 export async function tekstPaginas(
   ref: DocxEditorRef,
@@ -102,6 +163,7 @@ export async function tekstPaginas(
   await ref.flushPendingInput();
   await ref.whenLayoutComplete({ timeoutMs: 60_000 }).catch(() => 0);
   const paginas = await vangPaginas(ref);
+  const { bladwijzers, koppelingen } = await koppenEnKoppelingen(ref);
   if (!paginas.length)
     throw new Error("Het document heeft geen pagina's om af te drukken.");
   const uit: AfdrukPagina[] = paginas.map(({ canvas, tekst }, index) => {
@@ -114,8 +176,12 @@ export async function tekstPaginas(
       hoogte: pxHoogte * PT_PER_PX,
       label: `Pagina ${index + 1}`,
       // De editor rastert altijd op 192 dpi; hogere resoluties zijn niet beschikbaar.
-      teken: async () => ({ canvas, tekst: punten }),
+      teken: async () => ({
+        canvas,
+        tekst: punten,
+        koppelingen: koppelingen.get(index),
+      }),
     };
   });
-  return { titel, paginas: uit };
+  return { titel, paginas: uit, bladwijzers };
 }

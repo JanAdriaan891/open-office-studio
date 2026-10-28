@@ -10,6 +10,7 @@ import {
   type Uitvoerformaat,
 } from "../formaten";
 import type { Codering, Scheidingsteken } from "./csv";
+import type { AppPdfKeuze } from "./PdfOpties";
 
 /** Wat de gebruiker in Opslaan als heeft gekozen. */
 export interface OpslaanKeuze {
@@ -27,6 +28,8 @@ export interface OpslaanKeuze {
   pdfa?: 0 | 1 | 2 | 3;
   bladwijzers?: boolean;
   bereik?: string;
+  /** PDF uit de app zelf: kwaliteit en inhoud. */
+  pdf?: AppPdfKeuze;
 }
 
 const BEWERKBAAR = new Set([
@@ -135,6 +138,8 @@ export async function bewaarInFormaat(
       dia: keuze.dia,
       scheidingsteken: keuze.scheidingsteken,
       codering: keuze.codering,
+      pdf: keuze.pdf,
+      bereik: keuze.bereik,
     });
     uitvoer = resultaat.bytes;
     mime = resultaat.mime;

@@ -20,6 +20,7 @@ export interface PdfOpties {
   kwaliteit?: PdfKwaliteit;
   auteur?: string;
   onderwerp?: string;
+  trefwoorden?: string;
   voortgang?: (klaar: number, totaal: number) => void;
 }
 
@@ -75,6 +76,7 @@ export async function maakPdf(
     titel: doc.titel,
     auteur: opties.auteur,
     onderwerp: opties.onderwerp,
+    trefwoorden: opties.trefwoorden,
     paginas,
     bladwijzers,
   });

@@ -278,3 +278,20 @@ describe("nalaadfouten", () => {
     expect(isNalaadfout(new Error("Het bestand is te groot."))).toBe(false);
   });
 });
+
+describe("PDF zonder runtime", () => {
+  it("leest documenteigenschappen voor de PDF-metadata", async () => {
+    const { documentEigenschappen } = await import("./index");
+    const eigenschappen = documentEigenschappen(
+      new Uint8Array(readFileSync("docs/voorbeelden/Ontwerpnotitie.docx")),
+    );
+    expect(eigenschappen.titel).toBe("Ruimte voor ideeën");
+    expect(eigenschappen.auteur).toBeUndefined();
+    expect(documentEigenschappen(new Uint8Array([1, 2, 3]))).toEqual({});
+  });
+  it("vraagt om de geopende editor", async () => {
+    await expect(
+      maakExport("docx", "pdf", new Uint8Array(), "Proef"),
+    ).rejects.toThrow(/editor/);
+  });
+});

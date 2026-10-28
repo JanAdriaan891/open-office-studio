@@ -129,10 +129,9 @@
       "pdf": {
         "naam": "PDF-document",
         "groep": "pdf-afbeelding",
-        "route": "runtime",
-        "behoud": "alleen weergave",
-        "filter": "writer_pdf_Export",
-        "zonderRuntime": "afdrukken"
+        "route": "engine",
+        "behoud": "weergave als in het afdrukvoorbeeld; tekst doorzoekbaar",
+        "filter": "writer_pdf_Export"
       },
       "png": {
         "naam": "PNG-afbeelding (eerste pagina)",
@@ -277,10 +276,9 @@
       "pdf": {
         "naam": "PDF-document",
         "groep": "pdf-afbeelding",
-        "route": "runtime",
-        "behoud": "alleen weergave",
-        "filter": "calc_pdf_Export",
-        "zonderRuntime": "afdrukken"
+        "route": "engine",
+        "behoud": "weergave als in het afdrukvoorbeeld; tekst doorzoekbaar",
+        "filter": "calc_pdf_Export"
       },
       "png": {
         "naam": "PNG-afbeelding (blad)",
@@ -390,10 +388,9 @@
       "pdf": {
         "naam": "PDF-document",
         "groep": "pdf-afbeelding",
-        "route": "runtime",
-        "behoud": "alleen weergave",
-        "filter": "impress_pdf_Export",
-        "zonderRuntime": "afdrukken"
+        "route": "engine",
+        "behoud": "weergave als in het afdrukvoorbeeld; tekst doorzoekbaar",
+        "filter": "impress_pdf_Export"
       },
       "png": {
         "naam": "PNG-afbeelding (huidige dia)",

@@ -14,6 +14,7 @@ import {
 } from "./formaten";
 import type { OpslaanKeuze } from "./export/bewaar";
 import type { Codering, Scheidingsteken } from "./export/csv";
+import { PdfOpties, standaardAppPdf } from "./export/PdfOpties";
 import "./OpslaanAlsDialoog.css";
 
 const ROUTENAMEN: Record<Route, string> = {
@@ -57,6 +58,8 @@ export function OpslaanAlsDialoog(props: OpslaanAlsProps) {
   const [pdfa, setPdfa] = useState<0 | 1 | 2 | 3>(0);
   const [bladwijzers, setBladwijzers] = useState(true);
   const [bereik, setBereik] = useState("");
+  const [pdfViaRuntime, setPdfViaRuntime] = useState(false);
+  const [appPdf, setAppPdf] = useState(standaardAppPdf);
 
   useEffect(() => {
     if (!desktop) return;
@@ -93,7 +96,9 @@ export function OpslaanAlsDialoog(props: OpslaanAlsProps) {
   // Zolang de status laadt, rekenen we in de desktopapp op de runtime.
   const routeVan = (f: Uitvoerformaat) =>
     kiesRoute(f, desktop && (status === null || runtime));
-  const route = routeVan(gekozen);
+  // PDF maakt de app zelf; met runtime kan de gebruiker ervoor kiezen (PDF/A).
+  const route =
+    gekozen.ext === "pdf" && pdfViaRuntime && runtime ? "runtime" : routeVan(gekozen);
   const verlies = props.verlies(gekozen, route);
   const groepen = (Object.keys(GROEPEN) as Groep[])
     .map((groep) => ({
@@ -121,6 +126,9 @@ export function OpslaanAlsDialoog(props: OpslaanAlsProps) {
       ...(gekozen.ext === "png" && props.soort === "pptx" ? { dia } : {}),
       ...(gekozen.ext === "pdf" && route === "runtime"
         ? { pdfa, bladwijzers, bereik: bereik.trim() || undefined }
+        : {}),
+      ...(gekozen.ext === "pdf" && route === "engine"
+        ? { pdf: appPdf, bereik: bereik.trim() || undefined }
         : {}),
     });
   }
@@ -208,8 +216,8 @@ export function OpslaanAlsDialoog(props: OpslaanAlsProps) {
         <div className="opslaanals-runtime" role="status">
           {!desktop ? (
             <>
-              In de browser maakt de app Markdown, CSV, HTML, tekst en PNG zelf
-              en PDF via Afdrukken. Formaten met “alleen in de desktopapp”
+              In de browser maakt de app Markdown, CSV, HTML, tekst, PNG en PDF
+              zelf. Formaten met “alleen in de desktopapp”
               vragen de desktopversie met een kantoorruntime.
             </>
           ) : status === null ? (
@@ -340,6 +348,19 @@ export function OpslaanAlsDialoog(props: OpslaanAlsProps) {
               </select>
             </label>
           </div>
+        )}
+        {gekozen.ext === "pdf" && (
+          <PdfOpties
+            soort={props.soort}
+            runtime={runtime}
+            viaRuntime={route === "runtime"}
+            setViaRuntime={setPdfViaRuntime}
+            keuze={appPdf}
+            wijzig={setAppPdf}
+            bereik={bereik}
+            setBereik={setBereik}
+            bereikGeldig={bereikGeldig}
+          />
         )}
         {gekozen.ext === "pdf" && route === "runtime" && (
           <div className="opslaanals-opties">
