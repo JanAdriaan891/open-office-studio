@@ -11,11 +11,7 @@ import {
   PresentatieRibbon,
 } from "./editor-ribbons";
 import { RibbonFout } from "./Ribbon";
-import {
-  tekstNlVolledig as tekstNl,
-  rekenbladNlVolledig as rekenbladNl,
-  diaNlVolledig as diaNl,
-} from "./nederlands-toegankelijk";
+import { useEngineVertaling } from "./i18n/engine";
 import { RekenbladKoppen } from "./RekenbladKoppen";
 import {
   EditorApi,
@@ -64,6 +60,8 @@ export interface EditorProps {
   zoom: (zoom: number | null) => void;
 }
 export default function OfficeEditor(props: EditorProps) {
+  // Engine-teksten in de interfacetaal; wisselt live mee zonder het document te herladen.
+  const engineTaal = useEngineVertaling();
   const docx = useRef<DocxEditorRef>(null);
   const exporteren = useRef(false);
   const [fontFaces, setFontFaces] = useState<PptxFontFace[]>([]);
@@ -332,7 +330,7 @@ export default function OfficeEditor(props: EditorProps) {
               showOutline={navigatie}
               showOutlineButton={false}
               colorMode="light"
-              i18n={tekstNl}
+              i18n={engineTaal.tekst}
               className="office-tekst"
               readOnly={props.inactief}
               toolbar={
@@ -367,7 +365,7 @@ export default function OfficeEditor(props: EditorProps) {
                 onReady={gereedXlsx}
                 onChange={props.gewijzigd}
                 onSave={props.opslaan}
-                i18n={rekenbladNl}
+                i18n={engineTaal.rekenblad}
                 className="office-rekenblad"
                 readOnly={props.inactief}
                 toolbar={
@@ -401,7 +399,7 @@ export default function OfficeEditor(props: EditorProps) {
             onChange={props.gewijzigd}
             onError={props.fout}
             onSave={props.opslaan}
-            i18n={diaNl}
+            i18n={engineTaal.dia}
             className="office-presentatie"
             readOnly={props.inactief}
             toolbar={

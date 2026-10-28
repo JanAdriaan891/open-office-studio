@@ -21,7 +21,11 @@ function fontsUitPublic(): Plugin {
 export default defineConfig({
   plugins: [fontsUitPublic()],
   // Worktrees van agents en lokale proefuitvoer niet dubbel meetellen.
-  test: { exclude: [...configDefaults.exclude, ".claude/**", ".local/**"] },
+  test: {
+    exclude: [...configDefaults.exclude, ".claude/**", ".local/**"],
+    // Tests in het Nederlands, ongeacht de systeemtaal (zie docs/i18n.md).
+    setupFiles: ["src/i18n/testopzet.ts"],
+  },
   worker: { format: "es" },
   resolve: {
     alias: {
