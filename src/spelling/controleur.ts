@@ -97,7 +97,13 @@ export class Controleur {
   }
 
   async suggesties(woord: string, taal: TaalId, max = 5): Promise<string[]> {
-    return schoonSuggesties(woord, await this.motor.suggesties(taal, woord), max);
+    // Met hoofdletter aan het zinsbegin ("Huiz") geeft het woordenboek vooral
+    // namen ("Hui", "Huib"); eerst de suggesties voor de kleine letter.
+    const eerste = woord.charAt(0);
+    const zinsbegin =
+      eerste !== eerste.toLocaleLowerCase() && woord.slice(1) === woord.slice(1).toLocaleLowerCase() && woord.length > 1;
+    const klein = zinsbegin ? await this.motor.suggesties(taal, eerste.toLocaleLowerCase() + woord.slice(1)) : [];
+    return schoonSuggesties(woord, [...klein, ...(await this.motor.suggesties(taal, woord))], max);
   }
 }
 
