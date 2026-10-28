@@ -183,6 +183,13 @@ export const vasteSneltoetsen: readonly SneltoetsInfo[] = [
   tekst("F5", "Navigatievenster"),
   tekst("Ctrl+Shift+R", "Liniaal tonen of verbergen"),
   tekst("F11", "Alle stijlen"),
+  // Tekst: opmaakvensters (src/tekst/TekstOpmaak.tsx).
+  // Lettertype… en Alinea… zijn ook aangemeld bij src/tekst/menu/opdrachten.ts
+  // (rechtermuismenu, en in het Word-profiel Ctrl+D en Ctrl+Shift+F).
+  tekst("Ctrl+Shift+J", "Alinea…"),
+  tekst("Ctrl+Shift+A", "Alle hoofdletters"),
+  tekst("Ctrl+Shift+K", "Kleinkapitalen"),
+  tekst("Ctrl+Shift+H", "Verborgen tekst"),
   // Tekst: engine (@betteroffice/docx-react).
   tekstEngine("Ctrl+B", "Vet"),
   tekstEngine("Ctrl+I", "Cursief"),
