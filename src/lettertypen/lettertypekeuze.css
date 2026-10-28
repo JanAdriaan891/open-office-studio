@@ -1,0 +1,178 @@
+.lettertypekeuze {
+  position: relative;
+}
+.lettertypekeuze-knop {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  padding: 4px 24px 4px 8px;
+  border: 1px solid #dce0e5;
+  border-radius: 6px;
+  color: #414650;
+  background: #fff;
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+}
+.lettertypekeuze-knop:hover {
+  border-color: #b6bdc6;
+}
+.lettertypekeuze-knop span {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.lettertypekeuze > svg {
+  position: absolute;
+  right: 7px;
+  pointer-events: none;
+  color: #89909b;
+}
+.lettertypekeuze-paneel {
+  position: fixed;
+  z-index: 1100;
+  width: 300px;
+  max-height: min(520px, calc(100vh - 120px));
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 6px;
+  border: 1px solid #dce0e5;
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 10px 28px rgb(20 30 50 / 0.18);
+  font: 12px Inter, sans-serif;
+}
+.lettertypekeuze-paneel input {
+  font: inherit;
+  padding: 5px 7px;
+  border: 1px solid #dce0e5;
+  border-radius: 5px;
+}
+.lettertypekeuze-paneel ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.lettertypekeuze-paneel > ul {
+  overflow: auto;
+  flex: 1;
+}
+.lettertypekeuze-groep {
+  display: block;
+  padding: 6px 6px 3px;
+  font: 600 11px Inter, sans-serif;
+  color: #7a808a;
+}
+/* Vaste regelhoogte: het laden van een lettertype laat de lijst niet verspringen. */
+.lettertypekeuze-paneel [role="option"] {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 28px;
+  padding: 0 8px;
+  border-radius: 4px;
+  font-size: 15px;
+  line-height: 28px;
+  color: #2f3440;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.lettertypekeuze-naam {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.lettertypekeuze-vervanger {
+  flex: none;
+  font: 11px Inter, sans-serif;
+  color: #7a808a;
+}
+.lettertypekeuze-voorbeeld {
+  flex: none;
+  padding: 6px 8px;
+  border: 1px solid #e6e9ed;
+  border-radius: 6px;
+  background: #fafbfc;
+  color: #2f3440;
+}
+.lettertypekeuze-voorbeeldtekst {
+  height: 34px;
+  font-size: 24px;
+  line-height: 34px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.lettertypekeuze-stijlen {
+  height: 22px;
+  font-size: 15px;
+  line-height: 22px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.lettertypekeuze-licentie {
+  margin: 4px 0 0;
+  font-size: 11px;
+  line-height: 1.35;
+  color: #6b717c;
+  overflow-wrap: anywhere;
+}
+.lettertypekeuze-paneel [role="option"].is-actief {
+  background: #f1f3f6;
+}
+.lettertypekeuze-paneel [role="option"][aria-selected="true"] {
+  font-weight: 600;
+}
+.lettertypekeuze-leeg {
+  padding: 8px;
+  color: #7a808a;
+}
+.lettertypekeuze-toestemming {
+  font: inherit;
+  padding: 5px 7px;
+  border: 1px solid #dce0e5;
+  border-radius: 5px;
+  background: #f8f9fb;
+  cursor: pointer;
+}
+
+/* Donker thema (forge): het paneel staat buiten .office en krijgt het thema mee. */
+.office[data-office-thema="forge"] .lettertypekeuze-knop {
+  color: var(--oa-shell-text, #fafaf9);
+  background: var(--oa-shell-bg-lighter, #45454e);
+  border-color: var(--oa-shell-border, #55555e);
+}
+.lettertypekeuze-paneel[data-thema="forge"] {
+  color-scheme: dark;
+  border-color: #4a4a52;
+  background: #2a2a31;
+  color: #e7e7ea;
+  box-shadow: 0 10px 28px rgb(0 0 0 / 0.45);
+}
+.lettertypekeuze-paneel[data-thema="forge"] input,
+.lettertypekeuze-paneel[data-thema="forge"] .lettertypekeuze-toestemming {
+  border-color: #4a4a52;
+  background: #1f1f25;
+  color: #e7e7ea;
+}
+.lettertypekeuze-paneel[data-thema="forge"] [role="option"] {
+  color: #ececef;
+}
+.lettertypekeuze-paneel[data-thema="forge"] [role="option"].is-actief {
+  background: #3a3a43;
+}
+.lettertypekeuze-paneel[data-thema="forge"] .lettertypekeuze-groep,
+.lettertypekeuze-paneel[data-thema="forge"] .lettertypekeuze-vervanger,
+.lettertypekeuze-paneel[data-thema="forge"] .lettertypekeuze-leeg,
+.lettertypekeuze-paneel[data-thema="forge"] .lettertypekeuze-licentie {
+  color: #b4b4bb;
+}
+.lettertypekeuze-paneel[data-thema="forge"] .lettertypekeuze-voorbeeld {
+  border-color: #4a4a52;
+  background: #222228;
+  color: #f2f2f4;
+}

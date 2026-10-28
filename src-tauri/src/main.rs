@@ -1,20 +1,27 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
-use std::{
-    ffi::OsString,
-    io::Write,
-    path::{Path, PathBuf},
-    sync::{
-        atomic::{AtomicBool, Ordering},
-        Mutex,
-    },
-};
-use tauri::Manager;
+use std::{io::Write, path::Path};
 mod conversie;
+mod database_export;
+mod email;
+mod herstel;
+mod lettertypen;
+mod recent;
+mod systeembestanden;
+mod vensters;
+mod werkbestanden;
+mod voorkeuren;
 
 fn lees_bytes(request: &tauri::ipc::Request<'_>) -> Result<Vec<u8>, String> {
-    match request.body() {
+    lees_binaire_inhoud(request.body(), false)
+}
+
+fn lees_binaire_inhoud(
+    inhoud: &tauri::ipc::InvokeBody,
+    leeg_toegestaan: bool,
+) -> Result<Vec<u8>, String> {
+    match inhoud {
         tauri::ipc::InvokeBody::Raw(bytes)
-            if !bytes.is_empty() && bytes.len() <= 100 * 1024 * 1024 =>
+            if (leeg_toegestaan || !bytes.is_empty()) && bytes.len() <= 100 * 1024 * 1024 =>
         {
             Ok(bytes.clone())
         }
@@ -26,6 +33,7 @@ fn lees_bytes(request: &tauri::ipc::Request<'_>) -> Result<Vec<u8>, String> {
 
 #[tauri::command]
 async fn converteer_document(
+    app: tauri::AppHandle,
     request: tauri::ipc::Request<'_>,
 ) -> Result<tauri::ipc::Response, String> {
     let bytes = lees_bytes(&request)?;
@@ -40,27 +48,25 @@ async fn converteer_document(
     let bron = kop("x-office-bron")?;
     let doel = kop("x-office-doel")?;
     let module = kop("x-office-module")?;
+    // Optionele filteropties (CSV, PDF); Rust controleert en bouwt het filterargument zelf.
+    let opties = match kop("x-office-opties") {
+        Ok(tekst) => conversie::Opties::uit_json(&tekst)?,
+        Err(_) => conversie::Opties::default(),
+    };
+    let instelling = conversie::lees_instelling(&app);
     tauri::async_runtime::spawn_blocking(move || {
-        conversie::converteer(&bytes, &bron, &doel, &module).map(tauri::ipc::Response::new)
+        conversie::converteer_met(
+            &bytes,
+            &bron,
+            &doel,
+            &module,
+            &opties,
+            instelling.as_deref(),
+        )
+        .map(tauri::ipc::Response::new)
     })
     .await
     .map_err(|e| e.to_string())?
-}
-
-#[tauri::command]
-fn wijzigingsstatus(gewijzigd: bool, status: tauri::State<AtomicBool>) {
-    status.store(gewijzigd, Ordering::SeqCst);
-}
-
-#[tauri::command]
-async fn bevestig_verlaten() -> bool {
-    rfd::AsyncMessageDialog::new()
-        .set_title("Niet-opgeslagen wijzigingen")
-        .set_description("Wijzigingen die nog niet zijn opgeslagen gaan verloren. Toch sluiten?")
-        .set_buttons(rfd::MessageButtons::YesNo)
-        .show()
-        .await
-        == rfd::MessageDialogResult::Yes
 }
 
 fn schrijf_atomair(pad: &Path, bytes: &[u8]) -> Result<(), String> {
@@ -72,9 +78,8 @@ fn schrijf_atomair(pad: &Path, bytes: &[u8]) -> Result<(), String> {
     Ok(())
 }
 
-#[tauri::command]
-async fn bewaar_kopie(request: tauri::ipc::Request<'_>) -> Result<Option<String>, String> {
-    let bytes = lees_bytes(&request)?;
+/// Bestandsnaam en extensie uit de kop `x-office-naam`; alleen bekende bewaarformaten.
+fn bewaarnaam(request: &tauri::ipc::Request<'_>) -> Result<(String, String), String> {
     let naam = request
         .headers()
         .get("x-office-naam")
@@ -84,9 +89,6 @@ async fn bewaar_kopie(request: tauri::ipc::Request<'_>) -> Result<Option<String>
         .decode_utf8()
         .map_err(|_| "De bestandsnaam bevat ongeldige tekens.")?
         .into_owned();
-    if bytes.is_empty() || bytes.len() > 100 * 1024 * 1024 {
-        return Err("Het bestand is leeg of groter dan 100 MB.".into());
-    }
     let bestandsnaam = Path::new(&naam)
         .file_name()
         .and_then(|s| s.to_str())
@@ -97,13 +99,22 @@ async fn bewaar_kopie(request: tauri::ipc::Request<'_>) -> Result<Option<String>
         .and_then(|s| s.to_str())
         .unwrap_or("")
         .to_lowercase();
-    if !conversie::mag_bewaren(&extensie) {
+    if extensie != "openaec-notities" && !conversie::mag_bewaren(&extensie) {
         return Err("Niet-ondersteund bestandsformaat.".into());
     }
+    Ok((bestandsnaam, extensie))
+}
+
+/// Native opslagdialoog; het doel komt uitsluitend uit die dialoog, nooit uit een frontendpad.
+async fn kies_opslagpad(
+    titel: &str,
+    bestandsnaam: &str,
+    extensie: &str,
+) -> Result<Option<std::path::PathBuf>, String> {
     let bestand = rfd::AsyncFileDialog::new()
-        .set_title("Kopie opslaan")
-        .set_file_name(&bestandsnaam)
-        .add_filter("Kantoorbestand", &[&extensie])
+        .set_title(titel)
+        .set_file_name(bestandsnaam)
+        .add_filter("Kantoorbestand", &[extensie])
         .save_file()
         .await;
     let Some(bestand) = bestand else {
@@ -111,12 +122,13 @@ async fn bewaar_kopie(request: tauri::ipc::Request<'_>) -> Result<Option<String>
     };
     let mut pad = bestand.path().to_path_buf();
     if pad.extension().is_none() {
-        pad.set_extension(&extensie);
+        pad.set_extension(extensie);
     }
     if pad
         .extension()
         .and_then(|s| s.to_str())
         .map(|s| s.to_lowercase())
+        .as_deref()
         != Some(extensie)
     {
         return Err("De gekozen extensie past niet bij het document.".into());
@@ -135,7 +147,17 @@ async fn bewaar_kopie(request: tauri::ipc::Request<'_>) -> Result<Option<String>
             return Ok(None);
         }
     }
-    // Het doel komt uitsluitend uit de native dialoog, nooit uit een frontendpad.
+    Ok(Some(pad))
+}
+
+#[tauri::command]
+async fn bewaar_kopie(request: tauri::ipc::Request<'_>) -> Result<Option<String>, String> {
+    let (bestandsnaam, extensie) = bewaarnaam(&request)?;
+    // Een lege Markdownpagina is een geldig tekstbestand; conversie en andere formaten blijven streng.
+    let bytes = lees_binaire_inhoud(request.body(), extensie == "md")?;
+    let Some(pad) = kies_opslagpad("Kopie opslaan", &bestandsnaam, &extensie).await? else {
+        return Ok(None);
+    };
     tauri::async_runtime::spawn_blocking(move || {
         schrijf_atomair(&pad, &bytes)?;
         Ok(Some(pad.to_string_lossy().into_owned()))
@@ -144,78 +166,141 @@ async fn bewaar_kopie(request: tauri::ipc::Request<'_>) -> Result<Option<String>
     .map_err(|e| e.to_string())?
 }
 
-/// Het bestand waarmee de app is gestart, bijvoorbeeld via een bestandskoppeling.
-struct Startbestand(Mutex<Option<PathBuf>>);
-
-fn startpad(argumenten: impl Iterator<Item = OsString>) -> Option<PathBuf> {
-    argumenten
-        .skip(1)
-        .map(PathBuf::from)
-        .find(|pad| pad.is_file())
-}
-
-fn lees_beperkt(pad: &Path) -> Result<Vec<u8>, String> {
-    let grootte = std::fs::metadata(pad).map_err(|e| e.to_string())?.len();
-    if grootte == 0 || grootte > 100 * 1024 * 1024 {
-        return Err("Het bestand is leeg of groter dan 100 MB.".into());
-    }
-    std::fs::read(pad).map_err(|e| e.to_string())
-}
-
-#[tauri::command]
-fn startbestand(start: tauri::State<Startbestand>) -> Option<String> {
-    let pad = start.0.lock().ok()?;
-    Some(pad.as_ref()?.file_name()?.to_string_lossy().into_owned())
-}
-
-// Het pad komt uitsluitend uit de opstartargumenten en wordt één keer afgegeven.
-#[tauri::command]
-async fn lees_startbestand(
-    start: tauri::State<'_, Startbestand>,
-) -> Result<tauri::ipc::Response, String> {
-    let pad = start
-        .0
-        .lock()
-        .map_err(|e| e.to_string())?
-        .take()
-        .ok_or("Er is geen startbestand.")?;
-    tauri::async_runtime::spawn_blocking(move || lees_beperkt(&pad).map(tauri::ipc::Response::new))
-        .await
-        .map_err(|e| e.to_string())?
-}
-
 fn main() {
     tauri::Builder::default()
-        .manage(AtomicBool::new(false))
-        .manage(Startbestand(Mutex::new(startpad(std::env::args_os()))))
+        // Eerst registreren: een tweede instantie (dubbelklik terwijl de app al
+        // draait) geeft haar bestanden door en stopt meteen.
+        .plugin(tauri_plugin_single_instance::init(
+            |app, argumenten, map| {
+                let paden = systeembestanden::startpaden(
+                    argumenten.into_iter().map(Into::into),
+                    Some(std::path::Path::new(&map)),
+                );
+                systeembestanden::ontvang(app, paden);
+            },
+        ))
+        .manage(vensters::Vensters::default())
+        .manage(werkbestanden::Werkbestanden::default())
+        .manage(recent::Recent::default())
+        .manage(herstel::Herstel::default())
+        .manage(email::EmailStaat::default())
+        .manage(systeembestanden::Systeembestanden::bij_start(
+            std::env::args_os(),
+        ))
         .on_window_event(|venster, gebeurtenis| {
-            if let tauri::WindowEvent::CloseRequested { api, .. } = gebeurtenis {
-                if venster.state::<AtomicBool>().load(Ordering::SeqCst) {
-                    api.prevent_close();
-                    let venster = venster.clone();
-                    tauri::async_runtime::spawn(async move {
-                        if bevestig_verlaten().await {
-                            let _ = venster.destroy();
-                        }
-                    });
-                }
-            }
+            systeembestanden::bij_venstergebeurtenis(venster, gebeurtenis);
+            vensters::bij_venstergebeurtenis(venster, gebeurtenis);
+            werkbestanden::bij_venstergebeurtenis(venster, gebeurtenis);
+            herstel::bij_venstergebeurtenis(venster, gebeurtenis);
         })
         .invoke_handler(tauri::generate_handler![
             bewaar_kopie,
-            wijzigingsstatus,
-            bevestig_verlaten,
+            lettertypen::systeemlettertypen,
+            lettertypen::systeemlettertype,
+            database_export::bewaar_database_export,
+            vensters::wijzigingsstatus,
+            vensters::bevestig_verlaten,
+            vensters::bied_overdracht,
+            vensters::neem_overdracht,
+            vensters::bevestig_overdracht,
+            vensters::weiger_overdracht,
+            vensters::trek_overdracht_in,
+            vensters::sluitverzoek_ontvangen,
+            vensters::sluit_venster,
+            vensters::meld_tabbladen,
+            vensters::open_documenten,
+            vensters::activeer_tabblad,
             converteer_document,
-            startbestand,
-            lees_startbestand
+            systeembestanden::systeembestanden,
+            systeembestanden::claim_systeembestand,
+            systeembestanden::lees_werkbestand,
+            werkbestanden::bewaar_document,
+            werkbestanden::bewaar_als,
+            werkbestanden::bevestig_formaat,
+            werkbestanden::vergeet_werkbestand,
+            werkbestanden::kies_bestanden,
+            recent::recente_bestanden,
+            recent::open_recent,
+            recent::zet_recent_vast,
+            recent::verwijder_recent,
+            recent::wis_recente,
+            herstel::herstel_start,
+            herstel::herstel_bewaar,
+            herstel::herstel_verwijder,
+            herstel::herstel_lijst,
+            herstel::herstel_lees,
+            conversie::conversie_status,
+            conversie::kies_conversieprogramma,
+            conversie::wis_conversieprogramma,
+            voorkeuren::lees_voorkeuren,
+            voorkeuren::bewaar_voorkeuren,
+            email::email_accounts,
+            email::email_bewaar_account,
+            email::email_verwijder_account,
+            email::email_stel_configuratie_voor,
+            email::email_test,
+            email::email_mappen,
+            email::email_maak_map,
+            email::email_hernoem_map,
+            email::email_verwijder_map,
+            email::email_berichten,
+            email::email_bericht,
+            email::email_bijlage,
+            email::email_bron,
+            email::email_markeer,
+            email::email_verplaats,
+            email::email_verwijder,
+            email::email_verstuur,
+            email::email_bewaar_concept,
+            email::email_contacten,
+            email::email_oauth_status,
+            email::email_meld_aan_met_oauth,
+            email::email_annuleer_oauth,
+            email::email_bewaar_oauth_client,
+            email::email_zoek_servers,
+            email::bestanden::email_bewaar_bestand,
+            email::bestanden::email_open_extern,
+            email::bestanden::email_externe_inhoud,
+            email::bestanden::email_open_link
         ])
-        .run(tauri::generate_context!())
-        .expect("De kantooromgeving kon niet starten");
+        .build(tauri::generate_context!())
+        .expect("De kantooromgeving kon niet starten")
+        .run(|_app, gebeurtenis| match gebeurtenis {
+            // Tijdelijk geopende e-mailbijlagen opruimen bij afsluiten.
+            tauri::RunEvent::Exit => email::bestanden::ruim_tijdelijk_op(),
+            // macOS geeft gekoppelde bestanden als gebeurtenis, niet als argument.
+            #[cfg(any(target_os = "macos", target_os = "ios"))]
+            tauri::RunEvent::Opened { urls } => {
+                let paden = urls
+                    .into_iter()
+                    .filter_map(|url| url.to_file_path().ok())
+                    .filter(|pad| pad.is_file())
+                    .collect();
+                systeembestanden::ontvang(_app, paden);
+            }
+            _ => {}
+        });
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn bewaart_lege_markdown_zonder_oude_inhoud_achter_te_laten() {
+        let invoer = tauri::ipc::InvokeBody::Raw(Vec::new());
+        assert!(lees_binaire_inhoud(&invoer, false).is_err());
+        let bytes = lees_binaire_inhoud(&invoer, true).unwrap();
+        let map = tempfile::tempdir().unwrap();
+        let pad = map.path().join("lege-pagina.md");
+        std::fs::write(&pad, b"oude inhoud").unwrap();
+        schrijf_atomair(&pad, &bytes).unwrap();
+        assert!(std::fs::read(&pad).unwrap().is_empty());
+        assert!(lees_binaire_inhoud(
+            &tauri::ipc::InvokeBody::Json(serde_json::json!("geen binaire inhoud")),
+            true
+        )
+        .is_err());
+    }
     #[test]
     fn vervangt_bestand_volledig() {
         let map = tempfile::tempdir().unwrap();
@@ -232,36 +317,5 @@ mod tests {
         std::fs::write(&origineel, b"behouden").unwrap();
         assert!(schrijf_atomair(&map.path().join("ontbreekt/test.docx"), b"nieuw").is_err());
         assert_eq!(std::fs::read(origineel).unwrap(), b"behouden");
-    }
-    #[test]
-    fn startpad_neemt_alleen_een_bestaand_bestand() {
-        let map = tempfile::tempdir().unwrap();
-        let pad = map.path().join("notitie.docx");
-        std::fs::write(&pad, b"inhoud").unwrap();
-        let argumenten = |rest: Vec<OsString>| {
-            std::iter::once(OsString::from("open-office-studio.exe")).chain(rest)
-        };
-        let ontbreekt = map.path().join("ontbreekt.docx");
-        assert_eq!(startpad(argumenten(vec![])), None);
-        assert_eq!(
-            startpad(argumenten(vec!["--vlag".into(), ontbreekt.into()])),
-            None
-        );
-        assert_eq!(
-            startpad(argumenten(vec!["--vlag".into(), pad.clone().into()])),
-            Some(pad.clone())
-        );
-        // Het programma zelf telt nooit mee als startbestand.
-        assert_eq!(startpad(std::iter::once(pad.into_os_string())), None);
-    }
-    #[test]
-    fn startbestand_lezen_weigert_leeg_bestand() {
-        let map = tempfile::tempdir().unwrap();
-        let leeg = map.path().join("leeg.xlsx");
-        std::fs::write(&leeg, b"").unwrap();
-        assert!(lees_beperkt(&leeg).is_err());
-        let gevuld = map.path().join("gevuld.xlsx");
-        std::fs::write(&gevuld, b"PK").unwrap();
-        assert_eq!(lees_beperkt(&gevuld).unwrap(), b"PK");
     }
 }

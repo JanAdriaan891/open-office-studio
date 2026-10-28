@@ -1,0 +1,126 @@
+.office-message.rapport-melding {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 6px;
+}
+.rapport-kop {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.rapport-kop > span {
+  flex: 1;
+  overflow-wrap: anywhere;
+}
+.office-message .rapport-wissel,
+.rapport-acties button {
+  border: 1px solid currentColor;
+  border-radius: 6px;
+  padding: 2px 8px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+.rapport-details ul {
+  margin: 4px 0 6px;
+  padding-left: 20px;
+  max-height: 180px;
+  overflow: auto;
+}
+.rapport-details li {
+  margin: 2px 0;
+}
+.rapport-acties {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.rapport-verlies p {
+  margin: 0 0 4px;
+}
+
+/* Importvensters (wachtwoord, CSV) op de gedeelde werkruimtedialoog */
+.werkruimte-dialoog.importvenster {
+  width: min(100%, 900px);
+}
+.werkruimte-dialoog.importvenster.is-smal {
+  width: min(100%, 440px);
+}
+.importvenster label {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 12px;
+}
+.importvenster input[type="text"],
+.importvenster input[type="password"],
+.importvenster select {
+  padding: 5px 7px;
+  border: 1px solid var(--w-rand);
+  border-radius: 6px;
+  background: var(--w-bg);
+}
+.importvenster .importvenster-vink {
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+}
+.importvenster-raster {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 10px 14px;
+  margin: 0 0 12px;
+}
+.importvenster-voorbeeld {
+  max-height: 320px;
+  overflow: auto;
+  border: 1px solid var(--w-rand);
+  border-radius: 8px;
+}
+.importvenster-voorbeeld table {
+  border-collapse: collapse;
+  font-size: 12px;
+  min-width: 100%;
+}
+.importvenster-voorbeeld th,
+.importvenster-voorbeeld td {
+  border: 1px solid var(--w-rand);
+  padding: 3px 6px;
+  white-space: nowrap;
+  max-width: 260px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+}
+.importvenster-voorbeeld thead th {
+  position: sticky;
+  top: 0;
+  background: var(--w-bg-zacht);
+}
+.importvenster-voorbeeld thead select {
+  font-size: 11px;
+  padding: 1px 2px;
+}
+.importvenster-voorbeeld td.is-getal {
+  text-align: right;
+}
+.importvenster-voorbeeld tr.is-kop td {
+  font-weight: 600;
+}
+.importvenster-fout {
+  color: #b42318;
+  font-size: 12px;
+}
+.werkruimte-dialoogachtergrond[data-thema="forge"] .importvenster-fout {
+  color: #f87171;
+}
+.importvenster-uitleg {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--w-tekst-zacht);
+}

@@ -1,5 +1,27 @@
-import { defineConfig } from "vite";
+/// <reference types="vitest/config" />
+import { configDefaults } from "vitest/config";
+import { defineConfig, type Plugin } from "vite";
+
+// De fontpakketten verwijzen naar hun bestanden via import.meta.url, waardoor
+// Vite ze nogmaals in assets/ zet. De app laadt ze uit public/fonts/.
+function fontsUitPublic(): Plugin {
+  return {
+    name: "fonts-uit-public",
+    enforce: "pre",
+    transform(code, id) {
+      if (!/@betteroffice\/fonts(-cjk)?\/dist\/[^/]+\.js$/.test(id)) return;
+      return code.replace(
+        /new URL\("\.\.\/assets\/([^"]+)", import\.meta\.url\)/g,
+        'new URL("/fonts/$1", globalThis.location?.href ?? "http://localhost/")',
+      );
+    },
+  };
+}
+
 export default defineConfig({
+  plugins: [fontsUitPublic()],
+  // Worktrees van agents en lokale proefuitvoer niet dubbel meetellen.
+  test: { exclude: [...configDefaults.exclude, ".claude/**", ".local/**"] },
   worker: { format: "es" },
   resolve: {
     alias: {

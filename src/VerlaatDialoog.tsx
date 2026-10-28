@@ -1,19 +1,26 @@
 import { useEffect, useRef } from "react";
 import { FileWarning } from "lucide-react";
+import type { VerlaatKeuze } from "./useTabbladen";
 
 export function VerlaatDialoog({
   naam,
   antwoord,
   vorigeFocus,
+  kanOpslaan = false,
+  overige = 0,
 }: {
   naam: string;
-  antwoord: (doorgaan: boolean) => void;
+  antwoord: (keuze: VerlaatKeuze) => void;
   vorigeFocus: HTMLElement | null;
+  /** Toont "Opslaan" naast "Niet opslaan" en "Annuleren". */
+  kanOpslaan?: boolean;
+  /** Aantal andere tabbladen met wijzigingen in dezelfde sluitopdracht. */
+  overige?: number;
 }) {
-  const annuleren = useRef<HTMLButtonElement>(null);
-  const doorgaan = useRef<HTMLButtonElement>(null);
+  const dialoog = useRef<HTMLElement>(null);
+  const eerste = useRef<HTMLButtonElement>(null);
   useEffect(() => {
-    annuleren.current?.focus();
+    eerste.current?.focus();
     return () => {
       if (vorigeFocus?.isConnected) vorigeFocus.focus();
     };
@@ -21,6 +28,7 @@ export function VerlaatDialoog({
   return (
     <div className="office-dialoogachtergrond">
       <section
+        ref={dialoog}
         className="office-dialoog"
         role="alertdialog"
         aria-modal="true"
@@ -29,14 +37,19 @@ export function VerlaatDialoog({
         onKeyDown={(event) => {
           if (event.key === "Escape") {
             event.preventDefault();
-            antwoord(false);
+            antwoord("annuleren");
           }
           if (event.key === "Tab") {
+            // Houd de focus binnen de dialoog.
             event.preventDefault();
-            (document.activeElement === annuleren.current
-              ? doorgaan
-              : annuleren
-            ).current?.focus();
+            const knoppen = [
+              ...(dialoog.current?.querySelectorAll("button") ?? []),
+            ];
+            const index = knoppen.indexOf(
+              document.activeElement as HTMLButtonElement,
+            );
+            const stap = event.shiftKey ? -1 : 1;
+            knoppen[(index + stap + knoppen.length) % knoppen.length]?.focus();
           }
         }}
       >
@@ -45,20 +58,53 @@ export function VerlaatDialoog({
         </span>
         <h2 id="verlaat-titel">Niet-opgeslagen wijzigingen</h2>
         <p id="verlaat-uitleg">
-          <strong>{naam}</strong> bevat wijzigingen die nog niet zijn
-          opgeslagen. Sla het bestand eerst op als je ze wilt behouden.
+          {kanOpslaan ? (
+            <>
+              Wil je de wijzigingen in <strong>{naam}</strong> opslaan voordat
+              je het sluit?
+            </>
+          ) : (
+            <>
+              <strong>{naam}</strong> bevat wijzigingen die nog niet zijn
+              opgeslagen. Sla het bestand eerst op als je ze wilt behouden.
+            </>
+          )}
+          {overige > 0 && (
+            <>
+              {" "}
+              Daarna {overige === 1 ? "volgt nog" : "volgen nog"} {overige}{" "}
+              {overige === 1 ? "ander document" : "andere documenten"} met
+              niet-opgeslagen wijzigingen.
+            </>
+          )}
         </p>
         <div className="office-dialoogacties">
-          <button ref={annuleren} onClick={() => antwoord(false)}>
-            Annuleren
-          </button>
-          <button
-            ref={doorgaan}
-            className="office-dialoogdoorgaan"
-            onClick={() => antwoord(true)}
-          >
-            Wijzigingen verwerpen
-          </button>
+          {kanOpslaan ? (
+            <>
+              <button ref={eerste} onClick={() => antwoord("annuleren")}>
+                Annuleren
+              </button>
+              <button onClick={() => antwoord("verwerpen")}>Niet opslaan</button>
+              <button
+                className="office-dialoogdoorgaan"
+                onClick={() => antwoord("opslaan")}
+              >
+                Opslaan
+              </button>
+            </>
+          ) : (
+            <>
+              <button ref={eerste} onClick={() => antwoord("annuleren")}>
+                Annuleren
+              </button>
+              <button
+                className="office-dialoogdoorgaan"
+                onClick={() => antwoord("verwerpen")}
+              >
+                Wijzigingen verwerpen
+              </button>
+            </>
+          )}
         </div>
       </section>
     </div>

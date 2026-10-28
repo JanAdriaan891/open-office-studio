@@ -17,7 +17,9 @@ jobs:
       - uses: actions/checkout@v4
       # Versies volgen JJJJ.WW.N, net als de andere OpenAEC-studio's. De tag,
       # package.json, tauri.conf.json en Cargo.toml moeten gelijk zijn;
-      # Cargo.lock wordt via --locked in de bouwjob bewaakt.
+      # Cargo.lock wordt via --locked in de bouwjob bewaakt. De weekversie
+      # (versie.json) en Database Studio volgen dezelfde versie; zet ze met
+      # `pnpm versie:week <datum> <volgnummer>`.
       - name: Versie en tag vergelijken
         id: versie
         env:
@@ -36,6 +38,7 @@ jobs:
           if [ "$REF_TYPE" = tag ] && [ "$REF_NAME" != "v$versie" ]; then
             echo "::error::Tag $REF_NAME hoort v$versie te zijn."; exit 1
           fi
+          node scripts/controleer-weekversie.mjs
           echo "versie=$versie" >> "$GITHUB_OUTPUT"
 
   bouwen:
@@ -82,21 +85,43 @@ jobs:
         with:
           version: 11.25.0
       - uses: dtolnay/rust-toolchain@stable
+        with:
+          # De spellingmodule (src/spelling/rust) wordt naar WebAssembly gebouwd.
+          targets: wasm32-unknown-unknown
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
       - name: Linux-bouwafhankelijkheden
         if: runner.os == 'Linux'
-        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends libwebkit2gtk-4.1-dev libgtk-3-dev libayatana-appindicator3-dev librsvg2-dev patchelf squashfs-tools
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends libwebkit2gtk-4.1-dev libgtk-3-dev libayatana-appindicator3-dev librsvg2-dev patchelf squashfs-tools poppler-utils
       - run: pnpm install --frozen-lockfile
+      # Extra open lettertypen (assets/lettertypen.json): bewaard per manifestversie,
+      # zodat een build zonder netwerk naar GitHub ook werkt.
+      - name: Lettertypencache
+        uses: actions/cache@v4
+        with:
+          path: .local/lettertypen-cache
+          key: lettertypen-${{ hashFiles('assets/lettertypen.json') }}
+      - run: node scripts/haal-lettertypen.mjs
+      # Woordenboeken voor de spellingcontrole (assets/woordenboeken.json).
+      - name: Woordenboekencache
+        uses: actions/cache@v4
+        with:
+          path: .local/woordenboeken-cache
+          key: woordenboeken-${{ hashFiles('assets/woordenboeken.json') }}
+      - run: node scripts/haal-woordenboeken.mjs
+      - run: pnpm versie:check
       - run: pnpm test
       - run: python -m unittest discover -s tests -v
       - run: node scripts/test-kantoor-engines.mjs
       - name: Windows-loader voorbereiden
         if: runner.os == 'Windows'
         shell: pwsh
-        run: ./scripts/voorbereiden-windows.ps1
+        run: |
+          ./scripts/voorbereiden-windows.ps1
+          ./scripts/voorbereiden-windows.ps1 -ProjectMap apps/database-studio/src-tauri
       - run: cargo test --manifest-path src-tauri/Cargo.toml --locked
+      - run: cargo test --manifest-path apps/database-studio/src-tauri/Cargo.toml --locked
 
       # De dlib van de signeerclient heeft .NET 8 nodig.
       - name: .NET 8 voor de signeerclient
@@ -123,7 +148,10 @@ jobs:
         if: >-
           !(runner.os == 'Windows' && env.WIN_SIGN == 'true') &&
           !(runner.os == 'macOS' && env.MAC_SIGN == 'true')
-        run: pnpm desktop:build --bundles ${{ matrix.bundels }}
+        shell: bash
+        run: |
+          pnpm desktop:build --bundles ${{ matrix.bundels }}
+          pnpm database:desktop:build --bundles ${{ matrix.bundels }}
       # Tauri roept signCommand aan voor het programma, de uninstaller en de installer.
       - name: Pakket bouwen (Windows, ondertekend)
         if: runner.os == 'Windows' && env.WIN_SIGN == 'true'
@@ -132,7 +160,10 @@ jobs:
           AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
           AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
           AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-        run: pnpm desktop:build --bundles ${{ matrix.bundels }} --config "$env:OPS_SIGN_CONFIG"
+        run: |
+          pnpm desktop:build --bundles ${{ matrix.bundels }} --config "$env:OPS_SIGN_CONFIG"
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          pnpm database:desktop:build --bundles ${{ matrix.bundels }} --config "$env:OPS_SIGN_CONFIG"
       - name: Pakket bouwen (macOS, ondertekend en genotariseerd)
         if: runner.os == 'macOS' && env.MAC_SIGN == 'true'
         env:
@@ -143,7 +174,9 @@ jobs:
           APPLE_API_KEY: ${{ secrets.APPLE_API_KEY }}
           APPLE_API_KEY_PATH: ${{ runner.temp }}/apple-api-key.p8
           APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
-        run: pnpm desktop:build --bundles ${{ matrix.bundels }}
+        run: |
+          pnpm desktop:build --bundles ${{ matrix.bundels }}
+          pnpm database:desktop:build --bundles ${{ matrix.bundels }}
 
       # Poort: installer, geïnstalleerd programma en uninstaller dragen een geldige
       # handtekening met tijdstempel. Het programma wordt gecontroleerd zoals het in
@@ -161,48 +194,59 @@ jobs:
             & $env:OPS_SIGNTOOL verify /pa /v $pad
             if ($LASTEXITCODE -ne 0) { throw "signtool verify faalde voor $label" }
           }
-          $setup = Get-ChildItem "$env:GITHUB_WORKSPACE/src-tauri/target/release/bundle/nsis/*-setup.exe" | Select-Object -First 1
-          if ($null -eq $setup) { throw 'Geen *-setup.exe gebouwd.' }
-          Controleer 'installer' $setup.FullName
-          $p = Start-Process -FilePath $setup.FullName -ArgumentList '/S' -Wait -PassThru
-          if ($p.ExitCode -ne 0) { throw "Stil installeren faalde ($($p.ExitCode))." }
-          $sleutels = @('HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*',
-                        'HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*')
-          $item = Get-ItemProperty $sleutels -ErrorAction SilentlyContinue |
-            Where-Object { $_.DisplayName -like 'Open Office Studio*' } | Select-Object -First 1
-          if ($null -eq $item) { throw 'Geen Uninstall-sleutel na installeren.' }
-          if ($item.Publisher -ne 'OpenAEC Foundation') { throw "Onverwachte uitgever: $($item.Publisher)" }
-          $uninstaller = $item.UninstallString.Trim('"')
-          $map = Split-Path $uninstaller
-          Controleer 'open-office-studio.exe (geïnstalleerd)' (Join-Path $map 'open-office-studio.exe')
-          if (-not (Test-Path (Join-Path $map 'WebView2Loader.dll'))) { throw 'WebView2Loader.dll ontbreekt in de installatie.' }
-          Controleer 'uninstaller' $uninstaller
-          $u = Start-Process -FilePath $uninstaller -ArgumentList '/S' -Wait -PassThru
-          if ($u.ExitCode -ne 0) { Write-Host "::warning::Stil verwijderen gaf $($u.ExitCode)." }
+          # Office Studio en de zelfstandige Database Studio, elk met eigen installer.
+          function ControleerApp($bundel, $naam, $programma) {
+            $setup = Get-ChildItem "$env:GITHUB_WORKSPACE/$bundel/nsis/*-setup.exe" | Select-Object -First 1
+            if ($null -eq $setup) { throw "Geen *-setup.exe gebouwd voor $naam." }
+            Controleer "installer $naam" $setup.FullName
+            $p = Start-Process -FilePath $setup.FullName -ArgumentList '/S' -Wait -PassThru
+            if ($p.ExitCode -ne 0) { throw "Stil installeren van $naam faalde ($($p.ExitCode))." }
+            $sleutels = @('HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*',
+                          'HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*')
+            $item = Get-ItemProperty $sleutels -ErrorAction SilentlyContinue |
+              Where-Object { $_.DisplayName -like "$naam*" } | Select-Object -First 1
+            if ($null -eq $item) { throw "Geen Uninstall-sleutel na installeren van $naam." }
+            if ($item.Publisher -ne 'OpenAEC Foundation') { throw "Onverwachte uitgever van ${naam}: $($item.Publisher)" }
+            $uninstaller = $item.UninstallString.Trim('"')
+            $map = Split-Path $uninstaller
+            Controleer "$programma.exe (geïnstalleerd)" (Join-Path $map "$programma.exe")
+            if (-not (Test-Path (Join-Path $map 'WebView2Loader.dll'))) { throw "WebView2Loader.dll ontbreekt in de installatie van $naam." }
+            Controleer "uninstaller $naam" $uninstaller
+            $u = Start-Process -FilePath $uninstaller -ArgumentList '/S' -Wait -PassThru
+            if ($u.ExitCode -ne 0) { Write-Host "::warning::Stil verwijderen van $naam gaf $($u.ExitCode)." }
+          }
+          ControleerApp 'src-tauri/target/release/bundle' 'Open Office Studio' 'open-office-studio'
+          ControleerApp 'apps/database-studio/src-tauri/target/release/bundle' 'Open Database Studio' 'open-database-studio'
       # De .app uit de DMG: handtekening, Gatekeeper en het geniete notarisatieticket.
       - name: Handtekening en notarisatie controleren (macOS)
         if: runner.os == 'macOS' && env.MAC_SIGN == 'true'
         run: |
           set -euo pipefail
-          dmg="$(find src-tauri/target/release/bundle/dmg -name '*.dmg' -print -quit)"
-          test -n "$dmg"
-          koppel="$(mktemp -d)"
-          hdiutil attach -nobrowse -readonly -mountpoint "$koppel" "$dmg"
-          app="$(find "$koppel" -maxdepth 1 -name '*.app' -print -quit)"
-          test -n "$app"
-          mkdir -p "$RUNNER_TEMP/controle"
-          cp -R "$app" "$RUNNER_TEMP/controle/"
-          hdiutil detach "$koppel"
-          app="$RUNNER_TEMP/controle/$(basename "$app")"
-          codesign --verify --deep --strict --verbose=2 "$app"
-          spctl --assess --type execute --verbose=4 "$app"
-          xcrun stapler validate "$app"
+          for bundel in src-tauri/target/release/bundle apps/database-studio/src-tauri/target/release/bundle; do
+            dmg="$(find "$bundel/dmg" -name '*.dmg' -print -quit)"
+            test -n "$dmg"
+            koppel="$(mktemp -d)"
+            hdiutil attach -nobrowse -readonly -mountpoint "$koppel" "$dmg"
+            app="$(find "$koppel" -maxdepth 1 -name '*.app' -print -quit)"
+            test -n "$app"
+            mkdir -p "$RUNNER_TEMP/controle"
+            cp -R "$app" "$RUNNER_TEMP/controle/"
+            hdiutil detach "$koppel"
+            app="$RUNNER_TEMP/controle/$(basename "$app")"
+            codesign --verify --deep --strict --verbose=2 "$app"
+            spctl --assess --type execute --verbose=4 "$app"
+            xcrun stapler validate "$app"
+          done
       - name: Linux-installers werkelijk uitpakken en controleren
         if: runner.os == 'Linux'
-        run: python scripts/controleer-installers.py --platform linux --rapport .local/pakketcontrole-Linux.json
+        run: |
+          python scripts/controleer-installers.py --platform linux --rapport .local/pakketcontrole-Linux.json
+          python scripts/controleer-installers.py --platform linux --programma open-database-studio --bundels apps/database-studio/src-tauri/target/release/bundle --rapport .local/pakketcontrole-Database-Linux.json
       - name: Windows-installer werkelijk uitpakken en controleren
         if: runner.os == 'Windows'
-        run: python scripts/controleer-installers.py --platform windows --rapport .local/pakketcontrole-Windows.json
+        run: |
+          python scripts/controleer-installers.py --platform windows --rapport .local/pakketcontrole-Windows.json
+          python scripts/controleer-installers.py --platform windows --programma open-database-studio --bundels apps/database-studio/src-tauri/target/release/bundle --rapport .local/pakketcontrole-Database-Windows.json
       - uses: actions/upload-artifact@v4
         with:
           name: uitgave-${{ matrix.label }}
@@ -211,6 +255,10 @@ jobs:
             src-tauri/target/release/bundle/**/*.AppImage
             src-tauri/target/release/bundle/**/*-setup.exe
             src-tauri/target/release/bundle/**/*.dmg
+            apps/database-studio/src-tauri/target/release/bundle/**/*.deb
+            apps/database-studio/src-tauri/target/release/bundle/**/*.AppImage
+            apps/database-studio/src-tauri/target/release/bundle/**/*-setup.exe
+            apps/database-studio/src-tauri/target/release/bundle/**/*.dmg
             .local/pakketcontrole-*.json
           include-hidden-files: true
           if-no-files-found: error
@@ -246,4 +294,4 @@ jobs:
         run: |
           gh release create "$TAG" uitgave/* --repo "$GITHUB_REPOSITORY" --verify-tag --draft --prerelease \
             --title "Open Office Studio $VERSIE" \
-            --notes "Ontwikkelversie $VERSIE van Open Office Studio. Windows x64 (ondertekend), macOS Apple Silicon (ondertekend en genotariseerd), Linux x64 (DEB en AppImage). Pakketrapporten en SHA256SUMS zijn bijgevoegd."
+            --notes "Ontwikkelversie $VERSIE van Open Office Studio en de zelfstandige Open Database Studio. Windows x64 (ondertekend), macOS Apple Silicon (ondertekend en genotariseerd), Linux x64 (DEB en AppImage). Pakketrapporten en SHA256SUMS zijn bijgevoegd."

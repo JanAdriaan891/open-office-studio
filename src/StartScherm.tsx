@@ -8,10 +8,21 @@ import {
   Presentation,
   Sheet,
   HardDrive,
+  Info,
   Plus,
   ArrowUpRight,
+  NotebookPen,
+  Mail,
+  Send,
+  Settings,
+  Keyboard,
+  Save,
+  Printer,
 } from "lucide-react";
 import type { Soort } from "./editors";
+import { toonInstellingen, toonSneltoetsen } from "./werkruimte/gebeurtenissen";
+import { RecenteBestanden } from "./RecenteBestanden";
+import "../packages/email/src/start.css";
 
 export const modules = [
   {
@@ -94,18 +105,41 @@ export function StartScherm({
   open,
   nieuw,
   openDatabase,
+  openNotities,
+  openEmail,
   bewaar,
+  opslaan,
+  afdrukken,
+  info,
+  verzend,
   voorbeeld,
   databaseActief = false,
+  notitiesActief = false,
+  emailActief = false,
+  emailOngelezen = null,
 }: {
   bezig: boolean;
   terug?: () => void;
   open: () => void;
   nieuw: (soort: Soort) => void;
   openDatabase: () => void;
+  openNotities: () => void;
+  openEmail: () => void;
   bewaar?: () => void;
+  /** Opslaan (Ctrl+S) van het open document, in het laatst gekozen formaat. */
+  opslaan?: () => void;
+  /** Afdrukvoorbeeld en afdrukken (Ctrl+P) van het open document. */
+  afdrukken?: () => void;
+  /** Bestand › Info (eigenschappen, inspecteren) voor het open tekstdocument. */
+  info?: () => void;
+  /** "Verzenden als bijlage" voor het open document. */
+  verzend?: () => void;
   voorbeeld: (soort: Soort) => void;
   databaseActief?: boolean;
+  notitiesActief?: boolean;
+  emailActief?: boolean;
+  /** Ongelezen in de inbox; null = geen e-mailaccount ingesteld. */
+  emailOngelezen?: number | null;
 }) {
   return (
     <div className="office-start">
@@ -126,12 +160,61 @@ export function StartScherm({
             <FolderOpen size={18} />
             Openen
           </button>
+          {opslaan && (
+            <button disabled={bezig} onClick={opslaan} title="Opslaan · Ctrl+S">
+              <Save size={18} />
+              Opslaan
+            </button>
+          )}
           {bewaar && (
-            <button disabled={bezig} onClick={bewaar}>
+            <button disabled={bezig} onClick={bewaar} title="Opslaan als · F12 of Ctrl+Shift+S">
               <HardDrive size={18} />
               Opslaan als
             </button>
           )}
+          {afdrukken && (
+            <button disabled={bezig} onClick={afdrukken} title="Afdrukvoorbeeld en afdrukken · Ctrl+P">
+              <Printer size={18} />
+              Afdrukken
+            </button>
+          )}
+          {info && (
+            <button
+              disabled={bezig}
+              onClick={info}
+              title="Documenteigenschappen, statistieken en document inspecteren"
+            >
+              <Info size={18} />
+              Info
+            </button>
+          )}
+          {verzend && (
+            <button
+              disabled={bezig}
+              onClick={verzend}
+              title="Het huidige document als bijlage in een nieuw e-mailbericht zetten"
+            >
+              <Send size={18} />
+              Verzenden als bijlage
+            </button>
+          )}
+          <button
+            className={`start-email-ingang ${emailActief ? "geselecteerd" : ""}`}
+            disabled={bezig}
+            onClick={openEmail}
+            title="OpenAEC Email Studio"
+            aria-label={
+              emailOngelezen ? `E-mail, ${emailOngelezen} ongelezen` : "E-mail"
+            }
+          >
+            <Mail size={18} />
+            <span>E-mail</span>
+            {!!emailOngelezen && (
+              <b className="start-email-teller">
+                {emailOngelezen > 999 ? "999+" : emailOngelezen}
+              </b>
+            )}
+          </button>
         </div>
         <div className="start-navgroep">
           <span className="start-label">NIEUW BESTAND</span>
@@ -148,20 +231,39 @@ export function StartScherm({
               <Plus size={13} className="nav-plus" />
             </button>
           ))}
+          <button
+            disabled={bezig}
+            onClick={openNotities}
+            title="Open Notities Studio"
+          >
+            <NotebookPen size={18} />
+            <span>Notities</span>
+            <Plus size={13} className="nav-plus" />
+          </button>
         </div>
         <div className="start-navonder">
           <button
             disabled={bezig}
             onClick={openDatabase}
-            aria-label="Database Studio (experimenteel)"
-            title="Database Studio (experimenteel)"
+            aria-label="Database Studio"
+            title="Database Studio · Access-database als bewerkbare werkkopie"
           >
             <Database size={18} />
             <span>
-              Database Studio<small>Experimenteel · alleen lezen</small>
+              Database Studio<small>Werkkopie · bewerken, query’s, VBA</small>
             </span>
             <ArrowRight size={14} />
           </button>
+          <div className="start-hulp">
+            <button onClick={toonInstellingen} title="Instellingen · Ctrl+,">
+              <Settings size={16} />
+              <span>Instellingen</span>
+            </button>
+            <button onClick={toonSneltoetsen} title="Sneltoetsen · F1">
+              <Keyboard size={16} />
+              <span>Sneltoetsen</span>
+            </button>
+          </div>
           <span className="start-openaec">OpenAEC Foundation</span>
         </div>
       </aside>
@@ -172,7 +274,7 @@ export function StartScherm({
               <span /> Jouw lokale kantoor
             </span>
             <h1>{terug ? "Bestand" : "Je werkruimte."}</h1>
-            <p>Schrijven, rekenen en presenteren. Alles op één plek.</p>
+            <p>Schrijven, rekenen, presenteren en ideeën vastleggen.</p>
           </div>
           <button
             className="office-knop office-primair"
@@ -180,10 +282,17 @@ export function StartScherm({
             onClick={open}
           >
             <FolderOpen size={17} />
-            {databaseActief ? "Database openen" : "Bestand openen"}
+            {notitiesActief
+              ? "Notitieback-up toevoegen"
+              : databaseActief
+                ? "Database openen"
+                : "Bestand openen"}
             <kbd>Ctrl O</kbd>
           </button>
         </div>
+        {!notitiesActief && !databaseActief && (
+          <RecenteBestanden bezig={bezig} bladeren={open} />
+        )}
         <section className="start-nieuw" aria-labelledby="start-nieuw-titel">
           <div className="start-sectiekop">
             <h2 id="start-nieuw-titel">Nieuw bestand</h2>
@@ -213,6 +322,44 @@ export function StartScherm({
             ))}
           </div>
         </section>
+        <button
+          className="start-notities"
+          disabled={bezig}
+          onClick={openNotities}
+        >
+          <span className="start-notities-icoon">
+            <NotebookPen size={27} strokeWidth={1.5} />
+          </span>
+          <span>
+            <strong>Een plek voor je ideeën.</strong>
+            <small>
+              Notitieboeken, secties en pagina’s. Automatisch lokaal bewaard.
+            </small>
+          </span>
+          <span className="start-notities-open">
+            Open Notities <ArrowRight size={15} />
+          </span>
+        </button>
+        <button
+          className="start-notities start-email"
+          disabled={bezig}
+          onClick={openEmail}
+        >
+          <span className="start-notities-icoon">
+            <Mail size={27} strokeWidth={1.5} />
+          </span>
+          <span>
+            <strong>OpenAEC Email Studio</strong>
+            <small>
+              Je eigen e-mail via IMAP en SMTP. Bijlagen openen direct in Tekst,
+              Rekenblad, Presentatie of Database.
+            </small>
+          </span>
+          <span className="start-notities-open">
+            {emailOngelezen ? `${emailOngelezen} ongelezen` : "Open E-mail"}{" "}
+            <ArrowRight size={15} />
+          </span>
+        </button>
         <section
           className="start-voorbeelden"
           aria-labelledby="start-voorbeelden-titel"
@@ -256,15 +403,19 @@ export function StartScherm({
             <span>
               <strong>Bladeren op deze computer</strong>
               <small>
-                {databaseActief
-                  ? "Open een MDB- of ACCDB-database."
-                  : "Open een document, rekenblad of presentatie."}
+                {notitiesActief
+                  ? "Voeg een OpenAEC-notitieback-up toe."
+                  : databaseActief
+                    ? "Open een MDB- of ACCDB-database of een SQLite-werkkopie."
+                    : "Open een document, rekenblad of presentatie."}
               </small>
             </span>
             <span className="bestandsformaten">
-              {(databaseActief
-                ? ["MDB", "ACCDB"]
-                : ["DOCX", "XLSX", "PPTX"]
+              {(notitiesActief
+                ? ["NOTITIES"]
+                : databaseActief
+                  ? ["MDB", "ACCDB", "SQLITE"]
+                  : ["DOCX", "XLSX", "PPTX"]
               ).map((formaat) => (
                 <i key={formaat}>{formaat}</i>
               ))}
@@ -282,8 +433,11 @@ export function StartScherm({
             <p>
               DOCX, XLSX en PPTX werken rechtstreeks. De desktopversie kan met
               een ingesteld conversieprogramma ook ODF en oudere formaten
-              omzetten. Opmaak kan daarbij afwijken. Database Studio leest MDB-
-              en ACCDB-tabellen; bewerken en VBA volgen later.
+              omzetten. Opmaak kan daarbij afwijken. Database Studio maakt van
+              een MDB- of ACCDB-bestand een bewerkbare SQLite-werkkopie met
+              tabellen, query’s, formulieren, rapporten en VBA; het origineel
+              blijft ongewijzigd. De afzonderlijke app is te installeren als
+              Open Database Studio.
             </p>
           </details>
         </div>

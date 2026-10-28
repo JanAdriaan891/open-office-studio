@@ -1,6 +1,6 @@
 [package]
 name = "open-office-studio"
-version = "2026.44.0"
+version = "2026.44.5"
 description = "Lokale OpenAEC-kantooromgeving"
 license = "Apache-2.0"
 edition = "2021"
@@ -11,9 +11,36 @@ tauri-build = { version = "2", features = [] }
 [dependencies]
 tauri = { version = "2", features = [] }
 rfd = "0.15"
+# Een tweede start (dubbelklik op een gekoppeld bestand) gaat naar de draaiende app.
+tauri-plugin-single-instance = "2"
 tempfile = "3"
 serde_json = "1"
 percent-encoding = "2"
+# OpenAEC Email Studio (IMAP/SMTP, zie src/email/)
+serde = { version = "1", features = ["derive"] }
+tokio = { version = "1", features = ["net", "time", "io-util", "sync", "rt", "macros"] }
+futures = "0.3"
+async-imap = { version = "0.11.3", default-features = false, features = ["runtime-tokio"] }
+tokio-rustls = { version = "0.26", default-features = false, features = ["ring", "logging", "tls12"] }
+rustls = { version = "0.23", default-features = false, features = ["ring", "std", "tls12", "logging"] }
+webpki-roots = "1"
+mail-parser = "0.11"
+lettre = { version = "0.11.23", default-features = false, features = ["smtp-transport", "builder", "tokio1-rustls-tls"] }
+keyring = "4.1.6"
+uuid = { version = "1", features = ["v4"] }
+base64 = "0.22"
+quick-xml = "0.41"
+# OAuth2 (PKCE/SHA-256 en willekeur via ring, dat rustls al gebruikt; systeembrowser openen)
+ring = "0.17"
+open = "5.4"
+# DNS-SRV en MX voor het zoeken naar mailservers (systeemresolver, geen DoH)
+hickory-resolver = { version = "0.26", default-features = false, features = ["system-config", "tokio"] }
+
+# Systeemlettertypen opsommen en lezen (#22); zonder memmap, de bestanden worden alleen op verzoek gelezen.
+fontdb = { version = "0.24", default-features = false, features = ["std", "fs", "fontconfig"] }
+
+[dev-dependencies]
+tokio = { version = "1", features = ["net", "time", "io-util", "sync", "rt", "rt-multi-thread", "macros"] }
 
 [target.'cfg(unix)'.dependencies]
 libc = "0.2"

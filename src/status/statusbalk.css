@@ -1,0 +1,103 @@
+/* Statusbalk (#28): module-informatie en zoomschuif. */
+.office-statusbalk .statusbalk-module {
+  flex: 0 1 auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.office-statusbalk button {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 20px;
+  padding: 0 6px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.office-statusbalk button:hover:not(:disabled) {
+  background: var(--oa-shell-status-hover, #0000000f);
+}
+.office-statusbalk button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.office-statusbalk .statusbalk-zoom {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding-right: 10px;
+  margin-right: 4px;
+  border-right: 1px solid color-mix(in srgb, currentColor 30%, transparent);
+}
+.office-statusbalk .statusbalk-icoon {
+  width: 20px;
+  padding: 0;
+  justify-content: center;
+}
+.office-statusbalk .statusbalk-procent {
+  min-width: 44px;
+  justify-content: center;
+  font-variant-numeric: tabular-nums;
+}
+.office-statusbalk input[type="range"] {
+  width: 110px;
+  height: 14px;
+  margin: 0 2px;
+  accent-color: var(--oa-shell-accent, #d97706);
+  cursor: pointer;
+}
+.office-statusbalk .statusbalk-status {
+  white-space: nowrap;
+}
+.office-statusbalk .office-statusrechts {
+  flex-shrink: 0;
+}
+.office-statusbalk .statusbalk-module > * {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+@media (max-width: 800px) {
+  .office-statusbalk input[type="range"] {
+    width: 70px;
+  }
+  .office-statusbalk {
+    gap: 10px;
+  }
+}
+@media (max-width: 640px) {
+  .office-statusbalk input[type="range"],
+  .office-statusbalk .statusbalk-zoom .statusbalk-icoon:not(:last-child),
+  .office-statusbalk kbd {
+    display: none;
+  }
+}
+.office-statusbalk .statusbalk-module > button {
+  display: inline-block;
+  line-height: 18px;
+  white-space: nowrap;
+}
+/* Smalle vensters: de modulenaam staat al in de kop; zo blijven pagina,
+   woorden en taal leesbaar in plaats van afgekapt ("Pagi…"). */
+.office-statusbalk .statusbalk-naam {
+  white-space: nowrap;
+}
+@media (max-width: 1180px) {
+  .office-statusbalk .statusbalk-naam {
+    display: none;
+  }
+  .office-statusbalk {
+    gap: 10px;
+  }
+  .office-statusbalk .statusbalk-module {
+    gap: 6px;
+  }
+}

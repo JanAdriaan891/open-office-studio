@@ -1,0 +1,536 @@
+/* Word-functies van Open Tekst Studio: menu's, vensters en deelvensters. */
+.tw-keuzemenu {
+  position: relative;
+  display: flex;
+}
+.tw-keuzemenu-pijl {
+  position: absolute;
+  right: 2px;
+  bottom: 4px;
+  pointer-events: none;
+  opacity: 0.7;
+}
+.tw-menu {
+  position: fixed;
+  z-index: 1001;
+  display: grid;
+  min-width: 220px;
+  padding: 5px;
+  border: 1px solid #dce1e8;
+  border-radius: 9px;
+  background: #fff;
+  box-shadow: 0 12px 36px #15233830;
+  color: #333a46;
+  font:
+    12px Inter,
+    system-ui,
+    sans-serif;
+}
+.tw-menu button {
+  display: grid;
+  grid-template-columns: 18px 1fr auto;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.tw-menu button:hover:not(:disabled),
+.tw-menu button:focus-visible {
+  background: #f4f6f8;
+  outline: none;
+}
+.tw-menu button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+.tw-menu-scheiding {
+  height: 1px;
+  margin: 4px 2px;
+  background: #edf0f3;
+}
+.tw-menu-vink {
+  color: #a95606;
+}
+
+/* Vensters (op basis van src/werkruimte/Dialoog.tsx) */
+.tw-venster {
+  width: min(100%, 520px);
+}
+.tw-venster.is-breed {
+  width: min(100%, 720px);
+}
+.tw-venster .werkruimte-veld input[type="number"],
+.tw-venster .werkruimte-veld textarea {
+  min-width: 0;
+  height: 30px;
+  padding: 3px 8px;
+  border: 1px solid var(--w-rand);
+  border-radius: 6px;
+  background: var(--w-bg);
+  color: inherit;
+  font: inherit;
+}
+.tw-venster textarea {
+  height: auto !important;
+  min-height: 70px;
+  resize: vertical;
+}
+.tw-venster .werkruimte-eenheid input[type="number"] {
+  width: 84px;
+}
+.tw-venster fieldset {
+  margin: 0 0 12px;
+  padding: 8px 12px 10px;
+  border: 1px solid var(--w-rand);
+  border-radius: 8px;
+}
+.tw-venster legend {
+  padding: 0 6px;
+  font-weight: 600;
+}
+.tw-raster2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 16px;
+}
+.tw-raster2 .werkruimte-veld {
+  grid-template-columns: minmax(80px, 45%) 1fr;
+}
+.tw-tabelvoorbeeld {
+  width: 100%;
+  margin-top: 8px;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.tw-tabelvoorbeeld td {
+  padding: 3px 6px;
+  border: 1px solid var(--w-rand);
+}
+@media (max-width: 560px) {
+  .tw-raster2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Afbeelding: maat in het lint en het bijsnijdvenster */
+.tw-beeldmaat {
+  min-width: 150px;
+}
+.tw-lintmaat {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+}
+.tw-lintmaat span:first-child {
+  width: 46px;
+}
+.tw-lintmaat input {
+  width: 58px;
+  height: 22px;
+  padding: 1px 4px;
+  border: 1px solid var(--office-lijn, #d6dae0);
+  border-radius: 4px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+}
+.tw-bijsnijden {
+  position: relative;
+  margin: 4px auto 14px;
+  background: repeating-conic-gradient(#e7e9ec 0 25%, #fff 0 50%) 0 0 / 14px 14px;
+  touch-action: none;
+  user-select: none;
+  /* De donkere rand rond het kader niet buiten het beeld laten vallen. */
+  clip-path: inset(-8px);
+}
+.tw-bijsnijden img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 0.45;
+  pointer-events: none;
+}
+.tw-bijsnijden-leeg {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  color: var(--w-tekst-zacht);
+}
+.tw-bijsnijden-kader {
+  position: absolute;
+  border: 2px solid var(--w-accent);
+  box-shadow: 0 0 0 9999px #00000030;
+  cursor: move;
+  overflow: visible;
+}
+.tw-bijsnijden-zicht {
+  position: absolute;
+  inset: 0;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+.tw-greep {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  margin: -7px;
+  padding: 0;
+  border: 2px solid #fff;
+  border-radius: 3px;
+  background: var(--w-accent) !important;
+  box-shadow: 0 0 0 1px #0006;
+}
+.tw-greep-nw { left: 0; top: 0; cursor: nwse-resize; }
+.tw-greep-n { left: 50%; top: 0; cursor: ns-resize; }
+.tw-greep-no { left: 100%; top: 0; cursor: nesw-resize; }
+.tw-greep-o { left: 100%; top: 50%; cursor: ew-resize; }
+.tw-greep-zo { left: 100%; top: 100%; cursor: nwse-resize; }
+.tw-greep-z { left: 50%; top: 100%; cursor: ns-resize; }
+.tw-greep-zw { left: 0; top: 100%; cursor: nesw-resize; }
+.tw-greep-w { left: 0; top: 50%; cursor: ew-resize; }
+.tw-alt {
+  grid-template-columns: 1fr;
+}
+
+/* Navigatievenster zoeken en vervangen */
+.docx-editor__dock-area.tw-met-zoekpaneel {
+  box-sizing: border-box;
+  padding-left: 336px;
+}
+.tw-zoekpaneel {
+  position: fixed;
+  z-index: 950;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 320px;
+  padding: 10px 12px;
+  overflow: auto;
+  border: 1px solid #dce1e8;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 10px 30px #1523382e;
+  color: #2b2f36;
+  font:
+    12px Inter,
+    system-ui,
+    sans-serif;
+}
+.tw-zoekpaneel header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.tw-zoekpaneel h2 {
+  flex: 1;
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+}
+.tw-zoekpaneel button,
+.tw-zoekpaneel input,
+.tw-zoekpaneel select {
+  font: inherit;
+  color: inherit;
+}
+.tw-zoek-sluit,
+.tw-zoek-wissel {
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+  cursor: pointer;
+}
+.tw-zoek-wissel {
+  padding: 3px 6px;
+  color: #a95606 !important;
+}
+.tw-zoek-sluit {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+}
+.tw-zoek-sluit:hover,
+.tw-zoek-wissel:hover {
+  background: #f4f6f8;
+}
+.tw-zoek-rij {
+  display: flex;
+  gap: 4px;
+}
+.tw-zoek-rij input {
+  flex: 1;
+  min-width: 0;
+  height: 30px;
+  padding: 3px 8px;
+  border: 1px solid #c9d0da;
+  border-radius: 6px;
+}
+.tw-zoek-rij button,
+.tw-zoek-knoppen button {
+  display: grid;
+  place-items: center;
+  min-width: 30px;
+  height: 30px;
+  padding: 0 8px;
+  border: 1px solid #dce1e8;
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer;
+}
+.tw-zoek-rij button:disabled,
+.tw-zoek-knoppen button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+.tw-zoek-knoppen {
+  display: flex;
+  gap: 6px;
+}
+.tw-zoek-knoppen button {
+  flex: 1;
+}
+.tw-zoek-opties {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px 8px;
+}
+.tw-zoek-opties label,
+.tw-zoek-opmaak {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.tw-zoek-meer summary {
+  cursor: pointer;
+  color: #5e636d;
+}
+.tw-zoek-speciaal {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  margin: 6px 0;
+}
+.tw-zoek-speciaal button {
+  padding: 3px 4px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+.tw-zoek-speciaal button:hover,
+.tw-zoek-speciaal button:focus-visible {
+  background: #f4f6f8;
+}
+.tw-zoek-opmaakrij {
+  display: grid;
+  /* Eén kolom: twee kolommen sneden de keuzelijsten af in het smalle paneel. */
+  grid-template-columns: minmax(0, 1fr);
+  gap: 4px;
+}
+.tw-zoek-opmaak span {
+  flex: none;
+  width: 92px;
+}
+.tw-zoek-opmaak select {
+  flex: 1;
+  min-width: 0;
+  height: 26px;
+  border: 1px solid #dce1e8;
+  border-radius: 5px;
+  background: #fff;
+}
+.tw-zoek-hulp {
+  margin: 6px 0 0;
+  color: #5e636d;
+  line-height: 1.5;
+}
+.tw-zoek-telling {
+  margin: 0;
+  color: #5e636d;
+}
+.tw-zoek-resultaten {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.tw-zoek-resultaten button {
+  display: grid;
+  width: 100%;
+  gap: 2px;
+  padding: 6px 8px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  overflow-wrap: anywhere;
+}
+.tw-zoek-resultaten button:hover {
+  background: #f4f6f8;
+}
+.tw-zoek-resultaten button[aria-current="true"] {
+  border-color: #e2a13d;
+  background: #fff6e5;
+}
+.tw-zoek-resultaten mark {
+  background: #ffd54f;
+  color: inherit;
+  font-weight: 600;
+}
+.tw-zoek-plek {
+  color: #747780;
+  font-size: 11px;
+}
+
+/* Ga naar */
+.tw-ganaar {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 16px;
+}
+.tw-ganaar-soorten {
+  display: grid;
+  align-content: start;
+  gap: 2px;
+}
+.tw-ganaar-soorten button,
+.tw-ganaar-lijst button {
+  padding: 6px 8px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  white-space: pre;
+}
+.tw-ganaar-soorten button[aria-selected="true"],
+.tw-ganaar-lijst button[aria-current="true"] {
+  border-color: var(--w-accent);
+  background: var(--w-bg-zacht);
+}
+.tw-ganaar-doel input[type="text"] {
+  height: 30px;
+  padding: 3px 8px;
+  border: 1px solid var(--w-rand);
+  border-radius: 6px;
+  background: var(--w-bg);
+}
+.tw-ganaar-lijst {
+  display: grid;
+  max-height: 260px;
+  margin: 8px 0 0;
+  padding: 0;
+  overflow: auto;
+  list-style: none;
+}
+.tw-ganaar-lijst button {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+@media (max-width: 560px) {
+  .tw-ganaar {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Wijzigingen: deelvenster en alleen-lezen voorbeeld */
+.tw-wijziging {
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+}
+.tw-wijziging-tekst {
+  flex: 1;
+}
+.tw-wijziging-knoppen {
+  display: flex;
+  gap: 2px;
+  padding-top: 6px;
+}
+.tw-wijziging-knoppen button {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border: 1px solid #dce1e8;
+  border-radius: 5px;
+  background: #fff;
+  cursor: pointer;
+}
+.tw-wijziging-knoppen button:hover {
+  background: #f4f6f8;
+}
+.tw-wijziging-erbij {
+  color: #1f6f43;
+  text-decoration: underline;
+}
+.tw-wijziging-weg {
+  color: #b42318;
+  text-decoration: line-through;
+}
+.tw-voorbeeld {
+  position: fixed;
+  z-index: 940;
+  display: flex;
+  flex-direction: column;
+  background: #edf0f3;
+}
+.tw-voorbeeld-balk {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 12px;
+  border-bottom: 1px solid #e2a13d;
+  background: #fff6e5;
+  color: #4a3410;
+  font:
+    12px Inter,
+    system-ui,
+    sans-serif;
+}
+.tw-voorbeeld-balk span {
+  flex: 1;
+}
+.tw-voorbeeld-balk button {
+  padding: 4px 10px;
+  border: 1px solid #c58a2e;
+  border-radius: 6px;
+  background: #fff;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.tw-voorbeeld-melding {
+  margin: 24px;
+  color: #5e636d;
+  font: 13px Inter, system-ui, sans-serif;
+}
+.tw-voorbeeld-editor {
+  flex: 1;
+  min-height: 0;
+}
+.tw-verschillen {
+  max-height: 180px;
+  margin: 8px 0 0;
+  padding-left: 18px;
+  overflow: auto;
+  font-size: 12px;
+}
+.tw-verschillen del {
+  color: #b42318;
+}
+.tw-verschillen ins {
+  color: #1f6f43;
+}

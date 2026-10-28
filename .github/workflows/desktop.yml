@@ -22,6 +22,9 @@ jobs:
         with:
           version: 11.25.0
       - uses: dtolnay/rust-toolchain@stable
+        with:
+          # De spellingmodule (src/spelling/rust) wordt naar WebAssembly gebouwd.
+          targets: wasm32-unknown-unknown
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -36,6 +39,25 @@ jobs:
           PAKKETTEN: ${{ vars.CONVERSIE_APT_PAKKETTEN }}
         run: sudo apt-get install -y --no-install-recommends $PAKKETTEN
       - run: pnpm install --frozen-lockfile
+      # Extra open lettertypen (assets/lettertypen.json): bewaard per manifestversie,
+      # zodat een build zonder netwerk naar GitHub ook werkt.
+      - name: Lettertypencache
+        uses: actions/cache@v4
+        with:
+          path: .local/lettertypen-cache
+          key: lettertypen-${{ hashFiles('assets/lettertypen.json') }}
+      - run: node scripts/haal-lettertypen.mjs
+      # Woordenboeken voor de spellingcontrole (assets/woordenboeken.json).
+      - name: Woordenboekencache
+        uses: actions/cache@v4
+        with:
+          path: .local/woordenboeken-cache
+          key: woordenboeken-${{ hashFiles('assets/woordenboeken.json') }}
+      - run: node scripts/haal-woordenboeken.mjs
+      - run: cargo test --manifest-path src/spelling/rust/Cargo.toml --locked --lib
+      # De spelling-WASM vóór de tests, zodat ook de echte spellingtest draait.
+      - run: node scripts/bouw-spelling-wasm.mjs
+      - run: pnpm versie:check
       - run: pnpm test
       - run: python -m unittest discover -s tests -v
       - run: node scripts/test-kantoor-engines.mjs

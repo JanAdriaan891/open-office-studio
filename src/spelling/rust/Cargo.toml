@@ -1,0 +1,24 @@
+[package]
+name = "oos-spelling"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+publish = false
+description = "Spellingcontrole voor Open Office Studio: spellbook (Hunspell-compatibel) als kleine WASM-module zonder bindgen."
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+path = "src/lib.rs"
+
+[dependencies]
+spellbook = "=0.4.2"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true
+
+# Los van src-tauri: eigen werkruimte en eigen Cargo.lock.
+[workspace]

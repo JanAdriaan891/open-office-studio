@@ -6,7 +6,16 @@ Maak de bestaande rekenbladadapter herbruikbaar en vergelijk de rekenkern met ee
 
 ## Acceptatiecriteria
 
-- [ ] Gevallen R1–R3 uitvoeren met onafhankelijke verwachte formule-uitkomsten.
-- [ ] Niet-ondersteunde functies, fouten en oude cachewaarden herkenbaar afhandelen.
-- [ ] Grafieken, verborgen bladen, afdrukinstellingen en onbekende onderdelen onderzoeken.
-- [ ] Nederlandse getallen en datums, toegankelijkheid en grote werkboeken beproeven.
+- [x] Gevallen R1–R3 uitvoeren met onafhankelijke verwachte formule-uitkomsten. Uitgevoerd met synthetische fixtures; zie [het verslag van 26 oktober 2026](../tests/2026-10-26-rekenbladen.md). Praktijkbestanden en de visuele vergelijking staan nog open.
+- [x] Niet-ondersteunde functies, fouten en oude cachewaarden herkenbaar afhandelen. De engine handelt verouderde cache en onbekende functies stil af; `src/rekenbladcontrole.ts` is nu in de editor gekoppeld en meldt bij openen onbekende functies, verouderde uitkomsten, externe koppelingen en handmatig rekenen (in de browser gecontroleerd). Bij `fullCalcOnLoad` is een oude cache verwacht en blijft het informatie. Open: `=ISOWEEKNUM()` laat de rekenkern vastlopen (enginefout).
+- [x] Grafieken, verborgen bladen, afdrukinstellingen en onbekende onderdelen onderzoeken. Op pakket- en kenmerkniveau bleef alles behouden. Na een bewerking houden de grafiektekstcache en de draaitabel verouderde waarden.
+- [ ] Nederlandse getallen en datums, toegankelijkheid en grote werkboeken beproeven. Het grote werkboek is gemeten. Nederlandse invoer (`1,5`, `12,5%`, `€ 1.234,50`, `26-10-2026`, `14:30`) wordt nu als getal, bedrag, datum of tijd vastgelegd (`src/useNederlandseInvoer.ts`, in de browser gecontroleerd). Open: de weergave volgt nog de Engelse notatie van de engine, en toegankelijkheid is alleen met codelezing onderzocht, niet met een schermlezer.
+
+## Open punten uit de proef van 26 oktober 2026
+
+- `rekenbladMelding` na `onReady` van `XlsxEditor` tonen; de aanroep staat in het verslag.
+- Nederlandse invoer (`1,5`, `26-10-2026`) vóór `editCell` omzetten of de engine een locale geven. Ook Nederlandse weergave van `#,##0.00`, procenten en ingebouwde datumnotatie 14.
+- Upstream melden: `=ISOWEEKNUM()` laat de WASM-kern vastlopen en maakt het geopende werkboek onbruikbaar.
+- `a11y`-teksten in `rekenbladNl` vertalen; met een schermlezer beproeven.
+- De rekenkern vergelijken met een permissief alternatief (bijvoorbeeld IronCalc), op dezelfde fixtures en tegen de onafhankelijke evaluator. Dit is nog niet gemeten.
+- Grote werkboeken in de browser meten. In Node duurde openen van 120.001 cellen 2,7–5,9 s.

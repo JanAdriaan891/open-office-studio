@@ -1,7 +1,63 @@
 import { exportDocxMarkdown } from "@betteroffice/docx";
+import { strFromU8, unzipSync } from "fflate";
 
-/** Exporteert de bewaarde revisie via dezelfde documentkern als de teksteditor. */
-export async function exporteerMarkdown(bytes: Uint8Array) {
+const AFBEELDINGSMIME: Record<string, string> = {
+  png: "image/png",
+  jpg: "image/jpeg",
+  jpeg: "image/jpeg",
+  gif: "image/gif",
+};
+
+function base64(bytes: Uint8Array) {
+  let binair = "";
+  for (let i = 0; i < bytes.length; i += 0x8000)
+    binair += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
+  return btoa(binair);
+}
+
+/**
+ * Afbeeldingen uit de hoofdtekst van een DOCX als data-URL’s, in
+ * documentvolgorde. Onbekende formaten (EMF, WMF, SVG) worden null.
+ */
+export function documentAfbeeldingen(bytes: Uint8Array): (string | null)[] {
+  const delen = unzipSync(bytes, {
+    filter: (b) =>
+      b.name === "word/document.xml" ||
+      b.name === "word/_rels/document.xml.rels" ||
+      b.name.startsWith("word/media/"),
+  });
+  const document = delen["word/document.xml"];
+  const rels = delen["word/_rels/document.xml.rels"];
+  if (!document || !rels) return [];
+  const doelen = new Map<string, string>();
+  for (const m of strFromU8(rels).matchAll(/<Relationship\b[^>]*>/g)) {
+    const id = /\bId="([^"]+)"/.exec(m[0])?.[1];
+    const doel = /\bTarget="([^"]+)"/.exec(m[0])?.[1];
+    if (id && doel) doelen.set(id, doel);
+  }
+  return [
+    ...strFromU8(document).matchAll(/<a:blip\b[^>]*\br:embed="([^"]+)"/g),
+  ].map(([, id]) => {
+    const doel = doelen.get(id);
+    if (!doel) return null;
+    const pad = "word/" + doel.replace(/^\.?\//, "");
+    const ext = pad.split(".").pop()!.toLowerCase();
+    const data = delen[pad];
+    return data && AFBEELDINGSMIME[ext]
+      ? `data:${AFBEELDINGSMIME[ext]};base64,${base64(data)}`
+      : null;
+  });
+}
+
+/**
+ * Exporteert de bewaarde revisie via dezelfde documentkern als de teksteditor.
+ * Met `metAfbeeldingen` worden afbeeldingen als data-URL ingevuld (voor HTML),
+ * mits hun aantal overeenkomt met wat de kern uitvoert.
+ */
+export async function exporteerMarkdown(
+  bytes: Uint8Array,
+  opties: { metAfbeeldingen?: boolean } = {},
+) {
   const resultaat = await exportDocxMarkdown(bytes, {
     revisionView: "accepted",
     stories: ["body", "footnotes", "endnotes"],
@@ -19,7 +75,24 @@ export async function exporteerMarkdown(bytes: Uint8Array) {
   // De kern levert bronankers voor programmatisch gebruik; een .md heeft die niet nodig.
   const ankers = new Set(resultaat.anchors.map(({ marker }) => marker));
   let ontbrekendeAfbeelding = false;
-  const tekst = resultaat.markdown
+  let markdown = resultaat.markdown;
+  let ingevuld = false;
+  if (opties.metAfbeeldingen) {
+    const lege = markdown.match(/!\[((?:\\.|[^\]\\])*)\]\(\)/g) ?? [];
+    const gevonden = documentAfbeeldingen(bytes);
+    if (lege.length && lege.length === gevonden.length) {
+      let index = 0;
+      ingevuld = gevonden.every(Boolean);
+      markdown = markdown.replace(
+        /!\[((?:\\.|[^\]\\])*)\]\(\)/g,
+        (volledig, beschrijving: string) => {
+          const url = gevonden[index++];
+          return url ? `![${beschrijving}](${url})` : volledig;
+        },
+      );
+    }
+  }
+  const tekst = markdown
     .replace(/<!-- (docx-export:\d+) -->/g, (volledig, marker: string) =>
       ankers.has(marker) ? "" : volledig,
     )
@@ -38,10 +111,10 @@ export async function exporteerMarkdown(bytes: Uint8Array) {
     bytes: new TextEncoder().encode(tekst + "\n"),
     waarschuwing:
       ontbrekendeAfbeelding ||
-      resultaat.diagnostics.some(
-        (melding) =>
-          melding.severity === "warning" ||
-          melding.code === "image-data-omitted",
+      resultaat.diagnostics.some((melding) =>
+        melding.code === "image-data-omitted"
+          ? !ingevuld
+          : melding.severity === "warning",
       ),
   };
 }

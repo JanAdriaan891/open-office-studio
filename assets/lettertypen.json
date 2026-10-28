@@ -1,0 +1,851 @@
+{
+  "toelichting": "Extra open lettertypen voor Open Office Studio. scripts/haal-lettertypen.mjs downloadt elk bestand van de vaste bron (commit of release), controleert de sha256 en kopieert het naar public/fonts/extra/. Alleen SIL OFL 1.1 of Apache-2.0.",
+  "doelmap": "public/fonts/extra",
+  "families": [
+    {
+      "familie": "Lato",
+      "categorie": "schreefloos",
+      "licentie": "OFL-1.1",
+      "bron": "github.com/google/fonts@ddf386ba1b9f (ofl/lato)",
+      "licentiebestand": {
+        "url": "https://raw.githubusercontent.com/google/fonts/ddf386ba1b9fbc6b2c818f1ddcd9148f54ced94b/ofl/lato/OFL.txt",
+        "sha256": "74ba064d03f1f1c4a952da936c3eb71866c34404916734de3cae73b34357e59e"
+      },
+      "bestanden": [
+        {
+          "bestand": "Lato-Regular.ttf",
+          "gewicht": 400,
+          "stijl": "normal",
+          "url": "https://raw.githubusercontent.com/google/fonts/ddf386ba1b9fbc6b2c818f1ddcd9148f54ced94b/ofl/lato/Lato-Regular.ttf",
+          "sha256": "d636e4683231f931eda222d588e944d082bfd3bdba02f928bee461c0f185b251",
+          "grootte": 656568
+        },
+        {
+          "bestand": "Lato-Bold.ttf",
+          "gewicht": 700,
+          "stijl": "normal",
+          "url": "https://raw.githubusercontent.com/google/fonts/ddf386ba1b9fbc6b2c818f1ddcd9148f54ced94b/ofl/lato/Lato-Bold.ttf",
+          "sha256": "8a0aace75d33794eece4b28187bfc1df0bbd2888b5d8a56e01788c8d65d16be1",
+          "grootte": 656544
+        },
+        {
+          "bestand": "Lato-Italic.ttf",
+          "gewicht": 400,
+          "stijl": "italic",
+          "url": "https://raw.githubusercontent.com/google/fonts/ddf386ba1b9fbc6b2c818f1ddcd9148f54ced94b/ofl/lato/Lato-Italic.ttf",
+          "sha256": "e399c44efe1387100531d26c7e4800c5d12251b890d6654a3098c7c679cb1786",
+          "grootte": 722900
+        },
+        {
+          "bestand": "Lato-BoldItalic.ttf",
+          "gewicht": 700,
+          "stijl": "italic",
+          "url": "https://raw.githubusercontent.com/google/fonts/ddf386ba1b9fbc6b2c818f1ddcd9148f54ced94b/ofl/lato/Lato-BoldItalic.ttf",
+          "sha256": "62c1b7f0d2e74b45960154c3520efc337b553db0961bfdc950d5618334596cc8",
+          "grootte": 698364
+        }
+      ]
+    },
+    {
+      "familie": "Noto Sans",
+      "categorie": "schreefloos",
+      "licentie": "OFL-1.1",
+      "bron": "github.com/google/fonts@e9c85d024994 (ofl/notosans)",
+      "licentiebestand": {
+        "url": "https://raw.githubusercontent.com/google/fonts/e9c85d0249945717236821491f4a3b37a24ad6ac/ofl/notosans/OFL.txt",
+        "sha256": "3a579abd469a5b75b779f244e4cebcb74451e32154503fce2c8e004d15bc7e98"
+      },
+      "bestanden": [
+        {
+          "bestand": "NotoSans-Regular.ttf",
+          "gewicht": 400,
+          "stijl": "normal",
+          "url": "https://raw.githubusercontent.com/google/fonts/e9c85d0249945717236821491f4a3b37a24ad6ac/ofl/notosans/NotoSans-Regular.ttf",
+          "sha256": "a3c4b14201354e76f360300cccf688162280b90ea1639092f1e76706a040fab4",
+          "grootte": 560092
+        },
+        {
+          "bestand": "NotoSans-Bold.ttf",
+          "gewicht": 700,
+          "stijl": "normal",
+          "url": "https://raw.githubusercontent.com/google/fonts/e9c85d0249945717236821491f4a3b37a24ad6ac/ofl/notosans/NotoSans-Bold.ttf",
+          "sha256": "0d73b5b230cffac4cba183571bfdd52c3f4dfc49cfc1b5447db99d53d2b47111",
+          "grootte": 561456
+        },
+        {
+          "bestand": "NotoSans-Italic.ttf",
+          "gewicht": 400,
+          "stijl": "italic",
+          "url": "https://raw.githubusercontent.com/google/fonts/e9c85d0249945717236821491f4a3b37a24ad6ac/ofl/notosans/NotoSans-Italic.ttf",
+          "sha256": "6c0681558d11213df5f979cb677f63acec40a774497ee9bee048c53eb485574c",
+          "grootte": 410940
+        },
+        {
+          "bestand": "NotoSans-BoldItalic.ttf",
+          "gewicht": 700,
+          "stijl": "italic",
+          "url": "https://raw.githubusercontent.com/google/fonts/e9c85d0249945717236821491f4a3b37a24ad6ac/ofl/notosans/NotoSans-BoldItalic.ttf",
+          "sha256": "4b08c127ed0399da6913d938f8e3f45a5d87f197b636f3d2978c6515f0cebd86",
+          "grootte": 409968
+        }
+      ]
+    },
+    {
+      "familie": "Fira Sans",
+      "categorie": "schreefloos",
+      "licentie": "OFL-1.1",
+      "bron": "github.com/google/fonts@ddf386ba1b9f (ofl/firasans)",
+      "licentiebestand": {
+        "url": "https://raw.githubusercontent.com/google/fonts/ddf386ba1b9fbc6b2c818f1ddcd9148f54ced94b/ofl/firasans/OFL.txt",
+        "sha256": "8f24842e9174beda18a556c2ae7d54f5dc444340c19a3a9ef77e23bca366adbd"
+      },
+      "bestanden": [
+        {
+          "bestand": "FiraSans-Regular.ttf",
+          "gewicht": 400,
+          "stijl": "normal",
+          "url": "https://raw.githubusercontent.com/google/fonts/ddf386ba1b9fbc6b2c818f1ddcd9148f54ced94b/ofl/firasans/FiraSans-Regular.ttf",
+          "sha256": "c29556a2719bf613ef3d5e070e40d903a8965d9c081beca1375dc1e6e0f93c23",
+          "grootte": 456996
+        },
+        {
+          "bestand": "FiraSans-Bold.ttf",
+          "gewicht": 700,
+          "stijl": "normal",
+          "url": "https://raw.githubusercontent.com/google/fonts/ddf386ba1b9fbc6b2c818f1ddcd9148f54ced94b/ofl/firasans/FiraSans-Bold.ttf",
+          "sha256": "a4d8e149ecdd4874a0726eb0af894488b3b31c423d6b0017c8f415ed1b795b45",
+          "grootte": 489720
+        },
+        {
+          "bestand": "FiraSans-Italic.ttf",
+          "gewicht": 400,
+          "stijl": "italic",
+          "url": "https://raw.githubusercontent.com/google/fonts/ddf386ba1b9fbc6b2c818f1ddcd9148f54ced94b/ofl/firasans/FiraSans-Italic.ttf",
+          "sha256": "a4204f9a8029c1c55daa5385ac95936f74abea3e232770f1fb2862a19d1dfa13",
+          "grootte": 472396
+        },
+        {
+          "bestand": "FiraSans-BoldItalic.ttf",
+          "gewicht": 700,
+          "stijl": "italic",
+          "url": "https://raw.githubusercontent.com/google/fonts/ddf386ba1b9fbc6b2c818f1ddcd9148f54ced94b/ofl/firasans/FiraSans-BoldItalic.ttf",
+          "sha256": "1b96c16db9819bcaa9d588068bb397bb6e977c4874965d3d50d789a1943757eb",
+          "grootte": 506864
+        }
+      ]
+    },
+    {
+      "familie": "IBM Plex Sans",
+      "categorie": "schreefloos",
+      "licentie": "OFL-1.1",
+      "bron": "github.com/google/fonts@b5829bab95a0 (ofl/ibmplexsans)",
+      "licentiebestand": {
+        "url": "https://raw.githubusercontent.com/google/fonts/b5829bab95a0d159d14bc4abc8a88ad578d324f3/ofl/ibmplexsans/OFL.txt",
+        "sha256": "7e6b2818edbd8f6a01ae80641cc8f16a51080d08fb4e532be3a0b6f74adb07da"
+      },
+      "bestanden": [
+        {
+          "bestand": "IBMPlexSans-Regular.ttf",
+          "gewicht": 400,
+          "stijl": "normal",
+          "url": "https://raw.githubusercontent.com/google/fonts/b5829bab95a0d159d14bc4abc8a88ad578d324f3/ofl/ibmplexsans/IBMPlexSans-Regular.ttf",
+          "sha256": "52babd121ff827c4f6ebbb20844d51569795eee6373580fc8979afc540048596",
+          "grootte": 179740
+        },
+        {
+          "bestand": "IBMPlexSans-Bold.ttf",
+          "gewicht": 700,
+          "stijl": "normal",
+          "url": "https://raw.githubusercontent.com/google/fonts/b5829bab95a0d159d14bc4abc8a88ad578d324f3/ofl/ibmplexsans/IBMPlexSans-Bold.ttf",
+          "sha256": "a20702eabc06feecafd8de9eec45ec2294353006e0c101acc3e6c70f4a52d997",
+          "grootte": 179860
+        },
+        {
+          "bestand": "IBMPlexSans-Italic.ttf",
+          "gewicht": 400,
+          "stijl": "italic",
+          "url": "https://raw.githubusercontent.com/google/fonts/b5829bab95a0d159d14bc4abc8a88ad578d324f3/ofl/ibmplexsans/IBMPlexSans-Italic.ttf",
+          "sha256": "c80122573572bd04056c0f82ea3e1c8b1df7922621f3a4b447915d519ccf706a",
+          "grootte": 188192
+        },
+        {
+          "bestand": "IBMPlexSans-BoldItalic.ttf",
+          "gewicht": 700,
+          "stijl": "italic",
+          "url": "https://raw.githubusercontent.com/google/fonts/b5829bab95a0d159d14bc4abc8a88ad578d324f3/ofl/ibmplexsans/IBMPlexSans-BoldItalic.ttf",
+          "sha256": "59e201d9ffa61cce19153e94814676b4ba0bbf238cac442d75523ea15a5789b6",
+          "grootte": 188952
+        }
+      ]
+    },
+    {
+      "familie": "Nunito",
+      "categorie": "schreefloos",
+      "licentie": "OFL-1.1",
+      "bron": "github.com/google/fonts@10a708073179 (ofl/nunito)",
+      "licentiebestand": {
+        "url": "https://raw.githubusercontent.com/google/fonts/10a708073179c32928eb894e53465fca8106772f/ofl/nunito/OFL.txt",
+        "sha256": "580df76c95a1ec5ab878ceb25bb3d85c6a076804e9c970c8c6972aea775fdf65"
+      },
+      "bestanden": [
+        {
+          "bestand": "Nunito-Regular.ttf",
+          "gewicht": 400,
+          "stijl": "normal",
+          "url": "https://raw.githubusercontent.com/google/fonts/10a708073179c32928eb894e53465fca8106772f/ofl/nunito/Nunito-Regular.ttf",
+          "sha256": "880ead818af373b0da8c2a3e493f7d0a9c1db149a67a867b04f0952c475d667a",
+          "grootte": 154312
+        },
+        {
+          "bestand": "Nunito-Bold.ttf",
+          "gewicht": 700,
+          "stijl": "normal",
+          "url": "https://raw.githubusercontent.com/google/fonts/10a708073179c32928eb894e53465fca8106772f/ofl/nunito/Nunito-Bold.ttf",
+          "sha256": "f922b74ed5cca7c8675d352fd5ed197e0f38b3ac4a427c15b7a3db039dc6294c",
+          "grootte": 154140
+        },
+        {
+          "bestand": "Nunito-Italic.ttf",
+          "gewicht": 400,
+          "stijl": "italic",
+          "url": "https://raw.githubusercontent.com/google/fonts/10a708073179c32928eb894e53465fca8106772f/ofl/nunito/Nunito-Italic.ttf",
+          "sha256": "2e19528ebd89ae7bc0442744206730319a03b40d550ac3711c49b691286e7e10",
+          "grootte": 158696
+        },
+        {
+          "bestand": "Nunito-BoldItalic.ttf",
+          "gewicht": 700,
+          "stijl": "italic",
+          "url": "https://raw.githubusercontent.com/google/fonts/10a708073179c32928eb894e53465fca8106772f/ofl/nunito/Nunito-BoldItalic.ttf",
+          "sha256": "e34e5bc2560aa0cd5254d7b1c6433f151b6a8dd36fd6f9096527f99fa36496fb",
+          "grootte": 161216
+        }
+      ]
+    },
+    {
+      "familie": "Raleway",
+      "categorie": "schreefloos",
+      "licentie": "OFL-1.1",
+      "bron": "github.com/google/fonts@10a708073179 (ofl/raleway/static)",
+      "licentiebestand": {
+        "url": "https://raw.githubusercontent.com/google/fonts/10a708073179c32928eb894e53465fca8106772f/ofl/raleway/OFL.txt",
+        "sha256": "7e946cf1171784d1015279e7dc35f827957a6b5d1f1f659ae0c98e5f5e37ed9b"
+      },
+      "bestanden": [
+        {
+          "bestand": "Raleway-Regular.ttf",
+          "gewicht": 400,
+          "stijl": "normal",
+          "url": "https://raw.githubusercontent.com/google/fonts/10a708073179c32928eb894e53465fca8106772f/ofl/raleway/static/Raleway-Regular.ttf",
+          "sha256": "cb70f8815eecd850263d54fa59286377b1d7362bec612e981155a00039d8b513",
+          "grootte": 132000
+        },
+        {
+          "bestand": "Raleway-Bold.ttf",
+          "gewicht": 700,
+          "stijl": "normal",
+          "url": "https://raw.githubusercontent.com/google/fonts/10a708073179c32928eb894e53465fca8106772f/ofl/raleway/static/Raleway-Bold.ttf",
+          "sha256": "6894481ab1c298e9c66f23455ecf05ccb25393d719a6b2d63428358c0409d2d0",
+          "grootte": 137952
+        },
+        {
+          "bestand": "Raleway-Italic.ttf",
+          "gewicht": 400,
+          "stijl": "italic",
+          "url": "https://raw.githubusercontent.com/google/fonts/10a708073179c32928eb894e53465fca8106772f/ofl/raleway/static/Raleway-Italic.ttf",
+          "sha256": "63f52b6d8e88afa43d94162147ff55846f28af630d834018de5cb7ccc75a8ee8",
+          "grootte": 132224
+        },
+        {
+          "bestand": "Raleway-BoldItalic.ttf",
+          "gewicht": 700,
+          "stijl": "italic",
+          "url": "https://raw.githubusercontent.com/google/fonts/10a708073179c32928eb894e53465fca8106772f/ofl/raleway/static/Raleway-BoldItalic.ttf",
+          "sha256": "57eb1a701136eca30b52a4847edcec93daa53f0b5597dd98dbc0b07f475ce44a",
+          "grootte": 138168
+        }
+      ]
+    },
+    {
+      "familie": "Atkinson Hyperlegible",
+      "categorie": "schreefloos",
+      "licentie": "OFL-1.1",
+      "bron": "github.com/google/fonts@ddf386ba1b9f (ofl/atkinsonhyperlegible)",
+      "licentiebestand": {
+        "url": "https://raw.githubusercontent.com/google/fonts/ddf386ba1b9fbc6b2c818f1ddcd9148f54ced94b/ofl/atkinsonhyperlegible/OFL.txt",
+        "sha256": "f32d22b3908fcad2c86a74000614ec22e6a7f66ea7e867e616026a27aebdc143"
+      },
+      "bestanden": [
+        {
+          "bestand": "AtkinsonHyperlegible-Regular.ttf",
+          "gewicht": 400,
+          "stijl": "normal",
+          "url": "https://raw.githubusercontent.com/google/fonts/ddf386ba1b9fbc6b2c818f1ddcd9148f54ced94b/ofl/atkinsonhyperlegible/AtkinsonHyperlegible-Regular.ttf",
+          "sha256": "7fb917c89019896d0b52ee84b7cbb3304c18cb90b19a62f5e32712bd23e97669",
+          "grootte": 54348
+        },
+        {
+          "bestand": "AtkinsonHyperlegible-Bold.ttf",
+          "gewicht": 700,
+          "stijl": "normal",
+          "url": "https://raw.githubusercontent.com/google/fonts/ddf386ba1b9fbc6b2c818f1ddcd9148f54ced94b/ofl/atkinsonhyperlegible/AtkinsonHyperlegible-Bold.ttf",
+          "sha256": "5a3b0c8cc8ca545155150b4512a1fa248298df121c50d6557e651e61fbdab92f",
+          "grootte": 55256
+        },
+        {
+          "bestand": "AtkinsonHyperlegible-Italic.ttf",
+          "gewicht": 400,
+          "stijl": "italic",
+          "url": "https://raw.githubusercontent.com/google/fonts/ddf386ba1b9fbc6b2c818f1ddcd9148f54ced94b/ofl/atkinsonhyperlegible/AtkinsonHyperlegible-Italic.ttf",
+          "sha256": "021beda4d3c6edfc78872e436d74009f9a1bcb294331908fe5747c61d3dcc514",
+          "grootte": 54892
+        },
+        {
+          "bestand": "AtkinsonHyperlegible-BoldItalic.ttf",
+          "gewicht": 700,
+          "stijl": "italic",
+          "url": "https://raw.githubusercontent.com/google/fonts/ddf386ba1b9fbc6b2c818f1ddcd9148f54ced94b/ofl/atkinsonhyperlegible/AtkinsonHyperlegible-BoldItalic.ttf",
+          "sha256": "7a46f1b0ef2f64b61065c1a6b5a11fcb9b019b44062d88ba121a083cc39e86bf",
+          "grootte": 55288
+        }
+      ]
+    },
+    {
+      "familie": "Selawik",
+      "categorie": "schreefloos",
+      "licentie": "OFL-1.1",
+      "bron": "github.com/microsoft/Selawik release 1.01 (Selawik_Release.zip)",
+      "metrischVoor": "Segoe UI",
+      "licentiebestand": {
+        "url": "https://raw.githubusercontent.com/microsoft/Selawik/89362e84731d1f5777fa078fd4d5ebbd339e4378/LICENSE.txt",
+        "sha256": "77b7c2506d4efb22e09c8ccf10159f4956eab3ef7c007fef95de136bcf45300c"
+      },
+      "bestanden": [
+        {
+          "bestand": "Selawik-Regular.ttf",
+          "gewicht": 400,
+          "stijl": "normal",
+          "url": "https://github.com/microsoft/Selawik/releases/download/1.01/Selawik_Release.zip",
+          "archief": "selawk.ttf",
+          "archiefSha256": "3f62c51e05e3b5a1e6241cf92a371f0be2ea1183aa87b30718bbd40832a8d423",
+          "sha256": "e9d98518d8ac2817782a9a382430463a2e0793ea68350b695bb727d9a830ee1c",
+          "grootte": 44224
+        },
+        {
+          "bestand": "Selawik-Bold.ttf",
+          "gewicht": 700,
+          "stijl": "normal",
+          "url": "https://github.com/microsoft/Selawik/releases/download/1.01/Selawik_Release.zip",
+          "archief": "selawkb.ttf",
+          "archiefSha256": "3f62c51e05e3b5a1e6241cf92a371f0be2ea1183aa87b30718bbd40832a8d423",
+          "sha256": "f0db5e174a90e0956ad7d2844bdca1d5e6da92ec65b2c04e57ba9b180668c904",
+          "grootte": 44068
+        }
+      ]
+    },
+    {
+      "familie": "Source Serif 4",
+      "categorie": "schreef",
+      "licentie": "OFL-1.1",
+      "bron": "github.com/adobe-fonts/source-serif@80d3f8894c09 (release, TTF)",
+      "licentiebestand": {
+        "url": "https://raw.githubusercontent.com/adobe-fonts/source-serif/80d3f8894c09c937bebfa9011247d2e1c79fd6f4/LICENSE.md",
+        "sha256": "c21d7293d87b6d7ab1d0229a2f55b77f33a7613a6a4e66f6693d68d7d8d09464"
+      },
+      "bestanden": [
+        {
+          "bestand": "SourceSerif4-Regular.ttf",
+          "gewicht": 400,
+          "stijl": "normal",
+          "url": "https://raw.githubusercontent.com/adobe-fonts/source-serif/80d3f8894c09c937bebfa9011247d2e1c79fd6f4/TTF/SourceSerif4-Regular.ttf",
+          "sha256": "e5a4ee6a3d87bb9024796be390c6771e2a0eb1883dae25effaf57ca01668e24b",
+          "grootte": 261868
+        },
+        {
+          "bestand": "SourceSerif4-Bold.ttf",
+          "gewicht": 700,
+          "stijl": "normal",
+          "url": "https://raw.githubusercontent.com/adobe-fonts/source-serif/80d3f8894c09c937bebfa9011247d2e1c79fd6f4/TTF/SourceSerif4-Bold.ttf",
+          "sha256": "7cf4f4e1ad74f45058d5bc61716b82560442fbdcd9d3654d2dea96bf6c683d86",
+          "grootte": 271568
+        },
+        {
+          "bestand": "SourceSerif4-It.ttf",
+          "gewicht": 400,
+          "stijl": "italic",
+          "url": "https://raw.githubusercontent.com/adobe-fonts/source-serif/80d3f8894c09c937bebfa9011247d2e1c79fd6f4/TTF/SourceSerif4-It.ttf",
+          "sha256": "9d2950a8f1da66e21502c35d646a1d2148e79f9ea43fd2158cf02f5232e7f430",
+          "grootte": 187808
+        },
+        {
+          "bestand": "SourceSerif4-BoldIt.ttf",
+          "gewicht": 700,
+          "stijl": "italic",
+          "url": "https://raw.githubusercontent.com/adobe-fonts/source-serif/80d3f8894c09c937bebfa9011247d2e1c79fd6f4/TTF/SourceSerif4-BoldIt.ttf",
+          "sha256": "7b215b37f8873f5579f3f8d2ded3ca7c588e2f435cd996605ebfc5befe2cd5eb",
+          "grootte": 191832
+        }
+      ]
+    },
+    {
+      "familie": "Noto Serif",
+      "categorie": "schreef",
+      "licentie": "OFL-1.1",
+      "bron": "github.com/google/fonts@cbeb1a2431be (ofl/notoserif)",
+      "licentiebestand": {
+        "url": "https://raw.githubusercontent.com/google/fonts/cbeb1a2431be98e87198474209a2976572811644/ofl/notoserif/OFL.txt",
+        "sha256": "5e0da210fb04058a8c0087985d2d456b931c2579811a49655721d3cf0c36b6d6"
+      },
+      "bestanden": [
+        {
+          "bestand": "NotoSerif-Regular.ttf",
+          "gewicht": 400,
+          "stijl": "normal",
+          "url": "https://raw.githubusercontent.com/google/fonts/cbeb1a2431be98e87198474209a2976572811644/ofl/notoserif/NotoSerif-Regular.ttf",
+          "sha256": "375e83eade60ffc1c2f516a89175358ba5fcb785a9bdb68c6a3be1b6470704dd",
+          "grootte": 379228
+        },
+        {
+          "bestand": "NotoSerif-Bold.ttf",
+          "gewicht": 700,
+          "stijl": "normal",
+          "url": "https://raw.githubusercontent.com/google/fonts/cbeb1a2431be98e87198474209a2976572811644/ofl/notoserif/NotoSerif-Bold.ttf",
+          "sha256": "58de10340959ee1abd715fb6f8a670f44ca3adfc5d9c7e09e48d7af4a1ff4192",
+          "grootte": 399668
+        },
+        {
+          "bestand": "NotoSerif-Italic.ttf",
+          "gewicht": 400,
+          "stijl": "italic",
+          "url": "https://raw.githubusercontent.com/google/fonts/cbeb1a2431be98e87198474209a2976572811644/ofl/notoserif/NotoSerif-Italic.ttf",
+          "sha256": "4a5ae30931a7590be230ae1867650679f803188c5211493bd1a5e3fc0ac78181",
+          "grootte": 353736
+        },
+        {
+          "bestand": "NotoSerif-BoldItalic.ttf",
+          "gewicht": 700,
+          "stijl": "italic",
+          "url": "https://raw.githubusercontent.com/google/fonts/cbeb1a2431be98e87198474209a2976572811644/ofl/notoserif/NotoSerif-BoldItalic.ttf",
+          "sha256": "c8d7e9e9a586cd5f671fc267906c8739be70fb5e92069fd891e1177e1d255fe1",
+          "grootte": 363928
+        }
+      ]
+    },
+    {
+      "familie": "Merriweather",
+      "categorie": "schreef",
+      "licentie": "OFL-1.1",
+      "bron": "github.com/google/fonts@e9263a54d43d (ofl/merriweather)",
+      "licentiebestand": {
+        "url": "https://raw.githubusercontent.com/google/fonts/e9263a54d43d89ddcf351c5ae8ab2179f1aebc89/ofl/merriweather/OFL.txt",
+        "sha256": "a7ba785ad99b6eae0444ab89910e512d4af9865937fddbcb5c72c4f59f55d6ad"
+      },
+      "bestanden": [
+        {
+          "bestand": "Merriweather-Regular.ttf",
+          "gewicht": 400,
+          "stijl": "normal",
+          "url": "https://raw.githubusercontent.com/google/fonts/e9263a54d43d89ddcf351c5ae8ab2179f1aebc89/ofl/merriweather/Merriweather-Regular.ttf",
+          "sha256": "bc38fe756b3e259248183fc0b75ad81b02774f3ca68e5e544e925827b0186d40",
+          "grootte": 156096
+        },
+        {
+          "bestand": "Merriweather-Bold.ttf",
+          "gewicht": 700,
+          "stijl": "normal",
+          "url": "https://raw.githubusercontent.com/google/fonts/e9263a54d43d89ddcf351c5ae8ab2179f1aebc89/ofl/merriweather/Merriweather-Bold.ttf",
+          "sha256": "55139769a87085bff777f68e3ecf92450c21a04c5ddd1e9e9528960ba4088c9f",
+          "grootte": 149112
+        },
+        {
+          "bestand": "Merriweather-Italic.ttf",
+          "gewicht": 400,
+          "stijl": "italic",
+          "url": "https://raw.githubusercontent.com/google/fonts/e9263a54d43d89ddcf351c5ae8ab2179f1aebc89/ofl/merriweather/Merriweather-Italic.ttf",
+          "sha256": "fc80dbac0ca9da894ae1801df9abe58f6dcca179ec4f8f6f7ea80fd13a1d387d",
+          "grootte": 149340
+        },
+        {
+          "bestand": "Merriweather-BoldItalic.ttf",
+          "gewicht": 700,
+          "stijl": "italic",
+          "url": "https://raw.githubusercontent.com/google/fonts/e9263a54d43d89ddcf351c5ae8ab2179f1aebc89/ofl/merriweather/Merriweather-BoldItalic.ttf",
+          "sha256": "403b1bece3d70420e65c670315693e9bca255e9c95884d9cb2b334838e67b509",
+          "grootte": 150560
+        }
+      ]
+    },
+    {
+      "familie": "EB Garamond",
+      "categorie": "schreef",
+      "licentie": "OFL-1.1",
+      "bron": "github.com/google/fonts@10a708073179 (ofl/ebgaramond/static)",
+      "licentiebestand": {
+        "url": "https://raw.githubusercontent.com/google/fonts/10a708073179c32928eb894e53465fca8106772f/ofl/ebgaramond/OFL.txt",
+        "sha256": "6f9e3a1c51f617e7b110862426204ec7a56d8c6d2f731373b5de6b8d069099b6"
+      },
+      "bestanden": [
+        {
+          "bestand": "EBGaramond-Regular.ttf",
+          "gewicht": 400,
+          "stijl": "normal",
+          "url": "https://raw.githubusercontent.com/google/fonts/10a708073179c32928eb894e53465fca8106772f/ofl/ebgaramond/static/EBGaramond-Regular.ttf",
+          "sha256": "b7ea01de395bc600d5490105b11ed25f4c885d25f69c6302a22a44d4b3b53542",
+          "grootte": 582928
+        },
+        {
+          "bestand": "EBGaramond-Bold.ttf",
+          "gewicht": 700,
+          "stijl": "normal",
+          "url": "https://raw.githubusercontent.com/google/fonts/10a708073179c32928eb894e53465fca8106772f/ofl/ebgaramond/static/EBGaramond-Bold.ttf",
+          "sha256": "d3c03678a47809d90649e48ef0c37f2d65c6f000360aa21f4172dba3cb7736a2",
+          "grootte": 617816
+        },
+        {
+          "bestand": "EBGaramond-Italic.ttf",
+          "gewicht": 400,
+          "stijl": "italic",
+          "url": "https://raw.githubusercontent.com/google/fonts/10a708073179c32928eb894e53465fca8106772f/ofl/ebgaramond/static/EBGaramond-Italic.ttf",
+          "sha256": "1712f5c2115883a76450335bb4122c06a0fce3dc05c7affb78fb77de8d4322de",
+          "grootte": 574704
+        },
+        {
+          "bestand": "EBGaramond-BoldItalic.ttf",
+          "gewicht": 700,
+          "stijl": "italic",
+          "url": "https://raw.githubusercontent.com/google/fonts/10a708073179c32928eb894e53465fca8106772f/ofl/ebgaramond/static/EBGaramond-BoldItalic.ttf",
+          "sha256": "6fad92145604e8808d8b2677472908caeab73e37b1188fcc69af20d153188fe1",
+          "grootte": 596316
+        }
+      ]
+    },
+    {
+      "familie": "Libre Baskerville",
+      "categorie": "schreef",
+      "licentie": "OFL-1.1",
+      "bron": "github.com/google/fonts@93b0f9ed116d (ofl/librebaskerville)",
+      "licentiebestand": {
+        "url": "https://raw.githubusercontent.com/google/fonts/93b0f9ed116d44348bae0e12537e00f9502cc47e/ofl/librebaskerville/OFL.txt",
+        "sha256": "b4c2eaeaf4cfd1dbcc6e02942e061f39729556b3a120eb41e8d6efd91423753e"
+      },
+      "bestanden": [
+        {
+          "bestand": "LibreBaskerville-Regular.ttf",
+          "gewicht": 400,
+          "stijl": "normal",
+          "url": "https://raw.githubusercontent.com/google/fonts/93b0f9ed116d44348bae0e12537e00f9502cc47e/ofl/librebaskerville/LibreBaskerville-Regular.ttf",
+          "sha256": "f6553cf1a8dc8092a073b0135b254f5f7261306e608d9b85485a321878e804ac",
+          "grootte": 152072
+        },
+        {
+          "bestand": "LibreBaskerville-Bold.ttf",
+          "gewicht": 700,
+          "stijl": "normal",
+          "url": "https://raw.githubusercontent.com/google/fonts/93b0f9ed116d44348bae0e12537e00f9502cc47e/ofl/librebaskerville/LibreBaskerville-Bold.ttf",
+          "sha256": "6f329db31dea139b15210963fadcea6f37fbfddf1f28669e257da9eda8cb9849",
+          "grootte": 150848
+        },
+        {
+          "bestand": "LibreBaskerville-Italic.ttf",
+          "gewicht": 400,
+          "stijl": "italic",
+          "url": "https://raw.githubusercontent.com/google/fonts/93b0f9ed116d44348bae0e12537e00f9502cc47e/ofl/librebaskerville/LibreBaskerville-Italic.ttf",
+          "sha256": "5ed54bfcac9ecd3e7cbaba07243b3848dbd49d6ffed18cbdde43edc5694bef95",
+          "grootte": 156936
+        }
+      ]
+    },
+    {
+      "familie": "PT Serif",
+      "categorie": "schreef",
+      "licentie": "OFL-1.1",
+      "bron": "github.com/google/fonts@ddf386ba1b9f (ofl/ptserif)",
+      "licentiebestand": {
+        "url": "https://raw.githubusercontent.com/google/fonts/ddf386ba1b9fbc6b2c818f1ddcd9148f54ced94b/ofl/ptserif/OFL.txt",
+        "sha256": "ddf311c28ddf5a5ad9747649837346b67bed9d356789c3072bb27dbce49e514d"
+      },
+      "bestanden": [
+        {
+          "bestand": "PT_Serif-Web-Regular.ttf",
+          "gewicht": 400,
+          "stijl": "normal",
+          "url": "https://raw.githubusercontent.com/google/fonts/ddf386ba1b9fbc6b2c818f1ddcd9148f54ced94b/ofl/ptserif/PT_Serif-Web-Regular.ttf",
+          "sha256": "a4951fade06ff8f09b7673aa81ffb65a8cd409e24d3289a6dc670bc4dda2557a",
+          "grootte": 359048
+        },
+        {
+          "bestand": "PT_Serif-Web-Bold.ttf",
+          "gewicht": 700,
+          "stijl": "normal",
+          "url": "https://raw.githubusercontent.com/google/fonts/ddf386ba1b9fbc6b2c818f1ddcd9148f54ced94b/ofl/ptserif/PT_Serif-Web-Bold.ttf",
+          "sha256": "038ba7336bd7ea14f12ad155bed51a4345cac5153275d521dec3ba04021c526e",
+          "grootte": 339996
+        },
+        {
+          "bestand": "PT_Serif-Web-Italic.ttf",
+          "gewicht": 400,
+          "stijl": "italic",
+          "url": "https://raw.githubusercontent.com/google/fonts/ddf386ba1b9fbc6b2c818f1ddcd9148f54ced94b/ofl/ptserif/PT_Serif-Web-Italic.ttf",
+          "sha256": "f57e95ff9dc85691a3b2e193f2028db36f6663939a46c0fc4f286d618b80b7ce",
+          "grootte": 375356
+        },
+        {
+          "bestand": "PT_Serif-Web-BoldItalic.ttf",
+          "gewicht": 700,
+          "stijl": "italic",
+          "url": "https://raw.githubusercontent.com/google/fonts/ddf386ba1b9fbc6b2c818f1ddcd9148f54ced94b/ofl/ptserif/PT_Serif-Web-BoldItalic.ttf",
+          "sha256": "f003788ba08981eb0988b3557a6f224a53dab49c20e283e8b74d5af3c466f8be",
+          "grootte": 337580
+        }
+      ]
+    },
+    {
+      "familie": "Playfair Display",
+      "categorie": "display",
+      "licentie": "OFL-1.1",
+      "bron": "github.com/google/fonts@10a708073179 (ofl/playfairdisplay/static)",
+      "licentiebestand": {
+        "url": "https://raw.githubusercontent.com/google/fonts/10a708073179c32928eb894e53465fca8106772f/ofl/playfairdisplay/OFL.txt",
+        "sha256": "f5b03ea0b27c7f5afb9702771ee57679ae8ba6b471b6ba9e62d985d3256f1929"
+      },
+      "bestanden": [
+        {
+          "bestand": "PlayfairDisplay-Regular.ttf",
+          "gewicht": 400,
+          "stijl": "normal",
+          "url": "https://raw.githubusercontent.com/google/fonts/10a708073179c32928eb894e53465fca8106772f/ofl/playfairdisplay/static/PlayfairDisplay-Regular.ttf",
+          "sha256": "844b4c3b02e307318abb61d8ebd55bfb8e19304515075fd8af06af099480191e",
+          "grootte": 210208
+        },
+        {
+          "bestand": "PlayfairDisplay-Bold.ttf",
+          "gewicht": 700,
+          "stijl": "normal",
+          "url": "https://raw.githubusercontent.com/google/fonts/10a708073179c32928eb894e53465fca8106772f/ofl/playfairdisplay/static/PlayfairDisplay-Bold.ttf",
+          "sha256": "37fcc00a7503976693088bed271e64ce34fca5119181da9acf5b74bd59da8c7e",
+          "grootte": 213592
+        },
+        {
+          "bestand": "PlayfairDisplay-Italic.ttf",
+          "gewicht": 400,
+          "stijl": "italic",
+          "url": "https://raw.githubusercontent.com/google/fonts/10a708073179c32928eb894e53465fca8106772f/ofl/playfairdisplay/static/PlayfairDisplay-Italic.ttf",
+          "sha256": "f658325ffab1a9f9ce0bdcd2cfc2f7d6ac144bf92a49580eb70913732825a3e2",
+          "grootte": 213028
+        },
+        {
+          "bestand": "PlayfairDisplay-BoldItalic.ttf",
+          "gewicht": 700,
+          "stijl": "italic",
+          "url": "https://raw.githubusercontent.com/google/fonts/10a708073179c32928eb894e53465fca8106772f/ofl/playfairdisplay/static/PlayfairDisplay-BoldItalic.ttf",
+          "sha256": "aa17c37411fc706e484f29591a86c5b15be51022cb7b33a3ce411274a7d9e9b5",
+          "grootte": 215008
+        }
+      ]
+    },
+    {
+      "familie": "JetBrains Mono",
+      "categorie": "monospace",
+      "licentie": "OFL-1.1",
+      "bron": "github.com/google/fonts@10a708073179 (ofl/jetbrainsmono/static)",
+      "licentiebestand": {
+        "url": "https://raw.githubusercontent.com/google/fonts/10a708073179c32928eb894e53465fca8106772f/ofl/jetbrainsmono/OFL.txt",
+        "sha256": "b2fe5e8987594e9ffd1d2ca52a2f5d73eb8335243893c5d6254b5ad69269591d"
+      },
+      "bestanden": [
+        {
+          "bestand": "JetBrainsMono-Regular.ttf",
+          "gewicht": 400,
+          "stijl": "normal",
+          "url": "https://raw.githubusercontent.com/google/fonts/10a708073179c32928eb894e53465fca8106772f/ofl/jetbrainsmono/static/JetBrainsMono-Regular.ttf",
+          "sha256": "08546b840f12407615e5bdf257bfdd2b42fc49a020ee51e4fd766ad2587f4bc5",
+          "grootte": 164176
+        },
+        {
+          "bestand": "JetBrainsMono-Bold.ttf",
+          "gewicht": 700,
+          "stijl": "normal",
+          "url": "https://raw.githubusercontent.com/google/fonts/10a708073179c32928eb894e53465fca8106772f/ofl/jetbrainsmono/static/JetBrainsMono-Bold.ttf",
+          "sha256": "46fe456f11a4ebb5d8a621c033227dfd72a4783958e56f004057a7a3d884948e",
+          "grootte": 165372
+        },
+        {
+          "bestand": "JetBrainsMono-Italic.ttf",
+          "gewicht": 400,
+          "stijl": "italic",
+          "url": "https://raw.githubusercontent.com/google/fonts/10a708073179c32928eb894e53465fca8106772f/ofl/jetbrainsmono/static/JetBrainsMono-Italic.ttf",
+          "sha256": "6daa056d1f36e711e776ae40d44cbf92a01a5d16e5d8d758592148119075f05f",
+          "grootte": 167852
+        },
+        {
+          "bestand": "JetBrainsMono-BoldItalic.ttf",
+          "gewicht": 700,
+          "stijl": "italic",
+          "url": "https://raw.githubusercontent.com/google/fonts/10a708073179c32928eb894e53465fca8106772f/ofl/jetbrainsmono/static/JetBrainsMono-BoldItalic.ttf",
+          "sha256": "98c5c07865eb09bb7881d05a8ae3022dc399a8f27e5c19526ccd5273593b60b9",
+          "grootte": 167868
+        }
+      ]
+    },
+    {
+      "familie": "Fira Code",
+      "categorie": "monospace",
+      "licentie": "OFL-1.1",
+      "bron": "github.com/google/fonts@10a708073179 (ofl/firacode/static)",
+      "licentiebestand": {
+        "url": "https://raw.githubusercontent.com/google/fonts/10a708073179c32928eb894e53465fca8106772f/ofl/firacode/OFL.txt",
+        "sha256": "1d41e10031ab125302780a05ec4c91d218e47db0c7e37cf315cce5e608cdc25c"
+      },
+      "bestanden": [
+        {
+          "bestand": "FiraCode-Regular.ttf",
+          "gewicht": 400,
+          "stijl": "normal",
+          "url": "https://raw.githubusercontent.com/google/fonts/10a708073179c32928eb894e53465fca8106772f/ofl/firacode/static/FiraCode-Regular.ttf",
+          "sha256": "38a25a65d58718009b38870d1d646c62a668cfb9a446970b41c3ec691c2cdfa1",
+          "grootte": 221804
+        },
+        {
+          "bestand": "FiraCode-Bold.ttf",
+          "gewicht": 700,
+          "stijl": "normal",
+          "url": "https://raw.githubusercontent.com/google/fonts/10a708073179c32928eb894e53465fca8106772f/ofl/firacode/static/FiraCode-Bold.ttf",
+          "sha256": "78347832c01fc526df6c03622989397bc702862245822e20213b1890ede7e5c7",
+          "grootte": 248288
+        }
+      ]
+    },
+    {
+      "familie": "IBM Plex Mono",
+      "categorie": "monospace",
+      "licentie": "OFL-1.1",
+      "bron": "github.com/google/fonts@ddf386ba1b9f (ofl/ibmplexmono)",
+      "licentiebestand": {
+        "url": "https://raw.githubusercontent.com/google/fonts/ddf386ba1b9fbc6b2c818f1ddcd9148f54ced94b/ofl/ibmplexmono/OFL.txt",
+        "sha256": "7e6b2818edbd8f6a01ae80641cc8f16a51080d08fb4e532be3a0b6f74adb07da"
+      },
+      "bestanden": [
+        {
+          "bestand": "IBMPlexMono-Regular.ttf",
+          "gewicht": 400,
+          "stijl": "normal",
+          "url": "https://raw.githubusercontent.com/google/fonts/ddf386ba1b9fbc6b2c818f1ddcd9148f54ced94b/ofl/ibmplexmono/IBMPlexMono-Regular.ttf",
+          "sha256": "6a3412f058c7d8dfd9170c41e85ade48e5156ecb89356110ca57a0a27734af46",
+          "grootte": 135580
+        },
+        {
+          "bestand": "IBMPlexMono-Bold.ttf",
+          "gewicht": 700,
+          "stijl": "normal",
+          "url": "https://raw.githubusercontent.com/google/fonts/ddf386ba1b9fbc6b2c818f1ddcd9148f54ced94b/ofl/ibmplexmono/IBMPlexMono-Bold.ttf",
+          "sha256": "ac27abd6450a64dd94467580a02fe6235156d5b92f2926ebbc8e7489df64e0be",
+          "grootte": 137784
+        },
+        {
+          "bestand": "IBMPlexMono-Italic.ttf",
+          "gewicht": 400,
+          "stijl": "italic",
+          "url": "https://raw.githubusercontent.com/google/fonts/ddf386ba1b9fbc6b2c818f1ddcd9148f54ced94b/ofl/ibmplexmono/IBMPlexMono-Italic.ttf",
+          "sha256": "3362fc791b0652193328b862c1c5f23a789bc7288b1617fa63302f88689a2a34",
+          "grootte": 143920
+        },
+        {
+          "bestand": "IBMPlexMono-BoldItalic.ttf",
+          "gewicht": 700,
+          "stijl": "italic",
+          "url": "https://raw.githubusercontent.com/google/fonts/ddf386ba1b9fbc6b2c818f1ddcd9148f54ced94b/ofl/ibmplexmono/IBMPlexMono-BoldItalic.ttf",
+          "sha256": "af4e05a761e98c1adf064c48a6352c9bec1a6ad70982cd2a544149323391f98e",
+          "grootte": 144512
+        }
+      ]
+    },
+    {
+      "familie": "Courier Prime",
+      "categorie": "monospace",
+      "licentie": "OFL-1.1",
+      "bron": "github.com/google/fonts@ddf386ba1b9f (ofl/courierprime)",
+      "licentiebestand": {
+        "url": "https://raw.githubusercontent.com/google/fonts/ddf386ba1b9fbc6b2c818f1ddcd9148f54ced94b/ofl/courierprime/OFL.txt",
+        "sha256": "9a755af092b494944c99f471be6fddd19b006a448fefdc4717e4ee0aa09a97b0"
+      },
+      "bestanden": [
+        {
+          "bestand": "CourierPrime-Regular.ttf",
+          "gewicht": 400,
+          "stijl": "normal",
+          "url": "https://raw.githubusercontent.com/google/fonts/ddf386ba1b9fbc6b2c818f1ddcd9148f54ced94b/ofl/courierprime/CourierPrime-Regular.ttf",
+          "sha256": "72f793376f8e2841656bf21d77a5de010f2929bd6956a22ee848ad0c7eb978af",
+          "grootte": 71188
+        },
+        {
+          "bestand": "CourierPrime-Bold.ttf",
+          "gewicht": 700,
+          "stijl": "normal",
+          "url": "https://raw.githubusercontent.com/google/fonts/ddf386ba1b9fbc6b2c818f1ddcd9148f54ced94b/ofl/courierprime/CourierPrime-Bold.ttf",
+          "sha256": "ff1f38786c849d1c41fa8e447960abdb2bd75fdfb0cfcdeb524fad65a5af3638",
+          "grootte": 72856
+        },
+        {
+          "bestand": "CourierPrime-Italic.ttf",
+          "gewicht": 400,
+          "stijl": "italic",
+          "url": "https://raw.githubusercontent.com/google/fonts/ddf386ba1b9fbc6b2c818f1ddcd9148f54ced94b/ofl/courierprime/CourierPrime-Italic.ttf",
+          "sha256": "f1b9a5829789f7e56432a9f3bc7665ef4531dbba1c112639e48bef39621a006b",
+          "grootte": 79980
+        },
+        {
+          "bestand": "CourierPrime-BoldItalic.ttf",
+          "gewicht": 700,
+          "stijl": "italic",
+          "url": "https://raw.githubusercontent.com/google/fonts/ddf386ba1b9fbc6b2c818f1ddcd9148f54ced94b/ofl/courierprime/CourierPrime-BoldItalic.ttf",
+          "sha256": "3355273f3ea6d6362658f9564f4e83d59e156cf1a182e3c1592b5c5943627dcc",
+          "grootte": 80872
+        }
+      ]
+    },
+    {
+      "familie": "Comic Neue",
+      "categorie": "handschrift",
+      "licentie": "OFL-1.1",
+      "bron": "github.com/google/fonts@ddf386ba1b9f (ofl/comicneue)",
+      "licentiebestand": {
+        "url": "https://raw.githubusercontent.com/google/fonts/ddf386ba1b9fbc6b2c818f1ddcd9148f54ced94b/ofl/comicneue/OFL.txt",
+        "sha256": "7c38a22e5878e60fe423360553e63dd7be23d29f1f60336034935dbfc96e8320"
+      },
+      "bestanden": [
+        {
+          "bestand": "ComicNeue-Regular.ttf",
+          "gewicht": 400,
+          "stijl": "normal",
+          "url": "https://raw.githubusercontent.com/google/fonts/ddf386ba1b9fbc6b2c818f1ddcd9148f54ced94b/ofl/comicneue/ComicNeue-Regular.ttf",
+          "sha256": "a0ee5a37c8b27c4db0700137d928598b1e23b0089e1546a8961909176b779360",
+          "grootte": 57248
+        },
+        {
+          "bestand": "ComicNeue-Bold.ttf",
+          "gewicht": 700,
+          "stijl": "normal",
+          "url": "https://raw.githubusercontent.com/google/fonts/ddf386ba1b9fbc6b2c818f1ddcd9148f54ced94b/ofl/comicneue/ComicNeue-Bold.ttf",
+          "sha256": "3e7e5fccfd7e0788f317b43312151c1bd5cf058c9697a8d83eac3939050bd61e",
+          "grootte": 55716
+        },
+        {
+          "bestand": "ComicNeue-Italic.ttf",
+          "gewicht": 400,
+          "stijl": "italic",
+          "url": "https://raw.githubusercontent.com/google/fonts/ddf386ba1b9fbc6b2c818f1ddcd9148f54ced94b/ofl/comicneue/ComicNeue-Italic.ttf",
+          "sha256": "e06bfd1552f5c9464c5665733ffd69239b0593885dbb9e059688a5900f78cf98",
+          "grootte": 54392
+        },
+        {
+          "bestand": "ComicNeue-BoldItalic.ttf",
+          "gewicht": 700,
+          "stijl": "italic",
+          "url": "https://raw.githubusercontent.com/google/fonts/ddf386ba1b9fbc6b2c818f1ddcd9148f54ced94b/ofl/comicneue/ComicNeue-BoldItalic.ttf",
+          "sha256": "5c312c2a2fa64eee82f3b87fcfab8f3b12a5e59b043124401d322eb323cfbf16",
+          "grootte": 55928
+        }
+      ]
+    }
+  ]
+}

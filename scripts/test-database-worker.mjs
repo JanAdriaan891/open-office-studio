@@ -3,13 +3,15 @@ import { readFile, readdir } from "node:fs/promises";
 import { resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 
 // Controleert de gebouwde browserparser met een berichtadapter; geen vervanging voor een GUI-proef.
-const naam = (await readdir("dist/assets")).find((n) =>
+const uitvoermap = process.env.DATABASE_DIST ?? "dist";
+const naam = (await readdir(`${uitvoermap}/assets`)).find((n) =>
   /^database-worker-.*\.js$/.test(n),
 );
 assert.ok(naam, "Bouw eerst de productieversie.");
-const moduleUrl = pathToFileURL(resolve("dist/assets", naam)).href;
+const moduleUrl = pathToFileURL(resolve(uitvoermap, "assets", naam)).href;
 for (const pad of process.argv.slice(2)) {
   const worker = new Worker(
     new URL(
@@ -50,13 +52,36 @@ for (const pad of process.argv.slice(2)) {
   try {
     await vraag(null, 0);
     const bytes = await readFile(pad);
-    const tabellen = await vraag({
+    const hashVoor = createHash("sha256").update(bytes).digest("hex");
+    const { objecten, rapport } = await vraag({
       type: "open",
+      naam: pad.split("/").pop(),
       bytes: bytes.buffer.slice(
         bytes.byteOffset,
         bytes.byteOffset + bytes.byteLength,
       ),
     });
+    assert.equal(
+      rapport.sha256,
+      hashVoor,
+      "Rapporthash wijkt af van het bestand.",
+    );
+    assert.ok(
+      rapport.regels.some(
+        (r) => r.onderdeel === "Uitvoering" && r.status === "niet uitgevoerd",
+      ),
+    );
+    for (const onderdeel of [
+      "Tabellen",
+      "Opgeslagen query’s",
+      "Relaties",
+      "VBA-modules",
+    ])
+      assert.ok(
+        rapport.regels.some((r) => r.onderdeel === onderdeel),
+        `Rapportregel ${onderdeel} ontbreekt.`,
+      );
+    const tabellen = objecten.filter((o) => o.soort === "Tabel");
     let rijen = 0;
     for (const tabel of tabellen) {
       const pagina = await vraag({ type: "tabel", naam: tabel.naam, start: 0 });
@@ -72,8 +97,13 @@ for (const pad of process.argv.slice(2)) {
         assert.ok(tweede.rijen.length > 0 && tweede.rijen.length <= 200);
       }
     }
+    const hashNa = createHash("sha256")
+      .update(await readFile(pad))
+      .digest("hex");
+    assert.equal(hashNa, hashVoor, "Het originele bestand is gewijzigd.");
+    const tel = (soort) => objecten.filter((o) => o.soort === soort).length;
     console.log(
-      `${pad}: ${tabellen.length} tabellen, ${rijen} rijen via de productieparser gelezen.`,
+      `${pad}: ${tabellen.length} tabellen, ${rijen} rijen, ${tel("Query")} query’s, ${tel("Relatie")} relaties, ${tel("VBA")} VBA-modules via de productieparser gelezen; SHA-256 voor en na gelijk.`,
     );
   } finally {
     await worker.terminate();

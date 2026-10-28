@@ -22,6 +22,16 @@ privébestanden of documentinhoud in rapporten.
 | P2 | PPTX | Grafiek, tabel en sprekersnotities | Eén tekstvak wijzigen |
 | P3 | PPTX | Animatie, overgang en ingebed object | Eén los tekstvak wijzigen |
 
+## Uitgevoerd
+
+D1–D3 en P1–P3 zijn op 26 oktober 2026 met synthetische fixtures uitgevoerd:
+[documenten](../tests/2026-10-26-documenten.md) en
+[presentaties](../tests/2026-10-26-presentaties.md). Herhalen:
+`node scripts/test-matrix-documenten.mjs` (fixtures via
+`scripts/maak-matrixfixtures.py`, kenmerkcontrole via
+`scripts/matrix_kenmerken.py`, uitvoer in `.local/matrix/documenten/`).
+Praktijkbestanden en de GUI-proef met deze bestanden staan nog open.
+
 ## Per bestand uitvoeren
 
 Eerst openen en opslaan zonder wijziging, daarna een beperkte wijziging en

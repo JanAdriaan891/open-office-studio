@@ -1,0 +1,124 @@
+/* Invoegen → Tabel: keuzeraster, dialoog en het voorbeeld bij de cursor. */
+.tabelkiezer {
+  display: flex;
+}
+
+.tabelkiezer-paneel {
+  position: fixed;
+  z-index: 1001;
+  display: grid;
+  gap: 8px;
+  padding: 10px;
+  border: 1px solid #dce1e8;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 12px 36px #15233830;
+  color: #333a46;
+  font-size: 12px;
+}
+.tabelkiezer-kop {
+  font-weight: 500;
+  color: #465164;
+}
+.tabelkiezer-raster {
+  justify-self: start;
+  display: grid;
+  padding: 0;
+  border-radius: 3px;
+  cursor: pointer;
+  outline: none;
+}
+.tabelkiezer-raster:focus-visible {
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px #bc6a15;
+}
+.tabelkiezer-cel {
+  border: 1px solid #c9d0da;
+  border-radius: 2px;
+  background: #fff;
+  pointer-events: none;
+}
+.tabelkiezer-cel[data-gekozen] {
+  border-color: #bc6a15;
+  background: #fbefdc;
+}
+.tabelkiezer-afmeting {
+  min-height: 16px;
+  color: #5c6574;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+.tabelkiezer-menu {
+  padding: 7px 8px;
+  border: 0;
+  border-top: 1px solid #edf0f3;
+  background: transparent;
+  color: #333a46;
+  text-align: left;
+  cursor: pointer;
+}
+.tabelkiezer-menu:hover,
+.tabelkiezer-menu:focus-visible {
+  border-radius: 6px;
+  background: #f4f6f8;
+  outline: none;
+}
+
+/* Het voorbeeld: een laag boven het canvas, het document zelf blijft gelijk. */
+.tabelvoorbeeld {
+  position: fixed;
+  z-index: 900;
+  display: grid;
+  grid-auto-rows: var(--tabelvoorbeeld-rij, 18px);
+  box-sizing: border-box;
+  border-top: 1px solid #1f2937;
+  border-left: 1px solid #1f2937;
+  background: #ffffffc0;
+  box-shadow: 0 0 0 3px #bc6a1533;
+  opacity: 0.85;
+  pointer-events: none;
+  animation: tabelvoorbeeld-in 0.12s ease-out;
+}
+.tabelvoorbeeld-cel {
+  box-sizing: border-box;
+  border-right: 1px solid #1f2937;
+  border-bottom: 1px solid #1f2937;
+}
+.tabelvoorbeeld-kop {
+  background: #bc6a1529;
+}
+@keyframes tabelvoorbeeld-in {
+  from {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tabelvoorbeeld {
+    animation: none;
+  }
+}
+
+/* De dialoog laat het document zichtbaar, zodat het voorbeeld te zien blijft. */
+.tabelvoorbeeld-dialoogachtergrond {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center end;
+  padding: 24px 48px;
+}
+.tabelvoorbeeld-dialoog {
+  width: min(100%, 340px);
+}
+.tabelvoorbeeld-velden {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.tabelvoorbeeld-velden input[aria-invalid="true"] {
+  border-color: #c0392b;
+}
+.tabelvoorbeeld-toelichting {
+  margin: 14px 0 0;
+  font-size: 12px;
+  color: #5c6574;
+}

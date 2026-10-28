@@ -4,6 +4,7 @@ import {
   realpath,
   writeFile,
   mkdir,
+  copyFile,
 } from "node:fs/promises";
 import { dirname, join, resolve } from "node:path";
 import { createHash } from "node:crypto";
@@ -70,14 +71,40 @@ async function lees(map) {
   }
 }
 const project = JSON.parse(await readFile("package.json", "utf8"));
-for (const naam of Object.keys(project.dependencies)) {
+const alleenDatabase = process.argv.includes("--database");
+const namen = alleenDatabase
+  ? [
+      "react",
+      "react-dom",
+      "lucide-react",
+      "mdb-reader",
+      "sql.js",
+      "buffer",
+      "process",
+      "@tauri-apps/api",
+      "@fontsource/inter",
+      "@fontsource/space-grotesk",
+    ]
+  : Object.keys(project.dependencies);
+for (const naam of namen) {
   const map = await vind(resolve("."), naam);
   if (!map) throw new Error(`Productieafhankelijkheid ontbreekt: ${naam}`);
   await lees(map);
 }
-await mkdir("public/licenses", { recursive: true });
+const uitvoermap = alleenDatabase
+  ? "apps/database-studio/public/licenses"
+  : "public/licenses";
+await mkdir(uitvoermap, { recursive: true });
+await copyFile("src/stijl/LICENSE", `${uitvoermap}/OpenAEC-style-LICENSE.txt`);
+await copyFile("src/stijl/bron.json", `${uitvoermap}/OpenAEC-style-bron.json`);
+// E-mailbackend (Rust) bevat code uit Y-app-ERPNext onder de MIT-licentie.
+if (!alleenDatabase)
+  await copyFile(
+    "docs/licenties/Y-app-ERPNext-LICENSE.txt",
+    `${uitvoermap}/Y-app-ERPNext-LICENSE.txt`,
+  );
 await writeFile(
-  "public/licenses/npm.txt",
+  `${uitvoermap}/npm.txt`,
   onderdelen.sort().join("\n\n" + "=".repeat(78) + "\n\n"),
 );
 if (ontbrekend.length)

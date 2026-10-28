@@ -1,12 +1,7 @@
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useId,
-  useState,
-  type ReactNode,
-} from "react";
-import { ChevronDown, ChevronUp, type LucideIcon } from "lucide-react";
+import { createContext, useContext, useEffect, useState } from "react";
+import { ChevronDown, type LucideIcon } from "lucide-react";
+import { Lint, LintActie, type LintProps } from "./openaec-lint";
+import { useInstellingen } from "./instellingen";
 
 export const RibbonFout = createContext<(bericht: string) => void>(() => {});
 const opdrachtToelichtingen: Record<string, string> = {
@@ -18,133 +13,13 @@ const opdrachtToelichtingen: Record<string, string> = {
   "Select a shape first.": "Selecteer eerst een vorm.",
 };
 
-export interface RibbonTab {
-  id: string;
-  naam: string;
-  inhoud: ReactNode;
-}
+export { LintActie as Actie, LintGroep as Groep } from "./openaec-lint";
+export type { LintTab as RibbonTab } from "./openaec-lint";
 
-export function Ribbon({
-  tabs,
-  bestand,
-}: {
-  tabs: RibbonTab[];
-  bestand?: () => void;
-}) {
-  const [gekozen, setGekozen] = useState(tabs[0].id);
-  const [ingeklapt, setIngeklapt] = useState(false);
-  const basis = useId();
-  const actief = tabs.find((tab) => tab.id === gekozen) ?? tabs[0];
-  return (
-    <div className="ribbon">
-      <div className="ribbon-tabs">
-        {bestand && (
-          <button className="ribbon-bestand" onClick={bestand}>
-            Bestand
-          </button>
-        )}
-        <div className="ribbon-tabknoppen" role="tablist" aria-label="Lint">
-          {tabs.map((tab, index) => (
-            <button
-              key={tab.id}
-              role="tab"
-              id={`${basis}-${tab.id}`}
-              aria-selected={actief.id === tab.id}
-              aria-controls={`${basis}-paneel`}
-              tabIndex={actief.id === tab.id ? 0 : -1}
-              onClick={() => {
-                setGekozen(tab.id);
-                setIngeklapt(false);
-              }}
-              onKeyDown={(event) => {
-                const volgende =
-                  event.key === "ArrowRight"
-                    ? (index + 1) % tabs.length
-                    : event.key === "ArrowLeft"
-                      ? (index + tabs.length - 1) % tabs.length
-                      : event.key === "Home"
-                        ? 0
-                        : event.key === "End"
-                          ? tabs.length - 1
-                          : -1;
-                if (volgende < 0) return;
-                event.preventDefault();
-                setGekozen(tabs[volgende].id);
-                setIngeklapt(false);
-                document
-                  .getElementById(`${basis}-${tabs[volgende].id}`)
-                  ?.focus();
-              }}
-            >
-              {tab.naam}
-            </button>
-          ))}
-        </div>
-        <button
-          className="ribbon-inklap"
-          aria-label={ingeklapt ? "Lint weergeven" : "Lint verbergen"}
-          title={ingeklapt ? "Lint weergeven" : "Meer ruimte voor je document"}
-          aria-expanded={!ingeklapt}
-          aria-controls={`${basis}-paneel`}
-          onClick={() => setIngeklapt(!ingeklapt)}
-        >
-          {ingeklapt ? <ChevronDown size={16} /> : <ChevronUp size={16} />}
-        </button>
-      </div>
-      <div
-        className="ribbon-inhoud"
-        role="tabpanel"
-        id={`${basis}-paneel`}
-        aria-labelledby={`${basis}-${actief.id}`}
-        hidden={ingeklapt}
-      >
-        {actief.inhoud}
-      </div>
-    </div>
-  );
-}
-
-export function Groep({
-  naam,
-  children,
-  className = "",
-}: {
-  naam: string;
-  children: ReactNode;
-  className?: string;
-}) {
-  return (
-    <section className={`ribbon-groep ${className}`} aria-label={naam}>
-      <div className="ribbon-groep-inhoud">{children}</div>
-      <span className="ribbon-groep-naam">{naam}</span>
-    </section>
-  );
-}
-
-export function Actie({
-  icoon: Icoon,
-  naam,
-  groot,
-  actief,
-  ...props
-}: {
-  icoon: LucideIcon;
-  naam: string;
-  groot?: boolean;
-  actief?: boolean | "mixed";
-} & Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "children">) {
-  return (
-    <button
-      {...props}
-      className={`ribbon-actie ${groot ? "ribbon-groot" : ""} ${props.className ?? ""}`}
-      aria-label={naam}
-      aria-pressed={actief}
-      title={props.title ?? naam}
-    >
-      <Icoon size={groot ? 25 : 17} strokeWidth={1.65} />
-      <span>{naam}</span>
-    </button>
-  );
+/** Het OpenAEC-lint met de voorkeuren van Office Studio. */
+export function Ribbon(props: LintProps) {
+  const { lint } = useInstellingen();
+  return <Lint compact={lint.compact} standaardIngeklapt={lint.ingeklapt} {...props} />;
 }
 
 export interface GebondenOpdracht {
@@ -201,7 +76,7 @@ export function OpdrachtKnop({
     ? (opdrachtToelichtingen[toelichting] ?? toelichting)
     : null;
   return (
-    <Actie
+    <LintActie
       {...props}
       disabled={!opdracht.state.enabled}
       actief={opdracht.state.active}
@@ -217,11 +92,14 @@ export function OpdrachtKeuze({
   naam,
   breed,
   vertaal,
+  waardeTekst,
 }: {
   opdracht: GebondenOpdracht;
   naam: string;
   breed?: boolean;
   vertaal?: (naam: string) => string;
+  /** Tekst voor een waarde die geen van de opties is (bijv. zoom 110%). */
+  waardeTekst?: (waarde: unknown) => string | undefined;
 }) {
   const uitvoeren = useUitvoeren(opdracht);
   const opties = opdracht.state.options ?? [];
@@ -245,9 +123,10 @@ export function OpdrachtKeuze({
       >
         {gekozen < 0 && (
           <option value="">
-            {typeof opdracht.state.value === "string"
-              ? opdracht.state.value
-              : naam}
+            {waardeTekst?.(opdracht.state.value) ??
+              (typeof opdracht.state.value === "string"
+                ? opdracht.state.value
+                : naam)}
           </option>
         )}
         {opties.map((optie, index) => (

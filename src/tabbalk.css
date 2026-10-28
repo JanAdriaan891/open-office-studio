@@ -1,0 +1,286 @@
+/* Tabbladen: één tabbalk tussen kopbalk en lint, in de docbar-kleur van de
+   OpenAEC-shell. Alle panelen blijven gemount; verborgen panelen houden hun
+   maat (visibility) zodat editors hun opmaak en scrollpositie behouden. */
+.office {
+  --office-tabbalkhoogte: 32px;
+}
+.office-tabbalk {
+  flex: 0 0 var(--office-tabbalkhoogte);
+  height: var(--office-tabbalkhoogte);
+  min-width: 0;
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  padding: 0 8px 0 6px;
+  background: var(--oa-shell-docbar-bg, #f5f5f4);
+  border-bottom: 1px solid var(--oa-shell-border-subtle, #e5e8ed);
+  z-index: 29;
+  user-select: none;
+}
+.office-tablijst {
+  flex: 0 1 auto;
+  min-width: 0;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  gap: 1px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+}
+.office-tablijst::-webkit-scrollbar {
+  display: none;
+}
+.office-tab {
+  position: relative;
+  flex: 0 1 200px;
+  min-width: 96px;
+  max-width: 220px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0 4px 0 10px;
+  border: 1px solid transparent;
+  border-bottom: 0;
+  border-radius: 6px 6px 0 0;
+  color: var(--oa-shell-text-secondary, #6d7785);
+  font-size: 12px;
+  cursor: default;
+  touch-action: none;
+}
+.office-tab:hover {
+  color: var(--oa-shell-text, #36363e);
+  background: var(--oa-shell-hover, #d9770614);
+}
+.office-tab.is-actief {
+  color: var(--oa-shell-text, #36363e);
+  background: var(--oa-shell-bg-lighter, #fff);
+  border-color: var(--oa-shell-border-subtle, #e5e8ed);
+  box-shadow: inset 0 2px var(--oa-shell-accent, #d97706);
+  /* Sluit naadloos aan op het lint eronder. */
+  margin-bottom: -1px;
+  height: 29px;
+}
+.office-tab:focus-visible {
+  outline: 2px solid var(--oa-shell-focus-color, #d97706);
+  outline-offset: -2px;
+}
+.office-starttab {
+  /* Start blijft vast links staan, ook als de overige tabbladen scrollen. */
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: var(--oa-shell-docbar-bg, #f5f5f4);
+  flex: 0 0 auto;
+  min-width: 0;
+  padding-right: 12px;
+  font-weight: 500;
+}
+.office-starttab.is-actief {
+  background: var(--oa-shell-bg-lighter, #fff);
+}
+.office-tabicoon {
+  flex-shrink: 0;
+  opacity: 0.8;
+}
+.office-tab.is-actief .office-tabicoon {
+  color: var(--oa-shell-accent, #d97706);
+  opacity: 1;
+}
+.office-tabnaam {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.office .office-tabsluiten {
+  position: relative;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: inherit;
+  opacity: 0;
+}
+.office-tab:hover .office-tabsluiten,
+.office-tab.is-actief .office-tabsluiten,
+.office-tab:focus-visible .office-tabsluiten,
+.office-tab.is-gewijzigd .office-tabsluiten {
+  opacity: 1;
+}
+.office .office-tabsluiten:hover {
+  background: var(--oa-shell-hover-strong, #d9770626);
+}
+/* Niet-opgeslagen: een stip in plaats van het kruisje, tot je erop wijst. */
+.office-tabstip {
+  display: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--oa-shell-accent, #d97706);
+}
+.office-tab.is-gewijzigd .office-tabstip {
+  display: block;
+}
+.office-tab.is-gewijzigd .office-tabsluiten > svg {
+  display: none;
+}
+.office-tab.is-gewijzigd .office-tabsluiten:hover .office-tabstip {
+  display: none;
+}
+.office-tab.is-gewijzigd .office-tabsluiten:hover > svg {
+  display: block;
+}
+.office-tab.is-gesleept {
+  opacity: 0.45;
+}
+.office-tab.sleepdoel-links::before,
+.office-tab.sleepdoel-rechts::after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  width: 2px;
+  border-radius: 1px;
+  background: var(--oa-shell-accent, #d97706);
+}
+.office-tab.sleepdoel-links::before {
+  left: -2px;
+}
+.office-tab.sleepdoel-rechts::after {
+  right: -2px;
+}
+.office .office-tabknop {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  margin-bottom: 2px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--oa-shell-text-secondary, #6d7785);
+}
+.office .office-tabknop:hover {
+  color: var(--oa-shell-text, #36363e);
+  background: var(--oa-shell-hover-strong, #d9770626);
+}
+.office-tabvoorvertoning {
+  position: fixed;
+  z-index: 1100;
+  pointer-events: none;
+  transform: translate(-30%, -50%);
+  display: grid;
+  gap: 4px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--oa-shell-border, #36363e1f);
+  background: var(--oa-shell-bg-lighter, #fff);
+  color: var(--oa-shell-text, #36363e);
+  box-shadow: var(--oa-shell-popover-shadow, 0 8px 24px #00000026);
+  font-size: 12px;
+  white-space: nowrap;
+}
+.office-tabvoorvertoning > span,
+.office-tabvoorvertoning > small {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.office-tabvoorvertoning.is-buiten {
+  border-color: var(--oa-shell-accent, #d97706);
+  box-shadow:
+    0 0 0 2px var(--oa-shell-accent-soft, #d9770614),
+    var(--oa-shell-popover-shadow, 0 8px 24px #00000026);
+}
+.office-tabvoorvertoning small {
+  color: var(--oa-shell-accent, #d97706);
+  font-size: 11px;
+}
+.office-tabmenu {
+  position: fixed;
+  z-index: 1100;
+  min-width: 200px;
+  max-width: 320px;
+  max-height: min(70vh, 480px);
+  overflow-y: auto;
+  display: grid;
+  padding: 4px;
+  border-radius: 6px;
+  border: 1px solid var(--oa-shell-border, #36363e1f);
+  background: var(--oa-shell-surface, #fff);
+  color: var(--oa-shell-text, #36363e);
+  box-shadow: var(--oa-shell-popover-shadow, 0 8px 24px #00000026);
+}
+.office .office-tabmenu button {
+  padding: 7px 10px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.office .office-tabmenu button:hover:not(:disabled),
+.office .office-tabmenu button:focus-visible {
+  background: var(--oa-shell-hover-strong, #d9770626);
+  outline: none;
+}
+.office-werkvlak {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+.office-tabpaneel,
+.office-tabpaneel.office-editor,
+.office-tabpaneel.office-backstage {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+.office-tabpaneel.office-backstage {
+  flex-direction: row;
+  z-index: 1;
+}
+.office-tabpaneel > .database-app,
+.office-tabpaneel > .notities-studio {
+  position: relative;
+  isolation: isolate;
+  z-index: 0;
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+}
+.office-tabpaneel > .database-app {
+  background: var(--bg);
+}
+.office-tabpaneel[hidden] {
+  display: flex;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: -1;
+}
+.visueel-verborgen {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

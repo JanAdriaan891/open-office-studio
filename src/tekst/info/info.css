@@ -1,0 +1,230 @@
+/* Bestand › Info, Document inspecteren, taal en leesmodus (#23/#28). */
+.werkruimte-dialoog.tekst-info {
+  width: min(100%, 820px);
+}
+.tekst-info-kolommen {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 14px;
+}
+@media (max-width: 720px) {
+  .tekst-info-kolommen {
+    grid-template-columns: 1fr;
+  }
+}
+.tekst-info textarea {
+  min-width: 0;
+  padding: 5px 8px;
+  border: 1px solid var(--w-rand);
+  border-radius: 6px;
+  background: var(--w-bg);
+  color: inherit;
+  font: inherit;
+  resize: vertical;
+}
+.tekst-info-lijst {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 5px 12px;
+  margin: 0;
+}
+.tekst-info-lijst dt {
+  color: var(--w-tekst-zacht);
+}
+.tekst-info-lijst dd {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+.tekst-inspectie {
+  margin: 0 0 8px;
+  padding: 0;
+  list-style: none;
+}
+.tekst-inspectie li {
+  padding: 6px 0;
+  border-bottom: 1px solid var(--w-rand);
+}
+.tekst-inspectie p {
+  margin: 2px 0 0 26px;
+}
+.tekst-inspectie-telling {
+  margin-left: auto;
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: var(--w-bg-zacht);
+  color: var(--w-tekst-zacht);
+  font-size: 11px;
+}
+.tekst-inspectie-telling.is-gevonden {
+  background: var(--w-accent);
+  color: var(--w-accent-tekst);
+}
+.tekst-talen {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 2px 12px;
+  margin: 8px 0;
+}
+.tekst-talen small {
+  color: var(--w-tekst-zacht);
+}
+
+/* Statusbalk */
+.office-statusbalk .statusbalk-bijhouden.is-aan {
+  color: var(--oa-shell-accent, #d97706);
+}
+.office-statusbalk .statusbalk-weergave {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding-right: 8px;
+  margin-right: 4px;
+  border-right: 1px solid color-mix(in srgb, currentColor 30%, transparent);
+}
+.office-statusbalk .statusbalk-weergave button[aria-pressed="true"] {
+  background: var(--oa-shell-status-hover, #0000001a);
+  border-color: color-mix(in srgb, currentColor 25%, transparent);
+}
+@media (max-width: 900px) {
+  .office-statusbalk .statusbalk-spelling {
+    display: none;
+  }
+}
+
+/* Leesmodus */
+.tekst-leesmodus {
+  --l-bg: #f7f1e3;
+  --l-tekst: #3b3228;
+  --l-zacht: #7a6c5a;
+  --l-rand: #e3d8c3;
+  position: fixed;
+  inset: 0;
+  z-index: 950;
+  display: flex;
+  flex-direction: column;
+  background: var(--l-bg);
+  color: var(--l-tekst);
+}
+.tekst-leesmodus[data-thema="licht"] {
+  --l-bg: #ffffff;
+  --l-tekst: #1f2328;
+  --l-zacht: #5e636d;
+  --l-rand: #e6e8eb;
+}
+.tekst-leesmodus[data-thema="donker"] {
+  --l-bg: #1e1f24;
+  --l-tekst: #e6e4df;
+  --l-zacht: #a9a7a2;
+  --l-rand: #34353c;
+}
+.tekst-leesmodus-balk {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 16px;
+  border-bottom: 1px solid var(--l-rand);
+  color: var(--l-zacht);
+  font:
+    13px Inter,
+    system-ui,
+    sans-serif;
+}
+.tekst-leesmodus-balk div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.tekst-leesmodus-balk button {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 28px;
+  padding: 3px 10px;
+  border: 1px solid var(--l-rand);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--l-tekst);
+  font: inherit;
+  cursor: pointer;
+}
+.tekst-leesmodus-balk button[aria-pressed="true"] {
+  border-color: var(--l-tekst);
+}
+.tekst-leesmodus-balk button:focus-visible,
+.tekst-leesmodus-vlak:focus-visible {
+  outline: 2px solid #d97706;
+  outline-offset: 2px;
+}
+.tekst-leesmodus-vlak {
+  flex: 1;
+  overflow: auto;
+  padding: 40px 16px 80px;
+}
+.tekst-leesmodus article {
+  max-width: 38em;
+  margin: 0 auto;
+  font-family: Georgia, "Source Serif 4", "Noto Serif", serif;
+  line-height: 1.65;
+}
+.tekst-leesmodus article h2,
+.tekst-leesmodus article h3,
+.tekst-leesmodus article h4,
+.tekst-leesmodus article h5,
+.tekst-leesmodus article h6,
+.tekst-leesmodus article h7 {
+  margin: 1.6em 0 0.5em;
+  font-family: Inter, system-ui, sans-serif;
+  line-height: 1.25;
+}
+.tekst-leesmodus article h2 {
+  font-size: 1.7em;
+}
+.tekst-leesmodus article h3 {
+  font-size: 1.35em;
+}
+.tekst-leesmodus article h4 {
+  font-size: 1.15em;
+}
+.tekst-leesmodus article p {
+  margin: 0 0 0.9em;
+  white-space: pre-wrap;
+}
+.tekst-leesmodus article p.is-lijst {
+  padding-left: 1.4em;
+  text-indent: -1em;
+}
+.tekst-leesmodus article p.is-lijst::before {
+  content: "•";
+  display: inline-block;
+  width: 1em;
+  text-indent: 0;
+}
+.tekst-leesmodus article p.is-genummerd {
+  padding-left: 2em;
+  text-indent: -2em;
+}
+.tekst-leesmodus article p.is-genummerd::before {
+  content: none;
+}
+.tekst-leesmodus-nummer {
+  display: inline-block;
+  min-width: 2em;
+  text-indent: 0;
+}
+.tekst-leesmodus article table {
+  width: 100%;
+  margin: 1em 0;
+  border-collapse: collapse;
+  font-size: 0.85em;
+}
+.tekst-leesmodus article td {
+  padding: 6px 8px;
+  border: 1px solid var(--l-rand);
+  vertical-align: top;
+}
+.tekst-leesmodus article td p {
+  margin: 0;
+}

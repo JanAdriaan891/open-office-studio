@@ -1,0 +1,261 @@
+.werkruimte-dialoog.afdrukvoorbeeld {
+  position: relative;
+  width: min(1180px, 100%);
+  height: min(820px, 100%);
+  max-height: none;
+}
+.afdrukvoorbeeld .werkruimte-dialooginhoud {
+  display: flex;
+  overflow: hidden;
+  padding: 12px 16px;
+}
+.afdruk-toetsen {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+}
+.afdrukvoorbeeld .werkruimte-dialoogacties {
+  align-items: center;
+  padding: 10px 16px;
+}
+.afdrukvoorbeeld .werkruimte-dialoogacties .werkruimte-knop {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.afdruk-inhoud {
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 14px;
+}
+.afdruk-opties {
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-right: 6px;
+}
+.afdruk-opties fieldset {
+  border: 1px solid var(--w-rand, #e0e2e6);
+  border-radius: 6px;
+  padding: 8px 10px 10px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.afdruk-opties legend {
+  font-weight: 600;
+  font-size: 12px;
+  padding: 0 4px;
+}
+.afdruk-opties label {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 12px;
+}
+.afdruk-opties input[type="text"],
+.afdruk-opties input[type="number"],
+.afdruk-opties select {
+  font: inherit;
+  font-size: 12px;
+  padding: 4px 6px;
+  border: 1px solid var(--w-rand, #e0e2e6);
+  border-radius: 4px;
+  background: var(--w-bg, #fff);
+  min-width: 0;
+}
+.afdruk-opties input[aria-invalid="true"] {
+  border-color: #b3261e;
+}
+.afdruk-opties .afdruk-vink {
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+}
+.afdruk-rij {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(58px, 1fr));
+  gap: 6px;
+}
+.afdruk-kopvoet {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 4px;
+  font-size: 12px;
+}
+.afdruk-kopvoet span {
+  grid-column: 1 / -1;
+}
+.afdruk-uitleg {
+  margin: 0;
+  font-size: 11px;
+  color: var(--w-tekst-zacht, #747780);
+}
+.afdruk-voorbeeld {
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.afdruk-balk {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  flex-wrap: wrap;
+}
+.afdruk-balk button {
+  padding: 4px 6px;
+  border: 1px solid var(--w-rand, #e0e2e6);
+  border-radius: 5px;
+  background: var(--w-bg, #fff);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+}
+.afdruk-balk select,
+.afdruk-teller input {
+  font: inherit;
+  font-size: 12px;
+  padding: 3px 4px;
+  border: 1px solid var(--w-rand, #e0e2e6);
+  border-radius: 4px;
+  /* Zonder eigen achtergrond werd de tekst in het donkere thema wit op wit. */
+  background: var(--w-bg, #fff);
+  color: inherit;
+}
+.afdruk-teller input {
+  width: 52px;
+}
+.afdruk-scheiding {
+  width: 1px;
+  height: 18px;
+  background: var(--w-rand, #e0e2e6);
+}
+.afdruk-label {
+  margin-left: auto;
+  color: var(--w-tekst-zacht, #747780);
+}
+.afdruk-weergave {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  background: var(--w-bg-zacht, #e6e8eb);
+  border-radius: 6px;
+  display: flex;
+  padding: 24px;
+}
+.afdruk-pagina {
+  margin: auto;
+  flex: none;
+  background: #fff;
+  box-shadow: 0 1px 4px rgb(0 0 0 / 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.afdruk-pagina img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.afdruk-laden {
+  color: var(--w-tekst-zacht, #747780);
+  font-size: 12px;
+}
+.afdruk-melding,
+.afdruk-fout {
+  margin: 0;
+  font-size: 12px;
+}
+.afdruk-melding {
+  color: var(--w-tekst-zacht, #747780);
+}
+.afdruk-fout {
+  color: #b3261e;
+}
+.afdruk-bezig {
+  margin-right: auto;
+  font-size: 12px;
+  color: var(--w-tekst-zacht, #747780);
+}
+.afdruk-einden {
+  position: absolute;
+  inset: 56px 24px 24px;
+  background: var(--w-bg, #fff);
+  border: 1px solid var(--w-rand, #e0e2e6);
+  border-radius: 8px;
+  box-shadow: 0 8px 30px rgb(0 0 0 / 0.25);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow: auto;
+  z-index: 2;
+}
+.afdruk-einden header,
+.afdruk-einden footer {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+}
+.afdruk-einden svg {
+  align-self: center;
+  user-select: none;
+  touch-action: none;
+}
+.einden-pagina {
+  fill: #f6f8fc;
+  stroke: none;
+}
+.einden-nummer {
+  fill: rgb(63 98 185 / 0.35);
+  font-size: 18px;
+  font-weight: 700;
+  text-anchor: middle;
+  dominant-baseline: middle;
+  pointer-events: none;
+}
+.einden-raster {
+  stroke: #d9dde3;
+  stroke-width: 0.5;
+}
+.einden-kop {
+  fill: #6b7280;
+  font-size: 9px;
+  text-anchor: middle;
+}
+.einden-rijkop {
+  text-anchor: end;
+}
+.einden-einde {
+  stroke: #3f62b9;
+  stroke-width: 3;
+  stroke-dasharray: 6 4;
+  cursor: grab;
+}
+.einden-einde.is-handmatig {
+  stroke-dasharray: none;
+}
+.einden-rand {
+  fill: none;
+  stroke: #3f62b9;
+  stroke-width: 2;
+}
+@media (max-width: 760px) {
+  .afdruk-inhoud {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+  .afdruk-opties {
+    max-height: 38vh;
+  }
+}
