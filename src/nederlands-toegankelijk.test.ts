@@ -35,4 +35,16 @@ describe("Nederlandse teksten voor schermlezers", () => {
     });
     expect(rekenbladNlVolledig.editor?.appLabel).toBe("Rekenblad");
   });
+
+  it("Tekst: zijbalk met opmerkingen en wijzigingen, foutmeldingen en redenen zijn Nederlands", () => {
+    const en = tekstEn as unknown as Boom;
+    const nl = tekstNlVolledig as unknown as Boom;
+    const delen = ["comments", "trackedChanges", "revisions", "commentMarkers", "errors", "unsaved"];
+    const mist = delen.flatMap((deel) =>
+      Object.keys(en[deel] as Boom).filter((k) => (nl[deel] as Boom | undefined)?.[k] === undefined).map((k) => `${deel}.${k}`),
+    );
+    const redenen = (b: Boom) => ((b.commands as Boom).reasons ?? {}) as Boom;
+    mist.push(...Object.keys(redenen(en)).filter((k) => redenen(nl)[k] === undefined).map((k) => `commands.reasons.${k}`));
+    expect(mist).toEqual([]);
+  });
 });
