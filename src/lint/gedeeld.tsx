@@ -122,12 +122,17 @@ export function Geschiedenis({
     </Groep>
   );
 }
+/** Zoomwaarde buiten de vaste stappen (Ctrl+wiel, schuif): als percentage tonen. */
+export function zoomTekst(waarde: unknown) {
+  if (typeof waarde !== "number" || !Number.isFinite(waarde) || waarde <= 0) return undefined;
+  return `${Math.round(waarde <= 10 ? waarde * 100 : waarde)}%`;
+}
 export function Zoom({ opdracht }: { opdracht: GebondenOpdracht }) {
   return (
     <Groep naam="Zoom">
       <div className="ribbon-stapel">
         <ZoomIn size={24} strokeWidth={1.5} />
-        <OpdrachtKeuze opdracht={opdracht} naam="Zoomniveau" />
+        <OpdrachtKeuze opdracht={opdracht} naam="Zoomniveau" waardeTekst={zoomTekst} />
       </div>
     </Groep>
   );
