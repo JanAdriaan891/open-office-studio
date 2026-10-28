@@ -1,5 +1,5 @@
 import { existsSync, readFileSync } from "node:fs";
-import { describe, expect, it } from "vitest";
+import { beforeAll, describe, expect, it } from "vitest";
 import { autocorrectie, isZinsbegin } from "./autocorrectie";
 import { Controleur, schoonSuggesties, volgHoofdletters } from "./controleur";
 import { DirecteMotor, type Motor } from "./motor";
@@ -222,11 +222,15 @@ const WASM = "public/spelling/oos_spelling.wasm";
 const heeftModule = existsSync(WASM) && existsSync("public/woordenboeken/nl.dic");
 
 describe.skipIf(!heeftModule)("spellbook met OpenTaal en SCOWL", () => {
-  const motor = new DirecteMotor(Spellbook.laad(readFileSync(WASM)), async (taal) => ({
-    aff: readFileSync(`public/woordenboeken/${taal}.aff`),
-    dic: readFileSync(`public/woordenboeken/${taal}.dic`),
-  }));
-  const c = new Controleur(motor, { persoonlijk: new Woordenlijst(), genegeerd: new Woordenlijst() });
+  // Pas laden binnen de tests: ook een overgeslagen describe wordt verzameld.
+  let c!: Controleur;
+  beforeAll(() => {
+    const motor = new DirecteMotor(Spellbook.laad(readFileSync(WASM)), async (taal) => ({
+      aff: readFileSync(`public/woordenboeken/${taal}.aff`),
+      dic: readFileSync(`public/woordenboeken/${taal}.dic`),
+    }));
+    c = new Controleur(motor, { persoonlijk: new Woordenlijst(), genegeerd: new Woordenlijst() });
+  });
 
   it("kent Nederlandse samenstellingen, apostrofs en afkortingen", async () => {
     const [fouten] = await c.controleer([

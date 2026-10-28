@@ -136,3 +136,7 @@ Zie de [testmatrix](docs/onderzoek/testmatrix.md) voor het vergelijken van DOCX-
 - `pnpm versie:week 2026-10-23 1`, `pnpm versie:check`: weekversie instellen en controleren.
 - `python scripts/controleer-installers.py --platform linux --rapport .local/pakketcontrole-Linux.json`: gebouwde DEB en AppImage controleren; vereist Python 3.11+, dpkg, squashfs-tools en ldd. Gebruik op Windows `--platform windows` met 7-Zip voor de NSIS-installer en de gebundelde WebView2-bestanden.
 - [Testverslag en resterend werk](docs/tests/2026-10-21.md).
+
+## Licentie
+
+Apache License 2.0, zie [LICENSE](LICENSE).

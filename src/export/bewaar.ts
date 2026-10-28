@@ -1,5 +1,6 @@
 import type { Soort } from "../editors";
 import type { BewaarUitkomst } from "../opslag";
+import { HOST_SOORTEN, officeHost } from "../host";
 import { controleerPakket, risicoBeleid, type Risico } from "../pakketcontrole";
 import { opslagRapport, type Rapport } from "../import/rapport";
 import { MACROUITVOER, bereidOpslag, type Bronkenmerken } from "../import/bron";
@@ -211,6 +212,16 @@ export async function bewaarInFormaat(
       pad: r.pad,
       toelichting,
       ...(r.token && { werkbestand: { token: r.token, naam: r.naam } }),
+    };
+  }
+  // Gehoste bouw: de host bewaart het document zelf (src/host.ts, #109).
+  const host = officeHost();
+  if (host && HOST_SOORTEN.includes(keuze.ext)) {
+    const uit = await host.save(bestandsnaam, uitvoer);
+    return {
+      status: "opgeslagen",
+      pad: (uit && uit.naam) || bestandsnaam,
+      toelichting,
     };
   }
   const url = URL.createObjectURL(
