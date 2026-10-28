@@ -42,6 +42,9 @@ const formaten: {
 const statusItems: [keyof Instellingen["statusbalk"], string][] = [
   ["zoom", "Zoomschuif"],
   ["tekst", "Tekst: pagina, woorden en tekens"],
+  ["taal", "Tekst: taal (en spelling)"],
+  ["bijhouden", "Tekst: wijzigingen bijhouden"],
+  ["weergave", "Tekst: weergaveknoppen (afdrukweergave, leesmodus)"],
   ["rekenblad", "Rekenblad: som, gemiddelde en aantal van de selectie"],
   ["presentatie", "Presentatie: dia x van y"],
   ["database", "Database: status van de werkkopie"],

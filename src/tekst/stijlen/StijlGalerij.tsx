@@ -52,10 +52,12 @@ export function galerijStijlen(
     );
 }
 
-interface MenuItem {
+export interface MenuItem {
   naam: string;
   icoon?: typeof Check;
   uit?: boolean;
+  /** Aan/uit-item (menuitemcheckbox); het menu blijft dan open. */
+  aan?: boolean;
   uitvoeren: () => void;
 }
 
@@ -125,14 +127,21 @@ export function Contextmenu({
         <button
           key={item.naam}
           type="button"
-          role="menuitem"
+          role={item.aan === undefined ? "menuitem" : "menuitemcheckbox"}
+          aria-checked={item.aan}
           disabled={item.uit}
           onClick={() => {
-            sluit();
+            if (item.aan === undefined) sluit();
             item.uitvoeren();
           }}
         >
-          {item.icoon ? <item.icoon size={14} aria-hidden="true" /> : <span className="tekst-contextmenu-leeg" />}
+          {item.aan !== undefined ? (
+            item.aan ? <Check size={14} aria-hidden="true" /> : <span className="tekst-contextmenu-leeg" />
+          ) : item.icoon ? (
+            <item.icoon size={14} aria-hidden="true" />
+          ) : (
+            <span className="tekst-contextmenu-leeg" />
+          )}
           {item.naam}
         </button>
       ))}

@@ -20,6 +20,12 @@ export interface Instellingen {
     rekenblad: boolean;
     presentatie: boolean;
     database: boolean;
+    /** Tekst: taal op de cursor (en spellingstatus). */
+    taal: boolean;
+    /** Tekst: wijzigingen bijhouden aan/uit. */
+    bijhouden: boolean;
+    /** Tekst: weergaveknoppen (afdrukweergave, leesmodus). */
+    weergave: boolean;
   };
   /** E-mail: externe afbeeldingen volgens het account, of nooit automatisch. */
   emailExterneInhoud: "account" | "nooit";
@@ -29,7 +35,16 @@ export const standaardInstellingen: Instellingen = {
   thema: "forge",
   opslagformaat: { docx: "docx", xlsx: "xlsx", pptx: "pptx" },
   lint: { compact: false, ingeklapt: false },
-  statusbalk: { zoom: true, tekst: true, rekenblad: true, presentatie: true, database: true },
+  statusbalk: {
+    zoom: true,
+    tekst: true,
+    rekenblad: true,
+    presentatie: true,
+    database: true,
+    taal: true,
+    bijhouden: true,
+    weergave: true,
+  },
   emailExterneInhoud: "account",
 };
 
@@ -68,6 +83,9 @@ export function normaliseerInstellingen(ruw: unknown): Instellingen {
       rekenblad: waarOnwaar(status.rekenblad, true),
       presentatie: waarOnwaar(status.presentatie, true),
       database: waarOnwaar(status.database, true),
+      taal: waarOnwaar(status.taal, true),
+      bijhouden: waarOnwaar(status.bijhouden, true),
+      weergave: waarOnwaar(status.weergave, true),
     },
     emailExterneInhoud: kies(r.emailExterneInhoud, ["account", "nooit"] as const, "account"),
   };
