@@ -1,0 +1,227 @@
+/**
+ * Wat de paginafuncties rechtstreeks aan de engine vragen: een markering op
+ * de cursorplek, koppen en noten met paginanummers (paged export), het
+ * bewerken van kop- en voettekst openen en sluiten, en de sectiestand.
+ */
+import type { DocxEditorRef } from "@betteroffice/docx-react";
+import { zichtbaarElement } from "../../../lint/editorApi";
+import { koppenUitExport, type Kop, type PaginaExport } from "../inhoudsopgave.ts";
+import { nieuweMarkering } from "../ooxml.ts";
+
+/** Zet een unieke markering op de cursor (aan het eind van een selectie). */
+export async function zetMarkering(api: DocxEditorRef) {
+  const editor = api.getEditorRef();
+  const bereik = editor?.getSelectionRange();
+  if (!editor || !bereik) return null;
+  const markering = nieuweMarkering();
+  editor.setSelection(bereik.to);
+  editor.insertText(markering);
+  await api.flushPendingInput();
+  return {
+    markering,
+    /** Haalt de markering weg als de bewerking niet doorgaat. */
+    ongedaan: () => {
+      try {
+        editor.undo();
+      } catch {
+        /* de editor is mogelijk al vervangen */
+      }
+    },
+  };
+}
+
+/** Wacht op de volledige indeling, met een eigen grens (de engine meldt zich niet altijd). */
+export function wachtOpIndeling(api: DocxEditorRef, ms = 8000) {
+  return Promise.race([api.whenLayoutComplete({ timeoutMs: ms }).catch(() => 0), new Promise((klaar) => setTimeout(klaar, ms + 500))]);
+}
+
+async function pagedExport(api: DocxEditorRef, stories: ("body" | "footnotes" | "endnotes")[]) {
+  await wachtOpIndeling(api);
+  let r = await api.exportStructuredWithPages({ revisionView: "accepted", stories, maxBlocks: 200000 });
+  for (let poging = 0; poging < 3 && !r.ok && ["stale-document", "layout-unavailable", "stale-layout", "layout-not-converged"].includes(r.failure.code); poging++) {
+    // De indeling liep nog achter: even wachten en opnieuw.
+    await new Promise((klaar) => setTimeout(klaar, 600));
+    await wachtOpIndeling(api, 4000);
+    r = await api.exportStructuredWithPages({ revisionView: "accepted", stories, maxBlocks: 200000 });
+  }
+  if (!r.ok) throw new Error(`De pagina-indeling is niet beschikbaar: ${r.failure.message}`);
+  return r.content;
+}
+
+/** De koppen van de hoofdtekst met hun (getoonde) paginanummer. */
+export async function haalKoppen(api: DocxEditorRef): Promise<Kop[]> {
+  return koppenUitExport((await pagedExport(api, ["body"])) as unknown as PaginaExport);
+}
+
+export interface NootInfo {
+  soort: "voetnoot" | "eindnoot";
+  noteId: string;
+  /** Volgnummer per soort, in volgorde van de verwijzingen. */
+  volgnummer: number;
+  tekst: string;
+  /** Alinea (sessie-id) met de verwijzing. */
+  paraId: string | null;
+  /** 0-gebaseerde pagina's van verwijzing en noot. */
+  paginaVerwijzing: number | null;
+  paginaNoot: number | null;
+}
+
+interface Inline {
+  kind: string;
+  text?: string;
+  noteKind?: "footnote" | "endnote";
+  noteId?: string;
+  anchor?: { kind: string; paraId?: string; start?: { paraId: string } };
+  inlines?: Inline[];
+  cachedResult?: { inlines?: Inline[] };
+}
+interface Blok {
+  id: string;
+  kind: string;
+  anchor?: { paraId?: string };
+  paragraph?: { inlines: Inline[] };
+  blocks?: Blok[];
+  table?: { rows: { cells: { blocks: Blok[] }[] }[] };
+}
+
+const tekstVan = (inl: Inline[] = []): string =>
+  inl.map((i) => (i.kind === "text" ? (i.text ?? "") : i.kind === "tab" ? " " : tekstVan(i.inlines ?? i.cachedResult?.inlines))).join("");
+
+/** Alle voet- en eindnoten in volgorde van hun verwijzingen, met pagina's. */
+export async function haalNoten(api: DocxEditorRef): Promise<NootInfo[]> {
+  const inhoud = (await pagedExport(api, ["body", "footnotes", "endnotes"])) as unknown as {
+    structured: { stories: { kind: string; noteId: string | null; blocks: Blok[] }[] };
+    layout: {
+      fragments: { blockId: string; pageIndex: number }[];
+      occurrences: { pageIndex: number; region: { kind: string; noteId?: string } }[];
+    };
+  };
+  const paginaVan = new Map<string, number>();
+  for (const f of inhoud.layout.fragments) if (!paginaVan.has(f.blockId)) paginaVan.set(f.blockId, f.pageIndex);
+  const nootPagina = new Map<string, number>();
+  for (const o of inhoud.layout.occurrences)
+    if ((o.region.kind === "footnote" || o.region.kind === "endnote") && o.region.noteId && !nootPagina.has(`${o.region.kind}:${o.region.noteId}`))
+      nootPagina.set(`${o.region.kind}:${o.region.noteId}`, o.pageIndex);
+  const nootTekst = new Map<string, string>();
+  const blokTekst = (b: Blok[]): string => b.map((x) => (x.paragraph ? tekstVan(x.paragraph.inlines) : tekstVan([]) + blokTekst(x.blocks ?? []))).join("\n");
+  for (const s of inhoud.structured.stories)
+    if ((s.kind === "footnote" || s.kind === "endnote") && s.noteId) nootTekst.set(`${s.kind}:${s.noteId}`, blokTekst(s.blocks).trim());
+  const uit: NootInfo[] = [];
+  const tel = { voetnoot: 0, eindnoot: 0 };
+  const loopInline = (inl: Inline[], blok: Blok) => {
+    for (const i of inl) {
+      if (i.kind === "noteReference" && i.noteId) {
+        const soort = i.noteKind === "endnote" ? "eindnoot" : "voetnoot";
+        const sleutel = `${i.noteKind}:${i.noteId}`;
+        uit.push({
+          soort,
+          noteId: i.noteId,
+          volgnummer: ++tel[soort],
+          tekst: nootTekst.get(sleutel) ?? "",
+          paraId: blok.anchor?.paraId ?? i.anchor?.start?.paraId ?? null,
+          paginaVerwijzing: paginaVan.get(blok.id) ?? null,
+          paginaNoot: nootPagina.get(sleutel) ?? null,
+        });
+      } else if (i.inlines) loopInline(i.inlines, blok);
+    }
+  };
+  const loop = (blokken: Blok[]) => {
+    for (const b of blokken) {
+      if (b.paragraph) loopInline(b.paragraph.inlines, b);
+      if (b.blocks) loop(b.blocks);
+      for (const r of b.table?.rows ?? []) for (const c of r.cells) loop(c.blocks);
+    }
+  };
+  for (const s of inhoud.structured.stories) if (s.kind === "body") loop(s.blocks);
+  return uit;
+}
+
+// ---------------------------------------------------------------------------
+// Kop- en voettekst bewerken
+
+/** Staat de editor nu in de bewerkmodus voor kop- of voettekst? */
+export function kopVoetActief() {
+  return !!zichtbaarElement(".office-tekst .hf-inline-editor");
+}
+
+/** De zichtbare pagina die het meest in beeld is. */
+function paginaInBeeld() {
+  const vlak = zichtbaarElement<HTMLElement>(".office-tekst .docx-editor__scroll-container");
+  const paginas = [...(vlak?.querySelectorAll<HTMLElement>(".canvas-page") ?? [])].filter((p) => !p.closest("[inert], [hidden]"));
+  if (!paginas.length) return null;
+  const midden = (vlak?.getBoundingClientRect().top ?? 0) + (vlak?.clientHeight ?? window.innerHeight) / 2;
+  let beste = paginas[0];
+  let afstand = Infinity;
+  for (const p of paginas) {
+    const r = p.getBoundingClientRect();
+    const d = midden < r.top ? r.top - midden : midden > r.bottom ? midden - r.bottom : 0;
+    if (d < afstand) {
+      afstand = d;
+      beste = p;
+    }
+  }
+  return beste;
+}
+
+/**
+ * Opent de bewerkmodus voor kop- of voettekst zoals een dubbelklik in de
+ * paginamarge dat doet (de engine heeft er geen opdracht voor).
+ */
+export function bewerkKopVoet(api: DocxEditorRef, soort: "header" | "footer") {
+  const pagina = paginaInBeeld();
+  if (!pagina) return false;
+  const sectie = api.getDocument()?.package?.document?.finalSectionProperties;
+  const hoogte = sectie?.pageHeight || 16838;
+  const r = pagina.getBoundingClientRect();
+  const marge = soort === "header" ? sectie?.marginTop || 1440 : sectie?.marginBottom || 1440;
+  const afstand = soort === "header" ? sectie?.headerDistance || 708 : sectie?.footerDistance || 708;
+  // Midden tussen de rand-afstand en de marge: daar staat de kop/voettekst.
+  const fractie = (Math.min(marge, afstand + 240) + afstand) / 2 / hoogte;
+  const x = r.left + r.width / 2;
+  const y = soort === "header" ? r.top + r.height * fractie : r.bottom - r.height * fractie;
+  const doel = document.elementFromPoint(x, y) ?? pagina;
+  const opties = { bubbles: true, cancelable: true, composed: true, clientX: x, clientY: y, button: 0, buttons: 1, view: window };
+  for (const detail of [1, 2]) {
+    doel.dispatchEvent(new PointerEvent("pointerdown", { ...opties, detail, pointerId: 1, pointerType: "mouse", isPrimary: true }));
+    doel.dispatchEvent(new MouseEvent("mousedown", { ...opties, detail }));
+    doel.dispatchEvent(new PointerEvent("pointerup", { ...opties, detail, buttons: 0, pointerId: 1, pointerType: "mouse", isPrimary: true }));
+    doel.dispatchEvent(new MouseEvent("mouseup", { ...opties, detail, buttons: 0 }));
+    doel.dispatchEvent(new MouseEvent("click", { ...opties, detail, buttons: 0 }));
+  }
+  doel.dispatchEvent(new MouseEvent("dblclick", { ...opties, detail: 2, buttons: 0 }));
+  return true;
+}
+
+/** Sluit de bewerkmodus via de knop in de balk van de engine. */
+export function sluitKopVoet() {
+  const balk = zichtbaarElement<HTMLElement>(".office-tekst .hf-inline-editor");
+  if (!balk) return false;
+  const opties = [...balk.querySelectorAll<HTMLButtonElement>("button")];
+  const menu = opties[0];
+  menu?.click();
+  // Het menu verschijnt synchroon na de klik; de laatste knop is ‘sluiten’.
+  const knoppen = [...balk.querySelectorAll<HTMLButtonElement>("button")];
+  const sluiten = knoppen[knoppen.length - 1];
+  if (sluiten && sluiten !== menu) {
+    sluiten.click();
+    return true;
+  }
+  return false;
+}
+
+/** De sectiestand van de laatste sectie zoals de engine die geladen heeft. */
+export function sectieStand(api: DocxEditorRef | null) {
+  const doc = api?.getDocument();
+  const s = doc?.package?.document?.finalSectionProperties;
+  const aantal = (doc?.package?.document?.sections?.length ?? 0) || 1;
+  return {
+    aantalSecties: aantal,
+    titelpagina: !!s?.titlePg,
+    evenOneven: !!s?.evenAndOddHeaders || !!(doc?.package as { settings?: { evenAndOddHeaders?: boolean } } | undefined)?.settings?.evenAndOddHeaders,
+    liggend: s ? s.orientation === "landscape" || (s.pageWidth ?? 0) > (s.pageHeight ?? 0) : false,
+    breedte: s?.pageWidth,
+    hoogte: s?.pageHeight,
+    kolommen: s?.columnCount ?? 1,
+    marges: s ? { boven: s.marginTop, onder: s.marginBottom, links: s.marginLeft, rechts: s.marginRight } : null,
+  };
+}

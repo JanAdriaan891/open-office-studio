@@ -8,6 +8,7 @@ import {
   Presentation,
   Sheet,
   HardDrive,
+  Info,
   Plus,
   ArrowUpRight,
   NotebookPen,
@@ -105,6 +106,7 @@ export function StartScherm({
   openNotities,
   openEmail,
   bewaar,
+  info,
   verzend,
   voorbeeld,
   databaseActief = false,
@@ -120,6 +122,8 @@ export function StartScherm({
   openNotities: () => void;
   openEmail: () => void;
   bewaar?: () => void;
+  /** Bestand › Info (eigenschappen, inspecteren) voor het open tekstdocument. */
+  info?: () => void;
   /** "Verzenden als bijlage" voor het open document. */
   verzend?: () => void;
   voorbeeld: (soort: Soort) => void;
@@ -152,6 +156,16 @@ export function StartScherm({
             <button disabled={bezig} onClick={bewaar}>
               <HardDrive size={18} />
               Opslaan als
+            </button>
+          )}
+          {info && (
+            <button
+              disabled={bezig}
+              onClick={info}
+              title="Documenteigenschappen, statistieken en document inspecteren"
+            >
+              <Info size={18} />
+              Info
             </button>
           )}
           {verzend && (

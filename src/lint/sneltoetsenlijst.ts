@@ -187,6 +187,7 @@ export const vasteSneltoetsen: readonly SneltoetsInfo[] = [
   tekst("Ctrl+F", "Zoeken in het navigatievenster"),
   tekst("Ctrl+H", "Uitgebreid zoeken en vervangen"),
   tekst("Ctrl+G", "Ga naar"),
+  tekst("Ctrl+Alt+Shift+S", "Stijlenvenster"),
   // Tekst: opmaakvensters (src/tekst/TekstOpmaak.tsx).
   // Lettertype… en Alinea… zijn ook aangemeld bij src/tekst/menu/opdrachten.ts
   // (rechtermuismenu, en in het Word-profiel Ctrl+D en Ctrl+Shift+F).
@@ -194,6 +195,10 @@ export const vasteSneltoetsen: readonly SneltoetsInfo[] = [
   tekst("Ctrl+Shift+A", "Alle hoofdletters"),
   tekst("Ctrl+Shift+K", "Kleinkapitalen"),
   tekst("Ctrl+Shift+H", "Verborgen tekst"),
+  // Tekst: paginafuncties (src/tekst/pagina/ui/usePagina.tsx).
+  tekst("Ctrl+Alt+F", "Voetnoot invoegen"),
+  tekst("Ctrl+Alt+D", "Eindnoot invoegen"),
+  tekst("Ctrl+Shift+Enter", "Kolomeinde"),
   // Tekst: engine (@betteroffice/docx-react).
   tekstEngine("Ctrl+B", "Vet"),
   tekstEngine("Ctrl+I", "Cursief"),

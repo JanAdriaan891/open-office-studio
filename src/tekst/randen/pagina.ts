@@ -7,6 +7,7 @@
 import { Pakket } from "../../grafieken/pakket.ts";
 import { attr, attrTekst, elementen, kind, leesXml, vervang, zoekAlle, type Vervanging, type XmlElement } from "../../grafieken/xml.ts";
 import type { Rand } from "../opmaak.ts";
+import { SECTPR_VOLGORDE } from "../pagina/ooxml.ts";
 
 export type PaginaRandWeergave = "allPages" | "firstPage" | "notFirstPage";
 
@@ -27,22 +28,8 @@ export interface PaginaInstellingen {
 
 const ZIJDEN = ["top", "left", "bottom", "right"] as const;
 
-/** Elementen die in `w:sectPr` ná `w:pgBorders` komen (ECMA-376 CT_SectPr). */
-const NA_RAND = [
-  "lnNumType",
-  "pgNumType",
-  "cols",
-  "formProt",
-  "vAlign",
-  "noEndnote",
-  "titlePg",
-  "textDirection",
-  "bidi",
-  "rtlGutter",
-  "docGrid",
-  "printerSettings",
-  "sectPrChange",
-];
+/** Elementen die in `w:sectPr` ná `w:pgBorders` komen (ECMA-376 CT_SectPr; gedeelde volgorde). */
+const NA_RAND = SECTPR_VOLGORDE.slice(SECTPR_VOLGORDE.indexOf("pgBorders") + 1);
 /** Elementen die in `w:settings` vóór `w:displayBackgroundShape` komen. */
 const VOOR_ACHTERGROND = ["writeProtection", "view", "zoom", "removePersonalInformation", "removeDateAndTime", "doNotDisplayPageBoundaries"];
 

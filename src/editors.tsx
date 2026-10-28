@@ -24,6 +24,7 @@ import {
 } from "./lint/editorApi";
 import { useNederlandseInvoer } from "./useNederlandseInvoer";
 import { useHerladen } from "./grafieken/ui/herladen";
+import { werkEigenschappenBij } from "./tekst/info/opslaan";
 import { koppelEditor } from "./export/editorKoppeling";
 import { lettertypeModule } from "./lettertypen/provider";
 import { laadSysteemLettertypen } from "./lettertypen/systeem";
@@ -107,7 +108,8 @@ export default function OfficeEditor(props: EditorProps) {
         await docx.current.flushPendingInput();
         const bytes = await docx.current.save();
         if (!bytes) throw new Error("Het document kon niet worden opgeslagen.");
-        return new Uint8Array(bytes);
+        // Wachtende eigenschappen uit Bestand › Info gaan mee door het herladen.
+        return werkEigenschappenBij(herladenRecent.current.api, docx.current, new Uint8Array(bytes), false);
       } finally {
         exporteren.current = false;
       }
@@ -126,6 +128,11 @@ export default function OfficeEditor(props: EditorProps) {
     [rekenbladApi, presentatieApi, herladen.api, herladen.grafiekSelectie],
   );
   useNederlandseInvoer(rekenbladHost, rekenbladApi);
+  // Tekst: wijzigingen buiten de engine (zoals Bestand › Info) als gewijzigd melden.
+  useEffect(
+    () => registreerWijziging(herladen.api, () => recent.current.gewijzigd()),
+    [herladen.api],
+  );
   // Selectie en huidige dia voor de statusbalk.
   useRekenbladStatus(rekenbladApi, props.zichtbaar !== false);
   usePresentatieStatus(presentatieApi, props.zichtbaar !== false);
@@ -167,7 +174,8 @@ export default function OfficeEditor(props: EditorProps) {
       try {
         const bytes = await docx.current.save();
         if (!bytes) throw new Error("Het document kon niet worden opgeslagen.");
-        return new Uint8Array(bytes);
+        // docProps (Bestand › Info, statistieken, bewerkingstijd) bijwerken.
+        return werkEigenschappenBij(herladen.api, docx.current, new Uint8Array(bytes), true);
       } finally {
         exporteren.current = false;
       }
