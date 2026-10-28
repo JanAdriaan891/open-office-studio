@@ -238,6 +238,87 @@ if (doe("afbeelding")) {
 }
 
 // ---------------------------------------------------------------------------
+if (doe("zoeken")) {
+  console.log("#29 Zoeken en vervangen");
+  const z = await import("../src/tekst/zoeken/zoeken.ts");
+  const { strToU8, zipSync } = await import("fflate");
+  // Proefdocument met een regeleinde, een tab en een handmatig pagina-einde.
+  const bestanden = unzipSync(maakProefdocument());
+  bestanden["word/document.xml"] = strToU8(
+    documentXml(maakProefdocument()).replace(
+      "Een tweede regel met KAT in hoofdletters.</w:t></w:r>",
+      'Een tweede regel met KAT in hoofdletters.</w:t></w:r><w:r><w:br w:type="page"/></w:r><w:r><w:t xml:space="preserve">Na het pagina-einde: matras en kater.</w:t></w:r>',
+    ),
+  );
+  const bron = zipSync(bestanden);
+  const s = await sessie(bron);
+  const ref = nepRef(s);
+  const zoek = async (zoek, opties = {}, opmaak) => (await z.zoek(ref, { zoek, opties, opmaak })).resultaten;
+
+  controleer((await zoek("kat")).length === 3, "zoeken zonder opties vindt kat, KAT en kat(er)");
+  controleer((await zoek("kat", { hoofdlettergevoelig: true })).length === 2, "hoofdlettergevoelig: alleen ‘kat’ in kleine letters");
+  controleer((await zoek("kat", { heleWoorden: true })).length === 2, "hele woorden: ‘kater’ telt niet mee");
+  controleer((await zoek("<[A-Z]@>", { jokertekens: true })).map((r) => r.tekst).join() === "KAT", "jokertekens <[A-Z]@> vindt het woord in hoofdletters");
+  const getallen = await zoek("\\d+", { regex: true });
+  controleer(getallen.length === 2 && getallen.every((r) => r.plek.startsWith("Tabel 1")), "regex \\d+ vindt de getallen in de tabelcellen (‘Tabel 1, …’)");
+  const koppen = await zoek("", {}, { vet: true, stijl: "Heading2" });
+  controleer(koppen.map((r) => r.tekst).join("|") === "Tabel|Afbeelding|Wijzigingen", "opmaak zoeken: vet in stijl Kop 2 vindt de drie koppen");
+  controleer((await zoek("mat.^pEen")).length === 1, "^p vindt de alineamarkering tussen twee alinea’s");
+  controleer((await zoek("^m")).length === 1, "^m vindt het handmatige pagina-einde");
+  controleer((await zoek("kater.^p^mTabel")).length === 1, "het pagina-einde staat als ^m vóór de volgende alinea");
+
+  // Vervangen binnen alinea’s: applyEdits, één stap.
+  let { index, resultaten } = await z.zoek(ref, { zoek: "kat", opties: { heleWoorden: true } });
+  let uitkomst = await z.vervang(ref, index, resultaten, "hond", { heleWoorden: true });
+  let xml = documentXml((await saveYrsDocx(s)).bytes);
+  controleer(uitkomst.route === "bewerkingen" && xml.includes("De hond zit op de mat.") && xml.includes("met hond in") && xml.includes("kater"), "alles vervangen kat → hond (hele woorden) via applyEdits");
+  s.undo();
+  xml = documentXml((await saveYrsDocx(s)).bytes);
+  controleer(xml.includes("De kat zit") && xml.includes("met KAT in"), "Ctrl+Z draait ‘alles vervangen’ in één stap terug");
+
+  // Over een alineamarkering heen en ^p in de vervangtekst: sessieroute.
+  ({ index, resultaten } = await z.zoek(ref, { zoek: "mat.^pEen", opties: {} }));
+  uitkomst = await z.vervang(ref, index, resultaten, "mat. Een", {});
+  ({ index, resultaten } = await z.zoek(ref, { zoek: " zit ", opties: {} }));
+  await z.vervang(ref, index, resultaten, " zit^pnog ", {});
+  xml = documentXml((await saveYrsDocx(s)).bytes);
+  const teksten = () => s.readParagraphs({ view: "accepted" }).paragraphs.map((p) => p.text);
+  const alineas = teksten();
+  controleer(uitkomst.route === "sessie" && alineas.some((t) => t.startsWith("nog op de mat. Een tweede regel")), "^p zoeken en vervangen door een spatie voegt de alinea’s samen");
+  controleer(alineas.includes("De kat zit") && alineas.some((t) => t.startsWith("nog op de mat.")), "^p in de vervangtekst splitst de alinea");
+  s.undo();
+  // (De engine zet een pagina-einde midden in een alinea vóór de volgende alinea.)
+  controleer(teksten()[1] === "De kat zit op de mat. Een tweede regel met KAT in hoofdletters.Na het pagina-einde: matras en kater.", `Ctrl+Z draait het splitsen in één stap terug`);
+  s.undo();
+  controleer(teksten()[1] === "De kat zit op de mat." && teksten()[2].startsWith("Een tweede regel"), "tweede Ctrl+Z draait het samenvoegen terug");
+
+  // Pagina-einde verwijderen.
+  ({ index, resultaten } = await z.zoek(ref, { zoek: "^m", opties: {} }));
+  await z.vervang(ref, index, resultaten, "", {});
+  controleer(!s.storySegments("body").some((g) => g.embedKind === "pageBreak"), "^m vervangen door niets verwijdert het pagina-einde");
+  s.undo();
+  controleer(s.storySegments("body").some((g) => g.embedKind === "pageBreak"), "Ctrl+Z zet het pagina-einde terug");
+
+  // Wijzigingen bijhouden: vervangen wordt een voorstel.
+  const s2 = await sessie(maakProefdocument({ wijzigingen: false }));
+  const ref2 = nepRef(s2, { modus: "suggesting" });
+  ({ index, resultaten } = await z.zoek(ref2, { zoek: "mat", opties: { heleWoorden: true } }));
+  await z.vervang(ref2, index, resultaten, "deurmat", { heleWoorden: true });
+  const { xml: xml2 } = await opslaanEnHeropenen(s2, "zoeken-voorstel");
+  controleer(/<w:del [^>]*w:author="Onbekende auteur"[^>]*>.*?mat.*?<\/w:del>/.test(xml2) && /<w:ins [^>]*>.*?deurmat.*?<\/w:ins>/.test(xml2), "vervangen bij Wijzigingen bijhouden → w:del + w:ins");
+
+  // Wildcard-groepen in de vervangtekst.
+  const s3 = await sessie(maakProefdocument({ wijzigingen: false }));
+  const ref3 = nepRef(s3);
+  ({ index, resultaten } = await z.zoek(ref3, { zoek: "(De) (kat)", opties: { jokertekens: true } }));
+  await z.vervang(ref3, index, resultaten, "\\2 \\1", { jokertekens: true });
+  controleer(s3.paragraphs("body").some((p) => p.text === "kat De zit op de mat."), "jokertekens: \\2 \\1 verwisselt de groepen");
+  await writeFile(join(UIT, "zoeken-bron.docx"), bron);
+  const pdf = pdfTekst("zoeken-voorstel");
+  if (pdf !== null) controleer(pdf.includes("deurmat"), "LibreOffice toont de voorgestelde vervanging");
+}
+
+// ---------------------------------------------------------------------------
 console.log(`\n${geslaagd} controles geslaagd, ${fouten.length} mislukt.`);
 if (fouten.length) {
   for (const f of fouten) console.log(`  - ${f}`);

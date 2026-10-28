@@ -36,8 +36,6 @@ import {
   X,
   ChevronLeft,
   ChevronRight,
-  Search,
-  Replace,
   Printer,
   Ruler,
   PanelLeft,
@@ -93,6 +91,7 @@ import { datumTekst, tijdTekst, type Hoofdlettersoort } from "./tekst-logica";
 import { TabelKiezer } from "../tabelvoorbeeld/TabelKiezer";
 import { TabelIndeling, TekstNaarTabelKnop } from "../tekst/tabel/TabelIndeling";
 import { AfbeeldingGroepen } from "../tekst/afbeelding/AfbeeldingGroepen";
+import { ZoekHost, ZoekKnoppen } from "../tekst/zoeken/ZoekPaneel";
 import "./tekst.css";
 
 type Opdrachten = ReturnType<typeof useTekstOpdrachten>;
@@ -298,24 +297,8 @@ function OpmaakWissen() {
     </Groep>
   );
 }
-function Zoeken({ groot }: { groot?: boolean }) {
-  const knoppen = (
-    <>
-      <W id="find" naam="Zoeken" icoon={Search} groot={groot} />
-      <W
-        id="replace"
-        naam="Zoeken en vervangen"
-        icoon={Replace}
-        groot={groot}
-      />
-    </>
-  );
-  return (
-    <Groep naam="Zoeken">
-      {groot ? knoppen : <div className="ribbon-stapel">{knoppen}</div>}
-    </Groep>
-  );
-}
+/** Zoeken, vervangen en Ga naar: het navigatievenster uit src/tekst/zoeken (#29). */
+const Zoeken = ZoekKnoppen;
 function WoordenTellen({ opdrachten }: { opdrachten: Opdrachten }) {
   return (
     <EigenKnop
@@ -863,6 +846,7 @@ export function TekstRibbon({
         ]}
       />
       <TekstDialogen opdrachten={opdrachten} />
+      <ZoekHost />
       <TekstStatus opdrachten={opdrachten} />
       {grafieken.venster}
     </>

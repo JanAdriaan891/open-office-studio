@@ -198,3 +198,247 @@
 .tw-alt {
   grid-template-columns: 1fr;
 }
+
+/* Navigatievenster zoeken en vervangen */
+.docx-editor__dock-area.tw-met-zoekpaneel {
+  box-sizing: border-box;
+  padding-left: 336px;
+}
+.tw-zoekpaneel {
+  position: fixed;
+  z-index: 950;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 320px;
+  padding: 10px 12px;
+  overflow: auto;
+  border: 1px solid #dce1e8;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 10px 30px #1523382e;
+  color: #2b2f36;
+  font:
+    12px Inter,
+    system-ui,
+    sans-serif;
+}
+.tw-zoekpaneel header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.tw-zoekpaneel h2 {
+  flex: 1;
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+}
+.tw-zoekpaneel button,
+.tw-zoekpaneel input,
+.tw-zoekpaneel select {
+  font: inherit;
+  color: inherit;
+}
+.tw-zoek-sluit,
+.tw-zoek-wissel {
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+  cursor: pointer;
+}
+.tw-zoek-wissel {
+  padding: 3px 6px;
+  color: #a95606 !important;
+}
+.tw-zoek-sluit {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+}
+.tw-zoek-sluit:hover,
+.tw-zoek-wissel:hover {
+  background: #f4f6f8;
+}
+.tw-zoek-rij {
+  display: flex;
+  gap: 4px;
+}
+.tw-zoek-rij input {
+  flex: 1;
+  min-width: 0;
+  height: 30px;
+  padding: 3px 8px;
+  border: 1px solid #c9d0da;
+  border-radius: 6px;
+}
+.tw-zoek-rij button,
+.tw-zoek-knoppen button {
+  display: grid;
+  place-items: center;
+  min-width: 30px;
+  height: 30px;
+  padding: 0 8px;
+  border: 1px solid #dce1e8;
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer;
+}
+.tw-zoek-rij button:disabled,
+.tw-zoek-knoppen button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+.tw-zoek-knoppen {
+  display: flex;
+  gap: 6px;
+}
+.tw-zoek-knoppen button {
+  flex: 1;
+}
+.tw-zoek-opties {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px 8px;
+}
+.tw-zoek-opties label,
+.tw-zoek-opmaak {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.tw-zoek-meer summary {
+  cursor: pointer;
+  color: #5e636d;
+}
+.tw-zoek-speciaal {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  margin: 6px 0;
+}
+.tw-zoek-speciaal button {
+  padding: 3px 4px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+.tw-zoek-speciaal button:hover,
+.tw-zoek-speciaal button:focus-visible {
+  background: #f4f6f8;
+}
+.tw-zoek-opmaakrij {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px 8px;
+}
+.tw-zoek-opmaak span {
+  width: 72px;
+}
+.tw-zoek-opmaak select {
+  flex: 1;
+  min-width: 0;
+  height: 26px;
+  border: 1px solid #dce1e8;
+  border-radius: 5px;
+  background: #fff;
+}
+.tw-zoek-hulp {
+  margin: 6px 0 0;
+  color: #5e636d;
+  line-height: 1.5;
+}
+.tw-zoek-telling {
+  margin: 0;
+  color: #5e636d;
+}
+.tw-zoek-resultaten {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.tw-zoek-resultaten button {
+  display: grid;
+  width: 100%;
+  gap: 2px;
+  padding: 6px 8px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  overflow-wrap: anywhere;
+}
+.tw-zoek-resultaten button:hover {
+  background: #f4f6f8;
+}
+.tw-zoek-resultaten button[aria-current="true"] {
+  border-color: #e2a13d;
+  background: #fff6e5;
+}
+.tw-zoek-resultaten mark {
+  background: #ffd54f;
+  color: inherit;
+  font-weight: 600;
+}
+.tw-zoek-plek {
+  color: #747780;
+  font-size: 11px;
+}
+
+/* Ga naar */
+.tw-ganaar {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 16px;
+}
+.tw-ganaar-soorten {
+  display: grid;
+  align-content: start;
+  gap: 2px;
+}
+.tw-ganaar-soorten button,
+.tw-ganaar-lijst button {
+  padding: 6px 8px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  white-space: pre;
+}
+.tw-ganaar-soorten button[aria-selected="true"],
+.tw-ganaar-lijst button[aria-current="true"] {
+  border-color: var(--w-accent);
+  background: var(--w-bg-zacht);
+}
+.tw-ganaar-doel input[type="text"] {
+  height: 30px;
+  padding: 3px 8px;
+  border: 1px solid var(--w-rand);
+  border-radius: 6px;
+  background: var(--w-bg);
+}
+.tw-ganaar-lijst {
+  display: grid;
+  max-height: 260px;
+  margin: 8px 0 0;
+  padding: 0;
+  overflow: auto;
+  list-style: none;
+}
+.tw-ganaar-lijst button {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+@media (max-width: 560px) {
+  .tw-ganaar {
+    grid-template-columns: 1fr;
+  }
+}

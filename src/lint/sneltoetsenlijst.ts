@@ -117,6 +117,10 @@ export const vasteSneltoetsen: readonly SneltoetsInfo[] = [
   tekst("F5", "Navigatievenster"),
   tekst("Ctrl+Shift+R", "Liniaal tonen of verbergen"),
   tekst("F11", "Alle stijlen"),
+  // Tekst: Word-functies (src/tekst/**).
+  tekst("Ctrl+F", "Zoeken in het navigatievenster"),
+  tekst("Ctrl+H", "Uitgebreid zoeken en vervangen"),
+  tekst("Ctrl+G", "Ga naar"),
   // Tekst: engine (@betteroffice/docx-react).
   tekstEngine("Ctrl+B", "Vet"),
   tekstEngine("Ctrl+I", "Cursief"),
@@ -125,8 +129,6 @@ export const vasteSneltoetsen: readonly SneltoetsInfo[] = [
   tekstEngine("Ctrl+Y", "Opnieuw"),
   tekstEngine("Ctrl+Shift+Z", "Opnieuw"),
   tekstEngine("Ctrl+K", "Koppeling invoegen"),
-  tekstEngine("Ctrl+F", "Zoeken"),
-  tekstEngine("Ctrl+H", "Zoeken en vervangen"),
   tekstEngine("Ctrl+L", "Links uitlijnen"),
   tekstEngine("Ctrl+E", "Centreren"),
   tekstEngine("Ctrl+R", "Rechts uitlijnen"),

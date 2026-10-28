@@ -31,6 +31,7 @@ import { lettertypeBasis } from "./lettertypen/catalogus";
 import { DocumentLettertypen } from "./lettertypen/context";
 import { tekstSelectiePlugin } from "./lettertypen/koppeling";
 import { installeerFontCitering } from "./lettertypen/canvasFont";
+import { TEKST_PLUGINS } from "./tekst/gedeeld/markering";
 
 const PRESENTATIE_PLUGINS = [tekstSelectiePlugin];
 import { usePresentatieStatus, useRekenbladStatus } from "./status/useEditorStatus";
@@ -289,6 +290,7 @@ export default function OfficeEditor(props: EditorProps) {
               key={herladen.sleutel}
               ref={docx}
               documentBuffer={herladen.bytes}
+              plugins={TEKST_PLUGINS}
               showFileOpen={false}
               showHelpMenu={false}
               downloadOnSave={false}
