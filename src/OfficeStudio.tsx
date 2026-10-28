@@ -602,7 +602,7 @@ export function OfficeStudio() {
 
   const nieuw = (soort: Soort) =>
     bezigMet(async () => {
-      const r = await fetch(`/templates/nieuw.${soort}`);
+      const r = await fetch(`${import.meta.env.BASE_URL}templates/nieuw.${soort}`);
       if (!r.ok) throw new Error("Sjabloon niet beschikbaar");
       openDocument(
         soort,
@@ -617,7 +617,7 @@ export function OfficeStudio() {
     bezigMet(async () => {
       const module = modules.find((module) => module.soort === soort)!;
       const naam = `${module.voorbeeld}.${soort}`;
-      const resultaat = await fetch(`/voorbeelden/${naam}`);
+      const resultaat = await fetch(`${import.meta.env.BASE_URL}voorbeelden/${naam}`);
       if (!resultaat.ok)
         throw new Error("Het voorbeeld kon niet worden geopend.");
       const bytes = new Uint8Array(await resultaat.arrayBuffer());
