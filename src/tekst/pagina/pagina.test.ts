@@ -9,6 +9,7 @@ import {
   leesSecties,
   sectieVanMarkering,
   voegKolomeindeIn,
+  voegSectieEindeIn,
   wijzigSecties,
   zetKolomVoorkeur,
 } from "./secties.ts";
@@ -94,6 +95,19 @@ describe("secties: pagina-indeling", () => {
     const s = leesSecties(uit);
     expect(s[0].afdrukstand).toBe("staand");
     expect(s[1].afdrukstand).toBe("liggend");
+  });
+
+  it("zet een sectie-einde op een oneven pagina bij de cursor", () => {
+    const bytes = maakDocx(p("Een") + p(`Twee${M}drie`));
+    const uit = voegSectieEindeIn(bytes, M, "oddPage");
+    welgevormd(uit);
+    const s = leesSecties(uit);
+    expect(s.length).toBe(2);
+    expect(s[0].begin).toBe("nextPage");
+    expect(s[1].begin).toBe("oddPage");
+    const xml = doc(uit);
+    expect(xml).toMatch(/Twee<\/w:t><\/w:r><\/w:p><w:p><w:pPr><w:sectPr[\s\S]*?<\/w:sectPr><\/w:pPr><\/w:p><w:p><w:r><w:t xml:space="preserve">drie/);
+    expect(() => voegSectieEindeIn(maakDocx(`<w:tbl><w:tr><w:tc>${p(M)}</w:tc></w:tr></w:tbl>`), M, "evenPage")).toThrow(/tabel/);
   });
 
   it("zet een kolomeinde in een eigen alinea op de cursorplek", () => {

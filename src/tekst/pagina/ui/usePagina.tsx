@@ -19,6 +19,7 @@ import {
   sectieVanMarkering,
   tekstbreedteVan,
   voegKolomeindeIn,
+  voegSectieEindeIn,
   wijzigSecties,
   zetKolomVoorkeur,
   type Afdrukstand,
@@ -73,7 +74,8 @@ interface Pakketopdracht {
 
 /** Het lint wordt bij herladen opnieuw gemount en springt dan naar Start; onthoud het tabblad. */
 const actiefLintTab = () =>
-  zichtbaarElement<HTMLElement>(".office-tekst [role='tab'][aria-selected='true']")?.textContent ?? null;
+  // Niet via zichtbaarElement: met een open venster is het lint `inert`.
+  [...document.querySelectorAll<HTMLElement>(".office-tekst [role='tab'][aria-selected='true']")].find((t) => !t.closest("[hidden]"))?.textContent ?? null;
 function herstelLintTab(naam: string | null) {
   if (!naam) return;
   const tabs = [...document.querySelectorAll<HTMLElement>(".office-tekst [role='tab']")].filter((t) => !t.closest("[inert], [hidden]"));
@@ -339,12 +341,17 @@ export function usePagina() {
     }
   }
   const kolomeinde = () => void pakket({ klaar: "Kolomeinde ingevoegd", cursor: "nodig", werk: (b, { markering }) => voegKolomeindeIn(b, markering!) });
-  /** Engine-route: sectie-einde op een even of oneven pagina (met ongedaan maken). */
-  function sectieEinde(soort: "evenPage" | "oddPage") {
-    const editor = api()?.getEditorRef();
-    if (!editor?.applyYrsCommand({ type: "insertSectionBreak", breakType: soort })) fout("Het sectie-einde kon hier niet worden ingevoegd.");
-    api()?.focus();
-  }
+  /**
+   * Sectie-einde op een even of oneven pagina. Pakketroute: de engine voegt
+   * het via `applyYrsCommand({type:'insertSectionBreak'})` wel in, maar kan
+   * het daarna niet tekenen ("unsupported embed").
+   */
+  const sectieEinde = (soort: "evenPage" | "oddPage") =>
+    void pakket({
+      klaar: soort === "evenPage" ? "Sectie-einde (even pagina) ingevoegd" : "Sectie-einde (oneven pagina) ingevoegd",
+      cursor: "nodig",
+      werk: (b, { markering }) => voegSectieEindeIn(b, markering!, soort),
+    });
   const paginaInstelling = () => {
     void opdrachten.execute("pageSetup", null).then((r) => {
       if (!r.ok) fout(r.failure.message);
@@ -461,8 +468,14 @@ export function usePagina() {
     }
   }
   function gaNaarNoot(editor: DocxEditorRef, n: NootInfo, waar: "verwijzing" | "noot") {
-    if (waar === "noot" && n.paginaNoot != null) editor.scrollToPage(n.paginaNoot + 1);
-    else if (n.paraId && editor.scrollToParaId(n.paraId)) {
+    if (waar === "noot" && n.paginaNoot != null) {
+      editor.scrollToPage(n.paginaNoot + 1);
+      // Noten staan onderaan de pagina (of aan het eind): breng de onderkant in beeld.
+      requestAnimationFrame(() => {
+        const paginas = [...document.querySelectorAll<HTMLElement>(".office-tekst .canvas-page")].filter((p) => !p.closest("[inert], [hidden]"));
+        paginas[n.paginaNoot!]?.scrollIntoView({ block: "end" });
+      });
+    } else if (n.paraId && editor.scrollToParaId(n.paraId)) {
       /* gescrold */
     } else if (n.paginaVerwijzing != null) editor.scrollToPage(n.paginaVerwijzing + 1);
   }

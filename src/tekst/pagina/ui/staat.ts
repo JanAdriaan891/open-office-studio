@@ -37,7 +37,7 @@ let klok: ReturnType<typeof setTimeout> | null = null;
 const luisteraars = new Set<() => void>();
 const meld = () => luisteraars.forEach((l) => l());
 
-export function toonMelding(tekst: string, soort: Melding["soort"] = "info", duur = 6000) {
+export function toonMelding(tekst: string, soort: Melding["soort"] = "info", duur = 9000) {
   melding = { id: ++teller, tekst, soort };
   if (klok) clearTimeout(klok);
   klok = setTimeout(() => {

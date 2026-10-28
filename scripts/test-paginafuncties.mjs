@@ -24,7 +24,7 @@ import { Pakket } from "../src/grafieken/pakket.ts";
 import { voegPaginanummerIn, zetEvenOnevenAnders, zetKopVoetAfstand } from "../src/tekst/pagina/kopvoet.ts";
 import { koppenUitExport, voegInhoudsopgaveIn, werkInhoudsopgaveBij, STANDAARD_INHOUD } from "../src/tekst/pagina/inhoudsopgave.ts";
 import { voegNootIn, leesNoten, zetNootInstellingen, herstelNootverwijzingen } from "../src/tekst/pagina/noten.ts";
-import { FORMATEN, MARGES, voegKolomeindeIn, wijzigSecties, zetKolomVoorkeur, leesSecties } from "../src/tekst/pagina/secties.ts";
+import { FORMATEN, MARGES, voegKolomeindeIn, voegSectieEindeIn, wijzigSecties, zetKolomVoorkeur, leesSecties } from "../src/tekst/pagina/secties.ts";
 
 const args = new Set(process.argv.slice(2));
 const metLibreOffice = !args.has("--zonder-libreoffice") && spawnSync("which", ["soffice"]).status === 0;
@@ -209,6 +209,24 @@ controleer(!kopOp.some((x) => x.startsWith("0:")) && kLay.pages[0].size.width > 
 controleer(kLay.pages.every((pg) => pg.numberingFormat === "lowerRoman"), `kolommen.docx: paginanummering i, ii, iii (${kLay.pages.map((x) => x.displayedLabel).join(" ")})`);
 const sect = leesSecties(kolomEngine)[0];
 controleer(sect.kolommen.aantal === 2 && sect.kolommen.lijn, "kolommen.docx: twee kolommen met lijn na engine");
+
+// Sectie-einde op een oneven pagina: de engine laat een lege vulpagina zien.
+{
+  let s = proefdocument();
+  const pk = new Pakket(s);
+  pk.schrijf("word/document.xml", pk.lees("word/document.xml").replace(M1, "").replace(M2, "").replace(M3, "").replace(">Constructie<", ">OOSMARKSEC005QConstructie<"));
+  s = voegSectieEindeIn(pk.inpakken(), "OOSMARKSEC005Q", "oddPage");
+  const sessie = await createYrsSession();
+  sessie.openDocx(s, true);
+  const opgeslagen = (await saveYrsDocx(sessie)).bytes;
+  sessie.destroy?.();
+  const lay = (await pagina(opgeslagen)).layout;
+  const constructie = koppenUitExport(await pagina(opgeslagen)).find((k) => k.tekst === "Constructie");
+  controleer(
+    leesSecties(opgeslagen).map((x) => x.begin).join(",") === "nextPage,oddPage" && Number(constructie?.pagina) % 2 === 1,
+    `sectie-einde oneven pagina: ‘Constructie’ op pagina ${constructie?.pagina} (vulpagina's: ${lay.pages.filter((x) => x.parityFiller).length})`,
+  );
+}
 
 // ---------------------------------------------------------------------------
 // 4. LibreOffice naar PDF

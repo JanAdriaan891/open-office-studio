@@ -6,6 +6,7 @@
 import {
   PaginaFout,
   SECTPR_VOLGORDE,
+  STANDAARD_SECTPR,
   aan,
   bijgewerkteAttrs,
   kind,
@@ -285,6 +286,32 @@ export function sectieVanMarkering(bytes: Uint8Array, markering: string): number
     const p = plek.alinea.start;
     for (const s of lijst) if (s.alinea && p <= s.alinea.start) return s.index;
     return lijst.length - 1;
+  });
+}
+
+/**
+ * Een sectie-einde op de plek van de markering: de nieuwe sectie begint op de
+ * volgende even of oneven pagina (of de volgende pagina, of doorlopend). De
+ * alinea wordt gesplitst; een lege alinea draagt de sectie-eigenschappen van
+ * het eerste deel (een kopie van de huidige sectie), de huidige sectie krijgt
+ * het gekozen begin. (De engine kan `insertSectionBreak` met even/oneven wel
+ * invoegen, maar tekent het daarna niet: "unsupported embed".)
+ */
+export function voegSectieEindeIn(bytes: Uint8Array, markering: string, begin: "nextPage" | "continuous" | "evenPage" | "oddPage"): Uint8Array {
+  return metPakket(bytes, (pakket) => {
+    const plek = vindMarkering(pakket, markering);
+    const doc = openDocument(pakket);
+    if (!plek || plek.pad !== doc.pad) throw new PaginaFout("Een sectie-einde kan alleen in de hoofdtekst.");
+    for (let o = plek.alinea.ouder; o; o = o.ouder)
+      if (o.lokaal === "tbl" || o.lokaal === "txbxContent") throw new PaginaFout("Een sectie-einde kan niet in een tabel of tekstvak.");
+    const lijst = secties(doc);
+    const index = lijst.find((s) => s.alinea && plek.alinea.start <= s.alinea.start)?.index ?? lijst.length - 1;
+    const huidig = lijst[index].el;
+    const kopie = huidig ? doc.xml.slice(huidig.start, huidig.eind) : STANDAARD_SECTPR;
+    pakket.schrijf(doc.pad, splitsAlineaBijMarkering(plek, markering, () => `<w:p><w:pPr>${kopie}</w:pPr></w:p>`));
+    const na = openDocument(pakket);
+    wijzigSectPrs(na, [index + 1], (s) => pasSectPrAan(s, { begin }));
+    return pakket.inpakken();
   });
 }
 
