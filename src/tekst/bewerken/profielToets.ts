@@ -28,6 +28,11 @@ export function toetsVoorProfiel(
   const standaard = tekst.find(
     (i) => normaliseer(i.toets) === sleutel && i.profiel === "standaard",
   );
+  // Een toets die alleen in een ander profiel bestaat (Ctrl+Shift+F voor
+  // Lettertype… in het Word-profiel) noemt de knop in dit profiel niet.
+  const beschreven = tekst.filter((i) => normaliseer(i.toets) === sleutel);
+  if (!standaard && beschreven.length && !beschreven.some((i) => !i.profiel || i.profiel === profiel))
+    return undefined;
   // Toetsen die in elk profiel gelden of niet in het register staan: ongewijzigd.
   if (!standaard || profiel === "standaard") return toets;
   const omschrijving = standaard.omschrijving;
