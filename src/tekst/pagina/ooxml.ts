@@ -474,6 +474,53 @@ export function verwijderMarkering(pakket: Pakket, markering: string) {
  * opmaak (w:rPr) van de run mee, zodat die desgewenst kan worden overgenomen.
  */
 export function vervangMarkeringInline(plek: Markeringsplek, markering: string, invoeging: (rPr: string) => string) {
+  const { voor, na, rPr } = splitsRun(plek, markering);
+  return vervang(plek.xml, [{ start: plek.run.start, eind: plek.run.eind, tekst: voor + invoeging(rPr) + na }]);
+}
+
+/**
+ * Splitst de alinea met de markering in tweeën en zet `tussen` (hele
+ * alinea's) ertussen. Lege helften vallen weg; de tweede helft houdt de
+ * oorspronkelijke begintag (paraId) en een eventuele sectie-einde. Staat de
+ * run niet direct in de alinea (bijvoorbeeld in een hyperlink), dan komt het
+ * blok na de alinea.
+ */
+export function splitsAlineaBijMarkering(plek: Markeringsplek, markering: string, tussen: (pPrZonderSectie: string) => string) {
+  const { xml, alinea, run } = plek;
+  const pPrEl = kind(alinea, "pPr");
+  const pPr = pPrEl ? xml.slice(pPrEl.start, pPrEl.eind) : "";
+  const sectEl = kind(pPrEl, "sectPr");
+  const pPrZonder = sectEl && pPrEl ? xml.slice(pPrEl.start, sectEl.start) + xml.slice(sectEl.eind, pPrEl.eind) : pPr;
+  if (run.ouder !== alinea || alinea.leeg) {
+    const weg = zonderMarkering(xml, plek.t, markering);
+    return vervang(xml, [weg, { start: alinea.eind, eind: alinea.eind, tekst: tussen(pPrZonder) }]);
+  }
+  const { voor, na } = splitsRun(plek, markering);
+  const kinderenVoor: string[] = [];
+  const kinderenNa: string[] = [];
+  let gezien = false;
+  for (const k of alinea.kinderen) {
+    if (k.soort !== "element" || k === pPrEl) continue;
+    if (k === run) {
+      gezien = true;
+      continue;
+    }
+    (gezien ? kinderenNa : kinderenVoor).push(xml.slice(k.start, k.eind));
+  }
+  const deelA = kinderenVoor.join("") + voor;
+  const deelB = na + kinderenNa.join("");
+  const begin = xml.slice(alinea.start, alinea.inhoudStart);
+  const heeftTekst = (s: string) => /<w:(t|tab|drawing|pict|object|sym|fldSimple|footnoteReference|endnoteReference)\b/.test(s);
+  const delen: string[] = [];
+  if (heeftTekst(deelA)) delen.push(`<w:p>${pPrZonder}${deelA}</w:p>`);
+  delen.push(tussen(pPrZonder));
+  if (heeftTekst(deelB) || sectEl || !heeftTekst(deelA)) delen.push(`${begin}${pPr}${deelB}</w:p>`);
+  else if (deelB) delen[0] = `<w:p>${pPrZonder}${deelA}${deelB}</w:p>`;
+  return vervang(xml, [{ start: alinea.start, eind: alinea.eind, tekst: delen.join("") }]);
+}
+
+/** De run met de markering in twee runs (zonder markering), met de opmaak van de run. */
+function splitsRun(plek: Markeringsplek, markering: string) {
   const { xml, run, t } = plek;
   const rPrEl = kind(run, "rPr");
   const rPr = rPrEl ? xml.slice(rPrEl.start, rPrEl.eind) : "";
@@ -497,8 +544,7 @@ export function vervangMarkeringInline(plek: Markeringsplek, markering: string, 
   const deelVoor = [...voor, ...(tVoor ? [tTag(tVoor)] : [])];
   const deelNa = [...(tNa ? [tTag(tNa)] : []), ...na];
   const maakRun = (delen: string[]) => (delen.length ? `${begin}${rPr}${delen.join("")}</w:r>` : "");
-  const nieuw = maakRun(deelVoor) + invoeging(rPr) + maakRun(deelNa);
-  return vervang(xml, [{ start: run.start, eind: run.eind, tekst: nieuw }]);
+  return { voor: maakRun(deelVoor), na: maakRun(deelNa), rPr };
 }
 
 /**

@@ -31,7 +31,7 @@ import {
   werkInhoudsopgaveBij,
   type Kop,
 } from "./inhoudsopgave.ts";
-import { leesNootInstellingen, leesNoten, voegNootIn, zetNootInstellingen } from "./noten.ts";
+import { herstelNootverwijzingen, leesNootInstellingen, leesNoten, voegNootIn, zetNootInstellingen } from "./noten.ts";
 
 const SJABLOON = new Uint8Array(readFileSync(new URL("../../../public/templates/nieuw.docx", import.meta.url)));
 const M = "OOSMARKTEST1Q";
@@ -96,11 +96,19 @@ describe("secties: pagina-indeling", () => {
     expect(s[1].afdrukstand).toBe("liggend");
   });
 
-  it("zet een kolomeinde op de cursorplek en splitst de run", () => {
-    const bytes = maakDocx(p(`Voor${M}na`));
+  it("zet een kolomeinde in een eigen alinea op de cursorplek", () => {
+    const bytes = maakDocx(p(`Voor${M}na`, "Heading2"));
     const uit = doc(voegKolomeindeIn(bytes, M));
     expect(uit).not.toContain(M);
-    expect(uit).toMatch(/<w:t xml:space="preserve">Voor<\/w:t><\/w:r><w:r><w:br w:type="column"\/><\/w:r><w:r><w:t xml:space="preserve">na<\/w:t>/);
+    expect(uit).toContain(
+      '<w:p><w:pPr><w:pStyle w:val="Heading2"/></w:pPr><w:r><w:t xml:space="preserve">Voor</w:t></w:r></w:p>' +
+        '<w:p><w:pPr><w:pStyle w:val="Heading2"/></w:pPr><w:r><w:br w:type="column"/></w:r></w:p>' +
+        '<w:p><w:pPr><w:pStyle w:val="Heading2"/></w:pPr><w:r><w:t xml:space="preserve">na</w:t></w:r></w:p>',
+    );
+    // Aan het eind: geen lege derde alinea; de sectie-einde blijft bij de laatste helft.
+    const sect = '<w:sectPr><w:pgSz w:w="11906" w:h="16838"/></w:sectPr>';
+    const eind = doc(voegKolomeindeIn(maakDocx(`<w:p><w:pPr>${sect}</w:pPr><w:r><w:t>Tekst${M}</w:t></w:r></w:p>${p("Volgende")}`), M));
+    expect(eind).toContain(`<w:p><w:pPr></w:pPr><w:r><w:t xml:space="preserve">Tekst</w:t></w:r></w:p><w:p><w:pPr></w:pPr><w:r><w:br w:type="column"/></w:r></w:p><w:p><w:pPr>${sect}</w:pPr></w:p>`);
   });
 });
 
@@ -306,10 +314,20 @@ describe("voet- en eindnoten", () => {
     const ingesteld = zetNootInstellingen(bytes, "voetnoot", { notatie: "lowerLetter", beginBij: 3, herstart: "eachPage", positie: "pageBottom" });
     expect(leesNootInstellingen(ingesteld, "voetnoot")).toEqual({ notatie: "lowerLetter", beginBij: 3, herstart: "eachPage", positie: "pageBottom" });
     const s = deel(ingesteld, "word/settings.xml");
-    expect(s).toMatch(/<w:footnotePr><w:pos w:val="pageBottom"\/><w:numFmt w:val="lowerLetter"\/><w:numStart w:val="3"\/><w:numRestart w:val="eachPage"\/><w:footnote w:id="-1"\/><w:footnote w:id="0"\/><\/w:footnotePr>/);
-    expect(/<w:sectPr[\s\S]*?<\/w:sectPr>/.exec(doc(ingesteld))![0]).toMatch(/^<w:sectPr[^>]*><w:footnotePr>/);
+    // De nummering staat per sectie; de instellingen houden alleen de scheidingslijnen.
+    expect(s).toMatch(/<w:footnotePr><w:footnote w:id="-1"\/><w:footnote w:id="0"\/><\/w:footnotePr>/);
+    expect(/<w:sectPr[\s\S]*?<\/w:sectPr>/.exec(doc(ingesteld))![0]).toMatch(
+      /^<w:sectPr[^>]*><w:footnotePr><w:pos w:val="pageBottom"\/><w:numFmt w:val="lowerLetter"\/><w:numStart w:val="3"\/><w:numRestart w:val="eachPage"\/><\/w:footnotePr>/,
+    );
     expect(leesNootInstellingen(bytes, "eindnoot").notatie).toBe("lowerRoman");
     expect(() => zetNootInstellingen(bytes, "eindnoot", { notatie: "decimal", beginBij: 1, herstart: "eachPage", positie: "docEnd" })).toThrow();
+  });
+
+  it("herstelt nootverwijzingen waarvan de engine de opmaak liet vallen", () => {
+    const xml = '<w:document xmlns:w="w"><w:body><w:p><w:r><w:footnoteReference w:id="1"/></w:r><w:r><w:rPr><w:b/></w:rPr><w:endnoteReference w:id="2"/></w:r></w:p></w:body></w:document>';
+    expect(herstelNootverwijzingen(xml)).toBe(
+      '<w:document xmlns:w="w"><w:body><w:p><w:r><w:rPr><w:rStyle w:val="FootnoteReference"/><w:vertAlign w:val="superscript"/></w:rPr><w:footnoteReference w:id="1"/></w:r><w:r><w:rPr><w:b/></w:rPr><w:endnoteReference w:id="2"/></w:r></w:p></w:body></w:document>',
+    );
   });
 
   it("weigert een noot buiten de hoofdtekst", () => {

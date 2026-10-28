@@ -140,6 +140,25 @@ function notendeel(pakket: Pakket, docPad: string, s: (typeof SOORT)[NootSoort])
   return pad;
 }
 
+/**
+ * Geeft nootverwijzingen zonder opmaak weer de verwijzingsstijl (superscript).
+ * De engine schrijft een bewerkte alinea opnieuw en laat daarbij de w:rPr van
+ * de verwijzingsrun weg; Word toont het nummer dan niet meer verhoogd.
+ */
+export function herstelNootverwijzingen(xml: string) {
+  const wortel = leesXml(xml);
+  const w = [];
+  for (const soort of ["voetnoot", "eindnoot"] as NootSoort[]) {
+    const s = SOORT[soort];
+    for (const ref of zoekAlle(wortel, s.ref)) {
+      const run = ref.ouder;
+      if (!run || run.lokaal !== "r" || kind(run, "rPr")) continue;
+      w.push({ start: run.inhoudStart, eind: run.inhoudStart, tekst: `<w:rPr><w:rStyle w:val="${s.refStijl}"/><w:vertAlign w:val="superscript"/></w:rPr>` });
+    }
+  }
+  return w.length ? vervang(xml, w) : xml;
+}
+
 /** Voegt een voet- of eindnoot in op de plek van de markering. Geeft ook het nootnummer (id). */
 export function voegNootIn(bytes: Uint8Array, markering: string, soort: NootSoort, tekst: string) {
   const s = SOORT[soort];
@@ -158,7 +177,7 @@ export function voegNootIn(bytes: Uint8Array, markering: string, soort: NootSoor
     pakket.schrijf(pad, vervang(xml, [{ start: wortel.inhoudEind, eind: wortel.inhoudEind, tekst: nootXml(s, id, tekst) }]));
     // De markering staat nog in document.xml (vindMarkering las het vóór de stijlen; lees opnieuw).
     const opnieuw = vindMarkering(pakket, markering)!;
-    pakket.schrijf(opnieuw.pad, vervangMarkeringInline(opnieuw, markering, () => verwijzingRun(s, id)));
+    pakket.schrijf(opnieuw.pad, herstelNootverwijzingen(vervangMarkeringInline(opnieuw, markering, () => verwijzingRun(s, id))));
     return { bytes: pakket.inpakken(), id };
   });
 }
@@ -235,12 +254,17 @@ export function zetNootInstellingen(bytes: Uint8Array, soort: NootSoort, w: Noot
   if (soort === "eindnoot" && w.herstart === "eachPage") throw new PaginaFout("Eindnoten kunnen niet per pagina opnieuw beginnen.");
   return metPakket(bytes, (pakket) => {
     const doc = openDocument(pakket);
-    // In de instellingen: de bestaande verwijzingen naar scheidingslijnen blijven staan.
+    // De instellingen houden alleen de verwijzingen naar de scheidingslijnen; de
+    // nummering staat per sectie (die wint in Word). Nummering in settings.xml
+    // laat de headless indeling van de engine weigeren ("stale-layout").
     wijzigInstellingen(pakket, doc.pad, (x) => {
       const bestaand = kindVan(x, s.pr);
-      const extra = bestaand ? kinderen(bestaand, s.element).map((n) => `<w:${s.element} w:id="${attr(n, "id")}"/>`).join("") : "";
-      return zetKind(x, s.pr, `<w:${s.pr}>${prKinderen(s, w)}${extra}</w:${s.pr}>`, SETTINGS_VOLGORDE);
+      if (!bestaand) return x;
+      const extra = kinderen(bestaand, s.element).map((n) => `<w:${s.element} w:id="${attr(n, "id")}"/>`).join("");
+      return zetKind(x, s.pr, extra ? `<w:${s.pr}>${extra}</w:${s.pr}>` : null, SETTINGS_VOLGORDE);
     });
+    const hersteld = herstelNootverwijzingen(doc.xml);
+    if (hersteld !== doc.xml) pakket.schrijf(doc.pad, hersteld);
     const opnieuw = openDocument(pakket);
     wijzigSectPrs(opnieuw, secties(opnieuw).map((x) => x.index), (sectPr) => {
       // Herstart per pagina mag in een sectie niet bij eindnoten; positie staat in de sectie alleen bij voetnoten.

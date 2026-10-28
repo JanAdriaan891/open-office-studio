@@ -17,7 +17,7 @@ import {
   secties,
   tekstbreedte,
   twips,
-  vervangMarkeringInline,
+  splitsAlineaBijMarkering,
   vindMarkering,
   wijzigSectPrs,
   zetKind,
@@ -285,13 +285,18 @@ export function sectieVanMarkering(bytes: Uint8Array, markering: string): number
   });
 }
 
-/** Zet een kolomeinde (w:br type=column) op de plek van de markering. */
+/**
+ * Zet een kolomeinde op de plek van de markering, in een eigen alinea: de
+ * alinea wordt daar gesplitst. De engine laat een w:br type=column midden in
+ * een alinea vallen zodra die alinea wordt bewerkt; in een eigen alinea blijft
+ * het staan en tekent de engine het ook.
+ */
 export function voegKolomeindeIn(bytes: Uint8Array, markering: string): Uint8Array {
   return metPakket(bytes, (pakket) => {
     const plek = vindMarkering(pakket, markering);
     if (!plek) throw new PaginaFout("De cursorplek is niet gevonden.");
     if (!/document\.xml$/.test(plek.pad)) throw new PaginaFout("Een kolomeinde kan alleen in de hoofdtekst.");
-    pakket.schrijf(plek.pad, vervangMarkeringInline(plek, markering, (rPr) => `<w:r>${rPr}<w:br w:type="column"/></w:r>`));
+    pakket.schrijf(plek.pad, splitsAlineaBijMarkering(plek, markering, (pPr) => `<w:p>${pPr}<w:r><w:br w:type="column"/></w:r></w:p>`));
     return pakket.inpakken();
   });
 }
