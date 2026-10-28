@@ -91,6 +91,12 @@ import {
 } from "./tekst-opdrachten";
 import { datumTekst, tijdTekst, type Hoofdlettersoort } from "./tekst-logica";
 import { TabelKiezer } from "../tabelvoorbeeld/TabelKiezer";
+import {
+  DatumTijdKnop,
+  GrootteKnoppen,
+  KwastKnop,
+  TekstBewerken,
+} from "../tekst/bewerken/TekstBewerken";
 import "./tekst.css";
 
 type Opdrachten = ReturnType<typeof useTekstOpdrachten>;
@@ -127,6 +133,7 @@ function TekstLettertype() {
           naam="Tekengrootte"
           args={(points) => ({ points })}
         />
+        <GrootteKnoppen />
       </div>
       <div className="ribbon-rij ribbon-iconen">
         <W id="bold" naam="Vet" icoon={Bold} />
@@ -279,6 +286,7 @@ function Klembord({ opdrachten }: { opdrachten: Opdrachten }) {
           sneltoets="Ctrl+C"
           onClick={() => opdrachten.klembord("copy")}
         />
+        <KwastKnop />
       </div>
     </Groep>
   );
@@ -547,7 +555,7 @@ export function TekstRibbon({
       ),
     });
   return (
-    <>
+    <TekstBewerken opdrachten={opdrachten}>
       <Ribbon
         bestand={bestand}
         tabs={[
@@ -616,6 +624,7 @@ export function TekstRibbon({
                       disabled={!opdrachten.bewerkbaar}
                       onClick={() => opdrachten.voegIn(tijdTekst(new Date()))}
                     />
+                    <DatumTijdKnop />
                   </div>
                 </Groep>
               </>
@@ -860,6 +869,6 @@ export function TekstRibbon({
       <TekstDialogen opdrachten={opdrachten} />
       <TekstStatus opdrachten={opdrachten} />
       {grafieken.venster}
-    </>
+    </TekstBewerken>
   );
 }
