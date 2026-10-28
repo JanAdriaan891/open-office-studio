@@ -805,7 +805,7 @@ select {
   flex-direction: column;
   flex: 0 0 218px;
   padding: 28px 14px 16px;
-  border-right: 1px solid #e1e4e9;
+  border-inline-end: 1px solid #e1e4e9;
   background: #fcfcfd;
   overflow: auto;
 }
@@ -835,7 +835,7 @@ select {
   border-radius: 8px;
   color: #525c6a;
   background: transparent;
-  text-align: left;
+  text-align: start;
   font-size: 13px;
   transition:
     background 0.15s,
@@ -864,9 +864,15 @@ select {
   background: #eef1f5;
 }
 .start-navigatie .nav-plus {
-  margin-left: auto;
+  margin-inline-start: auto;
   color: #9ba3af;
   width: 13px;
+}
+/* Rechts-naar-links: pijlen op Start wijzen de leesrichting op. */
+[dir="rtl"] .office-start .lucide-arrow-left,
+[dir="rtl"] .office-start .lucide-arrow-right,
+[dir="rtl"] .office-start .lucide-arrow-up-right {
+  transform: scaleX(-1);
 }
 .start-module.module-docx > svg:first-child {
   color: #4e70c4;
@@ -974,7 +980,7 @@ select {
   border-color: #3a475a;
 }
 .office-primair kbd {
-  margin-left: 8px;
+  margin-inline-start: 8px;
   padding: 3px 4px;
   border: 1px solid #ffffff29;
   border-radius: 4px;
@@ -1025,7 +1031,7 @@ select {
   --module-zacht: #faf0e9;
 }
 .start-sjabloon {
-  text-align: left;
+  text-align: start;
   padding: 0;
   border: 1px solid #dde2e9;
   background: #fff;
@@ -1218,7 +1224,7 @@ select {
   margin-top: 4px;
 }
 .sjabloon-details > svg {
-  margin-left: auto;
+  margin-inline-start: auto;
   flex-shrink: 0;
   color: #929ead;
 }
@@ -1232,7 +1238,7 @@ select {
   align-items: center;
   gap: 10px;
   min-width: 0;
-  text-align: left;
+  text-align: start;
   padding: 13px 12px;
   border: 1px solid #e0e5eb;
   border-radius: 9px;
@@ -1264,7 +1270,7 @@ select {
   color: #768293;
 }
 .start-voorbeeldbestand > svg {
-  margin-left: auto;
+  margin-inline-start: auto;
   flex-shrink: 0;
   color: #8d99a9;
 }
@@ -1277,7 +1283,7 @@ select {
   background: #fff;
   border: 1px solid #dce2e9;
   border-radius: 9px;
-  text-align: left;
+  text-align: start;
 }
 .start-bestand-openen:hover:not(:disabled) {
   border-color: #a1afc0;
@@ -1307,12 +1313,12 @@ select {
 }
 .start-bestand-openen > svg {
   color: #8c99aa;
-  margin-left: 8px;
+  margin-inline-start: 8px;
   flex-shrink: 0;
 }
 .bestandsformaten {
   display: flex;
-  margin-left: auto;
+  margin-inline-start: auto;
   gap: 5px;
 }
 .bestandsformaten > i {
@@ -1341,7 +1347,7 @@ select {
 }
 .start-onderkant details {
   max-width: 330px;
-  margin-left: auto;
+  margin-inline-start: auto;
   color: #778393;
 }
 .start-onderkant summary {
@@ -1514,7 +1520,7 @@ select {
     width: 125px;
     height: 105px;
     flex-shrink: 0;
-    border-right: 1px solid #e1e6ee;
+    border-inline-end: 1px solid #e1e6ee;
     border-bottom: 0;
   }
   .voorbeeld-app {

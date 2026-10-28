@@ -43,7 +43,7 @@
   display: flex;
   align-items: center;
   gap: 2px;
-  padding-right: 6px;
+  padding-inline-end: 6px;
 }
 .start-recent-item + .start-recent-item {
   border-top: 1px solid #f0eeec;
@@ -60,7 +60,7 @@
   padding: 9px 12px;
   border: 0;
   background: none;
-  text-align: left;
+  text-align: start;
   cursor: pointer;
   font: inherit;
 }
