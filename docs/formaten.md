@@ -10,13 +10,21 @@ DOCX, XLSX en PPTX werken rechtstreeks in de editors. De andere invoerextensies 
 
 ## Opslaan als
 
-Open het venster Opslaan als met de knop in de kopbalk of met Ctrl+Shift+S. Daarin kies je de bestandsnaam en het formaat. Elk formaat toont wat er behouden blijft en hoe het gemaakt wordt:
+Open het venster Opslaan als met de knop in de kopbalk, met F12 of met Ctrl+Shift+S. Daarin kies je de bestandsnaam en het formaat. Elk formaat toont wat er behouden blijft en hoe het gemaakt wordt:
 
 - **in de app**: de app maakt het bestand zelf met de engines, ook in de browser en zonder runtime;
 - **via kantoorruntime**: de desktopapp converteert met LibreOffice;
 - **via Afdrukken**: PDF zonder runtime.
 
-Ctrl+S bewaart opnieuw in het laatst gekozen formaat. Alleen het eigen formaat (DOCX/XLSX/PPTX) haalt de markering "gewijzigd" weg. Elk ander formaat is een kopie: het document blijft als gewijzigd gemarkeerd tot het in het eigen formaat is bewaard. Het venster legt dat uit. Bij een conversie naar een bewerkbaar formaat staat de verliesmelding van de pakketcontrole (`risicoBeleid`) al vóór het opslaan in het venster.
+Alleen het eigen formaat (DOCX/XLSX/PPTX) haalt de markering "gewijzigd" weg. Elk ander formaat is een kopie: het document blijft als gewijzigd gemarkeerd tot het in het eigen formaat is bewaard. Het venster legt dat uit. Bij een conversie naar een bewerkbaar formaat staat de verliesmelding van de pakketcontrole (`risicoBeleid`) al vóór het opslaan in het venster. Opslaan als in het eigen formaat maakt van het gekozen bestand het nieuwe werkbestand van het tabblad.
+
+## Opslaan (Ctrl+S)
+
+- **Bestand van schijf** (desktop: bestandsmenu, dubbelklik in Verkenner, recente bestanden, slepen): Ctrl+S schrijft atomair terug naar hetzelfde bestand. Het pad blijft in Rust (`src-tauri/src/werkbestanden.rs`); de webview kent alleen een token en de bestandsnaam.
+- **Geïmporteerd ODT, DOC, enz.**: de eerste Ctrl+S vraagt eenmalig of het bestand in zijn eigen formaat bijgewerkt mag worden, met de verliesmelding. Daarna zet de kantoorruntime het document om en wordt het origineel bijgewerkt. Kies je "Opslaan als…", of is er geen runtime, dan opent Opslaan als.
+- **Buiten de app gewijzigd of verdwenen** (grootte, wijzigingstijd en SHA-256 sinds openen of het laatste opslaan): keuze tussen overschrijven, Opslaan als en annuleren.
+- **Alleen-lezen of geen schrijfrechten**: melding en Opslaan als.
+- **Nieuw document of browser**: de eerste Ctrl+S opent Opslaan als; daarna bewaart Ctrl+S opnieuw met dezelfde keuze (in de browser als download).
 
 | Groep | Tekst | Rekenblad | Presentatie |
 |---|---|---|---|

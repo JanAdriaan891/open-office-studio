@@ -8,12 +8,14 @@ import {
   tabbladReducer,
   titel,
   zoekDocument,
+  zoekWerkbestand,
   type ModuleNaam,
   type Tabblad,
   type TabbladActie,
   type TabbladToestand,
 } from "./tabbladen";
 import type { Soort } from "./editors";
+import { vergeetWerkbestand, type Werkbestand } from "./werkbestand";
 
 type Serialiseer = () => Promise<Uint8Array>;
 
@@ -90,6 +92,7 @@ export function useTabbladen(opties: Opties) {
     soort: Soort;
     bytes: Uint8Array;
     vingerafdruk?: string | null;
+    werkbestand?: Werkbestand | null;
     exportFormaat?: string;
     gewijzigd?: boolean;
     melding?: string;
@@ -116,6 +119,13 @@ export function useTabbladen(opties: Opties) {
   /** Activeert een al geopend document met deze vingerafdruk. */
   function openBestaand(vinger: string) {
     const bestaand = zoekDocument(toestandRef.current, vinger);
+    if (bestaand) verwerk({ type: "activeer", id: bestaand.id });
+    return !!bestaand;
+  }
+
+  /** Activeert het tabblad met dit pad-token; waar als het bestaat. */
+  function activeerWerkbestand(token: string) {
+    const bestaand = zoekWerkbestand(toestandRef.current, token);
     if (bestaand) verwerk({ type: "activeer", id: bestaand.id });
     return !!bestaand;
   }
@@ -190,6 +200,10 @@ export function useTabbladen(opties: Opties) {
   }
 
   function verwijder(id: number) {
+    const tabblad = toestandRef.current.tabbladen.find((t) => t.id === id);
+    // Na een overdracht hoort het token al bij het andere venster; Rust weigert dan.
+    if (tabblad?.type === "document" && tabblad.werkbestand)
+      vergeetWerkbestand(tabblad.werkbestand.token);
     verwerk({ type: "sluit", id });
     opslagen.current.delete(id);
     serialiseerders.current.delete(id);
@@ -234,6 +248,7 @@ export function useTabbladen(opties: Opties) {
     verwerk,
     openDocument,
     openBestaand,
+    activeerWerkbestand,
     openModule,
     koppeling,
     moduleBewerkt,
