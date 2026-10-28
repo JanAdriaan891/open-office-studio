@@ -3,7 +3,7 @@
  * plus wat `useSneltoetsen` op dit moment in een module heeft geregistreerd.
  * Het overzicht (F1 of Ctrl+/) en de botsingentest lezen hieruit.
  */
-import { ontleed } from "./sneltoetsen";
+import { ontleed, past } from "./sneltoetsen";
 
 export type SneltoetsModule =
   | "algemeen"
@@ -345,6 +345,19 @@ export function toetsInProfiel(
     (i) => i.module === module && normaliseer(i.toets) === sleutel,
   );
   return !beschreven.length || beschreven.some((i) => inProfiel(i, profiel));
+}
+
+/**
+ * Of een ingedrukte toets in dit profiel een eigen opdracht van de module is.
+ * Zo laat de documentzoom Ctrl+Shift+= (Word: superscript) aan de tekst over.
+ */
+export function moduleToets(
+  module: SneltoetsModule,
+  profiel: SneltoetsProfiel,
+  e: Parameters<typeof past>[1],
+  lijst: readonly SneltoetsInfo[] = vasteSneltoetsen,
+) {
+  return lijst.some((i) => i.module === module && inProfiel(i, profiel) && past(i.toets, e));
 }
 
 /** Combinaties die in één module (per sneltoetsprofiel) twee keer iets anders doen. */

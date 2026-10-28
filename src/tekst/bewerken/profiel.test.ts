@@ -103,6 +103,9 @@ describe("sneltoetsprofielen", () => {
     expect(toetsVoorProfiel("Ctrl+Shift+C", "word")).toBe("Ctrl+Shift+E");
     expect(toetsVoorProfiel("Ctrl+Enter", "word")).toBe("Ctrl+Enter");
     expect(toetsVoorProfiel("Ctrl+X", "word")).toBe("Ctrl+X");
+    // Lettertype… heeft alleen in het Word-profiel een toets.
+    expect(toetsVoorProfiel("Ctrl+Shift+F", "word")).toBe("Ctrl+Shift+F");
+    expect(toetsVoorProfiel("Ctrl+Shift+F", "standaard")).toBeUndefined();
   });
 
   it("beschrijft elke toets uit src/tekst/bewerken in het register", () => {

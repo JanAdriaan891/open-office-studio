@@ -17,6 +17,7 @@ import {
   verdeelKolommen,
 } from "./logica";
 import { rijenPerTabel, splitsTabelXml } from "./pakket";
+import { celCursor, invoegAlinea } from "./opdrachten";
 
 describe("kolombreedtes", () => {
   it("verdeelt de geselecteerde kolommen gelijk en houdt de som", () => {
@@ -146,5 +147,21 @@ describe("tabel splitsen (pakketroute)", () => {
     expect(() => splitsTabelXml(xml, 0, 0)).toThrow();
     const samen = xml.replace(rij("b"), `<w:tr><w:tc><w:tcPr><w:vMerge/></w:tcPr><w:p/></w:tc></w:tr>`);
     expect(() => splitsTabelXml(samen, 0, 2)).toThrow(/samengevoegde/);
+  });
+});
+
+describe("tekst naar tabel na een bestaande tabel", () => {
+  it("voegt na een bestaande tabel in de volgende alinea in, zodat de nieuwe tabel erna komt", () => {
+    expect(invoegAlinea(true, "p8", "p9")).toBe("p9");
+    expect(invoegAlinea(false, "p8", "p9")).toBe("p8");
+    expect(invoegAlinea(true, "p8", undefined)).toBe("p8");
+  });
+
+  it("zet de celselectie op één cel van de nieuwe tabel", () => {
+    const gezet: unknown[] = [];
+    const sessie = { setCellSelection: (r: unknown) => gezet.push(r) } as unknown as Parameters<typeof celCursor>[0];
+    celCursor(sessie, { story: "body", tableIndex: 1 });
+    const cel = { story: "body", tableIndex: 1, row: 0, column: 0 };
+    expect(gezet).toEqual([{ anchor: cel, head: cel }]);
   });
 });

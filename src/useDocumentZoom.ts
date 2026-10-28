@@ -30,6 +30,7 @@ export function useDocumentZoom({
   huidig,
   standaard,
   pasBreedte,
+  overslaan,
 }: {
   opdracht: GebondenOpdracht;
   /** Het scrollende documentvlak. */
@@ -43,11 +44,13 @@ export function useDocumentZoom({
   standaard?: unknown;
   /** Breedte (px, bij de huidige zoom) die ‘passend’ in het vlak moet laten passen. */
   pasBreedte?: () => number | null;
+  /** Toetsen die de module zelf gebruikt (Word-profiel: Ctrl+Shift+= is superscript). */
+  overslaan?: (e: KeyboardEvent) => boolean;
 }) {
   const fout = useContext(RibbonFout);
   const zichtbaar = useEditorZichtbaar();
-  const recent = useRef({ opdracht, koppeling, huidig, fout, vlak, zichtbaar });
-  recent.current = { opdracht, koppeling, huidig, fout, vlak, zichtbaar };
+  const recent = useRef({ opdracht, koppeling, huidig, fout, vlak, zichtbaar, overslaan });
+  recent.current = { opdracht, koppeling, huidig, fout, vlak, zichtbaar, overslaan };
   const doel = useRef<number | null>(null);
   const anker = useRef<{ x: number; y: number; oud: number } | null>(null);
   const frame = useRef(0);
@@ -155,7 +158,7 @@ export function useDocumentZoom({
       )
         return;
       const zoom = toetsZoom(doel.current ?? schaal(), e);
-      if (zoom === null) return;
+      if (zoom === null || recent.current.overslaan?.(e)) return;
       e.preventDefault();
       if (!recent.current.opdracht.state.enabled) return;
       zoomNaar(zoom, recent.current.vlak());

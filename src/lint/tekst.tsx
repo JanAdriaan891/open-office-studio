@@ -120,6 +120,8 @@ import { AlineastijlKeuze } from "../tekst/stijlen/StijlKeuze";
 import { useHerhaalbaar } from "../tekst/bewerken/herhaalmelding";
 import { TekstInfo } from "../tekst/info/TekstInfo";
 import { WeergaveGroep } from "../tekst/info/WeergaveGroep";
+import { useInstellingen } from "../instellingen";
+import { moduleToets } from "./sneltoetsenlijst";
 import "./tekst.css";
 
 type Opdrachten = ReturnType<typeof useTekstOpdrachten>;
@@ -348,6 +350,7 @@ export function TekstRibbon({
   zoomKoppeling?: ZoomKoppeling;
 }) {
   const zoom = useDocxCommand("zoom");
+  const profiel = useInstellingen().tekst.sneltoetsprofiel;
   useDocumentZoom({
     opdracht: zoom,
     vlak: () =>
@@ -359,6 +362,8 @@ export function TekstRibbon({
     pasBreedte: () =>
       zichtbaarElement<HTMLElement>(".office-tekst .canvas-page")?.getBoundingClientRect()
         .width ?? null,
+    // Word-profiel: Ctrl+Shift+= en Ctrl+Shift+- zijn super- en subscript.
+    overslaan: (e) => moduleToets("tekst", profiel, e),
   });
   const opdrachten = useTekstOpdrachten({ wijzigLiniaal, wijzigNavigatie });
   const herlaad = useEditorApi().herlaad;

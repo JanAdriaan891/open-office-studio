@@ -6,7 +6,8 @@
  */
 import { useContext, useEffect } from "react";
 import { RibbonFout } from "../Ribbon";
-import { useEditorApi, useEditorZichtbaar } from "../lint/editorApi";
+import { useEditorApi, useEditorZichtbaar, zichtbaarElement } from "../lint/editorApi";
+import { volgEngineVensters } from "./gedeeld/enginevenster";
 import { meldOpdrachtAan } from "./menu/opdrachten";
 import { openVenster, sluitVenster, useOpenVenster } from "./gedeeld/vensters";
 import { fout } from "./gedeeld/engine";
@@ -68,6 +69,14 @@ export function WordHost() {
     ];
     return () => afmelden.forEach((weg) => weg());
   }, [zichtbaar, api, apis.herlaad]);
+
+  // Enginevensters (Cel splitsen, Eigenschappen, Koppeling) krijgen de focus,
+  // zodat Esc en Tab erin werken.
+  useEffect(() => {
+    if (!zichtbaar) return;
+    const wortel = zichtbaarElement<HTMLElement>(".office-tekst");
+    return wortel ? volgEngineVensters(wortel) : undefined;
+  }, [zichtbaar]);
 
   // Het resultaat van Versies vergelijken opent met het deelvenster Wijzigingen.
   useEffect(() => {

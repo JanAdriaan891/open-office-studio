@@ -4,6 +4,7 @@ import {
   alleSneltoetsen,
   botsingen,
   geldtIn,
+  moduleToets,
   normaliseer,
   registreerSneltoetsen,
   toetsDelen,
@@ -87,5 +88,18 @@ describe("sneltoetsenregister", () => {
   it("zoekt in omschrijving en toets", () => {
     expect(zoekSneltoetsen(vasteSneltoetsen, "autosom").map((i) => i.toets)).toEqual(["Alt+="]);
     expect(zoekSneltoetsen(vasteSneltoetsen, "ctrl+shift+s").some((i) => i.toets === "Ctrl+Shift+S")).toBe(true);
+  });
+});
+
+describe("documentzoom en tekstprofiel", () => {
+  const toets = (key: string, code: string, shiftKey: boolean) => ({ key, code, shiftKey, ctrlKey: true, metaKey: false, altKey: false });
+  it("laat Ctrl+Shift+= en Ctrl+Shift+- in het Word-profiel aan super- en subscript", () => {
+    expect(moduleToets("tekst", "word", toets("+", "Equal", true))).toBe(true);
+    expect(moduleToets("tekst", "word", toets("_", "Minus", true))).toBe(true);
+  });
+  it("laat zoomen met Ctrl+= en Ctrl+- (en in het standaardprofiel ook met Shift) door", () => {
+    expect(moduleToets("tekst", "word", toets("=", "Equal", false))).toBe(false);
+    expect(moduleToets("tekst", "word", toets("-", "Minus", false))).toBe(false);
+    expect(moduleToets("tekst", "standaard", toets("+", "Equal", true))).toBe(false);
   });
 });

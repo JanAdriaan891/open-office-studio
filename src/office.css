@@ -418,8 +418,7 @@ select {
   position: sticky;
   right: 0;
   background: #f6f7f9;
-}
-.office .ribbon-inhoud[hidden] {
+}.office .ribbon-inhoud[hidden] {
   display: none;
 }
 .office .ribbon-inhoud {

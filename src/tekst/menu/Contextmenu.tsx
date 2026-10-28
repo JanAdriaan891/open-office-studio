@@ -87,6 +87,8 @@ export function Contextmenu({
   const bronSecties = useMenubronnen(punt);
 
   const tabel = (args: DocxCommandArgs["tableAction"]) => () => voerUit("tableAction", args);
+  /** Per tabelactie: de engine weet bijvoorbeeld dat samenvoegen meerdere cellen vraagt. */
+  const kanTabel = (args: DocxCommandArgs["tableAction"]) => store.getState("tableAction", args).enabled;
   /** Een item voor een opdracht uit de registry (W4: tabel- en afbeeldingsvensters), alleen als die is aangemeld. */
   const aangemeld = (naam: string, icoon: LucideIcon, id: string, uit = !bewerkbaar): Item[] =>
     heeftOpdracht(id) ? [{ naam, icoon, uit, doe: () => voerOpdrachtUit(id, { punt }) }] : [];
@@ -162,20 +164,21 @@ export function Contextmenu({
   if (plek.tabel)
     secties.push(
       [
-        { naam: "Rij boven invoegen", icoon: Rows3, doe: tabel("addRowAbove") },
-        { naam: "Rij onder invoegen", icoon: Rows3, doe: tabel("addRowBelow") },
-        { naam: "Kolom links invoegen", icoon: Columns2, doe: tabel("addColumnLeft") },
-        { naam: "Kolom rechts invoegen", icoon: Columns2, doe: tabel("addColumnRight") },
+        { naam: "Rij boven invoegen", icoon: Rows3, uit: !kanTabel("addRowAbove"), doe: tabel("addRowAbove") },
+        { naam: "Rij onder invoegen", icoon: Rows3, uit: !kanTabel("addRowBelow"), doe: tabel("addRowBelow") },
+        { naam: "Kolom links invoegen", icoon: Columns2, uit: !kanTabel("addColumnLeft"), doe: tabel("addColumnLeft") },
+        { naam: "Kolom rechts invoegen", icoon: Columns2, uit: !kanTabel("addColumnRight"), doe: tabel("addColumnRight") },
       ],
       [
-        { naam: "Cellen samenvoegen", icoon: Merge, uit: !kan("tableAction"), doe: tabel("mergeCells") },
-        { naam: "Cel splitsen", icoon: Grid2X2, doe: tabel("splitCell") },
-        { naam: "Rij verwijderen", icoon: Trash2, doe: tabel("deleteRow") },
-        { naam: "Kolom verwijderen", icoon: Trash2, doe: tabel("deleteColumn") },
-        { naam: "Tabel verwijderen", icoon: Trash2, doe: tabel("deleteTable") },
+        { naam: "Cellen samenvoegen", icoon: Merge, uit: !kanTabel("mergeCells"), doe: tabel("mergeCells") },
+        { naam: "Cel splitsen", icoon: Grid2X2, uit: !kanTabel("splitCell"), doe: tabel("splitCell") },
+        { naam: "Rij verwijderen", icoon: Trash2, uit: !kanTabel("deleteRow"), doe: tabel("deleteRow") },
+        { naam: "Kolom verwijderen", icoon: Trash2, uit: !kanTabel("deleteColumn"), doe: tabel("deleteColumn") },
+        { naam: "Tabel verwijderen", icoon: Trash2, uit: !kanTabel("deleteTable"), doe: tabel("deleteTable") },
         {
           naam: "Tabeleigenschappen…",
           icoon: Table2,
+          uit: !kanTabel({ type: "openTableProperties" }),
           doe: tabel({ type: "openTableProperties" }),
         },
       ],
