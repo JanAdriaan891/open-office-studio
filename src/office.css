@@ -1709,3 +1709,18 @@ select {
   color: #88929e !important;
   letter-spacing: 0.7px !important;
 }
+
+/* Rechts-naar-links (ar, he): de schil spiegelt, de documentinhoud niet.
+   Het editorgebied staat op ltr; het lint binnen de editor volgt weer de
+   taal. De richting van tekst in een document hoort bij het document zelf
+   (zie docs/i18n.md). */
+html[dir="rtl"] .office .office-tekst,
+html[dir="rtl"] .office .office-rekenblad-host,
+html[dir="rtl"] .office .office-presentatie {
+  direction: ltr;
+}
+html[dir="rtl"] .office .office-tekst .ribbon,
+html[dir="rtl"] .office .office-rekenblad-host .ribbon,
+html[dir="rtl"] .office .office-presentatie .ribbon {
+  direction: rtl;
+}
