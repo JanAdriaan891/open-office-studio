@@ -38,6 +38,16 @@ import { portaalDoel } from "./portaal";
 /** Afstand (px) van de balk waarboven hij verdwijnt. */
 const WEG_AFSTAND = 140;
 
+/**
+ * Of de balk bij een muisselectie verschijnt: alleen als er echte tekst is
+ * geselecteerd. Bij een geselecteerde afbeelding (de selectie is dan alleen
+ * het objectteken U+FFFC) horen de tekstopmaakknoppen niet; daar is het
+ * tabblad Afbeeldingsopmaak voor.
+ */
+export function toonBijSelectie(tekst: string, afbeeldingGeselecteerd: boolean) {
+  return !afbeeldingGeselecteerd && tekst.replace(/\uFFFC/g, "").trim() !== "";
+}
+
 type VoerUit = <K extends DocxCommandId>(id: K, args: DocxCommandArgs[K]) => void;
 
 /** Engineknop die via `voerUit` loopt, zodat F4 hem kan herhalen. */

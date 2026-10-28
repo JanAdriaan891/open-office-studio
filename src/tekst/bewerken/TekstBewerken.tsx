@@ -68,7 +68,7 @@ import { DatumTijdDialoog } from "./DatumTijdDialoog";
 import { ontbrekendeStijl } from "../stijlen/model";
 import { metHeleAlinea } from "../stijlen/toepassen";
 import { Contextmenu, type MenuPlek } from "../menu/Contextmenu";
-import { MiniWerkbalk } from "../menu/MiniWerkbalk";
+import { MiniWerkbalk, toonBijSelectie } from "../menu/MiniWerkbalk";
 import { Plakopties } from "../menu/Plakopties";
 import { voerOpdrachtUit } from "../menu/opdrachten";
 import "../menu/menu.css";
@@ -577,7 +577,8 @@ export function TekstBewerken({
       neer = null;
       setTimeout(() => {
         const tekst = api()?.getSelectionInfo()?.selectedText ?? "";
-        if (tekst.trim() && recent.current.bewerkbaar && !recent.current.menu) setMini(punt);
+        const afbeelding = store.getState("imageProperties").enabled;
+        if (toonBijSelectie(tekst, afbeelding) && recent.current.bewerkbaar && !recent.current.menu) setMini(punt);
       }, 30);
     };
     document.addEventListener("mousedown", omlaag, true);
@@ -586,7 +587,7 @@ export function TekstBewerken({
       document.removeEventListener("mousedown", omlaag, true);
       document.removeEventListener("mouseup", omhoog, true);
     };
-  }, [zichtbaar, miniAan]);
+  }, [zichtbaar, miniAan, store]);
 
   // Selectie weg: werkbalk weg.
   useEffect(() => {
