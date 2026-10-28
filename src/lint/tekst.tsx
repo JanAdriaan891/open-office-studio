@@ -27,7 +27,6 @@ import {
   Table2,
   Link,
   FilePlus2,
-  Pilcrow,
   LayoutTemplate,
   Stamp,
   MessageSquare,
@@ -65,11 +64,6 @@ import {
   Baseline,
   WholeWord,
   ArrowDownToLine,
-  Heading1,
-  Heading2,
-  Heading3,
-  Heading,
-  Quote,
   PenLine,
 } from "lucide-react";
 import {
@@ -91,6 +85,7 @@ import {
 } from "./tekst-opdrachten";
 import { datumTekst, tijdTekst, type Hoofdlettersoort } from "./tekst-logica";
 import { TabelKiezer } from "../tabelvoorbeeld/TabelKiezer";
+import { StijlBeheerGroep, StijlenBeheer, StijlGalerij } from "../tekst/stijlen";
 import "./tekst.css";
 
 type Opdrachten = ReturnType<typeof useTekstOpdrachten>;
@@ -199,59 +194,13 @@ function TekstAlinea() {
     </Groep>
   );
 }
-const stijlSneltoetsen: Record<string, string> = {
-  Heading1: "Ctrl+1",
-  Heading2: "Ctrl+2",
-  Heading3: "Ctrl+3",
-};
-const stijlIconen: Record<string, typeof Type> = {
-  Normal: Pilcrow,
-  Title: Heading,
-  Subtitle: Type,
-  Heading1: Heading1,
-  Heading2: Heading2,
-  Heading3: Heading3,
-  Quote: Quote,
-};
+// Galerij met voorbeelden uit de documentstijlen (src/tekst/stijlen, #45).
 function Stijlen({ uitgebreid }: { uitgebreid?: boolean }) {
-  const opdracht = useDocxCommand("paragraphStyle");
-  const opties = opdracht.state.options ?? [];
-  const voorkeur = (
-    uitgebreid
-      ? [
-          "Normal",
-          "Title",
-          "Subtitle",
-          "Heading1",
-          "Heading2",
-          "Heading3",
-          "Quote",
-        ]
-      : ["Normal", "Heading1", "Heading2"]
-  )
-    .map((id) => opties.find((optie) => optie.args.styleId === id))
-    .filter((optie) => optie !== undefined);
   return (
-    <Groep naam="Stijlen" className="ribbon-stijlen">
-      <div className="ribbon-stijlgalerij">
-        {(voorkeur.length ? voorkeur : opties.slice(0, 3)).map(
-          (optie, index) => (
-            <WS
-              key={optie.args.styleId}
-              id="paragraphStyle"
-              args={optie.args}
-              naam={optie.label}
-              icoon={
-                stijlIconen[optie.args.styleId] ?? (index ? Type : Pilcrow)
-              }
-              sneltoets={stijlSneltoetsen[optie.args.styleId]}
-              groot
-            />
-          ),
-        )}
-      </div>
-      <WK id="paragraphStyle" naam="Alle stijlen" breed />
-    </Groep>
+    <StijlGalerij
+      uitgebreid={uitgebreid}
+      extra={<WK id="paragraphStyle" naam="Alle stijlen" breed />}
+    />
   );
 }
 function Klembord({ opdrachten }: { opdrachten: Opdrachten }) {
@@ -547,7 +496,7 @@ export function TekstRibbon({
       ),
     });
   return (
-    <>
+    <StijlenBeheer>
       <Ribbon
         bestand={bestand}
         tabs={[
@@ -711,6 +660,7 @@ export function TekstRibbon({
             inhoud: (
               <>
                 <Stijlen uitgebreid />
+                <StijlBeheerGroep />
                 <OpmaakWissen />
               </>
             ),
@@ -860,6 +810,6 @@ export function TekstRibbon({
       <TekstDialogen opdrachten={opdrachten} />
       <TekstStatus opdrachten={opdrachten} />
       {grafieken.venster}
-    </>
+    </StijlenBeheer>
   );
 }

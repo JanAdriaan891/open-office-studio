@@ -117,6 +117,7 @@ export const vasteSneltoetsen: readonly SneltoetsInfo[] = [
   tekst("F5", "Navigatievenster"),
   tekst("Ctrl+Shift+R", "Liniaal tonen of verbergen"),
   tekst("F11", "Alle stijlen"),
+  tekst("Ctrl+Alt+Shift+S", "Stijlenvenster"),
   // Tekst: engine (@betteroffice/docx-react).
   tekstEngine("Ctrl+B", "Vet"),
   tekstEngine("Ctrl+I", "Cursief"),
