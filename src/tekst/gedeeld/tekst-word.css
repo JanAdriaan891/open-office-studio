@@ -519,3 +519,16 @@
   flex: 1;
   min-height: 0;
 }
+.tw-verschillen {
+  max-height: 180px;
+  margin: 8px 0 0;
+  padding-left: 18px;
+  overflow: auto;
+  font-size: 12px;
+}
+.tw-verschillen del {
+  color: #b42318;
+}
+.tw-verschillen ins {
+  color: #1f6f43;
+}

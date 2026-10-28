@@ -6,9 +6,9 @@
  */
 import { useContext, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import { Check, CheckCheck, Eye, ListChecks, Users, X } from "lucide-react";
+import { Check, CheckCheck, Eye, FileDiff, ListChecks, Users, X } from "lucide-react";
 import { DocxEditor, useDocxCommand, useDocxCommands, type DocxEditorRef } from "@betteroffice/docx-react";
-import { Groep, RibbonFout } from "../../Ribbon";
+import { Actie, Groep, RibbonFout } from "../../Ribbon";
 import { useEditorApi, zichtbaarElement } from "../../lint/editorApi";
 import { tekstNlVolledig } from "../../nederlands-toegankelijk";
 import { Keuzemenu, useEditorTik, useUitvoeren } from "../gedeeld/ui";
@@ -21,6 +21,7 @@ import { WEERGAVEN, auteurs, getoond, samenvatting, soortNaam, toonDatum, type W
 
 export const wijzigingenWinkel = maakWinkel({
   paneel: false,
+  vergelijken: false,
   weergave: "alle" as Weergave,
   verborgen: new Set<string>() as ReadonlySet<string>,
 });
@@ -115,6 +116,16 @@ export function WijzigingenGroepen() {
             }}
           />
         </div>
+      </Groep>
+      <Groep naam="Vergelijken">
+        <Actie
+          naam="Vergelijken"
+          icoon={FileDiff}
+          groot
+          title="Versies vergelijken: twee documenten, resultaat met wijzigingen in een nieuw tabblad"
+          onMouseDown={(e) => e.preventDefault()}
+          onClick={() => wijzigingenWinkel.zet(api, { vergelijken: true })}
+        />
       </Groep>
     </>
   );

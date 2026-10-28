@@ -16,6 +16,7 @@ import { kolommenGelijk } from "./tabel/opdrachten";
 import { AfbeeldingVenster, kiesNieuweAfbeelding } from "./afbeelding/AfbeeldingGroepen";
 import { MarkeringVoorbeeld, WijzigingenPaneel, wijzigingenWinkel } from "./wijzigingen/Wijzigingen";
 import { usePaneelStaat } from "./zoeken/paneelstaat";
+import { VergelijkVenster, neemPaneelVerzoek } from "./wijzigingen/VergelijkVenster";
 
 /** Opdrachten die het rechtermuismenu via de registry kan aanroepen. */
 export const MENU_OPDRACHTEN = [
@@ -68,6 +69,11 @@ export function WordHost() {
     return () => afmelden.forEach((weg) => weg());
   }, [zichtbaar, api, apis.herlaad]);
 
+  // Het resultaat van Versies vergelijken opent met het deelvenster Wijzigingen.
+  useEffect(() => {
+    if (neemPaneelVerzoek()) wijzigingenWinkel.zet(api, { paneel: true });
+  }, [api]);
+
   const sluit = () => {
     sluitVenster(api);
     requestAnimationFrame(() => api()?.focus());
@@ -77,6 +83,14 @@ export function WordHost() {
       <ZoekHost />
       {zichtbaar && wijzigingen.paneel && !zoeken && <WijzigingenPaneel />}
       {zichtbaar && <MarkeringVoorbeeld />}
+      {zichtbaar && wijzigingen.vergelijken && (
+        <VergelijkVenster
+          sluit={() => {
+            wijzigingenWinkel.zet(api, { vergelijken: false });
+            requestAnimationFrame(() => api()?.focus());
+          }}
+        />
+      )}
       {zichtbaar && open?.id.startsWith("tabel.") && <TabelVenster key={open.id} id={open.id} gegevens={open.gegevens} sluit={sluit} />}
       {zichtbaar && open?.id.startsWith("afbeelding.") && <AfbeeldingVenster key={open.id} id={open.id} sluit={sluit} />}
     </>

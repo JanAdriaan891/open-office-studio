@@ -363,6 +363,36 @@ if (doe("wijzigingen")) {
 }
 
 // ---------------------------------------------------------------------------
+if (doe("vergelijken")) {
+  console.log("#57 Versies vergelijken");
+  const v = await import("../src/tekst/wijzigingen/vergelijken.ts");
+  const a = maakProefdocument({ wijzigingen: false });
+  const b = maakProefdocument({ wijzigingen: false, alineas: ["De hond zit op de mat.", "Een tweede regel met KAT in hoofdletters."] });
+  let uit = await v.vergelijk(a, b, { auteur: "Vergelijking", korrel: "word", eerstAccepteren: true, datum: new Date("2026-10-28T12:00:00Z") });
+  controleer(uit.ok && uit.verschillen === 1, `één verschil gevonden (${uit.ok ? uit.verschillen : uit.meldingen.map((m) => m.code).join()})`);
+  if (uit.ok) {
+    await writeFile(join(UIT, "vergelijking.docx"), uit.bytes);
+    const xml = documentXml(uit.bytes);
+    controleer(/<w:del [^>]*w:author="Vergelijking"[^>]*>.*?kat.*?<\/w:del>/.test(xml) && /<w:ins [^>]*w:author="Vergelijking"[^>]*>.*?hond.*?<\/w:ins>/.test(xml), "resultaat: kat als w:del en hond als w:ins van ‘Vergelijking’");
+    const s = await sessie(uit.bytes);
+    controleer(s.listRevisions().length === 2, "het resultaat opent in de engine met twee wijzigingen");
+    const pdf = pdfTekst("vergelijking");
+    if (pdf !== null) controleer(pdf.includes("hond"), "LibreOffice rendert het vergelijkingsresultaat");
+  }
+  // Bestaande wijzigingen: zonder ‘eerst accepteren’ weigert de engine, met wel.
+  const metWijzigingen = maakProefdocument();
+  uit = await v.vergelijk(metWijzigingen, b, { auteur: "V", korrel: "word", eerstAccepteren: false });
+  controleer(!uit.ok && v.meldingen(uit.meldingen)[0].tekst.includes("Bestaande wijzigingen eerst accepteren"), "document met wijzigingen: duidelijke melding zonder ‘eerst accepteren’");
+  uit = await v.vergelijk(metWijzigingen, a, { auteur: "V", korrel: "word", eerstAccepteren: true });
+  controleer(uit.ok || uit.meldingen.every((m) => m.code !== "existing-revisions"), "met ‘eerst accepteren’ is de melding over bestaande wijzigingen weg");
+  // Een toegevoegde alinea kan de engine nog niet: een begrijpelijke weigering.
+  const c = maakProefdocument({ wijzigingen: false, alineas: ["De kat zit op de mat.", "Nieuwe alinea.", "Een tweede regel met KAT in hoofdletters."] });
+  uit = await v.vergelijk(a, c, { auteur: "V", korrel: "word", eerstAccepteren: true });
+  controleer(!uit.ok && v.meldingen(uit.meldingen).some((m) => m.tekst.includes("alinea’s toegevoegd")), "toegevoegde alinea → Nederlandse uitleg van de beperking");
+  controleer(v.heeftWijzigingen(metWijzigingen) && !v.heeftWijzigingen(a), "herkent bijgehouden wijzigingen in een bestand");
+}
+
+// ---------------------------------------------------------------------------
 console.log(`\n${geslaagd} controles geslaagd, ${fouten.length} mislukt.`);
 if (fouten.length) {
   for (const f of fouten) console.log(`  - ${f}`);
