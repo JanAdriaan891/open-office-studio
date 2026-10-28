@@ -428,8 +428,8 @@ select {
   height: 112px;
   padding: 8px 6px 5px;
   margin: 0 10px 8px;
-  overflow: auto hidden;
-  scrollbar-width: thin;
+  /* Scrollen gebeurt in .ribbon-baan, met eigen knoppen (src/openaec-lint). */
+  overflow: hidden;
   border: 1px solid #e1e5eb;
   border-radius: 12px;
   background: #fff;
