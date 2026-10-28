@@ -4,6 +4,7 @@
  * Na stoppen of een tijdslimiet start de volgende aanroep een nieuwe worker en
  * worden de modules opnieuw geladen (modulevariabelen beginnen dan opnieuw).
  */
+import i18next from "i18next";
 import type { FormulierHost, HostWaarde, VbaHost } from "./host.ts";
 import type { ModuleBron } from "./interpreter.ts";
 import type { HostVerzoek, LaadResultaat, NaarWorker, ProcedureInfo, VanWorker, VbaFoutInfo, VoerUitResultaat } from "./protocol.ts";
@@ -88,6 +89,7 @@ export class VbaClient {
           opties: {
             stappenlimiet: this.opties.stappenlimiet,
             landinstelling: this.opties.landinstelling,
+            taal: i18next.language,
             ontbrekend: this.opties.ontbrekend,
             host: {
               msgBox: !!host?.msgBox,

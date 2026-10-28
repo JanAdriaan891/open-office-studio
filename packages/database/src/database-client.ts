@@ -1,3 +1,4 @@
+import i18next from "i18next";
 import {
   controleerDatabaseBestand,
   type Compatibiliteitsrapport,
@@ -30,6 +31,18 @@ import {
 } from "./werkkopie/werkkopie-brug.ts";
 
 /**
+ * Stuurt de interfacetaal naar een worker (meldingen uit de worker in de
+ * goede taal, zie i18n-worker.ts), nu en bij elke taalwissel. Geeft een
+ * functie terug die het volgen stopt.
+ */
+function volgTaal(worker: Worker): () => void {
+  const stuur = (taal: string) => worker.postMessage({ type: "taal", taal });
+  stuur(i18next.language);
+  i18next.on("languageChanged", stuur);
+  return () => i18next.off("languageChanged", stuur);
+}
+
+/**
  * Fout van de alleen-lezende lezer, met een vaste code (bijv. "versleuteld")
  * en, als de worker dat meestuurt, het compatibiliteitsrapport van het bestand.
  */
@@ -59,6 +72,7 @@ export class DatabaseClient {
       timer: ReturnType<typeof setTimeout>;
     }
   >();
+  private stopTaal = volgTaal(this.worker);
   constructor() {
     this.worker.onmessage = ({ data }) => {
       const verzoek = this.wachtend.get(data.id);
@@ -125,6 +139,7 @@ export class DatabaseClient {
   }
   sluit(reden = "De database is gesloten.") {
     this.gesloten = reden;
+    this.stopTaal();
     this.worker.terminate();
     for (const verzoek of this.wachtend.values()) {
       clearTimeout(verzoek.timer);
@@ -192,6 +207,7 @@ export class WerkkopieClient implements Werkkopie {
   private _rapport: OpbouwRapport | null = null;
   private _meldingen: string[] = [];
   private worker: Worker;
+  private stopTaal: () => void;
   private limieten: Required<WerkkopieTijdslimieten>;
   private nummer = 0;
   private gesloten: string | null = null;
@@ -212,6 +228,7 @@ export class WerkkopieClient implements Werkkopie {
       new URL("./database-worker.ts", import.meta.url),
       { type: "module" },
     );
+    this.stopTaal = volgTaal(this.worker);
     this.koppel();
   }
 
@@ -369,6 +386,7 @@ export class WerkkopieClient implements Werkkopie {
   ) {
     if (this.gesloten) return;
     this.gesloten = reden;
+    this.stopTaal();
     this.worker.terminate();
     for (const verzoek of this.wachtend.values()) {
       clearTimeout(verzoek.timer);

@@ -1,3 +1,5 @@
+// Eerst: i18next in deze worker (de hoofdthread stuurt de taal, zie i18n-worker.ts).
+import { workerTaalGereed, zetWorkerTaal } from "./i18n-worker.ts";
 import type MDBReader from "mdb-reader";
 import { openDatabase } from "./database-parser";
 import {
@@ -31,6 +33,8 @@ function tekst(waarde: unknown): string {
   return String(waarde);
 }
 context.onmessage = async ({ data }) => {
+  if (data?.type === "taal") return void zetWorkerTaal(data.taal);
+  await workerTaalGereed();
   try {
     if (data.type === "open") {
       const bytes = new Uint8Array(data.bytes);

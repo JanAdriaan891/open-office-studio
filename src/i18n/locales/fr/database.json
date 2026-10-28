@@ -1,0 +1,16 @@
+{
+  "standalone": {
+    "version": "Version {{version}}",
+    "local": "Local · original stays unchanged",
+    "language": "Language",
+    "open": "Open database",
+    "openShortcut": "Open database · Ctrl+O",
+    "nativeDialog": {
+      "saveTitle": "Save database export",
+      "filterSqlite": "SQLite working copy",
+      "filterExport": "Database export",
+      "replaceTitle": "Replace export",
+      "replaceText": "This export file already exists. Replace it?"
+    }
+  }
+}

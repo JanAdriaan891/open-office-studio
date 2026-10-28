@@ -1,0 +1,16 @@
+{
+  "standalone": {
+    "version": "Versie {{version}}",
+    "local": "Lokaal · origineel blijft ongewijzigd",
+    "language": "Taal",
+    "open": "Database openen",
+    "openShortcut": "Database openen · Ctrl+O",
+    "nativeDialog": {
+      "saveTitle": "Database-export opslaan",
+      "filterSqlite": "SQLite-werkkopie",
+      "filterExport": "Database-export",
+      "replaceTitle": "Export vervangen",
+      "replaceText": "Dit exportbestand bestaat al. Vervangen?"
+    }
+  }
+}

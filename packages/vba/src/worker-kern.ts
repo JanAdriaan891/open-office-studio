@@ -33,7 +33,11 @@ export function startVbaWorker(
   poort: WorkerPoort,
   werkkopieVanPoort?: (p: MessagePort) => Promise<Werkkopie>,
   /** Alleen voor een worker in hetzelfde proces (tests, proeven): breekt de runtime af bij beëindigen. */
-  extra: { signaal?: AbortSignal } = {},
+  extra: {
+    signaal?: AbortSignal;
+    /** Zet de taal van de meldingen in deze worker (vba-worker.ts; niet in tests in hetzelfde proces). */
+    zetTaal?: (taal: string) => Promise<void>;
+  } = {},
 ) {
   let opties: WorkerOpties = { host: { msgBox: false, inputBox: false, gebeurtenis: false, formulieren: false } };
   let werkkopie: Werkkopie | undefined;
@@ -88,6 +92,7 @@ export function startVbaWorker(
       switch (b.soort) {
         case "start": {
           opties = b.opties;
+          if (opties.taal && extra.zetTaal) await extra.zetTaal(opties.taal);
           const p = e.ports?.[0];
           if (b.metWerkkopie) {
             if (!p || !werkkopieVanPoort) throw new Error("De werkkopie kon niet aan de VBA-worker worden gekoppeld.");
