@@ -51,6 +51,7 @@ import { useSysteembestanden } from "./systeembestanden";
 import { noteerBrowser } from "./recent";
 import { useHerstel } from "./useHerstel";
 import { neerzetMelding, useNeerzetten } from "./Neerzetzone";
+import { VensterMenu, useVenstermenu } from "./VensterMenu";
 import {
   bevestigFormaat,
   kiesBestanden,
@@ -466,6 +467,20 @@ export function OfficeStudio() {
     },
   });
 
+  // Venster sluiten: een vraag per gewijzigd document; venstermenu over alle vensters.
+  useVenstermenu({
+    tabs,
+    activeer: (id) => wissel(id, true),
+    sluitAlles: async () => {
+      while (bezigRef.current) await new Promise((r) => setTimeout(r, 100));
+      if (!(await tabs.sluit(tabs.toestandRef.current.tabbladen.map((t) => t.id))))
+        return false;
+      if (!verzendingRef.current) return true;
+      const { invoke } = await import("@tauri-apps/api/core");
+      return invoke<boolean>("bevestig_verlaten", { aantal: 1 });
+    },
+  });
+
   const herstel = useHerstel({
     tabs,
     bezig: () => bezigRef.current,
@@ -779,6 +794,7 @@ export function OfficeStudio() {
             )}
           </div>
           <div className="office-snelacties">
+            <VensterMenu tabs={tabs} activeer={(id) => wissel(id, true)} />
             <ThemaKnop thema={thema} wissel={wisselThema} />
             {!opStart && (
               <button

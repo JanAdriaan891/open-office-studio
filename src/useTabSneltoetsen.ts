@@ -52,6 +52,12 @@ export function tabToets(
   )
     return { opdracht: "opslaanAls" };
   if (ctrl && !e.altKey && toets === "o") return { opdracht: "openen" };
+  // Ctrl+F6 / Ctrl+Shift+F6: volgend of vorig document, zoals in kantoorsuites.
+  if (ctrl && !e.altKey && e.key === "F6")
+    return {
+      opdracht: "actie",
+      actie: { type: e.shiftKey ? "vorige" : "volgende" },
+    };
   if (e.ctrlKey && !e.altKey && e.key === "Tab")
     return { opdracht: "actie", actie: { type: e.shiftKey ? "vorige" : "volgende" } };
   if (

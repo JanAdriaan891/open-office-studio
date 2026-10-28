@@ -7,7 +7,7 @@
 //! tabblad. Zo staan bytes nooit in een URL en gaat er niets verloren als het
 //! nieuwe venster niet opent.
 use std::{
-    collections::HashMap,
+    collections::{HashMap, HashSet},
     sync::{
         atomic::{AtomicU64, Ordering},
         Mutex,
@@ -37,12 +37,36 @@ fn token_uit_pakket(bytes: &[u8]) -> Option<String> {
     kop.get("werkbestand")?.get("token")?.as_str().map(str::to_owned)
 }
 
+/// Een tabblad zoals het venstermenu het toont.
+#[derive(serde::Serialize, serde::Deserialize, Clone, Debug, PartialEq)]
+pub struct TabInfo {
+    id: u32,
+    titel: String,
+    gewijzigd: bool,
+}
+
+#[derive(serde::Serialize, Debug, PartialEq)]
+pub struct VensterInfo {
+    label: String,
+    hoofd: bool,
+    tabbladen: Vec<TabInfo>,
+}
+
+/// Gebeurtenis: het venster wil sluiten; de webview vraagt per document.
+const SLUITVERZOEK: &str = "office-sluitverzoek";
+/// Gebeurtenis: activeer dit tabblad (venstermenu in een ander venster).
+const ACTIVEER_TABBLAD: &str = "office-activeer-tabblad";
+
 #[derive(Default)]
 pub struct Vensters {
     /// Aantal tabbladen met niet-opgeslagen wijzigingen per vensterlabel.
     gewijzigd: Mutex<HashMap<String, u32>>,
     pakketten: Mutex<HashMap<String, Pakket>>,
     teller: AtomicU64,
+    /// Open tabbladen per venster, voor het venstermenu.
+    tabbladen: Mutex<HashMap<String, Vec<TabInfo>>>,
+    /// Vensters met een sluitverzoek dat de webview nog niet heeft bevestigd.
+    sluitend: Mutex<HashSet<String>>,
 }
 
 impl Vensters {
@@ -61,6 +85,31 @@ impl Vensters {
         if let Ok(mut g) = self.gewijzigd.lock() {
             g.remove(label);
         }
+    }
+
+    fn overzicht(&self) -> Vec<VensterInfo> {
+        let Ok(t) = self.tabbladen.lock() else {
+            return Vec::new();
+        };
+        let mut lijst: Vec<VensterInfo> = t
+            .iter()
+            .map(|(label, tabbladen)| VensterInfo {
+                label: label.clone(),
+                hoofd: label == "main",
+                tabbladen: tabbladen.clone(),
+            })
+            .collect();
+        // Hoofdvenster eerst, daarna in volgorde van openen.
+        lijst.sort_by_key(|v| {
+            (
+                !v.hoofd,
+                v.label
+                    .strip_prefix(VOORVOEGSEL)
+                    .and_then(|n| n.parse::<u64>().ok())
+                    .unwrap_or(0),
+            )
+        });
+        lijst
     }
 }
 
@@ -97,15 +146,31 @@ pub async fn bevestig_verlaten(aantal: Option<u32>) -> bool {
 }
 
 /// Sluitbeveiliging per venster; de app stopt als het laatste venster sluit.
+///
+/// Met wijzigingen vraagt de webview per document (Opslaan, Niet opslaan,
+/// Annuleren) en sluit daarna zelf (`sluit_venster`). Reageert de webview
+/// niet binnen twee seconden, dan volgt de eenvoudige ja/nee-vraag van Rust.
 pub fn bij_venstergebeurtenis(venster: &tauri::Window, gebeurtenis: &tauri::WindowEvent) {
     match gebeurtenis {
         tauri::WindowEvent::CloseRequested { api, .. } => {
-            let aantal = venster.state::<Vensters>().aantal_gewijzigd(venster.label());
+            let staat = venster.state::<Vensters>();
+            let aantal = staat.aantal_gewijzigd(venster.label());
             if aantal > 0 {
                 api.prevent_close();
+                if let Ok(mut s) = staat.sluitend.lock() {
+                    s.insert(venster.label().to_owned());
+                };
+                let _ = venster.emit_to(venster.label(), SLUITVERZOEK, ());
                 let venster = venster.clone();
                 tauri::async_runtime::spawn(async move {
-                    if bevestig_verlaten(Some(aantal)).await {
+                    tokio::time::sleep(std::time::Duration::from_secs(2)).await;
+                    let onbeantwoord = venster
+                        .state::<Vensters>()
+                        .sluitend
+                        .lock()
+                        .map(|mut s| s.remove(venster.label()))
+                        .unwrap_or(false);
+                    if onbeantwoord && bevestig_verlaten(Some(aantal)).await {
                         venster.state::<Vensters>().vergeet(venster.label());
                         let _ = venster.destroy();
                     }
@@ -113,10 +178,70 @@ pub fn bij_venstergebeurtenis(venster: &tauri::Window, gebeurtenis: &tauri::Wind
             }
         }
         tauri::WindowEvent::Destroyed => {
-            venster.state::<Vensters>().vergeet(venster.label());
+            let staat = venster.state::<Vensters>();
+            staat.vergeet(venster.label());
+            if let Ok(mut t) = staat.tabbladen.lock() {
+                t.remove(venster.label());
+            }
+            if let Ok(mut s) = staat.sluitend.lock() {
+                s.remove(venster.label());
+            };
         }
         _ => {}
     }
+}
+
+/// De webview heeft het sluitverzoek ontvangen en vraagt zelf per document.
+#[tauri::command]
+pub fn sluitverzoek_ontvangen(venster: tauri::Window, vensters: tauri::State<Vensters>) {
+    if let Ok(mut s) = vensters.sluitend.lock() {
+        s.remove(venster.label());
+    }
+}
+
+/// Alle documenten zijn afgehandeld: dit venster sluit zonder verdere vraag.
+#[tauri::command]
+pub fn sluit_venster(venster: tauri::Window, vensters: tauri::State<Vensters>) -> Result<(), String> {
+    vensters.vergeet(venster.label());
+    venster.destroy().map_err(|e| e.to_string())
+}
+
+/// Open tabbladen van dit venster, voor het venstermenu in alle vensters.
+#[tauri::command]
+pub fn meld_tabbladen(
+    venster: tauri::Window,
+    vensters: tauri::State<Vensters>,
+    tabbladen: Vec<TabInfo>,
+) {
+    let tabbladen = tabbladen
+        .into_iter()
+        .take(200)
+        .map(|t| TabInfo {
+            titel: t.titel.chars().take(200).collect(),
+            ..t
+        })
+        .collect();
+    if let Ok(mut t) = vensters.tabbladen.lock() {
+        t.insert(venster.label().to_owned(), tabbladen);
+    }
+}
+
+#[tauri::command]
+pub fn open_documenten(vensters: tauri::State<Vensters>) -> Vec<VensterInfo> {
+    vensters.overzicht()
+}
+
+/// Brengt een venster naar voren en activeert daar het tabblad.
+#[tauri::command]
+pub fn activeer_tabblad(app: tauri::AppHandle, venster: String, id: u32) -> Result<(), String> {
+    let doel = app
+        .get_webview_window(&venster)
+        .ok_or("Dit venster is gesloten.")?;
+    let _ = doel.unminimize();
+    let _ = doel.show();
+    let _ = doel.set_focus();
+    app.emit_to(venster.as_str(), ACTIVEER_TABBLAD, id)
+        .map_err(|e| e.to_string())
 }
 
 fn kop(request: &tauri::ipc::Request<'_>, naam: &str) -> Option<String> {
@@ -339,6 +464,29 @@ mod tests {
         let mut pakket = (kop.len() as u32).to_le_bytes().to_vec();
         pakket.extend_from_slice(kop);
         assert_eq!(token_uit_pakket(&pakket), None);
+    }
+
+    #[test]
+    fn venstermenu_toont_het_hoofdvenster_eerst() {
+        let v = Vensters::default();
+        let tab = |id, titel: &str| TabInfo {
+            id,
+            titel: titel.into(),
+            gewijzigd: false,
+        };
+        {
+            let mut t = v.tabbladen.lock().unwrap();
+            t.insert("document-12".into(), vec![tab(1, "c.pptx")]);
+            t.insert("main".into(), vec![tab(3, "a.docx"), tab(4, "Notities")]);
+            t.insert("document-3".into(), vec![tab(1, "b.xlsx")]);
+        }
+        let o = v.overzicht();
+        assert_eq!(
+            o.iter().map(|w| w.label.as_str()).collect::<Vec<_>>(),
+            ["main", "document-3", "document-12"]
+        );
+        assert!(o[0].hoofd);
+        assert_eq!(o[0].tabbladen.len(), 2);
     }
 
     #[test]
