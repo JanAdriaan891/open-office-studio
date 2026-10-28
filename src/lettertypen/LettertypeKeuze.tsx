@@ -203,9 +203,12 @@ export function LettertypeKeuze({
   naam = "Lettertype",
   voorbeeld,
   voorbereiden,
+  naKeuze,
 }: {
   opdracht: GebondenOpdracht;
   naam?: string;
+  /** Waar de focus na het kiezen heen gaat (bijvoorbeeld terug naar het document); anders de knop. */
+  naKeuze?: () => void;
   /** De geselecteerde tekst of het woord bij de cursor, voor de voorbeeldregel. */
   voorbeeld?: () => string;
   /** Maakt een gekozen lettertype bruikbaar voor de engine (vóór het toepassen). */
@@ -292,7 +295,8 @@ export function LettertypeKeuze({
     setOpen(false);
     setZoek("");
     onthoudLettertype(familie);
-    knop.current?.focus();
+    if (naKeuze) naKeuze();
+    else knop.current?.focus();
     try {
       await voorbereiden?.(familie);
       const r = await opdracht.execute({ family: familie } as never);
@@ -381,6 +385,14 @@ export function LettertypeKeuze({
             data-lettertypekeuze={id}
             data-thema={thema}
             style={{ top: plek.top, left: plek.left }}
+            onKeyDown={(e) => {
+              // Ook met de focus op een knop in het paneel sluit Esc het.
+              if (e.key !== "Escape" || e.defaultPrevented) return;
+              e.preventDefault();
+              e.stopPropagation();
+              setOpen(false);
+              knop.current?.focus();
+            }}
           >
             <input
               ref={zoekveld}
@@ -500,6 +512,8 @@ export function LettertypeKeuze({
                   setAlle(!alle);
                   bewaarAlleTonen(!alle);
                   setActief(0);
+                  // Verder typen zoekt meteen in de langere lijst.
+                  zoekveld.current?.focus();
                 }}
               >
                 {alle ? "Minder lettertypen tonen" : "Alle lettertypen tonen"}

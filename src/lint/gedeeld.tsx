@@ -59,13 +59,20 @@ export function WK({
   id,
   naam,
   breed,
+  vertaal,
 }: {
   id: DocxSelectCommandId;
   naam: string;
   breed?: boolean;
+  vertaal?: (naam: string) => string;
 }) {
   return (
-    <OpdrachtKeuze opdracht={useDocxCommand(id)} naam={naam} breed={breed} />
+    <OpdrachtKeuze
+      opdracht={useDocxCommand(id)}
+      naam={naam}
+      breed={breed}
+      vertaal={vertaal}
+    />
   );
 }
 export function CK({
@@ -141,7 +148,13 @@ export function scrollvlakVan(element: Element | null) {
 /** Lettertypekeuze met voorbeeld en recente lettertypen, per module. */
 export function WL() {
   const api = useEditorApi();
-  return <LettertypeKeuze opdracht={useDocxCommand("fontFamily")} voorbeeld={() => tekstVoorbeeld(api.tekst())} />;
+  return (
+    <LettertypeKeuze
+      opdracht={useDocxCommand("fontFamily")}
+      voorbeeld={() => tekstVoorbeeld(api.tekst())}
+      naKeuze={() => api.tekst()?.focus()}
+    />
+  );
 }
 export function CL() {
   return (
