@@ -366,6 +366,24 @@ export function voegPaginanummerIn(bytes: Uint8Array, opties: PaginanummerOpties
   });
 }
 
+/**
+ * Zorgt dat de sectie een (lege) kop- of voettekst heeft, zodat de engine die
+ * kan openen om te bewerken. Geeft null als er al een is.
+ */
+export function zorgVoorKopVoet(bytes: Uint8Array, sectie: number, soort: KopVoetSoort): Uint8Array | null {
+  return metPakket(bytes, (pakket) => {
+    zorgVoorStijlen(pakket, openDocument(pakket).pad, STIJLEN);
+    const doc = openDocument(pakket);
+    const lijst = secties(doc);
+    const i = Math.max(0, Math.min(sectie, lijst.length - 1));
+    if (effectiefDeel(doc, i, soort, "default")) return null;
+    const { rid } = maakDeel(pakket, doc.pad, soort);
+    const rp = rPrefix(openDocument(pakket)) || "r";
+    wijzigSectPrs(openDocument(pakket), [i], (s) => zetVerwijzing(s, soort, "default", rid, rp));
+    return pakket.inpakken();
+  });
+}
+
 /** Verwijdert alle paginanummers uit kop- en voetteksten. */
 export function verwijderPaginanummers(bytes: Uint8Array): Uint8Array {
   return metPakket(bytes, (pakket) => {

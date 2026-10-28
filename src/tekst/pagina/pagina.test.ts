@@ -102,13 +102,13 @@ describe("secties: pagina-indeling", () => {
     expect(uit).not.toContain(M);
     expect(uit).toContain(
       '<w:p><w:pPr><w:pStyle w:val="Heading2"/></w:pPr><w:r><w:t xml:space="preserve">Voor</w:t></w:r></w:p>' +
-        '<w:p><w:pPr><w:pStyle w:val="Heading2"/></w:pPr><w:r><w:br w:type="column"/></w:r></w:p>' +
+        '<w:p><w:r><w:br w:type="column"/></w:r></w:p>' +
         '<w:p><w:pPr><w:pStyle w:val="Heading2"/></w:pPr><w:r><w:t xml:space="preserve">na</w:t></w:r></w:p>',
     );
     // Aan het eind: geen lege derde alinea; de sectie-einde blijft bij de laatste helft.
     const sect = '<w:sectPr><w:pgSz w:w="11906" w:h="16838"/></w:sectPr>';
     const eind = doc(voegKolomeindeIn(maakDocx(`<w:p><w:pPr>${sect}</w:pPr><w:r><w:t>Tekst${M}</w:t></w:r></w:p>${p("Volgende")}`), M));
-    expect(eind).toContain(`<w:p><w:pPr></w:pPr><w:r><w:t xml:space="preserve">Tekst</w:t></w:r></w:p><w:p><w:pPr></w:pPr><w:r><w:br w:type="column"/></w:r></w:p><w:p><w:pPr>${sect}</w:pPr></w:p>`);
+    expect(eind).toContain(`<w:p><w:pPr></w:pPr><w:r><w:t xml:space="preserve">Tekst</w:t></w:r></w:p><w:p><w:r><w:br w:type="column"/></w:r></w:p><w:p><w:pPr>${sect}</w:pPr></w:p>`);
   });
 });
 

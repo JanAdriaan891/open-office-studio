@@ -132,6 +132,9 @@ function leesSectPr(el: XmlElement | null, index: number): SectieInstellingen {
   };
 }
 
+/** Tekstbreedte (twips) van een gelezen sectie. */
+export const tekstbreedteVan = (s: SectieInstellingen) => Math.max(1440, s.breedte - s.marges.links - s.marges.rechts - s.marges.rug);
+
 /** Instellingen van alle secties. */
 export function leesSecties(bytes: Uint8Array): SectieInstellingen[] {
   return metPakket(bytes, (pakket) => secties(openDocument(pakket)).map((s) => leesSectPr(s.el, s.index)));
@@ -296,7 +299,8 @@ export function voegKolomeindeIn(bytes: Uint8Array, markering: string): Uint8Arr
     const plek = vindMarkering(pakket, markering);
     if (!plek) throw new PaginaFout("De cursorplek is niet gevonden.");
     if (!/document\.xml$/.test(plek.pad)) throw new PaginaFout("Een kolomeinde kan alleen in de hoofdtekst.");
-    pakket.schrijf(plek.pad, splitsAlineaBijMarkering(plek, markering, (pPr) => `<w:p>${pPr}<w:r><w:br w:type="column"/></w:r></w:p>`));
+    // De eindealinea krijgt geen stijl van de kop eromheen (anders telt hij als lege kop).
+    pakket.schrijf(plek.pad, splitsAlineaBijMarkering(plek, markering, () => `<w:p><w:r><w:br w:type="column"/></w:r></w:p>`));
     return pakket.inpakken();
   });
 }

@@ -91,6 +91,15 @@ import {
 } from "./tekst-opdrachten";
 import { datumTekst, tijdTekst, type Hoofdlettersoort } from "./tekst-logica";
 import { TabelKiezer } from "../tabelvoorbeeld/TabelKiezer";
+import { usePagina } from "../tekst/pagina/ui/usePagina";
+import {
+  ExtraEindes,
+  KolommenGroep,
+  KopVoetInvoegenGroep,
+  PaginaIndelingKnoppen,
+  kopVoetTab,
+  verwijzingenTab,
+} from "../tekst/pagina/ui/PaginaLint";
 import "./tekst.css";
 
 type Opdrachten = ReturnType<typeof useTekstOpdrachten>;
@@ -379,6 +388,7 @@ export function TekstRibbon({
   });
   const opdrachten = useTekstOpdrachten({ wijzigLiniaal, wijzigNavigatie });
   const grafieken = useIngeslotenGrafieken("docx");
+  const pagina = usePagina();
   const tabel = useDocxCommand("tableAction");
   const afbeelding = useDocxCommand("imageProperties");
   const contextTabs: RibbonTab[] = [];
@@ -590,6 +600,7 @@ export function TekstRibbon({
                 <Groep naam="Koppelingen">
                   <W id="insertLink" naam="Hyperlink" icoon={Link} groot />
                 </Groep>
+                <KopVoetInvoegenGroep p={pagina} />
                 <Groep naam="Opmerkingen">
                   <Opmerking opdrachten={opdrachten} />
                 </Groep>
@@ -705,6 +716,8 @@ export function TekstRibbon({
               </>
             ),
           },
+          kopVoetTab(pagina),
+          verwijzingenTab(pagina),
           {
             id: "stijlen",
             naam: "Stijlen",
@@ -721,6 +734,7 @@ export function TekstRibbon({
             inhoud: (
               <>
                 <Groep naam="Pagina-instelling">
+                  <PaginaIndelingKnoppen p={pagina} />
                   <W
                     id="pageSetup"
                     naam="Pagina-opmaak"
@@ -729,6 +743,7 @@ export function TekstRibbon({
                   />
                   <W id="watermark" naam="Watermerk" icoon={Stamp} groot />
                 </Groep>
+                <KolommenGroep p={pagina} />
                 <Groep naam="Eindes">
                   <WS
                     id="insertPageBreak"
@@ -749,6 +764,7 @@ export function TekstRibbon({
                       icoon={Columns2}
                     />
                   </div>
+                  <ExtraEindes p={pagina} />
                 </Groep>
                 <TekstAlinea />
                 <Groep naam="Regelafstand">
@@ -860,6 +876,7 @@ export function TekstRibbon({
       <TekstDialogen opdrachten={opdrachten} />
       <TekstStatus opdrachten={opdrachten} />
       {grafieken.venster}
+      {pagina.venster}
     </>
   );
 }
