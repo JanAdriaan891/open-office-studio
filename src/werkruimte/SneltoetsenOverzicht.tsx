@@ -1,10 +1,13 @@
 import { useMemo, useState, useSyncExternalStore } from "react";
 import { Search } from "lucide-react";
 import { Dialoog } from "./Dialoog";
+import { useInstellingen } from "../instellingen";
 import {
   alleSneltoetsen,
   geldtIn,
+  inProfiel,
   moduleNamen,
+  profielNamen,
   registratieVersie,
   toetsDelen,
   volgRegistraties,
@@ -59,9 +62,15 @@ export function SneltoetsenOverzicht({
 }) {
   const [zoek, setZoek] = useState("");
   const versie = useSyncExternalStore(volgRegistraties, registratieVersie);
+  // Tekst: alleen het gekozen sneltoetsprofiel (instellingen).
+  const profiel = useInstellingen().tekst.sneltoetsprofiel;
   const secties = useMemo(
-    () => sneltoetsSecties(zoekSneltoetsen(alleSneltoetsen(), zoek), module),
-    [zoek, module, versie],
+    () =>
+      sneltoetsSecties(
+        zoekSneltoetsen(alleSneltoetsen(), zoek).filter((info) => inProfiel(info, profiel)),
+        module,
+      ),
+    [zoek, module, versie, profiel],
   );
   const aantal = secties.reduce((som, s) => som + s.toetsen.length, 0);
   return (
@@ -89,6 +98,7 @@ export function SneltoetsenOverzicht({
             <h3 id={`sneltoetsen-${sectie.module}`}>
               {sectie.naam}
               {sectie.module === module && <small> · huidige module</small>}
+              {sectie.module === "tekst" && <small> · profiel {profielNamen[profiel]}</small>}
             </h3>
             <table>
               <thead className="werkruimte-verborgen">

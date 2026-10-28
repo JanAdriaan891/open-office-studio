@@ -3,11 +3,12 @@
  * lintknoppen en sneltoetsen. `tekst.tsx` hoeft alleen de provider en de
  * knoppen op te nemen.
  */
-import { createContext, useContext, useMemo, useRef, useState, type ReactNode } from "react";
-import { useDocxCommand, useDocxCommands } from "@betteroffice/docx-react";
+import { createContext, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { useDocxCommand } from "@betteroffice/docx-react";
 import { CaseSensitive, ListTree, PaintBucket, Pilcrow, SquareDashed, Square } from "lucide-react";
 import { RibbonFout } from "../Ribbon";
-import { useEditorApi, zichtbaarElement } from "../lint/editorApi";
+import { useEditorApi, useEditorZichtbaar, zichtbaarElement } from "../lint/editorApi";
+import { meldOpdrachtAan } from "./menu/opdrachten";
 import { EigenKnop } from "../lint/tekst-opdrachten";
 import { useSneltoetsen, type Sneltoets } from "../lint/sneltoetsen";
 import { auteurBijOpnemen, leesSelectie, werkWeergaveBij, woordBereik, type TekstSelectie } from "./editor";
@@ -32,7 +33,6 @@ import { LijstVenster } from "./lijst/LijstVenster";
 import { lijstVan } from "./lijst/model";
 import { leesNummering, leesNummeringUitPakket, pasNummeringToe, type GelezenNummering } from "./lijst/nummering";
 import { planLijst, type LijstKeuze } from "./lijst/plan";
-import { regelafstandNaarOoxml, type Regelafstand } from "./eenheden";
 
 type Venster =
   | { soort: "alinea"; selectie: TekstSelectie; begin: AlineaFormulier }
@@ -96,7 +96,7 @@ export function TekstOpmaakProvider({ children }: { children: ReactNode }) {
   const bewerkbaar = useDocxCommand("insertPageBreak").state.enabled;
   const opnemen = useDocxCommand("editingMode").state.value === "suggesting";
   const [venster, setVenster] = useState<Venster>(null);
-  const engineOpdrachten = useDocxCommands();
+  const zichtbaar = useEditorZichtbaar();
   const recent = useRef({ opnemen, bewerkbaar });
   recent.current = { opnemen, bewerkbaar };
 
@@ -204,18 +204,9 @@ export function TekstOpmaakProvider({ children }: { children: ReactNode }) {
     herlaad.vervang(pasPaginaToe(bytes, w.pagina), { paraId });
   }
 
-  const regelafstand = (r: Regelafstand) => () => opmaak.alinea(regelafstandNaarOoxml(r));
   const kan = () => recent.current.bewerkbaar;
   const sneltoetsen: Sneltoets[] = [
     { toets: "Ctrl+Shift+J", uitvoeren: () => opmaak.open("alinea"), beschikbaar: kan, omschrijving: "Alinea-opmaak" },
-    { toets: "Ctrl+5", uitvoeren: regelafstand({ soort: "anderhalf" }), beschikbaar: kan, omschrijving: "Regelafstand 1,5" },
-    {
-      toets: "Ctrl+Shift+L",
-      uitvoeren: () => void engineOpdrachten.execute("bulletList", null).catch(fout),
-      beschikbaar: kan,
-      omschrijving: "Opsomming",
-    },
-    { toets: "Ctrl+Shift+F", uitvoeren: () => opmaak.open("lettertype"), beschikbaar: kan, omschrijving: "Lettertype" },
     {
       toets: "Ctrl+Shift+A",
       uitvoeren: () => opmaak.tekens((t) => ({ allCaps: !t.allCaps })),
@@ -236,6 +227,19 @@ export function TekstOpmaakProvider({ children }: { children: ReactNode }) {
     },
   ];
   useSneltoetsen(tekstVlak, venster ? [] : sneltoetsen, "tekst");
+
+  // Rechtermuismenu, mini-werkbalk en de Word-sneltoetsen (Ctrl+D, Ctrl+Shift+F)
+  // openen deze vensters via het opdrachtenregister van src/tekst/menu.
+  useEffect(() => {
+    if (!zichtbaar) return;
+    const weg = [
+      meldOpdrachtAan("lettertype", () => opmaak.open("lettertype")),
+      meldOpdrachtAan("alinea", () => opmaak.open("alinea")),
+      meldOpdrachtAan("lijst", () => opmaak.open("lijst")),
+      meldOpdrachtAan("randen", () => opmaak.open("randen")),
+    ];
+    return () => weg.forEach((w) => w());
+  }, [zichtbaar, opmaak]);
 
   const sluit = () => {
     setVenster(null);
