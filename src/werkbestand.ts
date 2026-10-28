@@ -2,7 +2,7 @@ import type { Soort } from "./editors";
 import type { BewaarUitkomst } from "./opslag";
 import { blokkeerBijVerlies } from "./export/bewaar";
 import { converteer } from "./formaten";
-import { bereidOpslag, type Bronkenmerken } from "./import/bron";
+import { MACROUITVOER, bereidOpslag, type Bronkenmerken } from "./import/bron";
 
 /**
  * Werkbestand van een documenttabblad (alleen in de desktopapp).
@@ -100,10 +100,12 @@ export async function schrijfTerug(
   /** Versleuteling en macro’s (src/import/bron.ts); het wachtwoord alleen uit het geheugen. */
   extra: { bron?: Bronkenmerken | null; wachtwoord?: string } = {},
 ): Promise<BewaarUitkomst> {
-  blokkeerBijVerlies(bytes, soort, ext === soort);
+  // Een macroformaat met het VBA-project van het origineel schrijft de app zelf.
+  const eigen = ext === soort || (MACROUITVOER.has(ext) && !!extra.bron?.macro);
+  blokkeerBijVerlies(bytes, soort, eigen);
   let uitvoer = bytes;
   let toelichting: string | undefined;
-  if (ext === soort) {
+  if (eigen) {
     const klaar = await bereidOpslag({ bytes, soort, ext, ...extra });
     uitvoer = klaar.bytes;
     toelichting = klaar.toelichting;

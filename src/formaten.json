@@ -83,6 +83,12 @@
         "behoud": "bewerkbaar; opmaak kan afwijken",
         "filter": "writer8_template"
       },
+      "docm": {
+        "naam": "Word-document met macro’s",
+        "groep": "macro",
+        "route": "engine",
+        "behoud": "alleen voor een geopend macrobestand: VBA-project ongewijzigd behouden, macro’s niet uitgevoerd"
+      },
       "rtf": {
         "naam": "Rich Text Format",
         "groep": "web-tekst",
@@ -232,6 +238,12 @@
         "behoud": "bewerkbaar; opmaak kan afwijken",
         "filter": "calc8_template"
       },
+      "xlsm": {
+        "naam": "Excel-werkmap met macro’s",
+        "groep": "macro",
+        "route": "engine",
+        "behoud": "alleen voor een geopend macrobestand: VBA-project ongewijzigd behouden, macro’s niet uitgevoerd"
+      },
       "csv": {
         "naam": "CSV (gescheiden waarden)",
         "groep": "web-tekst",
@@ -376,6 +388,12 @@
         "route": "runtime",
         "behoud": "bewerkbaar; opmaak kan afwijken",
         "filter": "impress8_template"
+      },
+      "pptm": {
+        "naam": "PowerPoint-presentatie met macro’s",
+        "groep": "macro",
+        "route": "engine",
+        "behoud": "alleen voor een geopend macrobestand: VBA-project ongewijzigd behouden, macro’s niet uitgevoerd"
       },
       "html": {
         "naam": "Webpagina (HTML)",

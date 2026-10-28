@@ -32,12 +32,14 @@ Alleen het eigen formaat (DOCX/XLSX/PPTX) haalt de markering "gewijzigd" weg. El
 | OpenDocument | ODT, FODT | ODS, FODS | ODP, FODP |
 | Oudere Office-formaten | DOC | XLS | PPT, PPS |
 | Sjablonen | DOTX, DOT, OTT | XLTX, XLT, OTS | POTX, POT, OTP |
-| Macro-ingeschakeld | — | — | — |
+| Macro-ingeschakeld | DOCM (app)³ | XLSM (app)³ | PPTM (app)³ |
 | Web en tekst | RTF, TXT¹, HTML¹, XHTML, EPUB, MD (app) | CSV (app), TSV (app), HTML¹, DIF, SLK, MD (app) | HTML (app), MD (app) |
 | PDF en afbeelding | PDF², PNG (eerste pagina) | PDF², PNG (app, één blad) | PDF², PNG (app, gekozen dia) |
 
 ¹ Via de runtime; zonder runtime maakt de app een eenvoudige, gesaneerde versie uit de documentstructuur.
 ² Via de runtime, met keuze voor PDF/A-1b/2b/3b, een pagina- of diabereik en (tekst) koppen als bladwijzers. Zonder runtime gaat het via Afdrukken → "Opslaan als PDF".
+
+³ Alleen voor een document dat als macrobestand is geopend; het VBA-project van het origineel gaat byte-identiek terug.
 
 Formaten zonder "(app)" zijn alleen beschikbaar in de desktopapp met kantoorruntime. In de browser staan ze grijs met de vermelding "alleen in de desktopapp".
 
@@ -45,7 +47,6 @@ Elk formaat in deze tabel is met de drie eigen voorbeelden echt gemaakt en opnie
 
 Niet opgenomen:
 
-- **DOCM, XLSM, PPTM**: de app bewaart geen VBA, dus een macrobestand zonder macro's zou misleiden.
 - **DBF**: de runtime weigert de export van het voorbeeld.
 - **SVG van een presentatie**: het bestand bevat navigatiescript.
 - **HTML van een presentatie via de runtime**: dat levert meerdere losse bestanden op.
@@ -97,6 +98,18 @@ Na het openen staat er één niet-blokkerende melding boven het document als iet
 - Omgezette bestanden: de omzetting zelf en het in de testmatrix aangetoonde verlies.
 - Vóór opslaan toont Opslaan als hetzelfde soort rapport: aangetoond verlies, ongemeten kenmerken (rekenbladen via de runtime), vervallende macro’s of wachtwoordbeveiliging en wat een tekstformaat niet bewaart. Annuleren of Opslaan blijft de keuze; aangetoond engineverlies blijft opslaan in het eigen formaat blokkeren.
 
+## Macro’s in DOCM, XLSM en PPTM
+
+DOCM, XLSM en PPTM (en DOTM, XLTM, POTM, PPSM) opent de app zonder runtime in de eigen editor (`src/import/macros.ts`):
+
+- bij openen gaat het VBA-project eruit: `vbaProject.bin`, `vbaData.xml`, de digitale handtekening (`vbaProjectSignature*.bin`), hun relaties en inhoudstypen. De editor krijgt een gewoon DOCX/XLSX/PPTX; macro’s worden nooit uitgevoerd;
+- het rapport na openen noemt de VBA-modules (alleen gelezen met `packages/database/src/ovba.ts`) en of het project ondertekend is;
+- opslaan als DOCM/XLSM/PPTM (standaardvoorstel en Ctrl+S, ook terugschrijven naar het werkbestand) zet precies die onderdelen byte-identiek terug, met het oorspronkelijke inhoudstype van het hoofdonderdeel en unieke relatie-Id’s. De handtekening van het VBA-project blijft daardoor geldig. Een sjabloon of diavoorstelling (DOTM, XLTM, POTM, PPSM) wordt bewaard als DOCM, XLSM of PPTM;
+- opslaan als DOCX/XLSX/PPTX of een ander formaat toont vooraf in het verliesrapport dat het VBA-project vervalt;
+- de macroformaten staan in Opslaan als alleen bij een geopend macrobestand;
+- beproefd met de DOCM-, XLSM- en PPTM-bestanden uit het Apache POI-corpus: na openen en opslaan door de engines zijn alle VBA-onderdelen byte-identiek en importeert LibreOffice dezelfde Basic-modules als uit het origineel (`scripts/test-formaten-zonder-runtime.mjs`);
+- grenzen: de VBA-bron is niet te bewerken of in Tekst, Rekenblad en Presentatie te bekijken (wel in Database Studio voor Access); ActiveX- en formulierbesturingselementen blijven als onderdelen behouden maar werken niet; een macrodocument dat naar een ander venster wordt gesleept, verliest het VBA-project in dat venster.
+
 ## Wachtwoordbeveiliging
 
 Versleutelde DOCX, XLSX en PPTX (en de macro- en sjabloonvarianten) herkent de app aan de CFB-container met `EncryptionInfo` en `EncryptedPackage` (`src/import/versleuteling.ts`). Een venster vraagt het wachtwoord; bij een fout wachtwoord vraagt het opnieuw. Ontsleutelen gebeurt lokaal met WebCrypto, ook in de browser:
@@ -120,7 +133,7 @@ Opslaan:
 - Import maakt een bewerkbare OOXML-kopie. Het origineel wordt niet overschreven. Opmaak en onbekende onderdelen kunnen wijzigen.
 - Strict-XLSX wordt herkend en eerst lokaal omgezet. Wachtwoordbeveiligde documenten: zie [Wachtwoordbeveiliging](#wachtwoordbeveiliging).
 - Alles behalve het eigen formaat is een kopie. Sla ook het bewerkbare document op; een kopie wist de wijzigingsmarkering niet. CSV, TSV, DIF en PNG van een rekenblad bevatten één blad.
-- Met het veilige standaardprofiel worden macro’s tijdens conversie niet uitgevoerd. VBA-behoud of -uitvoering is niet beschikbaar.
+- Met het veilige standaardprofiel worden macro’s tijdens conversie niet uitgevoerd. VBA-behoud: zie [Macro’s](#macros-in-docm-xlsm-en-pptm); uitvoeren kan nooit.
 - Bestanden: maximaal 100 MB; OOXML: maximaal 256 MB uitgepakt, 64 MB per onderdeel en 10.000 onderdelen.
 - De browserversie heeft geen lokale conversie. Daar zijn alleen de routes zonder runtime beschikbaar (zie hierboven). Een ontbrekende runtime of filter levert een foutmelding op.
 - PDF-import, teken- en formuleformaten, ODB, e-mailarchieven, volledige template-export en een groot aantal beeld-/tekenfilters zijn nog niet aangesloten. Dit is nog geen volledige formaatdekking.

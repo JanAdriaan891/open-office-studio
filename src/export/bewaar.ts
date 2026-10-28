@@ -2,7 +2,7 @@ import type { Soort } from "../editors";
 import type { BewaarUitkomst } from "../opslag";
 import { controleerPakket, risicoBeleid, type Risico } from "../pakketcontrole";
 import { opslagRapport, type Rapport } from "../import/rapport";
-import { bereidOpslag, type Bronkenmerken } from "../import/bron";
+import { MACROUITVOER, bereidOpslag, type Bronkenmerken } from "../import/bron";
 import {
   converteer,
   kiesRoute,
@@ -127,12 +127,15 @@ export async function bewaarInFormaat(
   const formaat = uitvoerformaat(soort, keuze.ext);
   if (!formaat) throw new Error("Dit formaat wordt niet ondersteund.");
   const desktop = "__TAURI_INTERNALS__" in window;
-  const eigen = keuze.ext === soort;
+  // Een macroformaat is het eigen formaat met het VBA-project van het origineel.
+  const macroformaat = MACROUITVOER.has(keuze.ext);
+  const eigen = keuze.ext === soort || macroformaat;
   const toelichtingen: string[] = [];
   blokkeerBijVerlies(bytes, soort, eigen);
   const melding = verliesmelding(bytes, soort, formaat, keuze.route, {
     versleuteld: !!bron?.versleuteling,
     wachtwoord: !!keuze.wachtwoord,
+    macros: !!bron?.macro?.heeftVba,
   });
   if (melding) toelichtingen.push(melding);
 
@@ -160,7 +163,7 @@ export async function bewaarInFormaat(
     });
     uitvoer = klaar.bytes;
     if (klaar.toelichting) toelichtingen.push(klaar.toelichting);
-    mime = EIGEN_MIME[soort];
+    mime = macroformaat ? MACRO_MIME[soort] : EIGEN_MIME[soort];
   } else {
     const { maakExport } = await laadExport();
     const resultaat = await maakExport(soort, keuze.ext, bytes, keuze.naam, {
@@ -217,6 +220,12 @@ export async function bewaarInFormaat(
   setTimeout(() => URL.revokeObjectURL(url), 60000);
   return { status: "download", toelichting };
 }
+
+const MACRO_MIME: Record<Soort, string> = {
+  docx: "application/vnd.ms-word.document.macroEnabled.12",
+  xlsx: "application/vnd.ms-excel.sheet.macroEnabled.12",
+  pptx: "application/vnd.ms-powerpoint.presentation.macroEnabled.12",
+};
 
 const EIGEN_MIME: Record<Soort, string> = {
   docx: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",

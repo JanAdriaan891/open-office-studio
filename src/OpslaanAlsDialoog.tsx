@@ -41,6 +41,8 @@ export interface OpslaanAlsProps {
   ) => Rapport | null;
   /** Het origineel was met een wachtwoord versleuteld. */
   versleuteld?: boolean;
+  /** Het document is als macrobestand geopend (VBA-project beschikbaar). */
+  macros?: boolean;
   /** Wachtwoord dat in deze sessie al voor dit document is gekozen. */
   wachtwoord?: string;
   bladen?: { namen: string[]; actief: number } | null;
@@ -105,7 +107,14 @@ export function OpslaanAlsDialoog(props: OpslaanAlsProps) {
       ?.scrollIntoView({ block: "nearest" });
   }, [ext]);
   const runtime = status?.gevonden ?? false;
-  const formaten = useMemo(() => uitvoerlijst(props.soort), [props.soort]);
+  // Macroformaten alleen voor een geopend macrobestand (met het VBA-project).
+  const formaten = useMemo(
+    () =>
+      uitvoerlijst(props.soort).filter(
+        (f) => f.groep !== "macro" || props.macros,
+      ),
+    [props.soort, props.macros],
+  );
   const gekozen = formaten.find((f) => f.ext === ext) ?? formaten[0];
   // Zolang de status laadt, rekenen we in de desktopapp op de runtime.
   const routeVan = (f: Uitvoerformaat) =>

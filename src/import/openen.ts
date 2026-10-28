@@ -19,7 +19,8 @@ import {
 } from "./csvimport";
 import type { Rapportregel } from "./rapport";
 import { controleerPakket } from "../pakketcontrole";
-import { openRapport, type Rapport } from "./rapport";
+import { MACROS, openRapport, type Rapport } from "./rapport";
+import { MACRO_INVOER, MACROFORMAAT, scheidMacros } from "./macros";
 import type { Bronkenmerken } from "./bron";
 import {
   VerkeerdWachtwoord,
@@ -135,6 +136,53 @@ async function bereidOnversleuteld(
           extra: bronregels,
         }),
       };
+  }
+
+  // Macrobestanden: VBA-project apart houden, het document in de editor.
+  if (MACRO_INVOER.has(ext)) {
+    controleerPakket(bytes, soort);
+    const { bytes: zonder, macros } = await scheidMacros(bytes, soort, ext);
+    const controle = controleerPakket(zonder, soort);
+    if (!controle.strict) {
+      const doel = MACROFORMAAT[soort];
+      const modules = macros.modules.length
+        ? ` (${macros.modules.length} module${macros.modules.length === 1 ? "" : "s"}: ${macros.modules.slice(0, 8).join(", ")}${macros.modules.length > 8 ? ", …" : ""})`
+        : "";
+      const regels: Rapportregel[] = macros.heeftVba
+        ? [
+            {
+              onderdeel: MACROS,
+              gevolg:
+                `Het VBA-project${modules} wordt nooit uitgevoerd en blijft byte-voor-byte behouden bij opslaan als .${doel}.` +
+                (macros.ondertekend
+                  ? " De digitale handtekening van het project gaat ongewijzigd mee."
+                  : "") +
+                ` Opslaan als .${soort} verwijdert de macro’s (met een melding vooraf).`,
+            },
+          ]
+        : [
+            {
+              onderdeel: "Macroformaat",
+              gevolg: `Dit .${ext}-bestand bevat geen VBA-project; het blijft een .${doel} bij opslaan.`,
+              info: true,
+            },
+          ];
+      return {
+        soort,
+        naam: ext === doel ? naam : metExtensie(naam, doel),
+        bytes: zonder,
+        gewijzigd: ext !== doel,
+        rapport: openRapport({
+          soort,
+          risicos: controle.risicos,
+          route: "engine",
+          bronformaat: ext,
+          extra: [...bronregels, ...regels],
+        }),
+        exportFormaat: doel,
+        bron: { macro: macros },
+      };
+    }
   }
 
   const runtime =

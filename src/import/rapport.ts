@@ -35,6 +35,13 @@ const MODULENAAM: Record<Soort, string> = {
   pptx: "de presentatie-editor",
 };
 
+/** Alleen de eerste letter klein, en niet bij een afkorting (VBA, XML). */
+function kleineLetter(tekst: string) {
+  return /^\p{Lu}{2}/u.test(tekst)
+    ? tekst
+    : tekst.charAt(0).toLowerCase() + tekst.slice(1);
+}
+
 function hoofdletter(tekst: string) {
   return tekst.charAt(0).toUpperCase() + tekst.slice(1);
 }
@@ -131,7 +138,7 @@ export function openRapport(kenmerken: OpenKenmerken): Rapport | null {
   if (!regels.length) return null;
   const namen = regels
     .filter((r) => r.onderdeel !== "Omzetting" && !r.info)
-    .map((r) => r.onderdeel.toLowerCase());
+    .map((r) => kleineLetter(r.onderdeel));
   const kop =
     route === "conversie"
       ? "Geïmporteerd als bewerkbare kopie; het origineel is behouden." +
@@ -255,7 +262,7 @@ export function opslagRapport(kenmerken: OpslaanKenmerken): Rapport | null {
   if (!regels.length) return null;
   return {
     moment: "opslaan",
-    kop: `Bij opslaan als .${formaat.ext}: ${regels.map((r) => r.onderdeel.toLowerCase()).join(", ")}.`,
+    kop: `Bij opslaan als .${formaat.ext}: ${regels.map((r) => kleineLetter(r.onderdeel)).join(", ")}.`,
     regels,
   };
 }

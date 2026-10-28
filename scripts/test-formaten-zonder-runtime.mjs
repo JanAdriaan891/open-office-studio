@@ -47,12 +47,18 @@ const versie = soffice
 const profiel = readFileSync("src-tauri/src/conversieprofiel.xcu", "utf8");
 
 /** Conversie met LibreOffice in een nieuw tijdelijk profiel. */
-function libreOffice(bytes, bron, doel) {
+function libreOffice(bytes, bron, doel, standaardprofiel = false) {
   if (!soffice) return null;
   const map = mkdtempSync(join(tmpdir(), "zonder-runtime-"));
   try {
     mkdirSync(join(map, "profiel/user"), { recursive: true });
-    writeFileSync(join(map, "profiel/user/registrymodifications.xcu"), profiel);
+    // Het veilige profiel van de app; voor de VBA-proef het standaardprofiel
+    // (dat VBA als Basic-tekst importeert, zonder uit te voeren).
+    if (!standaardprofiel)
+      writeFileSync(
+        join(map, "profiel/user/registrymodifications.xcu"),
+        profiel,
+      );
     mkdirSync(join(map, "uit"));
     const invoer = join(map, `invoer.${bron}`);
     writeFileSync(invoer, bytes);
@@ -320,6 +326,82 @@ finally:
       return `LibreOffice schrijft ${herkend.soort}; wij ontsleutelen het`;
     },
   );
+
+  // ── #42 Macro’s behouden ─────────────────────────────────────────────
+  const { scheidMacros, voegMacrosToe } = await laad("/src/import/macros.ts");
+  const { unzipSync } = await import("fflate");
+  const corpusmap = "../../../.local/corpus/bestanden/";
+  const macrobestanden = existsSync(corpusmap)
+    ? readdirSync(corpusmap)
+        .filter((n) => /\.(docm|xlsm|pptm)$/.test(n))
+        .sort()
+    : [];
+  /** Basic-modules die LibreOffice uit het VBA-project importeert (ODF-uitvoer). */
+  const basicModules = (odf) =>
+    Object.keys(unzipSync(odf))
+      .filter((n) =>
+        /^Basic\/[^/]+\/(?!script-lb|dialog-lb)[^/]+\.xml$/.test(n),
+      )
+      .sort();
+  for (const naam of macrobestanden) {
+    const bron = readFileSync(corpusmap + naam);
+    if (bron[0] !== 0x50) continue;
+    const ext = naam.split(".").pop();
+    const soort = ext === "docm" ? "docx" : ext === "xlsm" ? "xlsx" : "pptx";
+    await proef(
+      "#42",
+      `${naam.slice(0, 12)}.${ext}: VBA na de engine terug`,
+      async () => {
+        const { bytes, macros } = await scheidMacros(bron, soort, ext);
+        if (!macros.heeftVba)
+          return "geen VBA-project in dit bestand (overgeslagen)";
+        let opgeslagen;
+        if (soort === "docx") {
+          const { createYrsSession, saveYrsDocx } = await import(
+            "@betteroffice/docx/yrs"
+          );
+          const sessie = await createYrsSession();
+          sessie.openDocx(bytes, true);
+          opgeslagen = (await saveYrsDocx(sessie)).bytes;
+        } else if (soort === "xlsx") {
+          const xlsx = await import("@betteroffice/xlsx");
+          await xlsx.initWasm(
+            readFileSync(
+              "node_modules/@betteroffice/xlsx/dist/generated/xlsx_wasm_bg.wasm",
+            ),
+          );
+          const boek = xlsx.openWorkbook(bytes);
+          opgeslagen = boek.save();
+          boek.dispose();
+        } else {
+          const pptx = await import("@betteroffice/pptx");
+          await pptx.initWasm(
+            readFileSync(
+              "node_modules/@betteroffice/pptx/dist/generated/pptx_wasm_bg.wasm",
+            ),
+          );
+          opgeslagen = pptx.openPresentation(bytes).save();
+        }
+        const terug = voegMacrosToe(opgeslagen, macros, ext);
+        writeFileSync(join(uitmap, `macro-${naam}`), terug);
+        const a = unzipSync(bron),
+          b = unzipSync(terug);
+        for (const pad of Object.keys(macros.delen))
+          if (Buffer.compare(Buffer.from(a[pad]), Buffer.from(b[pad])) !== 0)
+            throw new Error(`${pad} gewijzigd`);
+        if (!soffice)
+          return `${Object.keys(macros.delen).length} VBA-onderdelen byte-identiek`;
+        const odf = soort === "docx" ? "odt" : soort === "xlsx" ? "ods" : "odp";
+        const viaOrigineel = basicModules(libreOffice(bron, ext, odf, true));
+        const viaOns = basicModules(libreOffice(terug, ext, odf, true));
+        if (viaOrigineel.join() !== viaOns.join())
+          throw new Error(
+            `LibreOffice ziet andere modules: ${viaOrigineel} ↔ ${viaOns}`,
+          );
+        return `${Object.keys(macros.delen).length} VBA-onderdelen byte-identiek; LibreOffice importeert dezelfde ${viaOns.length} Basic-module(s)`;
+      },
+    );
+  }
 
   // ── VERVOLG ──
 } finally {

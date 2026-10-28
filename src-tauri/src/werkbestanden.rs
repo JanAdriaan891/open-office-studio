@@ -27,6 +27,10 @@ use std::{
 
 /// Eigen bewerkbare formaten: alleen daarin schrijft Ctrl+S terug.
 pub const EIGEN: [&str; 3] = ["docx", "xlsx", "pptx"];
+/// Macroformaten die de webview zelf schrijft (met het VBA-project van het
+/// geopende origineel, `src/import/macros.ts`); na Opslaan als blijven ze
+/// het werkbestand, net als het eigen formaat.
+pub const MACRO: [&str; 3] = ["docm", "xlsm", "pptm"];
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct Stempel {
@@ -409,7 +413,7 @@ pub async fn bewaar_als(
         }
         crate::recent::noteer(&app2, &pad);
         let werkbestanden = app2.state::<Werkbestanden>();
-        let token = EIGEN.contains(&ext.as_str()).then(|| {
+        let token = (EIGEN.contains(&ext.as_str()) || MACRO.contains(&ext.as_str())).then(|| {
             if let Some(oud) = &oud {
                 werkbestanden.vergeet(oud, &label);
             }

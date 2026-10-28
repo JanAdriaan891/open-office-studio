@@ -252,13 +252,15 @@ describe("Formaatcatalogus", () => {
       expect.arrayContaining(["docx", "md", "txt", "html", "pdf"]),
     );
   });
-  it("neemt geen macro-ingeschakelde formaten op zonder VBA-behoud", () => {
-    for (const soort of ["docx", "xlsx", "pptx"] as const)
-      expect(uitvoerlijst(soort).map((f) => f.ext)).not.toEqual(
-        expect.arrayContaining(["docm"]),
-      );
-    expect(Object.keys(catalogus.xlsx.uitvoer)).not.toContain("xlsm");
-    expect(Object.keys(catalogus.pptx.uitvoer)).not.toContain("pptm");
+  it("neemt macroformaten alleen op als eigen route met VBA-behoud", () => {
+    const macro = { docx: "docm", xlsx: "xlsm", pptx: "pptm" } as const;
+    for (const soort of ["docx", "xlsx", "pptx"] as const) {
+      const formaten = uitvoerlijst(soort).filter((f) => f.groep === "macro");
+      expect(formaten.map((f) => f.ext)).toEqual([macro[soort]]);
+      // Zonder runtimefilter: de app zet het VBA-project zelf terug.
+      expect(formaten[0]).toMatchObject({ route: "engine" });
+      expect(formaten[0].filter).toBeUndefined();
+    }
   });
 });
 

@@ -35,6 +35,7 @@ import { controleerPakket } from "./pakketcontrole";
 import { bereidOpenen } from "./import/openen";
 import { RapportMelding } from "./import/RapportMelding";
 import { useImportvragen } from "./import/Importvensters";
+import { MACROUITVOER } from "./import/bron";
 import versie from "../versie.json";
 import openaecSymbool from "./stijl/openaec-symbol.svg";
 import { ThemaKnop, useOfficeThema } from "./stijl/ThemaKnop";
@@ -279,7 +280,16 @@ export function OfficeStudio() {
       return false;
     }
     const werkbestand = tabblad.werkbestand;
-    if (plan.route === "terugschrijven" && plan.bevestigen && werkbestand) {
+    // Terugschrijven als DOCM/XLSM/PPTM met het eigen VBA-project is verliesvrij.
+    const verliesvrij =
+      !!tabblad.bron?.macro &&
+      MACROUITVOER.has(plan.route === "terugschrijven" ? plan.ext : "");
+    if (
+      plan.route === "terugschrijven" &&
+      plan.bevestigen &&
+      !verliesvrij &&
+      werkbestand
+    ) {
       const antwoord = await bevestigFormaat(
         werkbestand.naam,
         verliesmeldingVoor(tabblad, plan.ext),
@@ -1116,10 +1126,12 @@ export function OfficeStudio() {
               {
                 versleuteld: !!opslaanDocument.bron?.versleuteling,
                 wachtwoord: metWachtwoord,
+                macros: !!opslaanDocument.bron?.macro?.heeftVba,
               },
             )
           }
           versleuteld={!!opslaanDocument.bron?.versleuteling}
+          macros={!!opslaanDocument.bron?.macro}
           wachtwoord={wachtwoorden.current.get(opslaanDocument.id) ?? undefined}
           bladen={editorKoppeling(opslaanDocument.soort)?.bladen?.() ?? null}
           dias={editorKoppeling(opslaanDocument.soort)?.dias?.() ?? null}
