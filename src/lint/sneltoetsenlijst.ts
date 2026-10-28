@@ -192,6 +192,10 @@ export const vasteSneltoetsen: readonly SneltoetsInfo[] = [
   tekst("Ctrl+Shift+A", "Alle hoofdletters"),
   tekst("Ctrl+Shift+K", "Kleinkapitalen"),
   tekst("Ctrl+Shift+H", "Verborgen tekst"),
+  // Tekst: paginafuncties (src/tekst/pagina/ui/usePagina.tsx).
+  tekst("Ctrl+Alt+F", "Voetnoot invoegen"),
+  tekst("Ctrl+Alt+D", "Eindnoot invoegen"),
+  tekst("Ctrl+Shift+Enter", "Kolomeinde"),
   // Tekst: engine (@betteroffice/docx-react).
   tekstEngine("Ctrl+B", "Vet"),
   tekstEngine("Ctrl+I", "Cursief"),
