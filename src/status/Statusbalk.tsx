@@ -3,6 +3,7 @@ import { useInstellingen } from "../instellingen";
 import { stap } from "../documentzoom";
 import { useModuleStatus, useZoomBediening } from "./statusinfo";
 import { getal, schuifNaarZoom, zoomNaarSchuif } from "./berekening";
+import { SpellingStatusKnoppen } from "../spelling/SpellingStatus";
 import "./statusbalk.css";
 
 export interface StatusbalkProps {
@@ -24,6 +25,7 @@ function ModuleInfo({ soort }: { soort: string | null }) {
   if (!info) return null;
   if (info.soort === "tekst" && soort === "docx" && statusbalk.tekst)
     return (
+      <>
       <span className="statusbalk-module">
         <button type="button" onClick={info.naarPagina} title="Ga naar pagina">
           Pagina {info.pagina}
@@ -39,6 +41,8 @@ function ModuleInfo({ soort }: { soort: string | null }) {
           </button>
         )}
       </span>
+      <SpellingStatusKnoppen />
+      </>
     );
   if (info.soort === "rekenblad" && soort === "xlsx" && statusbalk.rekenblad) {
     const s = info.statistiek;

@@ -23,6 +23,13 @@ export interface Instellingen {
   };
   /** E-mail: externe afbeeldingen volgens het account, of nooit automatisch. */
   emailExterneInhoud: "account" | "nooit";
+  /** Spellingcontrole en autocorrectie (#21, src/spelling). */
+  spelling: {
+    controleren: boolean;
+    autocorrectie: boolean;
+    hoofdletterwoordenNegeren: boolean;
+    cijferwoordenNegeren: boolean;
+  };
 }
 
 export const standaardInstellingen: Instellingen = {
@@ -31,6 +38,12 @@ export const standaardInstellingen: Instellingen = {
   lint: { compact: false, ingeklapt: false },
   statusbalk: { zoom: true, tekst: true, rekenblad: true, presentatie: true, database: true },
   emailExterneInhoud: "account",
+  spelling: {
+    controleren: true,
+    autocorrectie: true,
+    hoofdletterwoordenNegeren: true,
+    cijferwoordenNegeren: true,
+  },
 };
 
 const SLEUTEL = "openaec-office-instellingen";
@@ -51,6 +64,7 @@ export function normaliseerInstellingen(ruw: unknown): Instellingen {
   const formaat = isObject(r.opslagformaat) ? r.opslagformaat : {};
   const lint = isObject(r.lint) ? r.lint : {};
   const status = isObject(r.statusbalk) ? r.statusbalk : {};
+  const spelling = isObject(r.spelling) ? r.spelling : {};
   return {
     thema: kies(r.thema, ["light", "forge", "systeem"] as const, s.thema),
     opslagformaat: {
@@ -70,6 +84,12 @@ export function normaliseerInstellingen(ruw: unknown): Instellingen {
       database: waarOnwaar(status.database, true),
     },
     emailExterneInhoud: kies(r.emailExterneInhoud, ["account", "nooit"] as const, "account"),
+    spelling: {
+      controleren: waarOnwaar(spelling.controleren, true),
+      autocorrectie: waarOnwaar(spelling.autocorrectie, true),
+      hoofdletterwoordenNegeren: waarOnwaar(spelling.hoofdletterwoordenNegeren, true),
+      cijferwoordenNegeren: waarOnwaar(spelling.cijferwoordenNegeren, true),
+    },
   };
 }
 

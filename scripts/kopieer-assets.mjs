@@ -50,4 +50,29 @@ await cp(
     console.warn(`Waarschuwing: ${uitleg} De app gebruikt nu alleen de meegeleverde lettertypen.`);
   }
 }
+// Spellingcontrole (#21): woordenboeken uit de cache of downloaden, en de WASM-module.
+{
+  const { haalWoordenboeken, CACHE } = await import("./haal-woordenboeken.mjs");
+  const { bouwSpellingWasm } = await import("./bouw-spelling-wasm.mjs");
+  const dev = process.env.npm_lifecycle_event === "predev";
+  const problemen = [];
+  try {
+    const { ontbrekend } = await haalWoordenboeken({
+      netwerk: process.env.OOS_WOORDENBOEKEN_OFFLINE !== "1",
+    });
+    if (ontbrekend.length)
+      problemen.push(`Woordenboeken ontbreken (${ontbrekend[0]}…). Vul ${CACHE} met "node scripts/haal-woordenboeken.mjs".`);
+  } catch (e) {
+    problemen.push(String(e?.message ?? e));
+  }
+  try {
+    await bouwSpellingWasm();
+  } catch (e) {
+    problemen.push(String(e?.message ?? e));
+  }
+  if (problemen.length) {
+    if (!dev) throw new Error(problemen.join(" "));
+    console.warn(`Waarschuwing: ${problemen.join(" ")} De spellingcontrole is dan niet beschikbaar.`);
+  }
+}
 await import("./kopieer-licenties.mjs");

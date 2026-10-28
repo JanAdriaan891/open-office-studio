@@ -8,6 +8,7 @@ import {
   type Instellingen,
 } from "../instellingen";
 import { herstelInterval, INTERVAL_SLEUTEL } from "../herstel";
+import { SpellingInstellingen } from "../spelling/SpellingInstellingen";
 import {
   conversieStatus,
   kiesConversieprogramma,
@@ -210,6 +211,8 @@ export function InstellingenVenster({ sluit }: { sluit: () => void }) {
           </label>
         ))}
       </fieldset>
+
+      <SpellingInstellingen />
 
       <fieldset className="werkruimte-groep">
         <legend>Opslaan</legend>

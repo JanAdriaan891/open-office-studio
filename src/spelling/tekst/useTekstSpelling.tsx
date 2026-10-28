@@ -1,0 +1,131 @@
+/**
+ * Spellingcontrole in Open Tekst Studio: één aanroep in de editor.
+ *
+ *   const spelling = useTekstSpelling(() => docx.current, zichtbaar);
+ *   <DocxEditor plugins={spelling.plugins} pluginGrants={spelling.grants} … />
+ *   {spelling.element}
+ *
+ * Regelt de plug-in (golflijnen), het rechtermuismenu, F7 (deelvenster),
+ * de autocorrectie en de melding aan de statusbalk.
+ */
+import type { DocxEditorRef, DocxPluginError } from "@betteroffice/docx-react";
+import { useEffect, useMemo, useRef, useSyncExternalStore } from "react";
+import { leesInstellingen, volgInstellingen } from "../../instellingen";
+import { SCHEIDING } from "../autocorrectie";
+import { spellingControleur } from "../dienst";
+import { publiceerSpelling } from "../status";
+import { genegeerd, persoonlijk } from "../woordenlijst";
+import { heeftExternMenu, registreerSessie } from "./menu";
+import { maakSpellingPlugin, SPELLING_PLUGIN, spellingGrant } from "./plugin";
+import { SpellingSessie } from "./sessie";
+import { SpellingMenu } from "./SpellingMenu";
+import { SpellingVenster } from "./SpellingVenster";
+
+const INVOER = ".paged-editor__yrs-input";
+
+/** Een plug-infout van de engine (de plug-in staat dan uit): melden in de console. */
+function pluginFout(fout: DocxPluginError) {
+  if (fout.pluginId === SPELLING_PLUGIN) console.warn("Spellingcontrole-plug-in gestopt:", fout);
+}
+
+export function useTekstSpelling(
+  editor: () => DocxEditorRef | null,
+  zichtbaar: boolean,
+  /** De bytes van het geopende DOCX, voor de taal per alinea (w:lang). */
+  bytes: () => Uint8Array | null = () => null,
+) {
+  const sessie = useMemo(() => new SpellingSessie(editor, spellingControleur, bytes), []);
+  const plugins = useMemo(() => [maakSpellingPlugin(sessie)], [sessie]);
+  const grants = useMemo(() => ({ [SPELLING_PLUGIN]: spellingGrant }), []);
+  const stand = useSyncExternalStore(sessie.volg, sessie.leesStand);
+  const zichtbaarRef = useRef(zichtbaar);
+  zichtbaarRef.current = zichtbaar;
+
+  useEffect(() => {
+    sessie.start();
+    const losMenu = registreerSessie(sessie, () => zichtbaarRef.current);
+    // Woordenlijst of instellingen gewijzigd: opnieuw tekenen of controleren.
+    let vorige = JSON.stringify(leesInstellingen().spelling);
+    const stopInstellingen = volgInstellingen(() => {
+      const nu = JSON.stringify(leesInstellingen().spelling);
+      if (nu !== vorige) {
+        vorige = nu;
+        sessie.herbegin();
+      }
+    });
+    const stopLijst1 = persoonlijk.volg(() => sessie.herbegin());
+    const stopLijst2 = genegeerd.volg(() => sessie.herbegin());
+    return () => {
+      losMenu();
+      stopInstellingen();
+      stopLijst1();
+      stopLijst2();
+      sessie.stop();
+    };
+  }, [sessie]);
+
+  // Rechtermuisknop, F7 en autocorrectie: alleen voor het zichtbare document.
+  useEffect(() => {
+    if (!zichtbaar) {
+      sessie.sluitMenu();
+      return;
+    }
+    const inDocument = (doel: EventTarget | null) =>
+      doel instanceof Element && !!doel.closest(".office-tekst .docx-editor__viewport, .office-tekst .paged-editor");
+    const rechtsklik = (e: MouseEvent) => {
+      if (heeftExternMenu() || !sessie.aan || !inDocument(e.target)) return;
+      const doel = sessie.foutOnderPunt(e.clientX, e.clientY);
+      if (!doel) return;
+      e.preventDefault();
+      e.stopImmediatePropagation();
+      void sessie.openMenu(e.clientX, e.clientY, doel.alinea, doel.fout);
+    };
+    const toets = (e: KeyboardEvent) => {
+      if (e.key === "F7" && !e.ctrlKey && !e.altKey && !e.metaKey && !e.shiftKey) {
+        e.preventDefault();
+        e.stopPropagation();
+        sessie.vensterOpen = !sessie.vensterOpen;
+        sessie.meld();
+        return;
+      }
+      if (!(e.target instanceof Element) || !e.target.matches(INVOER)) return;
+      if (e.ctrlKey || e.metaKey || e.altKey || e.isComposing || e.key.length !== 1) return;
+      const volgnummer = ++sessie.toetsen;
+      if (!leesInstellingen().spelling.autocorrectie || !SCHEIDING.test(e.key)) return;
+      // Na de verwerking door de engine; latere tekens worden teruggeteld.
+      window.setTimeout(() => void sessie.autocorrigeer(e.key, volgnummer), 0);
+    };
+    window.addEventListener("contextmenu", rechtsklik, true);
+    window.addEventListener("keydown", toets, true);
+    return () => {
+      window.removeEventListener("contextmenu", rechtsklik, true);
+      window.removeEventListener("keydown", toets, true);
+    };
+  }, [sessie, zichtbaar]);
+
+  // De statusbalk: taal en aantal fouten.
+  useEffect(() => {
+    if (!zichtbaar) return publiceerSpelling(sessie, null);
+    publiceerSpelling(sessie, {
+      taal: sessie.taalVanDocument(),
+      automatisch: sessie.documentTaal === null,
+      fouten: sessie.aan ? sessie.aantal : 0,
+      probleem: sessie.probleem,
+      openVenster: () => {
+        sessie.vensterOpen = true;
+        sessie.meld();
+      },
+      kiesTaal: (taal) => sessie.kiesDocumentTaal(taal),
+    });
+  }, [sessie, zichtbaar, stand]);
+  useEffect(() => () => publiceerSpelling(sessie, null), [sessie]);
+
+  const element = zichtbaar ? (
+    <>
+      {sessie.menu && <SpellingMenu sessie={sessie} stand={sessie.menu} />}
+      {sessie.vensterOpen && <SpellingVenster sessie={sessie} stand={stand} />}
+    </>
+  ) : null;
+
+  return { plugins, grants, element, sessie, pluginFout };
+}

@@ -1,0 +1,206 @@
+/* Spellingcontrole in Open Tekst Studio (#21). */
+
+.spelling-golflijnen {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.spelling-golf {
+  position: absolute;
+  pointer-events: none;
+  background-repeat: repeat-x;
+  background-position: left bottom;
+  /* Een zigzag als golflijn; schaalt met background-size (zoom). */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 6 3' preserveAspectRatio='none'%3E%3Cpath d='M0 2.5 1.5 0.5 3 2.5 4.5 0.5 6 2.5' fill='none' stroke='%23e0281e' stroke-width='0.9'/%3E%3C/svg%3E");
+}
+
+/* --- rechtermuismenu --- */
+.spelling-menu {
+  position: fixed;
+  z-index: 10000;
+  min-width: 220px;
+  max-width: 320px;
+  padding: 4px;
+  border: 1px solid var(--oa-shell-border, #c9c4bb);
+  border-radius: 6px;
+  background: var(--oa-shell-surface, #fff);
+  color: var(--oa-shell-text, #222);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 18%);
+  font: 13px/1.3 Inter, system-ui, sans-serif;
+}
+
+.spelling-menu button {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border: 0;
+  border-radius: 4px;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.spelling-menu button:hover,
+.spelling-menu button:focus-visible {
+  background: var(--oa-shell-accent-soft, #fbe9dc);
+  outline: none;
+}
+
+.spelling-menu button:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.spelling-menu .is-suggestie {
+  font-weight: 600;
+}
+
+.spelling-menu hr {
+  margin: 4px 2px;
+  border: 0;
+  border-top: 1px solid var(--oa-shell-border, #e2ddd5);
+}
+
+.spelling-menu .spelling-menu-kop {
+  padding: 4px 10px 2px;
+  color: var(--oa-shell-text-secondary, #777);
+  font-size: 11px;
+}
+
+.spelling-menu .spelling-menu-talen {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  padding: 0 4px 2px;
+}
+
+.spelling-menu .spelling-menu-talen button {
+  width: auto;
+  padding: 4px 8px;
+  font-size: 12px;
+}
+
+.spelling-menu .spelling-menu-talen button[aria-pressed="true"] {
+  background: var(--oa-shell-accent-soft, #fbe9dc);
+  font-weight: 600;
+}
+
+/* --- deelvenster "Spelling en grammatica" (F7) --- */
+.spelling-venster {
+  position: fixed;
+  z-index: 9000;
+  right: 16px;
+  top: 150px;
+  width: 300px;
+  max-height: calc(100vh - 200px);
+  overflow: auto;
+  padding: 12px 14px 14px;
+  border: 1px solid var(--oa-shell-border, #c9c4bb);
+  border-radius: 8px;
+  background: var(--oa-shell-surface, #fff);
+  color: var(--oa-shell-text, #222);
+  box-shadow: 0 10px 30px rgb(0 0 0 / 20%);
+  font: 13px/1.4 Inter, system-ui, sans-serif;
+}
+
+.spelling-venster h2 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 0 8px;
+  font-size: 15px;
+}
+
+.spelling-venster h2 button {
+  border: 0;
+  background: none;
+  color: inherit;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.spelling-venster .spelling-context {
+  margin: 4px 0 10px;
+  padding: 8px;
+  border-radius: 4px;
+  background: var(--oa-shell-hover, #f6f3ee);
+}
+
+.spelling-venster .spelling-context mark {
+  background: none;
+  color: #c4241b;
+  font-weight: 600;
+  text-decoration: underline wavy #e0281e;
+}
+
+.spelling-venster ul {
+  margin: 4px 0 10px;
+  padding: 0;
+  list-style: none;
+  border: 1px solid var(--oa-shell-border, #e2ddd5);
+  border-radius: 4px;
+  max-height: 150px;
+  overflow: auto;
+}
+
+.spelling-venster li button {
+  width: 100%;
+  padding: 5px 8px;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.spelling-venster li button[aria-selected="true"] {
+  background: var(--oa-shell-accent, #d97706);
+  color: #fff;
+}
+
+.spelling-venster .spelling-knoppen {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.spelling-venster .spelling-knoppen button,
+.spelling-venster select {
+  padding: 6px 8px;
+  border: 1px solid var(--oa-shell-border, #c9c4bb);
+  border-radius: 4px;
+  background: var(--oa-shell-bg-lighter, #fff);
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.spelling-venster .spelling-knoppen button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.spelling-venster .spelling-knoppen .is-primair {
+  border-color: var(--oa-shell-accent, #d97706);
+  background: var(--oa-shell-accent, #d97706);
+  color: #fff;
+}
+
+.spelling-venster label {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-top: 10px;
+  color: var(--oa-shell-text-secondary, #666);
+  font-size: 12px;
+}
+
+.spelling-venster .spelling-klaar {
+  margin: 12px 0;
+}

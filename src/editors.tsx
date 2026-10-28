@@ -31,6 +31,7 @@ import { lettertypeBasis } from "./lettertypen/catalogus";
 import { DocumentLettertypen } from "./lettertypen/context";
 import { tekstSelectiePlugin } from "./lettertypen/koppeling";
 import { installeerFontCitering } from "./lettertypen/canvasFont";
+import { useTekstSpelling } from "./spelling/tekst/useTekstSpelling";
 
 const PRESENTATIE_PLUGINS = [tekstSelectiePlugin];
 import { usePresentatieStatus, useRekenbladStatus } from "./status/useEditorStatus";
@@ -125,6 +126,12 @@ export default function OfficeEditor(props: EditorProps) {
     [rekenbladApi, presentatieApi, herladen.api, herladen.grafiekSelectie],
   );
   useNederlandseInvoer(rekenbladHost, rekenbladApi);
+  // Spellingcontrole en autocorrectie (#21): golflijnen, menu, F7, statusbalk.
+  const spelling = useTekstSpelling(
+    () => docx.current,
+    props.soort === "docx" && props.zichtbaar !== false,
+    () => herladenRecent.current.bytes,
+  );
   // Selectie en huidige dia voor de statusbalk.
   useRekenbladStatus(rekenbladApi, props.zichtbaar !== false);
   usePresentatieStatus(presentatieApi, props.zichtbaar !== false);
@@ -291,6 +298,9 @@ export default function OfficeEditor(props: EditorProps) {
               documentBuffer={herladen.bytes}
               showFileOpen={false}
               showHelpMenu={false}
+              plugins={spelling.plugins}
+              pluginGrants={spelling.grants}
+              onPluginError={spelling.pluginFout}
               downloadOnSave={false}
               onSave={() => {
                 if (!exporteren.current) props.opslaan();
@@ -323,6 +333,7 @@ export default function OfficeEditor(props: EditorProps) {
                 />
               }
             />
+            {spelling.element}
           </EditorZichtbaar.Provider>
           </DocumentLettertypen.Provider>
         </EditorApi.Provider>
