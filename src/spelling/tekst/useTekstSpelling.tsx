@@ -105,8 +105,10 @@ export function useTekstSpelling(
       if (e.ctrlKey || e.metaKey || e.altKey || e.isComposing || e.key.length !== 1) return;
       const volgnummer = ++sessie.toetsen;
       if (!leesInstellingen().spelling.autocorrectie || !SCHEIDING.test(e.key)) return;
-      // Na de verwerking door de engine; latere tekens worden teruggeteld.
-      window.setTimeout(() => void sessie.autocorrigeer(e.key, volgnummer), 0);
+      // Liefst meteen (vóór het teken); verwerkt de engine nog invoer, dan
+      // erna, met terugtellen van de tekens die intussen getypt zijn.
+      if (sessie.autocorrigeerBijToets(e.key) === "later")
+        window.setTimeout(() => void sessie.autocorrigeer(e.key, volgnummer), 0);
     };
     window.addEventListener("contextmenu", rechtsklik, true);
     window.addEventListener("keydown", toets, true);

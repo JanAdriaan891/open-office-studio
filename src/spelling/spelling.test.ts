@@ -199,6 +199,7 @@ describe("autocorrectie", () => {
 
   it("verbetert typefouten uit de lijst van de taal", () => {
     expect(pas("Het is eigelijk ")).toBe("Het is eigenlijk ");
+    expect(pas("van https://open-aec.com. dit is eigelijk ")).toBe("van https://open-aec.com. dit is eigenlijk ");
     expect(pas("Het is eigelijk ", en)).toBe("Het is eigelijk ");
     expect(pas("I saw teh ", en)).toBe("I saw the ");
     expect(pas("teh ", en)).toBe("The ");

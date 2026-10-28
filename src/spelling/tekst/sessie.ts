@@ -422,6 +422,45 @@ export class SpellingSessie {
    * Eén edit-batch met bewaking: is er intussen verder getypt, dan weigert de
    * engine de batch (andere versie) en gebeurt er niets.
    */
+  /**
+   * Autocorrectie bij de toetsaanslag zelf, vóórdat de engine het
+   * scheidingsteken invoegt: synchroon lezen (YrsSession.readParagraphs) en
+   * vervangen via de invoerweg van de engine (setSelection + insertText).
+   * Zo kan doortypen er niet tussen komen. Geeft "later" als de engine nog
+   * invoer verwerkt (dan de asynchrone weg), anders of er gecorrigeerd is.
+   */
+  autocorrigeerBijToets(teken: string): boolean | "later" {
+    const ed = this.editor()?.getEditorRef();
+    const sessie = ed?.getYrsSession();
+    if (!ed || !sessie) return "later";
+    if (ed.hasPendingInput()) return "later";
+    const bereik = ed.getSelectionRange();
+    if (!bereik || bereik.from !== bereik.to) return false;
+    const cursor = this.cursor();
+    if (!cursor?.story) return false;
+    let tekst: string;
+    try {
+      const r = sessie.readParagraphs({ view: "accepted", story: cursor.story, paraIds: [cursor.paraId] });
+      if (!r.ok || !r.paragraphs[0]) return false;
+      tekst = r.paragraphs[0].text;
+    } catch {
+      return "later";
+    }
+    const metTeken = tekst.slice(0, cursor.offset) + teken + tekst.slice(cursor.offset);
+    const c = autocorrectie(metTeken, cursor.offset + 1, {
+      taal: this.perId.get(cursor.paraId)?.taal ?? this.taalVanDocument(),
+      uitzondering: (w) => persoonlijk.bevat(w) || genegeerd.bevat(w),
+    });
+    if (!c || c.eind > cursor.offset) return false;
+    const loc = (offset: number) => ({ story: cursor.story!, paraId: cursor.paraId, offset });
+    const van = ed.yrsLocToDisplayPosition(loc(c.start));
+    const tot = ed.yrsLocToDisplayPosition(loc(c.eind));
+    if (van === null || tot === null) return false;
+    ed.setSelection(van, tot);
+    ed.insertText(c.nieuw);
+    return true;
+  }
+
   autocorrigeer(teken?: string, volgnummer?: number): Promise<Correctie | null> {
     // Na elkaar: een correctie verschuift de tekst voor de volgende.
     const volgende = this.autoKetting.then(() => this.autocorrigeerNu(teken, volgnummer));
