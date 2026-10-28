@@ -27,11 +27,11 @@ export const STANDAARD_PAGINA: Paginamaten = {
 };
 
 /**
- * Breedte die de engine een nieuwe tabel geeft (insert_table): altijd 6,5 inch
- * (9360 twips) vanaf de linkermarge, verdeeld over gelijke kolommen, ongeacht
- * paginaformaat of marges. Het voorbeeld toont precies wat er ingevoegd wordt.
+ * Breedte van een nieuwe tabel: de tekstbreedte van de sectie (paginabreedte
+ * min marges), verdeeld over gelijke kolommen, zoals `tabelInvoegen` hem
+ * invoegt. Het voorbeeld toont precies wat er ingevoegd wordt.
  */
-export const TABELBREEDTE = 9360;
+export const tabelbreedte = (m: Paginamaten) => Math.max(1440, m.pageWidth - m.marginLeft - m.marginRight);
 
 /** 1 inch = 1440 twips = 96 CSS-pixels. */
 export const twipsNaarPx = (twips: number) => twips / 15;
@@ -89,7 +89,7 @@ export function bepaalAnker({
   return {
     x: twipsNaarPx(m.marginLeft),
     y: Math.max(0, y),
-    breedte: twipsNaarPx(TABELBREEDTE),
+    breedte: twipsNaarPx(tabelbreedte(m)),
     rijhoogte: regel,
     paginabreedte,
   };

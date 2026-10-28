@@ -46,8 +46,8 @@ describe("positie van het tabelvoorbeeld", () => {
     expect(p.schaal).toBeCloseTo(schaal);
     expect(p.top).toBeCloseTo(150);
     expect(p.left).toBeCloseTo(100 + 75.6 * schaal);
-    // de engine maakt een tabel altijd 9360 twips breed
-    expect(p.width).toBeCloseTo((9360 / 15) * schaal);
+    // de tabel vult de tekstbreedte: A4 min 2 × 2 cm, niet de Letter-breedte 9360
+    expect(p.width).toBeCloseTo(((11906 - 2 * 1134) / 15) * schaal);
     expect(p.height).toBeCloseTo(54);
   });
 

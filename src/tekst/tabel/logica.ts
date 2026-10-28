@@ -13,6 +13,36 @@ export const cmNaarTwips = (cm: number) => Math.round(cm * TWIPS_PER_CM);
 export const twipsNaarCm = (twips: number) => Math.round((twips / TWIPS_PER_CM) * 100) / 100;
 
 /** Kolommen `van`..`tot` (inclusief) krijgen samen dezelfde breedte, gelijk verdeeld. */
+/** `aantal` gelijke kolommen (hele twips) die samen precies `breedte` zijn. */
+export function gelijkeKolommen(breedte: number, aantal: number): number[] {
+  const n = Math.max(1, Math.floor(aantal));
+  const totaal = Math.max(Math.round(breedte), MIN_KOLOM * n);
+  const elk = Math.floor(totaal / n);
+  return Array.from({ length: n }, (_, i) => elk + (i === n - 1 ? totaal - elk * n : 0));
+}
+
+/** Pagina uit de indeling van de engine (maten in pixels). */
+export interface IndelingPagina {
+  size?: { w: number; h: number };
+  margins?: { left: number; right: number };
+  fragments: { kind: string; blockId?: string; pmStart?: number; pmEnd?: number }[];
+}
+
+/**
+ * Tekstbreedte (twips) van de pagina waarop documentpositie `positie` staat,
+ * of null als geen pagina die positie bevat. Zo krijgt een nieuwe tabel de
+ * breedte van zijn eigen sectie (A4, Letter, smalle marges, liggend …).
+ */
+export function tekstbreedteOpPagina(paginas: readonly IndelingPagina[], positie: number | null | undefined): number | null {
+  if (positie === null || positie === undefined) return null;
+  for (const p of paginas) {
+    if (!p.size || !p.margins) continue;
+    if (p.fragments.some((f) => f.pmStart !== undefined && f.pmEnd !== undefined && f.pmStart <= positie && positie <= f.pmEnd))
+      return Math.round((p.size.w - p.margins.left - p.margins.right) * TWIPS_PER_PX);
+  }
+  return null;
+}
+
 export function verdeelKolommen(breedtes: readonly number[], van = 0, tot = breedtes.length - 1): number[] {
   const a = Math.max(0, Math.min(van, tot));
   const b = Math.min(breedtes.length - 1, Math.max(van, tot));

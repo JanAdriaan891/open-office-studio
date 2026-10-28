@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   cellenNaarTekst,
   cmNaarTwips,
+  gelijkeKolommen,
   gemiddeldeRijhoogte,
   leesDatum,
   leesGetal,
@@ -13,6 +14,7 @@ import {
   rijNietAfbreken,
   sorteerVolgorde,
   tekstNaarCellen,
+  tekstbreedteOpPagina,
   twipsNaarCm,
   verdeelKolommen,
 } from "./logica";
@@ -163,5 +165,31 @@ describe("tekst naar tabel na een bestaande tabel", () => {
     celCursor(sessie, { story: "body", tableIndex: 1 });
     const cel = { story: "body", tableIndex: 1, row: 0, column: 0 };
     expect(gezet).toEqual([{ anchor: cel, head: cel }]);
+  });
+});
+
+describe("breedte van een nieuwe tabel", () => {
+  // Paginamaten in pixels zoals de indeling van de engine ze geeft (1 px = 15 twips).
+  const pagina = (breedte: number, marge: number, van: number, tot: number) => ({
+    size: { w: breedte / 15, h: 1000 },
+    margins: { left: marge / 15, right: marge / 15 },
+    fragments: [{ kind: "paragraph", pmStart: van, pmEnd: tot }],
+  });
+  const paginas = [pagina(11906, 1417, 0, 100), pagina(12240, 1440, 101, 200), pagina(11906, 720, 201, 300)];
+
+  it("neemt de tekstbreedte van de pagina met de cursor (A4, Letter, smalle marges)", () => {
+    expect(tekstbreedteOpPagina(paginas, 50)).toBe(9072);
+    expect(tekstbreedteOpPagina(paginas, 150)).toBe(9360);
+    expect(tekstbreedteOpPagina(paginas, 250)).toBe(10466);
+  });
+  it("geeft null als de positie op geen pagina staat", () => {
+    expect(tekstbreedteOpPagina(paginas, 999)).toBeNull();
+    expect(tekstbreedteOpPagina(paginas, null)).toBeNull();
+  });
+  it("verdeelt de breedte in hele twips die samen precies de tekstbreedte zijn", () => {
+    expect(gelijkeKolommen(9072, 2)).toEqual([4536, 4536]);
+    const vijf = gelijkeKolommen(9072, 5);
+    expect(vijf.reduce((a, b) => a + b, 0)).toBe(9072);
+    expect(new Set(vijf.slice(0, 4)).size).toBe(1);
   });
 });

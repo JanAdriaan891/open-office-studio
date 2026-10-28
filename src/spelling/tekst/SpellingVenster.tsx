@@ -217,6 +217,8 @@ export function SpellingVenster({ sessie, stand }: { sessie: SpellingSessie; sta
               type="button"
               onClick={() => {
                 eenmalig.current.add(sleutel(doel));
+                // Ook de golflijn op deze plek weg (de rest van de sessie).
+                sessie.negeerHier(doel.alinea, doel.fout);
                 zoek({ paraId: doel.alinea.paraId, offset: doel.fout.eind }, { paraId: doel.alinea.paraId, start: doel.fout.start });
               }}
             >

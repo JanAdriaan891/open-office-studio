@@ -7,7 +7,7 @@ import {
   type MouseEvent,
 } from "react";
 import { createPortal } from "react-dom";
-import { useDocxCommand, useDocxCommands } from "@betteroffice/docx-react";
+import { useDocxCommand } from "@betteroffice/docx-react";
 import { Table } from "lucide-react";
 import { Actie, RibbonFout } from "../Ribbon";
 import { useEditorApi } from "../lint/editorApi";
@@ -25,6 +25,7 @@ import {
   type Tabelgrootte,
 } from "./raster";
 import { TabelVoorbeeld } from "./TabelVoorbeeld";
+import { tabelInvoegen } from "../tekst/tabel/opdrachten";
 import "./tabelvoorbeeld.css";
 
 /** Maat van één rastercel en de ruimte ertussen, in pixels (zie de CSS). */
@@ -37,7 +38,6 @@ const TUSSEN = 3;
  */
 export function TabelKiezer() {
   const api = useEditorApi().tekst;
-  const opdrachten = useDocxCommands();
   const meld = useContext(RibbonFout);
   const bewerkbaar = useDocxCommand("insertTable").state.enabled;
   const knop = useRef<HTMLDivElement>(null);
@@ -59,12 +59,8 @@ export function TabelKiezer() {
   function invoegen(grootte: Tabelgrootte) {
     const { rijen, kolommen } = begrens(grootte);
     sluiten(true);
-    opdrachten
-      .execute("insertTable", { rows: rijen, columns: kolommen })
-      .then((resultaat) => {
-        if (!resultaat.ok) meld(resultaat.failure.message);
-      })
-      .catch((error) => meld(error instanceof Error ? error.message : String(error)));
+    // Niet de engine-opdracht: die maakt de tabel altijd Letter-breed.
+    tabelInvoegen(api(), rijen, kolommen).catch((error) => meld(error instanceof Error ? error.message : String(error)));
   }
 
   return (

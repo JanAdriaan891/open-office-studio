@@ -105,6 +105,29 @@ export function naarGeaccepteerd(segmenten: readonly Segment[], rauw: number): n
 
 const VERTRAGING = 350;
 
+/**
+ * Nieuwe beginpositie van een eenmaal genegeerd woord nadat de alineatekst is
+ * gewijzigd, of null als het woord zelf is geraakt. Alleen het gewijzigde
+ * stuk telt (gemeenschappelijk begin en eind blijven staan), zoals Word een
+ * genegeerde plek laat meeschuiven met typen elders in de alinea.
+ */
+export function verschuifPlek(oud: string, nieuw: string, start: number, woord: string): number | null {
+  if (oud === nieuw) return nieuw.slice(start, start + woord.length) === woord ? start : null;
+  let begin = 0;
+  const max = Math.min(oud.length, nieuw.length);
+  while (begin < max && oud[begin] === nieuw[begin]) begin++;
+  let eind = 0;
+  while (eind < max - begin && oud[oud.length - 1 - eind] === nieuw[nieuw.length - 1 - eind]) eind++;
+  const eindWoord = start + woord.length;
+  let plek: number | null = null;
+  // Het woord ligt (met de letter erna) helemaal vóór het gewijzigde stuk …
+  if (eindWoord < begin || (eindWoord === begin && !/\p{L}/u.test(nieuw[begin] ?? ""))) plek = start;
+  // … of helemaal erna (en de letter ervóór is niet veranderd).
+  else if (start > oud.length - eind || (start === oud.length - eind && !/\p{L}/u.test(nieuw[nieuw.length - eind - 1] ?? "")))
+    plek = start + nieuw.length - oud.length;
+  return plek !== null && nieuw.slice(plek, plek + woord.length) === woord ? plek : null;
+}
+
 export class SpellingSessie {
   /** Laatst gecontroleerde alinea's, in documentvolgorde. */
   alineas: Alinea[] = [];
@@ -118,6 +141,11 @@ export class SpellingSessie {
   documentTaal: Taal | null = null;
   /** Keuze per alinea (alleen deze sessie). */
   private alineaTaal = new Map<string, Taal>();
+  /**
+   * "Negeren" (één keer) in het F7-venster: per alinea de genegeerde plekken,
+   * met de alineatekst waarvoor ze gelden (alleen deze sessie).
+   */
+  private eenmalig = new Map<string, { tekst: string; plekken: { start: number; woord: string }[] }>();
   private talen: Alineatalen | null = null;
   private timer = 0;
   private bezig: Promise<void> | null = null;
@@ -367,7 +395,46 @@ export class SpellingSessie {
     this.alineas = nieuw;
     this.perId = new Map(nieuw.map((a) => [a.paraId, a]));
     for (const a of teControleren) this.vuil.delete(a.paraId);
-    this.aantal = nieuw.reduce((n, a) => n + a.fouten.length, 0);
+    this.aantal = this.tel();
+    this.herteken();
+  }
+
+  /** Aantal fouten zonder de eenmaal genegeerde plekken. */
+  private tel() {
+    return this.alineas.reduce((n, a) => n + a.fouten.filter((f) => !this.eenmaalGenegeerd(a, f)).length, 0);
+  }
+
+  /** Is deze fout met "Negeren" (één keer) overgeslagen? */
+  private eenmaalGenegeerd(a: Alinea, f: Fout) {
+    const e = this.eenmalig.get(a.paraId);
+    if (!e) return false;
+    // Tekst "\u0000": de alinea wacht op een nieuwe controle; de plekken blijven.
+    if (e.tekst !== a.tekst && !a.tekst.includes("\u0000")) {
+      const plekken: { start: number; woord: string }[] = [];
+      for (const p of e.plekken) {
+        // Vastgelegd terwijl de alinea op controle wachtte: de plek zelf geldt.
+        const start = e.tekst.includes("\u0000") ? verschuifPlek(a.tekst, a.tekst, p.start, p.woord) : verschuifPlek(e.tekst, a.tekst, p.start, p.woord);
+        if (start !== null) plekken.push({ start, woord: p.woord });
+      }
+      if (!plekken.length) {
+        this.eenmalig.delete(a.paraId);
+        return false;
+      }
+      e.tekst = a.tekst;
+      e.plekken = plekken;
+    }
+    return e.plekken.some((p) => p.start === f.start && p.woord === f.tekst);
+  }
+
+  /** "Negeren" (één keer): alleen deze plek, hetzelfde woord elders blijft gemarkeerd. */
+  negeerHier(alinea: Alinea, fout: Fout) {
+    // Eerdere plekken in deze alinea eerst bijwerken naar de huidige tekst.
+    this.eenmaalGenegeerd(alinea, fout);
+    const e = this.eenmalig.get(alinea.paraId);
+    const plek = { start: fout.start, woord: fout.tekst };
+    if (e && e.tekst === alinea.tekst) e.plekken.push(plek);
+    else this.eenmalig.set(alinea.paraId, { tekst: alinea.tekst, plekken: [plek] });
+    if (this.aantal !== null) this.aantal = this.tel();
     this.herteken();
   }
 
@@ -386,7 +453,7 @@ export class SpellingSessie {
     for (const a of this.alineas) {
       if (this.vuil.has(a.paraId)) continue;
       for (const f of a.fouten)
-        if (!persoonlijk.bevat(f.tekst) && !genegeerd.bevat(f.tekst)) uit.push({ alinea: a, fout: f });
+        if (!persoonlijk.bevat(f.tekst) && !genegeerd.bevat(f.tekst) && !this.eenmaalGenegeerd(a, f)) uit.push({ alinea: a, fout: f });
     }
     return uit;
   }
@@ -395,7 +462,7 @@ export class SpellingSessie {
     const a = this.perId.get(plek.paraId);
     if (!a || this.vuil.has(a.paraId)) return null;
     const f = a.fouten.find((f) => f.start <= plek.offset && plek.offset <= f.eind);
-    if (!f || persoonlijk.bevat(f.tekst) || genegeerd.bevat(f.tekst)) return null;
+    if (!f || persoonlijk.bevat(f.tekst) || genegeerd.bevat(f.tekst) || this.eenmaalGenegeerd(a, f)) return null;
     return { alinea: a, fout: f };
   }
 

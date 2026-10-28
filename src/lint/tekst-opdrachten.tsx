@@ -19,6 +19,7 @@ import { useProfielToets } from "../tekst/bewerken/profielToets";
 import { useHerhaalbaar } from "../tekst/bewerken/herhaalmelding";
 import { ontbrekendeStijl } from "../tekst/stijlen/model";
 import { metHeleAlinea } from "../tekst/stijlen/toepassen";
+import { tabelInvoegen } from "../tekst/tabel/opdrachten";
 import {
   selectieBegin,
   specialeTekens,
@@ -399,7 +400,7 @@ export function useTekstOpdrachten({
     },
     {
       toets: "Ctrl+F12",
-      uitvoeren: () => voerUit("insertTable", { rows: 2, columns: 2 }),
+      uitvoeren: () => void tabelInvoegen(api(), 2, 2).catch(fout),
       beschikbaar: kanBewerken,
     },
     {
