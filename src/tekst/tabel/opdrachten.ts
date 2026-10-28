@@ -12,18 +12,21 @@
  * Alles in één taak is één ongedaan-maakstap (zie ../gedeeld/engine.ts).
  */
 import type { DocxEditorRef } from "@betteroffice/docx-react";
-import { begin, engine, klaar, ruw, type Engine, type Sessie } from "../gedeeld/engine.ts";
+import { begin, engine, klaar, ruw, voorstel, type Engine, type Sessie } from "../gedeeld/engine.ts";
 import {
   MIN_KOLOM,
   TWIPS_PER_PX,
   cellenNaarTekst,
+  gelijkeKolommen,
   gemiddeldeRijhoogte,
   passendBijInhoud,
   passendInVenster,
   rijMet,
   sorteerVolgorde,
   tekstNaarCellen,
+  tekstbreedteOpPagina,
   verdeelKolommen,
+  type IndelingPagina,
   type Scheiding,
   type Sorteersleutel,
   type TabelPayload,
@@ -158,24 +161,83 @@ function zetBreedtes(s: Sessie, loc: TabelLoc, breedtes: readonly number[], inde
   zetEmbed(s, loc, "tblPr", tblPr);
 }
 
-/** Beschikbare tekstbreedte (twips) op de pagina waar de tabel staat. */
-export function beschikbareBreedte(e: Engine, loc: TabelLoc) {
-  const layout = e.weergave.getLayout();
-  const eersteCel = tabelEmbed(e.sessie, loc).payload.rows[0]?.cells[0]?.story;
-  for (const pagina of layout?.pages ?? []) {
-    const p = pagina as unknown as {
-      size?: { w: number; h: number };
-      margins?: { left: number; right: number };
-      fragments: { kind: string; blockId?: string }[];
-    };
-    if (eersteCel && p.fragments.some((f) => f.kind === "table" && f.blockId?.endsWith(`:${eersteCel}`)) && p.size && p.margins)
-      return Math.round((p.size.w - p.margins.left - p.margins.right) * TWIPS_PER_PX);
-  }
+const paginasVan = (e: Engine) => (e.weergave.getLayout()?.pages ?? []) as unknown as IndelingPagina[];
+
+/** Tekstbreedte van de laatste sectie: de terugval als de pagina onbekend is. */
+function breedteLaatsteSectie(e: Engine) {
   const sectie = e.ref.getDocument()?.package.document.finalSectionProperties as
     | { pageWidth?: number; marginLeft?: number; marginRight?: number }
     | undefined;
   if (sectie?.pageWidth) return sectie.pageWidth - (sectie.marginLeft ?? 1440) - (sectie.marginRight ?? 1440);
   return 9026;
+}
+
+/** Beschikbare tekstbreedte (twips) op de pagina waar de tabel staat. */
+export function beschikbareBreedte(e: Engine, loc: TabelLoc) {
+  const eersteCel = tabelEmbed(e.sessie, loc).payload.rows[0]?.cells[0]?.story;
+  for (const p of paginasVan(e)) {
+    if (eersteCel && p.fragments.some((f) => f.kind === "table" && f.blockId?.endsWith(`:${eersteCel}`)) && p.size && p.margins)
+      return Math.round((p.size.w - p.margins.left - p.margins.right) * TWIPS_PER_PX);
+  }
+  return breedteLaatsteSectie(e);
+}
+
+/**
+ * Tekstbreedte (twips) voor een nieuwe tabel bij de cursor: in een tabelcel de
+ * breedte van die cel, anders paginabreedte min marges van de pagina (sectie)
+ * waarop de cursor staat. Vraag dit vóór de bewerking: de indeling kent de
+ * nieuwe tabel pas na de herindeling.
+ */
+export function breedteBijCursor(e: Engine) {
+  const head = e.sessie.selection()?.head;
+  // Alleen het verhaal van de cursor telt: de sessie onthoudt een celselectie
+  // ook nadat de cursor de tabel heeft verlaten.
+  const cel = /^(.*):t(\d+):r(\d+)c(\d+)$/.exec(head?.story ?? "");
+  if (cel) {
+    try {
+      const breedtes = huidigeBreedtes(tabelEmbed(e.sessie, { story: cel[1], tableIndex: +cel[2] }).payload);
+      // Standaard celmarge links en rechts (108 twips).
+      if (breedtes[+cel[4]]) return Math.max(MIN_KOLOM, breedtes[+cel[4]] - 216);
+    } catch {
+      // Valt terug op de pagina.
+    }
+  }
+  const positie = head ? e.weergave.yrsLocToDisplayPosition(head) : null;
+  return tekstbreedteOpPagina(paginasVan(e), positie) ?? breedteLaatsteSectie(e);
+}
+
+/**
+ * Invoegen › Tabel en Ctrl+F12. Doet wat de engine-opdracht `insertTable`
+ * doet (alinea splitsen bij de cursor, tabel invoegen, cursor in de eerste
+ * cel), maar de engine maakt een tabel van vaste Letter-breedte (9360 twips)
+ * die op A4 buiten de marge steekt; hier worden de kolommen gelijk verdeeld
+ * over de echte tekstbreedte, zoals Word. Eén ongedaan-maakstap.
+ */
+export async function tabelInvoegen(ref: DocxEditorRef | null, rijen: number, kolommen: number) {
+  const e = engine(ref);
+  if (!e.ref.commands.getState("insertTable").enabled) throw new Error("Hier kan geen tabel worden ingevoegd.");
+  await e.ref.flushPendingInput();
+  const s = e.sessie;
+  const head = s.selection()?.head;
+  if (!head) throw new Error("Zet de cursor eerst in het document.");
+  const breedte = breedteBijCursor(e);
+  const verhalen = [head.story];
+  begin(e);
+  try {
+    const plek = head.offset > 0 ? { story: head.story, paraId: s.splitParagraph(head).secondParaId, offset: 0 } : head;
+    const ontvangst = s.insertTable(plek, rijen, kolommen, voorstel(e.ref));
+    verhalen.push(...ontvangst.createdStoryIds);
+    zetBreedtes(s, ontvangst.table, gelijkeKolommen(breedte, kolommen), "autofit", { w: breedte, type: "dxa" });
+    const eersteCel = ontvangst.createdStoryIds[0];
+    const celAlinea = eersteCel ? s.paragraphs(eersteCel)[0] : null;
+    if (celAlinea) {
+      s.setSelection({ story: eersteCel, paraId: celAlinea.paraId, offset: 0 });
+      celCursor(s, ontvangst.table);
+    }
+  } finally {
+    klaar(e, verhalen);
+  }
+  e.ref.focus();
 }
 
 export function kolommenGelijk(ref: DocxEditorRef | null) {
@@ -428,6 +490,7 @@ export async function tekstNaarTabel(ref: DocxEditorRef | null, scheiding: Schei
   if (!cellen.length) throw new Error("Selecteer eerst de alinea’s die een tabel moeten worden.");
   const s = e.sessie;
   const story = alineas[0].story;
+  const breedte = breedteBijCursor(e);
   begin(e);
   const verhalen = [story];
   try {
@@ -459,8 +522,7 @@ export async function tekstNaarTabel(ref: DocxEditorRef | null, scheiding: Schei
     }
     // De engine maakt een nieuwe tabel 9360 twips (Letter) breed; op A4 steekt
     // die buiten de marge. Verdeel de tekstbreedte van de pagina, zoals Word.
-    const breedte = beschikbareBreedte(e, nieuw);
-    zetBreedtes(s, nieuw, Array.from({ length: cellen[0].length }, () => breedte / cellen[0].length), "autofit", { w: breedte, type: "dxa" });
+    zetBreedtes(s, nieuw, gelijkeKolommen(breedte, cellen[0].length), "autofit", { w: breedte, type: "dxa" });
     const eersteCel = ontvangst.createdStoryIds[0];
     const celAlinea = eersteCel ? s.paragraphs(eersteCel)[0] : null;
     if (celAlinea) {
