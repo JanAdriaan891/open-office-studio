@@ -358,6 +358,11 @@ pub async fn bewaar_document(
             _ => return Ok(serde_json::json!({ "status": "geannuleerd" })),
         }
     }
+    if let Schrijfuitkomst::Opgeslagen { .. } = &uitkomst {
+        if let Some(pad) = app.state::<Werkbestanden>().pad(&token, &label) {
+            crate::recent::noteer(&app, &pad);
+        }
+    }
     serde_json::to_value(uitkomst).map_err(|e| e.to_string())
 }
 
@@ -402,6 +407,7 @@ pub async fn bewaar_als(
                 fout
             });
         }
+        crate::recent::noteer(&app2, &pad);
         let werkbestanden = app2.state::<Werkbestanden>();
         let token = EIGEN.contains(&ext.as_str()).then(|| {
             if let Some(oud) = &oud {

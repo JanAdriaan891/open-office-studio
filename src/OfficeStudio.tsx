@@ -48,6 +48,7 @@ import { TabBalk, paneelId, tabId, tabbladIcoon } from "./TabBalk";
 import { useTabSneltoetsen } from "./useTabSneltoetsen";
 import { useVensters } from "./useVensters";
 import { useSysteembestanden } from "./systeembestanden";
+import { noteerBrowser } from "./recent";
 import {
   bevestigFormaat,
   kiesBestanden,
@@ -526,12 +527,13 @@ export function OfficeStudio() {
       meld("Kies een bestand van maximaal 100 MB dat niet leeg is.");
       return;
     }
-    await importeer(file.name, new Uint8Array(await file.arrayBuffer()));
+    if (await importeer(file.name, new Uint8Array(await file.arrayBuffer())))
+      noteerBrowser(file.name);
   }
 
   /**
    * Opent bytes in een nieuw tabblad; niet-eigen formaten gaan via conversie.
-   * Waar als het tabblad nu het werkbestand vasthoudt.
+   * Waar als er een nieuw tabblad is geopend (met het werkbestand, als dat er is).
    */
   async function importeer(
     naam: string,
@@ -544,7 +546,7 @@ export function OfficeStudio() {
       meld(`${naam}: dit bestandsformaat wordt nog niet ondersteund.`);
       return false;
     }
-    let gehouden = false;
+    let geopend = false;
     await bezigMet(async () => {
       try {
         const vinger = await vingerafdruk(naam, bytes);
@@ -552,7 +554,7 @@ export function OfficeStudio() {
         if (tabs.openBestaand(vinger)) return;
         const controle = ext === soort ? controleerPakket(bytes, soort) : null;
         if (ext === soort && !controle?.strict) {
-          gehouden = !!werkbestand;
+          geopend = true;
           openDocument(soort, naam, bytes, {
             werkbestand,
             vingerafdruk: vinger,
@@ -575,7 +577,7 @@ export function OfficeStudio() {
         }
         const omgezet = await converteer(bytes, ext, soort, soort);
         controleerPakket(omgezet, soort);
-        gehouden = !!werkbestand;
+        geopend = true;
         const { id } = openDocument(
           soort,
           naam.replace(/\.[^.]+$/, "") + "." + soort,
@@ -592,11 +594,11 @@ export function OfficeStudio() {
         if (Object.hasOwn(bestandstypen[soort].uitvoer, ext))
           tabs.werkBij(id, { exportFormaat: ext });
       } catch (error) {
-        gehouden = false;
+        geopend = false;
         meld("Openen mislukt: " + String(error));
       }
     });
-    return gehouden;
+    return geopend;
   }
 
   /** Bijlage uit Email Studio openen in een nieuw tabblad van de juiste module. */
@@ -655,7 +657,7 @@ export function OfficeStudio() {
       openDatabaseBestand(naam, bytes, "het bestand");
       return false;
     }
-    return importeer(naam, bytes, werkbestand);
+    return (await importeer(naam, bytes, werkbestand)) && !!werkbestand;
   }
   useSysteembestanden(openSysteembestand, (token) => {
     if (tabs.activeerWerkbestand(token)) herstelFocus();

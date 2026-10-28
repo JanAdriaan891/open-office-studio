@@ -29,6 +29,17 @@ pub fn mag_bewaren(ext: &str) -> bool {
             .any(|module| module["uitvoer"].get(ext).is_some())
     })
 }
+/// Formaten die de app kan openen (kantoormodules uit de catalogus plus Access-databases).
+pub fn mag_openen(ext: &str) -> bool {
+    matches!(ext, "mdb" | "accdb")
+        || catalogus().as_object().is_some_and(|modules| {
+            modules.values().any(|module| {
+                module["invoer"]
+                    .as_array()
+                    .is_some_and(|l| l.iter().any(|e| e.as_str() == Some(ext)))
+            })
+        })
+}
 /// Exportfilter en standaardfilteropties uit de catalogus; alleen formaten met een runtimefilter.
 fn filter(bron: &str, doel: &str, module: &str) -> Result<(String, String), String> {
     let catalogus = catalogus();

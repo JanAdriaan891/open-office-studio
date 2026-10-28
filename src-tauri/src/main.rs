@@ -3,6 +3,7 @@ use std::{io::Write, path::Path};
 mod conversie;
 mod database_export;
 mod email;
+mod recent;
 mod systeembestanden;
 mod vensters;
 mod werkbestanden;
@@ -177,6 +178,7 @@ fn main() {
         ))
         .manage(vensters::Vensters::default())
         .manage(werkbestanden::Werkbestanden::default())
+        .manage(recent::Recent::default())
         .manage(email::EmailStaat::default())
         .manage(systeembestanden::Systeembestanden::bij_start(
             std::env::args_os(),
@@ -205,6 +207,11 @@ fn main() {
             werkbestanden::bevestig_formaat,
             werkbestanden::vergeet_werkbestand,
             werkbestanden::kies_bestanden,
+            recent::recente_bestanden,
+            recent::open_recent,
+            recent::zet_recent_vast,
+            recent::verwijder_recent,
+            recent::wis_recente,
             conversie::conversie_status,
             conversie::kies_conversieprogramma,
             conversie::wis_conversieprogramma,

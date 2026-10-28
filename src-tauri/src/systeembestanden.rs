@@ -312,6 +312,9 @@ pub async fn lees_werkbestand(
     tauri::async_runtime::spawn_blocking(move || {
         let werkbestanden = app.state::<crate::werkbestanden::Werkbestanden>();
         let bytes = werkbestanden.lees(&token, &label)?;
+        if let Some(pad) = werkbestanden.pad(&token, &label) {
+            crate::recent::noteer(&app, &pad);
+        }
         Ok(tauri::ipc::Response::new(bytes))
     })
     .await
