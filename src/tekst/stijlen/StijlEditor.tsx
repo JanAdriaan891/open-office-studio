@@ -2,15 +2,17 @@
  * Stijl-editor: nieuwe stijl (uit de selectie) of een bestaande stijl
  * wijzigen, met de kern-eigenschappen. Alleen wat afwijkt van de basisstijl
  * (nieuw) of van de huidige waarde (wijzigen) komt in styles.xml.
- * De vensters Lettertype… en Alinea… van pakket W1 sluiten aan via
- * ./aansluiting.ts.
+ * De knoppen Lettertype… en Alinea… openen de volledige vensters van
+ * pakket W1 (src/tekst/lettertype, src/tekst/alinea) voor de stijl.
  */
 import { useMemo, useState } from "react";
 import { useDocxCommand } from "@betteroffice/docx-react";
 import { Dialoog } from "../../werkruimte/Dialoog";
-import { useOpmaakVensters } from "./aansluiting";
+import { AlineaVenster } from "../alinea/AlineaVenster";
+import { LettertypeVenster } from "../lettertype/LettertypeVenster";
 import { HERLAAD_MELDING } from "./Bevestiging";
-import { alsEigenschappen, losOp, stijlNaam, uitOpmaak, voorbeeldStijl, type OpgelosteStijl } from "./model";
+import { alsEigenschappen, losOp, opgelosteOpmaak, stijlNaam, uitOpmaak, voorbeeldStijl, type OpgelosteStijl } from "./model";
+import { alineaBegin, lettertypeBegin, vanAlineaOpmaak, vanTekenOpmaak } from "./opmaakvensters";
 import {
   nieuweStijl,
   wijzigStijl,
@@ -103,7 +105,6 @@ function Getal({
 
 export function StijlEditor({ venster }: { venster: Extract<StijlVenster, { soort: "nieuw" | "wijzig" }> }) {
   const staat = useStijlen();
-  const vensters = useOpmaakVensters();
   const lettertypen = useDocxCommand("fontFamily").state.options ?? [];
   const alle = staat.stijlen?.styles ?? [];
   const bestaand = venster.soort === "wijzig" ? alle.find((s) => s.styleId === venster.styleId) : undefined;
@@ -129,6 +130,9 @@ export function StijlEditor({ venster }: { venster: Extract<StijlVenster, { soor
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const [f, setF] = useState<Formulier>(begin);
+  /** Eigenschappen uit de W1-vensters die dit formulier zelf niet toont. */
+  const [extra, setExtra] = useState<StijlEigenschappen>({});
+  const [opmaakVenster, setOpmaakVenster] = useState<"lettertype" | "alinea" | null>(null);
   const [fout, setFout] = useState("");
   const [bezig, setBezig] = useState(false);
   const zet = <K extends keyof Formulier>(k: K, v: Formulier[K]) => setF((oud) => ({ ...oud, [k]: v }));
@@ -147,7 +151,7 @@ export function StijlEditor({ venster }: { venster: Extract<StijlVenster, { soor
     setBezig(true);
     try {
       if (bestaand) {
-        const eigenschappen = verschil(f, begin, soort);
+        const eigenschappen = { ...verschil(f, begin, soort), ...extraVoor(soort) };
         const naamWijziging = naam.trim() !== stijlNaam(bestaand) ? naam.trim() : undefined;
         await staat.herlaadStijlen((o) => ({
           stijlen: wijzigStijl(o.stijlen, bestaand.styleId, {
@@ -160,7 +164,7 @@ export function StijlEditor({ venster }: { venster: Extract<StijlVenster, { soor
         }));
       } else {
         const vergelijk = formulier(alsEigenschappen(losOp(staat.stijlen, basis || null, staat.thema)));
-        const eigenschappen = verschil(f, vergelijk, soort);
+        const eigenschappen = { ...verschil(f, vergelijk, soort), ...extraVoor(soort) };
         await staat.herlaadStijlen((o) => {
           const { xml, styleId } = nieuweStijl(o.stijlen, {
             naam,
@@ -181,12 +185,39 @@ export function StijlEditor({ venster }: { venster: Extract<StijlVenster, { soor
     }
   }
 
-  async function extern(soortVenster: "lettertype" | "alinea") {
-    const open = vensters[soortVenster];
-    if (!open) return;
-    const uit = await open(f);
-    if (uit) setF((oud) => ({ ...oud, ...formulier({ ...oud, ...uit }) }));
+  /** Extra eigenschappen, zonder alinea-eigenschappen bij een tekenstijl. */
+  function extraVoor(s: StijlSoort): StijlEigenschappen {
+    if (s === "paragraph") return extra;
+    const { uitlijning, ruimteVoor, ruimteNa, regelafstand, regelafstandPt, inspringLinks, inspringRechts, eersteRegel, bijVolgende, regelsBijElkaar, paginaEindeVoor, zwevendeRegels, contextueel, ...teken } = extra;
+    void [uitlijning, ruimteVoor, ruimteNa, regelafstand, regelafstandPt, inspringLinks, inspringRechts, eersteRegel, bijVolgende, regelsBijElkaar, paginaEindeVoor, zwevendeRegels, contextueel];
+    return teken;
   }
+
+  /** Een wijziging uit een W1-venster: velden van dit formulier daar, de rest in `extra`. */
+  function neemOver(e: StijlEigenschappen) {
+    const formulierDeel: Partial<Formulier> = {};
+    const rest: StijlEigenschappen = {};
+    for (const [k, v] of Object.entries(e) as [keyof StijlEigenschappen, unknown][]) {
+      if (k === "onderstreping") {
+        formulierDeel.onderstreept = v !== null && v !== "none";
+        // Een bijzondere stijl (dubbel, golf …) gaat als extra mee.
+        if (v !== "single") (rest as Record<string, unknown>)[k] = v;
+      } else if (k === "regelafstand" && v === null) formulierDeel.regelafstand = 1;
+      else if ((SLEUTELS as string[]).includes(k)) (formulierDeel as Record<string, unknown>)[k] = v ?? (k === "kleur" || k === "lettertype" ? null : 0);
+      else (rest as Record<string, unknown>)[k] = v;
+    }
+    if ("regelafstand" in e) delete rest.regelafstandPt;
+    setF((oud) => ({ ...oud, ...formulierDeel }));
+    setExtra((oud) => {
+      const n = { ...oud, ...rest };
+      if ("regelafstand" in e && !e.regelafstandPt) delete n.regelafstandPt;
+      return n;
+    });
+  }
+
+  // Beginwaarden voor de W1-vensters: de opgeloste basis plus wat hier al gekozen is.
+  const opgelost = opgelosteOpmaak(staat.stijlen, bestaand?.styleId ?? (basis || null));
+  const huidig: StijlEigenschappen = { ...f, ...extra };
 
   const voorbeeld: OpgelosteStijl = {
     lettertype: f.lettertype ?? undefined,
@@ -201,6 +232,7 @@ export function StijlEditor({ venster }: { venster: Extract<StijlVenster, { soor
   };
 
   return (
+    <>
     <Dialoog
       titel={bestaand ? `Stijl wijzigen: ${stijlNaam(bestaand)}` : "Nieuwe stijl"}
       sluit={staat.sluit}
@@ -294,16 +326,19 @@ export function StijlEditor({ venster }: { venster: Extract<StijlVenster, { soor
             <Getal label="Eerste regel (negatief = verkeerd om)" waarde={f.eersteRegel ?? 0} eenheid="cm" stap={0.25} min={-20} max={50} zet={(n) => zet("eersteRegel", n)} />
           </>
         )}
-        {(vensters.lettertype || vensters.alinea) && (
-          <div className="werkruimte-rij">
-            {vensters.lettertype && (
-              <button type="button" className="werkruimte-knop" onClick={() => void extern("lettertype")}>Lettertype…</button>
-            )}
-            {vensters.alinea && soort === "paragraph" && (
-              <button type="button" className="werkruimte-knop" onClick={() => void extern("alinea")}>Alinea…</button>
-            )}
-          </div>
-        )}
+        <div className="werkruimte-rij">
+          <button type="button" className="werkruimte-knop" onClick={() => setOpmaakVenster("lettertype")}>
+            Lettertype…
+          </button>
+          {soort === "paragraph" && (
+            <button type="button" className="werkruimte-knop" onClick={() => setOpmaakVenster("alinea")}>
+              Alinea…
+            </button>
+          )}
+          {Object.keys(extraVoor(soort)).length > 0 && (
+            <span className="werkruimte-melding">+ {Object.keys(extraVoor(soort)).length} eigenschap(pen) uit de vensters</span>
+          )}
+        </div>
         <label className="werkruimte-vink">
           <input type="checkbox" checked={galerij} onChange={(e) => setGalerij(e.target.checked)} /> In de stijlengalerij tonen
         </label>
@@ -316,5 +351,28 @@ export function StijlEditor({ venster }: { venster: Extract<StijlVenster, { soor
       </div>
       <p className="werkruimte-uitleg">{HERLAAD_MELDING}</p>
     </Dialoog>
+    {opmaakVenster === "lettertype" && (
+      <LettertypeVenster
+        begin={lettertypeBegin(opgelost.r, huidig, losOp(staat.stijlen, bestaand?.styleId ?? (basis || null), staat.thema).lettertype)}
+        voorbeeldTekst={naam.trim() || "Voorbeeld"}
+        sluit={() => setOpmaakVenster(null)}
+        toepassen={(w) => {
+          setOpmaakVenster(null);
+          neemOver(vanTekenOpmaak(w));
+        }}
+      />
+    )}
+    {opmaakVenster === "alinea" && (
+      <AlineaVenster
+        begin={alineaBegin(opgelost.p, huidig)}
+        meerdere={false}
+        sluit={() => setOpmaakVenster(null)}
+        toepassen={(w) => {
+          setOpmaakVenster(null);
+          neemOver(vanAlineaOpmaak(w));
+        }}
+      />
+    )}
+    </>
   );
 }

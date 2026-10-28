@@ -61,6 +61,26 @@ export interface StijlEigenschappen {
   paginaEindeVoor?: boolean | null;
   /** 0–8 voor Kop 1–9; null = gewone tekst. */
   overzichtsniveau?: number | null;
+  // Uit het venster Lettertype… (pakket W1):
+  /** Onderstrepingsstijl (`w:u/@w:val`, zoals double of wave); gaat voor `onderstreept`. */
+  onderstreping?: string | null;
+  onderstrepingKleur?: string | null;
+  dubbelDoorgehaald?: boolean | null;
+  verborgen?: boolean | null;
+  verticaal?: "superscript" | "subscript" | "baseline" | null;
+  /** Tekenafstand in twips. */
+  tekenafstand?: number | null;
+  /** Horizontale schaal in procent. */
+  schaal?: number | null;
+  /** Verhoogd/verlaagd in halve punten. */
+  positie?: number | null;
+  /** Tekenspatiëring vanaf (halve punten). */
+  spatiering?: number | null;
+  // Uit het venster Alinea… (pakket W1):
+  /** Vaste of minimale regelafstand in punten; gaat voor `regelafstand`. */
+  regelafstandPt?: { pt: number; regel: "exact" | "atLeast" } | null;
+  zwevendeRegels?: boolean | null;
+  contextueel?: boolean | null;
 }
 
 export interface StijlInfo {
@@ -220,13 +240,28 @@ function rPrWijzigingen(xml: string, p: string, rPr: XmlElement | null, e: Stijl
   zet("strike", schakel(p, "strike", e.doorgehaald));
   zet("smallCaps", schakel(p, "smallCaps", e.kleineHoofdletters));
   zet("caps", schakel(p, "caps", e.hoofdletters));
-  if (e.onderstreept !== undefined)
+  if (e.onderstreping !== undefined) {
+    if (e.onderstreping !== null && !/^[A-Za-z]+$/.test(e.onderstreping))
+      throw new StijlFout("Onbekende onderstrepingsstijl.");
+    const kleur = e.onderstrepingKleur && /^[0-9a-f]{6}$/i.test(e.onderstrepingKleur) ? ` ${p}color="${e.onderstrepingKleur.toUpperCase()}"` : "";
+    zet("u", e.onderstreping === null ? null : `<${p}u ${p}val="${e.onderstreping}"${kleur}/>`);
+  } else if (e.onderstreept !== undefined)
     zet(
       "u",
       e.onderstreept === null
         ? null
         : `<${p}u ${p}val="${e.onderstreept ? "single" : "none"}"/>`,
     );
+  zet("dstrike", schakel(p, "dstrike", e.dubbelDoorgehaald));
+  zet("vanish", schakel(p, "vanish", e.verborgen));
+  const getalElement = (naam: string, n: number | null | undefined) =>
+    n === undefined ? undefined : n === null ? null : `<${p}${naam} ${p}val="${Math.round(n)}"/>`;
+  zet("spacing", getalElement("spacing", e.tekenafstand));
+  zet("w", getalElement("w", e.schaal));
+  zet("position", getalElement("position", e.positie));
+  zet("kern", getalElement("kern", e.spatiering));
+  if (e.verticaal !== undefined)
+    zet("vertAlign", e.verticaal === null ? null : `<${p}vertAlign ${p}val="${e.verticaal}"/>`);
   if (e.kleur !== undefined) {
     if (e.kleur !== null && !/^[0-9a-f]{6}$/i.test(e.kleur))
       throw new StijlFout("Een kleur moet als zes hexadecimale tekens worden opgegeven.");
@@ -246,15 +281,17 @@ function pPrWijzigingen(xml: string, p: string, pPr: XmlElement | null, e: Stijl
     w.set("jc", e.uitlijning === null ? null : `<${p}jc ${p}val="${e.uitlijning}"/>`);
   const twip = (n: number | null | undefined, factor: number) =>
     n === undefined ? undefined : n === null ? null : String(Math.round(n * factor));
-  if (e.ruimteVoor !== undefined || e.ruimteNa !== undefined || e.regelafstand !== undefined) {
-    const regel = twip(e.regelafstand, 240);
+  if (e.ruimteVoor !== undefined || e.ruimteNa !== undefined || e.regelafstand !== undefined || e.regelafstandPt !== undefined) {
+    const vast = e.regelafstandPt;
+    const regel = vast ? String(Math.round(vast.pt * TWIP_PER_PT)) : twip(e.regelafstand, 240);
+    const regelSoort = vast ? vast.regel : regel === undefined ? undefined : regel === null ? null : "auto";
     w.set(
       "spacing",
       metAttributen(xml, kind(pPr, "spacing"), `${p}spacing`, {
         [`${p}before`]: twip(e.ruimteVoor, TWIP_PER_PT),
         [`${p}after`]: twip(e.ruimteNa, TWIP_PER_PT),
         [`${p}line`]: regel,
-        [`${p}lineRule`]: regel === undefined ? undefined : regel === null ? null : "auto",
+        [`${p}lineRule`]: regelSoort,
         // Een expliciete ruimte vervangt automatische afstand.
         [`${p}beforeAutospacing`]: e.ruimteVoor !== undefined ? null : undefined,
         [`${p}afterAutospacing`]: e.ruimteNa !== undefined ? null : undefined,
@@ -283,6 +320,8 @@ function pPrWijzigingen(xml: string, p: string, pPr: XmlElement | null, e: Stijl
   zet("keepNext", schakel(p, "keepNext", e.bijVolgende));
   zet("keepLines", schakel(p, "keepLines", e.regelsBijElkaar));
   zet("pageBreakBefore", schakel(p, "pageBreakBefore", e.paginaEindeVoor));
+  zet("widowControl", schakel(p, "widowControl", e.zwevendeRegels));
+  zet("contextualSpacing", schakel(p, "contextualSpacing", e.contextueel));
   if (e.overzichtsniveau !== undefined)
     zet(
       "outlineLvl",
@@ -291,14 +330,18 @@ function pPrWijzigingen(xml: string, p: string, pPr: XmlElement | null, e: Stijl
   return w;
 }
 
-const heeftRun = (e: StijlEigenschappen) =>
-  (["lettertype", "grootte", "vet", "cursief", "onderstreept", "doorgehaald", "kleineHoofdletters", "hoofdletters", "kleur", "taal"] as const).some(
-    (k) => e[k] !== undefined,
-  );
-const heeftAlinea = (e: StijlEigenschappen) =>
-  (["uitlijning", "ruimteVoor", "ruimteNa", "regelafstand", "inspringLinks", "inspringRechts", "eersteRegel", "bijVolgende", "regelsBijElkaar", "paginaEindeVoor", "overzichtsniveau"] as const).some(
-    (k) => e[k] !== undefined,
-  );
+const RUN_VELDEN = [
+  "lettertype", "grootte", "vet", "cursief", "onderstreept", "doorgehaald", "kleineHoofdletters",
+  "hoofdletters", "kleur", "taal", "onderstreping", "onderstrepingKleur", "dubbelDoorgehaald",
+  "verborgen", "verticaal", "tekenafstand", "schaal", "positie", "spatiering",
+] as const;
+const ALINEA_VELDEN = [
+  "uitlijning", "ruimteVoor", "ruimteNa", "regelafstand", "regelafstandPt", "inspringLinks",
+  "inspringRechts", "eersteRegel", "bijVolgende", "regelsBijElkaar", "paginaEindeVoor",
+  "overzichtsniveau", "zwevendeRegels", "contextueel",
+] as const;
+const heeftRun = (e: StijlEigenschappen) => RUN_VELDEN.some((k) => e[k] !== undefined);
+const heeftAlinea = (e: StijlEigenschappen) => ALINEA_VELDEN.some((k) => e[k] !== undefined);
 
 /** `w:rPr` en `w:pPr` van een ouder (stijl of docDefaults) bijwerken. */
 function eigenschappenTekst(

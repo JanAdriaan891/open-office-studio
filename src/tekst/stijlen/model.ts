@@ -122,6 +122,24 @@ function themaKleur(kleur: TextFormatting["color"], thema: Theme | null | undefi
   return kleur.rgb && /^[0-9a-f]{6}$/i.test(kleur.rgb) ? kleur.rgb : undefined;
 }
 
+/** De samengevoegde rPr en pPr van een stijl met overerving. */
+export function opgelosteOpmaak(stijlen: StyleDefinitions | undefined, styleId: string | null | undefined) {
+  const keten: Style[] = [];
+  const bekend = new Map((stijlen?.styles ?? []).map((s) => [s.styleId, s]));
+  let huidig = styleId ? bekend.get(styleId) : stijlen?.styles.find((s) => s.type === "paragraph" && s.default);
+  for (let n = 0; huidig && n < 50; n++) {
+    keten.unshift(huidig);
+    huidig = huidig.basedOn ? bekend.get(huidig.basedOn) : undefined;
+  }
+  const r: TextFormatting = { ...(stijlen?.docDefaults?.rPr ?? {}) };
+  const p: ParagraphFormatting = { ...(stijlen?.docDefaults?.pPr ?? {}) };
+  for (const s of keten) {
+    Object.assign(r, s.rPr ?? {});
+    Object.assign(p, s.pPr ?? {});
+  }
+  return { r, p };
+}
+
 /** Een stijl met al zijn overerving: docDefaults → basisstijlen → stijl. */
 export function losOp(
   stijlen: StyleDefinitions | undefined,
