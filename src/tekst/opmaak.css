@@ -1,0 +1,217 @@
+/* Opmaakvensters van Open Tekst: alinea, lettertype, lijsten, randen. */
+.werkruimte-dialoog.tekstopmaak {
+  width: min(100%, 640px);
+}
+.tekstopmaak-tabs {
+  display: flex;
+  gap: 2px;
+  border-bottom: 1px solid var(--w-rand);
+  margin-bottom: 12px;
+  overflow-x: auto;
+}
+.tekstopmaak-tabs [role="tab"] {
+  padding: 7px 12px;
+  border: 1px solid transparent;
+  border-bottom: 0;
+  border-radius: 6px 6px 0 0;
+  background: transparent;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.tekstopmaak-tabs [role="tab"][aria-selected="true"] {
+  border-color: var(--w-rand);
+  background: var(--w-bg);
+  margin-bottom: -1px;
+  font-weight: 600;
+}
+.tekstopmaak-sectie {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 8px 14px;
+  margin: 0 0 12px;
+  padding: 8px 12px 12px;
+  border: 1px solid var(--w-rand);
+  border-radius: 8px;
+}
+.tekstopmaak-sectie legend {
+  padding: 0 4px;
+  font-weight: 600;
+}
+.tekstopmaak-veld {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+.tekstopmaak-veld > span:first-child,
+.tekstopmaak-veld > label:first-child {
+  color: var(--w-tekst-zacht);
+  font-size: 12px;
+}
+.tekstopmaak-veld select,
+.tekstopmaak-getal {
+  height: 30px;
+  border: 1px solid var(--w-rand);
+  border-radius: 6px;
+  background: var(--w-bg);
+}
+.tekstopmaak-veld select {
+  padding: 0 6px;
+}
+.tekstopmaak-getal {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+.tekstopmaak-getal.is-fout {
+  border-color: #c62828;
+}
+.tekstopmaak-getal input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  padding: 0 6px;
+  border: 0;
+  background: transparent;
+}
+.tekstopmaak-eenheid {
+  padding: 0 8px 0 2px;
+  color: var(--w-tekst-zacht);
+}
+.tekstopmaak-vink {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 26px;
+}
+.tekstopmaak-kleur {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+.tekstopmaak-kleur input[type="color"] {
+  width: 44px;
+  height: 30px;
+  padding: 2px;
+  border: 1px solid var(--w-rand);
+  border-radius: 6px;
+  background: var(--w-bg);
+}
+.tekstopmaak-voorbeeld {
+  margin-top: 4px;
+  padding: 10px;
+  border: 1px solid var(--w-rand);
+  border-radius: 8px;
+  background: #ffffff;
+  color: #222;
+  overflow: hidden;
+}
+.tekstopmaak-voorbeeld-titel {
+  margin: 8px 0 4px;
+  color: var(--w-tekst-zacht);
+  font-size: 12px;
+}
+.tekstopmaak-voorbeeld .grijs {
+  color: #9aa0a6;
+}
+.tekstopmaak-voorbeeld p {
+  margin: 0;
+  font-size: 9px;
+  line-height: 1.25;
+}
+.tekstopmaak-lettervoorbeeld {
+  display: grid;
+  place-items: center;
+  min-height: 70px;
+  font-size: 22px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.tekstopmaak-tabel {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 8px;
+}
+.tekstopmaak-tabel th,
+.tekstopmaak-tabel td {
+  padding: 4px 6px;
+  border-bottom: 1px solid var(--w-rand);
+  text-align: left;
+}
+.tekstopmaak-rij {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: end;
+}
+.tekstopmaak-melding {
+  margin: 0 0 10px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  background: var(--w-bg-zacht);
+  color: var(--w-tekst-zacht);
+}
+.tekstopmaak-galerij {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.tekstopmaak-galerij button {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  min-height: 74px;
+  padding: 8px;
+  border: 1px solid var(--w-rand);
+  border-radius: 8px;
+  background: #ffffff;
+  color: #222;
+  font-size: 12px;
+  line-height: 1.3;
+  text-align: left;
+  cursor: pointer;
+}
+.tekstopmaak-galerij button[aria-pressed="true"] {
+  border-color: var(--w-accent);
+  box-shadow: 0 0 0 2px var(--w-accent);
+}
+.tekstopmaak-zijden {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: auto 1fr auto;
+  gap: 6px;
+  align-items: center;
+  justify-items: center;
+}
+.tekstopmaak-zijden .vlak {
+  width: 100%;
+  min-height: 84px;
+  padding: 8px;
+  background: #ffffff;
+  color: #555;
+  font-size: 9px;
+}
+.tekstopmaak-zijden button[aria-pressed="true"] {
+  border-color: var(--w-accent);
+  background: var(--w-bg-zacht);
+}
+/* Lint: snelkeuze afstand en inspringen. */
+.tekst-afstand {
+  display: grid;
+  grid-template-columns: auto 64px;
+  gap: 2px 6px;
+  align-items: center;
+  font-size: 12px;
+}
+.tekst-afstand input {
+  width: 64px;
+  height: 22px;
+  padding: 0 4px;
+  border: 1px solid var(--ribbon-rand, #c8ccd2);
+  border-radius: 4px;
+  background: var(--ribbon-veld, #fff);
+  color: inherit;
+  font: inherit;
+}

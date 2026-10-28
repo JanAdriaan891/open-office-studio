@@ -91,6 +91,8 @@ import {
 } from "./tekst-opdrachten";
 import { datumTekst, tijdTekst, type Hoofdlettersoort } from "./tekst-logica";
 import { TabelKiezer } from "../tabelvoorbeeld/TabelKiezer";
+import { AlineaKnop, TekstOpmaakProvider } from "../tekst/TekstOpmaak";
+import { AfstandGroep } from "../tekst/alinea/AfstandGroep";
 import "./tekst.css";
 
 type Opdrachten = ReturnType<typeof useTekstOpdrachten>;
@@ -195,6 +197,7 @@ function TekstAlinea() {
           naam="Uitvullen"
           icoon={AlignJustify}
         />
+        <AlineaKnop />
       </div>
     </Groep>
   );
@@ -547,7 +550,7 @@ export function TekstRibbon({
       ),
     });
   return (
-    <>
+    <TekstOpmaakProvider>
       <Ribbon
         bestand={bestand}
         tabs={[
@@ -750,7 +753,7 @@ export function TekstRibbon({
                     />
                   </div>
                 </Groep>
-                <TekstAlinea />
+                <AfstandGroep />
                 <Groep naam="Regelafstand">
                   <WK id="lineSpacing" naam="Regelafstand" breed />
                 </Groep>
@@ -860,6 +863,6 @@ export function TekstRibbon({
       <TekstDialogen opdrachten={opdrachten} />
       <TekstStatus opdrachten={opdrachten} />
       {grafieken.venster}
-    </>
+    </TekstOpmaakProvider>
   );
 }
