@@ -126,6 +126,9 @@
   padding: 3px 4px;
   border: 1px solid var(--w-rand, #e0e2e6);
   border-radius: 4px;
+  /* Zonder eigen achtergrond werd de tekst in het donkere thema wit op wit. */
+  background: var(--w-bg, #fff);
+  color: inherit;
 }
 .afdruk-teller input {
   width: 52px;

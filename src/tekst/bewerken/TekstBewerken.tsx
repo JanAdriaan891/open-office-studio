@@ -126,6 +126,10 @@ function paginavlak() {
 
 const opPagina = (doel: EventTarget | null) => {
   const vlak = paginavlak();
+  // De zijbalk met opmerkingen en wijzigingen hangt in hetzelfde scrollvlak,
+  // maar is geen documenttekst: geen mini-werkbalk of tekstmenu daar.
+  const element = doel instanceof Element ? doel : doel instanceof Node ? doel.parentElement : null;
+  if (element?.closest(".docx-unified-sidebar")) return false;
   return !!vlak && doel instanceof Node && vlak.contains(doel);
 };
 

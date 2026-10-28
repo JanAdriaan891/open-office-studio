@@ -259,8 +259,8 @@ export function OpslaanAlsDialoog(props: OpslaanAlsProps) {
         <div className="opslaanals-runtime" role="status">
           {!desktop ? (
             <>
-              In de browser maakt de app Markdown, CSV, HTML, tekst, PNG en PDF
-              zelf. Formaten met “alleen in de desktopapp” vragen de
+              In de browser maakt de app Markdown, CSV, HTML, tekst en PDF
+              zelf, en PNG bij rekenbladen en presentaties. Formaten met “alleen in de desktopapp” vragen de
               desktopversie met een kantoorruntime.
             </>
           ) : status === null ? (

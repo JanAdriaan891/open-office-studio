@@ -19,6 +19,9 @@ export interface StatusbalkProps {
   versieLabel: string;
 }
 
+/** "1 teken", "4.613 tekens". */
+const aantal = (n: number, enkel: string, meer: string) => `${getal(n)} ${n === 1 ? enkel : meer}`;
+
 function ModuleInfo({ soort }: { soort: string | null }) {
   const info = useModuleStatus();
   const { statusbalk } = useInstellingen();
@@ -35,10 +38,10 @@ function ModuleInfo({ soort }: { soort: string | null }) {
         {statusbalk.tekst && info.woorden !== null && (
           <button type="button" onClick={info.woordenTellen} title="Woorden tellen">
             {info.selectie
-              ? `${getal(info.selectie.woorden)} van ${getal(info.woorden)} woorden`
-              : `${getal(info.woorden)} woorden`}
+              ? `${getal(info.selectie.woorden)} van ${aantal(info.woorden, "woord", "woorden")}`
+              : aantal(info.woorden, "woord", "woorden")}
             {info.tekens !== null &&
-              `, ${getal(info.selectie ? info.selectie.tekens : info.tekens)} tekens`}
+              `, ${aantal(info.selectie ? info.selectie.tekens : info.tekens, "teken", "tekens")}`}
           </button>
         )}
         <TekstStatusExtra />

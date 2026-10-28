@@ -8,14 +8,23 @@ import { createPortal } from "react-dom";
 import { Minus, Plus, X } from "lucide-react";
 import type { DocxEditorRef } from "@betteroffice/docx-react";
 import type { Document, Style } from "@betteroffice/docx/types/document";
+import { markering, type Niveau, type NummerNotatie } from "../lijst/nummering";
 
 type Stuk = { tekst: string; vet?: boolean; cursief?: boolean; onder?: boolean };
 export type Blok =
-  | { soort: "alinea"; niveau: number; lijst: boolean; stukken: Stuk[] }
+  | { soort: "alinea"; niveau: number; lijst: boolean; stukken: Stuk[]; nummer?: string; lijstniveau?: number }
   | { soort: "tabel"; rijen: Blok[][][] }
   | { soort: "object" };
 
-type Knoop = { type?: string; content?: unknown; text?: string; formatting?: Record<string, unknown>; rows?: unknown; cells?: unknown };
+type Knoop = {
+  type?: string;
+  content?: unknown;
+  text?: string;
+  formatting?: Record<string, unknown>;
+  rows?: unknown;
+  cells?: unknown;
+  listRendering?: { marker?: string; isBullet?: boolean; level?: number; markerHidden?: boolean };
+};
 
 function stukken(inhoud: unknown, uit: Stuk[], opmaak: Omit<Stuk, "tekst"> = {}) {
   if (!Array.isArray(inhoud)) return;
@@ -46,19 +55,71 @@ function niveau(styleId: string | undefined, stijlen: Map<string, Style>, outlin
   return 0;
 }
 
+type NumPr = { numId?: number; ilvl?: number };
+type NummeringModel = {
+  abstractNums?: { abstractNumId: number; levels?: { ilvl: number; start?: number; numFmt?: string; lvlText?: string }[] }[];
+  nums?: { numId: number; abstractNumId: number }[];
+};
+const NOTATIES: readonly string[] = ["decimal", "lowerLetter", "upperLetter", "lowerRoman", "upperRoman", "bullet"];
+
+/**
+ * Lijstnummers in documentvolgorde uit numbering.xml (het model na bewerken
+ * heeft geen berekende `listRendering` meer): per lijst een teller per niveau.
+ */
+function lijstNummers(nummering: NummeringModel | undefined) {
+  const tellers = new Map<number, number[]>();
+  return (numPr: NumPr): { nummer?: string; niveau: number } | null => {
+    const numId = numPr.numId;
+    if (numId === undefined || numId === 0) return null;
+    const ilvl = Math.max(0, Math.min(8, numPr.ilvl ?? 0));
+    const num = nummering?.nums?.find((n) => n.numId === numId);
+    const abstract = nummering?.abstractNums?.find((a) => a.abstractNumId === num?.abstractNumId);
+    const levels = abstract?.levels ?? [];
+    const niveaus: Niveau[] = Array.from({ length: 9 }, (_, i) => {
+      const l = levels.find((x) => x.ilvl === i);
+      const fmt = l?.numFmt && NOTATIES.includes(l.numFmt) ? (l.numFmt as NummerNotatie) : l?.numFmt === "none" ? "bullet" : "decimal";
+      return { numFmt: fmt, lvlText: l?.numFmt === "none" ? "" : (l?.lvlText ?? (fmt === "bullet" ? "•" : `%${i + 1}.`)) };
+    });
+    const start = (i: number) => levels.find((x) => x.ilvl === i)?.start ?? 1;
+    const t = tellers.get(numId) ?? Array.from({ length: 9 }, (_, i) => start(i) - 1);
+    t[ilvl] += 1;
+    for (let i = ilvl + 1; i < 9; i++) t[i] = start(i) - 1;
+    tellers.set(numId, t);
+    if (niveaus[ilvl].numFmt === "bullet") return { niveau: ilvl };
+    const nummer = markering(niveaus, ilvl, t).trim();
+    return { nummer: nummer || undefined, niveau: ilvl };
+  };
+}
+
 /** De hoofdtekst als eenvoudige blokken. */
 export function leesBlokken(document: Document | null | undefined): Blok[] {
   if (!document) return [];
   const stijlen = new Map((document.package.styles?.styles ?? []).map((s) => [s.styleId, s]));
+  const nummers = lijstNummers((document.package as { numbering?: NummeringModel }).numbering);
   const blokken = (inhoud: unknown): Blok[] => {
     const uit: Blok[] = [];
     if (!Array.isArray(inhoud)) return uit;
     for (const k of inhoud as Knoop[]) {
       if (k?.type === "paragraph") {
-        const f = (k.formatting ?? {}) as { styleId?: string; outlineLevel?: number; numPr?: unknown };
+        const f = (k.formatting ?? {}) as { styleId?: string; outlineLevel?: number; numPr?: NumPr };
         const s: Stuk[] = [];
         stukken(k.content, s);
-        uit.push({ soort: "alinea", niveau: niveau(f.styleId, stijlen, f.outlineLevel), lijst: !!f.numPr, stukken: s });
+        // Genummerde lijsten houden hun nummer ("1.", "a)"); opsommingen een stip.
+        const lr = k.listRendering;
+        const geteld = f.numPr ? nummers(f.numPr) : null;
+        const nummer = lr
+          ? !lr.isBullet && !lr.markerHidden && lr.marker?.trim()
+            ? lr.marker.trim()
+            : undefined
+          : geteld?.nummer;
+        uit.push({
+          soort: "alinea",
+          niveau: niveau(f.styleId, stijlen, f.outlineLevel),
+          lijst: !!lr || !!geteld,
+          stukken: s,
+          nummer,
+          lijstniveau: lr?.level ?? geteld?.niveau ?? 0,
+        });
       } else if (k?.type === "table") {
         const rijen = ((k.rows as Knoop[] | undefined) ?? []).map((rij) =>
           ((rij.cells as Knoop[] | undefined) ?? []).map((cel) => blokken(cel.content)),
@@ -116,7 +177,12 @@ function Blokken({ blokken }: { blokken: Blok[] }) {
           );
         }
         return (
-          <p key={i} className={b.lijst ? "is-lijst" : undefined}>
+          <p
+            key={i}
+            className={b.lijst ? (b.nummer ? "is-lijst is-genummerd" : "is-lijst") : undefined}
+            style={b.lijst && b.lijstniveau ? { marginLeft: `${b.lijstniveau * 1.4}em` } : undefined}
+          >
+            {b.nummer && <span className="tekst-leesmodus-nummer">{b.nummer}</span>}
             <Tekst stukken={b.stukken} />
           </p>
         );

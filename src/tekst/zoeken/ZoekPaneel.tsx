@@ -111,7 +111,12 @@ function ZoekPaneel({ modus, verzoek, beginTekst }: { modus: "zoeken" | "vervang
   const vervangVeld = useRef<HTMLInputElement>(null);
   const laatsteVeld = useRef<HTMLInputElement | null>(null);
   const stijlen = useDocxCommand("paragraphStyle").state.options ?? [];
-  const bewerkbaar = useDocxCommand("insertPageBreak").state.enabled;
+  // Vervangen kan ook bij wijzigingen bijhouden (de vervanging wordt dan een voorstel).
+  const invoegen = useDocxCommand("insertPageBreak").state.enabled;
+  const bewerkingsmodus = useDocxCommand("editingMode").state.value;
+  const bewerkbaar = invoegen || bewerkingsmodus === "suggesting";
+  /** Na vervangen blijft de melding staan tot er een nieuwe zoekopdracht is. */
+  const naVervangen = useRef(false);
   const opmaak: Opmaakfilter = useMemo(
     () => ({ vet: naarDrie(vet), cursief: naarDrie(cursief), onderstreept: naarDrie(onderstreept), stijl: stijl || undefined }),
     [vet, cursief, onderstreept, stijl],
@@ -144,7 +149,8 @@ function ZoekPaneel({ modus, verzoek, beginTekst }: { modus: "zoeken" | "vervang
     const veld = vervangen && zoekTekst ? vervangVeld.current : zoekVeld.current;
     veld?.focus();
     veld?.select();
-  }, [verzoek]);
+    // Bij de eerste opening bestaat het veld pas zodra de plek bekend is.
+  }, [verzoek, !!plek]);
 
   const markeer = useCallback((lijst: Resultaat[], idx: ZoekIndex | null, nu: number) => {
     if (!idx) return zetMarkeringen("zoeken", []);
@@ -178,7 +184,7 @@ function ZoekPaneel({ modus, verzoek, beginTekst }: { modus: "zoeken" | "vervang
         setResultaten(uit.resultaten);
         const nu = uit.resultaten.length ? (behoud ? Math.min(Math.max(huidig, 0), uit.resultaten.length - 1) : -1) : -1;
         setHuidig(nu);
-        setMelding(uit.resultaten.length ? "" : "Geen resultaten.");
+        if (!(behoud && naVervangen.current)) setMelding(uit.resultaten.length ? "" : "Geen resultaten.");
         markeer(uit.resultaten, uit.index, nu);
       } catch (error) {
         setResultaten([]);
@@ -192,6 +198,7 @@ function ZoekPaneel({ modus, verzoek, beginTekst }: { modus: "zoeken" | "vervang
 
   // Live zoeken bij typen; opnieuw na een wijziging in het document.
   useEffect(() => {
+    naVervangen.current = false;
     const wacht = setTimeout(() => void zoekNu(false), 250);
     return () => clearTimeout(wacht);
   }, [zoekTekst, opties, opmaak]);
@@ -232,6 +239,7 @@ function ZoekPaneel({ modus, verzoek, beginTekst }: { modus: "zoeken" | "vervang
     if (huidig < 0) return volgende();
     try {
       await vervang(api(), index, [resultaten[huidig]], vervangTekst, opties);
+      naVervangen.current = true;
       setMelding("1 vervangen.");
       // De volgende treffer krijgt hetzelfde nummer na opnieuw zoeken.
       const ref = api();
@@ -252,6 +260,7 @@ function ZoekPaneel({ modus, verzoek, beginTekst }: { modus: "zoeken" | "vervang
     try {
       const uit = await vervang(api(), index, resultaten, vervangTekst, opties);
       await zoekNu(false);
+      naVervangen.current = true;
       setMelding(`${uit.aantal} ${uit.aantal === 1 ? "treffer" : "treffers"} vervangen; Ctrl+Z draait dit in één keer terug.`);
     } catch (error) {
       setMelding(fout(error));
@@ -433,14 +442,14 @@ function ZoekPaneel({ modus, verzoek, beginTekst }: { modus: "zoeken" | "vervang
   );
 }
 
-const SOORTEN: { soort: Doelsoort; naam: string; lijst: boolean }[] = [
-  { soort: "pagina", naam: "Pagina", lijst: false },
-  { soort: "sectie", naam: "Sectie", lijst: false },
-  { soort: "regel", naam: "Regel", lijst: false },
-  { soort: "kop", naam: "Kop", lijst: true },
-  { soort: "tabel", naam: "Tabel", lijst: true },
-  { soort: "afbeelding", naam: "Afbeelding", lijst: true },
-  { soort: "opmerking", naam: "Opmerking", lijst: true },
+const SOORTEN: { soort: Doelsoort; naam: string; nummer: string; lijst: boolean }[] = [
+  { soort: "pagina", naam: "Pagina", nummer: "Paginanummer", lijst: false },
+  { soort: "sectie", naam: "Sectie", nummer: "Sectienummer", lijst: false },
+  { soort: "regel", naam: "Regel", nummer: "Regelnummer", lijst: false },
+  { soort: "kop", naam: "Kop", nummer: "Kopnummer", lijst: true },
+  { soort: "tabel", naam: "Tabel", nummer: "Tabelnummer", lijst: true },
+  { soort: "afbeelding", naam: "Afbeelding", nummer: "Afbeeldingsnummer", lijst: true },
+  { soort: "opmerking", naam: "Opmerking", nummer: "Opmerkingsnummer", lijst: true },
 ];
 
 const MEERVOUD: Record<Doelsoort, string> = {
@@ -538,7 +547,8 @@ function GaNaarVenster({ sluit }: { sluit: () => void }) {
         <div className="tw-ganaar-doel">
           <label className="werkruimte-veld">
             <span>
-              {huidigeSoort.naam}nummer{lijst.length ? ` (1–${lijst.length})` : ""}
+              {huidigeSoort.nummer}
+              {lijst.length ? ` (1–${lijst.length})` : ""}
             </span>
             <input
               type="text"
@@ -556,7 +566,7 @@ function GaNaarVenster({ sluit }: { sluit: () => void }) {
             />
           </label>
           {huidigeSoort.lijst && lijst.length > 0 && (
-            <ul className="tw-ganaar-lijst" aria-label={`${huidigeSoort.naam}en`}>
+            <ul className="tw-ganaar-lijst" aria-label={MEERVOUD[soort][0].toUpperCase() + MEERVOUD[soort].slice(1)}>
               {lijst.map((d, i) => (
                 <li key={i}>
                   <button type="button" aria-current={i === gekozen} onClick={() => ga(d)} onDoubleClick={() => (ga(d), sluit())}>

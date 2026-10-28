@@ -130,6 +130,8 @@ export function useTekstOpdrachten({
   const bewerkbaar = useDocxCommand("insertPageBreak").state.enabled;
   const modus = useDocxCommand("editingMode");
   const opnemen = modus.state.value === "suggesting";
+  /** Tekst invoegen en opmerkingen plaatsen kan ook bij wijzigingen bijhouden. */
+  const invoerbaar = bewerkbaar || opnemen;
 
   function fout(error: unknown) {
     meld(error instanceof Error ? error.message : String(error));
@@ -403,7 +405,7 @@ export function useTekstOpdrachten({
     {
       toets: "Ctrl+Alt+C",
       uitvoeren: () => setDialoog("opmerking"),
-      beschikbaar: kanBewerken,
+      beschikbaar: () => invoerbaar,
     },
     {
       toets: "Ctrl+Shift+C",
@@ -427,6 +429,7 @@ export function useTekstOpdrachten({
   return {
     api,
     bewerkbaar,
+    invoerbaar,
     opnemen,
     dialoog,
     setDialoog,
@@ -758,6 +761,8 @@ function GaNaarPagina({
           min={1}
           max={totaal || undefined}
           value={pagina}
+          // Typen vervangt het huidige nummer (zoals Word), in plaats van erachter te komen.
+          onFocus={(event) => event.currentTarget.select()}
           onChange={(event) => setPagina(event.target.value)}
           onKeyDown={(event) => {
             if (event.key === "Enter") ga();
@@ -803,6 +808,7 @@ export function TekstStatus({
     let opruimen: (() => void)[] = [];
     let wachten: ReturnType<typeof setTimeout> | undefined;
     let frame = 0;
+    let selectieFrame = 0;
     let gekoppeld: HTMLElement | null = null;
     const paginas = (ref: DocxEditorRef) => {
       const huidig = ref.getCurrentPage(),
@@ -843,12 +849,17 @@ export function TekstStatus({
       opruimen = [
         () => scroll.removeEventListener("scroll", opScroll),
         ref.onContentChange(() => tel(ref)),
-        ref.onSelectionChange((staat) => {
+        ref.onSelectionChange(() => {
           opScroll();
-          if (!staat?.hasSelection) return setSelectie(null);
-          const tekst = ref.getSelectionInfo()?.selectedText ?? "";
-          setSelectie(tekst ? telTekst(tekst.split(/\r?\n/)) : null);
+          // De selectietekst loopt bij Shift+pijl en dubbelklikken één stap
+          // achter op de melding; pas in het volgende frame lezen.
+          cancelAnimationFrame(selectieFrame);
+          selectieFrame = requestAnimationFrame(() => {
+            const tekst = ref.getSelectionInfo()?.selectedText ?? "";
+            setSelectie(tekst ? telTekst(tekst.split(/\r?\n/)) : null);
+          });
         }),
+        () => cancelAnimationFrame(selectieFrame),
       ];
     };
     // Het weergavevlak wordt opnieuw opgebouwd, bijvoorbeeld bij de navigator.
