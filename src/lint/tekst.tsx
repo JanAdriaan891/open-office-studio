@@ -86,6 +86,15 @@ import {
 import { datumTekst, tijdTekst, type Hoofdlettersoort } from "./tekst-logica";
 import { TabelKiezer } from "../tabelvoorbeeld/TabelKiezer";
 import {
+  AlineaKnop,
+  LettertypeKnop,
+  LijstKnop,
+  PaginaAchtergrondKnoppen,
+  RandenKnop,
+  TekstOpmaakProvider,
+} from "../tekst/TekstOpmaak";
+import { AfstandGroep } from "../tekst/alinea/AfstandGroep";
+import {
   DatumTijdKnop,
   GrootteKnoppen,
   KwastKnop,
@@ -161,6 +170,7 @@ function TekstLettertype() {
           icoon={Type}
           args={(color) => ({ color: { rgb: color.slice(1) } })}
         />
+        <LettertypeKnop />
       </div>
     </Groep>
   );
@@ -173,6 +183,7 @@ function TekstAlinea() {
         <W id="numberedList" naam="Nummering" icoon={ListOrdered} />
         <W id="outdent" naam="Minder inspringen" icoon={IndentDecrease} />
         <W id="indent" naam="Meer inspringen" icoon={IndentIncrease} />
+        <LijstKnop />
       </div>
       <div className="ribbon-rij ribbon-iconen">
         <W
@@ -199,6 +210,8 @@ function TekstAlinea() {
           naam="Uitvullen"
           icoon={AlignJustify}
         />
+        <AlineaKnop />
+        <RandenKnop />
       </div>
     </Groep>
   );
@@ -507,6 +520,7 @@ export function TekstRibbon({
     });
   return (
     <TekstBewerken opdrachten={opdrachten}>
+    <TekstOpmaakProvider>
     <StijlenBeheer>
       <Ribbon
         bestand={bestand}
@@ -691,6 +705,9 @@ export function TekstRibbon({
                   />
                   <W id="watermark" naam="Watermerk" icoon={Stamp} groot />
                 </Groep>
+                <Groep naam="Pagina-achtergrond">
+                  <PaginaAchtergrondKnoppen />
+                </Groep>
                 <Groep naam="Eindes">
                   <WS
                     id="insertPageBreak"
@@ -712,7 +729,7 @@ export function TekstRibbon({
                     />
                   </div>
                 </Groep>
-                <TekstAlinea />
+                <AfstandGroep />
                 <Groep naam="Regelafstand">
                   <WK id="lineSpacing" naam="Regelafstand" breed />
                 </Groep>
@@ -825,6 +842,7 @@ export function TekstRibbon({
       <TekstInfo />
       {grafieken.venster}
     </StijlenBeheer>
+    </TekstOpmaakProvider>
     </TekstBewerken>
   );
 }
