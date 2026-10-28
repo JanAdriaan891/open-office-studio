@@ -50,6 +50,7 @@ import { useVensters } from "./useVensters";
 import { useSysteembestanden } from "./systeembestanden";
 import { noteerBrowser } from "./recent";
 import { useHerstel } from "./useHerstel";
+import { neerzetMelding, useNeerzetten } from "./Neerzetzone";
 import {
   bevestigFormaat,
   kiesBestanden,
@@ -454,6 +455,17 @@ export function OfficeStudio() {
     focusHerstellen.current = true;
   }
 
+  // Bestanden op het venster slepen (browser; de desktopapp gaat via Rust).
+  const neerzetzone = useNeerzetten({
+    uit: verlaatvraag || opslaanAls !== null,
+    open: async (bestanden) => {
+      for (const bestand of bestanden) {
+        while (bezigRef.current) await new Promise((r) => setTimeout(r, 100));
+        await openBestand(bestand);
+      }
+    },
+  });
+
   const herstel = useHerstel({
     tabs,
     bezig: () => bezigRef.current,
@@ -534,8 +546,12 @@ export function OfficeStudio() {
       meld("Kies een bestand van maximaal 100 MB dat niet leeg is.");
       return;
     }
-    if (await importeer(file.name, new Uint8Array(await file.arrayBuffer())))
-      noteerBrowser(file.name);
+    const bytes = new Uint8Array(await file.arrayBuffer());
+    if (kantoorModule(file.name) === "database") {
+      openDatabaseBestand(file.name, bytes, "het bestand");
+      return;
+    }
+    if (await importeer(file.name, bytes)) noteerBrowser(file.name);
   }
 
   /**
@@ -550,7 +566,7 @@ export function OfficeStudio() {
     const ext = naam.split(".").pop()?.toLowerCase();
     const soort = bestandssoort(ext ?? "");
     if (!ext || !soort) {
-      meld(`${naam}: dit bestandsformaat wordt nog niet ondersteund.`);
+      meld(neerzetMelding(naam) ?? `${naam}: dit formaat wordt niet ondersteund.`);
       return false;
     }
     let geopend = false;
@@ -1030,6 +1046,7 @@ export function OfficeStudio() {
         />
       )}
       {herstel.dialoog}
+      {neerzetzone}
       {opslaanDocument && (
         <OpslaanAlsDialoog
           soort={opslaanDocument.soort}
