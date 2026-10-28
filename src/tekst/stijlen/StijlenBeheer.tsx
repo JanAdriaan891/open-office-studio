@@ -39,6 +39,8 @@ import {
 import { herlaadMetStijlen, type StijlBewerking, type StijlOnderdelen } from "./pakket";
 import { wijzigStijl, type StijlEigenschappen } from "./stijlenxml";
 import { StijlEditor } from "./StijlEditor";
+import { metHeleAlinea } from "./toepassen";
+import { Herhaalmelding } from "../bewerken/herhaalmelding";
 import { StijlenVenster } from "./StijlenVenster";
 import { StijlSets } from "./StijlSets";
 import { Bevestiging } from "./Bevestiging";
@@ -185,6 +187,7 @@ export function StijlenBeheer({ children }: { children: ReactNode }) {
   const api = apis.tekst;
   const herlaad = apis.herlaad ?? null;
   const meld = useContext(RibbonFout);
+  const herhaalbaar = useContext(Herhaalmelding);
   const opdrachten = useDocxCommands();
   const stijlOpdracht = useDocxCommand("paragraphStyle");
   const bewerkbaar = useDocxCommand("insertPageBreak").state.enabled;
@@ -270,8 +273,8 @@ export function StijlenBeheer({ children }: { children: ReactNode }) {
         tekenstijl(ref, stijlen, styleId, thema);
         return;
       }
-      void opdrachten
-        .execute("paragraphStyle", { styleId })
+      herhaalbaar("paragraphStyle", { styleId });
+      void metHeleAlinea(ref, () => opdrachten.execute("paragraphStyle", { styleId }))
         .then((resultaat) => {
           if (resultaat.ok) return;
           // Stijlen buiten de lijst van de engine: per alinea via de ref.

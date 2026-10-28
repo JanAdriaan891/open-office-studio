@@ -111,7 +111,7 @@ export function Contextmenu({
         icoon: ClipboardPaste,
         sneltoets: "Ctrl+V",
         uit: !bewerkbaar,
-        doe: opdrachten.plakken,
+        doe: opdrachten.plakkenMetOpmaak,
       },
       {
         naam: "Plakken als alleen tekst",

@@ -16,6 +16,9 @@ import { useSneltoetsen, type Sneltoets } from "./sneltoetsen";
 import { toetsInProfiel } from "./sneltoetsenlijst";
 import { useInstellingen } from "../instellingen";
 import { useProfielToets } from "../tekst/bewerken/profielToets";
+import { useHerhaalbaar } from "../tekst/bewerken/herhaalmelding";
+import { ontbrekendeStijl } from "../tekst/stijlen/model";
+import { metHeleAlinea } from "../tekst/stijlen/toepassen";
 import {
   selectieBegin,
   specialeTekens,
@@ -43,7 +46,7 @@ export function WS<K extends DocxCommandId>({
   icoon: LucideIcon;
   groot?: boolean;
 }) {
-  const opdracht = useDocxCommand(id, args);
+  const opdracht = useHerhaalbaar(id, useDocxCommand(id, args), args);
   const toets = useProfielToets()(sneltoets);
   return (
     <OpdrachtKnop
@@ -178,6 +181,36 @@ export function useTekstOpdrachten({
       fout(error);
     }
   }
+  /**
+   * Plakken met opmaak, zoals Ctrl+V: de inhoud van het klembord gaat als
+   * plakgebeurtenis naar de invoer van de engine (die ook de plakopties
+   * toont). Zonder leesrecht op het klembord: als tekst.
+   */
+  function plakkenMetOpmaak() {
+    if (!navigator.clipboard?.read) return plakken();
+    navigator.clipboard
+      .read()
+      .then(async (items) => {
+        const data = new DataTransfer();
+        for (const item of items)
+          for (const soort of item.types) {
+            const blob = await item.getType(soort);
+            if (soort === "text/plain" || soort === "text/html") data.setData(soort, await blob.text());
+            else if (soort.startsWith("image/"))
+              data.items.add(new File([blob], `afbeelding.${soort.slice(6)}`, { type: soort }));
+          }
+        if (!data.types.length) return;
+        editor().focus();
+        const invoer = tekstVlak();
+        const gebeurtenis = new ClipboardEvent("paste", { clipboardData: data, bubbles: true, cancelable: true });
+        if (!invoer?.classList.contains("paged-editor__yrs-input") || invoer.dispatchEvent(gebeurtenis)) {
+          // De engine nam de plakgebeurtenis niet af: dan de tekst invoegen.
+          const tekst = data.getData("text/plain");
+          if (tekst) voegIn(tekst);
+        }
+      })
+      .catch(() => plakken());
+  }
   function plakken() {
     if (!navigator.clipboard?.readText) {
       meld("Plakken via het lint is hier niet toegestaan. Gebruik Ctrl+V.");
@@ -285,7 +318,13 @@ export function useTekstOpdrachten({
   }
 
   function stijl(styleId: string) {
-    voerUit("paragraphStyle", { styleId });
+    const ontbreekt = ontbrekendeStijl(api()?.getDocument()?.package.styles, styleId);
+    if (ontbreekt) return meld(ontbreekt);
+    metHeleAlinea(api(), () => opdrachten.execute("paragraphStyle", { styleId }))
+      .then((resultaat) => {
+        if (!resultaat.ok) meld(resultaat.failure.message);
+      })
+      .catch(fout);
   }
 
   function toonStijlen() {
@@ -394,6 +433,7 @@ export function useTekstOpdrachten({
     voegIn,
     klembord,
     plakken,
+    plakkenMetOpmaak,
     hoofdletters,
     dubbelOnderstrepen,
     wisselOpnemen,
