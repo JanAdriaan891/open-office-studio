@@ -8,6 +8,7 @@
   border-bottom: 1px solid var(--w-rand);
   margin-bottom: 12px;
   overflow-x: auto;
+  overflow-y: hidden;
 }
 .tekstopmaak-tabs [role="tab"] {
   padding: 7px 12px;

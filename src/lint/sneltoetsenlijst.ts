@@ -120,6 +120,10 @@ export const vasteSneltoetsen: readonly SneltoetsInfo[] = [
   // Tekst: opmaakvensters (src/tekst/TekstOpmaak.tsx).
   tekst("Ctrl+Shift+J", "Alinea-opmaak"),
   tekst("Ctrl+5", "Regelafstand 1,5"),
+  tekst("Ctrl+Shift+F", "Lettertype"),
+  tekst("Ctrl+Shift+A", "Alle hoofdletters"),
+  tekst("Ctrl+Shift+K", "Kleinkapitalen"),
+  tekst("Ctrl+Shift+H", "Verborgen tekst"),
   // Tekst: engine (@betteroffice/docx-react).
   tekstEngine("Ctrl+B", "Vet"),
   tekstEngine("Ctrl+I", "Cursief"),

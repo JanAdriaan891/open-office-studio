@@ -91,7 +91,7 @@ import {
 } from "./tekst-opdrachten";
 import { datumTekst, tijdTekst, type Hoofdlettersoort } from "./tekst-logica";
 import { TabelKiezer } from "../tabelvoorbeeld/TabelKiezer";
-import { AlineaKnop, TekstOpmaakProvider } from "../tekst/TekstOpmaak";
+import { AlineaKnop, LettertypeKnop, TekstOpmaakProvider } from "../tekst/TekstOpmaak";
 import { AfstandGroep } from "../tekst/alinea/AfstandGroep";
 import "./tekst.css";
 
@@ -159,6 +159,7 @@ function TekstLettertype() {
           icoon={Type}
           args={(color) => ({ color: { rgb: color.slice(1) } })}
         />
+        <LettertypeKnop />
       </div>
     </Groep>
   );

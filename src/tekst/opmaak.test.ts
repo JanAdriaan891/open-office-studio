@@ -18,6 +18,7 @@ import {
 } from "./eenheden";
 import { alineaAttrs, leesTekens, nieuweDirecteOpmaak, numeriekId, tekenDelta } from "./opmaak";
 import { formulierUit, wijzigingUit } from "./alinea/model";
+import { formulierUit as lettertypeFormulier, metEffect, wijzigingUit as lettertypeWijziging } from "./lettertype/model";
 
 describe("eenheden", () => {
   it("rekent cm en pt om naar twips en terug", () => {
@@ -221,6 +222,43 @@ describe("tekenopmaak voor de engine", () => {
       smallCaps: true,
       afstand: { spacing: 30 },
     });
+  });
+});
+
+describe("lettertypevenster", () => {
+  const gelezen = leesTekens({ bold: true, underline: { style: "dotted" }, characterSpacing: { spacing: 20, position: -6 } }, { fontFamily: { ascii: "Cambria" }, fontSize: 22 });
+
+  it("vult het formulier zoals Word", () => {
+    expect(lettertypeFormulier(gelezen)).toMatchObject({
+      familie: "Cambria",
+      stijl: "vet",
+      grootte: 11,
+      onderstreping: "dotted",
+      afstand: "breder",
+      afstandPt: 1,
+      positie: "verlaagd",
+      positiePt: 3,
+      schaal: 100,
+    });
+  });
+
+  it("geeft alleen gewijzigde velden door, met de juiste eenheden", () => {
+    const f = lettertypeFormulier(gelezen);
+    expect(lettertypeWijziging(f, f)).toEqual({});
+    expect(
+      lettertypeWijziging(f, { ...f, stijl: "cursief", afstand: "smaller", afstandPt: 0.5, positie: "verhoogd", positiePt: 2, onderstrepingKleur: "FF0000" }),
+    ).toEqual({ bold: false, italic: true, spacing: -10, position: 4, underline: { style: "dotted", color: "FF0000" } });
+    expect(lettertypeWijziging(f, { ...f, onderstreping: "geen" })).toEqual({ underline: null });
+    expect(lettertypeWijziging(f, { ...f, dubbelDoorhalen: true })).toEqual({ strike: "dubbel" });
+    expect(lettertypeWijziging(f, { ...f, spatieren: true, spatierenVanaf: 14 })).toEqual({ kerning: 28 });
+  });
+
+  it("sluit tegengestelde effecten uit", () => {
+    const f = lettertypeFormulier(gelezen);
+    const n = metEffect(metEffect(f, "superscript", true), "subscript", true);
+    expect([n.superscript, n.subscript]).toEqual([false, true]);
+    const k = metEffect(metEffect(f, "hoofdletters", true), "kleinkapitalen", true);
+    expect([k.hoofdletters, k.kleinkapitalen]).toEqual([false, true]);
   });
 });
 
