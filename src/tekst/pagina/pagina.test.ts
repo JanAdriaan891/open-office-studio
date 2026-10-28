@@ -20,8 +20,10 @@ import {
   verwijderPaginanummers,
   voegPaginanummerIn,
   voegVeldInBijMarkering,
+  zetEerstePaginaAnders,
   zetEvenOnevenAnders,
   zetKopVoetAfstand,
+  zorgVoorKopVoet,
 } from "./kopvoet.ts";
 import {
   STANDAARD_INHOUD,
@@ -161,6 +163,32 @@ describe("kop- en voettekst", () => {
     expect(stand.titelpagina).toBe(true);
   });
 
+  it("zet een sectie-einde op een nieuwe pagina en een doorlopend sectie-einde", () => {
+    const nieuw = voegSectieEindeIn(maakDocx(p(`Een${M}twee`)), M, "nextPage");
+    welgevormd(nieuw);
+    expect(leesSecties(nieuw).map((s) => s.begin)).toEqual(["nextPage", "nextPage"]);
+    const doorlopend = voegSectieEindeIn(maakDocx(p(`Een${M}twee`)), M, "continuous");
+    welgevormd(doorlopend);
+    expect(leesSecties(doorlopend).map((s) => s.begin)).toEqual(["nextPage", "continuous"]);
+  });
+
+  it("maakt bij ‘eerste pagina anders’ en ‘even en oneven’ de ontbrekende onderdelen om te bewerken", () => {
+    const bytes = maakDocx(p("Tekst"));
+    const kop = zorgVoorKopVoet(bytes, 0, "header")!;
+    expect(/<w:sectPr[\s\S]*?<\/w:sectPr>/.exec(doc(kop))![0]).toMatch(/headerReference w:type="default"/);
+    // Al aanwezig: niets te doen.
+    expect(zorgVoorKopVoet(kop, 0, "header")).toBeNull();
+    // Met eerste pagina anders en even/oneven: een lege eerste en even koptekst erbij.
+    const anders = zetEvenOnevenAnders(zetEerstePaginaAnders(kop, "alle", true), true);
+    const uit = zorgVoorKopVoet(anders, 0, "header")!;
+    welgevormd(uit);
+    const sectPr = /<w:sectPr[\s\S]*?<\/w:sectPr>/.exec(doc(uit))![0];
+    expect(sectPr).toMatch(/headerReference w:type="first"/);
+    expect(sectPr).toMatch(/headerReference w:type="even"/);
+    expect(sectPr.match(/headerReference/g)).toHaveLength(3);
+    expect(zorgVoorKopVoet(uit, 0, "header")).toBeNull();
+  });
+
   it("even/oneven, afstand en verwijderen", () => {
     const bytes = maakDocx(p("Tekst"));
     const eo = zetEvenOnevenAnders(bytes, true);
@@ -288,6 +316,35 @@ describe("inhoudsopgave", () => {
       { tekst: "Inleiding", niveau: 1, pagina: "i" },
       { tekst: "Sub deel", niveau: 2, pagina: "ii" },
     ]);
+  });
+
+  it("slaat verwijderde tekst over in de markeringsweergave (bijgehouden wijzigingen)", () => {
+    const k = koppenUitExport({
+      structured: {
+        stories: [
+          {
+            kind: "body",
+            blocks: [
+              {
+                id: "b1",
+                kind: "heading",
+                paragraph: {
+                  styleId: "Heading1",
+                  inlines: [
+                    { kind: "text", text: "Nieuwe" },
+                    { kind: "text", text: " oude", revisions: [{ kind: "deletion" }] },
+                    { kind: "text", text: " kop", revisions: [{ kind: "insertion" }] },
+                  ],
+                },
+                heading: { outlineLevel: 0 },
+              },
+            ],
+          },
+        ],
+      },
+      layout: { pages: [{ pageIndex: 0, displayedLabel: "1" }], fragments: [{ blockId: "b1", pageIndex: 0 }] },
+    });
+    expect(k).toEqual([{ tekst: "Nieuwe kop", niveau: 1, pagina: "1" }]);
   });
 });
 

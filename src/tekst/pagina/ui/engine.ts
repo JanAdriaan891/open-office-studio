@@ -5,7 +5,7 @@
  */
 import type { DocxEditorRef } from "@betteroffice/docx-react";
 import { zichtbaarElement } from "../../../lint/editorApi";
-import { koppenUitExport, type Kop, type PaginaExport } from "../inhoudsopgave.ts";
+import { isVerwijderd, koppenUitExport, type Kop, type PaginaExport } from "../inhoudsopgave.ts";
 import { nieuweMarkering } from "../ooxml.ts";
 
 /** Zet een unieke markering op de cursor (aan het eind van een selectie). */
@@ -13,8 +13,13 @@ export async function zetMarkering(api: DocxEditorRef) {
   const editor = api.getEditorRef();
   const bereik = editor?.getSelectionRange();
   if (!editor || !bereik) return null;
+  if (bereik.from !== bereik.to) {
+    // In een kop- of voettekst zet `setSelection` de cursor op het begin van
+    // het onderdeel (engine): dan liever niets doen dan op de verkeerde plek.
+    if (kopVoetActief()) throw new Error("Hef eerst de selectie op: zet de cursor op de plek in de kop- of voettekst.");
+    editor.setSelection(bereik.to);
+  }
   const markering = nieuweMarkering();
-  editor.setSelection(bereik.to);
   editor.insertText(markering);
   await api.flushPendingInput();
   return {
@@ -37,12 +42,21 @@ export function wachtOpIndeling(api: DocxEditorRef, ms = 8000) {
 
 async function pagedExport(api: DocxEditorRef, stories: ("body" | "footnotes" | "endnotes")[]) {
   await wachtOpIndeling(api);
-  let r = await api.exportStructuredWithPages({ revisionView: "accepted", stories, maxBlocks: 200000 });
+  // Met bijgehouden wijzigingen staan de pagina's in de markeringsweergave en
+  // weigert de engine ‘accepted’ (unsupported-revision-layout): dan die weergave
+  // nemen; verwijderde tekst slaan de lezers hieronder over.
+  let weergave: "accepted" | "markup" = "accepted";
+  const exporteer = () => api.exportStructuredWithPages({ revisionView: weergave, stories, maxBlocks: 200000 });
+  let r = await exporteer();
+  if (!r.ok && r.failure.code === "unsupported-revision-layout") {
+    weergave = "markup";
+    r = await exporteer();
+  }
   for (let poging = 0; poging < 3 && !r.ok && ["stale-document", "layout-unavailable", "stale-layout", "layout-not-converged"].includes(r.failure.code); poging++) {
     // De indeling liep nog achter: even wachten en opnieuw.
     await new Promise((klaar) => setTimeout(klaar, 600));
     await wachtOpIndeling(api, 4000);
-    r = await api.exportStructuredWithPages({ revisionView: "accepted", stories, maxBlocks: 200000 });
+    r = await exporteer();
   }
   if (!r.ok) throw new Error(`De pagina-indeling is niet beschikbaar: ${r.failure.message}`);
   return r.content;
@@ -68,6 +82,7 @@ export interface NootInfo {
 
 interface Inline {
   kind: string;
+  revisions?: { kind: string }[];
   text?: string;
   noteKind?: "footnote" | "endnote";
   noteId?: string;
@@ -85,7 +100,10 @@ interface Blok {
 }
 
 const tekstVan = (inl: Inline[] = []): string =>
-  inl.map((i) => (i.kind === "text" ? (i.text ?? "") : i.kind === "tab" ? " " : tekstVan(i.inlines ?? i.cachedResult?.inlines))).join("");
+  inl
+    .filter((i) => !isVerwijderd(i))
+    .map((i) => (i.kind === "text" ? (i.text ?? "") : i.kind === "tab" ? " " : tekstVan(i.inlines ?? i.cachedResult?.inlines)))
+    .join("");
 
 /** Alle voet- en eindnoten in volgorde van hun verwijzingen, met pagina's. */
 export async function haalNoten(api: DocxEditorRef): Promise<NootInfo[]> {
@@ -110,6 +128,7 @@ export async function haalNoten(api: DocxEditorRef): Promise<NootInfo[]> {
   const tel = { voetnoot: 0, eindnoot: 0 };
   const loopInline = (inl: Inline[], blok: Blok) => {
     for (const i of inl) {
+      if (isVerwijderd(i)) continue;
       if (i.kind === "noteReference" && i.noteId) {
         const soort = i.noteKind === "endnote" ? "eindnoot" : "voetnoot";
         const sleutel = `${i.noteKind}:${i.noteId}`;
@@ -224,4 +243,85 @@ export function sectieStand(api: DocxEditorRef | null) {
     kolommen: s?.columnCount ?? 1,
     marges: s ? { boven: s.marginTop, onder: s.marginBottom, links: s.marginLeft, rechts: s.marginRight } : null,
   };
+}
+
+// ---------------------------------------------------------------------------
+// Cursor en beeld over het herladen heen
+
+/** Waar de gebruiker was: de pagina in beeld en de cursor in de hoofdtekst. */
+export interface Plek {
+  /** 1-gebaseerd; 0 = het beeld niet terugzetten. */
+  pagina: number;
+  cursor: {
+    /** Alinea-index in de hoofdtekst en het aantal alinea's toen. */
+    index: number;
+    aantal: number;
+    /** Afstand (weergaveposities) tot het begin en het eind van de alinea. */
+    vanBegin: number;
+    totEind: number;
+  } | null;
+}
+
+const OVER_HET_EIND = 1e9;
+
+/** Leest de plek vóór het herladen (de cursor alleen in de hoofdtekst). */
+export async function leesPlek(api: DocxEditorRef): Promise<Plek> {
+  const plek: Plek = { pagina: api.getCurrentPage(), cursor: null };
+  try {
+    const editor = api.getEditorRef();
+    const bereik = editor?.getSelectionRange();
+    if (!editor || !bereik || kopVoetActief()) return plek;
+    const loc = editor.displayPositionToYrsLoc(bereik.to);
+    if (!loc || loc.story !== "body") return plek;
+    const begin = editor.yrsLocToDisplayPosition({ ...loc, offset: 0 });
+    const eind = editor.yrsLocToDisplayPosition({ ...loc, offset: OVER_HET_EIND });
+    const lijst = await api.readParagraphs({ story: "body", view: "accepted" });
+    const index = lijst.ok ? lijst.paragraphs.findIndex((p) => p.paraId === loc.paraId) : -1;
+    if (lijst.ok && index >= 0 && begin != null && eind != null)
+      plek.cursor = { index, aantal: lijst.paragraphs.length, vanBegin: bereik.to - begin, totEind: eind - bereik.to };
+  } catch {
+    // Alleen gemak: zonder plek gaat het herladen gewoon door.
+  }
+  return plek;
+}
+
+/** De alinea en de weergavepositie waar de cursor na het herladen hoort. */
+export function cursorDoel(
+  plek: NonNullable<Plek["cursor"]>,
+  aantal: number,
+  vanaf: "begin" | "eind",
+): { index: number; vanBegin?: number; totEind?: number } {
+  const index = Math.min(aantal - 1, Math.max(0, vanaf === "eind" ? aantal - (plek.aantal - plek.index) : plek.index));
+  return vanaf === "eind" ? { index, totEind: plek.totEind } : { index, vanBegin: plek.vanBegin };
+}
+
+/**
+ * Zet de cursor en het beeld terug na het herladen. `vanaf` zegt waar het
+ * document veranderde: "eind" = op of vóór de cursor (bijvoorbeeld iets
+ * ingevoegd op de cursor), dan tellen we vanaf het eind van het document en
+ * van de alinea; "begin" = erna of buiten de hoofdtekst.
+ */
+export async function herstelPlek(api: DocxEditorRef, plek: Plek, vanaf: "begin" | "eind" = "eind") {
+  if (plek.cursor)
+    try {
+      const editor = api.getEditorRef();
+      const lijst = await api.readParagraphs({ story: "body", view: "accepted" });
+      if (editor && lijst.ok && lijst.paragraphs.length) {
+        const doel = cursorDoel(plek.cursor, lijst.paragraphs.length, vanaf);
+        const paraId = lijst.paragraphs[doel.index].paraId;
+        const begin = editor.yrsLocToDisplayPosition({ story: "body", paraId, offset: 0 });
+        const eind = editor.yrsLocToDisplayPosition({ story: "body", paraId, offset: OVER_HET_EIND });
+        if (begin != null && eind != null)
+          editor.setSelection(doel.totEind !== undefined ? Math.max(begin, eind - doel.totEind) : Math.min(eind, begin + (doel.vanBegin ?? 0)));
+      }
+    } catch {
+      // De cursor blijft dan aan het begin staan.
+    }
+  api.focus();
+  // Ook pagina 1: de cursor kan het beeld naar een andere pagina hebben gebracht.
+  // Vlak na de indeling negeert de engine scrollToPage soms: herhalen tot de pagina in beeld is.
+  for (let poging = 0; plek.pagina >= 1 && poging < 12 && api.getCurrentPage() !== plek.pagina; poging++) {
+    api.scrollToPage(plek.pagina);
+    await new Promise((klaar) => setTimeout(klaar, 150));
+  }
 }

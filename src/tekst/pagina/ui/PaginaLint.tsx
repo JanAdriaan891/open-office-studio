@@ -38,6 +38,7 @@ import {
   Columns,
   Square,
   FilePlus2,
+  Stamp,
   type LucideIcon,
 } from "lucide-react";
 import { Groep, type RibbonTab } from "../../../Ribbon";
@@ -90,8 +91,8 @@ export function KopVoetInvoegenGroep({ p }: { p: PaginaFuncties }) {
     <Groep naam="Kop- en voettekst">
       <PaginanummerKnop p={p} />
       <div className="ribbon-stapel">
-        <EigenKnop naam="Koptekst" icoon={PanelTop} uitleg="Koptekst bewerken" disabled={!p.bewerkbaar} onClick={() => p.bewerk("header")} />
-        <EigenKnop naam="Voettekst" icoon={PanelBottom} uitleg="Voettekst bewerken" disabled={!p.bewerkbaar} onClick={() => p.bewerk("footer")} />
+        <EigenKnop naam="Koptekst" icoon={PanelTop} uitleg="Koptekst bewerken" disabled={!p.bewerkbaar && !p.kopVoet} onClick={() => p.bewerk("header")} />
+        <EigenKnop naam="Voettekst" icoon={PanelBottom} uitleg="Voettekst bewerken" disabled={!p.bewerkbaar && !p.kopVoet} onClick={() => p.bewerk("footer")} />
       </div>
     </Groep>
   );
@@ -106,8 +107,8 @@ export function kopVoetTab(p: PaginaFuncties): RibbonTab {
     inhoud: (
       <>
         <Groep naam="Bewerken">
-          <EigenKnop naam="Koptekst bewerken" icoon={PanelTop} groot disabled={!p.bewerkbaar} onClick={() => p.bewerk("header")} />
-          <EigenKnop naam="Voettekst bewerken" icoon={PanelBottom} groot disabled={!p.bewerkbaar} onClick={() => p.bewerk("footer")} />
+          <EigenKnop naam="Koptekst bewerken" icoon={PanelTop} groot disabled={!p.bewerkbaar && !p.kopVoet} onClick={() => p.bewerk("header")} />
+          <EigenKnop naam="Voettekst bewerken" icoon={PanelBottom} groot disabled={!p.bewerkbaar && !p.kopVoet} onClick={() => p.bewerk("footer")} />
         </Groep>
         <Groep naam="Invoegen">
           <PaginanummerKnop p={p} />
@@ -214,6 +215,11 @@ export function PaginaIndelingKnoppen({ p }: { p: PaginaFuncties }) {
   );
 }
 
+/** Watermerk (venster van de engine; zie usePagina voor de wijzigingsmelding). */
+export function WatermerkKnop({ p }: { p: PaginaFuncties }) {
+  return <EigenKnop naam="Watermerk" icoon={Stamp} groot disabled={!p.bewerkbaar} onClick={p.watermerk} />;
+}
+
 export function KolommenGroep({ p }: { p: PaginaFuncties }) {
   const aantal = p.stand().kolommen;
   return (
@@ -235,6 +241,16 @@ export function KolommenGroep({ p }: { p: PaginaFuncties }) {
         ]}
       />
     </Groep>
+  );
+}
+
+/** Sectie-einden op een nieuwe pagina en doorlopend (pakketroute, zie usePagina). */
+export function SectieEindes({ p }: { p: PaginaFuncties }) {
+  return (
+    <div className="ribbon-stapel">
+      <EigenKnop naam="Sectie op nieuwe pagina" icoon={FilePlus2} uitleg={`Nieuwe sectie op de volgende pagina. ${HERLAAD_KORT}`} disabled={!p.bewerkbaar} onClick={() => p.sectieEinde("nextPage")} />
+      <EigenKnop naam="Doorlopende sectie" icoon={Columns2} uitleg={`Nieuwe sectie op dezelfde pagina, bijvoorbeeld voor kolommen. ${HERLAAD_KORT}`} disabled={!p.bewerkbaar} onClick={() => p.sectieEinde("continuous")} />
+    </div>
   );
 }
 

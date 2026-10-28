@@ -179,7 +179,7 @@ export function PaginanummerDialoog({
         </Veld>
         <Veld label="Beginnen bij">
           <span className="werkruimte-eenheid">
-            <input type="text" inputMode="numeric" placeholder="doorlopend" aria-invalid={!startOk} value={start} onChange={(e) => setStart(e.target.value)} />
+            <input type="text" inputMode="numeric" aria-invalid={!startOk} value={start} onChange={(e) => setStart(e.target.value)} />
             <span className="werkruimte-uitleg">leeg = doorlopend</span>
           </span>
         </Veld>
@@ -280,7 +280,16 @@ export function AfstandDialoog({ koptekst, voettekst, bevestig, sluit }: { kopte
       titel="Afstand van kop- en voettekst tot de rand"
       sluit={sluit}
       className="pagina-dialoog"
-      acties={<Knoppen uit={!ok} sluit={sluit} bevestig={() => bevestig({ koptekst: cmNaarTwips(k), voettekst: cmNaarTwips(v) })} />}
+      acties={
+        <Knoppen
+          uit={!ok}
+          sluit={sluit}
+          // Ongewijzigde velden houden hun twips: 708 → "1,25" → 709 zou de waarde ongemerkt verschuiven.
+          bevestig={() =>
+            bevestig({ koptekst: kop === cmTekst(koptekst) ? koptekst : cmNaarTwips(k), voettekst: voet === cmTekst(voettekst) ? voettekst : cmNaarTwips(v) })
+          }
+        />
+      }
     >
       <Veld label="Koptekst vanaf boven">
         <span className="werkruimte-eenheid">
