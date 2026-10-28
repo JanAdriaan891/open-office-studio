@@ -58,6 +58,14 @@ Database Studio opent MDB/ACCDB als SQLite-werkkopie; het origineel wordt nooit 
 
 Markdown (.md) uit Tekst bewaart koppen, lijsten, links, tabellen en basisopmaak als UTF-8-tekst. Paginaopmaak, ingesloten afbeeldingen en revisies vragen een DOCX; een Markdown-export wist daarom de wijzigingsmarkering niet. Afgekapt resultaat wordt geweigerd. Markdown openen is nog niet aangesloten.
 
+## Rapport bij onvolledige ondersteuning
+
+Na het openen staat er één niet-blokkerende melding boven het document als iets niet volledig wordt ondersteund (`src/import/rapport.ts`). Onder **Details** staat per onderdeel wat de app ermee doet, met **Kopiëren** en **Bewaren als tekst** om het rapport bij een foutmelding te voegen.
+
+- Rechtstreeks geopende OOXML: ingebedde objecten, grafieken, onbekende onderdelen en extensies, aangepaste XML, formulier- en ActiveX-besturingselementen, digitale handtekeningen en VBA. Voor rekenbladen ook draaitabellen, slicers, externe koppelingen en gegevensverbindingen. Bij rekenbladen staat erbij dat behoud bij opslaan nog niet gemeten is.
+- Omgezette bestanden: de omzetting zelf en het in de testmatrix aangetoonde verlies.
+- Vóór opslaan toont Opslaan als hetzelfde soort rapport: aangetoond verlies, ongemeten kenmerken (rekenbladen via de runtime), vervallende macro’s of wachtwoordbeveiliging en wat een tekstformaat niet bewaart. Annuleren of Opslaan blijft de keuze; aangetoond engineverlies blijft opslaan in het eigen formaat blokkeren.
+
 ## Gedrag en grenzen
 
 - Import maakt een bewerkbare OOXML-kopie. Het origineel wordt niet overschreven. Opmaak en onbekende onderdelen kunnen wijzigen.

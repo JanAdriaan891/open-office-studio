@@ -13,6 +13,8 @@ import {
   type Uitvoerformaat,
 } from "./formaten";
 import type { OpslaanKeuze } from "./export/bewaar";
+import type { Rapport } from "./import/rapport";
+import { Verliesrapport } from "./import/RapportMelding";
 import type { Codering, Scheidingsteken } from "./export/csv";
 import "./OpslaanAlsDialoog.css";
 
@@ -30,8 +32,8 @@ export interface OpslaanAlsProps {
   naam: string;
   /** Voorgeselecteerd formaat. */
   formaat: string;
-  /** Verliesmelding voor dit formaat en deze route (risicoBeleid), of null. */
-  verlies: (formaat: Uitvoerformaat, route: Route | null) => string | null;
+  /** Verliesrapport voor dit formaat en deze route, of null. */
+  verlies: (formaat: Uitvoerformaat, route: Route | null) => Rapport | null;
   bladen?: { namen: string[]; actief: number } | null;
   dias?: { aantal: number; huidig: number } | null;
   bevestig: (keuze: OpslaanKeuze) => void;
@@ -387,9 +389,10 @@ export function OpslaanAlsDialoog(props: OpslaanAlsProps) {
           </p>
         )}
         {verlies && (
-          <p className="opslaanals-verlies" role="alert">
-            <TriangleAlert size={14} /> {verlies}
-          </p>
+          <Verliesrapport
+            rapport={verlies}
+            bestandsnaam={`${naam.trim() || "Naamloos"}.${props.soort}`}
+          />
         )}
         {gekozen.ext !== props.soort && route && (
           <p className="opslaanals-uitleg">

@@ -1,4 +1,5 @@
 import type { Soort } from "./editors";
+import type { Rapport } from "./import/rapport";
 
 /** Modules die als tabblad openen; van elke module bestaat hooguit één tabblad. */
 export type ModuleNaam = "notities" | "database" | "email";
@@ -16,6 +17,8 @@ export interface DocumentTabblad {
   exportFormaat: string;
   zoom: number | null;
   melding: string;
+  /** Rapport over onvolledige ondersteuning na openen (niet-blokkerend). */
+  rapport: Rapport | null;
 }
 
 export interface ModuleTabblad {
@@ -57,6 +60,7 @@ export type TabbladActie =
       exportFormaat?: string;
       gewijzigd?: boolean;
       melding?: string;
+      rapport?: Rapport | null;
     }
   | { type: "openModule"; module: ModuleNaam }
   | { type: "activeer"; id: number }
@@ -72,7 +76,12 @@ export type TabbladActie =
       wijziging: Partial<
         Pick<
           DocumentTabblad,
-          "gereed" | "gewijzigd" | "exportFormaat" | "zoom" | "melding"
+                    | "gereed"
+          | "gewijzigd"
+          | "exportFormaat"
+          | "zoom"
+          | "melding"
+          | "rapport"
         >
       >;
     };
@@ -176,6 +185,7 @@ export function tabbladReducer(
         exportFormaat: actie.exportFormaat ?? actie.soort,
         zoom: null,
         melding: actie.melding ?? "",
+        rapport: actie.rapport ?? null,
       };
       return {
         ...toestand,

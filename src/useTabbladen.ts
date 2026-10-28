@@ -93,6 +93,7 @@ export function useTabbladen(opties: Opties) {
     exportFormaat?: string;
     gewijzigd?: boolean;
     melding?: string;
+    rapport?: import("./import/rapport").Rapport | null;
   }) {
     const voor = aantalDocumenten(toestandRef.current);
     const na = verwerk({ type: "openDocument", ...document });

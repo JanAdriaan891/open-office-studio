@@ -1,6 +1,11 @@
 import type { Soort } from "../editors";
 import type { BewaarUitkomst } from "../opslag";
-import { controleerPakket, risicoBeleid } from "../pakketcontrole";
+import {
+  controleerPakket,
+  risicoBeleid,
+  type Risico,
+} from "../pakketcontrole";
+import { opslagRapport, type Rapport } from "../import/rapport";
 import {
   converteer,
   kiesRoute,
@@ -29,35 +34,48 @@ export interface OpslaanKeuze {
   bereik?: string;
 }
 
-const BEWERKBAAR = new Set([
-  "eigen",
-  "opendocument",
-  "office-oud",
-  "sjablonen",
-]);
+/** Kenmerken van het geopende document die bij opslaan meetellen. */
+export interface Documentkenmerken {
+  macros?: boolean;
+  versleuteld?: boolean;
+}
 
-/** De verliesmelding die vóór het opslaan in dit formaat hoort, of null. */
+/** Het verliesrapport dat vóór het opslaan in dit formaat hoort, of null. */
+export function verliesrapport(
+  bytes: Uint8Array,
+  soort: Soort,
+  formaat: Uitvoerformaat,
+  route: Route | null,
+  kenmerken: Documentkenmerken & { wachtwoord?: boolean } = {},
+): Rapport | null {
+  let risicos: Risico[] = [];
+  try {
+    risicos = controleerPakket(bytes, soort).risicos;
+  } catch {
+    risicos = [];
+  }
+  return opslagRapport({
+    soort,
+    formaat,
+    route,
+    risicos,
+    macros: kenmerken.macros,
+    wordtOnversleuteld: kenmerken.versleuteld && !kenmerken.wachtwoord,
+  });
+}
+
+/** De verliesmelding als één zin, voor de toelichting na opslaan. */
 export function verliesmelding(
   bytes: Uint8Array,
   soort: Soort,
   formaat: Uitvoerformaat,
   route: Route | null,
+  kenmerken: Documentkenmerken & { wachtwoord?: boolean } = {},
 ) {
-  if (
-    formaat.ext === soort ||
-    route !== "runtime" ||
-    !BEWERKBAAR.has(formaat.groep)
-  )
-    return null;
-  try {
-    return risicoBeleid(
-      controleerPakket(bytes, soort).risicos,
-      soort,
-      "conversie",
-    ).waarschuwing;
-  } catch {
-    return null;
-  }
+  const rapport = verliesrapport(bytes, soort, formaat, route, kenmerken);
+  return rapport
+    ? rapport.regels.map((r) => `${r.onderdeel}: ${r.gevolg}`).join(" ")
+    : null;
 }
 
 function runtimeOpties(keuze: OpslaanKeuze): ConversieOpties | undefined {

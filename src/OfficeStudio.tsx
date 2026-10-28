@@ -26,20 +26,17 @@ import {
   bewaarInFormaat,
   voorlaadExport,
   standaardKeuze,
-  verliesmelding,
+  verliesrapport,
   type OpslaanKeuze,
 } from "./export/bewaar";
 import { editorKoppeling } from "./export/koppeling";
-import { controleerPakket, risicoBeleid } from "./pakketcontrole";
+import { controleerPakket } from "./pakketcontrole";
+import { bereidOpenen } from "./import/openen";
+import { RapportMelding } from "./import/RapportMelding";
 import versie from "../versie.json";
 import openaecSymbool from "./stijl/openaec-symbol.svg";
 import { ThemaKnop, useOfficeThema } from "./stijl/ThemaKnop";
-import {
-  bestandstypen,
-  bestandssoort,
-  converteer,
-  invoerformaten,
-} from "./formaten";
+import { bestandssoort, converteer, invoerformaten } from "./formaten";
 import { opslagMelding } from "./documentOpslaan";
 import { useTabbladen } from "./useTabbladen";
 import { naamloos, titel, vingerafdruk, type Tabblad } from "./tabbladen";
@@ -389,6 +386,7 @@ export function OfficeStudio() {
       vingerafdruk?: string;
       gewijzigd?: boolean;
       melding?: string;
+      rapport?: import("./import/rapport").Rapport | null;
     } = {},
   ) {
     return tabs.openDocument({ soort, naam, bytes, ...extra });
@@ -454,43 +452,20 @@ export function OfficeStudio() {
         const vinger = await vingerafdruk(naam, bytes);
         // Hetzelfde bestand opnieuw openen springt naar het bestaande tabblad.
         if (tabs.openBestaand(vinger)) return;
-        const controle = ext === soort ? controleerPakket(bytes, soort) : null;
-        if (ext === soort && !controle?.strict) {
-          openDocument(soort, naam, bytes, {
-            vingerafdruk: vinger,
-            melding: controle?.macros
-              ? "Dit bestand bevat VBA. Macro’s worden niet uitgevoerd; behoud van VBA bij export is niet gegarandeerd. Bewaar het origineel."
-              : "",
-          });
-          return;
-        }
-        let bronRisico: string | null = null;
-        try {
-          // OOXML-varianten (zoals .docm, .dotx, .pptm) gaan via conversie.
-          bronRisico = risicoBeleid(
-            controleerPakket(bytes, soort).risicos,
-            soort,
-            "conversie",
-          ).waarschuwing;
-        } catch {
-          bronRisico = null;
-        }
-        const omgezet = await converteer(bytes, ext, soort, soort);
-        controleerPakket(omgezet, soort);
+        const resultaat = await bereidOpenen(naam, bytes, { converteer });
+        if (!resultaat) return;
         const { id } = openDocument(
-          soort,
-          naam.replace(/\.[^.]+$/, "") + "." + soort,
-          omgezet,
+          resultaat.soort,
+          resultaat.naam,
+          resultaat.bytes,
           {
             vingerafdruk: vinger,
-            gewijzigd: true,
-            melding:
-              "Geïmporteerd als bewerkbare kopie. Het origineel is behouden. Opmaak kan afwijken; macro’s en actieve inhoud zijn niet uitgevoerd en worden niet overgenomen in deze kopie." +
-              (bronRisico ? " " + bronRisico : ""),
+            gewijzigd: resultaat.gewijzigd,
+            rapport: resultaat.rapport,
           },
         );
-        if (Object.hasOwn(bestandstypen[soort].uitvoer, ext))
-          tabs.werkBij(id, { exportFormaat: ext });
+        if (resultaat.exportFormaat)
+          tabs.werkBij(id, { exportFormaat: resultaat.exportFormaat });
       } catch (error) {
         meld("Openen mislukt: " + String(error));
       }
@@ -729,6 +704,14 @@ export function OfficeStudio() {
             </button>
           </div>
         )}
+        {actiefDocument?.rapport && (
+          <RapportMelding
+            key={actiefDocument.id}
+            rapport={actiefDocument.rapport}
+            bestandsnaam={actiefDocument.naam}
+            sluit={() => tabs.werkBij(actiefDocument.id, { rapport: null })}
+          />
+        )}
         {actiefDocument?.soort === "docx" &&
           actiefDocument.exportFormaat === "md" && (
             <div className="office-exportuitleg" role="note">
@@ -924,7 +907,7 @@ export function OfficeStudio() {
             opslaanDocument.exportFormaat
           }
           verlies={(formaat, route) =>
-            verliesmelding(
+            verliesrapport(
               opslaanDocument.bytes,
               opslaanDocument.soort,
               formaat,

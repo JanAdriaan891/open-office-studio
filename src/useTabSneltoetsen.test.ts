@@ -23,6 +23,7 @@ const document = (soort: "docx" | "xlsx"): Tabblad => ({
   exportFormaat: soort,
   zoom: 1,
   melding: "",
+  rapport: null,
 });
 const context = (actief: Tabblad | null = document("docx")) => ({
   actief,

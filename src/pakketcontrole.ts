@@ -14,7 +14,13 @@ export type Risico =
   | "animaties"
   | "overgangen"
   | "ingebedde_objecten"
-  | "grafieken";
+  | "grafieken"
+  | "besturingselementen"
+  | "handtekening"
+  | "draaitabellen"
+  | "slicers"
+  | "externe_koppelingen"
+  | "gegevensverbindingen";
 
 /** Route waarlangs de app een bestand wegschrijft. */
 export type Opslagroute = "engine" | "conversie";
@@ -57,7 +63,18 @@ const RISICONAMEN: Record<Risico, string> = {
   overgangen: "overgangen",
   ingebedde_objecten: "ingebedde objecten",
   grafieken: "grafieken",
+  besturingselementen: "formulier- of ActiveX-besturingselementen",
+  handtekening: "een digitale handtekening",
+  draaitabellen: "draaitabellen",
+  slicers: "slicers of tijdlijnen",
+  externe_koppelingen: "koppelingen naar externe werkmappen",
+  gegevensverbindingen: "gegevensverbindingen of query's",
 };
+
+/** Leesbare naam van een risico, voor rapporten. */
+export function risiconaam(risico: Risico) {
+  return RISICONAMEN[risico];
+}
 
 /** Bekende naamruimten en relatietypen; al het andere telt als onbekend. */
 const BEKEND =
@@ -96,6 +113,18 @@ function risicosVan(
   if (heeft(/^customXml\//)) risicos.add("custom_xml");
   if (heeft(/^(word|ppt|xl)\/embeddings\//)) risicos.add("ingebedde_objecten");
   if (heeft(/^(word|ppt|xl)\/charts\//)) risicos.add("grafieken");
+  if (heeft(/^(word|ppt|xl)\/(activeX|ctrlProps)\//))
+    risicos.add("besturingselementen");
+  if (heeft(/^_xmlsignatures\//) || heeft(/(^|\/)vbaProjectSignature\w*\.bin$/i))
+    risicos.add("handtekening");
+  if (soort === "xlsx") {
+    if (heeft(/^xl\/(pivotTables|pivotCache)\//)) risicos.add("draaitabellen");
+    if (heeft(/^xl\/(slicers|slicerCaches|timelines|timelineCaches)\//))
+      risicos.add("slicers");
+    if (heeft(/^xl\/externalLinks\//)) risicos.add("externe_koppelingen");
+    if (heeft(/^xl\/(connections\.xml$|queryTables\/)/))
+      risicos.add("gegevensverbindingen");
+  }
   if (soort === "docx") {
     const doc = hoofdtekst[0];
     if (/<(?:\w+:)?(?:ins|del|moveFrom|moveTo)[\s/>]/.test(doc))
