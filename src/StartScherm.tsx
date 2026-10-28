@@ -16,6 +16,8 @@ import {
   Send,
   Settings,
   Keyboard,
+  Save,
+  Printer,
 } from "lucide-react";
 import type { Soort } from "./editors";
 import { toonInstellingen, toonSneltoetsen } from "./werkruimte/gebeurtenissen";
@@ -106,6 +108,8 @@ export function StartScherm({
   openNotities,
   openEmail,
   bewaar,
+  opslaan,
+  afdrukken,
   info,
   verzend,
   voorbeeld,
@@ -122,6 +126,10 @@ export function StartScherm({
   openNotities: () => void;
   openEmail: () => void;
   bewaar?: () => void;
+  /** Opslaan (Ctrl+S) van het open document, in het laatst gekozen formaat. */
+  opslaan?: () => void;
+  /** Afdrukvoorbeeld en afdrukken (Ctrl+P) van het open document. */
+  afdrukken?: () => void;
   /** Bestand › Info (eigenschappen, inspecteren) voor het open tekstdocument. */
   info?: () => void;
   /** "Verzenden als bijlage" voor het open document. */
@@ -152,10 +160,22 @@ export function StartScherm({
             <FolderOpen size={18} />
             Openen
           </button>
+          {opslaan && (
+            <button disabled={bezig} onClick={opslaan} title="Opslaan · Ctrl+S">
+              <Save size={18} />
+              Opslaan
+            </button>
+          )}
           {bewaar && (
-            <button disabled={bezig} onClick={bewaar}>
+            <button disabled={bezig} onClick={bewaar} title="Opslaan als · F12 of Ctrl+Shift+S">
               <HardDrive size={18} />
               Opslaan als
+            </button>
+          )}
+          {afdrukken && (
+            <button disabled={bezig} onClick={afdrukken} title="Afdrukvoorbeeld en afdrukken · Ctrl+P">
+              <Printer size={18} />
+              Afdrukken
             </button>
           )}
           {info && (

@@ -24,6 +24,7 @@ import { toonDocumentInfo } from "./tekst/info/winkel";
 import { VerlaatDialoog } from "./VerlaatDialoog";
 import { OpslaanAlsDialoog } from "./OpslaanAlsDialoog";
 import { AfdrukvoorbeeldHost } from "./afdrukken/AfdrukvoorbeeldHost";
+import { vraagAfdrukvoorbeeld } from "./afdrukken/openen";
 import {
   bewaarInFormaat,
   voorlaadExport,
@@ -1056,6 +1057,20 @@ export function OfficeStudio() {
               bewaar={
                 vorigDocument?.gereed
                   ? () => openOpslaanAls(vorigDocument.id)
+                  : undefined
+              }
+              opslaan={
+                vorigDocument?.gereed
+                  ? () => void opslaan(vorigDocument.id)
+                  : undefined
+              }
+              afdrukken={
+                vorigDocument?.gereed
+                  ? () => {
+                      // Eerst terug naar het document: het voorbeeld drukt de zichtbare editor af.
+                      wissel(vorigDocument.id, true);
+                      requestAnimationFrame(() => vraagAfdrukvoorbeeld());
+                    }
                   : undefined
               }
               info={
