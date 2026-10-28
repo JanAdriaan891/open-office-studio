@@ -16,6 +16,8 @@ import { useSneltoetsen, type Sneltoets } from "./sneltoetsen";
 import { toetsInProfiel } from "./sneltoetsenlijst";
 import { useInstellingen } from "../instellingen";
 import { useProfielToets } from "../tekst/bewerken/profielToets";
+import { ontbrekendeStijl } from "../tekst/stijlen/model";
+import { metHeleAlinea } from "../tekst/stijlen/toepassen";
 import {
   selectieBegin,
   specialeTekens,
@@ -285,7 +287,13 @@ export function useTekstOpdrachten({
   }
 
   function stijl(styleId: string) {
-    voerUit("paragraphStyle", { styleId });
+    const ontbreekt = ontbrekendeStijl(api()?.getDocument()?.package.styles, styleId);
+    if (ontbreekt) return meld(ontbreekt);
+    metHeleAlinea(api(), () => opdrachten.execute("paragraphStyle", { styleId }))
+      .then((resultaat) => {
+        if (!resultaat.ok) meld(resultaat.failure.message);
+      })
+      .catch(fout);
   }
 
   function toonStijlen() {

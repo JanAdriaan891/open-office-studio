@@ -113,11 +113,14 @@ import {
   TekstBewerken,
 } from "../tekst/bewerken/TekstBewerken";
 import { StijlBeheerGroep, StijlenBeheer, StijlGalerij } from "../tekst/stijlen";
+import { AlineastijlKeuze } from "../tekst/stijlen/StijlKeuze";
 import { TekstInfo } from "../tekst/info/TekstInfo";
 import { WeergaveGroep } from "../tekst/info/WeergaveGroep";
 import "./tekst.css";
 
 type Opdrachten = ReturnType<typeof useTekstOpdrachten>;
+/** Regelafstand "1.15" uit de engine als "1,15". */
+const decimaleKomma = (label: string) => label.replace(".", ",");
 
 const hoofdletterKnoppen: {
   soort: Hoofdlettersoort | "rouleren";
@@ -233,7 +236,7 @@ function Stijlen({ uitgebreid }: { uitgebreid?: boolean }) {
   return (
     <StijlGalerij
       uitgebreid={uitgebreid}
-      extra={<WK id="paragraphStyle" naam="Alle stijlen" breed />}
+      extra={<AlineastijlKeuze naam="Alle stijlen" breed />}
     />
   );
 }
@@ -662,7 +665,7 @@ export function TekstRibbon({
                 <OpmaakWissen />
                 <TekstAlinea />
                 <Groep naam="Regelafstand">
-                  <WK id="lineSpacing" naam="Regelafstand" breed />
+                  <WK id="lineSpacing" naam="Regelafstand" breed vertaal={decimaleKomma} />
                 </Groep>
                 <Groep naam="Tekstrichting">
                   <div className="ribbon-stapel">
@@ -737,7 +740,7 @@ export function TekstRibbon({
                 </Groep>
                 <AfstandGroep />
                 <Groep naam="Regelafstand">
-                  <WK id="lineSpacing" naam="Regelafstand" breed />
+                  <WK id="lineSpacing" naam="Regelafstand" breed vertaal={decimaleKomma} />
                 </Groep>
               </>
             ),

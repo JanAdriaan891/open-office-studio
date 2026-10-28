@@ -39,6 +39,7 @@ import {
 import { herlaadMetStijlen, type StijlBewerking, type StijlOnderdelen } from "./pakket";
 import { wijzigStijl, type StijlEigenschappen } from "./stijlenxml";
 import { StijlEditor } from "./StijlEditor";
+import { metHeleAlinea } from "./toepassen";
 import { StijlenVenster } from "./StijlenVenster";
 import { StijlSets } from "./StijlSets";
 import { Bevestiging } from "./Bevestiging";
@@ -270,8 +271,7 @@ export function StijlenBeheer({ children }: { children: ReactNode }) {
         tekenstijl(ref, stijlen, styleId, thema);
         return;
       }
-      void opdrachten
-        .execute("paragraphStyle", { styleId })
+      void metHeleAlinea(ref, () => opdrachten.execute("paragraphStyle", { styleId }))
         .then((resultaat) => {
           if (resultaat.ok) return;
           // Stijlen buiten de lijst van de engine: per alinea via de ref.
