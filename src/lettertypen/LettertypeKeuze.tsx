@@ -5,6 +5,7 @@
  * `fontFamily`, dus ongedaan maken en de editorstatus werken als gewoonlijk.
  */
 import { useContext, useEffect, useId, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { ChevronDown } from "lucide-react";
 import { RibbonFout, type GebondenOpdracht } from "../Ribbon";
 import {
@@ -74,6 +75,7 @@ export function LettertypeKeuze({
   const [zoek, setZoek] = useState("");
   const [, setVersie] = useState(0);
   const [actief, setActief] = useState(0);
+  const [plek, setPlek] = useState({ top: 0, left: 0 });
   const knop = useRef<HTMLButtonElement>(null);
   const zoekveld = useRef<HTMLInputElement>(null);
   const lijst = useRef<HTMLUListElement>(null);
@@ -135,13 +137,24 @@ export function LettertypeKeuze({
         title={naam}
         disabled={!opdracht.state.enabled}
         style={{ fontFamily: huidig ? `"${huidig}", Inter, sans-serif` : undefined }}
-        onClick={() => setOpen(!open)}
+        onClick={() => {
+          const r = knop.current?.getBoundingClientRect();
+          if (r) setPlek({ top: r.bottom + 4, left: Math.max(4, Math.min(r.left, window.innerWidth - 268)) });
+          setOpen(!open);
+        }}
       >
         <span>{huidig || naam}</span>
       </button>
       <ChevronDown size={12} />
-      {open && (
-        <div className="lettertypekeuze-paneel" role="dialog" aria-label={naam}>
+      {open &&
+        createPortal(
+        <div
+          className="lettertypekeuze-paneel"
+          role="dialog"
+          aria-label={naam}
+          data-lettertypekeuze={id}
+          style={{ top: plek.top, left: plek.left }}
+        >
           <input
             ref={zoekveld}
             type="search"
@@ -208,7 +221,8 @@ export function LettertypeKeuze({
               Lettertypen van deze computer tonen…
             </button>
           )}
-        </div>
+        </div>,
+        document.body,
       )}
     </div>
   );

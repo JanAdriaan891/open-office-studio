@@ -30,10 +30,8 @@
   color: #89909b;
 }
 .lettertypekeuze-paneel {
-  position: absolute;
-  top: calc(100% + 4px);
-  left: 0;
-  z-index: 50;
+  position: fixed;
+  z-index: 1100;
   width: 260px;
   max-height: 380px;
   display: flex;
