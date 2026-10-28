@@ -12,6 +12,7 @@ import {
   type Uitvoerformaat,
 } from "../formaten";
 import type { Codering, Scheidingsteken } from "./csv";
+import type { AppPdfKeuze } from "./PdfOpties";
 
 /** Wat de gebruiker in Opslaan als heeft gekozen. */
 export interface OpslaanKeuze {
@@ -34,6 +35,8 @@ export interface OpslaanKeuze {
    * geheugen van deze sessie; wordt nooit bewaard of gelogd.
    */
   wachtwoord?: string;
+  /** PDF uit de app zelf: kwaliteit en inhoud. */
+  pdf?: AppPdfKeuze;
 }
 
 /** Kenmerken van het geopende document die bij opslaan meetellen. */
@@ -171,6 +174,8 @@ export async function bewaarInFormaat(
       dia: keuze.dia,
       scheidingsteken: keuze.scheidingsteken,
       codering: keuze.codering,
+      pdf: keuze.pdf,
+      bereik: keuze.bereik,
     });
     uitvoer = resultaat.bytes;
     mime = resultaat.mime;
@@ -226,6 +231,19 @@ const MACRO_MIME: Record<Soort, string> = {
   xlsx: "application/vnd.ms-excel.sheet.macroEnabled.12",
   pptx: "application/vnd.ms-powerpoint.presentation.macroEnabled.12",
 };
+
+/**
+ * Bewaart bytes als bestand: in de desktopapp via de opslagdialoog (geeft het
+ * pad, of null bij annuleren), in de browser als download (geeft "").
+ */
+export async function bewaarUitvoer(
+  uitvoer: Uint8Array,
+  bestandsnaam: string,
+  mime: string,
+): Promise<string | null> {
+  const { bewaarBytes } = await laad(() => import("../afdrukken/bewaren"));
+  return bewaarBytes(uitvoer, bestandsnaam, mime);
+}
 
 const EIGEN_MIME: Record<Soort, string> = {
   docx: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",

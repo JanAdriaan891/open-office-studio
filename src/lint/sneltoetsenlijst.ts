@@ -112,7 +112,8 @@ export const vasteSneltoetsen: readonly SneltoetsInfo[] = [
   tekst("Ctrl+F12", "Tabel invoegen"),
   tekst("Ctrl+Alt+C", "Opmerking invoegen"),
   tekst("Ctrl+Shift+C", "Wijzigingen bijhouden aan of uit"),
-  tekst("Ctrl+P", "Afdrukken"),
+  tekst("Ctrl+P", "Afdrukken (afdrukvoorbeeld)"),
+  tekst("Ctrl+Shift+O", "Afdrukvoorbeeld"),
   tekst("F5", "Navigatievenster"),
   tekst("Ctrl+Shift+R", "Liniaal tonen of verbergen"),
   tekst("F11", "Alle stijlen"),
@@ -153,7 +154,8 @@ export const vasteSneltoetsen: readonly SneltoetsInfo[] = [
   rekenblad("Ctrl+H", "Zoeken en vervangen"),
   rekenblad("F5", "Ga naar"),
   rekenblad("Ctrl+Shift+F5", "Ga naar"),
-  rekenblad("Ctrl+P", "Afdrukken"),
+  rekenblad("Ctrl+P", "Afdrukken (afdrukvoorbeeld en pagina-indeling)"),
+  rekenblad("Ctrl+Shift+O", "Afdrukvoorbeeld"),
   rekenblad("Alt+F1", "Grafiek op dit blad"),
   rekenblad("F11", "Grafiek op een nieuw blad"),
   // Rekenblad: engine (@betteroffice/xlsx-react).
@@ -181,6 +183,9 @@ export const vasteSneltoetsen: readonly SneltoetsInfo[] = [
   presentatie("Ctrl+Shift+Home", "Dia naar het begin"),
   presentatie("Ctrl+Shift+End", "Dia naar het einde"),
   presentatie("Delete", "Vorm of dia verwijderen"),
+  // Presentatie: afdrukvoorbeeld van de app (src/afdrukken/AfdrukvoorbeeldHost.tsx).
+  { toets: "Ctrl+P", omschrijving: "Afdrukken: dia's, hand-outs of notitiepagina's", module: "presentatie", bron: "app" },
+  { toets: "Ctrl+Shift+O", omschrijving: "Afdrukvoorbeeld", module: "presentatie", bron: "app" },
   // Presentatie: engine (@betteroffice/pptx-react).
   presentatieEngine("Ctrl+B", "Vet"),
   presentatieEngine("Ctrl+I", "Cursief"),

@@ -13,8 +13,9 @@ DOCX, XLSX en PPTX werken rechtstreeks in de editors. De andere invoerextensies 
 Open het venster Opslaan als met de knop in de kopbalk, met F12 of met Ctrl+Shift+S. Daarin kies je de bestandsnaam en het formaat. Elk formaat toont wat er behouden blijft en hoe het gemaakt wordt:
 
 - **in de app**: de app maakt het bestand zelf met de engines, ook in de browser en zonder runtime;
-- **via kantoorruntime**: de desktopapp converteert met LibreOffice;
-- **via Afdrukken**: PDF zonder runtime.
+- **via kantoorruntime**: de desktopapp converteert met LibreOffice.
+
+PDF maakt de app zelf (ook in de browser). Met een kantoorruntime kun je in het venster kiezen voor "Via de kantoorruntime" (PDF/A, koppen als bladwijzers).
 
 Alleen het eigen formaat (DOCX/XLSX/PPTX) haalt de markering "gewijzigd" weg. Elk ander formaat is een kopie: het document blijft als gewijzigd gemarkeerd tot het in het eigen formaat is bewaard. Het venster legt dat uit. Bij een conversie naar een bewerkbaar formaat staat de verliesmelding van de pakketcontrole (`risicoBeleid`) al vóór het opslaan in het venster. Opslaan als in het eigen formaat maakt van het gekozen bestand het nieuwe werkbestand van het tabblad.
 
@@ -34,10 +35,10 @@ Alleen het eigen formaat (DOCX/XLSX/PPTX) haalt de markering "gewijzigd" weg. El
 | Sjablonen | DOTX, DOT, OTT | XLTX, XLT, OTS | POTX, POT, OTP |
 | Macro-ingeschakeld | DOCM (app)³ | XLSM (app)³ | PPTM (app)³ |
 | Web en tekst | RTF, TXT¹, HTML¹, XHTML, EPUB, MD (app) | CSV (app), TSV (app), HTML¹, DIF, SLK, MD (app) | HTML (app), MD (app) |
-| PDF en afbeelding | PDF², PNG (eerste pagina) | PDF², PNG (app, één blad) | PDF², PNG (app, gekozen dia) |
+| PDF en afbeelding | PDF (app²), PNG (eerste pagina) | PDF (app²), PNG (app, één blad) | PDF (app²: dia's, notitiepagina's of hand-outs), PNG (app, gekozen dia) |
 
 ¹ Via de runtime; zonder runtime maakt de app een eenvoudige, gesaneerde versie uit de documentstructuur.
-² Via de runtime, met keuze voor PDF/A-1b/2b/3b, een pagina- of diabereik en (tekst) koppen als bladwijzers. Zonder runtime gaat het via Afdrukken → "Opslaan als PDF".
+² De app maakt de PDF zelf, met dezelfde pagina's als het afdrukvoorbeeld; kies een paginabereik en de beeldkwaliteit. Met de runtime kan het ook via LibreOffice, met keuze voor PDF/A-1b/2b/3b en (tekst) koppen als bladwijzers.
 
 ³ Alleen voor een document dat als macrobestand is geopend; het VBA-project van het origineel gaat byte-identiek terug.
 
@@ -61,7 +62,8 @@ Niet opgenomen:
   - tekst die met `=`, `+`, `-`, `@`, een tab of een regeleinde begint krijgt een apostrof (bescherming tegen CSV-injectie, net als in Database Studio). Echte getallen blijven ongewijzigd.
 - **TXT en HTML** (tekst): uit de Markdown van de documentkern, gesaneerd weergegeven. HTML is één bestand zonder scripts of externe bronnen, met een strikt Content-Security-Policy. Rekenblad-HTML is per blad een tabel met samengevoegde cellen. Presentatie-HTML bevat de tekst per dia.
 - **PNG**: het gebruikte bereik van een rekenblad via de engine (`renderRangePng`), of de gekozen dia (standaard de huidige) via dezelfde tekenroutine als de editor (`slideToPng`).
-- **PDF via Afdrukken**: het afdrukvenster van de editor. Een presentatie wordt afgedrukt als één dia per liggende pagina. Kies in het afdrukvenster de printer "Opslaan als PDF" (Windows: "Microsoft Print to PDF").
+- **PDF (app)**: een eigen PDF-schrijver (`src/export/pdf/`). Elke pagina van het afdrukvoorbeeld wordt een beeld in hoge resolutie (JPEG 150/200 dpi of verliesvrij 300 dpi) met daarover een onzichtbare tekstlaag in een ingesloten, glyphloos TrueType-lettertype met ToUnicode-tabel. Zo is de PDF gelijk aan het voorbeeld en de afdruk, en blijft tekst selecteerbaar en doorzoekbaar. Daarnaast: klikbare koppelingen (http, mailto, tel), bladwijzers (bladen, dia's) en documenteigenschappen (titel, auteur, onderwerp, trefwoorden) in Info en XMP. Tekst-pagina's komen uit de afdrukroutine van de editor (192 dpi), rekenbladen volgen de pagina-indeling van elk blad (afdrukbereik, schaal), presentaties als dia's, notitiepagina's of hand-outs. Nog niet: vectortekst met ingesloten lettertypesubsets, PDF/A en opmerkingen in de PDF (gebruik daarvoor de runtime). Proef: `node scripts/test-pdf-zonder-runtime.mjs`.
+- **Afdrukken**: Ctrl+P (of Ctrl+Shift+O, of de knop Afdrukken) opent het afdrukvoorbeeld met paginabereik, exemplaren en de instellingen per module; afdrukken gebruikt precies die pagina's, elk op de eigen papiermaat.
 
 Database Studio opent MDB/ACCDB als SQLite-werkkopie; het origineel wordt nooit overschreven. De werkkopie kan als SQLite (.sqlite) worden bewaard en heropend, tabellen en queryresultaten als CSV, query’s als SQL en VBA-modules als BAS. Terugschrijven naar MDB/ACCDB wordt niet ondersteund.
 
@@ -176,3 +178,7 @@ Zonder `OPENAEC_CONVERSIE_PROFIEL` krijgt elke conversie een nieuw tijdelijk pro
 Met `OPENAEC_CONVERSIE_PROFIEL` gebruik je een eigen profielbestand. Tijdslimiet (45 s, daarna wordt de procesgroep gestopt) en groottegrens (100 MB in en uit) gelden altijd.
 
 Zonder runtime werken DOCX, XLSX en PPTX gewoon, net als alle routes "in de app". Andere formaten geven dan een duidelijke melding, met in de desktopapp de knop om het programma te kiezen.
+
+## Lettertypen
+
+De app meet en tekent met echte lettertypebestanden. Volgorde: een meegeleverd lettertype met precies die naam (`public/fonts`), dan het lettertype van deze computer (desktop: opgesomd en gelezen met de Rust-crate `fontdb` 0.24, MIT; losse TrueType/OpenType tot 40 MB, geen .ttc-verzamelingen; browser: `queryLocalFonts` na toestemming), dan een metrisch gelijkwaardige vervanger: Calibri → Carlito, Cambria → Caladea, Arial/Helvetica → Liberation Sans, Times New Roman → Liberation Serif, Courier New → Liberation Mono, Georgia → Gelasio, Comic Sans MS → Comic Relief, en benaderingen voor onder meer Segoe UI, Verdana en Aptos (`src/lettertypen/vervanging.ts`). Ontbreekt een lettertype uit het document, dan meldt het tabblad welke lettertypen zijn vervangen. In het bestand blijven de oorspronkelijke namen staan. De lettertypekeuze in het lint toont elk lettertype in zijn eigen vorm, met recent gebruikte lettertypen bovenaan en een zoekveld.

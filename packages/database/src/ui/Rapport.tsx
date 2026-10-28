@@ -1,15 +1,29 @@
 /**
  * Rapportontwerper (bron, velden, groeperen, sorteren, totalen, kop/voet) en
- * afdrukvoorbeeld. Afdrukken en PDF gaan via de printdialoog van de browser
- * (`window.print`) met print-CSS die alleen het rapport toont.
+ * afdrukvoorbeeld. Afdrukken en PDF gaan via het gedeelde afdrukvoorbeeld van
+ * Office Studio: dezelfde pagina's op papier en in de PDF.
  */
-import { useEffect, useId, useMemo, useState } from "react";
+import { Suspense, lazy, useEffect, useId, useMemo, useState } from "react";
 import { ArrowDown, ArrowUp, Eye, Pencil, Plus, Printer, Save, Trash2 } from "lucide-react";
 import type { QueryResultaat, Veldsoort, Werkkopie } from "../werkkopie/contract.ts";
 import { leesbareFout, toonWaarde } from "./invoer.ts";
 import { bouwRapport, FUNCTIENAMEN, type RapportDefinitie, type Totaal, type Totaalfunctie } from "./rapport-logica.ts";
 import { kolommenVan, laadBron } from "./bron.ts";
 import { useDialogen } from "./Dialoog.tsx";
+import type { AfdrukBron } from "../../../../src/afdrukken/bron";
+import type { RapportTabel } from "../../../../src/afdrukken/bronRapport";
+
+const Afdrukvoorbeeld = lazy(() => import("../../../../src/afdrukken/Afdrukvoorbeeld"));
+
+function totaalTekst(totalen: Totaal[], kolom: string, soort: Veldsoort | null) {
+  return totalen
+    .filter((t) => t.veld.toLowerCase() === kolom.toLowerCase())
+    .map(
+      (t) =>
+        `${FUNCTIENAMEN[t.functie]} ${t.waarde === null ? "–" : t.functie === "aantal" ? t.waarde.toLocaleString("nl-NL") : toonWaarde(Math.round(t.waarde * 100) / 100, soort === "valuta" ? "valuta" : "getal")}`,
+    )
+    .join(" · ");
+}
 
 export function RapportOntwerper({
   werkkopie,
@@ -339,25 +353,58 @@ export function RapportVoorbeeld({
   };
   const groepSoort = definitie.groepeer ? soortVan(data?.kolommen.find((k) => k.toLowerCase() === definitie.groepeer!.toLowerCase()) ?? "") : null;
 
-  function afdrukken() {
-    const stijl = document.createElement("style");
-    stijl.textContent = `@page { size: A4 ${definitie.liggend ? "landscape" : "portrait"}; margin: 14mm; }`;
-    document.head.append(stijl);
-    document.body.classList.add("database-afdrukken");
-    const opruimen = () => {
-      stijl.remove();
-      document.body.classList.remove("database-afdrukken");
-      window.removeEventListener("afterprint", opruimen);
+  const [voorbeeld, setVoorbeeld] = useState(false);
+  const [afdrukMelding, setAfdrukMelding] = useState("");
+
+  const afdrukbron = useMemo<AfdrukBron | null>(() => {
+    if (!rapport || !data) return null;
+    const soorten = rapport.kolommen.map((k) => soortVan(k));
+    const tabel: RapportTabel = {
+      titel: definitie.titel || naam,
+      kop: definitie.kop || undefined,
+      voet: definitie.voet || undefined,
+      voetRechts: `${rapport.aantal.toLocaleString("nl-NL")} records · ${new Date().toLocaleDateString("nl-NL")}${data.afgekapt ? " · afgekapt op 50.000 records" : ""}`,
+      kolommen: rapport.kolommen,
+      rechts: rapport.indexen.map((idx) => {
+        const soort = data.kolomsoorten?.[idx];
+        return soort === "getal" || soort === "valuta" || typeof rapport.groepen[0]?.rijen[0]?.[idx] === "number";
+      }),
+      secties: rapport.groepen.map((g) => ({
+        kop:
+          g.sleutel !== undefined
+            ? `${definitie.groepeer}: ${g.sleutel === null ? "(leeg)" : toonWaarde(g.sleutel, groepSoort)}`
+            : undefined,
+        rijen: g.rijen.map((rij) => rapport.indexen.map((idx) => toonWaarde(rij[idx], data.kolomsoorten?.[idx] ?? null))),
+        totaal:
+          g.sleutel !== undefined && g.totalen.length
+            ? rapport.kolommen.map((k, i) => totaalTekst(g.totalen, k, soorten[i]))
+            : undefined,
+      })),
+      eindtotaal: rapport.eindtotalen.length
+        ? rapport.kolommen.map((k, i) => totaalTekst(rapport.eindtotalen, k, soorten[i]))
+        : undefined,
     };
-    window.addEventListener("afterprint", opruimen);
-    window.print();
-    setTimeout(opruimen, 1000);
+    return {
+      soort: "rapport",
+      titel: tabel.titel,
+      stand: definitie.liggend ? "liggend" : "staand",
+      maak: async (stand) => {
+        const { rapportPaginas } = await import("../../../../src/afdrukken/bronRapport");
+        return rapportPaginas(tabel, stand);
+      },
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [rapport, data, definitie, naam]);
+
+  async function bewaarPdf(bytes: Uint8Array, bestandsnaam: string, mime: string) {
+    const { bewaarBytes } = await import("../../../../src/afdrukken/bewaren");
+    return bewaarBytes(bytes, bestandsnaam, mime, { terugvalDownload: true });
   }
 
   return (
     <div className="database-rapportvoorbeeld">
       <div className="database-werkbalk" role="toolbar" aria-label="Afdrukvoorbeeld">
-        <button className="primary" onClick={afdrukken} disabled={!rapport}>
+        <button className="primary" onClick={() => setVoorbeeld(true)} disabled={!afdrukbron}>
           <Printer size={16} /> Afdrukken of PDF
         </button>
         {onOntwerp && (
@@ -365,8 +412,19 @@ export function RapportVoorbeeld({
             <Pencil size={16} /> Ontwerp
           </button>
         )}
-        <span className="muted">Kies in de printdialoog “Opslaan als PDF” voor een PDF-bestand.</span>
+        <span className="muted">Afdrukvoorbeeld met afdrukken en PDF (zelfde pagina’s).</span>
       </div>
+      {afdrukMelding && <p role="status">{afdrukMelding}</p>}
+      {voorbeeld && afdrukbron && (
+        <Suspense fallback={null}>
+          <Afdrukvoorbeeld
+            bron={afdrukbron}
+            sluit={() => setVoorbeeld(false)}
+            meld={setAfdrukMelding}
+            bewaar={bewaarPdf}
+          />
+        </Suspense>
+      )}
       {fout && (
         <p className="melding fout" role="alert">
           {fout}

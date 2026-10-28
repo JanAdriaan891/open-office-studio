@@ -22,6 +22,7 @@ import "./office.css";
 import { StartScherm, modules } from "./StartScherm";
 import { VerlaatDialoog } from "./VerlaatDialoog";
 import { OpslaanAlsDialoog } from "./OpslaanAlsDialoog";
+import { AfdrukvoorbeeldHost } from "./afdrukken/AfdrukvoorbeeldHost";
 import {
   bewaarInFormaat,
   voorlaadExport,
@@ -149,6 +150,10 @@ export function OfficeStudio() {
     },
   });
   const { toestand, actief, meld } = tabs;
+  const meldActief = useCallback(
+    (tekst: string) => meld(tekst, tabs.toestandRef.current.actief ?? undefined),
+    [meld, tabs.toestandRef],
+  );
   const actiefDocument = actief?.type === "document" ? actief : null;
   const documentGereed = !!actiefDocument?.gereed;
   useEffect(() => {
@@ -396,10 +401,6 @@ export function OfficeStudio() {
     try {
       const { drukAf } = await import("./export");
       await drukAf(soort);
-      meld(
-        "Kies in het afdrukvenster ‘Opslaan als PDF’ als printer. Het document blijft als gewijzigd gemarkeerd tot je het in het eigen formaat bewaart.",
-        id,
-      );
     } catch (e) {
       meld("Afdrukken mislukt: " + String(e), id);
     }
@@ -1095,6 +1096,7 @@ export function OfficeStudio() {
           vorigeFocus={vorigeFocus.current}
         />
       )}
+      <AfdrukvoorbeeldHost meld={meldActief} />
       <Werkruimtehulp soort={actiefDocument?.soort ?? actieveModule} />
       {herstel.dialoog}
       {neerzetzone}

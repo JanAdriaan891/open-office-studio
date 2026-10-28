@@ -50,8 +50,11 @@ import {
   StickyNote,
   Play,
   X,
+  Printer,
+  NotebookText,
 } from "lucide-react";
 import {
+  Actie,
   Ribbon,
   Groep,
   OpdrachtKleur,
@@ -59,7 +62,7 @@ import {
   OpdrachtKnop,
 } from "../Ribbon";
 import { useDocumentZoom, type ZoomKoppeling } from "../useDocumentZoom";
-import { P, PK, Geschiedenis, Zoom, scrollvlakVan, type Knop } from "./gedeeld";
+import { P, PK, PL, Geschiedenis, Zoom, scrollvlakVan, type Knop } from "./gedeeld";
 import { useDiaActies, DiaKnop, type DiaActies } from "./presentatie-acties";
 import { specialeTekens } from "./presentatie-opdrachten";
 import {
@@ -67,6 +70,7 @@ import {
   GrafiekGroep,
   useIngeslotenGrafieken,
 } from "../grafieken/ui/ingesloten";
+import { vraagAfdrukvoorbeeld } from "../afdrukken/openen";
 import "./presentatie.css";
 
 /** Een engine-opdracht met een sneltoets die het lint zelf afhandelt. */
@@ -88,7 +92,7 @@ function DiaLettertype() {
   return (
     <Groep naam="Lettertype">
       <div className="ribbon-rij">
-        <PK id="fontFamily" naam="Lettertype" breed />
+        <PL />
         <OpdrachtGetal
           opdracht={grootte}
           naam="Tekengrootte"
@@ -637,6 +641,20 @@ export function PresentatieRibbon({
                   naam="Dia exporteren"
                   icoon={Download}
                   groot
+                />
+                <Actie
+                  naam="Afdrukken"
+                  icoon={Printer}
+                  title="Afdrukvoorbeeld: dia’s, hand-outs of notitiepagina’s (Ctrl+P)"
+                  groot
+                  onClick={() => vraagAfdrukvoorbeeld()}
+                />
+                <Actie
+                  naam="Notitiepagina’s"
+                  icoon={NotebookText}
+                  title="Notitiepagina’s afdrukken of als PDF bewaren"
+                  groot
+                  onClick={() => vraagAfdrukvoorbeeld({ indeling: "notities" })}
                 />
               </Groep>
             </>

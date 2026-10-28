@@ -4,6 +4,7 @@ mod conversie;
 mod database_export;
 mod email;
 mod herstel;
+mod lettertypen;
 mod recent;
 mod systeembestanden;
 mod vensters;
@@ -194,6 +195,8 @@ fn main() {
         })
         .invoke_handler(tauri::generate_handler![
             bewaar_kopie,
+            lettertypen::systeemlettertypen,
+            lettertypen::systeemlettertype,
             database_export::bewaar_database_export,
             vensters::wijzigingsstatus,
             vensters::bevestig_verlaten,

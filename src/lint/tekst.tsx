@@ -1,4 +1,5 @@
 import { zichtbaarElement } from "./editorApi";
+import { vraagAfdrukvoorbeeld } from "../afdrukken/openen";
 import { GrafiekGroep, useIngeslotenGrafieken } from "../grafieken/ui/ingesloten";
 import {
   useDocxCommand,
@@ -80,7 +81,7 @@ import {
   type RibbonTab,
 } from "../Ribbon";
 import { useDocumentZoom, type ZoomKoppeling } from "../useDocumentZoom";
-import { W, WK, Geschiedenis, Zoom } from "./gedeeld";
+import { W, WK, WL, Geschiedenis, Zoom } from "./gedeeld";
 import {
   EigenKnop,
   TekstDialogen,
@@ -119,7 +120,7 @@ function TekstLettertype() {
   return (
     <Groep naam="Lettertype">
       <div className="ribbon-rij">
-        <WK id="fontFamily" naam="Lettertype" breed />
+        <WL />
         <OpdrachtGetal
           opdracht={grootte}
           naam="Tekengrootte"
@@ -337,12 +338,12 @@ function Opmerking({ opdrachten }: { opdrachten: Opdrachten }) {
 function Afdrukken() {
   return (
     <Groep naam="Afdrukken">
-      <WS
-        id="print"
+      <Actie
         naam="Afdrukken"
         icoon={Printer}
-        sneltoets="Ctrl+P"
+        title="Afdrukvoorbeeld en afdrukken (Ctrl+P)"
         groot
+        onClick={() => vraagAfdrukvoorbeeld()}
       />
     </Groep>
   );

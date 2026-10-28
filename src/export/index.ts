@@ -1,14 +1,19 @@
+import { strFromU8, unzipSync } from "fflate";
 import type { Soort } from "../editors";
 import { cellenNaarCsv, codeer, type CsvCel, type CsvOpties } from "./csv";
 import { htmlDocument, htmlNaarTekst, markdownNaarHtml, ontsnap } from "./html";
 import { editorKoppeling } from "./koppeling";
 import { celPositie } from "./csv";
+import type { AppPdfKeuze } from "./PdfOpties";
 
 export interface ExportOpties extends CsvOpties {
   /** 0-gebaseerd blad (CSV, TSV, PNG van rekenblad); standaard het actieve blad. */
   blad?: number;
   /** 0-gebaseerde dia (PNG); standaard de huidige dia. */
   dia?: number;
+  /** PDF: kwaliteit en inhoud, en een paginabereik zoals "1-3, 5". */
+  pdf?: AppPdfKeuze;
+  bereik?: string;
 }
 export interface ExportResultaat {
   bytes: Uint8Array;
@@ -23,6 +28,7 @@ const MIME: Record<string, string> = {
   txt: "text/plain;charset=utf-8",
   html: "text/html;charset=utf-8",
   png: "image/png",
+  pdf: "application/pdf",
 };
 export const mimeVoor = (ext: string) =>
   MIME[ext] ?? "application/octet-stream";
@@ -263,16 +269,84 @@ export async function maakExport(
     const dia = opties.dia ?? koppeling.dias?.().huidig ?? 0;
     return { bytes: await koppeling.diaPng(dia, 2), mime };
   }
+  if (ext === "pdf") return { bytes: await pdfExport(soort, bytes, titel, opties), mime };
   throw new Error(`Dit formaat (${ext}) kan de app niet zelf maken.`);
 }
 
-/**
- * PDF zonder runtime: het afdrukvenster van de editor. Kies daar
- * "Opslaan als PDF" (of "Microsoft Print to PDF") als printer.
- */
+/** Opent het afdrukvoorbeeld van de zichtbare editor (afdrukken en PDF). */
 export async function drukAf(soort: Soort) {
   const koppeling = editorKoppeling(soort);
   if (!koppeling?.afdrukken)
     throw new Error("Afdrukken is voor dit document nog niet beschikbaar.");
   await koppeling.afdrukken();
+}
+
+/** Titel, auteur, onderwerp en trefwoorden uit docProps/core.xml. */
+export function documentEigenschappen(bytes: Uint8Array) {
+  const uit: { titel?: string; auteur?: string; onderwerp?: string; trefwoorden?: string } = {};
+  try {
+    const delen = unzipSync(bytes, { filter: (f) => f.name === "docProps/core.xml" });
+    const xml = delen["docProps/core.xml"] ? strFromU8(delen["docProps/core.xml"]) : "";
+    const lees = (tag: string) => {
+      const m = new RegExp(`<${tag}(?:\\s[^>]*)?>([^<]*)</${tag}>`).exec(xml);
+      const waarde = m?.[1]
+        .replace(/&lt;/g, "<")
+        .replace(/&gt;/g, ">")
+        .replace(/&quot;/g, '"')
+        .replace(/&apos;/g, "'")
+        .replace(/&amp;/g, "&")
+        .trim();
+      return waarde || undefined;
+    };
+    uit.titel = lees("dc:title");
+    uit.auteur = lees("dc:creator");
+    uit.onderwerp = lees("dc:subject");
+    uit.trefwoorden = lees("cp:keywords");
+  } catch {
+    // Geen eigenschappen: de PDF krijgt alleen de bestandsnaam als titel.
+  }
+  return uit;
+}
+
+/**
+ * PDF zonder conversieprogramma: dezelfde pagina's als het afdrukvoorbeeld,
+ * met de engine van de geopende editor (ook in de browser).
+ */
+async function pdfExport(
+  soort: Soort,
+  bytes: Uint8Array,
+  titel: string,
+  opties: ExportOpties,
+) {
+  const bron = editorKoppeling(soort)?.afdrukbron?.();
+  if (!bron)
+    throw new Error("Open het document in de editor om er een PDF van te maken.");
+  const keuze = opties.pdf ?? { kwaliteit: "standaard", omvang: "werkmap", indeling: "dias" };
+  let doc;
+  if (bron.soort === "docx") doc = await bron.maak();
+  else if (bron.soort === "pptx") {
+    const { standaardPresentatie } = await import("../afdrukken/indeling");
+    doc = await bron.maak(standaardPresentatie(keuze.indeling));
+  } else if (bron.soort === "xlsx") {
+    doc = await bron.maak({
+      omvang: keuze.omvang,
+      instellingen: await bron.leesInstellingen(),
+      negeerAfdrukbereik: false,
+    });
+  } else doc = await bron.maak(bron.stand);
+  const { ontleedBereik } = await import("../afdrukken/model");
+  const indexen = ontleedBereik(opties.bereik ?? "", doc.paginas.length);
+  if (!indexen?.length) throw new Error("Het paginabereik bevat geen pagina's van dit document.");
+  const eigenschappen = documentEigenschappen(bytes);
+  const { maakPdf } = await import("./pdf");
+  return maakPdf(
+    { ...doc, titel: eigenschappen.titel ?? titel },
+    {
+      indexen,
+      kwaliteit: keuze.kwaliteit,
+      auteur: eigenschappen.auteur,
+      onderwerp: eigenschappen.onderwerp,
+      trefwoorden: eigenschappen.trefwoorden,
+    },
+  );
 }
