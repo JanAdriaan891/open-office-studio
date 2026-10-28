@@ -13,6 +13,9 @@ __pycache__/
 /public/fonts/
 /public/voorbeelden/
 /public/licenses/
+/public/woordenboeken/
+/public/spelling/
+/src/spelling/rust/target/
 /src-tauri/target/
 
 /src-tauri/resources/WebView2Loader.dll
