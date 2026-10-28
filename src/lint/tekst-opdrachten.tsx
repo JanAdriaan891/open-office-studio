@@ -9,7 +9,8 @@ import {
 } from "@betteroffice/docx-react";
 import type { LucideIcon } from "lucide-react";
 import { Actie, OpdrachtKnop, RibbonFout } from "../Ribbon";
-import { useEditorApi, zichtbaarElement } from "./editorApi";
+import { useEditorApi, useEditorZichtbaar, zichtbaarElement } from "./editorApi";
+import { publiceerStatus } from "../status/statusinfo";
 import { useSneltoetsen, type Sneltoets } from "./sneltoetsen";
 import {
   selectieBegin,
@@ -818,31 +819,25 @@ export function TekstStatus({
       opruimen.forEach((weg) => weg());
     };
   }, [api]);
-  if (!doel) return null;
-  return createPortal(
-    <div className="tekst-status" aria-label="Documentstatus">
-      <button
-        type="button"
-        title="Ga naar pagina"
-        onMouseDown={(event) => event.preventDefault()}
-        onClick={() => setDialoog("pagina")}
-      >
-        Pagina {pagina.huidig || 1}
-        {pagina.totaal ? ` van ${pagina.totaal}` : ""}
-      </button>
-      {telling && (
-        <button
-          type="button"
-          title="Woorden tellen"
-          onMouseDown={(event) => event.preventDefault()}
-          onClick={() => setDialoog("woorden")}
-        >
-          {selectie
-            ? `Geselecteerd: ${getal(selectie.woorden)} van ${getal(telling.woorden)} woorden, ${getal(selectie.tekens)} tekens`
-            : `${getal(telling.woorden)} woorden, ${getal(telling.tekens)} tekens`}
-        </button>
-      )}
-    </div>,
-    doel,
-  );
+  // De algemene statusbalk (src/status/Statusbalk.tsx) toont dit.
+  const zichtbaar = useEditorZichtbaar();
+  const eigenaar = useRef({}).current;
+  useEffect(() => {
+    if (!zichtbaar || !doel) {
+      publiceerStatus(eigenaar, null);
+      return;
+    }
+    publiceerStatus(eigenaar, {
+      soort: "tekst",
+      pagina: pagina.huidig || 1,
+      paginas: pagina.totaal,
+      woorden: telling?.woorden ?? null,
+      tekens: telling?.tekens ?? null,
+      selectie: selectie ? { woorden: selectie.woorden, tekens: selectie.tekens } : null,
+      naarPagina: () => setDialoog("pagina"),
+      woordenTellen: () => setDialoog("woorden"),
+    });
+  }, [zichtbaar, doel, pagina, telling, selectie]);
+  useEffect(() => () => publiceerStatus(eigenaar, null), []);
+  return null;
 }

@@ -26,6 +26,7 @@ import {
 import { useNederlandseInvoer } from "./useNederlandseInvoer";
 import { useHerladen } from "./grafieken/ui/herladen";
 import { koppelEditor } from "./export/editorKoppeling";
+import { usePresentatieStatus, useRekenbladStatus } from "./status/useEditorStatus";
 configureDefaultFonts({
   fonts,
   baseUrl: new URL("/fonts/", location.href).href,
@@ -111,6 +112,9 @@ export default function OfficeEditor(props: EditorProps) {
     [rekenbladApi, presentatieApi, herladen.api, herladen.grafiekSelectie],
   );
   useNederlandseInvoer(rekenbladHost, rekenbladApi);
+  // Selectie en huidige dia voor de statusbalk.
+  useRekenbladStatus(rekenbladApi, props.zichtbaar !== false);
+  usePresentatieStatus(presentatieApi, props.zichtbaar !== false);
   // Opslaan als gebruikt het actieve blad, de huidige dia en het afdrukvenster.
   useEffect(() => {
     if (props.zichtbaar === false) return;

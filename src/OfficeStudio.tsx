@@ -8,7 +8,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { FolderOpen, Save, Home, X, HardDrive } from "lucide-react";
+import { FolderOpen, Save, Home, X } from "lucide-react";
 import type { EmailActies } from "../packages/email/src/ui/EmailStudio";
 import { kantoorModule } from "../packages/email/src/kantoor";
 import type { NotitieActies } from "./notities/NotitiesStudio";
@@ -48,6 +48,7 @@ import { useTabSneltoetsen } from "./useTabSneltoetsen";
 import { useVensters } from "./useVensters";
 import { useSysteembestanden } from "./systeembestanden";
 import { Werkruimtehulp } from "./werkruimte/Werkruimtehulp";
+import { Statusbalk } from "./status/Statusbalk";
 import { leesInstellingen } from "./instellingen";
 const Editor = lazy(() => import("./editors"));
 const tauri = "__TAURI_INTERNALS__" in window;
@@ -859,45 +860,24 @@ export function OfficeStudio() {
             />
           </div>
         </div>
-        <footer className="office-statusbalk">
-          <span>
-            <HardDrive size={12} />
-            <i />
-            Lokaal
-          </span>
-          <span>
-            {module?.naam ??
-              (actieveModule === "notities"
-                ? "Open Notities Studio"
-                : actieveModule === "database"
-                  ? "Open Database Studio"
-                  : actieveModule === "email"
-                    ? "OpenAEC Email Studio"
-                    : "OpenAEC Office Studio")}
-          </span>
-          <span className="office-statusrechts">
-            {actiefDocument && actiefDocument.zoom !== null && (
-              <span
-                className="office-statuszoom"
-                title="Ctrl + scrollwiel of Ctrl + = en Ctrl + − om te zoomen, Ctrl + 0 voor 100%"
-              >
-                {Math.round(actiefDocument.zoom * 100)}%
-              </span>
-            )}
-            {actiefDocument
-              ? !actiefDocument.gereed
-                ? "Laden…"
-                : actiefDocument.gewijzigd
-                  ? "Niet-opgeslagen wijzigingen"
-                  : "Gereed"
-              : actieveModule === "email" && emailOngelezen
-                ? `${emailOngelezen} ongelezen in Postvak IN`
-                : aantalGewijzigd
-                  ? `${aantalGewijzigd} ${aantalGewijzigd === 1 ? "tabblad" : "tabbladen"} met niet-opgeslagen wijzigingen`
-                  : `Ontwikkelversie ${versie.label}`}
-            {actiefDocument && <kbd>Ctrl+S</kbd>}
-          </span>
-        </footer>
+        <Statusbalk
+          soort={actiefDocument?.soort ?? actieveModule}
+          moduleNaam={
+            module?.naam ??
+            (actieveModule === "notities"
+              ? "Open Notities Studio"
+              : actieveModule === "database"
+                ? "Open Database Studio"
+                : actieveModule === "email"
+                  ? "OpenAEC Email Studio"
+                  : "OpenAEC Office Studio")
+          }
+          document={actiefDocument}
+          databaseGewijzigd={actief?.type === "module" && actief.module === "database" ? tabs.isGewijzigd(actief) : null}
+          emailOngelezen={emailOngelezen}
+          aantalGewijzigd={aantalGewijzigd}
+          versieLabel={versie.label}
+        />
         {verzending && (
           <Suspense fallback={null}>
             <VerzendAlsBijlage
