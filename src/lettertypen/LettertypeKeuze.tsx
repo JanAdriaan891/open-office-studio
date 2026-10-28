@@ -6,12 +6,26 @@
  * licentievermelding. Kiezen gaat via de engine-opdracht `fontFamily`, dus
  * ongedaan maken en de editorstatus werken als gewoonlijk.
  */
-import { useContext, useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from "react";
+import {
+  useContext,
+  useEffect,
+  useId,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { createPortal } from "react-dom";
 import { ChevronDown } from "lucide-react";
 import { RibbonFout, type GebondenOpdracht } from "../Ribbon";
 import { useOfficeThema } from "../stijl/ThemaKnop";
-import { CATALOGUS, familieInfo, type Categorie } from "./catalogus";
+import {
+  CATALOGUS,
+  KERN_OFFICE,
+  KERNSET,
+  familieInfo,
+  type Categorie,
+} from "./catalogus";
 import { DocumentLettertypen } from "./context";
 import {
   bekendeSysteemLettertypen,
@@ -20,7 +34,13 @@ import {
   laadSysteemLettertypen,
 } from "./systeem";
 import { OFFICE_NAMEN, VERVANGINGEN } from "./vervanging";
-import { keuzeRegel, laadVoorbeeld, vermelding, voorbeeldFamilie, type KeuzeRegel } from "./voorbeeld";
+import {
+  keuzeRegel,
+  laadVoorbeeld,
+  vermelding,
+  voorbeeldFamilie,
+  type KeuzeRegel,
+} from "./voorbeeld";
 import "./lettertypekeuze.css";
 
 const RECENT_SLEUTEL = "office-recente-lettertypen";
@@ -30,15 +50,25 @@ export const STANDAARD_VOORBEELD = "Aa Bb Cc 123";
 export function recenteLettertypen(): string[] {
   try {
     const waarde = JSON.parse(localStorage.getItem(RECENT_SLEUTEL) ?? "[]");
-    return Array.isArray(waarde) ? waarde.filter((v) => typeof v === "string").slice(0, MAX_RECENT) : [];
+    return Array.isArray(waarde)
+      ? waarde.filter((v) => typeof v === "string").slice(0, MAX_RECENT)
+      : [];
   } catch {
     return [];
   }
 }
 export function onthoudLettertype(familie: string) {
   try {
-    const lijst = [familie, ...recenteLettertypen().filter((f) => f.toLowerCase() !== familie.toLowerCase())];
-    localStorage.setItem(RECENT_SLEUTEL, JSON.stringify(lijst.slice(0, MAX_RECENT)));
+    const lijst = [
+      familie,
+      ...recenteLettertypen().filter(
+        (f) => f.toLowerCase() !== familie.toLowerCase(),
+      ),
+    ];
+    localStorage.setItem(
+      RECENT_SLEUTEL,
+      JSON.stringify(lijst.slice(0, MAX_RECENT)),
+    );
   } catch {
     // Zonder opslag geen recente lijst.
   }
@@ -79,25 +109,39 @@ export function lettertypeGroepen({
   engine = [],
   systeem = [],
   zoek = "",
+  alle = true,
 }: {
   document?: readonly string[];
   recent?: readonly string[];
   engine?: readonly string[];
   systeem?: readonly string[];
   zoek?: string;
+  /** Onwaar: alleen de kernset per groep (zoeken doorzoekt altijd alles). */
+  alle?: boolean;
 }): Groep[] {
   const opSysteem = new Set(systeem.map((n) => n.toLowerCase()));
   const indeling = (familie: string): KeuzeRegel => {
     const info = familieInfo(familie);
     if (info) return { familie: info.familie, herkomst: info.herkomst };
-    if (opSysteem.has(familie.toLowerCase())) return { familie, herkomst: "systeem" };
+    if (opSysteem.has(familie.toLowerCase()))
+      return { familie, herkomst: "systeem" };
     const regel = VERVANGINGEN[familie.toLowerCase()];
-    if (regel) return { familie, herkomst: "office", vervanger: regel.vervanger, metrisch: regel.soort === "metrisch" };
+    if (regel)
+      return {
+        familie,
+        herkomst: "office",
+        vervanger: regel.vervanger,
+        metrisch: regel.soort === "metrisch",
+      };
     return { familie, herkomst: "onbekend" };
   };
   const filter = zoek.trim().toLowerCase();
-  const past = (r: KeuzeRegel) => !filter || r.familie.toLowerCase().includes(filter);
-  const groepen = new Map<string, Map<string, KeuzeRegel>>(GROEPEN.map((g) => [g, new Map()]));
+  const beperkt = !alle && !filter;
+  const past = (r: KeuzeRegel) =>
+    !filter || r.familie.toLowerCase().includes(filter);
+  const groepen = new Map<string, Map<string, KeuzeRegel>>(
+    GROEPEN.map((g) => [g, new Map()]),
+  );
   const zet = (groep: string, regel: KeuzeRegel) => {
     const lijst = groepen.get(groep)!;
     const sleutel = regel.familie.toLowerCase();
@@ -105,23 +149,53 @@ export function lettertypeGroepen({
   };
   for (const naam of document) zet("In dit document", indeling(naam));
   for (const naam of recent) zet("Recent gebruikt", indeling(naam));
-  for (const info of CATALOGUS) zet(GROEP_VAN[info.categorie], indeling(info.familie));
+  for (const info of CATALOGUS)
+    if (!beperkt || KERNSET.has(info.familie.toLowerCase()))
+      zet(GROEP_VAN[info.categorie], indeling(info.familie));
   for (const naam of [...OFFICE_NAMEN, ...engine]) {
     const regel = indeling(naam);
+    if (beperkt && !KERN_OFFICE.has(naam.toLowerCase())) continue;
     if (regel.herkomst === "office" && regel.vervanger) {
-      const categorie = familieInfo(regel.vervanger)?.categorie ?? "schreefloos";
+      const categorie =
+        familieInfo(regel.vervanger)?.categorie ?? "schreefloos";
       zet(GROEP_VAN[categorie], regel);
-    } else if (regel.herkomst === "systeem") zet("Op deze computer", regel);
+    } else if (regel.herkomst === "systeem" && !beperkt)
+      zet("Op deze computer", regel);
   }
-  for (const naam of systeem) {
+  for (const naam of beperkt ? [] : systeem) {
     const regel = indeling(naam);
     if (regel.herkomst === "systeem") zet("Op deze computer", regel);
   }
-  const sorteer = (regels: KeuzeRegel[]) => regels.sort((a, b) => a.familie.localeCompare(b.familie));
+  const sorteer = (regels: KeuzeRegel[]) =>
+    regels.sort((a, b) => a.familie.localeCompare(b.familie));
   return GROEPEN.map((naam) => {
     const regels = [...groepen.get(naam)!.values()];
-    return { naam, regels: naam === "In dit document" || naam === "Recent gebruikt" ? regels : sorteer(regels) };
+    return {
+      naam,
+      regels:
+        naam === "In dit document" || naam === "Recent gebruikt"
+          ? regels
+          : sorteer(regels),
+    };
   }).filter((g) => g.regels.length);
+}
+
+const ALLE_SLEUTEL = "openaec-office-alle-lettertypen";
+
+function leesAlleTonen() {
+  try {
+    return localStorage.getItem(ALLE_SLEUTEL) === "ja";
+  } catch {
+    return false;
+  }
+}
+
+function bewaarAlleTonen(alle: boolean) {
+  try {
+    localStorage.setItem(ALLE_SLEUTEL, alle ? "ja" : "nee");
+  } catch {
+    // Zonder browseropslag geldt de keuze alleen voor deze sessie.
+  }
 }
 
 export function LettertypeKeuze({
@@ -143,6 +217,7 @@ export function LettertypeKeuze({
   const id = useId();
   const [open, setOpen] = useState(false);
   const [zoek, setZoek] = useState("");
+  const [alle, setAlle] = useState(leesAlleTonen);
   const [, setVersie] = useState(0);
   const [actief, setActief] = useState(0);
   const [plek, setPlek] = useState({ top: 0, left: 0 });
@@ -155,8 +230,12 @@ export function LettertypeKeuze({
     void laadSysteemLettertypen();
   }, []);
 
-  const huidig = typeof opdracht.state.value === "string" ? opdracht.state.value : "";
-  const huidigeRegel = useMemo(() => (huidig ? keuzeRegel(huidig) : null), [huidig, bekendeSysteemLettertypen().length]);
+  const huidig =
+    typeof opdracht.state.value === "string" ? opdracht.state.value : "";
+  const huidigeRegel = useMemo(
+    () => (huidig ? keuzeRegel(huidig) : null),
+    [huidig, bekendeSysteemLettertypen().length],
+  );
   // Ook het gesloten veld toont de naam in het lettertype zelf.
   useEffect(() => {
     if (huidigeRegel) void laadVoorbeeld(huidigeRegel);
@@ -176,6 +255,7 @@ export function LettertypeKeuze({
         engine,
         systeem: bekendeSysteemLettertypen(),
         zoek,
+        alle,
       })
     : [];
   const plat = groepen.flatMap((g) => g.regels);
@@ -202,7 +282,9 @@ export function LettertypeKeuze({
       },
       { root: wortel, rootMargin: "120px 0px" },
     );
-    wortel.querySelectorAll("[role='option']").forEach((el) => waarnemer.observe(el));
+    wortel
+      .querySelectorAll("[role='option']")
+      .forEach((el) => waarnemer.observe(el));
     return () => waarnemer.disconnect();
   });
 
@@ -214,7 +296,8 @@ export function LettertypeKeuze({
     try {
       await voorbereiden?.(familie);
       const r = await opdracht.execute({ family: familie } as never);
-      if (!r.ok) fout(r.failure?.message ?? "Het lettertype kon niet worden gekozen.");
+      if (!r.ok)
+        fout(r.failure?.message ?? "Het lettertype kon niet worden gekozen.");
     } catch (e) {
       fout(e instanceof Error ? e.message : String(e));
     }
@@ -222,7 +305,11 @@ export function LettertypeKeuze({
 
   function openen() {
     const r = knop.current?.getBoundingClientRect();
-    if (r) setPlek({ top: r.bottom + 4, left: Math.max(4, Math.min(r.left, window.innerWidth - 308)) });
+    if (r)
+      setPlek({
+        top: r.bottom + 4,
+        left: Math.max(4, Math.min(r.left, window.innerWidth - 308)),
+      });
     let tekst = "";
     try {
       tekst = voorbeeld?.() ?? "";
@@ -238,7 +325,8 @@ export function LettertypeKeuze({
     if (!open) return;
     zoekveld.current?.focus();
     const weg = (e: PointerEvent) => {
-      if (!(e.target as Element).closest?.(`[data-lettertypekeuze="${id}"]`)) setOpen(false);
+      if (!(e.target as Element).closest?.(`[data-lettertypekeuze="${id}"]`))
+        setOpen(false);
     };
     window.addEventListener("pointerdown", weg, true);
     return () => window.removeEventListener("pointerdown", weg, true);
@@ -246,16 +334,23 @@ export function LettertypeKeuze({
   // Bij openen staat het huidige lettertype actief (in de eerste groep waarin het voorkomt).
   useEffect(() => {
     if (!open) return;
-    const index = zoek ? 0 : plat.findIndex((r) => r.familie.toLowerCase() === huidig.toLowerCase());
+    const index = zoek
+      ? 0
+      : plat.findIndex((r) => r.familie.toLowerCase() === huidig.toLowerCase());
     setActief(Math.max(0, index));
   }, [zoek, open]);
   useEffect(() => {
-    lijst.current?.querySelector<HTMLElement>(`[data-index="${actief}"]`)?.scrollIntoView({ block: "nearest" });
+    lijst.current
+      ?.querySelector<HTMLElement>(`[data-index="${actief}"]`)
+      ?.scrollIntoView({ block: "nearest" });
   }, [actief, open]);
 
   let index = -1;
   return (
-    <div className="lettertypekeuze ribbon-keuze ribbon-keuze-breed" data-lettertypekeuze={id}>
+    <div
+      className="lettertypekeuze ribbon-keuze ribbon-keuze-breed"
+      data-lettertypekeuze={id}
+    >
       <button
         ref={knop}
         type="button"
@@ -263,9 +358,15 @@ export function LettertypeKeuze({
         aria-haspopup="listbox"
         aria-expanded={open}
         aria-label={`${naam}: ${huidig || "gemengd"}`}
-        title={huidigeRegel ? `${naam}: ${huidig}\n${vermelding(huidigeRegel)}` : naam}
+        title={
+          huidigeRegel
+            ? `${naam}: ${huidig}\n${vermelding(huidigeRegel)}`
+            : naam
+        }
         disabled={!opdracht.state.enabled}
-        style={{ fontFamily: huidigeRegel ? voorbeeldFamilie(huidigeRegel) : undefined }}
+        style={{
+          fontFamily: huidigeRegel ? voorbeeldFamilie(huidigeRegel) : undefined,
+        }}
         onClick={() => (open ? setOpen(false) : openen())}
       >
         <span>{huidig || naam}</span>
@@ -289,7 +390,9 @@ export function LettertypeKeuze({
               role="combobox"
               aria-expanded="true"
               aria-controls={`${id}-lijst`}
-              aria-activedescendant={plat.length ? `${id}-${actief}` : undefined}
+              aria-activedescendant={
+                plat.length ? `${id}-${actief}` : undefined
+              }
               value={zoek}
               onChange={(e) => setZoek(e.target.value)}
               onKeyDown={(e) => {
@@ -302,7 +405,9 @@ export function LettertypeKeuze({
                 } else if (e.key === "PageDown" || e.key === "PageUp") {
                   e.preventDefault();
                   const stap = e.key === "PageDown" ? 10 : -10;
-                  setActief((a) => Math.max(0, Math.min(plat.length - 1, a + stap)));
+                  setActief((a) =>
+                    Math.max(0, Math.min(plat.length - 1, a + stap)),
+                  );
                 } else if (e.key === "Enter") {
                   e.preventDefault();
                   const keuze = plat[actief]?.familie ?? zoek.trim();
@@ -331,17 +436,24 @@ export function LettertypeKeuze({
                           id={`${id}-${mijn}`}
                           data-index={mijn}
                           role="option"
-                          aria-selected={regel.familie.toLowerCase() === huidig.toLowerCase()}
+                          aria-selected={
+                            regel.familie.toLowerCase() === huidig.toLowerCase()
+                          }
                           className={mijn === actief ? "is-actief" : undefined}
                           title={vermelding(regel)}
                           onPointerEnter={() => setActief(mijn)}
                           onClick={() => void kies(regel.familie)}
                         >
-                          <span className="lettertypekeuze-naam" style={{ fontFamily: voorbeeldFamilie(regel) }}>
+                          <span
+                            className="lettertypekeuze-naam"
+                            style={{ fontFamily: voorbeeldFamilie(regel) }}
+                          >
                             {regel.familie}
                           </span>
                           {regel.vervanger && (
-                            <span className="lettertypekeuze-vervanger">→ {regel.vervanger}</span>
+                            <span className="lettertypekeuze-vervanger">
+                              → {regel.vervanger}
+                            </span>
                           )}
                         </li>
                       );
@@ -349,22 +461,51 @@ export function LettertypeKeuze({
                   </ul>
                 </li>
               ))}
-              {!plat.length && <li className="lettertypekeuze-leeg">Geen lettertype gevonden; Enter kiest “{zoek}”.</li>}
+              {!plat.length && (
+                <li className="lettertypekeuze-leeg">
+                  Geen lettertype gevonden; Enter kiest “{zoek}”.
+                </li>
+              )}
             </ul>
             {actieveRegel && (
               <div className="lettertypekeuze-voorbeeld">
-                <div className="lettertypekeuze-voorbeeldtekst" style={{ fontFamily: voorbeeldFamilie(actieveRegel) }}>
+                <div
+                  className="lettertypekeuze-voorbeeldtekst"
+                  style={{ fontFamily: voorbeeldFamilie(actieveRegel) }}
+                >
                   <span>{voorbeeldTekst}</span>
                 </div>
-                <div className="lettertypekeuze-stijlen" style={{ fontFamily: voorbeeldFamilie(actieveRegel) }} aria-hidden="true">
-                  <b>Vet</b> <i>Cursief</i> <b><i>Vet cursief</i></b>
+                <div
+                  className="lettertypekeuze-stijlen"
+                  style={{ fontFamily: voorbeeldFamilie(actieveRegel) }}
+                  aria-hidden="true"
+                >
+                  <b>Vet</b> <i>Cursief</i>{" "}
+                  <b>
+                    <i>Vet cursief</i>
+                  </b>
                 </div>
                 <p className="lettertypekeuze-licentie">
-                  <strong>{actieveRegel.familie}</strong> · {vermelding(actieveRegel)}
+                  <strong>{actieveRegel.familie}</strong> ·{" "}
+                  {vermelding(actieveRegel)}
                 </p>
               </div>
             )}
-            {kanToestemmingVragen() && (
+            {!zoek && (
+              <button
+                type="button"
+                className="lettertypekeuze-toestemming"
+                aria-pressed={alle}
+                onClick={() => {
+                  setAlle(!alle);
+                  bewaarAlleTonen(!alle);
+                  setActief(0);
+                }}
+              >
+                {alle ? "Minder lettertypen tonen" : "Alle lettertypen tonen"}
+              </button>
+            )}
+            {kanToestemmingVragen() && alle && (
               <button
                 type="button"
                 className="lettertypekeuze-toestemming"

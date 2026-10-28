@@ -7,7 +7,12 @@
 import * as fonts from "@betteroffice/fonts";
 import manifest from "../../assets/lettertypen.json";
 
-export type Categorie = "schreefloos" | "schreef" | "monospace" | "handschrift" | "display";
+export type Categorie =
+  | "schreefloos"
+  | "schreef"
+  | "monospace"
+  | "handschrift"
+  | "display";
 
 export interface ExtraFace {
   family: string;
@@ -38,7 +43,13 @@ interface ManifestFamilie {
   licentie: string;
   bron: string;
   metrischVoor?: string;
-  bestanden: { bestand: string; gewicht: number; stijl: string; sha256: string; grootte: number }[];
+  bestanden: {
+    bestand: string;
+    gewicht: number;
+    stijl: string;
+    sha256: string;
+    grootte: number;
+  }[];
 }
 
 const families = (manifest as { families: ManifestFamilie[] }).families;
@@ -107,15 +118,53 @@ export const CATALOGUS: FamilieInfo[] = [
     })),
 ].sort((a, b) => a.familie.localeCompare(b.familie));
 
+/**
+ * Lettertypen die standaard in de keuzelijst staan: per groep alleen families
+ * die duidelijk van elkaar verschillen. De rest blijft bruikbaar (zoeken,
+ * "Alle lettertypen tonen", documenten die ze noemen, vervanging).
+ */
+export const KERNSET: ReadonlySet<string> = new Set(
+  [
+    "Carlito",
+    "Liberation Sans",
+    "Inter",
+    "Montserrat",
+    "Nunito",
+    "Raleway",
+    "Atkinson Hyperlegible",
+    "Caladea",
+    "Liberation Serif",
+    "Merriweather",
+    "EB Garamond",
+    "Playfair Display",
+    "Oswald",
+    "Liberation Mono",
+    "JetBrains Mono",
+    "Comic Neue",
+  ].map((n) => n.toLowerCase()),
+);
+
+/** Office-namen die in de beperkte lijst blijven staan (met hun vervanger). */
+export const KERN_OFFICE: ReadonlySet<string> = new Set(
+  ["Calibri", "Cambria", "Arial", "Times New Roman", "Courier New"].map((n) =>
+    n.toLowerCase(),
+  ),
+);
+
 const perNaam = new Map(CATALOGUS.map((f) => [f.familie.toLowerCase(), f]));
-export const familieInfo = (familie: string) => perNaam.get(familie.toLowerCase());
+export const familieInfo = (familie: string) =>
+  perNaam.get(familie.toLowerCase());
 
 /** Is dit een extra familie (public/fonts/extra)? */
 export const isExtraFamilie = (familie: string) =>
   EXTRA_FACES.some((f) => f.family.toLowerCase() === familie.toLowerCase());
 
 /** Exacte stijl van een extra familie, of undefined (de browser maakt dan zelf vet/cursief). */
-export function extraFace(familie: string, vet: boolean, cursief: boolean): ExtraFace | undefined {
+export function extraFace(
+  familie: string,
+  vet: boolean,
+  cursief: boolean,
+): ExtraFace | undefined {
   const naam = familie.toLowerCase();
   return EXTRA_FACES.find(
     (f) =>
@@ -128,19 +177,26 @@ export function extraFace(familie: string, vet: boolean, cursief: boolean): Extr
 /** Basis-URL van de lettertypen, relatief aan de app (ook onder een submap, #109). */
 export function lettertypeBasis(): string {
   const basis = import.meta.env?.BASE_URL ?? "/";
-  const pagina = typeof location === "undefined" ? "http://localhost/" : location.href;
+  const pagina =
+    typeof location === "undefined" ? "http://localhost/" : location.href;
   return new URL(`${basis.replace(/\/?$/, "/")}fonts/`, pagina).href;
 }
 
 const bytesCache = new Map<string, Promise<ArrayBuffer>>();
 
 /** De bytes van een extra lettertype (één keer opgehaald). */
-export function laadExtraBytes(face: ExtraFace, basis = lettertypeBasis()): Promise<ArrayBuffer> {
+export function laadExtraBytes(
+  face: ExtraFace,
+  basis = lettertypeBasis(),
+): Promise<ArrayBuffer> {
   const url = new URL(`extra/${face.file}`, basis).href;
   let bestaand = bytesCache.get(url);
   if (!bestaand) {
     bestaand = fetch(url).then((r) => {
-      if (!r.ok) throw new Error(`Lettertype ${face.family} kon niet worden geladen (${r.status}).`);
+      if (!r.ok)
+        throw new Error(
+          `Lettertype ${face.family} kon niet worden geladen (${r.status}).`,
+        );
       return r.arrayBuffer();
     });
     bestaand.catch(() => bytesCache.delete(url));
@@ -164,8 +220,13 @@ const cssGeregistreerd = new Map<string, Promise<boolean>>();
  * keuzelijst en voor canvas-tekst in het rekenblad. Alleen de stijlen die er
  * echt zijn; vet/cursief ontbrekend → de browser maakt die na.
  */
-export function registreerCss(familie: string, cssNaam = familie, stijlen: readonly (readonly [boolean, boolean])[] = ALLE_STIJLEN): Promise<boolean> {
-  if (typeof FontFace === "undefined" || typeof document === "undefined") return Promise.resolve(false);
+export function registreerCss(
+  familie: string,
+  cssNaam = familie,
+  stijlen: readonly (readonly [boolean, boolean])[] = ALLE_STIJLEN,
+): Promise<boolean> {
+  if (typeof FontFace === "undefined" || typeof document === "undefined")
+    return Promise.resolve(false);
   const sleutel = `${cssNaam.toLowerCase()}|${familie.toLowerCase()}|${stijlen.map(([v, c]) => `${+v}${+c}`).join("")}`;
   let bestaand = cssGeregistreerd.get(sleutel);
   if (bestaand) return bestaand;
@@ -184,7 +245,9 @@ export function registreerCss(familie: string, cssNaam = familie, stijlen: reado
         }
         const bundel = fonts.resolveBundledFamilyFace(familie, vet, cursief);
         if (bundel && bundel.family.toLowerCase() === familie.toLowerCase()) {
-          await fonts.registerBundledFontFace(bundel, cssNaam, { baseUrl: lettertypeBasis() });
+          await fonts.registerBundledFontFace(bundel, cssNaam, {
+            baseUrl: lettertypeBasis(),
+          });
           return true;
         }
         return false;
