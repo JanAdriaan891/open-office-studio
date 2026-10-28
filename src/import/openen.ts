@@ -11,6 +11,13 @@ import {
   uitvoerformaat,
 } from "../formaten";
 import { LIEVER_RUNTIME, TEKSTFORMATEN, zetTekstOm } from "./tekstimport";
+import {
+  csvNaarXlsx,
+  herkenInstellingen,
+  scheidingsnaam,
+  type CsvInstellingen,
+} from "./csvimport";
+import type { Rapportregel } from "./rapport";
 import { controleerPakket } from "../pakketcontrole";
 import { openRapport, type Rapport } from "./rapport";
 
@@ -24,6 +31,12 @@ export interface Openhulp {
   ) => Promise<Uint8Array>;
   /** Is de kantoorruntime beschikbaar? Standaard: nee. */
   runtimeBeschikbaar?: () => Promise<boolean>;
+  /** Importvenster voor CSV/TSV; null = geannuleerd. Zonder: herkende instellingen. */
+  vraagCsv?: (
+    naam: string,
+    bytes: Uint8Array,
+    ext: string,
+  ) => Promise<CsvInstellingen | null>;
 }
 
 export interface Openresultaat {
@@ -115,6 +128,48 @@ export async function bereidOpenen(
       exportFormaat: voorstel(
         ext === "markdown" ? "md" : ext === "htm" ? "html" : ext,
       ),
+    };
+  }
+
+  // CSV en TSV: altijd zelf, met het importvenster.
+  if (soort === "xlsx" && (ext === "csv" || ext === "tsv" || ext === "tab")) {
+    const instellingen = hulp.vraagCsv
+      ? await hulp.vraagCsv(naam, bytes, ext)
+      : herkenInstellingen(bytes, ext);
+    if (!instellingen) return null;
+    const bladnaam = naam.replace(/\.[^.]+$/, "");
+    const resultaat = csvNaarXlsx(bytes, instellingen, bladnaam);
+    const regels: Rapportregel[] = [
+      {
+        onderdeel: "Import",
+        gevolg: `${resultaat.rijen} rij(en) en ${resultaat.kolommen} kolom(men) ingelezen; ${scheidingsnaam(resultaat.scheidingsteken)} als scheidingsteken, codering ${resultaat.codering}.`,
+        info: true,
+      },
+    ];
+    if (resultaat.formuleachtig)
+      regels.push({
+        onderdeel: "Formuleachtige tekst",
+        gevolg: `${resultaat.formuleachtig} cel(len) die met =, +, - of @ beginnen zijn als tekst opgenomen, niet als formule (bescherming tegen CSV-injectie).`,
+      });
+    if (resultaat.afgekapt)
+      regels.push({
+        onderdeel: "Afgekapt",
+        gevolg:
+          "Het bestand is groter dan een werkblad (1.048.576 rijen of 16.384 kolommen); de rest is niet ingelezen.",
+      });
+    return {
+      soort,
+      naam: metExtensie(naam, soort),
+      bytes: resultaat.xlsx,
+      gewijzigd: true,
+      rapport: openRapport({
+        soort,
+        risicos: [],
+        route: "import",
+        bronformaat: ext,
+        extra: regels,
+      }),
+      exportFormaat: voorstel(ext === "tab" ? "tsv" : ext),
     };
   }
 

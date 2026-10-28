@@ -58,6 +58,17 @@ Database Studio opent MDB/ACCDB als SQLite-werkkopie; het origineel wordt nooit 
 
 Markdown (.md) uit Tekst bewaart koppen, lijsten, links, tabellen en basisopmaak als UTF-8-tekst. Paginaopmaak, ingesloten afbeeldingen en revisies vragen een DOCX; een Markdown-export wist daarom de wijzigingsmarkering niet. Afgekapt resultaat wordt geweigerd.
 
+### CSV en TSV importeren
+
+CSV, TSV en TAB openen altijd via het eigen importvenster (`src/import/csvimport.ts`), ook in de browser en ook als er een runtime is:
+
+- scheidingsteken (puntkomma, komma, tab, verticale streep of eigen teken), tekstafbakening (", ' of geen) en tekencodering (UTF-8, Windows-1252, ISO-8859-15, UTF-16) worden herkend en zijn te wijzigen;
+- getalnotatie Nederlands (1.234,56) of Engels (1,234.56), datumvolgorde dag-maand-jaar, maand-dag-jaar of jaar-maand-dag, kopregel en beginrij;
+- per kolom het type: Standaard, Tekst, Datum of Overslaan. De voorvertoning van de eerste 50 rijen verandert direct mee;
+- in Standaard blijven waarden met een voorloopnul (postcodes, telefoonnummers) en met meer dan 15 cijfers (IBAN, EAN, ordernummers) tekst. Getallen met een andere notatie dan gekozen blijven ook tekst, zodat niets stil verkeerd wordt omgerekend;
+- waarden die met `=`, `+`, `-` of `@` beginnen en geen getal zijn, komen als tekst met apostrofvoorvoegsel in het blad: nooit als formule (CSV-injectie). Het rapport telt ze;
+- het resultaat is een XLSX met één blad, een vastgezette en gefilterde kopregel en datumnotatie volgens de gekozen volgorde. Ctrl+S stelt weer CSV (of TSV) voor, met de melding dat alleen het actieve blad wordt bewaard.
+
 ### Tekstformaten openen zonder runtime
 
 TXT, Markdown, HTML en RTF zet de app zelf om naar een nieuwe DOCX-kopie in een nieuw tabblad (`src/import/`), ook in de browser. Het rapport na openen zegt wat er is overgenomen en wat niet.

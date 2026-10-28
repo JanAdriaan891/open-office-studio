@@ -33,6 +33,7 @@ import { editorKoppeling } from "./export/koppeling";
 import { controleerPakket } from "./pakketcontrole";
 import { bereidOpenen } from "./import/openen";
 import { RapportMelding } from "./import/RapportMelding";
+import { useImportvragen } from "./import/Importvensters";
 import versie from "../versie.json";
 import openaecSymbool from "./stijl/openaec-symbol.svg";
 import { ThemaKnop, useOfficeThema } from "./stijl/ThemaKnop";
@@ -116,6 +117,7 @@ export function OfficeStudio() {
   const vorigeFocus = useRef<HTMLElement | null>(null);
   const laatsteFocus = useRef(new Map<number, HTMLElement>());
 
+  const importvragen = useImportvragen();
   const tabs = useTabbladen({
     opslaan: (id) => opslaan(id),
     voorSluiten: (tabblad) => {
@@ -368,7 +370,7 @@ export function OfficeStudio() {
   }
 
   useTabSneltoetsen({
-    uit: verlaatvraag || opslaanAls !== null,
+    uit: verlaatvraag || opslaanAls !== null || importvragen.open,
     actief,
     opStart,
     vorige: toestand.vorige,
@@ -461,6 +463,7 @@ export function OfficeStudio() {
           converteer,
           runtimeBeschikbaar: async () =>
             tauri && (await conversieStatus()).gevonden,
+          vraagCsv: importvragen.vraagCsv,
         });
         if (!resultaat) return;
         const { id } = openDocument(
@@ -556,7 +559,7 @@ export function OfficeStudio() {
   const melding = actief?.melding || tabs.melding;
   const vorigeTab = toestand.tabbladen.find((t) => t.id === toestand.vorige);
   const vorigDocument = vorigeTab?.type === "document" ? vorigeTab : null;
-  const dialoogOpen = verlaatvraag || opslaanAls !== null;
+  const dialoogOpen = verlaatvraag || opslaanAls !== null || importvragen.open;
   const editorInactief =
     dialoogOpen || !!verzending || (bezig && !opslaanBezig);
   const opslaanTabblad = toestand.tabbladen.find((t) => t.id === opslaanAls);
@@ -895,6 +898,7 @@ export function OfficeStudio() {
           </Suspense>
         )}
       </div>
+      {importvragen.venster}
       {tabs.verlaatvraag && (
         <VerlaatDialoog
           naam={tabs.verlaatvraag.naam}

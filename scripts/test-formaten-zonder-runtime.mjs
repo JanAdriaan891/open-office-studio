@@ -187,6 +187,54 @@ try {
     });
   }
 
+  // ── #38 CSV → XLSX ───────────────────────────────────────────────────
+  const { csvNaarXlsx, herkenInstellingen } = await laad(
+    "/src/import/csvimport.ts",
+  );
+  await proef(
+    "#38",
+    "csv → xlsx (typen, voorloopnullen, formule-injectie)",
+    async () => {
+      const csv = new Uint8Array([
+        ...enc(
+          "Postcode;Bedrag;Datum;Opmerking;IBAN\r\n0123AB;1.234,50;31-12-2026;=1+1;NL91ABNA0417164300\r\n",
+        ),
+        ...enc("0456;-7;01-01-2027;@SUM(A1);NL20INGB0001234567\r\nCaf"),
+        0xe9,
+        ...enc(";12,5%;2026-06-01;+31 6 12345678;\r\n"),
+      ]);
+      const instellingen = herkenInstellingen(csv, "csv");
+      const { xlsx, formuleachtig } = csvNaarXlsx(csv, instellingen);
+      writeFileSync(join(uitmap, "csv-bron.csv"), csv);
+      writeFileSync(join(uitmap, "csv-import.xlsx"), xlsx);
+      if (formuleachtig !== 3)
+        throw new Error(`formuleachtig ${formuleachtig}`);
+      const terug = libreOffice(
+        xlsx,
+        "xlsx",
+        "csv:Text - txt - csv (StarCalc):59,34,76,1,,0,false,true,false,false,false",
+      );
+      if (!terug) return "geen LibreOffice";
+      const tekst = new TextDecoder().decode(terug);
+      writeFileSync(join(uitmap, "csv-terug-libreoffice.csv"), tekst);
+      if (!/;1234[.,]5;31-12-2026;/.test(tekst))
+        throw new Error("bedrag of datum niet als getal/datum gelezen");
+      bevat(
+        tekst,
+        "0123AB",
+        "=1+1",
+        "@SUM(A1)",
+        "NL91ABNA0417164300",
+        "Café",
+        "+31 6 12345678",
+        "0456",
+        "-7",
+      );
+      if (/;2;/.test(tekst)) throw new Error("=1+1 is als formule uitgerekend");
+      return "LibreOffice leest tekst, getallen en datums; formules niet uitgevoerd";
+    },
+  );
+
   // ── VERVOLG ──
 } finally {
   await server.close();
