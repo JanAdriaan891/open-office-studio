@@ -30,6 +30,7 @@ import {
 } from "lucide-react";
 import { Actie, OpdrachtGetal, OpdrachtKleur } from "../../Ribbon";
 import { WK, WL } from "../../lint/gedeeld";
+import { AlineastijlKeuze } from "../stijlen/StijlKeuze";
 import type { TekstOpdrachten } from "../bewerken/TekstBewerken";
 import type { KwastStaat } from "../bewerken/kwast";
 import { portaalDoel } from "./portaal";
@@ -164,7 +165,7 @@ export function MiniWerkbalk({
           onMouseDown={(e) => e.preventDefault()}
           onClick={() => grootte(-1)}
         />
-        <WK id="paragraphStyle" naam="Stijl" />
+        <AlineastijlKeuze naam="Stijl" />
         <Actie
           naam="Opmaak kopiëren"
           icoon={Paintbrush}
@@ -200,7 +201,7 @@ export function MiniWerkbalk({
         />
         <Knop id="bulletList" args={null} naam="Opsomming" icoon={List} voerUit={voerUit} />
         <Knop id="numberedList" args={null} naam="Nummering" icoon={ListOrdered} voerUit={voerUit} />
-        <WK id="lineSpacing" naam="Regelafstand" />
+        <WK id="lineSpacing" naam="Regelafstand" vertaal={(label) => label.replace(".", ",")} />
         <Knop
           id="alignment"
           args={{ value: "left" }}

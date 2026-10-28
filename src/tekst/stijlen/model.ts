@@ -280,6 +280,18 @@ export function uitOpmaak(
   return e;
 }
 
+/**
+ * Melding als een (ingebouwde) stijl zoals ‘Kop 3’ niet in het document staat:
+ * de engine meldt dan alleen ‘ongeldige opties’. Null als de stijl bestaat of
+ * de stijlen (nog) niet bekend zijn.
+ */
+export function ontbrekendeStijl(stijlen: StyleDefinitions | undefined, styleId: string): string | null {
+  if (!stijlen?.styles.length || stijlen.styles.some((s) => s.styleId === styleId)) return null;
+  const kop = /^Heading(\d)$/.exec(styleId);
+  const naam = kop ? `Kop ${kop[1]}` : stijlNaam({ styleId, name: styleId });
+  return `Dit document heeft (nog) geen stijl ‘${naam}’. Maak hem aan via Stijlen › Nieuwe stijl.`;
+}
+
 type Knoop = { type?: string; content?: unknown; formatting?: { styleId?: string }; rows?: unknown };
 
 /** Hoe vaak elke stijl in de hoofdtekst voorkomt (alinea- en tekenstijlen). */

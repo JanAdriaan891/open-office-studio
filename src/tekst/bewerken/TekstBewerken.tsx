@@ -52,6 +52,7 @@ import {
 } from "./kwast";
 import { puntStap, volgendeGrootte } from "./groottereeks";
 import { HERHAALBAAR, Herhaalgeheugen, naamVanOpdracht } from "./herhalen";
+import { Herhaalmelding } from "./herhaalmelding";
 import {
   deltaUitHtml,
   heeftHtmlOpmaak,
@@ -64,6 +65,8 @@ import {
   type PlakKeuze,
 } from "./plakopties";
 import { DatumTijdDialoog } from "./DatumTijdDialoog";
+import { ontbrekendeStijl } from "../stijlen/model";
+import { metHeleAlinea } from "../stijlen/toepassen";
 import { Contextmenu, type MenuPlek } from "../menu/Contextmenu";
 import { MiniWerkbalk } from "../menu/MiniWerkbalk";
 import { Plakopties } from "../menu/Plakopties";
@@ -595,6 +598,20 @@ export function TekstBewerken({
     });
   }, [mini]);
 
+  /** Alineastijl via een sneltoets; een ontbrekende stijl met een duidelijke melding. */
+  function stijl(styleId: string) {
+    const ontbreekt = ontbrekendeStijl(api()?.getDocument()?.package.styles, styleId);
+    if (ontbreekt) return fout(new Error(ontbreekt));
+    geheugen.onthoud({ naam: naamVanOpdracht("paragraphStyle", { styleId }), uitvoeren: () => stijl(styleId) });
+    grens();
+    metHeleAlinea(api(), () => store.execute("paragraphStyle", { styleId }))
+      .then((resultaat) => {
+        grens();
+        if (!resultaat.ok) fout(new Error(resultaat.failure.message));
+      })
+      .catch(melding);
+  }
+
   // --- Terugval voor vensters van andere onderdelen ------------------------
   function lettertype(punt?: { x: number; y: number }) {
     voerOpdrachtUit("lettertype", { punt }, () =>
@@ -618,10 +635,10 @@ export function TekstBewerken({
     regelafstand1: () => voerUit("lineSpacing", { value: 240 }),
     regelafstand2: () => voerUit("lineSpacing", { value: 480 }),
     regelafstand15: () => voerUit("lineSpacing", { value: 360 }),
-    kop1: () => voerUit("paragraphStyle", { styleId: "Heading1" }),
-    kop2: () => voerUit("paragraphStyle", { styleId: "Heading2" }),
-    kop3: () => voerUit("paragraphStyle", { styleId: "Heading3" }),
-    standaardstijl: () => voerUit("paragraphStyle", { styleId: "Normal" }),
+    kop1: () => stijl("Heading1"),
+    kop2: () => stijl("Heading2"),
+    kop3: () => stijl("Heading3"),
+    standaardstijl: () => stijl("Normal"),
     opmaakWissen: () => voerUit("clearFormatting", null),
     alineaOpmaakWissen: () => {
       const editor = api()?.getEditorRef();
@@ -697,8 +714,22 @@ export function TekstBewerken({
     alinea,
   };
 
+  /** Lintknoppen melden hun opdracht hier, zodat F4 ook die herhaalt. */
+  function lintOpdracht(id: string, args: unknown) {
+    if (!HERHAALBAAR.has(id)) return;
+    const styleId = (args as { styleId?: unknown } | null)?.styleId;
+    geheugen.onthoud({
+      naam: naamVanOpdracht(id, args),
+      uitvoeren:
+        id === "paragraphStyle" && typeof styleId === "string"
+          ? () => stijl(styleId)
+          : () => voerUit(id as DocxCommandId, args as never),
+    });
+  }
+
   return (
     <BewerkenContext.Provider value={waarde}>
+    <Herhaalmelding.Provider value={lintOpdracht}>
       {children}
       {menu && (
         <Contextmenu
@@ -736,6 +767,7 @@ export function TekstBewerken({
           fout={melding}
         />
       )}
+    </Herhaalmelding.Provider>
     </BewerkenContext.Provider>
   );
 }

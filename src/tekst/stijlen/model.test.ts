@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { Document, StyleDefinitions } from "@betteroffice/docx/types/document";
-import { eigenTekenopmaak, gebruikteStijlen, losOp, runOpPositie, stijlNaam, uitOpmaak, vindAlinea } from "./model";
+import { eigenTekenopmaak, gebruikteStijlen, losOp, ontbrekendeStijl, runOpPositie, stijlNaam, uitOpmaak, vindAlinea } from "./model";
 import { galerijStijlen } from "./StijlGalerij";
 
 const stijlen: StyleDefinitions = {
@@ -25,6 +25,12 @@ describe("stijlmodel", () => {
     expect(stijlNaam({ styleId: "Normal", name: "Normal" })).toBe("Standaard");
     expect(stijlNaam({ styleId: "x", name: "List Bullet 2" })).toBe("Lijst met opsommingstekens 2");
     expect(stijlNaam({ styleId: "Eigen", name: "Mijn stijl" })).toBe("Mijn stijl");
+  });
+
+  it("meldt een ontbrekende kopstijl in het Nederlands", () => {
+    expect(ontbrekendeStijl(stijlen, "Heading1")).toBeNull();
+    expect(ontbrekendeStijl(stijlen, "Heading3")).toContain("‘Kop 3’");
+    expect(ontbrekendeStijl(undefined, "Heading3")).toBeNull();
   });
 
   it("lost overerving en themalettertypen/-kleuren op", () => {
