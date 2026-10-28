@@ -34,6 +34,7 @@ import {
 } from "lucide-react";
 import type { TekstOpdrachten } from "../bewerken/TekstBewerken";
 import { portaalDoel } from "./portaal";
+import { useMenubronnen } from "./bronnen";
 
 export interface MenuPlek {
   x: number;
@@ -77,6 +78,7 @@ export function Contextmenu({
   const selectie = !!opdrachten.api()?.getSelectionInfo()?.selectedText;
   const kan = (id: DocxCommandId) => store.getState(id).enabled;
   const punt = { x: plek.x, y: plek.y };
+  const bronSecties = useMenubronnen(punt);
 
   const tabel = (args: DocxCommandArgs["tableAction"]) => () => voerUit("tableAction", args);
   const secties: Sectie[] = [
@@ -192,7 +194,7 @@ export function Contextmenu({
       left: Math.max(4, Math.min(plek.x, innerWidth - r.width - 4)),
       top: Math.max(4, Math.min(plek.y, innerHeight - r.height - 4)),
     });
-  }, [plek.x, plek.y]);
+  }, [plek.x, plek.y, bronSecties]);
 
   useEffect(() => {
     // Focus op het menu zelf; de pijltjestoetsen kiezen een item.
@@ -237,6 +239,31 @@ export function Contextmenu({
     knoppen[volgende]?.focus();
   }
 
+  // Items van andere onderdelen bovenaan (spellingsuggesties, menu/bronnen.ts).
+  const extra: ReactNode = bronSecties.map((sectie, i) => (
+    <div key={`bron-${i}`} role="group" className="tekst-menu-sectie">
+      {sectie.map((item) => [
+        item.scheiding && <div key={`${item.id}-lijn`} className="tekst-menu-scheiding" role="separator" />,
+        <button
+          key={item.id}
+          type="button"
+          role="menuitem"
+          className={item.nadruk ? "tekst-menu-item is-nadruk" : "tekst-menu-item"}
+          data-id={item.id}
+          disabled={item.uit || !item.doe}
+          onMouseDown={(e) => e.preventDefault()}
+          onClick={() => {
+            sluit();
+            if (!item.houdFocus) opdrachten.api()?.focus();
+            item.doe?.();
+          }}
+        >
+          <span>{item.label}</span>
+        </button>,
+      ])}
+    </div>
+  ));
+
   const inhoud: ReactNode = secties
     .filter((s) => s.length)
     .map((sectie, i) => (
@@ -275,6 +302,7 @@ export function Contextmenu({
       onKeyDown={pijl}
       onContextMenu={(e) => e.preventDefault()}
     >
+      {extra}
       {inhoud}
     </div>,
     portaalDoel(),

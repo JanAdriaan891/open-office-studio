@@ -48,10 +48,12 @@ export function zichtbaarBereik(
 
 function bereikInBeeld(sessie: SpellingSessie, laag: HTMLElement | null): [number, number] | null {
   const ed = sessie.editor()?.getEditorRef();
-  const vlak = laag?.closest<HTMLElement>(".docx-editor__viewport") ?? laag?.parentElement?.parentElement;
+  const vlak = laag?.closest<HTMLElement>(SCROLLVLAK);
   const indeling = ed?.getLayout();
   if (!vlak || !indeling) return null;
+  // Het zichtbare deel: het scrollvlak, begrensd door het venster.
   const v = vlak.getBoundingClientRect();
+  const venster = { boven: Math.max(v.top, 0), onder: Math.min(v.bottom, window.innerHeight) };
   const elementen = vlak.querySelectorAll<HTMLElement>(".canvas-page");
   if (elementen.length !== indeling.pages.length) return null;
   const paginas = indeling.pages.map((p, i) => {
@@ -64,8 +66,11 @@ function bereikInBeeld(sessie: SpellingSessie, laag: HTMLElement | null): [numbe
     }
     return { boven: r.top, onder: r.bottom, van, tot };
   });
-  return zichtbaarBereik(paginas, { boven: v.top, onder: v.bottom });
+  return zichtbaarBereik(paginas, venster);
 }
+
+/** Het element dat scrolt (de engine noemt het scroll-container). */
+const SCROLLVLAK = ".docx-editor__scroll-container, .docx-editor__viewport";
 
 export const Golflijnen = memo(function Golflijnen({ sessie, context, geometry }: Props) {
   sessie.bijContext(context);
@@ -77,7 +82,7 @@ export const Golflijnen = memo(function Golflijnen({ sessie, context, geometry }
 
   // Scrollen en venstergrootte: opnieuw bepalen welke pagina's in beeld zijn.
   useEffect(() => {
-    const vlak = laag.current?.closest<HTMLElement>(".docx-editor__viewport");
+    const vlak = laag.current?.closest<HTMLElement>(SCROLLVLAK);
     let frame = 0;
     const plan = () => {
       if (frame) return;

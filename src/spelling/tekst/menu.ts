@@ -1,18 +1,18 @@
 /**
  * De spellingitems van het rechtermuismenu, los van de menuweergave.
  *
- * Zolang er geen algemeen rechtermuismenu is, toont de spellingcontrole een
- * eigen menu (SpellingMenu.tsx) als je rechtsklikt op een onderstreept woord.
- * Komt het algemene menu (pakket W3, registry `src/tekst/menu/opdrachten.ts`)
- * binnen, dan koppel je het zo:
+ * In Open Tekst Studio staan ze bovenaan het algemene rechtermuismenu
+ * (src/tekst/menu/Contextmenu.tsx) via de bronnen-registry
+ * (src/tekst/menu/bronnen.ts); useTekstSpelling koppelt ze zo:
  *
- *   import { koppelSpellingMenu } from "../../spelling/tekst/menu";
- *   koppelSpellingMenu((bron) => registreerMenubron("spelling", bron));
+ *   koppelSpellingMenu((bron) => meldMenubronAan("spelling", bron));
  *
- * `bron(x, y)` geeft dan de items voor het punt onder de muis (of null als
- * daar geen fout staat); het eigen menu zet zichzelf uit zolang er een
- * koppeling is. De suggesties komen asynchroon (worker), vandaar de promise.
+ * `bron({x, y}, werkBij)` geeft meteen de items voor het punt onder de muis
+ * (of null als daar geen fout staat) en roept `werkBij` aan zodra de
+ * suggesties uit de worker er zijn. Zonder koppeling (een host zonder
+ * algemeen menu) toont de spellingcontrole een eigen menu (SpellingMenu.tsx).
  */
+import type { Menubron, MenubronItem } from "../../tekst/menu/bronnen";
 import { TALEN, type Taal } from "../talen";
 import type { SpellingSessie } from "./sessie";
 
@@ -29,7 +29,6 @@ export interface SpellingMenuItem {
   gekozen?: boolean;
 }
 
-export type SpellingMenuBron = (x: number, y: number) => Promise<SpellingMenuItem[] | null>;
 
 /** Sessies van de geopende documenten; het menu kiest de zichtbare. */
 const sessies = new Set<{ sessie: SpellingSessie; zichtbaar: () => boolean }>();
@@ -114,19 +113,36 @@ export function itemsVoorFout(
   return items;
 }
 
-/** De bron voor een algemeen rechtermuismenu (zie de uitleg bovenaan). */
-export const spellingMenuBron: SpellingMenuBron = async (x, y) => {
+/** Omzetten naar de items van het algemene rechtermuismenu (zonder taalkeuze). */
+function naarMenubron(items: SpellingMenuItem[]): MenubronItem[] {
+  return items
+    .filter((i) => !i.id.startsWith("spelling-taal-"))
+    .map((i) => ({
+      id: i.id,
+      label: i.label,
+      doe: i.uitvoeren,
+      nadruk: i.nadruk,
+      uit: i.uitgeschakeld,
+      scheiding: i.id === "spelling-alles-negeren",
+      houdFocus: i.id === "spelling-venster",
+    }));
+}
+
+/**
+ * De bron voor het algemene rechtermuismenu (src/tekst/menu/bronnen.ts):
+ * meteen de items met "Suggesties zoeken…", daarna met de suggesties.
+ */
+export const spellingMenuBron: Menubron = ({ x, y }, werkBij) => {
   for (const { sessie, zichtbaar } of sessies) {
-    if (!zichtbaar()) continue;
+    if (!zichtbaar() || !sessie.aan) continue;
     const doel = sessie.foutOnderPunt(x, y);
     if (!doel) return null;
-    let suggesties: string[] = [];
-    try {
-      suggesties = await sessie.controleur().suggesties(doel.fout.tekst, doel.fout.taal, 5);
-    } catch {
-      // Zonder suggesties blijven de andere items bruikbaar.
-    }
-    return itemsVoorFout(sessie, doel, suggesties);
+    void sessie
+      .controleur()
+      .suggesties(doel.fout.tekst, doel.fout.taal, 5)
+      .catch(() => [] as string[])
+      .then((suggesties) => werkBij(naarMenubron(itemsVoorFout(sessie, doel, suggesties))));
+    return naarMenubron(itemsVoorFout(sessie, doel, null));
   }
   return null;
 };
@@ -135,14 +151,18 @@ export const spellingMenuBron: SpellingMenuBron = async (x, y) => {
  * Koppelt de spellingitems aan een algemeen rechtermuismenu. `registreer`
  * krijgt de bron en geeft een functie om de koppeling weer op te heffen.
  */
-export function koppelSpellingMenu(registreer: (bron: SpellingMenuBron) => () => void): () => void {
-  externeKoppelingen++;
-  const los = registreer(spellingMenuBron);
+export function koppelSpellingMenu(registreer: (bron: Menubron) => () => void): () => void {
+  // Eén aanmelding voor alle geopende documenten (de bron kiest zelf de zichtbare).
+  if (externeKoppelingen++ === 0) losGedeeld = registreer(spellingMenuBron);
   let actief = true;
   return () => {
     if (!actief) return;
     actief = false;
-    externeKoppelingen--;
-    los();
+    if (--externeKoppelingen === 0) {
+      losGedeeld?.();
+      losGedeeld = null;
+    }
   };
 }
+
+let losGedeeld: (() => void) | null = null;

@@ -15,7 +15,8 @@ import { SCHEIDING } from "../autocorrectie";
 import { spellingControleur } from "../dienst";
 import { publiceerSpelling } from "../status";
 import { genegeerd, persoonlijk } from "../woordenlijst";
-import { heeftExternMenu, registreerSessie } from "./menu";
+import { meldMenubronAan } from "../../tekst/menu/bronnen";
+import { heeftExternMenu, koppelSpellingMenu, registreerSessie } from "./menu";
 import { maakSpellingPlugin, SPELLING_PLUGIN, spellingGrant } from "./plugin";
 import { SpellingSessie } from "./sessie";
 import { SpellingMenu } from "./SpellingMenu";
@@ -44,6 +45,8 @@ export function useTekstSpelling(
   useEffect(() => {
     sessie.start();
     const losMenu = registreerSessie(sessie, () => zichtbaarRef.current);
+    // Suggesties bovenaan het algemene rechtermuismenu (src/tekst/menu).
+    const losBron = koppelSpellingMenu((bron) => meldMenubronAan("spelling", bron));
     // Woordenlijst of instellingen gewijzigd: opnieuw tekenen of controleren.
     let vorige = JSON.stringify(leesInstellingen().spelling);
     const stopInstellingen = volgInstellingen(() => {
@@ -57,6 +60,7 @@ export function useTekstSpelling(
     const stopLijst2 = genegeerd.volg(() => sessie.herbegin());
     return () => {
       losMenu();
+      losBron();
       stopInstellingen();
       stopLijst1();
       stopLijst2();
