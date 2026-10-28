@@ -55,6 +55,7 @@ import { useTabSneltoetsen } from "./useTabSneltoetsen";
 import { useVensters } from "./useVensters";
 import { useSysteembestanden } from "./systeembestanden";
 import { Werkruimtehulp } from "./werkruimte/Werkruimtehulp";
+import { bijNieuwDocument } from "./werkruimte/gebeurtenissen";
 import { Statusbalk } from "./status/Statusbalk";
 import { leesInstellingen } from "./instellingen";
 import { noteerBrowser } from "./recent";
@@ -554,6 +555,17 @@ export function OfficeStudio() {
     terug: () => toestand.vorige !== null && wissel(toestand.vorige, true),
   });
 
+  // Nieuw tekstdocument vanuit een editor (Versies vergelijken, #57): eigen
+  // tabblad, als gewijzigd gemarkeerd zodat het niet ongemerkt verdwijnt.
+  const openDocumentRef = useRef<typeof openDocument | null>(null);
+  useEffect(
+    () =>
+      bijNieuwDocument(({ naam, bytes }) => {
+        openDocumentRef.current?.("docx", naam, bytes, { gewijzigd: true, exportFormaat: "docx" });
+      }),
+    [],
+  );
+
   function openDocument(
     soort: Soort,
     naam: string,
@@ -570,6 +582,7 @@ export function OfficeStudio() {
   ) {
     return tabs.openDocument({ soort, naam, bytes, ...extra });
   }
+  openDocumentRef.current = openDocument;
 
   async function bezigMet(taak: () => Promise<void>) {
     if (bezigRef.current) return;
