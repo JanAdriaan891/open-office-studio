@@ -438,7 +438,13 @@ export async function tekstNaarTabel(ref: DocxEditorRef | null, scheiding: Schei
     const van = tekstBegin(s, story, eerste.paraId);
     const tot = s.locateParagraph(story, laatste.paraId).end;
     if (tot > van) ruw(s, story, [{ op: "delete", index: van, len: tot - van }]);
-    const ontvangst = s.insertTable({ story, paraId: laatste.paraId, offset: 0 }, cellen.length, cellen[0].length);
+    // Draagt de alinea nog zo'n tabel, dan zou offset 0 de nieuwe tabel vóór
+    // die tabel zetten; voeg dan in aan het begin van de volgende alinea.
+    const alleSpans = s.paragraphSpans(story);
+    const volgende = alleSpans[alleSpans.findIndex((p) => p.paraId === laatste.paraId) + 1]?.paraId;
+    const doel = invoegAlinea(tekstBegin(s, story, laatste.paraId) > s.locateParagraph(story, laatste.paraId).start, laatste.paraId, volgende);
+    const ontvangst = s.insertTable({ story, paraId: doel, offset: 0 }, cellen.length, cellen[0].length);
+    const nieuw: TabelLoc = ontvangst.table;
     verhalen.push(...ontvangst.createdStoryIds);
     ontvangst.createdStoryIds.forEach((verhaal, n) => {
       const tekst = cellen[Math.floor(n / cellen[0].length)]?.[n % cellen[0].length] ?? "";
@@ -451,13 +457,46 @@ export async function tekstNaarTabel(ref: DocxEditorRef | null, scheiding: Schei
       const span = s.locateParagraph(story, laatste.paraId);
       ruw(s, story, [{ op: "delete", index: span.end, len: 1 }]);
     }
+    // De engine maakt een nieuwe tabel 9360 twips (Letter) breed; op A4 steekt
+    // die buiten de marge. Verdeel de tekstbreedte van de pagina, zoals Word.
+    const breedte = beschikbareBreedte(e, nieuw);
+    zetBreedtes(s, nieuw, Array.from({ length: cellen[0].length }, () => breedte / cellen[0].length), "autofit", { w: breedte, type: "dxa" });
     const eersteCel = ontvangst.createdStoryIds[0];
     const celAlinea = eersteCel ? s.paragraphs(eersteCel)[0] : null;
-    if (celAlinea) s.setSelection({ story: eersteCel, paraId: celAlinea.paraId, offset: 0 });
+    if (celAlinea) {
+      s.setSelection({ story: eersteCel, paraId: celAlinea.paraId, offset: 0 });
+      celCursor(s, nieuw);
+    }
   } finally {
     klaar(e, verhalen);
   }
   return { rijen: cellen.length, kolommen: cellen[0].length };
+}
+
+/**
+ * Alinea waarin ‘Tekst naar tabel’ de nieuwe tabel invoegt (op offset 0).
+ * Een tabel direct vóór de selectie hangt aan de eerste alinea; offset 0 ligt
+ * vóór die tabel. Dan de volgende alinea, die de tabel daarna toch overneemt.
+ */
+export function invoegAlinea(draagtTabel: boolean, alinea: string, volgende: string | undefined) {
+  return draagtTabel && volgende ? volgende : alinea;
+}
+
+/**
+ * Zet de celselectie op de eerste cel van een nieuwe tabel, zoals de engine
+ * zelf na Tabel invoegen doet. De sessie onthoudt een rij- of tabelselectie
+ * ook als de cursor de tabel verlaat; zonder dit tekent de weergave die oude
+ * selectie weer zodra de cursor in de nieuwe tabel staat (in een andere tabel).
+ */
+export function celCursor(s: Pick<Sessie, "setCellSelection">, tabel: TabelLoc) {
+  // Let op: de celverhalen van een nieuwe tabel houden hun naam (`t<n>`), de
+  // celselectie telt tabellen op volgorde in het verhaal.
+  const cel = { ...tabel, row: 0, column: 0 };
+  try {
+    s.setCellSelection({ anchor: cel, head: cel });
+  } catch {
+    // Alleen weergave; de bewerking zelf is geslaagd.
+  }
 }
 
 /** Ruwe index van de eerste eenheid van een alinea na eventuele tabellen ervoor. */
