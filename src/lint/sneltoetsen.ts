@@ -20,8 +20,10 @@ type Combinatie = {
 };
 
 export function ontleed(toets: string): Combinatie {
-  const delen = toets.split("+").map((deel) => deel.trim());
-  const laatste = delen.pop() ?? "";
+  // "Ctrl+Shift++": de plus zelf is de toets.
+  const plus = toets.endsWith("++");
+  const delen = (plus ? toets.slice(0, -2) : toets).split("+").map((deel) => deel.trim());
+  const laatste = plus ? "+" : (delen.pop() ?? "");
   const mods = new Set(delen.map((deel) => deel.toLowerCase()));
   return {
     ctrl: mods.has("ctrl"),
@@ -31,13 +33,48 @@ export function ontleed(toets: string): Combinatie {
   };
 }
 
-/** Toetsnaam los van toetsenbordindeling en Shift: cijfers via `code`. */
-function toetsVan(e: Pick<KeyboardEvent, "key" | "code">) {
+/** Leestekentoetsen op hun fysieke plek, zodat Shift het teken niet verandert. */
+const leestekens: Record<string, string> = {
+  Minus: "-",
+  Equal: "=",
+  Period: ".",
+  Comma: ",",
+  BracketLeft: "[",
+  BracketRight: "]",
+  Semicolon: ";",
+  Slash: "/",
+};
+/** Hetzelfde leesteken met Shift op een Amerikaanse indeling (Ctrl+Shift+> = Ctrl+Shift+.). */
+const metShift: Record<string, string> = {
+  Minus: "_",
+  Equal: "+",
+  Period: ">",
+  Comma: "<",
+  BracketLeft: "{",
+  BracketRight: "}",
+  Semicolon: ":",
+  Slash: "?",
+};
+
+/**
+ * Toetsnamen los van toetsenbordindeling en Shift: cijfers en letters via
+ * `code`; leestekens zowel als teken (`key`, bijvoorbeeld ">") als via hun
+ * plek (`code`, bijvoorbeeld "." voor Shift+. = ">").
+ */
+function toetsenVan(e: Pick<KeyboardEvent, "key" | "code" | "shiftKey">): string[] {
   const cijfer = /^(Digit|Numpad)(\d)$/.exec(e.code);
-  if (cijfer) return cijfer[2];
+  if (cijfer) return [cijfer[2]];
   const letter = /^Key([A-Z])$/.exec(e.code);
-  if (letter) return letter[1].toLowerCase();
-  return e.key.toLowerCase();
+  if (letter) return [letter[1].toLowerCase()];
+  if (e.code === "Space" || e.key === " ") return ["space"];
+  const teken = e.key.toLowerCase();
+  const plek = leestekens[e.code];
+  if (!plek) {
+    // Zonder `code` (gesimuleerde toetsen): het teken met Shift afleiden.
+    const code = Object.keys(leestekens).find((c) => leestekens[c] === teken);
+    return e.shiftKey && code ? [teken, metShift[code]] : [teken];
+  }
+  return e.shiftKey ? [teken, plek, metShift[e.code]] : [teken, plek];
 }
 
 export function past(
@@ -52,7 +89,7 @@ export function past(
     c.ctrl === (e.ctrlKey || e.metaKey) &&
     c.shift === e.shiftKey &&
     c.alt === e.altKey &&
-    c.toets === toetsVan(e)
+    toetsenVan(e).includes(c.toets)
   );
 }
 
