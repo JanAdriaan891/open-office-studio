@@ -90,6 +90,7 @@ import {
   useTekstOpdrachten,
 } from "./tekst-opdrachten";
 import { datumTekst, tijdTekst, type Hoofdlettersoort } from "./tekst-logica";
+import { TabelKiezer } from "../tabelvoorbeeld/TabelKiezer";
 import "./tekst.css";
 
 type Opdrachten = ReturnType<typeof useTekstOpdrachten>;
@@ -580,10 +581,7 @@ export function TekstRibbon({
                   />
                 </Groep>
                 <Groep naam="Tabellen">
-                  <div className="ribbon-ingebouwd">
-                    <TekstControl id="insertTable" />
-                    <span>Tabel</span>
-                  </div>
+                  <TabelKiezer />
                 </Groep>
                 <Groep naam="Illustraties">
                   <W id="insertImage" naam="Afbeelding" icoon={Image} groot />
