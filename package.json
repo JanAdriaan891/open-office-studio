@@ -17,6 +17,7 @@
     "test:engines": "node scripts/test-kantoor-engines.mjs",
     "versie:week": "node scripts/weekversie.mjs",
     "versie:check": "node scripts/controleer-weekversie.mjs",
+    "i18n:check": "node scripts/controleer-i18n.mjs",
     "database:dev": "vite --config apps/database-studio/vite.config.ts",
     "predatabase:build": "node scripts/kopieer-licenties.mjs --database",
     "database:build": "tsc --noEmit && vite build --config apps/database-studio/vite.config.ts && node scripts/controleer-database-bundel.mjs",
