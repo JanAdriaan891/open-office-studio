@@ -10,6 +10,8 @@ export const TALEN = [
 let namen: Intl.DisplayNames | null = null;
 /** "Nederlands (Nederland)" voor nl-NL. */
 export function taalNaam(code: string): string {
+  // Intl noemt nl-BE ‘Vlaams’; tekstverwerkers tonen ‘Nederlands (België)’.
+  if (code.toLowerCase() === "nl-be") return "Nederlands (België)";
   try {
     namen ??= new Intl.DisplayNames(["nl"], { type: "language" });
     const naam = namen.of(code);

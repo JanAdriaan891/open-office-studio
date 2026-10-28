@@ -52,7 +52,7 @@ export const useTekstExtra = () =>
 // --- Bestand › Info --------------------------------------------------------
 
 const zichtbaar = winkel<object | null>(null);
-const infoVerzoek = winkel<{ eigenaar: object; n: number } | null>(null);
+const infoVerzoek = winkel<{ eigenaar: object; n: number; terug?: () => void } | null>(null);
 
 /** Het zichtbare tekstdocument meldt zich; blijft gelden tot een ander zich meldt. */
 export function meldZichtbaar(eigenaar: object) {
@@ -61,10 +61,14 @@ export function meldZichtbaar(eigenaar: object) {
 export function meldVerdwenen(eigenaar: object) {
   if (zichtbaar.lees() === eigenaar) zichtbaar.zet(null);
 }
-/** Bestand › Info voor het laatst zichtbare tekstdocument. */
-export function toonDocumentInfo() {
+/**
+ * Bestand › Info voor het laatst zichtbare tekstdocument. `terug` brengt de
+ * gebruiker naar het document; dat gebeurt na een bewerking die het document
+ * opnieuw laadt (een verborgen editor tekent zich pas als hij zichtbaar is).
+ */
+export function toonDocumentInfo(terug?: () => void) {
   const eigenaar = zichtbaar.lees();
-  if (eigenaar) infoVerzoek.zet({ eigenaar, n: (infoVerzoek.lees()?.n ?? 0) + 1 });
+  if (eigenaar) infoVerzoek.zet({ eigenaar, n: (infoVerzoek.lees()?.n ?? 0) + 1, terug });
 }
 export const useInfoVerzoek = () => useSyncExternalStore(infoVerzoek.volg, infoVerzoek.lees, () => null);
 

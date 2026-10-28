@@ -66,6 +66,8 @@ export function TekstInfo() {
   const aansluiting = useTaalAansluiting();
   const verzoek = useInfoVerzoek();
   const gezien = useRef(verzoek?.n ?? 0);
+  // Vanuit Bestand › Info: na herladen terug naar het document.
+  const [terug, setTerug] = useState<(() => void) | undefined>(undefined);
 
   useEditorVolgen(api, (soort) => {
     const ref = api();
@@ -83,7 +85,9 @@ export function TekstInfo() {
   useEffect(() => {
     if (!verzoek || verzoek.n === gezien.current) return;
     gezien.current = verzoek.n;
-    if (verzoek.eigenaar === eigenaar) setDialoog("info");
+    if (verzoek.eigenaar !== eigenaar) return;
+    setTerug(() => verzoek.terug);
+    setDialoog("info");
   }, [verzoek]);
 
   const bijhouden = modus.state.enabled ? modus.state.value === "suggesting" : null;
@@ -106,14 +110,21 @@ export function TekstInfo() {
 
   const sluit = () => {
     setDialoog(null);
+    setTerug(undefined);
     requestAnimationFrame(() => api()?.focus());
+  };
+  const naHerladen = () => {
+    terug?.();
+    sluit();
   };
   return (
     <>
       {dialoog === "info" && (
         <InfoVenster api={api} herlaad={herlaad} sluit={sluit} inspecteren={() => setDialoog("inspecteren")} />
       )}
-      {dialoog === "inspecteren" && <InspectieVenster api={api} herlaad={herlaad} sluit={sluit} />}
+      {dialoog === "inspecteren" && (
+        <InspectieVenster api={api} herlaad={herlaad} sluit={sluit} naHerladen={naHerladen} />
+      )}
       {dialoog === "taal" && <TaalVenster huidig={taal} api={api} herlaad={herlaad} sluit={sluit} />}
       {weergave === "lees" && zichtbaar && <Leesmodus api={api} sluit={() => setWeergave("afdruk")} />}
     </>

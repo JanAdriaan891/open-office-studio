@@ -93,6 +93,7 @@ import {
 } from "../tekst/bewerken/TekstBewerken";
 import { StijlBeheerGroep, StijlenBeheer, StijlGalerij } from "../tekst/stijlen";
 import { TekstInfo } from "../tekst/info/TekstInfo";
+import { WeergaveGroep } from "../tekst/info/WeergaveGroep";
 import "./tekst.css";
 
 type Opdrachten = ReturnType<typeof useTekstOpdrachten>;
@@ -764,6 +765,7 @@ export function TekstRibbon({
             naam: "Beeld",
             inhoud: (
               <>
+                <WeergaveGroep />
                 <Groep naam="Weergeven">
                   <Actie
                     icoon={Ruler}

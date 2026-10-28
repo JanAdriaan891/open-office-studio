@@ -14,10 +14,13 @@ export function InspectieVenster({
   api,
   herlaad,
   sluit,
+  naHerladen = sluit,
 }: {
   api: () => DocxEditorRef | null;
   herlaad: Herladen | null;
   sluit: () => void;
+  /** Na verwijderen (het document is opnieuw geladen). */
+  naHerladen?: () => void;
 }) {
   const [uitslag, setUitslag] = useState<InspectieUitslag | null>(null);
   const [keuze, setKeuze] = useState<Opschonen>({});
@@ -74,7 +77,7 @@ export function InspectieVenster({
       // Een wachtende auteur uit Bestand › Info zou de naam bij opslaan terugzetten.
       if (keuze.persoonlijk) zetEigenschappen(herlaad, { auteur: "" });
       herlaad.vervang(nieuw, { paraId: ref?.getSelectionInfo()?.paraId ?? undefined });
-      sluit();
+      naHerladen();
     } catch (error) {
       setBezig(false);
       setFout(error instanceof Error ? error.message : String(error));
