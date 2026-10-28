@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import { SneltoetsenOverzicht } from "./SneltoetsenOverzicht";
 import { bijVerzoek } from "./gebeurtenissen";
 import type { SneltoetsModule } from "../lint/sneltoetsenlijst";
+import { useRegioToetsen } from "./regios";
 import "./werkruimte.css";
+import "./toegankelijkheid.css";
 
 const modules: Record<string, SneltoetsModule> = {
   docx: "tekst",
@@ -33,6 +35,7 @@ export function hulpToets(
 export function Werkruimtehulp({ soort }: { soort: string | null }) {
   const [open, setOpen] = useState<"sneltoetsen" | "instellingen" | null>(null);
   const module = soort ? (modules[soort] ?? null) : null;
+  useRegioToetsen();
   useEffect(() => {
     const toets = (e: KeyboardEvent) => {
       if (e.defaultPrevented || e.repeat) return;

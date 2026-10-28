@@ -1,0 +1,61 @@
+/*
+ * Toegankelijkheid van de werkruimte (#24): contrast in beide thema's,
+ * hoog contrast (prefers-contrast en forced-colors) en minder beweging.
+ * De OpenAEC-tokens zelf blijven ongewijzigd; hier staan alleen correcties.
+ */
+
+/* Secundaire tekst (groepsnamen, toelichtingen) haalt 4,5:1 op het lichte lint. */
+.office[data-office-thema="light"] {
+  --oa-shell-text-secondary: rgba(54, 54, 62, 0.74);
+}
+/* Amber op donker grijs haalt de 3:1 voor een focusrand niet; goud wel. */
+.office[data-office-thema="forge"] :is(button, select, input, summary, [tabindex]):focus-visible {
+  outline-color: #f5b13d;
+}
+
+@media (prefers-contrast: more) {
+  .office {
+    --oa-shell-text-secondary: var(--oa-shell-text);
+    --oa-shell-text-muted: var(--oa-shell-text);
+    --oa-shell-ribbon-group-separator: currentColor;
+  }
+  .office .ribbon-actie:disabled {
+    opacity: 0.55;
+  }
+  .office :focus-visible {
+    outline-width: 3px !important;
+  }
+}
+
+@media (forced-colors: active) {
+  .office :focus-visible {
+    outline: 2px solid Highlight !important;
+    outline-offset: 2px;
+  }
+  .office .ribbon-tabs [role="tab"][aria-selected="true"],
+  .office .office-tablijst [role="tab"][aria-selected="true"] {
+    border: 2px solid Highlight;
+  }
+  .office .ribbon-actie[aria-pressed="true"],
+  .office .ribbon-groep-knop[aria-expanded="true"] {
+    outline: 2px solid Highlight;
+    outline-offset: -2px;
+  }
+  .office .office-documenttitel i,
+  .office .office-statusbalk i {
+    forced-color-adjust: none;
+    background: CanvasText;
+  }
+  .office .office-statusbalk {
+    border-top: 1px solid CanvasText;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .office *,
+  .werkruimte-dialoogachtergrond * {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}

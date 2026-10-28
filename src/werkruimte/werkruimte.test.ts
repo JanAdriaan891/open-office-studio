@@ -37,3 +37,14 @@ describe("werkruimte", () => {
     expect(sneltoetsSecties(vasteSneltoetsen, null)[0].module).toBe("algemeen");
   });
 });
+
+import { volgendeRegio } from "./regios";
+describe("F6-regio's", () => {
+  it("loopt rond, ook achteruit en vanaf buiten elke regio", () => {
+    expect(volgendeRegio(5, 4, false)).toBe(0);
+    expect(volgendeRegio(5, 0, true)).toBe(4);
+    expect(volgendeRegio(5, -1, false)).toBe(0);
+    expect(volgendeRegio(5, -1, true)).toBe(4);
+    expect(volgendeRegio(0, 0, false)).toBe(-1);
+  });
+});

@@ -12,7 +12,11 @@ import {
   PresentatieRibbon,
 } from "./editor-ribbons";
 import { RibbonFout } from "./Ribbon";
-import { tekstNl, rekenbladNl, diaNl } from "./nederlands";
+import {
+  tekstNlVolledig as tekstNl,
+  rekenbladNlVolledig as rekenbladNl,
+  diaNlVolledig as diaNl,
+} from "./nederlands-toegankelijk";
 import { RekenbladKoppen } from "./RekenbladKoppen";
 import {
   EditorApi,

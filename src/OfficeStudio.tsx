@@ -637,6 +637,12 @@ export function OfficeStudio() {
                 <span>{actiefDocument.naam}</span>
                 <i
                   className={actiefDocument.gewijzigd ? "gewijzigd" : ""}
+                  role="img"
+                  aria-label={
+                    actiefDocument.gewijzigd
+                      ? "Niet-opgeslagen wijzigingen"
+                      : "Ongewijzigd"
+                  }
                   title={
                     actiefDocument.gewijzigd
                       ? "Niet-opgeslagen wijzigingen"
