@@ -4,10 +4,11 @@ import { Lint, LintActie, LintGroep } from "./Lint";
 
 const Icoon = () => <svg />;
 
-function html() {
+function html(beginTab?: string) {
   return renderToStaticMarkup(
     <Lint
       bestand={() => {}}
+      beginTab={beginTab}
       tabs={[
         {
           id: "start",
@@ -24,6 +25,15 @@ function html() {
     />,
   );
 }
+
+describe("lint: begintab", () => {
+  it("begint op de gevraagde tab (bijvoorbeeld na opnieuw mounten)", () => {
+    expect(html("invoegen")).toMatch(/aria-selected="true"[^>]*>Invoegen</);
+  });
+  it("valt terug op de eerste tab als die tab er niet (meer) is", () => {
+    expect(html("tabel")).toMatch(/aria-selected="true"[^>]*>Start</);
+  });
+});
 
 describe("lint: ARIA-structuur", () => {
   const markup = html();

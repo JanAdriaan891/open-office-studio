@@ -9,6 +9,8 @@ import type { DocxEditorRef } from "@betteroffice/docx-react";
 import { Dialoog } from "../../werkruimte/Dialoog";
 import type { Herladen } from "../../lint/editorApi";
 import { Pakket } from "../../grafieken/pakket";
+import { herstelPlek, leesPlek } from "../pagina/ui/engine";
+import { planNaHerladen } from "../pagina/ui/staat";
 import {
   NOTATIES,
   STANDAARD_NOTATIE,
@@ -41,7 +43,8 @@ export async function voegVeldIn(
   const invoer = ref.getEditorRef();
   if (!invoer) throw new Error("Het document is nog niet gereed.");
   const markering = maakMarkering();
-  const paraId = ref.getSelectionInfo()?.paraId ?? undefined;
+  // Cursor en beeld vóór de markering: na het herladen staat de cursor achter het veld.
+  const plek = await leesPlek(ref);
   ref.focus();
   invoer.insertText(markering);
   await ref.flushPendingInput();
@@ -56,7 +59,8 @@ export async function voegVeldIn(
     const nieuw = vervangMarkering(xml, markering, (rPr) => veldXml(notatie, waarde, rPr));
     if (!nieuw) break;
     pakket.schrijf(deel, nieuw);
-    herlaad.vervang(pakket.inpakken(), paraId ? { paraId } : undefined);
+    planNaHerladen(herlaad, (n) => herstelPlek(n, plek, "eind"), ref);
+    herlaad.vervang(pakket.inpakken());
     return;
   }
   // Niet gevonden: de markering weer weghalen en als tekst invoegen.

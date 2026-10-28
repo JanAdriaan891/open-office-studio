@@ -59,6 +59,10 @@ export interface LintProps {
   /** Begint met een verborgen lintinhoud (alleen de tabs). */
   standaardIngeklapt?: boolean;
   teksten?: Partial<LintTeksten>;
+  /** Tab waarmee het lint begint (bijvoorbeeld na opnieuw mounten); anders de eerste. */
+  beginTab?: string;
+  /** Meldt elke tabkeuze, zodat de app die kan onthouden. */
+  bijTabKeuze?: (id: string) => void;
 }
 
 const SLUIT = "openaec-lint-sluit";
@@ -151,9 +155,11 @@ export function Lint({
   compact = false,
   standaardIngeklapt = false,
   teksten: eigenTeksten,
+  beginTab,
+  bijTabKeuze,
 }: LintProps) {
   const teksten = { ...standaardTeksten, ...eigenTeksten };
-  const [gekozen, setGekozen] = useState(tabs[0].id);
+  const [gekozen, setGekozen] = useState(() => beginTab ?? tabs[0].id);
   const [ingeklapt, setIngeklapt] = useState(standaardIngeklapt);
   const [scroll, setScroll] = useState({ links: false, rechts: false });
   const [tips, setTips] = useState<Toetstips | null>(null);
@@ -272,6 +278,7 @@ export function Lint({
   function kies(id: string) {
     setGekozen(id);
     setIngeklapt(false);
+    bijTabKeuze?.(id);
   }
 
   /** Terug naar waar de focus was voordat het lint werd betreden. */

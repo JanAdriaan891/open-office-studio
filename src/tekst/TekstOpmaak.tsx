@@ -29,6 +29,8 @@ import type { YrsStoryRange } from "@betteroffice/docx/yrs";
 import { RandenVenster, type RandenBegin, type RandenTab, type RandenWijziging } from "./randen/RandenVenster";
 import { arceringUit, randFormulierUit } from "./randen/model";
 import { leesPaginaUitPakket, pasPaginaToe } from "./randen/pagina";
+import { herstelPlek, leesPlek } from "./pagina/ui/engine";
+import { planNaHerladen } from "./pagina/ui/staat";
 import { LijstVenster } from "./lijst/LijstVenster";
 import { lijstVan } from "./lijst/model";
 import { leesNummering, leesNummeringUitPakket, pasNummeringToe, type GelezenNummering } from "./lijst/nummering";
@@ -200,9 +202,12 @@ export function TekstOpmaakProvider({ children }: { children: ReactNode }) {
     if (!w.pagina) return;
     if (!herlaad) throw new Error("Paginarand en paginakleur zijn hier niet beschikbaar.");
     // Pakketroute: na de engine-wijzigingen opslaan, bewerken en herladen.
+    const plek = await leesPlek(selectie.ref);
     const bytes = await herlaad.bytes();
-    const paraId = selectie.ref.getSelectionInfo()?.paraId ?? undefined;
-    herlaad.vervang(pasPaginaToe(bytes, w.pagina), { paraId });
+    const nieuw = pasPaginaToe(bytes, w.pagina);
+    // De hoofdtekst verandert niet: cursor en beeld terug waar ze waren.
+    planNaHerladen(herlaad, (n) => herstelPlek(n, plek, "begin"), selectie.ref);
+    herlaad.vervang(nieuw);
   }
 
   const kan = () => recent.current.bewerkbaar;

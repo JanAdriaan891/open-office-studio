@@ -72,6 +72,8 @@ export const STANDAARD_INHOUD: InhoudOpties = {
 
 interface ExportInline {
   kind: string;
+  /** Alleen in de markeringsweergave (document met bijgehouden wijzigingen). */
+  revisions?: { kind: string }[];
   text?: string;
   cachedResult?: { kind: string; inlines?: ExportInline[] };
   inlines?: ExportInline[];
@@ -93,8 +95,13 @@ export interface PaginaExport {
   };
 }
 
+/** Verwijderde (of weggeschoven) tekst in de markeringsweergave telt niet mee. */
+export const isVerwijderd = (i: { revisions?: { kind: string }[] }) =>
+  !!i.revisions?.some((r) => r.kind === "deletion" || r.kind === "moveFrom");
+
 function inlineTekst(lijst: ExportInline[] | undefined): string {
   return (lijst ?? [])
+    .filter((i) => !isVerwijderd(i))
     .map((i) =>
       i.kind === "text"
         ? (i.text ?? "")
