@@ -510,7 +510,7 @@ export function RekenbladRibbon({
       uitvoeren: () => grafieken.invoegen(true),
     },
   );
-  useSneltoetsen(rekenbladHost, api ? sneltoetsen : []);
+  useSneltoetsen(rekenbladHost, api ? sneltoetsen : [], "rekenblad");
 
   const zoeken = (
     <Groep naam="Zoeken">

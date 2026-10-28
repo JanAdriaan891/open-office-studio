@@ -47,6 +47,7 @@ import { TabBalk, paneelId, tabId, tabbladIcoon } from "./TabBalk";
 import { useTabSneltoetsen } from "./useTabSneltoetsen";
 import { useVensters } from "./useVensters";
 import { useSysteembestanden } from "./systeembestanden";
+import { Werkruimtehulp } from "./werkruimte/Werkruimtehulp";
 const Editor = lazy(() => import("./editors"));
 const tauri = "__TAURI_INTERNALS__" in window;
 /** Database-export via de native opslagdialoog; Rust staat alleen bekende exporttypen toe. */
@@ -912,6 +913,7 @@ export function OfficeStudio() {
           vorigeFocus={vorigeFocus.current}
         />
       )}
+      <Werkruimtehulp soort={actiefDocument?.soort ?? actieveModule} />
       {opslaanDocument && (
         <OpslaanAlsDialoog
           soort={opslaanDocument.soort}

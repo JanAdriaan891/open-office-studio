@@ -13,8 +13,11 @@ import {
   NotebookPen,
   Mail,
   Send,
+  Settings,
+  Keyboard,
 } from "lucide-react";
 import type { Soort } from "./editors";
+import { toonInstellingen, toonSneltoetsen } from "./werkruimte/gebeurtenissen";
 import "../packages/email/src/start.css";
 
 export const modules = [
@@ -216,6 +219,16 @@ export function StartScherm({
             </span>
             <ArrowRight size={14} />
           </button>
+          <div className="start-hulp">
+            <button onClick={toonInstellingen} title="Instellingen · Ctrl+,">
+              <Settings size={16} />
+              <span>Instellingen</span>
+            </button>
+            <button onClick={toonSneltoetsen} title="Sneltoetsen · F1">
+              <Keyboard size={16} />
+              <span>Sneltoetsen</span>
+            </button>
+          </div>
           <span className="start-openaec">OpenAEC Foundation</span>
         </div>
       </aside>

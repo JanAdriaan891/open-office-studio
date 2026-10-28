@@ -369,7 +369,7 @@ export function useTekstOpdrachten({
     { toets: "Ctrl+Shift+R", uitvoeren: wijzigLiniaal },
     { toets: "F11", uitvoeren: toonStijlen },
   ];
-  useSneltoetsen(tekstVlak, dialoog ? [] : sneltoetsen);
+  useSneltoetsen(tekstVlak, dialoog ? [] : sneltoetsen, "tekst");
 
   return {
     api,
