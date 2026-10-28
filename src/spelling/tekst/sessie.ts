@@ -14,7 +14,7 @@ import type { Controleur, Fout } from "../controleur";
 import { standaardTaal, type Taal, type TaalId } from "../talen";
 import { genegeerd, persoonlijk } from "../woordenlijst";
 import { alineatalenUitDocx, wijsTalenToe, type Alineatalen } from "./taal";
-import { autocorrectie, type Correctie } from "../autocorrectie";
+import { autocorrectie } from "../autocorrectie";
 
 export interface PluginStaat {
   /** Telt op bij elke nieuwe controle, zodat de overlay opnieuw tekent. */
@@ -419,116 +419,74 @@ export class SpellingSessie {
 
   /**
    * Autocorrectie van het zojuist getypte woord (na een spatie of leesteken).
-   * Eén edit-batch met bewaking: is er intussen verder getypt, dan weigert de
-   * engine de batch (andere versie) en gebeurt er niets.
+   *
+   * De engine houdt getypte tekens even vast (hasPendingInput); daarom eerst
+   * `flushPendingInput`, en direct daarna synchroon lezen (YrsSession.
+   * readParagraphs geeft tekst én versie) en één edit-batch met die versie en
+   * een tekstbewaking (`expect`). Het venster waarin doortypen de versie kan
+   * veranderen, is zo zo klein mogelijk; gebeurt het toch ("stale-version"),
+   * dan opnieuw. De tekens die na het scheidingsteken getypt zijn, tellen we
+   * terug om het scheidingsteken terug te vinden. (setSelection + insertText
+   * verving de selectie niet betrouwbaar en is daarom niet gebruikt.)
    */
-  /**
-   * Autocorrectie bij de toetsaanslag zelf, vóórdat de engine het
-   * scheidingsteken invoegt: synchroon lezen (YrsSession.readParagraphs) en
-   * vervangen via de invoerweg van de engine (setSelection + insertText).
-   * Zo kan doortypen er niet tussen komen. Geeft "later" als de engine nog
-   * invoer verwerkt (dan de asynchrone weg), anders of er gecorrigeerd is.
-   */
-  autocorrigeerBijToets(teken: string): boolean | "later" {
+  autocorrigeer(teken: string, volgnummer: number, poging = 0): void {
     const ed = this.editor()?.getEditorRef();
     const sessie = ed?.getYrsSession();
-    if (!ed || !sessie) return "later";
-    if (ed.hasPendingInput()) return "later";
-    const bereik = ed.getSelectionRange();
-    if (!bereik || bereik.from !== bereik.to) return false;
+    const edits = this.ctx?.edits;
+    if (!ed || !sessie || !edits || this.gestopt || poging > 150) return;
+    if (ed.hasPendingInput()) {
+      void ed
+        .flushPendingInput()
+        .catch(() => {})
+        .then(() => {
+          // Nog steeds invoer: wie doortypt, krijgt de correctie bij de eerste pauze.
+          if (ed.hasPendingInput()) window.setTimeout(() => this.autocorrigeer(teken, volgnummer, poging + 1), 30);
+          else this.autocorrigeer(teken, volgnummer, poging + 1);
+        });
+      return;
+    }
     const cursor = this.cursor();
-    if (!cursor?.story) return false;
-    let tekst: string;
+    if (!cursor?.story) return;
+    let gelezen: { tekst: string; versie: string };
     try {
       const r = sessie.readParagraphs({ view: "accepted", story: cursor.story, paraIds: [cursor.paraId] });
-      if (!r.ok || !r.paragraphs[0]) return false;
-      tekst = r.paragraphs[0].text;
+      if (!r.ok || !r.paragraphs[0]) return;
+      gelezen = { tekst: r.paragraphs[0].text, versie: r.version };
     } catch {
-      return "later";
+      return;
     }
-    const metTeken = tekst.slice(0, cursor.offset) + teken + tekst.slice(cursor.offset);
-    const c = autocorrectie(metTeken, cursor.offset + 1, {
+    // Het scheidingsteken staat `erna` tekens vóór de cursor.
+    const erna = Math.max(0, this.toetsen - volgnummer);
+    const plek = cursor.offset - 1 - erna;
+    if (plek < 0 || gelezen.tekst[plek] !== teken) return;
+    const c = autocorrectie(gelezen.tekst, plek + 1, {
       taal: this.perId.get(cursor.paraId)?.taal ?? this.taalVanDocument(),
       uitzondering: (w) => persoonlijk.bevat(w) || genegeerd.bevat(w),
     });
-    if (!c || c.eind > cursor.offset) return false;
-    const loc = (offset: number) => ({ story: cursor.story!, paraId: cursor.paraId, offset });
-    const van = ed.yrsLocToDisplayPosition(loc(c.start));
-    const tot = ed.yrsLocToDisplayPosition(loc(c.eind));
-    if (van === null || tot === null) return false;
-    ed.setSelection(van, tot);
-    ed.insertText(c.nieuw);
-    return true;
-  }
-
-  autocorrigeer(teken?: string, volgnummer?: number): Promise<Correctie | null> {
-    // Na elkaar: een correctie verschuift de tekst voor de volgende.
-    const volgende = this.autoKetting.then(() => this.autocorrigeerNu(teken, volgnummer));
-    this.autoKetting = volgende.catch(() => null);
-    return volgende;
-  }
-
-  private autoKetting: Promise<unknown> = Promise.resolve();
-
-  private async autocorrigeerNu(teken?: string, volgnummer?: number): Promise<Correctie | null> {
-    const ctx = this.ctx;
-    const ed = this.editor();
-    if (!ctx || !ed) return null;
-    await ed.flushPendingInput().catch(() => {});
-    const begin = this.cursor();
-    if (!begin) return null;
-    let toegepast: Correctie | null = null;
-    await ctx.run(async (vers) => {
-      if (!vers.edits) return;
-      const story = begin.story ?? "body";
-      let c: Correctie | null = null;
-      // Wie snel doortypt, maakt intussen een nieuwe versie: dan opnieuw lezen
-      // en alleen toepassen als het woord er nog precies zo staat.
-      for (let poging = 0; poging < 6 && !toegepast; poging++) {
-        const r = await vers.read.readParagraphs({ view: "accepted", story, paraIds: [begin.paraId] });
-        if (!("ok" in r) || !r.ok || !r.paragraphs[0]) return;
-        const tekst = r.paragraphs[0].text;
-        if (!c) {
-          // Wie doortypt, staat al verder: tel terug hoeveel tekens er sinds het
-          // scheidingsteken zijn getypt (cursor en teller direct na het lezen).
-          const nu = this.cursor();
-          if (!nu || nu.paraId !== begin.paraId) return;
-          const erna = volgnummer === undefined ? 0 : Math.max(0, this.toetsen - volgnummer);
-          const schatting = nu.offset - 1 - erna;
-          const plek = teken
-            ? [0, -1, 1, -2, 2, -3, 3].map((d) => schatting + d).find((p) => p >= 0 && tekst[p] === teken)
-            : nu.offset - 1;
-          if (plek === undefined) return;
-          const cursor = { ...nu, offset: plek + 1 };
-          const taal = this.perId.get(cursor.paraId)?.taal ?? this.taalVanDocument();
-          c = autocorrectie(tekst, cursor.offset, {
-            taal,
-            uitzondering: (w) => persoonlijk.bevat(w) || genegeerd.bevat(w),
-          });
-          if (!c) return;
-        } else if (tekst.slice(c.start, c.eind) !== c.oud) return;
-        const uit = await vers.edits!.applyEdits({
-          expectVersion: r.version,
-          steps: [
-            {
-              op: "replaceText",
-              target: {
-                kind: "range",
-                story,
-                start: { paraId: begin.paraId, offset: c.start },
-                end: { paraId: begin.paraId, offset: c.eind },
-                view: "accepted",
-              },
-              text: c.nieuw,
-              expect: { text: c.oud },
+    if (!c) return;
+    void edits
+      .applyEdits({
+        expectVersion: gelezen.versie,
+        steps: [
+          {
+            op: "replaceText",
+            target: {
+              kind: "range",
+              story: cursor.story,
+              start: { paraId: cursor.paraId, offset: c.start },
+              end: { paraId: cursor.paraId, offset: c.eind },
+              view: "accepted",
             },
-          ],
-        });
-        if ("ok" in uit && uit.ok) toegepast = c;
-        else if (!("failure" in uit) || (uit as { failure?: { code?: string } }).failure?.code !== "stale-version") return;
-      }
-    });
-    return toegepast;
+            text: c.nieuw,
+            expect: { text: c.oud },
+          },
+        ],
+      })
+      .then((uit) => {
+        const code = !uit.ok ? (uit as { failure?: { code?: string } }).failure?.code : null;
+        if (code === "stale-version") this.autocorrigeer(teken, volgnummer, poging + 1);
+      })
+      .catch(() => {});
   }
 
   // --- rechtermuismenu ---
