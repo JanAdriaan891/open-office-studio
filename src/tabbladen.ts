@@ -1,4 +1,5 @@
 import type { Soort } from "./editors";
+import type { Werkbestand } from "./werkbestand";
 
 /** Modules die als tabblad openen; van elke module bestaat hooguit één tabblad. */
 export type ModuleNaam = "notities" | "database" | "email";
@@ -11,6 +12,8 @@ export interface DocumentTabblad {
   bytes: Uint8Array;
   /** Naam, grootte en hash van het geopende bestand; leeg voor nieuwe documenten. */
   vingerafdruk: string | null;
+  /** Bestand op schijf waar Ctrl+S naar terugschrijft (desktop); null = nog nooit opgeslagen. */
+  werkbestand: Werkbestand | null;
   gereed: boolean;
   gewijzigd: boolean;
   exportFormaat: string;
@@ -54,6 +57,7 @@ export type TabbladActie =
       soort: Soort;
       bytes: Uint8Array;
       vingerafdruk?: string | null;
+      werkbestand?: Werkbestand | null;
       exportFormaat?: string;
       gewijzigd?: boolean;
       melding?: string;
@@ -72,7 +76,13 @@ export type TabbladActie =
       wijziging: Partial<
         Pick<
           DocumentTabblad,
-          "gereed" | "gewijzigd" | "exportFormaat" | "zoom" | "melding"
+          | "gereed"
+          | "gewijzigd"
+          | "exportFormaat"
+          | "zoom"
+          | "melding"
+          | "naam"
+          | "werkbestand"
         >
       >;
     };
@@ -81,6 +91,14 @@ export function zoekDocument(toestand: TabbladToestand, vingerafdruk: string) {
   return toestand.tabbladen.find(
     (t): t is DocumentTabblad =>
       t.type === "document" && t.vingerafdruk === vingerafdruk,
+  );
+}
+
+/** Het documenttabblad dat aan dit pad-token gekoppeld is. */
+export function zoekWerkbestand(toestand: TabbladToestand, token: string) {
+  return toestand.tabbladen.find(
+    (t): t is DocumentTabblad =>
+      t.type === "document" && t.werkbestand?.token === token,
   );
 }
 
@@ -171,6 +189,7 @@ export function tabbladReducer(
         soort: actie.soort,
         bytes: actie.bytes,
         vingerafdruk: actie.vingerafdruk ?? null,
+        werkbestand: actie.werkbestand ?? null,
         gereed: false,
         gewijzigd: actie.gewijzigd ?? false,
         exportFormaat: actie.exportFormaat ?? actie.soort,

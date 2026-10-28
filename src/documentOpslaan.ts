@@ -11,6 +11,8 @@ export function opslagMelding(uitkomst: BewaarUitkomst) {
           ". Sla je bewerkbare bestand ook op om de wijzigingen te behouden."
         : uitkomst.status === "geannuleerd"
           ? "Opslaan geannuleerd."
+          : uitkomst.status === "opslaan-als"
+            ? "Kies een naam en plek om op te slaan."
           : "Download aangevraagd. Controleer het bestand in je downloads.") +
     (uitkomst.toelichting ? " " + uitkomst.toelichting : "")
   );

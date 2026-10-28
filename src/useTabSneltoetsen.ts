@@ -43,6 +43,14 @@ export function tabToets(
           ? "opslaanAls"
           : "opslaan",
     };
+  if (
+    e.key === "F12" &&
+    !ctrl &&
+    !e.altKey &&
+    !e.shiftKey &&
+    context.actief?.type === "document"
+  )
+    return { opdracht: "opslaanAls" };
   if (ctrl && !e.altKey && toets === "o") return { opdracht: "openen" };
   if (e.ctrlKey && !e.altKey && e.key === "Tab")
     return { opdracht: "actie", actie: { type: e.shiftKey ? "vorige" : "volgende" } };

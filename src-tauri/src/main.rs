@@ -5,6 +5,7 @@ mod database_export;
 mod email;
 mod systeembestanden;
 mod vensters;
+mod werkbestanden;
 
 fn lees_bytes(request: &tauri::ipc::Request<'_>) -> Result<Vec<u8>, String> {
     lees_binaire_inhoud(request.body(), false)
@@ -73,8 +74,8 @@ fn schrijf_atomair(pad: &Path, bytes: &[u8]) -> Result<(), String> {
     Ok(())
 }
 
-#[tauri::command]
-async fn bewaar_kopie(request: tauri::ipc::Request<'_>) -> Result<Option<String>, String> {
+/// Bestandsnaam en extensie uit de kop `x-office-naam`; alleen bekende bewaarformaten.
+fn bewaarnaam(request: &tauri::ipc::Request<'_>) -> Result<(String, String), String> {
     let naam = request
         .headers()
         .get("x-office-naam")
@@ -97,12 +98,19 @@ async fn bewaar_kopie(request: tauri::ipc::Request<'_>) -> Result<Option<String>
     if extensie != "openaec-notities" && !conversie::mag_bewaren(&extensie) {
         return Err("Niet-ondersteund bestandsformaat.".into());
     }
-    // Een lege Markdownpagina is een geldig tekstbestand; conversie en andere formaten blijven streng.
-    let bytes = lees_binaire_inhoud(request.body(), extensie == "md")?;
+    Ok((bestandsnaam, extensie))
+}
+
+/// Native opslagdialoog; het doel komt uitsluitend uit die dialoog, nooit uit een frontendpad.
+async fn kies_opslagpad(
+    titel: &str,
+    bestandsnaam: &str,
+    extensie: &str,
+) -> Result<Option<std::path::PathBuf>, String> {
     let bestand = rfd::AsyncFileDialog::new()
-        .set_title("Kopie opslaan")
-        .set_file_name(&bestandsnaam)
-        .add_filter("Kantoorbestand", &[&extensie])
+        .set_title(titel)
+        .set_file_name(bestandsnaam)
+        .add_filter("Kantoorbestand", &[extensie])
         .save_file()
         .await;
     let Some(bestand) = bestand else {
@@ -110,12 +118,13 @@ async fn bewaar_kopie(request: tauri::ipc::Request<'_>) -> Result<Option<String>
     };
     let mut pad = bestand.path().to_path_buf();
     if pad.extension().is_none() {
-        pad.set_extension(&extensie);
+        pad.set_extension(extensie);
     }
     if pad
         .extension()
         .and_then(|s| s.to_str())
         .map(|s| s.to_lowercase())
+        .as_deref()
         != Some(extensie)
     {
         return Err("De gekozen extensie past niet bij het document.".into());
@@ -134,7 +143,17 @@ async fn bewaar_kopie(request: tauri::ipc::Request<'_>) -> Result<Option<String>
             return Ok(None);
         }
     }
-    // Het doel komt uitsluitend uit de native dialoog, nooit uit een frontendpad.
+    Ok(Some(pad))
+}
+
+#[tauri::command]
+async fn bewaar_kopie(request: tauri::ipc::Request<'_>) -> Result<Option<String>, String> {
+    let (bestandsnaam, extensie) = bewaarnaam(&request)?;
+    // Een lege Markdownpagina is een geldig tekstbestand; conversie en andere formaten blijven streng.
+    let bytes = lees_binaire_inhoud(request.body(), extensie == "md")?;
+    let Some(pad) = kies_opslagpad("Kopie opslaan", &bestandsnaam, &extensie).await? else {
+        return Ok(None);
+    };
     tauri::async_runtime::spawn_blocking(move || {
         schrijf_atomair(&pad, &bytes)?;
         Ok(Some(pad.to_string_lossy().into_owned()))
@@ -157,6 +176,7 @@ fn main() {
             },
         ))
         .manage(vensters::Vensters::default())
+        .manage(werkbestanden::Werkbestanden::default())
         .manage(email::EmailStaat::default())
         .manage(systeembestanden::Systeembestanden::bij_start(
             std::env::args_os(),
@@ -164,6 +184,7 @@ fn main() {
         .on_window_event(|venster, gebeurtenis| {
             systeembestanden::bij_venstergebeurtenis(venster, gebeurtenis);
             vensters::bij_venstergebeurtenis(venster, gebeurtenis);
+            werkbestanden::bij_venstergebeurtenis(venster, gebeurtenis);
         })
         .invoke_handler(tauri::generate_handler![
             bewaar_kopie,
@@ -177,7 +198,13 @@ fn main() {
             vensters::trek_overdracht_in,
             converteer_document,
             systeembestanden::systeembestanden,
-            systeembestanden::lees_systeembestand,
+            systeembestanden::claim_systeembestand,
+            systeembestanden::lees_werkbestand,
+            werkbestanden::bewaar_document,
+            werkbestanden::bewaar_als,
+            werkbestanden::bevestig_formaat,
+            werkbestanden::vergeet_werkbestand,
+            werkbestanden::kies_bestanden,
             conversie::conversie_status,
             conversie::kies_conversieprogramma,
             conversie::wis_conversieprogramma,

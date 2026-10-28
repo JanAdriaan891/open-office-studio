@@ -78,6 +78,7 @@ export function useVensters({ tabs, voorOverdracht }: Opties) {
         exportFormaat: overdracht.exportFormaat,
         gewijzigd: overdracht.gewijzigd,
         vingerafdruk: overdracht.vingerafdruk,
+        werkbestand: overdracht.werkbestand ?? null,
         melding: eersteKeer()
           ? "Het document is verplaatst, inclusief niet-opgeslagen wijzigingen. De geschiedenis van Ongedaan maken gaat bij het verplaatsen niet mee."
           : "",
@@ -134,6 +135,7 @@ export function useVensters({ tabs, voorOverdracht }: Opties) {
       zoom: tabblad.zoom,
       gewijzigd: tabs.isGewijzigd(tabblad),
       vingerafdruk: tabblad.vingerafdruk,
+      werkbestand: tabblad.werkbestand,
     };
   }
 

@@ -26,6 +26,15 @@ struct Pakket {
     venster: Option<String>,
     bytes: Vec<u8>,
     geclaimd: bool,
+    /// Pad-token van het document (`werkbestanden.rs`); verhuist mee bij bevestigen.
+    token: Option<String>,
+}
+
+/// Het pad-token (`werkbestand.token`) uit de JSON-kop van een pakket (4 bytes lengte LE + JSON + bytes).
+fn token_uit_pakket(bytes: &[u8]) -> Option<String> {
+    let lengte = u32::from_le_bytes(bytes.get(..4)?.try_into().ok()?) as usize;
+    let kop: serde_json::Value = serde_json::from_slice(bytes.get(4..4 + lengte)?).ok()?;
+    kop.get("werkbestand")?.get("token")?.as_str().map(str::to_owned)
 }
 
 #[derive(Default)]
@@ -131,6 +140,12 @@ pub async fn bied_overdracht(
     };
     let doel = kop(&request, "x-office-doel").unwrap_or_else(|| "nieuw".into());
     let vensters = app.state::<Vensters>();
+    // Alleen een token dat echt bij het bronvenster hoort, gaat mee.
+    let token = token_uit_pakket(&bytes).filter(|t| {
+        app.state::<crate::werkbestanden::Werkbestanden>()
+            .pad(t, venster.label())
+            .is_some()
+    });
     let sleutel = format!("o{}", vensters.volgende());
     let label = (doel == "nieuw").then(|| format!("{VOORVOEGSEL}{}", vensters.volgende()));
     vensters
@@ -144,6 +159,7 @@ pub async fn bied_overdracht(
                 venster: label.clone(),
                 bytes,
                 geclaimd: false,
+                token,
             },
         );
     let resultaat = match &label {
@@ -213,8 +229,10 @@ pub fn neem_overdracht(
 #[tauri::command]
 pub fn bevestig_overdracht(
     app: tauri::AppHandle,
+    venster: tauri::Window,
     sleutel: String,
     vensters: tauri::State<Vensters>,
+    werkbestanden: tauri::State<crate::werkbestanden::Werkbestanden>,
 ) -> Result<(), String> {
     let pakket = vensters
         .pakketten
@@ -222,6 +240,9 @@ pub fn bevestig_overdracht(
         .map_err(|e| e.to_string())?
         .remove(&sleutel)
         .ok_or("Deze overdracht is onbekend.")?;
+    if let Some(token) = &pakket.token {
+        werkbestanden.herbind(token, venster.label());
+    }
     app.emit_to(pakket.bron.as_str(), "office-overdracht-bevestigd", sleutel)
         .map_err(|e| e.to_string())
 }
@@ -290,6 +311,7 @@ mod tests {
             venster: Some("document-2".into()),
             bytes: vec![0, 0, 0, 0],
             geclaimd,
+            token: None,
         }
     }
 
@@ -303,6 +325,20 @@ mod tests {
         assert_eq!(trek_in(&mut p, "b"), Err(true));
         assert!(p.contains_key("b"));
         assert_eq!(trek_in(&mut p, "c"), Err(false));
+    }
+
+    #[test]
+    fn token_uit_de_kop_van_het_pakket() {
+        let kop = br#"{"type":"document","werkbestand":{"token":"abc123","naam":"a.docx"}}"#;
+        let mut pakket = (kop.len() as u32).to_le_bytes().to_vec();
+        pakket.extend_from_slice(kop);
+        pakket.extend_from_slice(b"PK...");
+        assert_eq!(token_uit_pakket(&pakket), Some("abc123".into()));
+        assert_eq!(token_uit_pakket(&[9, 0, 0, 0, b'{']), None);
+        let kop = br#"{"type":"module"}"#;
+        let mut pakket = (kop.len() as u32).to_le_bytes().to_vec();
+        pakket.extend_from_slice(kop);
+        assert_eq!(token_uit_pakket(&pakket), None);
     }
 
     #[test]

@@ -18,6 +18,7 @@ const document = (soort: "docx" | "xlsx"): Tabblad => ({
   soort,
   bytes: new Uint8Array(),
   vingerafdruk: null,
+  werkbestand: null,
   gereed: true,
   gewijzigd: false,
   exportFormaat: soort,
@@ -31,6 +32,14 @@ const context = (actief: Tabblad | null = document("docx")) => ({
 });
 
 describe("tabbladsneltoetsen", () => {
+  it("F12 is Opslaan als, alleen voor documenten", () => {
+    expect(tabToets(toets("F12"), context())).toEqual({
+      opdracht: "opslaanAls",
+    });
+    expect(tabToets(toets("F12"), context(null))).toBeNull();
+    expect(tabToets(toets("F12", { ctrlKey: true }), context())).toBeNull();
+  });
+
   it("wisselt met Ctrl+Tab en Ctrl+Shift+Tab", () => {
     expect(tabToets(toets("Tab", { ctrlKey: true }), context())).toEqual({
       opdracht: "actie",
