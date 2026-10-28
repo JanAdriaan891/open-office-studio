@@ -238,6 +238,13 @@
   color: var(--oa-shell-text-secondary);
   background: var(--oa-shell-bg-lighter);
 }
+/* Smal venster (1024 px): compactere tabs, zodat een contexttabblad als
+   Tabelopmaak of Afbeeldingsopmaak niet achter de inklapknop verdwijnt. */
+@media (max-width: 1180px) {
+  .office .ribbon-tabs button {
+    padding: 0 9px;
+  }
+}
 .office .ribbon-inhoud {
   height: 94px;
   margin: 0;

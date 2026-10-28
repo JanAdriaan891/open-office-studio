@@ -418,22 +418,7 @@ select {
   position: sticky;
   right: 0;
   background: #f6f7f9;
-}
-/* Smal venster (1024 px): compactere tabs, zodat een contexttabblad als
-   Tabelopmaak of Afbeeldingsopmaak niet achter de inklapknop verdwijnt. */
-@media (max-width: 1180px) {
-  .office .ribbon-tabs {
-    padding: 0 8px;
-    gap: 2px;
-  }
-  .office .ribbon-tabknoppen {
-    gap: 2px;
-  }
-  .office .ribbon-tabs button {
-    padding: 0 9px;
-  }
-}
-.office .ribbon-inhoud[hidden] {
+}.office .ribbon-inhoud[hidden] {
   display: none;
 }
 .office .ribbon-inhoud {
