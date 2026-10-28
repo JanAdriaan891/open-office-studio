@@ -8,7 +8,6 @@ import {
   AlignLeft,
   AlignRight,
   ArrowDownToLine,
-  ArrowUpToLine,
   BookOpen,
   Columns2,
   Columns3,
@@ -294,4 +293,3 @@ export function verwijzingenTab(p: PaginaFuncties): RibbonTab {
   };
 }
 
-export { ArrowUpToLine };

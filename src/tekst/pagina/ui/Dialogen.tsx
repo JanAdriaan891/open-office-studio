@@ -235,7 +235,7 @@ export function KolommenDialoog({
       acties={<Knoppen uit={!ok} sluit={sluit} bevestig={() => bevestig({ aantal: n, tussenruimte: cmNaarTwips(r), lijn: lijn && n > 1 }, doel)} />}
     >
       <Veld label="Aantal kolommen">
-        <input type="number" min={1} max={12} value={aantal} aria-invalid={!ok} onChange={(e) => setAantal(e.target.value)} data-autofocus />
+        <input type="text" inputMode="numeric" value={aantal} aria-invalid={!ok} onChange={(e) => setAantal(e.target.value)} data-autofocus />
       </Veld>
       <Veld label="Tussenruimte">
         <span className="werkruimte-eenheid">
