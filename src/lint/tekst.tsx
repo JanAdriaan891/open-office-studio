@@ -1,4 +1,5 @@
 import { zichtbaarElement } from "./editorApi";
+import { vraagAfdrukvoorbeeld } from "../afdrukken/openen";
 import { GrafiekGroep, useIngeslotenGrafieken } from "../grafieken/ui/ingesloten";
 import {
   useDocxCommand,
@@ -337,12 +338,12 @@ function Opmerking({ opdrachten }: { opdrachten: Opdrachten }) {
 function Afdrukken() {
   return (
     <Groep naam="Afdrukken">
-      <WS
-        id="print"
+      <Actie
         naam="Afdrukken"
         icoon={Printer}
-        sneltoets="Ctrl+P"
+        title="Afdrukvoorbeeld en afdrukken (Ctrl+P)"
         groot
+        onClick={() => vraagAfdrukvoorbeeld()}
       />
     </Groep>
   );

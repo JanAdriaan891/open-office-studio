@@ -50,8 +50,11 @@ import {
   StickyNote,
   Play,
   X,
+  Printer,
+  NotebookText,
 } from "lucide-react";
 import {
+  Actie,
   Ribbon,
   Groep,
   OpdrachtKleur,
@@ -67,6 +70,7 @@ import {
   GrafiekGroep,
   useIngeslotenGrafieken,
 } from "../grafieken/ui/ingesloten";
+import { vraagAfdrukvoorbeeld } from "../afdrukken/openen";
 import "./presentatie.css";
 
 /** Een engine-opdracht met een sneltoets die het lint zelf afhandelt. */
@@ -637,6 +641,20 @@ export function PresentatieRibbon({
                   naam="Dia exporteren"
                   icoon={Download}
                   groot
+                />
+                <Actie
+                  naam="Afdrukken"
+                  icoon={Printer}
+                  title="Afdrukvoorbeeld: dia’s, hand-outs of notitiepagina’s (Ctrl+P)"
+                  groot
+                  onClick={() => vraagAfdrukvoorbeeld()}
+                />
+                <Actie
+                  naam="Notitiepagina’s"
+                  icoon={NotebookText}
+                  title="Notitiepagina’s afdrukken of als PDF bewaren"
+                  groot
+                  onClick={() => vraagAfdrukvoorbeeld({ indeling: "notities" })}
                 />
               </Groep>
             </>

@@ -1,4 +1,5 @@
 import { useContext, useEffect, useRef, useState, type ReactNode } from "react";
+import { vraagAfdrukvoorbeeld } from "../afdrukken/openen";
 import { createPortal } from "react-dom";
 import {
   useDocxCommand,
@@ -364,7 +365,8 @@ export function useTekstOpdrachten({
       uitvoeren: wisselOpnemen,
       beschikbaar: () => modus.state.enabled,
     },
-    { toets: "Ctrl+P", uitvoeren: () => voerUit("print", null) },
+    { toets: "Ctrl+P", uitvoeren: () => vraagAfdrukvoorbeeld() },
+    { toets: "Ctrl+Shift+O", uitvoeren: () => vraagAfdrukvoorbeeld() },
     { toets: "F5", uitvoeren: wijzigNavigatie },
     { toets: "Ctrl+Shift+R", uitvoeren: wijzigLiniaal },
     { toets: "F11", uitvoeren: toonStijlen },

@@ -1,4 +1,5 @@
 import { useContext, useEffect, useReducer, useState } from "react";
+import { vraagAfdrukvoorbeeld } from "../afdrukken/openen";
 import {
   useXlsxCommand,
   EditorToolbar as RekenbladToolbar,
@@ -497,7 +498,8 @@ export function RekenbladRibbon({
     { toets: "Ctrl+F", uitvoeren: () => setPaneel("zoeken") },
     { toets: "F5", uitvoeren: () => setPaneel("ganaar") },
     { toets: "Ctrl+Shift+F5", uitvoeren: () => setPaneel("ganaar") },
-    { toets: "Ctrl+P", uitvoeren: opdracht("print", null) },
+    { toets: "Ctrl+P", uitvoeren: () => vraagAfdrukvoorbeeld() },
+    { toets: "Ctrl+Shift+O", uitvoeren: () => vraagAfdrukvoorbeeld() },
     // Zoals Excel: Alt+F1 op dit blad, F11 op een nieuw blad.
     {
       toets: "Alt+F1",
@@ -813,12 +815,12 @@ export function RekenbladRibbon({
                 </Groep>
                 {navigator}
                 <Groep naam="Uitvoer">
-                  <CS
-                    id="print"
+                  <Actie
                     naam="Afdrukken"
                     icoon={Printer}
-                    toets="Ctrl+P"
+                    title="Afdrukvoorbeeld en afdrukken (Ctrl+P)"
                     groot
+                    onClick={() => vraagAfdrukvoorbeeld()}
                   />
                   <C
                     id="exportPng"

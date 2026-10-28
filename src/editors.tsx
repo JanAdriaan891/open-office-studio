@@ -110,17 +110,24 @@ export default function OfficeEditor(props: EditorProps) {
   // Opslaan als gebruikt het actieve blad, de huidige dia en het afdrukvenster.
   useEffect(() => {
     if (props.zichtbaar === false) return;
-    return koppelEditor(props.soort, {
-      tekst: documentGereed ? docx.current : null,
-      rekenblad: rekenbladApi,
-      presentatie: presentatieApi,
-    });
+    return koppelEditor(
+      props.soort,
+      {
+        tekst: documentGereed ? docx.current : null,
+        rekenblad: rekenbladApi,
+        presentatie: presentatieApi,
+        herlaad: herladen.api,
+      },
+      props.naam,
+    );
   }, [
     props.soort,
     props.zichtbaar,
+    props.naam,
     documentGereed,
     rekenbladApi,
     presentatieApi,
+    herladen.api,
   ]);
   const zoomKoppeling = useMemo(
     () => ({

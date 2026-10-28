@@ -246,10 +246,7 @@ export async function maakExport(
   throw new Error(`Dit formaat (${ext}) kan de app niet zelf maken.`);
 }
 
-/**
- * PDF zonder runtime: het afdrukvenster van de editor. Kies daar
- * "Opslaan als PDF" (of "Microsoft Print to PDF") als printer.
- */
+/** Opent het afdrukvoorbeeld van de zichtbare editor (afdrukken en PDF). */
 export async function drukAf(soort: Soort) {
   const koppeling = editorKoppeling(soort);
   if (!koppeling?.afdrukken)

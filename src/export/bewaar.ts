@@ -136,25 +136,24 @@ export async function bewaarInFormaat(
     );
   const toelichting = toelichtingen.join(" ") || undefined;
   const bestandsnaam = `${keuze.naam.replace(/[\\/:*?"<>|]+/g, "_").trim() || "Naamloos"}.${keuze.ext}`;
-  if (desktop) {
-    const { invoke } = await laad(() => import("@tauri-apps/api/core"));
-    const pad = await invoke<string | null>("bewaar_kopie", uitvoer, {
-      headers: { "x-office-naam": encodeURIComponent(bestandsnaam) },
-    });
-    if (!pad) return { status: "geannuleerd" };
+  const pad = await bewaarUitvoer(uitvoer, bestandsnaam, mime);
+  if (pad === null) return { status: "geannuleerd" };
+  if (desktop)
     return { status: eigen ? "opgeslagen" : "geëxporteerd", pad, toelichting };
-  }
-  const url = URL.createObjectURL(
-    new Blob([new Uint8Array(uitvoer)], { type: mime }),
-  );
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = bestandsnaam;
-  document.body.append(a);
-  a.click();
-  a.remove();
-  setTimeout(() => URL.revokeObjectURL(url), 60000);
   return { status: "download", toelichting };
+}
+
+/**
+ * Bewaart bytes als bestand: in de desktopapp via de opslagdialoog (geeft het
+ * pad, of null bij annuleren), in de browser als download (geeft "").
+ */
+export async function bewaarUitvoer(
+  uitvoer: Uint8Array,
+  bestandsnaam: string,
+  mime: string,
+): Promise<string | null> {
+  const { bewaarBytes } = await laad(() => import("../afdrukken/bewaren"));
+  return bewaarBytes(uitvoer, bestandsnaam, mime);
 }
 
 const EIGEN_MIME: Record<Soort, string> = {
