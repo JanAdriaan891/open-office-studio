@@ -3,6 +3,7 @@ import { useInstellingen } from "../instellingen";
 import { stap } from "../documentzoom";
 import { useModuleStatus, useZoomBediening } from "./statusinfo";
 import { getal, schuifNaarZoom, zoomNaarSchuif } from "./berekening";
+import { TekstStatusExtra, TekstWeergaveKnoppen, useStatusbalkMenu } from "../tekst/info/StatusbalkItems";
 import "./statusbalk.css";
 
 export interface StatusbalkProps {
@@ -22,14 +23,16 @@ function ModuleInfo({ soort }: { soort: string | null }) {
   const info = useModuleStatus();
   const { statusbalk } = useInstellingen();
   if (!info) return null;
-  if (info.soort === "tekst" && soort === "docx" && statusbalk.tekst)
+  if (info.soort === "tekst" && soort === "docx")
     return (
       <span className="statusbalk-module">
+        {statusbalk.tekst && (
         <button type="button" onClick={info.naarPagina} title="Ga naar pagina">
           Pagina {info.pagina}
           {info.paginas ? ` van ${info.paginas}` : ""}
         </button>
-        {info.woorden !== null && (
+        )}
+        {statusbalk.tekst && info.woorden !== null && (
           <button type="button" onClick={info.woordenTellen} title="Woorden tellen">
             {info.selectie
               ? `${getal(info.selectie.woorden)} van ${getal(info.woorden)} woorden`
@@ -38,6 +41,7 @@ function ModuleInfo({ soort }: { soort: string | null }) {
               `, ${getal(info.selectie ? info.selectie.tekens : info.tekens)} tekens`}
           </button>
         )}
+        <TekstStatusExtra />
       </span>
     );
   if (info.soort === "rekenblad" && soort === "xlsx" && statusbalk.rekenblad) {
@@ -153,8 +157,11 @@ export function Statusbalk({
         : aantalGewijzigd
           ? `${aantalGewijzigd} ${aantalGewijzigd === 1 ? "tabblad" : "tabbladen"} met niet-opgeslagen wijzigingen`
           : `Ontwikkelversie ${versieLabel}`;
+  // Rechtermuisknop: statusbalk-items aan of uit (src/tekst/info).
+  const menu = useStatusbalkMenu();
   return (
-    <footer className="office-statusbalk" aria-label="Statusbalk">
+    <footer className="office-statusbalk" aria-label="Statusbalk" onContextMenu={menu.onContextMenu}>
+      {menu.element}
       <span>
         <HardDrive size={12} aria-hidden="true" />
         <i aria-hidden="true" />
@@ -163,6 +170,7 @@ export function Statusbalk({
       <span className="statusbalk-naam">{moduleNaam}</span>
       {document?.gereed && <ModuleInfo soort={soort} />}
       <span className="office-statusrechts">
+        {soort === "docx" && document?.gereed && <TekstWeergaveKnoppen />}
         {document && document.zoom !== null && statusbalk.zoom && (
           <Zoomschuif zoom={document.zoom} />
         )}
