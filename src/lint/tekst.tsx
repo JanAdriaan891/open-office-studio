@@ -92,6 +92,7 @@ import {
 import { datumTekst, tijdTekst, type Hoofdlettersoort } from "./tekst-logica";
 import { TabelKiezer } from "../tabelvoorbeeld/TabelKiezer";
 import { TabelIndeling, TekstNaarTabelKnop } from "../tekst/tabel/TabelIndeling";
+import { AfbeeldingGroepen } from "../tekst/afbeelding/AfbeeldingGroepen";
 import "./tekst.css";
 
 type Opdrachten = ReturnType<typeof useTekstOpdrachten>;
@@ -510,6 +511,7 @@ export function TekstRibbon({
           <Groep naam="Afbeelding">
             <W id="imageProperties" naam="Eigenschappen" icoon={Image} groot />
           </Groep>
+          <AfbeeldingGroepen />
           <Groep naam="Tekstterugloop">
             <WK id="imageWrap" naam="Tekstterugloop" breed />
           </Groep>

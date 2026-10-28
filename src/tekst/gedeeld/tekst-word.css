@@ -117,3 +117,84 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Afbeelding: maat in het lint en het bijsnijdvenster */
+.tw-beeldmaat {
+  min-width: 150px;
+}
+.tw-lintmaat {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+}
+.tw-lintmaat span:first-child {
+  width: 46px;
+}
+.tw-lintmaat input {
+  width: 58px;
+  height: 22px;
+  padding: 1px 4px;
+  border: 1px solid var(--office-lijn, #d6dae0);
+  border-radius: 4px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+}
+.tw-bijsnijden {
+  position: relative;
+  margin: 4px auto 14px;
+  background: repeating-conic-gradient(#e7e9ec 0 25%, #fff 0 50%) 0 0 / 14px 14px;
+  touch-action: none;
+  user-select: none;
+  /* De donkere rand rond het kader niet buiten het beeld laten vallen. */
+  clip-path: inset(-8px);
+}
+.tw-bijsnijden img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 0.45;
+  pointer-events: none;
+}
+.tw-bijsnijden-leeg {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  color: var(--w-tekst-zacht);
+}
+.tw-bijsnijden-kader {
+  position: absolute;
+  border: 2px solid var(--w-accent);
+  box-shadow: 0 0 0 9999px #00000030;
+  cursor: move;
+  overflow: visible;
+}
+.tw-bijsnijden-zicht {
+  position: absolute;
+  inset: 0;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+.tw-greep {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  margin: -7px;
+  padding: 0;
+  border: 2px solid #fff;
+  border-radius: 3px;
+  background: var(--w-accent) !important;
+  box-shadow: 0 0 0 1px #0006;
+}
+.tw-greep-nw { left: 0; top: 0; cursor: nwse-resize; }
+.tw-greep-n { left: 50%; top: 0; cursor: ns-resize; }
+.tw-greep-no { left: 100%; top: 0; cursor: nesw-resize; }
+.tw-greep-o { left: 100%; top: 50%; cursor: ew-resize; }
+.tw-greep-zo { left: 100%; top: 100%; cursor: nwse-resize; }
+.tw-greep-z { left: 50%; top: 100%; cursor: ns-resize; }
+.tw-greep-zw { left: 0; top: 100%; cursor: nesw-resize; }
+.tw-greep-w { left: 0; top: 50%; cursor: ew-resize; }
+.tw-alt {
+  grid-template-columns: 1fr;
+}

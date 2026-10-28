@@ -174,6 +174,70 @@ if (doe("tabel")) {
 }
 
 // ---------------------------------------------------------------------------
+if (doe("afbeelding")) {
+  console.log("#49 Afbeelding");
+  const a = await import("../src/tekst/afbeelding/opdrachten.ts");
+  const s = await sessie(maakProefdocument());
+  const ref = nepRef(s);
+  const loc = { story: "body", paraId: "10000031", offset: 0 };
+  const kies = () => s.setSelection(loc, { ...loc, offset: 1 });
+  const beeld = () => s.storySegments("body").find((g) => g.embedKind === "image").payload;
+
+  kies();
+  a.bijsnijden(ref, { top: 0.1, right: 0.2, bottom: 0, left: 0.05 });
+  controleer(Math.abs(beeld().width - 160 * 0.75) < 0.1 && Math.abs(beeld().height - 80 * 0.9) < 0.1, "bijsnijden houdt de schaal: de weergavemaat krimpt mee");
+  a.zetAltTekst(ref, "Rood proefvlak", false);
+  let { xml, terug } = await opslaanEnHeropenen(s, "afbeelding-bijgesneden");
+  controleer(/<a:srcRect l="5000" t="10000" r="20000"\/>/.test(xml), "bijsnijding → a:srcRect (l 5 %, t 10 %, r 20 %)");
+  controleer(/descr="Rood proefvlak"/.test(xml), "alternatieve tekst → wp:docPr/@descr");
+  controleer(/<wp:extent cx="1143000" cy="685800"\/>/.test(xml), "bijgesneden afmeting → wp:extent");
+  const tb = terug.storySegments("body").find((g) => g.embedKind === "image").payload;
+  controleer(tb.cropTop === 0.1 && tb.alt === "Rood proefvlak", "bijsnijding en alt-tekst blijven na heropenen");
+  s.undo();
+  controleer(beeld().alt === "Oude beschrijving" && beeld().cropTop === 0.1, "Ctrl+Z draait alleen de laatste stap (alt-tekst) terug");
+  s.undo();
+  controleer(!beeld().cropTop && beeld().width === 160, "tweede Ctrl+Z draait het bijsnijden terug");
+
+  kies();
+  a.zetAfmeting(ref, 320, 160);
+  a.zetAltTekst(ref, "", true);
+  a.wijzigAfbeelding(ref, () => ({ wrapType: "square", position: { horizontal: { relativeTo: "column", posOffset: 0 }, vertical: { relativeTo: "paragraph", posOffset: 0 } } }));
+  a.zetPositie(ref, {
+    position: { horizontal: { relativeTo: "margin", align: "right" }, vertical: { relativeTo: "paragraph", posOffset: 360000 } },
+    distTop: 0,
+    distBottom: 0,
+    distLeft: 18.9,
+    distRight: 18.9,
+  });
+  ({ xml, terug } = await opslaanEnHeropenen(s, "afbeelding-zwevend"));
+  controleer(/<wp:extent cx="3048000" cy="1524000"\/>/.test(xml), "afmeting 320 × 160 px → wp:extent 8,47 × 4,23 cm");
+  controleer(/<wp:positionH relativeFrom="margin"><wp:align>right<\/wp:align><\/wp:positionH>/.test(xml), "positie rechts t.o.v. marge → wp:positionH/wp:align");
+  controleer(/<wp:positionV relativeFrom="paragraph"><wp:posOffset>360000<\/wp:posOffset><\/wp:positionV>/.test(xml), "1 cm onder de alinea → wp:positionV/wp:posOffset");
+  controleer(/<wp:anchor[^>]*distL="18\d{4}" distR="18\d{4}"/.test(xml), "afstand tot de tekst 0,5 cm → distL/distR ≈ 180000 EMU");
+  controleer(/<wp:wrapSquare/.test(xml), "tekstterugloop vierkant blijft");
+  // De engine schrijft geen adec:decorative; decoratief = zonder beschrijving.
+  controleer(/<wp:docPr id="\d+" name="[^"]*"\/>/.test(xml), "decoratief → afbeelding zonder beschrijving (wp:docPr zonder descr)");
+
+  kies();
+  const png = maakPng(60, 30, [20, 110, 200]);
+  a.vervangAfbeelding(ref, "data:image/png;base64," + Buffer.from(png).toString("base64"), { breedte: 60, hoogte: 30 });
+  controleer(beeld().width === 320 && beeld().height === 160, "vervangen houdt de breedte, de hoogte volgt het nieuwe beeld (2:1)");
+  a.bijsnijden(ref, { top: 0.2, right: 0, bottom: 0, left: 0 });
+  a.opnieuwInstellen(ref, true, { breedte: 60, hoogte: 30 }, 600);
+  const bytes = (await opslaanEnHeropenen(s, "afbeelding-vervangen")).bytes;
+  const pakket = unzipSync(bytes);
+  xml = strFromU8(pakket["word/document.xml"]);
+  const rels = strFromU8(pakket["word/_rels/document.xml.rels"]);
+  const rid = /<a:blip r:embed="([^"]+)"/.exec(xml)?.[1];
+  const doel = new RegExp(`Id="${rid}"[^>]*Target="([^"]+)"`).exec(rels)?.[1] ?? new RegExp(`Target="([^"]+)"[^>]*Id="${rid}"`).exec(rels)?.[1];
+  controleer(!!doel && doel !== "media/proef.png" && !!pakket[`word/${doel}`], `vervangen → nieuw mediabestand (${doel})`);
+  controleer(pakket[`word/${doel}`]?.length === png.length, "het nieuwe mediabestand bevat de gekozen PNG");
+  controleer(!/<a:srcRect/.test(xml) && /<wp:extent cx="571500" cy="285750"\/>/.test(xml), "opnieuw instellen met grootte: geen bijsnijding, oorspronkelijke 60 × 30 px");
+  const pdf = pdfTekst("afbeelding-vervangen");
+  if (pdf !== null) controleer(pdf.includes("Afbeelding"), "LibreOffice rendert het document met de vervangen afbeelding");
+}
+
+// ---------------------------------------------------------------------------
 console.log(`\n${geslaagd} controles geslaagd, ${fouten.length} mislukt.`);
 if (fouten.length) {
   for (const f of fouten) console.log(`  - ${f}`);
