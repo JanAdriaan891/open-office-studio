@@ -60,12 +60,12 @@ export function useDocumentZoom({
     return huidig?.() ?? 1;
   }
 
-  function voerUit(zoom: number, onthouden: boolean) {
+  function voerUit(zoom: number, onthouden: boolean, stil = false) {
     const { opdracht, koppeling, fout } = recent.current;
     return opdracht
       .execute({ scale: zoom } as never)
       .then((resultaat) => {
-        if (!resultaat.ok)
+        if (!resultaat.ok && !stil)
           fout(resultaat.failure?.message ?? "Zoomen is mislukt.");
         else {
           // Niet elke editor meldt de nieuwe waarde direct via zijn opdrachtstatus.
@@ -76,7 +76,7 @@ export function useDocumentZoom({
         return resultaat.ok;
       })
       .catch((error) => {
-        fout(error instanceof Error ? error.message : String(error));
+        if (!stil) fout(error instanceof Error ? error.message : String(error));
         return false;
       });
   }
@@ -176,7 +176,16 @@ export function useDocumentZoom({
     hersteld.current = true;
     const sleutel = recent.current.koppeling?.sleutel;
     const onthouden = sleutel ? leesZoom(sleutel) : null;
-    if (onthouden !== null) void voerUit(onthouden, false);
+    // Het rekenblad meldt zich soms al beschikbaar voordat het zoomen
+    // aanneemt; probeer het onthouden niveau dan kort daarna opnieuw.
+    if (onthouden !== null) {
+      let pogingen = 0;
+      const probeer = () =>
+        void voerUit(onthouden, false, pogingen < 5).then((gelukt) => {
+          if (!gelukt && pogingen++ < 5) setTimeout(probeer, 250);
+        });
+      probeer();
+    }
     else if (standaard !== undefined)
       void recent.current.opdracht
         .execute(standaard as never)

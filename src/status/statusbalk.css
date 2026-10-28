@@ -1,5 +1,6 @@
 /* Statusbalk (#28): module-informatie en zoomschuif. */
 .office-statusbalk .statusbalk-module {
+  flex: 0 1 auto;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -56,6 +57,14 @@
 .office-statusbalk .statusbalk-status {
   white-space: nowrap;
 }
+.office-statusbalk .office-statusrechts {
+  flex-shrink: 0;
+}
+.office-statusbalk .statusbalk-module > * {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 @media (max-width: 800px) {
   .office-statusbalk input[type="range"] {
     width: 70px;
@@ -70,4 +79,9 @@
   .office-statusbalk kbd {
     display: none;
   }
+}
+.office-statusbalk .statusbalk-module > button {
+  display: inline-block;
+  line-height: 18px;
+  white-space: nowrap;
 }

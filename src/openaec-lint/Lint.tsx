@@ -62,6 +62,8 @@ export interface LintProps {
 }
 
 const SLUIT = "openaec-lint-sluit";
+/** Een uitklappaneel is dicht; uitgestelde metingen kunnen nu. */
+const GESLOTEN = "openaec-lint-gesloten";
 
 function zichtbaar(element: Element | null): element is HTMLElement {
   return (
@@ -162,6 +164,7 @@ export function Lint({
   const baan = useRef<HTMLDivElement>(null);
   const tipslaag = useRef<HTMLDivElement>(null);
   const meting = useRef<Meting | null>(null);
+  const uitgesteld = useRef(false);
   const terugFocus = useRef<HTMLElement | null>(null);
   const actief = tabs.find((tab) => tab.id === gekozen) ?? tabs[0];
   const tabElement = (id: string) =>
@@ -178,9 +181,17 @@ export function Lint({
 
   const pasIn = useCallback(() => {
     const b = baan.current;
-    if (!b || !zichtbaar(b) || !b.clientWidth) return;
-    if (!meting.current || meting.current.groepen.some((g) => !g.isConnected))
+    // Ook verborgen tabbladen met opmaak (visibility: hidden) passen we in:
+    // bij terugkeer verandert hun maat niet en komt er geen nieuwe meting.
+    if (!b || !b.clientWidth || !b.getClientRects().length) return;
+    if (!meting.current || meting.current.groepen.some((g) => !g.isConnected)) {
+      // Met een open uitklappaneel klopt de breedte van die groep niet: wacht.
+      if (b.querySelector(".ribbon-groep-inhoud[data-open]")) {
+        uitgesteld.current = true;
+        return;
+      }
       meting.current = meet(b);
+    }
     const { groepen, maten, vast } = meting.current;
     const { niveaus } = kiesNiveaus(maten, b.clientWidth - 1, {
       vast,
@@ -223,6 +234,12 @@ export function Lint({
       b.scrollLeft += delta;
     };
     b.addEventListener("wheel", wiel, { passive: false });
+    const gesloten = () => {
+      if (!uitgesteld.current) return;
+      uitgesteld.current = false;
+      opnieuw(true);
+    };
+    b.addEventListener(GESLOTEN, gesloten);
     // Ook de tabrij schuift met het wiel als niet alle tabs passen.
     const tabrij = wortel.current?.querySelector<HTMLElement>(".ribbon-tabs");
     const tabWiel = (e: WheelEvent) => {
@@ -233,6 +250,7 @@ export function Lint({
     tabrij?.addEventListener("wheel", tabWiel, { passive: false });
     return () => {
       tabrij?.removeEventListener("wheel", tabWiel);
+      b.removeEventListener(GESLOTEN, gesloten);
       cancelAnimationFrame(frame);
       maat.disconnect();
       inhoud.disconnect();
@@ -689,6 +707,7 @@ export function LintGroep({
     p.style.removeProperty("left");
     p.style.removeProperty("top");
     setOpen(false);
+    groep.current?.dispatchEvent(new Event(GESLOTEN, { bubbles: true }));
     if (focusNaarKnop) knop.current?.focus();
   }, []);
 
