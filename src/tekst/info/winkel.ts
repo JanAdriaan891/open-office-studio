@@ -93,7 +93,10 @@ export function registreerTaalAansluiting(aansluiting: TaalAansluiting) {
   return {
     meld: () => taal.zet({ ...taal.lees() }),
     stop: () => {
-      if (taal.lees() === aansluiting || taal.lees().kiesTaal === aansluiting.kiesTaal) taal.zet({});
+      // `meld` zet een kopie; vergelijk daarom de functies (beide, zodat een
+      // aansluiting zonder kiesTaal niet die van een ander document wist).
+      const nu = taal.lees();
+      if (nu === aansluiting || (nu.kiesTaal === aansluiting.kiesTaal && nu.status === aansluiting.status)) taal.zet({});
     },
   };
 }

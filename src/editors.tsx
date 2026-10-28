@@ -32,6 +32,7 @@ import { lettertypeBasis } from "./lettertypen/catalogus";
 import { DocumentLettertypen } from "./lettertypen/context";
 import { tekstSelectiePlugin } from "./lettertypen/koppeling";
 import { installeerFontCitering } from "./lettertypen/canvasFont";
+import { useTekstSpelling } from "./spelling/tekst/useTekstSpelling";
 import { TEKST_PLUGINS } from "./tekst/gedeeld/markering";
 
 const PRESENTATIE_PLUGINS = [tekstSelectiePlugin];
@@ -128,6 +129,13 @@ export default function OfficeEditor(props: EditorProps) {
     [rekenbladApi, presentatieApi, herladen.api, herladen.grafiekSelectie],
   );
   useNederlandseInvoer(rekenbladHost, rekenbladApi);
+  // Spellingcontrole en autocorrectie (#21): golflijnen, menu, F7, statusbalk.
+  const spelling = useTekstSpelling(
+    () => docx.current,
+    props.soort === "docx" && props.zichtbaar !== false,
+    () => herladenRecent.current.bytes,
+  );
+  const tekstPlugins = useMemo(() => [...TEKST_PLUGINS, ...spelling.plugins], [spelling.plugins]);
   // Tekst: wijzigingen buiten de engine (zoals Bestand › Info) als gewijzigd melden.
   useEffect(
     () => registreerWijziging(herladen.api, () => recent.current.gewijzigd()),
@@ -298,9 +306,11 @@ export default function OfficeEditor(props: EditorProps) {
               key={herladen.sleutel}
               ref={docx}
               documentBuffer={herladen.bytes}
-              plugins={TEKST_PLUGINS}
               showFileOpen={false}
               showHelpMenu={false}
+              plugins={tekstPlugins}
+              pluginGrants={spelling.grants}
+              onPluginError={spelling.pluginFout}
               downloadOnSave={false}
               onSave={() => {
                 if (!exporteren.current) props.opslaan();
@@ -333,6 +343,7 @@ export default function OfficeEditor(props: EditorProps) {
                 />
               }
             />
+            {spelling.element}
           </EditorZichtbaar.Provider>
           </DocumentLettertypen.Provider>
         </EditorApi.Provider>

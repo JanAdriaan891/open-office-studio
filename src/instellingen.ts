@@ -29,6 +29,13 @@ export interface Instellingen {
   };
   /** E-mail: externe afbeeldingen volgens het account, of nooit automatisch. */
   emailExterneInhoud: "account" | "nooit";
+  /** Spellingcontrole en autocorrectie (#21, src/spelling). */
+  spelling: {
+    controleren: boolean;
+    autocorrectie: boolean;
+    hoofdletterwoordenNegeren: boolean;
+    cijferwoordenNegeren: boolean;
+  };
   /** Tekst: sneltoetsprofiel (LibreOffice-achtig of Word) en de mini-werkbalk bij selectie. */
   tekst: { sneltoetsprofiel: "standaard" | "word"; miniWerkbalk: boolean };
 }
@@ -48,6 +55,12 @@ export const standaardInstellingen: Instellingen = {
     weergave: true,
   },
   emailExterneInhoud: "account",
+  spelling: {
+    controleren: true,
+    autocorrectie: true,
+    hoofdletterwoordenNegeren: true,
+    cijferwoordenNegeren: true,
+  },
   tekst: { sneltoetsprofiel: "standaard", miniWerkbalk: true },
 };
 
@@ -69,6 +82,7 @@ export function normaliseerInstellingen(ruw: unknown): Instellingen {
   const formaat = isObject(r.opslagformaat) ? r.opslagformaat : {};
   const lint = isObject(r.lint) ? r.lint : {};
   const status = isObject(r.statusbalk) ? r.statusbalk : {};
+  const spelling = isObject(r.spelling) ? r.spelling : {};
   const tekst = isObject(r.tekst) ? r.tekst : {};
   return {
     thema: kies(r.thema, ["light", "forge", "systeem"] as const, s.thema),
@@ -92,6 +106,12 @@ export function normaliseerInstellingen(ruw: unknown): Instellingen {
       weergave: waarOnwaar(status.weergave, true),
     },
     emailExterneInhoud: kies(r.emailExterneInhoud, ["account", "nooit"] as const, "account"),
+    spelling: {
+      controleren: waarOnwaar(spelling.controleren, true),
+      autocorrectie: waarOnwaar(spelling.autocorrectie, true),
+      hoofdletterwoordenNegeren: waarOnwaar(spelling.hoofdletterwoordenNegeren, true),
+      cijferwoordenNegeren: waarOnwaar(spelling.cijferwoordenNegeren, true),
+    },
     tekst: {
       sneltoetsprofiel: kies(tekst.sneltoetsprofiel, ["standaard", "word"] as const, "standaard"),
       miniWerkbalk: waarOnwaar(tekst.miniWerkbalk, s.tekst.miniWerkbalk),

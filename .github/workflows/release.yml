@@ -85,6 +85,9 @@ jobs:
         with:
           version: 11.25.0
       - uses: dtolnay/rust-toolchain@stable
+        with:
+          # De spellingmodule (src/spelling/rust) wordt naar WebAssembly gebouwd.
+          targets: wasm32-unknown-unknown
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
@@ -100,6 +103,13 @@ jobs:
           path: .local/lettertypen-cache
           key: lettertypen-${{ hashFiles('assets/lettertypen.json') }}
       - run: node scripts/haal-lettertypen.mjs
+      # Woordenboeken voor de spellingcontrole (assets/woordenboeken.json).
+      - name: Woordenboekencache
+        uses: actions/cache@v4
+        with:
+          path: .local/woordenboeken-cache
+          key: woordenboeken-${{ hashFiles('assets/woordenboeken.json') }}
+      - run: node scripts/haal-woordenboeken.mjs
       - run: pnpm versie:check
       - run: pnpm test
       - run: python -m unittest discover -s tests -v

@@ -181,6 +181,7 @@ export const vasteSneltoetsen: readonly SneltoetsInfo[] = [
   tekst("Ctrl+P", "Afdrukken (afdrukvoorbeeld)"),
   tekst("Ctrl+Shift+O", "Afdrukvoorbeeld"),
   tekst("F5", "Navigatievenster"),
+  tekst("F7", "Spelling en grammatica"),
   tekst("Ctrl+Shift+R", "Liniaal tonen of verbergen"),
   tekst("F11", "Alle stijlen"),
   // Tekst: Word-functies (src/tekst/**).
