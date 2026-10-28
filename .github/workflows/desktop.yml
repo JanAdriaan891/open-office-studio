@@ -55,6 +55,8 @@ jobs:
           key: woordenboeken-${{ hashFiles('assets/woordenboeken.json') }}
       - run: node scripts/haal-woordenboeken.mjs
       - run: cargo test --manifest-path src/spelling/rust/Cargo.toml --locked --lib
+      # De spelling-WASM vóór de tests, zodat ook de echte spellingtest draait.
+      - run: node scripts/bouw-spelling-wasm.mjs
       - run: pnpm versie:check
       - run: pnpm test
       - run: python -m unittest discover -s tests -v
