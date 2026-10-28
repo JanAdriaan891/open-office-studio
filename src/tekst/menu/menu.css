@@ -1,0 +1,194 @@
+/* Rechtermuismenu, mini-werkbalk en plakopties (src/tekst/menu). Ze staan in
+   .office, dus de shell-variabelen volgen het thema (licht of forge). */
+
+.tekst-menu {
+  position: fixed;
+  z-index: 60;
+  min-width: 230px;
+  max-height: calc(100dvh - 12px);
+  overflow: auto;
+  padding: 4px;
+  border: 1px solid var(--oa-shell-dialog-border, #dde1e6);
+  border-radius: 8px;
+  background: var(--oa-shell-dialog-bg, #fff);
+  color: var(--oa-shell-text, #2d3541);
+  box-shadow: 0 10px 32px #0f172a2e;
+  font: 12.5px Inter, sans-serif;
+}
+.tekst-menu-sectie + .tekst-menu-sectie {
+  margin-top: 4px;
+  padding-top: 4px;
+  border-top: 1px solid var(--oa-shell-border, #e5e7eb);
+}
+.tekst-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  width: 100%;
+  min-height: 28px;
+  padding: 4px 10px 4px 8px;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: default;
+}
+.tekst-menu-item > span {
+  flex: 1;
+}
+.tekst-menu-item > svg {
+  flex-shrink: 0;
+  opacity: 0.8;
+}
+.tekst-menu-item kbd {
+  margin-left: 18px;
+  font: 11px Inter, sans-serif;
+  opacity: 0.55;
+}
+.tekst-menu-item:hover:not(:disabled),
+.tekst-menu-item:focus-visible {
+  outline: none;
+  background: var(--oa-shell-accent-soft, #fdf3e5);
+  color: var(--oa-shell-text, #2d3541);
+}
+.tekst-menu-item:disabled {
+  opacity: 0.4;
+}
+.tekst-menu-item[aria-checked="true"] > svg {
+  color: var(--oa-shell-accent, #d97706);
+  opacity: 1;
+}
+.tekst-menu-vink {
+  flex: 0 0 12px !important;
+  color: var(--oa-shell-accent, #d97706);
+  font-size: 9px;
+}
+
+/* Mini-werkbalk */
+.tekst-minibalk {
+  position: fixed;
+  z-index: 55;
+  display: grid;
+  gap: 2px;
+  padding: 4px 5px;
+  border: 1px solid var(--oa-shell-dialog-border, #dde1e6);
+  border-radius: 8px;
+  background: var(--oa-shell-dialog-bg, #fff);
+  box-shadow: 0 8px 24px #0f172a29;
+  transition: opacity 120ms linear;
+}
+.tekst-minibalk-rij {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+}
+.office .tekst-minibalk .ribbon-actie {
+  width: 28px;
+  min-width: 28px;
+  min-height: 28px;
+  padding: 4px;
+  justify-content: center;
+}
+.office .tekst-minibalk .ribbon-actie > span {
+  display: none;
+}
+.office .tekst-minibalk .ribbon-keuze {
+  width: 104px;
+  height: 28px;
+}
+.office .tekst-minibalk .ribbon-keuze select,
+.office .tekst-minibalk .ribbon-getal {
+  height: 28px;
+  border-radius: 4px;
+  background: var(--oa-shell-bg-lighter, #fff);
+  color: var(--oa-shell-text, #2d3541);
+  border-color: var(--oa-shell-border, #dce0e5);
+}
+.office[data-office-thema="forge"] .tekst-minibalk select,
+.office[data-office-thema="forge"] .tekst-minibalk input {
+  color-scheme: dark;
+}
+.office .tekst-minibalk .ribbon-getal {
+  width: 48px;
+}
+.office .tekst-minibalk .lettertypekeuze-knop {
+  max-width: 132px;
+}
+
+/* Plakopties */
+.tekst-plakopties {
+  position: fixed;
+  z-index: 55;
+}
+.tekst-plakopties-knop {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 26px;
+  padding: 0 7px;
+  border: 1px solid var(--oa-shell-dialog-border, #dde1e6);
+  border-radius: 5px;
+  background: var(--oa-shell-dialog-bg, #fff);
+  color: var(--oa-shell-text, #2d3541);
+  box-shadow: 0 3px 10px #0f172a24;
+  font: 12px Inter, sans-serif;
+}
+.tekst-plakopties-knop:hover {
+  border-color: var(--oa-shell-accent, #d97706);
+}
+.tekst-plakopties-menu {
+  position: absolute;
+  top: 30px;
+  left: 0;
+}
+
+/* Opmaakkwast actief: kwastcursor op de pagina's. */
+.office-tekst.tekst-kwast-actief .docx-editor__scroll-container,
+.office-tekst.tekst-kwast-actief .docx-editor__scroll-container * {
+  cursor:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23222' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 2v20'/%3E%3Cpath d='M9 3h11v6H9z' fill='%23fff'/%3E%3Cpath d='M14.5 9v3.5H11V21'/%3E%3C/svg%3E")
+      3 12,
+    text !important;
+}
+
+/* Terugval ‘Lettertype…/Alinea…’: de lintkeuze even aanwijzen. */
+.office .tekst-lint-wijs {
+  outline: 2px solid var(--oa-shell-accent, #d97706);
+  outline-offset: 1px;
+}
+
+/* Datum en tijd */
+.tekst-datumtijd-lijst {
+  display: grid;
+  max-height: 290px;
+  overflow: auto;
+  margin: 4px 0 12px;
+  padding: 3px;
+  border: 1px solid var(--oa-shell-border, #e5e7eb);
+  border-radius: 6px;
+}
+.tekst-datumtijd-optie {
+  padding: 5px 9px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: inherit;
+  font: 13px Inter, sans-serif;
+  text-align: left;
+}
+.tekst-datumtijd-optie:hover {
+  background: var(--oa-shell-accent-soft, #fdf3e5);
+}
+.tekst-datumtijd-optie[aria-selected="true"] {
+  background: var(--oa-shell-accent, #d97706);
+  color: #fff;
+}
+
+.tekst-grootteknoppen {
+  display: inline-flex;
+}
+.tekst-menu:focus {
+  outline: none;
+}

@@ -1,0 +1,282 @@
+/**
+ * Rechtermuismenu in het document: klembord, Lettertype…/Alinea…, lijsten,
+ * koppeling en opmerking, plus tabel- en afbeeldingsopdrachten als de cursor
+ * daar staat. Vervangt het engine-menu (alleen klembord).
+ */
+import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from "react";
+import { createPortal } from "react-dom";
+import {
+  useDocxCommands,
+  type DocxCommandArgs,
+  type DocxCommandId,
+} from "@betteroffice/docx-react";
+import {
+  ClipboardPaste,
+  ClipboardType,
+  Columns2,
+  Copy,
+  Grid2X2,
+  Image,
+  Link,
+  List,
+  ListOrdered,
+  Merge,
+  MessageSquarePlus,
+  Paintbrush,
+  Pilcrow,
+  RotateCw,
+  Rows3,
+  Scissors,
+  Table2,
+  Trash2,
+  Type,
+  type LucideIcon,
+} from "lucide-react";
+import type { TekstOpdrachten } from "../bewerken/TekstBewerken";
+import { portaalDoel } from "./portaal";
+
+export interface MenuPlek {
+  x: number;
+  y: number;
+  tabel: boolean;
+  afbeelding: boolean;
+}
+
+interface Item {
+  naam: string;
+  icoon: LucideIcon;
+  sneltoets?: string;
+  uit?: boolean;
+  actief?: boolean;
+  doe: () => void;
+}
+
+type Sectie = Item[];
+
+export function Contextmenu({
+  plek,
+  sluit,
+  opdrachten,
+  voerUit,
+  kwastKlik,
+  lettertype,
+  alinea,
+}: {
+  plek: MenuPlek;
+  sluit: () => void;
+  opdrachten: TekstOpdrachten;
+  voerUit: <K extends DocxCommandId>(id: K, args: DocxCommandArgs[K]) => void;
+  kwastKlik: () => void;
+  lettertype: (punt?: { x: number; y: number }) => void;
+  alinea: (punt?: { x: number; y: number }) => void;
+}) {
+  const store = useDocxCommands();
+  const vak = useRef<HTMLDivElement>(null);
+  const [positie, setPositie] = useState({ left: plek.x, top: plek.y });
+  const bewerkbaar = opdrachten.bewerkbaar;
+  const selectie = !!opdrachten.api()?.getSelectionInfo()?.selectedText;
+  const kan = (id: DocxCommandId) => store.getState(id).enabled;
+  const punt = { x: plek.x, y: plek.y };
+
+  const tabel = (args: DocxCommandArgs["tableAction"]) => () => voerUit("tableAction", args);
+  const secties: Sectie[] = [
+    [
+      {
+        naam: "Knippen",
+        icoon: Scissors,
+        sneltoets: "Ctrl+X",
+        uit: !bewerkbaar || !selectie,
+        doe: () => opdrachten.klembord("cut"),
+      },
+      {
+        naam: "Kopiëren",
+        icoon: Copy,
+        sneltoets: "Ctrl+C",
+        uit: !selectie,
+        doe: () => opdrachten.klembord("copy"),
+      },
+      {
+        naam: "Plakken",
+        icoon: ClipboardPaste,
+        sneltoets: "Ctrl+V",
+        uit: !bewerkbaar,
+        doe: opdrachten.plakken,
+      },
+      {
+        naam: "Plakken als alleen tekst",
+        icoon: ClipboardType,
+        sneltoets: "Ctrl+Shift+V",
+        uit: !bewerkbaar,
+        doe: opdrachten.plakken,
+      },
+    ],
+    [
+      { naam: "Lettertype…", icoon: Type, uit: !bewerkbaar, doe: () => lettertype(punt) },
+      { naam: "Alinea…", icoon: Pilcrow, uit: !bewerkbaar, doe: () => alinea(punt) },
+      { naam: "Opmaak kopiëren", icoon: Paintbrush, uit: !bewerkbaar, doe: kwastKlik },
+    ],
+    [
+      {
+        naam: "Opsommingstekens",
+        icoon: List,
+        uit: !kan("bulletList"),
+        actief: store.getState("bulletList").active === true,
+        doe: () => voerUit("bulletList", null),
+      },
+      {
+        naam: "Nummering",
+        icoon: ListOrdered,
+        uit: !kan("numberedList"),
+        actief: store.getState("numberedList").active === true,
+        doe: () => voerUit("numberedList", null),
+      },
+    ],
+    [
+      {
+        naam: "Koppeling…",
+        icoon: Link,
+        sneltoets: "Ctrl+K",
+        uit: !kan("insertLink"),
+        doe: () => voerUit("insertLink", null),
+      },
+      {
+        naam: "Nieuwe opmerking",
+        icoon: MessageSquarePlus,
+        uit: !bewerkbaar,
+        doe: () => opdrachten.setDialoog("opmerking"),
+      },
+    ],
+  ];
+  if (plek.tabel)
+    secties.push(
+      [
+        { naam: "Rij boven invoegen", icoon: Rows3, doe: tabel("addRowAbove") },
+        { naam: "Rij onder invoegen", icoon: Rows3, doe: tabel("addRowBelow") },
+        { naam: "Kolom links invoegen", icoon: Columns2, doe: tabel("addColumnLeft") },
+        { naam: "Kolom rechts invoegen", icoon: Columns2, doe: tabel("addColumnRight") },
+      ],
+      [
+        { naam: "Cellen samenvoegen", icoon: Merge, uit: !kan("tableAction"), doe: tabel("mergeCells") },
+        { naam: "Cel splitsen", icoon: Grid2X2, doe: tabel("splitCell") },
+        { naam: "Rij verwijderen", icoon: Trash2, doe: tabel("deleteRow") },
+        { naam: "Kolom verwijderen", icoon: Trash2, doe: tabel("deleteColumn") },
+        { naam: "Tabel verwijderen", icoon: Trash2, doe: tabel("deleteTable") },
+        {
+          naam: "Tabeleigenschappen…",
+          icoon: Table2,
+          doe: tabel({ type: "openTableProperties" }),
+        },
+      ],
+    );
+  if (plek.afbeelding)
+    secties.push([
+      {
+        naam: "Afbeeldingseigenschappen…",
+        icoon: Image,
+        uit: !kan("imageProperties"),
+        doe: () => voerUit("imageProperties", null),
+      },
+      {
+        naam: "Rechtsom draaien",
+        icoon: RotateCw,
+        uit: !kan("imageTransform"),
+        doe: () => voerUit("imageTransform", { action: "rotateCW" }),
+      },
+    ]);
+
+  // Binnen het venster houden.
+  useLayoutEffect(() => {
+    const r = vak.current?.getBoundingClientRect();
+    if (!r) return;
+    setPositie({
+      left: Math.max(4, Math.min(plek.x, innerWidth - r.width - 4)),
+      top: Math.max(4, Math.min(plek.y, innerHeight - r.height - 4)),
+    });
+  }, [plek.x, plek.y]);
+
+  useEffect(() => {
+    // Focus op het menu zelf; de pijltjestoetsen kiezen een item.
+    vak.current?.focus();
+    const weg = (e: Event) => {
+      if (e.target instanceof Node && vak.current?.contains(e.target)) return;
+      sluit();
+    };
+    const toets = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        e.stopPropagation();
+        sluit();
+        opdrachten.api()?.focus();
+      }
+    };
+    window.addEventListener("mousedown", weg, true);
+    window.addEventListener("wheel", weg, { capture: true, passive: true });
+    window.addEventListener("resize", sluit);
+    window.addEventListener("blur", sluit);
+    window.addEventListener("keydown", toets, true);
+    return () => {
+      window.removeEventListener("mousedown", weg, true);
+      window.removeEventListener("wheel", weg, true);
+      window.removeEventListener("resize", sluit);
+      window.removeEventListener("blur", sluit);
+      window.removeEventListener("keydown", toets, true);
+    };
+  }, []);
+
+  function pijl(e: React.KeyboardEvent) {
+    if (e.key !== "ArrowDown" && e.key !== "ArrowUp" && e.key !== "Home" && e.key !== "End") return;
+    e.preventDefault();
+    const knoppen = [...(vak.current?.querySelectorAll<HTMLButtonElement>("button:not(:disabled)") ?? [])];
+    const i = knoppen.indexOf(document.activeElement as HTMLButtonElement);
+    const volgende =
+      e.key === "Home" || (i < 0 && e.key === "ArrowDown")
+        ? 0
+        : e.key === "End" || (i < 0 && e.key === "ArrowUp")
+          ? knoppen.length - 1
+          : (i + (e.key === "ArrowDown" ? 1 : -1) + knoppen.length) % knoppen.length;
+    knoppen[volgende]?.focus();
+  }
+
+  const inhoud: ReactNode = secties
+    .filter((s) => s.length)
+    .map((sectie, i) => (
+      <div key={i} role="group" className="tekst-menu-sectie">
+        {sectie.map((item) => (
+          <button
+            key={item.naam}
+            type="button"
+            role="menuitem"
+            className="tekst-menu-item"
+            disabled={item.uit}
+            aria-checked={item.actief ? true : undefined}
+            onMouseDown={(e) => e.preventDefault()}
+            onClick={() => {
+              sluit();
+              if (item.naam !== "Lettertype…" && item.naam !== "Alinea…") opdrachten.api()?.focus();
+              item.doe();
+            }}
+          >
+            <item.icoon size={15} strokeWidth={1.7} aria-hidden="true" />
+            <span>{item.naam}</span>
+            {item.sneltoets && <kbd>{item.sneltoets}</kbd>}
+          </button>
+        ))}
+      </div>
+    ));
+
+  return createPortal(
+    <div
+      ref={vak}
+      className="tekst-menu"
+      role="menu"
+      tabIndex={-1}
+      aria-label="Opdrachten bij de selectie"
+      style={positie}
+      onKeyDown={pijl}
+      onContextMenu={(e) => e.preventDefault()}
+    >
+      {inhoud}
+    </div>,
+    portaalDoel(),
+  );
+}

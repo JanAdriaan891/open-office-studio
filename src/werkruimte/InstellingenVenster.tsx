@@ -318,6 +318,39 @@ export function InstellingenVenster({ sluit }: { sluit: () => void }) {
       </fieldset>
 
       <fieldset className="werkruimte-groep">
+        <legend>Tekst</legend>
+        <div className="werkruimte-keuzes" role="radiogroup" aria-labelledby={`${id}-profiel`}>
+          <span id={`${id}-profiel`} className="werkruimte-label">
+            Sneltoetsen
+          </span>
+          {(
+            [
+              ["standaard", "Standaard (zoals LibreOffice: Ctrl+1 = Kop 1)"],
+              ["word", "Word (Ctrl+1 = regelafstand, Ctrl+Alt+1 = Kop 1)"],
+            ] as const
+          ).map(([waarde, naam]) => (
+            <label key={waarde}>
+              <input
+                type="radio"
+                name={`${id}-profiel`}
+                checked={instellingen.tekst.sneltoetsprofiel === waarde}
+                onChange={() => wijzig({ tekst: { sneltoetsprofiel: waarde } })}
+              />
+              {naam}
+            </label>
+          ))}
+        </div>
+        <label className="werkruimte-vink">
+          <input
+            type="checkbox"
+            checked={instellingen.tekst.miniWerkbalk}
+            onChange={(e) => wijzig({ tekst: { miniWerkbalk: e.target.checked } })}
+          />
+          Mini-werkbalk tonen bij het selecteren van tekst
+        </label>
+      </fieldset>
+
+      <fieldset className="werkruimte-groep">
         <legend>Toetsenbord</legend>
         <button type="button" className="werkruimte-knop" onClick={toonSneltoetsen}>
           Sneltoetsen bekijken · F1

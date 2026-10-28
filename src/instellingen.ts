@@ -23,6 +23,8 @@ export interface Instellingen {
   };
   /** E-mail: externe afbeeldingen volgens het account, of nooit automatisch. */
   emailExterneInhoud: "account" | "nooit";
+  /** Tekst: sneltoetsprofiel (LibreOffice-achtig of Word) en de mini-werkbalk bij selectie. */
+  tekst: { sneltoetsprofiel: "standaard" | "word"; miniWerkbalk: boolean };
 }
 
 export const standaardInstellingen: Instellingen = {
@@ -31,6 +33,7 @@ export const standaardInstellingen: Instellingen = {
   lint: { compact: false, ingeklapt: false },
   statusbalk: { zoom: true, tekst: true, rekenblad: true, presentatie: true, database: true },
   emailExterneInhoud: "account",
+  tekst: { sneltoetsprofiel: "standaard", miniWerkbalk: true },
 };
 
 const SLEUTEL = "openaec-office-instellingen";
@@ -51,6 +54,7 @@ export function normaliseerInstellingen(ruw: unknown): Instellingen {
   const formaat = isObject(r.opslagformaat) ? r.opslagformaat : {};
   const lint = isObject(r.lint) ? r.lint : {};
   const status = isObject(r.statusbalk) ? r.statusbalk : {};
+  const tekst = isObject(r.tekst) ? r.tekst : {};
   return {
     thema: kies(r.thema, ["light", "forge", "systeem"] as const, s.thema),
     opslagformaat: {
@@ -70,6 +74,10 @@ export function normaliseerInstellingen(ruw: unknown): Instellingen {
       database: waarOnwaar(status.database, true),
     },
     emailExterneInhoud: kies(r.emailExterneInhoud, ["account", "nooit"] as const, "account"),
+    tekst: {
+      sneltoetsprofiel: kies(tekst.sneltoetsprofiel, ["standaard", "word"] as const, "standaard"),
+      miniWerkbalk: waarOnwaar(tekst.miniWerkbalk, s.tekst.miniWerkbalk),
+    },
   };
 }
 
