@@ -44,17 +44,12 @@
   margin: 0 0 4px;
 }
 
-/* Importvensters (wachtwoord, CSV) */
-.importvenster {
-  width: min(100%, 860px);
-  max-height: calc(100vh - 40px);
-  overflow: auto;
+/* Importvensters (wachtwoord, CSV) op de gedeelde werkruimtedialoog */
+.werkruimte-dialoog.importvenster {
+  width: min(100%, 900px);
 }
-.importvenster.is-smal {
+.werkruimte-dialoog.importvenster.is-smal {
   width: min(100%, 440px);
-}
-.importvenster h2 {
-  margin-top: 0;
 }
 .importvenster label {
   display: flex;
@@ -65,12 +60,10 @@
 .importvenster input[type="text"],
 .importvenster input[type="password"],
 .importvenster select {
-  font: inherit;
   padding: 5px 7px;
-  border: 1px solid #c9ced6;
+  border: 1px solid var(--w-rand);
   border-radius: 6px;
-  background: #fff;
-  color: inherit;
+  background: var(--w-bg);
 }
 .importvenster .importvenster-vink {
   flex-direction: row;
@@ -79,14 +72,14 @@
 }
 .importvenster-raster {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: 10px 14px;
-  margin: 10px 0;
+  margin: 0 0 12px;
 }
 .importvenster-voorbeeld {
   max-height: 320px;
   overflow: auto;
-  border: 1px solid #dce0e4;
+  border: 1px solid var(--w-rand);
   border-radius: 8px;
 }
 .importvenster-voorbeeld table {
@@ -96,7 +89,7 @@
 }
 .importvenster-voorbeeld th,
 .importvenster-voorbeeld td {
-  border: 1px solid #e4e7eb;
+  border: 1px solid var(--w-rand);
   padding: 3px 6px;
   white-space: nowrap;
   max-width: 260px;
@@ -107,7 +100,7 @@
 .importvenster-voorbeeld thead th {
   position: sticky;
   top: 0;
-  background: #f4f5f7;
+  background: var(--w-bg-zacht);
 }
 .importvenster-voorbeeld thead select {
   font-size: 11px;
@@ -123,7 +116,11 @@
   color: #b42318;
   font-size: 12px;
 }
+.werkruimte-dialoogachtergrond[data-thema="forge"] .importvenster-fout {
+  color: #f87171;
+}
 .importvenster-uitleg {
   font-size: 12px;
   line-height: 1.5;
+  color: var(--w-tekst-zacht);
 }

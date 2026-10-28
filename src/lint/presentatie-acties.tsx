@@ -314,7 +314,7 @@ export function useDiaActies() {
         (Boolean(geselecteerdeVorm(api!)) || paneel.current),
     },
   ];
-  useSneltoetsen(wortel, sneltoetsen);
+  useSneltoetsen(wortel, sneltoetsen, "presentatie");
 
   return {
     actief: Boolean(api),

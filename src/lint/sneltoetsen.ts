@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useEditorZichtbaar } from "./editorApi";
+import { registreerSneltoetsen, type SneltoetsModule } from "./sneltoetsenlijst";
 
 /** Toetscombinatie in leesbare vorm, bijvoorbeeld "Ctrl+Shift+P" of "F5". */
 export interface Sneltoets {
@@ -7,6 +8,8 @@ export interface Sneltoets {
   uitvoeren: () => void;
   /** Optioneel: alleen als de opdracht nu beschikbaar is. */
   beschikbaar?: () => boolean;
+  /** Voor het sneltoetsenoverzicht; standaard de omschrijving uit het register. */
+  omschrijving?: string;
 }
 
 type Combinatie = {
@@ -57,14 +60,25 @@ export function past(
  * Sneltoetsen zoals in gangbare kantoorsuites, alleen actief als de focus in
  * de editor staat (of nergens) en niet in het bestandsmenu of een dialoog.
  * Registreer hier uitsluitend toetsen die de engine zelf niet afhandelt.
+ * Met `module` verschijnen de toetsen in het sneltoetsenoverzicht (F1);
+ * beschrijf nieuwe toetsen ook in `sneltoetsenlijst.ts`.
  */
 export function useSneltoetsen(
   vlak: () => HTMLElement | null,
   toetsen: Sneltoets[],
+  module?: SneltoetsModule,
 ) {
   const zichtbaar = useEditorZichtbaar();
   const recent = useRef({ vlak, toetsen, zichtbaar });
   recent.current = { vlak, toetsen, zichtbaar };
+  const sleutel = toetsen.map((t) => `${t.toets}=${t.omschrijving ?? ""}`).join("|");
+  useEffect(() => {
+    if (!module || !zichtbaar || !sleutel) return;
+    return registreerSneltoetsen(
+      module,
+      recent.current.toetsen.map(({ toets, omschrijving }) => ({ toets, omschrijving })),
+    );
+  }, [module, zichtbaar, sleutel]);
   useEffect(() => {
     function toets(e: KeyboardEvent) {
       if (e.defaultPrevented || e.repeat || !recent.current.zichtbaar) return;

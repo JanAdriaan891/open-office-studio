@@ -1,8 +1,10 @@
 import { useContext, useEffect, useRef } from "react";
 import { RibbonFout, type GebondenOpdracht } from "./Ribbon";
 import { useEditorZichtbaar } from "./lint/editorApi";
+import { registreerZoom } from "./status/statusinfo";
 import {
   ankerScroll,
+  begrens,
   bewaarZoom,
   leesZoom,
   toetsZoom,
@@ -27,6 +29,7 @@ export function useDocumentZoom({
   koppeling,
   huidig,
   standaard,
+  pasBreedte,
 }: {
   opdracht: GebondenOpdracht;
   /** Het scrollende documentvlak. */
@@ -36,8 +39,10 @@ export function useDocumentZoom({
   koppeling?: ZoomKoppeling;
   /** Werkelijke schaal, ook als de editor een stand als ‘passend’ gebruikt. */
   huidig?: () => number | null;
-  /** Begininstelling als er voor dit document niets onthouden is. */
+  /** Begininstelling als er voor dit document niets onthouden is; ook ‘passend’. */
   standaard?: unknown;
+  /** Breedte (px, bij de huidige zoom) die ‘passend’ in het vlak moet laten passen. */
+  pasBreedte?: () => number | null;
 }) {
   const fout = useContext(RibbonFout);
   const zichtbaar = useEditorZichtbaar();
@@ -55,12 +60,12 @@ export function useDocumentZoom({
     return huidig?.() ?? 1;
   }
 
-  function voerUit(zoom: number, onthouden: boolean) {
+  function voerUit(zoom: number, onthouden: boolean, stil = false) {
     const { opdracht, koppeling, fout } = recent.current;
     return opdracht
       .execute({ scale: zoom } as never)
       .then((resultaat) => {
-        if (!resultaat.ok)
+        if (!resultaat.ok && !stil)
           fout(resultaat.failure?.message ?? "Zoomen is mislukt.");
         else {
           // Niet elke editor meldt de nieuwe waarde direct via zijn opdrachtstatus.
@@ -71,7 +76,7 @@ export function useDocumentZoom({
         return resultaat.ok;
       })
       .catch((error) => {
-        fout(error instanceof Error ? error.message : String(error));
+        if (!stil) fout(error instanceof Error ? error.message : String(error));
         return false;
       });
   }
@@ -171,7 +176,16 @@ export function useDocumentZoom({
     hersteld.current = true;
     const sleutel = recent.current.koppeling?.sleutel;
     const onthouden = sleutel ? leesZoom(sleutel) : null;
-    if (onthouden !== null) void voerUit(onthouden, false);
+    // Het rekenblad meldt zich soms al beschikbaar voordat het zoomen
+    // aanneemt; probeer het onthouden niveau dan kort daarna opnieuw.
+    if (onthouden !== null) {
+      let pogingen = 0;
+      const probeer = () =>
+        void voerUit(onthouden, false, pogingen < 5).then((gelukt) => {
+          if (!gelukt && pogingen++ < 5) setTimeout(probeer, 250);
+        });
+      probeer();
+    }
     else if (standaard !== undefined)
       void recent.current.opdracht
         .execute(standaard as never)
@@ -208,4 +222,29 @@ export function useDocumentZoom({
     },
     [],
   );
+
+  // De zoomschuif in de statusbalk bedient de zichtbare editor.
+  const eigenaar = useRef({}).current;
+  const passendRef = useRef({ standaard, pasBreedte });
+  passendRef.current = { standaard, pasBreedte };
+  const kanPassend = standaard !== undefined || !!pasBreedte;
+  useEffect(() => {
+    if (!zichtbaar || !opdracht.state.enabled) return;
+    return registreerZoom(eigenaar, {
+      zet: (zoom) => zoomNaar(begrens(zoom), recent.current.vlak()),
+      passend: kanPassend
+        ? () => {
+            const { standaard, pasBreedte } = passendRef.current;
+            if (standaard !== undefined) {
+              void recent.current.opdracht.execute(standaard as never);
+              return;
+            }
+            const breedte = pasBreedte?.();
+            const vlak = recent.current.vlak();
+            if (breedte && vlak)
+              zoomNaar(begrens((schaal() * (vlak.clientWidth - 48)) / breedte), vlak);
+          }
+        : undefined,
+    });
+  }, [zichtbaar, opdracht.state.enabled, kanPassend]);
 }

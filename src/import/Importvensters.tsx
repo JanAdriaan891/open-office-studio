@@ -1,13 +1,6 @@
-import {
-  useCallback,
-  useEffect,
-  useId,
-  useMemo,
-  useRef,
-  useState,
-  type ReactNode,
-} from "react";
-import { FileSpreadsheet, LockKeyhole } from "lucide-react";
+import { useCallback, useId, useMemo, useState, type ReactNode } from "react";
+import { Dialoog } from "../werkruimte/Dialoog";
+import "../werkruimte/werkruimte.css";
 import {
   CODERINGEN,
   bereidCsvVoor,
@@ -21,68 +14,29 @@ import {
 } from "./csvimport";
 import "./import.css";
 
-/** Modaal venster met focusval, Escape = annuleren. */
+/** Importvenster op basis van de gedeelde werkruimtedialoog (focusval, Esc, inert). */
 function Venster({
   titel,
-  icoon,
   smal,
   annuleer,
+  acties,
   children,
 }: {
   titel: string;
-  icoon: ReactNode;
   smal?: boolean;
   annuleer: () => void;
+  acties: ReactNode;
   children: ReactNode;
 }) {
-  const id = useId();
-  const venster = useRef<HTMLElement>(null);
-  useEffect(() => {
-    const vorige = document.activeElement as HTMLElement | null;
-    venster.current
-      ?.querySelector<HTMLElement>("input, select, button")
-      ?.focus();
-    return () => {
-      if (vorige?.isConnected) vorige.focus();
-    };
-  }, []);
   return (
-    <div className="office-dialoogachtergrond">
-      <section
-        ref={venster}
-        className={`office-dialoog importvenster${smal ? " is-smal" : ""}`}
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby={`${id}-titel`}
-        onKeyDown={(event) => {
-          if (event.key === "Escape") {
-            event.preventDefault();
-            annuleer();
-          }
-          if (event.key === "Tab") {
-            const focusbaar = [
-              ...(venster.current?.querySelectorAll<HTMLElement>(
-                "input:not([disabled]), select:not([disabled]), button:not([disabled])",
-              ) ?? []),
-            ];
-            const eerste = focusbaar[0],
-              laatste = focusbaar[focusbaar.length - 1];
-            if (event.shiftKey && document.activeElement === eerste) {
-              event.preventDefault();
-              laatste?.focus();
-            } else if (!event.shiftKey && document.activeElement === laatste) {
-              event.preventDefault();
-              eerste?.focus();
-            }
-          }
-        }}
-      >
-        <h2 id={`${id}-titel`}>
-          {icoon} {titel}
-        </h2>
-        {children}
-      </section>
-    </div>
+    <Dialoog
+      titel={titel}
+      sluit={annuleer}
+      className={`importvenster${smal ? " is-smal" : ""}`}
+      acties={acties}
+    >
+      {children}
+    </Dialoog>
   );
 }
 
@@ -178,8 +132,22 @@ export function CsvImportVenster({
   return (
     <Venster
       titel={`${naam} importeren`}
-      icoon={<FileSpreadsheet size={18} />}
       annuleer={annuleer}
+      acties={
+        <>
+          <button type="button" className="werkruimte-knop" onClick={annuleer}>
+            Annuleren
+          </button>
+          <button
+            type="button"
+            className="werkruimte-knop is-primair"
+            disabled={!!voorbeeld.fout}
+            onClick={() => bevestig({ ...instellingen, kolomtypen: typen })}
+          >
+            Importeren
+          </button>
+        </>
+      }
     >
       <div className="importvenster-raster">
         <label>
@@ -372,19 +340,6 @@ export function CsvImportVenster({
         @ beginnen worden nooit als formule ingelezen (apostrof in de
         voorvertoning).
       </p>
-      <div className="office-dialoogacties">
-        <button type="button" onClick={annuleer}>
-          Annuleren
-        </button>
-        <button
-          type="button"
-          className="office-dialoogdoorgaan"
-          disabled={!!voorbeeld.fout}
-          onClick={() => bevestig({ ...instellingen, kolomtypen: typen })}
-        >
-          Importeren
-        </button>
-      </div>
     </Venster>
   );
 }
@@ -402,14 +357,30 @@ export function WachtwoordVenster({
   annuleer: () => void;
 }) {
   const [wachtwoord, setWachtwoord] = useState("");
+  const formulier = useId();
   return (
     <Venster
       titel="Wachtwoord vereist"
-      icoon={<LockKeyhole size={18} />}
       smal
       annuleer={annuleer}
+      acties={
+        <>
+          <button type="button" className="werkruimte-knop" onClick={annuleer}>
+            Annuleren
+          </button>
+          <button
+            type="submit"
+            form={formulier}
+            className="werkruimte-knop is-primair"
+            disabled={!wachtwoord}
+          >
+            Openen
+          </button>
+        </>
+      }
     >
       <form
+        id={formulier}
         onSubmit={(e) => {
           e.preventDefault();
           if (wachtwoord) bevestig(wachtwoord);
@@ -424,25 +395,18 @@ export function WachtwoordVenster({
           Wachtwoord
           <input
             type="password"
+            data-autofocus
             autoComplete="off"
             value={wachtwoord}
             aria-invalid={!!fout}
             onChange={(e) => setWachtwoord(e.target.value)}
           />
         </label>
-        {fout && <p className="importvenster-fout">{fout}</p>}
-        <div className="office-dialoogacties">
-          <button type="button" onClick={annuleer}>
-            Annuleren
-          </button>
-          <button
-            type="submit"
-            className="office-dialoogdoorgaan"
-            disabled={!wachtwoord}
-          >
-            Openen
-          </button>
-        </div>
+        {fout && (
+          <p className="importvenster-fout" role="alert">
+            {fout}
+          </p>
+        )}
       </form>
     </Venster>
   );

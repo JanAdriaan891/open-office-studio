@@ -1,27 +1,27 @@
-import { useState } from "react";
+import { useSyncExternalStore } from "react";
 import { Moon, Sun } from "lucide-react";
+import { useInstellingen, wijzigInstellingen } from "../instellingen";
 
 type Thema = "light" | "forge";
-const sleutel = "openaec-office-thema";
 
+const donkerVraag = () =>
+  typeof matchMedia === "function" ? matchMedia("(prefers-color-scheme: dark)") : null;
+function volgSysteem(luisteraar: () => void) {
+  const vraag = donkerVraag();
+  vraag?.addEventListener("change", luisteraar);
+  return () => vraag?.removeEventListener("change", luisteraar);
+}
+const systeemDonker = () => donkerVraag()?.matches ?? false;
+
+/** Licht, Forge of het systeemthema, uit de instellingen. */
 export function useOfficeThema() {
-  const [thema, setThema] = useState<Thema>(() => {
-    try {
-      return localStorage.getItem(sleutel) === "light" ? "light" : "forge";
-    } catch {
-      return "forge";
-    }
-  });
+  const { thema: keuze } = useInstellingen();
+  const donker = useSyncExternalStore(volgSysteem, systeemDonker, () => false);
+  const thema: Thema = keuze === "systeem" ? (donker ? "forge" : "light") : keuze;
   function wisselThema() {
-    const volgende = thema === "forge" ? "light" : "forge";
-    setThema(volgende);
-    try {
-      localStorage.setItem(sleutel, volgende);
-    } catch {
-      // De weergave blijft bruikbaar als voorkeuren niet kunnen worden bewaard.
-    }
+    wijzigInstellingen({ thema: thema === "forge" ? "light" : "forge" });
   }
-  return { thema, wisselThema };
+  return { thema, keuze, wisselThema };
 }
 
 export function ThemaKnop({
