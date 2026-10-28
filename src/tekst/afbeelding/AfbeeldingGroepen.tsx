@@ -4,16 +4,17 @@
  * wijzigen, opnieuw instellen, alternatieve tekst en positie. De bewerkingen
  * staan in ./opdrachten.ts.
  */
-import { useEffect, useMemo, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
+import { useContext, useEffect, useMemo, useRef, useState, type PointerEvent as ReactPointerEvent } from "react";
 import { Crop, ImageUp, Lock, LockOpen, Move, RefreshCcw, TextCursorInput } from "lucide-react";
-import { useDocxCommand } from "@betteroffice/docx-react";
-import { Groep } from "../../Ribbon";
+import { useDocxCommand, type DocxEditorRef } from "@betteroffice/docx-react";
+import { Groep, RibbonFout } from "../../Ribbon";
+import { openVenster } from "../gedeeld/vensters";
 import { Dialoog } from "../../werkruimte/Dialoog";
 import "../../werkruimte/werkruimte.css";
 import { EigenKnop } from "../../lint/tekst-opdrachten";
 import { useEditorApi } from "../../lint/editorApi";
 import { Keuzemenu, Maatveld, getalUit, toonGetal, useEditorTik, useUitvoeren } from "../gedeeld/ui";
-import { engine } from "../gedeeld/engine";
+import { engine, fout } from "../gedeeld/engine";
 import {
   afbeeldingStaat,
   bijsnijden,
@@ -52,27 +53,59 @@ function leesVergrendeld() {
   }
 }
 
-type Venster = "bijsnijden" | "alt" | "positie" | null;
+/** Leest een gekozen beeldbestand als data-URL met zijn pixelmaat. */
+async function leesBeeld(file: File) {
+  if (!ONDERSTEUNDE_BEELDEN.includes(file.type)) throw new Error("Kies een PNG-, JPEG-, GIF-, BMP- of WebP-afbeelding.");
+  if (file.size > 25 * 1024 * 1024) throw new Error("Kies een afbeelding van maximaal 25 MB.");
+  const bytes = new Uint8Array(await file.arrayBuffer());
+  const natuurlijk = beeldmaat(bytes);
+  if (!natuurlijk) throw new Error("Deze afbeelding kan niet worden gelezen.");
+  const src = await new Promise<string>((klaar, fout) => {
+    const lezer = new FileReader();
+    lezer.onload = () => klaar(String(lezer.result));
+    lezer.onerror = () => fout(new Error("De afbeelding kon niet worden gelezen."));
+    lezer.readAsDataURL(file);
+  });
+  return { src, natuurlijk };
+}
+
+/**
+ * ‘Afbeelding wijzigen’: laat een bestand kiezen en vervangt de geselecteerde
+ * afbeelding. Werkt vanuit het lint en vanuit het rechtermuismenu.
+ */
+export function kiesNieuweAfbeelding(api: () => DocxEditorRef | null, meld: (bericht: string) => void) {
+  if (!afbeeldingStaat(api())) {
+    meld("Selecteer eerst een afbeelding.");
+    return;
+  }
+  const invoer = document.createElement("input");
+  invoer.type = "file";
+  invoer.accept = ONDERSTEUNDE_BEELDEN.join(",");
+  invoer.addEventListener("change", () => {
+    const file = invoer.files?.[0];
+    if (!file) return;
+    void leesBeeld(file)
+      .then((nieuw) => {
+        vervangAfbeelding(api(), nieuw.src, nieuw.natuurlijk);
+        api()?.focus();
+      })
+      .catch((error) => meld(fout(error)));
+  });
+  invoer.click();
+}
 
 export function AfbeeldingGroepen() {
   const tik = useEditorTik();
   const api = useEditorApi().tekst;
+  const meld = useContext(RibbonFout);
   const uitvoeren = useUitvoeren();
   const bewerkbaar = useDocxCommand("imageProperties").state.enabled;
   const plek = useMemo(() => afbeeldingStaat(api()), [tik, api]);
-  const [venster, setVenster] = useState<Venster>(null);
   const [vergrendeld, setVergrendeld] = useState(leesVergrendeld);
-  const bestand = useRef<HTMLInputElement>(null);
   const uit = !bewerkbaar || !plek;
   const breedte = Number(plek?.attrs.width) || 0,
     hoogte = Number(plek?.attrs.height) || 0;
-  const sluit = () => {
-    setVenster(null);
-    requestAnimationFrame(() => api()?.focus());
-  };
-  // Na een venster staat de selectie nog op het beeld; bewaar die plek.
-  const vast = useRef<BeeldPlek | null>(null);
-  if (plek) vast.current = plek;
+  const setVenster = (id: "bijsnijden" | "alt" | "positie") => openVenster(api, `afbeelding.${id}`);
 
   function maat(soort: "breedte" | "hoogte", cm: number) {
     if (!(cm > 0) || !plek) return;
@@ -81,21 +114,6 @@ export function AfbeeldingGroepen() {
       ? metVerhouding(breedte, hoogte, soort === "breedte" ? { breedte: px } : { hoogte: px })
       : { breedte: soort === "breedte" ? px : breedte, hoogte: soort === "hoogte" ? px : hoogte };
     uitvoeren((r) => zetAfmeting(r, nieuw.breedte, nieuw.hoogte), false);
-  }
-
-  async function vervang(file: File) {
-    if (!ONDERSTEUNDE_BEELDEN.includes(file.type)) throw new Error("Kies een PNG-, JPEG-, GIF-, BMP- of WebP-afbeelding.");
-    if (file.size > 25 * 1024 * 1024) throw new Error("Kies een afbeelding van maximaal 25 MB.");
-    const bytes = new Uint8Array(await file.arrayBuffer());
-    const natuurlijk = beeldmaat(bytes);
-    if (!natuurlijk) throw new Error("Deze afbeelding kan niet worden gelezen.");
-    const src = await new Promise<string>((klaar, fout) => {
-      const lezer = new FileReader();
-      lezer.onload = () => klaar(String(lezer.result));
-      lezer.onerror = () => fout(new Error("De afbeelding kon niet worden gelezen."));
-      lezer.readAsDataURL(file);
-    });
-    return src ? { src, natuurlijk } : null;
   }
 
   function herstel(metGrootte: boolean) {
@@ -141,7 +159,7 @@ export function AfbeeldingGroepen() {
           groot
           disabled={uit}
           uitleg="Vervangt de afbeelding en behoudt grootte, positie en terugloop"
-          onClick={() => bestand.current?.click()}
+          onClick={() => kiesNieuweAfbeelding(api, meld)}
         />
         <Keuzemenu
           naam="Opnieuw instellen"
@@ -152,21 +170,6 @@ export function AfbeeldingGroepen() {
             { naam: "Afbeelding opnieuw instellen", uitleg: "Bijsnijding, draaiing en spiegeling weg", kies: () => herstel(false) },
             { naam: "Afbeelding en grootte opnieuw instellen", uitleg: "Ook de oorspronkelijke grootte", kies: () => herstel(true) },
           ]}
-        />
-        <input
-          ref={bestand}
-          type="file"
-          hidden
-          accept={ONDERSTEUNDE_BEELDEN.join(",")}
-          onChange={(event) => {
-            const file = event.target.files?.[0];
-            event.target.value = "";
-            if (!file) return;
-            uitvoeren(async (r) => {
-              const nieuw = await vervang(file);
-              if (nieuw) vervangAfbeelding(r, nieuw.src, nieuw.natuurlijk);
-            });
-          }}
         />
       </Groep>
       <Groep naam="Toegankelijkheid">
@@ -186,11 +189,20 @@ export function AfbeeldingGroepen() {
           onClick={() => setVenster("positie")}
         />
       </Groep>
-      {venster === "bijsnijden" && vast.current && <BijsnijdVenster plek={vast.current} sluit={sluit} />}
-      {venster === "alt" && vast.current && <AltVenster plek={vast.current} sluit={sluit} />}
-      {venster === "positie" && vast.current && <PositieVenster plek={vast.current} sluit={sluit} />}
     </>
   );
+}
+
+/** De afbeeldingsvensters, geopend via ../gedeeld/vensters.ts (lint of rechtermuismenu). */
+export function AfbeeldingVenster({ id, sluit }: { id: string; sluit: () => void }) {
+  const api = useEditorApi().tekst;
+  // De plek bij het openen: de selectie blijft daarna op het beeld staan.
+  const [plek] = useState<BeeldPlek | null>(() => afbeeldingStaat(api()));
+  if (!plek) return null;
+  if (id === "afbeelding.bijsnijden") return <BijsnijdVenster plek={plek} sluit={sluit} />;
+  if (id === "afbeelding.alt") return <AltVenster plek={plek} sluit={sluit} />;
+  if (id === "afbeelding.positie") return <PositieVenster plek={plek} sluit={sluit} />;
+  return null;
 }
 
 function MaatInvoer({ naam, waarde, disabled, kies }: { naam: string; waarde: number; disabled: boolean; kies: (cm: number) => void }) {

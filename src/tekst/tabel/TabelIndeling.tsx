@@ -19,8 +19,10 @@ import {
   BetweenHorizontalStart,
   Table2,
 } from "lucide-react";
-import { useDocxCommand } from "@betteroffice/docx-react";
+import { useDocxCommand, type DocxEditorRef } from "@betteroffice/docx-react";
 import { Groep } from "../../Ribbon";
+import type { Herladen } from "../../lint/editorApi";
+import { openVenster } from "../gedeeld/vensters";
 import { Dialoog } from "../../werkruimte/Dialoog";
 import "../../werkruimte/werkruimte.css";
 import { EigenKnop } from "../../lint/tekst-opdrachten";
@@ -54,37 +56,32 @@ import {
   type Sorteersoort,
 } from "./logica";
 
-type Venster = "rij" | "marges" | "sorteren" | "naarTekst" | null;
+/** Splitst de tabel boven de rij met de cursor (pakketroute, herladen). */
+export async function splitsHuidigeTabel(ref: DocxEditorRef | null, herlaad: Herladen | null | undefined) {
+  const e = engine(ref);
+  const s = tabelStaat(ref);
+  if (!s) throw new Error("Zet de cursor eerst in een tabel.");
+  if (e.ref.commands.getState("editingMode").value === "suggesting")
+    throw new Error("Zet ‘Wijzigingen bijhouden’ uit om een tabel te splitsen.");
+  if (s.plek.tabel.story !== "body") throw new Error("Alleen tabellen in de hoofdtekst kunnen worden gesplitst.");
+  if (!herlaad) throw new Error("Het document is nog niet gereed.");
+  await e.ref.flushPendingInput();
+  const bytes = await herlaad.bytes();
+  herlaad.vervang(splitsTabel(bytes, s.plek.tabel.tableIndex, s.plek.rijen[0]));
+}
 
 /** Groepen voor het contexttabblad Tabelopmaak. */
 export function TabelIndeling() {
   const tik = useEditorTik();
   const api = useEditorApi();
   const uitvoeren = useUitvoeren();
-  const [venster, setVenster] = useState<Venster>(null);
   const staat = useMemo(() => tabelStaat(api.tekst()), [tik, api]);
   const bewerkbaar = useDocxCommand("insertPageBreak").state.enabled;
   const voorstel = useDocxCommand("editingMode").state.value === "suggesting";
   const uit = !bewerkbaar || !staat || voorstel;
   const reden = voorstel ? "Niet beschikbaar terwijl wijzigingen worden bijgehouden" : undefined;
-  const sluit = () => {
-    setVenster(null);
-    requestAnimationFrame(() => api.tekst()?.focus());
-  };
-
-  function splitsen() {
-    uitvoeren(async (ref) => {
-      const e = engine(ref);
-      const s = tabelStaat(ref);
-      if (!s) throw new Error("Zet de cursor eerst in een tabel.");
-      if (s.plek.tabel.story !== "body") throw new Error("Alleen tabellen in de hoofdtekst kunnen worden gesplitst.");
-      const herlaad = api.herlaad;
-      if (!herlaad) throw new Error("Het document is nog niet gereed.");
-      await e.ref.flushPendingInput();
-      const bytes = await herlaad.bytes();
-      herlaad.vervang(splitsTabel(bytes, s.plek.tabel.tableIndex, s.plek.rijen[0]));
-    }, false);
-  }
+  const setVenster = (id: "rij" | "marges" | "sorteren" | "naarTekst") => openVenster(api.tekst, `tabel.${id}`);
+  const splitsen = () => uitvoeren((ref) => splitsHuidigeTabel(ref, api.herlaad), false);
 
   return (
     <>
@@ -202,12 +199,21 @@ export function TabelIndeling() {
           />
         </div>
       </Groep>
-      {venster === "rij" && staat && <RijVenster staat={staat} sluit={sluit} />}
-      {venster === "marges" && staat && <MargesVenster staat={staat} sluit={sluit} />}
-      {venster === "sorteren" && staat && <SorteerVenster staat={staat} sluit={sluit} />}
-      {venster === "naarTekst" && staat && <NaarTekstVenster sluit={sluit} />}
     </>
   );
+}
+
+/** De tabelvensters, geopend via ../gedeeld/vensters.ts (lint of rechtermuismenu). */
+export function TabelVenster({ id, gegevens, sluit }: { id: string; gegevens?: unknown; sluit: () => void }) {
+  const api = useEditorApi().tekst;
+  const [staat] = useState(() => tabelStaat(api()));
+  if (id === "tabel.tekstNaarTabel") return <TekstNaarTabelVenster alineas={(gegevens as string[]) ?? []} sluit={sluit} />;
+  if (!staat) return null;
+  if (id === "tabel.rij") return <RijVenster staat={staat} sluit={sluit} />;
+  if (id === "tabel.marges") return <MargesVenster staat={staat} sluit={sluit} />;
+  if (id === "tabel.sorteren") return <SorteerVenster staat={staat} sluit={sluit} />;
+  if (id === "tabel.naarTekst") return <NaarTekstVenster sluit={sluit} />;
+  return null;
 }
 
 function Acties({ ok, sluit, label = "OK", disabled }: { ok: () => void; sluit: () => void; label?: string; disabled?: boolean }) {
@@ -493,37 +499,26 @@ function NaarTekstVenster({ sluit }: { sluit: () => void }) {
 /** Invoegen › Tabellen: geselecteerde tekst omzetten naar een tabel. */
 export function TekstNaarTabelKnop() {
   const api = useEditorApi().tekst;
-  const [open, setOpen] = useState<string[] | null>(null);
   const uitvoeren = useUitvoeren();
   const bewerkbaar = useDocxCommand("insertTable").state.enabled;
   return (
-    <>
-      <EigenKnop
-        naam="Tekst naar tabel"
-        icoon={Table2}
-        disabled={!bewerkbaar}
-        uitleg="Geselecteerde alinea’s omzetten naar een tabel"
-        onClick={() =>
-          uitvoeren(async (ref) => {
-            const e = engine(ref);
-            await e.ref.flushPendingInput();
-            const alineas = geselecteerdeAlineas(e).map((a) => a.text);
-            if (!alineas.some((a) => a.trim())) throw new Error("Selecteer eerst de alinea’s die een tabel moeten worden.");
-            setOpen(alineas);
-          }, false)
-        }
-      />
-      {open && (
-        <TekstNaarTabelVenster
-          alineas={open}
-          sluit={() => {
-            setOpen(null);
-            requestAnimationFrame(() => api()?.focus());
-          }}
-        />
-      )}
-    </>
+    <EigenKnop
+      naam="Tekst naar tabel"
+      icoon={Table2}
+      disabled={!bewerkbaar}
+      uitleg="Geselecteerde alinea’s omzetten naar een tabel"
+      onClick={() => uitvoeren((ref) => openTekstNaarTabel(ref, api), false)}
+    />
   );
+}
+
+/** Opent ‘Tekst converteren naar tabel’ voor de geselecteerde alinea’s. */
+export async function openTekstNaarTabel(ref: DocxEditorRef | null, sleutel: object) {
+  const e = engine(ref);
+  await e.ref.flushPendingInput();
+  const alineas = geselecteerdeAlineas(e).map((a) => a.text);
+  if (!alineas.some((a) => a.trim())) throw new Error("Selecteer eerst de alinea’s die een tabel moeten worden.");
+  openVenster(sleutel, "tabel.tekstNaarTabel", alineas);
 }
 
 function TekstNaarTabelVenster({ alineas, sluit }: { alineas: string[]; sluit: () => void }) {
