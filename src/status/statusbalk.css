@@ -85,13 +85,3 @@
   line-height: 18px;
   white-space: nowrap;
 }
-/* Wijzigingen bijhouden (#28): opvallend als het aan staat. */
-.office-statusbalk .statusbalk-bijhouden.is-aan {
-  color: #f5b13d;
-  font-weight: 600;
-}
-@media (max-width: 640px) {
-  .office-statusbalk .statusbalk-bijhouden:not(.is-aan) {
-    display: none;
-  }
-}

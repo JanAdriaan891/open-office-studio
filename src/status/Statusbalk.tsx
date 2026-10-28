@@ -38,17 +38,6 @@ function ModuleInfo({ soort }: { soort: string | null }) {
               `, ${getal(info.selectie ? info.selectie.tekens : info.tekens)} tekens`}
           </button>
         )}
-        {info.bijhouden !== undefined && (
-          <button
-            type="button"
-            className={info.bijhouden ? "statusbalk-bijhouden is-aan" : "statusbalk-bijhouden"}
-            onClick={info.wisselBijhouden}
-            aria-pressed={info.bijhouden}
-            title="Wijzigingen bijhouden aan of uit"
-          >
-            Wijzigingen bijhouden: {info.bijhouden ? "aan" : "uit"}
-          </button>
-        )}
       </span>
     );
   if (info.soort === "rekenblad" && soort === "xlsx" && statusbalk.rekenblad) {

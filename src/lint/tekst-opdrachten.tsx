@@ -753,7 +753,7 @@ export function TekstStatus({
 }: {
   opdrachten: ReturnType<typeof useTekstOpdrachten>;
 }) {
-  const { api, setDialoog, opnemen, wisselOpnemen } = opdrachten;
+  const { api, setDialoog } = opdrachten;
   const [doel, setDoel] = useState<HTMLElement | null>(null);
   const [pagina, setPagina] = useState({ huidig: 0, totaal: 0 });
   const [telling, setTelling] = useState<Telling | null>(null);
@@ -849,11 +849,8 @@ export function TekstStatus({
       selectie: selectie ? { woorden: selectie.woorden, tekens: selectie.tekens } : null,
       naarPagina: () => setDialoog("pagina"),
       woordenTellen: () => setDialoog("woorden"),
-      // Wijzigingen bijhouden (#28): ‘Wijzigingen bijhouden: aan/uit’ in de statusbalk.
-      bijhouden: opnemen,
-      wisselBijhouden: wisselOpnemen,
     });
-  }, [zichtbaar, doel, pagina, telling, selectie, opnemen]);
+  }, [zichtbaar, doel, pagina, telling, selectie]);
   useEffect(() => () => publiceerStatus(eigenaar, null), []);
   return null;
 }
