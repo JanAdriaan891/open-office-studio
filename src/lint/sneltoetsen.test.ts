@@ -59,4 +59,23 @@ describe("sneltoetsen", () => {
     expect(past("Shift+F5", druk("F5", "F5", { shiftKey: true }))).toBe(true);
     expect(past("F5", druk("F5", "F5", { shiftKey: true }))).toBe(false);
   });
+
+  it("herkent leestekens als teken en op hun plek", () => {
+    const shift = { ctrlKey: true, shiftKey: true };
+    expect(past("Ctrl+Shift+>", druk(">", "Period", shift))).toBe(true);
+    expect(past("Ctrl+Shift+.", druk(">", "Period", shift))).toBe(true);
+    // Gesimuleerde toetsen geven soms "." met Shift.
+    expect(past("Ctrl+Shift+>", druk(".", "Period", shift))).toBe(true);
+    expect(past("Ctrl+Shift+<", druk(",", "Comma", shift))).toBe(true);
+    expect(past("Ctrl+Shift+-", druk("_", "Minus", shift))).toBe(true);
+    expect(past("Ctrl+Shift++", druk("+", "Equal", shift))).toBe(true);
+    expect(past("Ctrl+Shift+=", druk("+", "Equal", shift))).toBe(true);
+    expect(past("Ctrl+]", druk("]", "BracketRight", { ctrlKey: true }))).toBe(true);
+    expect(past("Ctrl+=", druk("+", "Equal", shift))).toBe(false);
+    expect(ontleed("Ctrl+Shift++")).toEqual({ ctrl: true, shift: true, alt: false, toets: "+" });
+  });
+
+  it("herkent de spatiebalk", () => {
+    expect(past("Ctrl+Space", druk(" ", "Space", { ctrlKey: true }))).toBe(true);
+  });
 });

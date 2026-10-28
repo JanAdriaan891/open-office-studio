@@ -24,6 +24,18 @@ export const moduleNamen: Record<SneltoetsModule, string> = {
   notities: "Notities",
 };
 
+/**
+ * Sneltoetsprofiel van de tekstmodule (instelling `tekst.sneltoetsprofiel`):
+ * het standaardprofiel volgt LibreOffice, het Word-profiel Microsoft Word.
+ * Toetsen zonder `profiel` gelden in beide.
+ */
+export type SneltoetsProfiel = "standaard" | "word";
+
+export const profielNamen: Record<SneltoetsProfiel, string> = {
+  standaard: "Standaard (zoals LibreOffice)",
+  word: "Word",
+};
+
 export interface SneltoetsInfo {
   toets: string;
   omschrijving: string;
@@ -34,6 +46,13 @@ export interface SneltoetsInfo {
   behalve?: SneltoetsModule[];
   /** Alleen in deze modules (bijvoorbeeld zoomen in documenten). */
   alleen?: SneltoetsModule[];
+  /** Alleen in dit sneltoetsprofiel; zonder profiel in elk profiel. */
+  profiel?: SneltoetsProfiel;
+  /**
+   * Opdracht die `src/tekst/bewerken` voor deze toets uitvoert; zo staan
+   * toets en omschrijving alleen hier.
+   */
+  actie?: string;
 }
 
 const documenten: SneltoetsModule[] = ["tekst", "rekenblad", "presentatie"];
@@ -57,6 +76,22 @@ const engine = (module: SneltoetsModule) => (toets: string, omschrijving: string
 });
 
 const tekst = lint("tekst");
+/** Tekst, alleen in het standaardprofiel (LibreOffice-achtig). */
+const tekstStandaard = (toets: string, omschrijving: string): SneltoetsInfo => ({
+  ...tekst(toets, omschrijving),
+  profiel: "standaard",
+});
+/** Tekst, alleen in het Word-profiel, met de opdracht uit `src/tekst/bewerken`. */
+const tekstWord = (toets: string, omschrijving: string, actie: string): SneltoetsInfo => ({
+  ...tekst(toets, omschrijving),
+  profiel: "word",
+  actie,
+});
+/** Tekst, in elk profiel, met de opdracht uit `src/tekst/bewerken`. */
+const tekstBewerken = (toets: string, omschrijving: string, actie: string): SneltoetsInfo => ({
+  ...tekst(toets, omschrijving),
+  actie,
+});
 const rekenblad = lint("rekenblad");
 const presentatie = lint("presentatie");
 const tekstEngine = engine("tekst");
@@ -100,23 +135,61 @@ export const vasteSneltoetsen: readonly SneltoetsInfo[] = [
   algemeen("Shift+F6", "Naar het vorige deel van het venster"),
 
   // Tekst: lint (src/lint/tekst-opdrachten.tsx).
-  tekst("Ctrl+1", "Kop 1"),
-  tekst("Ctrl+2", "Kop 2"),
-  tekst("Ctrl+3", "Kop 3"),
-  tekst("Ctrl+Shift+P", "Superscript"),
-  tekst("Ctrl+Shift+B", "Subscript"),
-  tekst("Ctrl+D", "Dubbel onderstrepen"),
-  tekst("Ctrl+M", "Opmaak wissen"),
+  tekstStandaard("Ctrl+1", "Kop 1"),
+  tekstStandaard("Ctrl+2", "Kop 2"),
+  tekstStandaard("Ctrl+3", "Kop 3"),
+  tekstStandaard("Ctrl+Shift+P", "Superscript"),
+  tekstStandaard("Ctrl+Shift+B", "Subscript"),
+  tekstStandaard("Ctrl+D", "Dubbel onderstrepen"),
+  tekstStandaard("Ctrl+M", "Opmaak wissen"),
   tekst("Shift+F3", "Hoofdletters wisselen"),
   tekst("Ctrl+Enter", "Pagina-einde"),
   tekst("Ctrl+F12", "Tabel invoegen"),
-  tekst("Ctrl+Alt+C", "Opmerking invoegen"),
-  tekst("Ctrl+Shift+C", "Wijzigingen bijhouden aan of uit"),
+  tekstStandaard("Ctrl+Alt+C", "Opmerking invoegen"),
+  tekstStandaard("Ctrl+Shift+C", "Wijzigingen bijhouden aan of uit"),
+  // Tekst: bewerken in elk profiel (src/tekst/bewerken).
+  tekstBewerken("Ctrl+Shift+>", "Lettergrootte vergroten", "groter"),
+  tekstBewerken("Ctrl+Shift+<", "Lettergrootte verkleinen", "kleiner"),
+  tekstBewerken("Ctrl+]", "Lettergrootte 1 punt groter", "puntGroter"),
+  tekstBewerken("Ctrl+[", "Lettergrootte 1 punt kleiner", "puntKleiner"),
+  tekstBewerken("Ctrl+Shift+V", "Plakken als alleen tekst", "plakkenTekst"),
+  tekstBewerken("F4", "Laatste opmaak herhalen", "herhalen"),
+  // Tekst: Word-profiel (src/tekst/bewerken/acties.ts).
+  tekstWord("Ctrl+1", "Regelafstand enkel", "regelafstand1"),
+  tekstWord("Ctrl+2", "Regelafstand dubbel", "regelafstand2"),
+  tekstWord("Ctrl+5", "Regelafstand 1,5", "regelafstand15"),
+  tekstWord("Ctrl+Alt+1", "Kop 1", "kop1"),
+  tekstWord("Ctrl+Alt+2", "Kop 2", "kop2"),
+  tekstWord("Ctrl+Alt+3", "Kop 3", "kop3"),
+  tekstWord("Ctrl+Shift+N", "Standaardstijl", "standaardstijl"),
+  tekstWord("Ctrl+Space", "Tekenopmaak wissen", "opmaakWissen"),
+  tekstWord("Ctrl+Q", "Alineaopmaak wissen", "alineaOpmaakWissen"),
+  tekstWord("Ctrl+Shift+E", "Wijzigingen bijhouden aan of uit", "bijhouden"),
+  tekstWord("Ctrl+Alt+C", "Opmaak kopiëren", "kwastKopieren"),
+  tekstWord("Ctrl+Alt+V", "Opmaak plakken", "kwastPlakken"),
+  tekstWord("Ctrl+Shift+C", "Opmaak kopiëren (klassiek)", "kwastKopieren"),
+  tekstWord("Ctrl+Shift++", "Superscript", "superscript"),
+  tekstWord("Ctrl+Shift+=", "Superscript (klassiek)", "superscript"),
+  tekstWord("Ctrl+Shift+-", "Subscript", "subscript"),
+  tekstWord("Ctrl+M", "Meer inspringen", "inspringen"),
+  tekstWord("Ctrl+Shift+M", "Minder inspringen", "minderInspringen"),
+  tekstWord("Ctrl+Shift+L", "Opsomming", "opsomming"),
+  tekstWord("Ctrl+Alt+M", "Opmerking invoegen", "opmerking"),
+  tekstWord("Ctrl+D", "Lettertype…", "lettertype"),
+  tekstWord("Ctrl+Shift+F", "Lettertype…", "lettertype"),
+  tekstWord("Ctrl+Shift+D", "Dubbel onderstrepen", "dubbelOnderstrepen"),
   tekst("Ctrl+P", "Afdrukken (afdrukvoorbeeld)"),
   tekst("Ctrl+Shift+O", "Afdrukvoorbeeld"),
   tekst("F5", "Navigatievenster"),
   tekst("Ctrl+Shift+R", "Liniaal tonen of verbergen"),
   tekst("F11", "Alle stijlen"),
+  // Tekst: opmaakvensters (src/tekst/TekstOpmaak.tsx).
+  // Lettertype… en Alinea… zijn ook aangemeld bij src/tekst/menu/opdrachten.ts
+  // (rechtermuismenu, en in het Word-profiel Ctrl+D en Ctrl+Shift+F).
+  tekst("Ctrl+Shift+J", "Alinea…"),
+  tekst("Ctrl+Shift+A", "Alle hoofdletters"),
+  tekst("Ctrl+Shift+K", "Kleinkapitalen"),
+  tekst("Ctrl+Shift+H", "Verborgen tekst"),
   // Tekst: paginafuncties (src/tekst/pagina/ui/usePagina.tsx).
   tekst("Ctrl+Alt+F", "Voetnoot invoegen"),
   tekst("Ctrl+Alt+D", "Eindnoot invoegen"),
@@ -126,7 +199,7 @@ export const vasteSneltoetsen: readonly SneltoetsInfo[] = [
   tekstEngine("Ctrl+I", "Cursief"),
   tekstEngine("Ctrl+U", "Onderstrepen"),
   tekstEngine("Ctrl+Z", "Ongedaan maken"),
-  tekstEngine("Ctrl+Y", "Opnieuw"),
+  tekstEngine("Ctrl+Y", "Opnieuw; zonder iets om opnieuw te doen: laatste opmaak herhalen"),
   tekstEngine("Ctrl+Shift+Z", "Opnieuw"),
   tekstEngine("Ctrl+K", "Koppeling invoegen"),
   tekstEngine("Ctrl+F", "Zoeken"),
@@ -224,38 +297,89 @@ export function toetsDelen(toets: string, mac = isMac()): string[] {
     PageUp: "Page Up",
     PageDown: "Page Down",
     Delete: "Delete",
+    Space: "Spatie",
   };
-  return toets
-    .split("+")
+  const plus = toets.endsWith("++");
+  const delen = (plus ? toets.slice(0, -2) : toets).split("+");
+  if (plus) delen.push("+");
+  return delen
     .map((deel, i, alle) =>
       i < alle.length - 1 ? (namen[deel] ?? deel) : (vertaling[deel] ?? deel),
     )
     .map((deel) => (deel === "" ? "+" : deel));
 }
 
-/** Of een toets in een module geldt (algemene toetsen tellen mee). */
-export function geldtIn(info: SneltoetsInfo, module: SneltoetsModule) {
+/** Of een toets in een module (en eventueel een sneltoetsprofiel) geldt. */
+export function geldtIn(
+  info: SneltoetsInfo,
+  module: SneltoetsModule,
+  profiel?: SneltoetsProfiel,
+) {
+  if (profiel && info.profiel && info.profiel !== profiel) return false;
   if (info.module !== "algemeen") return info.module === module;
   if (info.behalve?.includes(module)) return false;
   return !info.alleen || info.alleen.includes(module);
 }
 
-/** Combinaties die in één module twee keer iets anders doen. */
+/** Of een toets in het gekozen profiel actief is (toetsen zonder profiel altijd). */
+export function inProfiel(info: Pick<SneltoetsInfo, "profiel">, profiel: SneltoetsProfiel) {
+  return !info.profiel || info.profiel === profiel;
+}
+
+/**
+ * Of een toets van een module in dit profiel aan staat; een toets die alleen
+ * in een ander profiel is beschreven, valt weg.
+ */
+export function toetsInProfiel(
+  module: SneltoetsModule,
+  toets: string,
+  profiel: SneltoetsProfiel,
+  lijst: readonly SneltoetsInfo[] = vasteSneltoetsen,
+) {
+  const sleutel = normaliseer(toets);
+  const beschreven = lijst.filter(
+    (i) => i.module === module && normaliseer(i.toets) === sleutel,
+  );
+  return !beschreven.length || beschreven.some((i) => inProfiel(i, profiel));
+}
+
+/** Combinaties die in één module (per sneltoetsprofiel) twee keer iets anders doen. */
 export function botsingen(lijst: readonly SneltoetsInfo[]) {
   const modules = Object.keys(moduleNamen).filter(
     (m) => m !== "algemeen",
   ) as SneltoetsModule[];
-  const gevonden: { module: SneltoetsModule; toets: string; omschrijvingen: string[] }[] = [];
+  const profielen = Object.keys(profielNamen) as SneltoetsProfiel[];
+  const gevonden: {
+    module: SneltoetsModule;
+    toets: string;
+    omschrijvingen: string[];
+    profiel?: SneltoetsProfiel;
+  }[] = [];
   for (const module of modules) {
-    const per = new Map<string, SneltoetsInfo[]>();
-    for (const info of lijst)
-      if (geldtIn(info, module)) {
-        const sleutel = normaliseer(info.toets);
-        per.set(sleutel, [...(per.get(sleutel) ?? []), info]);
+    // Alleen de tekstmodule kent profielen; elders één ronde.
+    const rondes = lijst.some((i) => i.module === module && i.profiel) ? profielen : [undefined];
+    const gezien = new Set<string>();
+    for (const profiel of rondes) {
+      const per = new Map<string, SneltoetsInfo[]>();
+      for (const info of lijst)
+        if (geldtIn(info, module, profiel)) {
+          const sleutel = normaliseer(info.toets);
+          per.set(sleutel, [...(per.get(sleutel) ?? []), info]);
+        }
+      for (const [toets, infos] of per) {
+        if (infos.length < 2) continue;
+        // Dezelfde botsing in elk profiel maar één keer melden.
+        const sleutel = `${module}:${toets}:${infos.map((i) => i.omschrijving).join("|")}`;
+        if (gezien.has(sleutel)) continue;
+        gezien.add(sleutel);
+        gevonden.push({
+          module,
+          toets,
+          omschrijvingen: infos.map((i) => i.omschrijving),
+          ...(profiel && infos.some((i) => i.profiel) ? { profiel } : {}),
+        });
       }
-    for (const [toets, infos] of per)
-      if (infos.length > 1)
-        gevonden.push({ module, toets, omschrijvingen: infos.map((i) => i.omschrijving) });
+    }
   }
   return gevonden;
 }

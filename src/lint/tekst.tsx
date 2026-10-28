@@ -100,6 +100,21 @@ import {
   kopVoetTab,
   verwijzingenTab,
 } from "../tekst/pagina/ui/PaginaLint";
+import {
+  AlineaKnop,
+  LettertypeKnop,
+  LijstKnop,
+  PaginaAchtergrondKnoppen,
+  RandenKnop,
+  TekstOpmaakProvider,
+} from "../tekst/TekstOpmaak";
+import { AfstandGroep } from "../tekst/alinea/AfstandGroep";
+import {
+  DatumTijdKnop,
+  GrootteKnoppen,
+  KwastKnop,
+  TekstBewerken,
+} from "../tekst/bewerken/TekstBewerken";
 import "./tekst.css";
 
 type Opdrachten = ReturnType<typeof useTekstOpdrachten>;
@@ -136,6 +151,7 @@ function TekstLettertype() {
           naam="Tekengrootte"
           args={(points) => ({ points })}
         />
+        <GrootteKnoppen />
       </div>
       <div className="ribbon-rij ribbon-iconen">
         <W id="bold" naam="Vet" icoon={Bold} />
@@ -166,6 +182,7 @@ function TekstLettertype() {
           icoon={Type}
           args={(color) => ({ color: { rgb: color.slice(1) } })}
         />
+        <LettertypeKnop />
       </div>
     </Groep>
   );
@@ -178,6 +195,7 @@ function TekstAlinea() {
         <W id="numberedList" naam="Nummering" icoon={ListOrdered} />
         <W id="outdent" naam="Minder inspringen" icoon={IndentDecrease} />
         <W id="indent" naam="Meer inspringen" icoon={IndentIncrease} />
+        <LijstKnop />
       </div>
       <div className="ribbon-rij ribbon-iconen">
         <W
@@ -204,6 +222,8 @@ function TekstAlinea() {
           naam="Uitvullen"
           icoon={AlignJustify}
         />
+        <AlineaKnop />
+        <RandenKnop />
       </div>
     </Groep>
   );
@@ -288,6 +308,7 @@ function Klembord({ opdrachten }: { opdrachten: Opdrachten }) {
           sneltoets="Ctrl+C"
           onClick={() => opdrachten.klembord("copy")}
         />
+        <KwastKnop />
       </div>
     </Groep>
   );
@@ -557,7 +578,8 @@ export function TekstRibbon({
       ),
     });
   return (
-    <>
+    <TekstBewerken opdrachten={opdrachten}>
+    <TekstOpmaakProvider>
       <Ribbon
         bestand={bestand}
         tabs={[
@@ -627,6 +649,7 @@ export function TekstRibbon({
                       disabled={!opdrachten.bewerkbaar}
                       onClick={() => opdrachten.voegIn(tijdTekst(new Date()))}
                     />
+                    <DatumTijdKnop />
                   </div>
                 </Groep>
               </>
@@ -744,6 +767,9 @@ export function TekstRibbon({
                   <W id="watermark" naam="Watermerk" icoon={Stamp} groot />
                 </Groep>
                 <KolommenGroep p={pagina} />
+                <Groep naam="Pagina-achtergrond">
+                  <PaginaAchtergrondKnoppen />
+                </Groep>
                 <Groep naam="Eindes">
                   <WS
                     id="insertPageBreak"
@@ -766,7 +792,7 @@ export function TekstRibbon({
                   </div>
                   <ExtraEindes p={pagina} />
                 </Groep>
-                <TekstAlinea />
+                <AfstandGroep />
                 <Groep naam="Regelafstand">
                   <WK id="lineSpacing" naam="Regelafstand" breed />
                 </Groep>
@@ -877,6 +903,7 @@ export function TekstRibbon({
       <TekstStatus opdrachten={opdrachten} />
       {grafieken.venster}
       {pagina.venster}
-    </>
+    </TekstOpmaakProvider>
+    </TekstBewerken>
   );
 }
