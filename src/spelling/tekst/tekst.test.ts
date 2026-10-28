@@ -2,7 +2,8 @@ import { describe, expect, it } from "vitest";
 import { zichtbaarBereik } from "./Golflijnen";
 import { leesAlineatalen, leesStijlen, wijsTalenToe } from "./taal";
 import { spellingStatus } from "./useTekstSpelling";
-import { naarGeaccepteerd, naarRauw } from "./sessie";
+import { naarGeaccepteerd, naarRauw, SpellingSessie, verschuifPlek, type Alinea } from "./sessie";
+import type { Controleur, Fout } from "../controleur";
 
 const W = 'xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"';
 const p = (tekst: string, taal?: string, stijl?: string) =>
@@ -117,5 +118,44 @@ describe("offsets bij bijgehouden verwijderingen", () => {
   });
   it("verandert niets zonder verwijderingen", () => {
     expect(naarRauw([{ kind: "text", text: "abc" }, { kind: "embed" }, { kind: "text", text: "de" }], 4)).toBe(4);
+  });
+});
+
+describe("Negeren (één keer) in het F7-venster", () => {
+  const fout = (tekst: string, start: number): Fout => ({ tekst, start, eind: start + tekst.length, punt: false, taal: "nl" });
+  const tekst = "Het huiz en nog een huiz hier.";
+  const alinea = (t = tekst): Alinea => ({
+    story: "body",
+    paraId: "A1",
+    tekst: t,
+    taal: "nl",
+    fouten: [...t.matchAll(/huiz/g)].map((m) => fout("huiz", m.index!)),
+  });
+  const sessie = () => new SpellingSessie(() => null, () => ({}) as Controleur);
+
+  it("haalt alleen de golflijn op die plek weg; hetzelfde woord elders blijft", () => {
+    const s = sessie();
+    const a = alinea();
+    s.alineas = [a];
+    s.aantal = 2;
+    s.negeerHier(a, a.fouten[0]);
+    expect(s.zichtbareFouten().map((d) => d.fout.start)).toEqual([20]);
+    expect(s.aantal).toBe(1);
+  });
+
+  it("blijft op zijn plek als elders in de alinea getypt wordt", () => {
+    const s = sessie();
+    const a = alinea();
+    s.alineas = [a];
+    s.negeerHier(a, a.fouten[1]);
+    // Typen vóór het genegeerde woord: dat schuift op, het eerste blijft gemarkeerd.
+    s.alineas = [alinea("Nu: Het huiz en nog een huiz hier.")];
+    expect(s.zichtbareFouten().map((d) => d.fout.start)).toEqual([8]);
+  });
+
+  it("vervalt als het genegeerde woord zelf wordt gewijzigd", () => {
+    expect(verschuifPlek(tekst, "Het huizen en nog een huiz hier.", 4, "huiz")).toBeNull();
+    expect(verschuifPlek(tekst, "Het huiz en nog een huiz hier!", 4, "huiz")).toBe(4);
+    expect(verschuifPlek(tekst, "Het groot huiz en nog een huiz hier.", 20, "huiz")).toBe(26);
   });
 });
