@@ -6,10 +6,17 @@
 //!   tweede stopt meteen.
 //! - Op macOS komen ze binnen als `RunEvent::Opened`.
 //!
+//! - Bestanden uit de eigen bestandskiezer, de lijst met recente bestanden en
+//!   bestanden die op een venster worden gesleept, nemen dezelfde route.
+//!
 //! Elk pad krijgt een eenmalig nummer en een doelvenster. Dat venster haalt de
-//! lijst op (`systeembestanden`) en leest elk bestand precies één keer
-//! (`lees_systeembestand`). De webview kan zo alleen bestanden lezen die het
-//! besturingssysteem zelf heeft aangewezen, nooit een willekeurig pad.
+//! lijst op (`systeembestanden`) en claimt elk nummer precies één keer
+//! (`claim_systeembestand`). Staat hetzelfde bestand al open, dan komt het
+//! bestaande tabblad naar voren (ook in een ander venster); anders krijgt het
+//! een pad-token (`werkbestanden.rs`) en leest het venster de inhoud met
+//! `lees_werkbestand`. De webview kan zo alleen bestanden lezen die het
+//! besturingssysteem of de gebruiker zelf heeft aangewezen, nooit een
+//! willekeurig pad.
 //!
 //! Doelvenster: het hoofdvenster ("main"). Is dat gesloten terwijl losgemaakte
 //! documentvensters nog openstaan, dan het laatst actieve venster. Zo landt een
@@ -29,6 +36,8 @@ use tauri::{Emitter, Manager};
 const HOOFDVENSTER: &str = "main";
 /// Gebeurtenis voor het doelvenster: er staan nieuwe bestanden klaar.
 const GEBEURTENIS: &str = "office-systeembestanden";
+/// Gebeurtenis voor een venster: activeer het tabblad met dit pad-token.
+pub const ACTIVEER: &str = "office-activeer-werkbestand";
 const MAX_GROOTTE: u64 = 100 * 1024 * 1024;
 
 struct Wachtend {
@@ -57,7 +66,7 @@ impl Systeembestanden {
         staat
     }
 
-    fn voeg_toe(&self, paden: Vec<PathBuf>, venster: &str) -> usize {
+    pub(crate) fn voeg_toe(&self, paden: Vec<PathBuf>, venster: &str) -> usize {
         let Ok(mut wachtrij) = self.wachtrij.lock() else {
             return 0;
         };
@@ -173,6 +182,19 @@ pub fn ontvang<R: tauri::Runtime>(app: &tauri::AppHandle<R>, paden: Vec<PathBuf>
     }
 }
 
+/// Bestanden voor een bepaald venster (bestandskiezer, recente lijst, slepen).
+pub fn ontvang_in<R: tauri::Runtime>(
+    app: &tauri::AppHandle<R>,
+    label: &str,
+    paden: Vec<PathBuf>,
+) -> usize {
+    let aantal = app.state::<Systeembestanden>().voeg_toe(paden, label);
+    if aantal > 0 {
+        let _ = app.emit_to(label, GEBEURTENIS, ());
+    }
+    aantal
+}
+
 /// Houdt het laatst actieve venster bij en verhuist wachtende bestanden van een gesloten venster.
 pub fn bij_venstergebeurtenis<R: tauri::Runtime>(
     venster: &tauri::Window<R>,
@@ -184,6 +206,12 @@ pub fn bij_venstergebeurtenis<R: tauri::Runtime>(
             if let Ok(mut laatst) = staat.laatst_actief.lock() {
                 *laatst = Some(venster.label().to_owned());
             }
+        }
+        // Bestanden die op het venster worden gesleept: zelfde route als een
+        // dubbelklik, maar naar dit venster. Mappen en dergelijke vallen af.
+        tauri::WindowEvent::DragDrop(tauri::DragDropEvent::Drop { paths, .. }) => {
+            let paden = paths.iter().filter(|p| p.is_file()).cloned().collect();
+            ontvang_in(venster.app_handle(), venster.label(), paden);
         }
         tauri::WindowEvent::Destroyed => {
             let app = venster.app_handle();
@@ -215,19 +243,82 @@ pub fn systeembestanden(
     staat.voor_venster(venster.label())
 }
 
-/// Leest een aangeboden bestand één keer; daarna is het nummer verbruikt.
+#[derive(serde::Serialize, Debug, PartialEq)]
+#[serde(tag = "status", rename_all = "kebab-case")]
+pub enum Claim {
+    /// Nieuw geopend: lees de inhoud met `lees_werkbestand`.
+    Nieuw { token: String, naam: String },
+    /// Staat al open in dit venster.
+    Geopend { token: String },
+    /// Staat al open in een ander venster; dat venster komt naar voren.
+    Elders,
+}
+
+/// Claimt een aangeboden bestand één keer; daarna is het nummer verbruikt.
 #[tauri::command]
-pub async fn lees_systeembestand(
+pub fn claim_systeembestand(
+    app: tauri::AppHandle,
     venster: tauri::Window,
     staat: tauri::State<'_, Systeembestanden>,
+    werkbestanden: tauri::State<'_, crate::werkbestanden::Werkbestanden>,
     id: u64,
-) -> Result<tauri::ipc::Response, String> {
+) -> Result<Claim, String> {
     let pad = staat
         .neem(id, venster.label())
         .ok_or("Dit bestand is al geopend of niet voor dit venster bedoeld.")?;
-    tauri::async_runtime::spawn_blocking(move || lees_beperkt(&pad).map(tauri::ipc::Response::new))
-        .await
-        .map_err(|e| e.to_string())?
+    Ok(claim(&app, &werkbestanden, pad, venster.label()))
+}
+
+fn claim<R: tauri::Runtime>(
+    app: &tauri::AppHandle<R>,
+    werkbestanden: &crate::werkbestanden::Werkbestanden,
+    pad: PathBuf,
+    label: &str,
+) -> Claim {
+    match werkbestanden.zoek_pad(&pad) {
+        Some((token, eigenaar)) if eigenaar == label => Claim::Geopend { token },
+        Some((token, eigenaar)) => match app.get_webview_window(&eigenaar) {
+            Some(ander) => {
+                naar_voren(&ander);
+                let _ = app.emit_to(eigenaar.as_str(), ACTIVEER, token);
+                Claim::Elders
+            }
+            // Venster bestaat niet meer: het token is verweesd.
+            None => {
+                werkbestanden.vergeet_venster(&eigenaar);
+                nieuw(werkbestanden, pad, label)
+            }
+        },
+        None => nieuw(werkbestanden, pad, label),
+    }
+}
+
+fn nieuw(werkbestanden: &crate::werkbestanden::Werkbestanden, pad: PathBuf, label: &str) -> Claim {
+    let naam = crate::werkbestanden::bestandsnaam(&pad);
+    Claim::Nieuw {
+        token: werkbestanden.registreer(pad, label),
+        naam,
+    }
+}
+
+/// Leest het bestand achter een pad-token van dit venster en zet het in de recente lijst.
+#[tauri::command]
+pub async fn lees_werkbestand(
+    app: tauri::AppHandle,
+    venster: tauri::Window,
+    token: String,
+) -> Result<tauri::ipc::Response, String> {
+    let label = venster.label().to_owned();
+    tauri::async_runtime::spawn_blocking(move || {
+        let werkbestanden = app.state::<crate::werkbestanden::Werkbestanden>();
+        let bytes = werkbestanden.lees(&token, &label)?;
+        if let Some(pad) = werkbestanden.pad(&token, &label) {
+            crate::recent::noteer(&app, &pad);
+        }
+        Ok(tauri::ipc::Response::new(bytes))
+    })
+    .await
+    .map_err(|e| e.to_string())?
 }
 
 #[cfg(test)]

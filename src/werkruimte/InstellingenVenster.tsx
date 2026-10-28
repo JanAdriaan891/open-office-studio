@@ -2,12 +2,12 @@ import { useEffect, useId, useState } from "react";
 import { Dialoog } from "./Dialoog";
 import { toonSneltoetsen } from "./gebeurtenissen";
 import {
-  HERSTEL_MAX,
   useInstellingen,
   wijzigInstellingen,
   zetTerug,
   type Instellingen,
 } from "../instellingen";
+import { herstelInterval, INTERVAL_SLEUTEL } from "../herstel";
 import {
   conversieStatus,
   kiesConversieprogramma,
@@ -107,6 +107,8 @@ export function InstellingenVenster({ sluit }: { sluit: () => void }) {
   const instellingen = useInstellingen();
   const id = useId();
   const [auteur, setAuteur] = useState(leesAuteur);
+  // Het herstelinterval hoort bij automatisch herstel (src/herstel.ts, 1–60 min).
+  const [interval, setHerstel] = useState(() => String(herstelInterval() / 60_000));
   const [terugzetten, setTerugzetten] = useState(false);
   const [melding, setMelding] = useState("");
   const wijzig: typeof wijzigInstellingen = (wijziging) => {
@@ -237,20 +239,32 @@ export function InstellingenVenster({ sluit }: { sluit: () => void }) {
           <span className="werkruimte-eenheid">
             <input
               type="number"
-              min={0}
-              max={HERSTEL_MAX}
+              min={1}
+              max={60}
               step={1}
-              value={instellingen.herstelInterval}
+              value={interval}
               aria-describedby={`${id}-herstel`}
               onChange={(e) => {
-                if (e.target.value !== "") wijzig({ herstelInterval: Number(e.target.value) });
+                setHerstel(e.target.value);
+                const minuten = Number(e.target.value);
+                if (e.target.value === "" || !Number.isFinite(minuten)) return;
+                try {
+                  localStorage.setItem(
+                    INTERVAL_SLEUTEL,
+                    String(Math.min(60, Math.max(1, Math.round(minuten)))),
+                  );
+                  setMelding("Opgeslagen.");
+                } catch {
+                  setMelding("Het interval kon niet worden bewaard.");
+                }
               }}
             />
             minuten
           </span>
         </label>
         <p id={`${id}-herstel`} className="werkruimte-uitleg">
-          Voor automatisch herstel na een onverwacht afsluiten; 0 zet het uit.
+          Hoe vaak een herstelkopie van gewijzigde documenten wordt gemaakt (1 tot 60 minuten),
+          voor herstel na een onverwacht afsluiten.
         </p>
         <label className="werkruimte-veld">
           <span>Naam bij opmerkingen</span>

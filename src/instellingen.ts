@@ -2,6 +2,7 @@
  * Voorkeuren van de gebruiker (instellingenvenster, #23). In de browser in
  * localStorage, in de desktopapp daarnaast als bestand via een Rust-command
  * (`lees_voorkeuren`/`bewaar_voorkeuren`); het bestand is daar leidend.
+ * Het herstelinterval staat bij automatisch herstel (src/herstel.ts).
  */
 import { useSyncExternalStore } from "react";
 
@@ -12,8 +13,6 @@ export interface Instellingen {
   thema: Thema;
   /** Standaardformaat voor nieuwe documenten: OOXML of ODF. */
   opslagformaat: { docx: "docx" | "odt"; xlsx: "xlsx" | "ods"; pptx: "pptx" | "odp" };
-  /** Minuten tussen herstelpunten (#14); 0 = uit. Gebruikt door automatisch herstel. */
-  herstelInterval: number;
   lint: { compact: boolean; ingeklapt: boolean };
   statusbalk: {
     zoom: boolean;
@@ -29,13 +28,11 @@ export interface Instellingen {
 export const standaardInstellingen: Instellingen = {
   thema: "forge",
   opslagformaat: { docx: "docx", xlsx: "xlsx", pptx: "pptx" },
-  herstelInterval: 5,
   lint: { compact: false, ingeklapt: false },
   statusbalk: { zoom: true, tekst: true, rekenblad: true, presentatie: true, database: true },
   emailExterneInhoud: "account",
 };
 
-export const HERSTEL_MAX = 60;
 const SLEUTEL = "openaec-office-instellingen";
 /** Oudere themakeuze uit de kopbalk (src/stijl/ThemaKnop.tsx). */
 const OUDE_THEMA = "openaec-office-thema";
@@ -54,7 +51,6 @@ export function normaliseerInstellingen(ruw: unknown): Instellingen {
   const formaat = isObject(r.opslagformaat) ? r.opslagformaat : {};
   const lint = isObject(r.lint) ? r.lint : {};
   const status = isObject(r.statusbalk) ? r.statusbalk : {};
-  const interval = Number(r.herstelInterval);
   return {
     thema: kies(r.thema, ["light", "forge", "systeem"] as const, s.thema),
     opslagformaat: {
@@ -62,9 +58,6 @@ export function normaliseerInstellingen(ruw: unknown): Instellingen {
       xlsx: kies(formaat.xlsx, ["xlsx", "ods"] as const, "xlsx"),
       pptx: kies(formaat.pptx, ["pptx", "odp"] as const, "pptx"),
     },
-    herstelInterval: Number.isFinite(interval)
-      ? Math.min(HERSTEL_MAX, Math.max(0, Math.round(interval)))
-      : s.herstelInterval,
     lint: {
       compact: waarOnwaar(lint.compact, s.lint.compact),
       ingeklapt: waarOnwaar(lint.ingeklapt, s.lint.ingeklapt),
@@ -150,9 +143,6 @@ export function volgInstellingen(luisteraar: () => void) {
 export function useInstellingen(): Instellingen {
   return useSyncExternalStore(volgInstellingen, leesInstellingen, leesInstellingen);
 }
-
-/** Minuten tussen herstelpunten, voor automatisch herstel (#14). */
-export const herstelInterval = () => huidig.herstelInterval;
 
 // In de desktopapp is het bestand leidend; localStorage is alleen een snelle start.
 if (desktop())

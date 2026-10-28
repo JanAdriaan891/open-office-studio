@@ -1,5 +1,6 @@
 import type { Soort } from "./editors";
 import type { ModuleNaam } from "./tabbladen";
+import type { Werkbestand } from "./werkbestand";
 
 /**
  * Een tabblad dat naar een ander venster gaat. Documenten gaan mét hun
@@ -16,6 +17,8 @@ export type Overdracht =
       zoom: number | null;
       gewijzigd: boolean;
       vingerafdruk: string | null;
+      /** Pad-token; Rust verhuist het bij bevestigen naar het nieuwe venster. */
+      werkbestand?: Werkbestand | null;
     }
   | { type: "module"; module: ModuleNaam };
 

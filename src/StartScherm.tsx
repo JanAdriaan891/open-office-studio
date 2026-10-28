@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import type { Soort } from "./editors";
 import { toonInstellingen, toonSneltoetsen } from "./werkruimte/gebeurtenissen";
+import { RecenteBestanden } from "./RecenteBestanden";
 import "../packages/email/src/start.css";
 
 export const modules = [
@@ -255,6 +256,9 @@ export function StartScherm({
             <kbd>Ctrl O</kbd>
           </button>
         </div>
+        {!notitiesActief && !databaseActief && (
+          <RecenteBestanden bezig={bezig} bladeren={open} />
+        )}
         <section className="start-nieuw" aria-labelledby="start-nieuw-titel">
           <div className="start-sectiekop">
             <h2 id="start-nieuw-titel">Nieuw bestand</h2>
