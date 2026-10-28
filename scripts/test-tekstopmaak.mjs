@@ -14,6 +14,8 @@ import assert from "node:assert/strict";
 import { unzipSync, zipSync, strFromU8, strToU8 } from "fflate";
 import { createYrsSession, saveYrsDocx } from "@betteroffice/docx/yrs";
 import { pasAlineasToe, pasTekensToe, runAttributen, leesTekens } from "../src/tekst/opmaak.ts";
+import { arceringNaarModel, arceringUit, metInstelling, randenNaarModel, randFormulierUit } from "../src/tekst/randen/model.ts";
+import { leesPaginaUitPakket, pasPaginaToe } from "../src/tekst/randen/pagina.ts";
 
 const MAP = ".local/tekstopmaak";
 await mkdir(MAP, { recursive: true });
@@ -163,6 +165,47 @@ async function bewaar(naam, bytes) {
   assert.equal(terug.strike, "dubbel");
   assert.equal(terug.afstand.scale, 90);
   meld("Lettertype: familie, stijl, grootte, kleur, onderstreping + kleur, doorhalen, super/sub, kleinkapitalen, hoofdletters, verborgen, afstand/schaal/positie", "engine (formatRange + other)");
+}
+
+// --- 22. Randen en arcering (engine), paginarand en -kleur (pakket) ---------
+{
+  const s = await open(bronDocument());
+  const id = s.paragraphs("body")[0].paraId;
+  const f = metInstelling(randFormulierUit(null), "kader");
+  const randen = randenNaarModel({ ...f, stijl: "single", dikte: 1.5, kleur: "C00000", afstand: 4 });
+  randen.bottom = { style: "double", size: 6, space: 1, color: { auto: true } };
+  pasAlineasToe(s, "body", [id], {
+    borders: randen,
+    shading: arceringNaarModel({ opvulling: "FFF2CC", patroon: "clear", patroonKleur: null }),
+  });
+  assert.equal(s.paragraphs("body")[0].properties.shading.fill.rgb, "FFF2CC");
+  assert.ok(s.undo());
+  assert.equal(s.paragraphs("body")[0].properties.borders ?? null, null);
+  assert.ok(s.redo());
+  const bytes = await bewaar("randen", (await saveYrsDocx(s)).bytes);
+  const t = await open(bytes);
+  const terug = randFormulierUit(t.paragraphs("body")[0].properties.borders);
+  assert.equal(terug.instelling, "kader");
+  assert.equal(terug.kleur, "C00000");
+  assert.equal(arceringUit(t.paragraphs("body")[0].properties.shading).opvulling, "FFF2CC");
+  meld("Randen en arcering per alinea: zijden, stijl, dikte, kleur, afstand, opvulling", "engine (setParagraphAttrs other.borders/shading)");
+
+  // Paginarand en paginakleur: pakketroute op opgeslagen bytes, daarna heropenen.
+  const p = metInstelling(randFormulierUit(null, 24), "kader");
+  const rand = { ...randenNaarModel({ ...p, stijl: "double", dikte: 1.5, kleur: "1F4E79" }, ["top", "left", "bottom", "right"]), display: "allPages", offsetFrom: "page" };
+  const gewijzigd = await bewaar("pagina", pasPaginaToe(bytes, { rand, kleur: "EAF1DD" }));
+  const gelezen = leesPaginaUitPakket(gewijzigd);
+  assert.equal(gelezen.kleur, "EAF1DD");
+  assert.equal(gelezen.rand?.top?.style, "double");
+  const h = await open(gewijzigd);
+  assert.ok(h.paragraphs("body").length > 3, "het gewijzigde pakket opent in de engine");
+  // Opslaan na heropenen behoudt rand en kleur.
+  const nogmaals = (await saveYrsDocx(h)).bytes;
+  assert.deepEqual(leesPaginaUitPakket(nogmaals), gelezen);
+  // Wissen haalt alles weer weg.
+  const leeg = leesPaginaUitPakket(pasPaginaToe(gewijzigd, { rand: null, kleur: null }));
+  assert.deepEqual(leeg, { rand: null, kleur: null });
+  meld("Paginarand (alle secties) en paginakleur", "pakket (document.xml/settings.xml + herladen; ongedaan maken vervalt)");
 }
 
 // --- Python-controle van de XML en LibreOffice-weergave -----------------------

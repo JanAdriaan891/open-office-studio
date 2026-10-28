@@ -91,7 +91,13 @@ import {
 } from "./tekst-opdrachten";
 import { datumTekst, tijdTekst, type Hoofdlettersoort } from "./tekst-logica";
 import { TabelKiezer } from "../tabelvoorbeeld/TabelKiezer";
-import { AlineaKnop, LettertypeKnop, TekstOpmaakProvider } from "../tekst/TekstOpmaak";
+import {
+  AlineaKnop,
+  LettertypeKnop,
+  PaginaAchtergrondKnoppen,
+  RandenKnop,
+  TekstOpmaakProvider,
+} from "../tekst/TekstOpmaak";
 import { AfstandGroep } from "../tekst/alinea/AfstandGroep";
 import "./tekst.css";
 
@@ -199,6 +205,7 @@ function TekstAlinea() {
           icoon={AlignJustify}
         />
         <AlineaKnop />
+        <RandenKnop />
       </div>
     </Groep>
   );
@@ -732,6 +739,9 @@ export function TekstRibbon({
                     groot
                   />
                   <W id="watermark" naam="Watermerk" icoon={Stamp} groot />
+                </Groep>
+                <Groep naam="Pagina-achtergrond">
+                  <PaginaAchtergrondKnoppen />
                 </Groep>
                 <Groep naam="Eindes">
                   <WS

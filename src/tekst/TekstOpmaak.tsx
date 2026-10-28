@@ -5,7 +5,7 @@
  */
 import { createContext, useContext, useMemo, useRef, useState, type ReactNode } from "react";
 import { useDocxCommand } from "@betteroffice/docx-react";
-import { CaseSensitive, Pilcrow } from "lucide-react";
+import { CaseSensitive, PaintBucket, Pilcrow, SquareDashed, Square } from "lucide-react";
 import { RibbonFout } from "../Ribbon";
 import { useEditorApi, zichtbaarElement } from "../lint/editorApi";
 import { EigenKnop } from "../lint/tekst-opdrachten";
@@ -25,6 +25,9 @@ import { AlineaVenster } from "./alinea/AlineaVenster";
 import { formulierUit as lettertypeFormulier, type LettertypeFormulier } from "./lettertype/model";
 import { LettertypeVenster } from "./lettertype/LettertypeVenster";
 import type { YrsStoryRange } from "@betteroffice/docx/yrs";
+import { RandenVenster, type RandenBegin, type RandenTab, type RandenWijziging } from "./randen/RandenVenster";
+import { arceringUit, randFormulierUit } from "./randen/model";
+import { leesPaginaUitPakket, pasPaginaToe } from "./randen/pagina";
 import { regelafstandNaarOoxml, type Regelafstand } from "./eenheden";
 
 type Venster =
@@ -37,9 +40,10 @@ type Venster =
       begin: LettertypeFormulier;
       voorbeeld: string;
     }
+  | { soort: "randen"; selectie: TekstSelectie; begin: RandenBegin; tab: RandenTab }
   | null;
 
-export type VensterSoort = "alinea" | "lettertype";
+export type VensterSoort = "alinea" | "lettertype" | "randen";
 
 /** Tekens in de selectie (of het woord bij de cursor) en hun huidige opmaak. */
 function tekensVan(selectie: TekstSelectie) {
@@ -57,7 +61,7 @@ function tekensVan(selectie: TekstSelectie) {
 
 export interface TekstOpmaakApi {
   bewerkbaar: boolean;
-  open: (soort: VensterSoort) => void;
+  open: (soort: VensterSoort, tab?: RandenTab) => void;
   /** Directe tekenwijziging op de selectie of het woord bij de cursor. */
   tekens: (wijziging: TekenOpmaak | ((t: GelezenTekens) => TekenOpmaak)) => void;
   /** Directe alineawijziging op de selectie (lint en sneltoetsen). */
@@ -80,7 +84,9 @@ function tekstVlak() {
 }
 
 export function TekstOpmaakProvider({ children }: { children: ReactNode }) {
-  const api = useEditorApi().tekst;
+  const editorApi = useEditorApi();
+  const api = editorApi.tekst;
+  const herlaad = editorApi.herlaad ?? null;
   const meld = useContext(RibbonFout);
   const bewerkbaar = useDocxCommand("insertPageBreak").state.enabled;
   const opnemen = useDocxCommand("editingMode").state.value === "suggesting";
@@ -107,10 +113,25 @@ export function TekstOpmaakProvider({ children }: { children: ReactNode }) {
     () => ({
       bewerkbaar,
       fout,
-      open(soort) {
+      open(soort, tab) {
         void leesSelectie(api())
-          .then((selectie) => {
-            if (soort === "alinea")
+          .then(async (selectie) => {
+            if (soort === "randen") {
+              const p = selectie.alineas[0]?.properties ?? {};
+              const pagina = herlaad ? leesPaginaUitPakket(await herlaad.bytes()) : { rand: null, kleur: null };
+              setVenster({
+                soort,
+                selectie,
+                tab: tab ?? "randen",
+                begin: {
+                  alinea: randFormulierUit(p.borders as Record<string, unknown> | undefined),
+                  arcering: arceringUit(p.shading as never),
+                  pagina: randFormulierUit(pagina.rand as Record<string, unknown> | null, 24),
+                  paginaWeergave: pagina.rand?.display ?? "allPages",
+                  paginakleur: pagina.kleur,
+                },
+              });
+            } else if (soort === "alinea")
               setVenster({ soort, selectie, begin: formulierUit(selectie.alineas[0]?.properties ?? {}) });
             else {
               const t = tekensVan(selectie);
@@ -135,8 +156,18 @@ export function TekstOpmaakProvider({ children }: { children: ReactNode }) {
       },
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [api, bewerkbaar],
+    [api, bewerkbaar, herlaad],
   );
+
+  async function randenToepassen(selectie: TekstSelectie, w: RandenWijziging) {
+    if (Object.keys(w.alinea).length) alineaToepassen(selectie, w.alinea);
+    if (!w.pagina) return;
+    if (!herlaad) throw new Error("Paginarand en paginakleur zijn hier niet beschikbaar.");
+    // Pakketroute: na de engine-wijzigingen opslaan, bewerken en herladen.
+    const bytes = await herlaad.bytes();
+    const paraId = selectie.ref.getSelectionInfo()?.paraId ?? undefined;
+    herlaad.vervang(pasPaginaToe(bytes, w.pagina), { paraId });
+  }
 
   const regelafstand = (r: Regelafstand) => () => opmaak.alinea(regelafstandNaarOoxml(r));
   const kan = () => recent.current.bewerkbaar;
@@ -185,6 +216,18 @@ export function TekstOpmaakProvider({ children }: { children: ReactNode }) {
             } catch (error) {
               fout(error);
             }
+          }}
+        />
+      )}
+      {venster?.soort === "randen" && (
+        <RandenVenster
+          begin={venster.begin}
+          tab={venster.tab}
+          paginaBeschikbaar={!!herlaad}
+          sluit={sluit}
+          toepassen={(w) => {
+            setVenster(null);
+            void randenToepassen(venster.selectie, w).catch(fout);
           }}
         />
       )}
@@ -237,5 +280,45 @@ export function LettertypeKnop({ groot }: { groot?: boolean }) {
       disabled={!opmaak.bewerkbaar}
       onClick={() => opmaak.open("lettertype")}
     />
+  );
+}
+
+/** Lintknop "Randen en arcering" (alinea). */
+export function RandenKnop({ groot }: { groot?: boolean }) {
+  const opmaak = useTekstOpmaak();
+  return (
+    <EigenKnop
+      naam="Randen en arcering…"
+      icoon={Square}
+      groot={groot}
+      uitleg="Randen per zijde, stijl, dikte, kleur en arcering van de alinea"
+      disabled={!opmaak.bewerkbaar}
+      onClick={() => opmaak.open("randen", "randen")}
+    />
+  );
+}
+
+/** Lintgroep "Pagina-achtergrond": paginarand en paginakleur (pakketroute). */
+export function PaginaAchtergrondKnoppen() {
+  const opmaak = useTekstOpmaak();
+  return (
+    <>
+      <EigenKnop
+        naam="Paginaranden"
+        icoon={SquareDashed}
+        groot
+        uitleg="Rand rond de pagina; het document wordt daarna opnieuw geladen"
+        disabled={!opmaak.bewerkbaar}
+        onClick={() => opmaak.open("randen", "pagina")}
+      />
+      <EigenKnop
+        naam="Paginakleur"
+        icoon={PaintBucket}
+        groot
+        uitleg="Achtergrondkleur van de pagina's; het document wordt daarna opnieuw geladen"
+        disabled={!opmaak.bewerkbaar}
+        onClick={() => opmaak.open("randen", "pagina")}
+      />
+    </>
   );
 }
