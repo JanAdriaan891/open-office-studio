@@ -91,6 +91,7 @@ import {
 } from "./tekst-opdrachten";
 import { datumTekst, tijdTekst, type Hoofdlettersoort } from "./tekst-logica";
 import { TabelKiezer } from "../tabelvoorbeeld/TabelKiezer";
+import { TabelIndeling, TekstNaarTabelKnop } from "../tekst/tabel/TabelIndeling";
 import "./tekst.css";
 
 type Opdrachten = ReturnType<typeof useTekstOpdrachten>;
@@ -473,6 +474,7 @@ export function TekstRibbon({
               groot
             />
           </Groep>
+          <TabelIndeling />
           <Groep naam="Verwijderen">
             <div className="ribbon-stapel">
               <W
@@ -582,6 +584,7 @@ export function TekstRibbon({
                 </Groep>
                 <Groep naam="Tabellen">
                   <TabelKiezer />
+                  <TekstNaarTabelKnop />
                 </Groep>
                 <Groep naam="Illustraties">
                   <W id="insertImage" naam="Afbeelding" icoon={Image} groot />

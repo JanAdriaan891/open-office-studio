@@ -1,0 +1,119 @@
+/* Word-functies van Open Tekst Studio: menu's, vensters en deelvensters. */
+.tw-keuzemenu {
+  position: relative;
+  display: flex;
+}
+.tw-keuzemenu-pijl {
+  position: absolute;
+  right: 2px;
+  bottom: 4px;
+  pointer-events: none;
+  opacity: 0.7;
+}
+.tw-menu {
+  position: fixed;
+  z-index: 1001;
+  display: grid;
+  min-width: 220px;
+  padding: 5px;
+  border: 1px solid #dce1e8;
+  border-radius: 9px;
+  background: #fff;
+  box-shadow: 0 12px 36px #15233830;
+  color: #333a46;
+  font:
+    12px Inter,
+    system-ui,
+    sans-serif;
+}
+.tw-menu button {
+  display: grid;
+  grid-template-columns: 18px 1fr auto;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.tw-menu button:hover:not(:disabled),
+.tw-menu button:focus-visible {
+  background: #f4f6f8;
+  outline: none;
+}
+.tw-menu button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+.tw-menu-scheiding {
+  height: 1px;
+  margin: 4px 2px;
+  background: #edf0f3;
+}
+.tw-menu-vink {
+  color: #a95606;
+}
+
+/* Vensters (op basis van src/werkruimte/Dialoog.tsx) */
+.tw-venster {
+  width: min(100%, 520px);
+}
+.tw-venster.is-breed {
+  width: min(100%, 720px);
+}
+.tw-venster .werkruimte-veld input[type="number"],
+.tw-venster .werkruimte-veld textarea {
+  min-width: 0;
+  height: 30px;
+  padding: 3px 8px;
+  border: 1px solid var(--w-rand);
+  border-radius: 6px;
+  background: var(--w-bg);
+  color: inherit;
+  font: inherit;
+}
+.tw-venster textarea {
+  height: auto !important;
+  min-height: 70px;
+  resize: vertical;
+}
+.tw-venster .werkruimte-eenheid input[type="number"] {
+  width: 84px;
+}
+.tw-venster fieldset {
+  margin: 0 0 12px;
+  padding: 8px 12px 10px;
+  border: 1px solid var(--w-rand);
+  border-radius: 8px;
+}
+.tw-venster legend {
+  padding: 0 6px;
+  font-weight: 600;
+}
+.tw-raster2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 16px;
+}
+.tw-raster2 .werkruimte-veld {
+  grid-template-columns: minmax(80px, 45%) 1fr;
+}
+.tw-tabelvoorbeeld {
+  width: 100%;
+  margin-top: 8px;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.tw-tabelvoorbeeld td {
+  padding: 3px 6px;
+  border: 1px solid var(--w-rand);
+}
+@media (max-width: 560px) {
+  .tw-raster2 {
+    grid-template-columns: 1fr;
+  }
+}
