@@ -9,7 +9,7 @@ import { createPortal } from "react-dom";
 import { useDocxCommand, useDocxCommands, type DocxEditorRef } from "@betteroffice/docx-react";
 import { X } from "lucide-react";
 import { RibbonFout } from "../../../Ribbon";
-import { useEditorApi, zichtbaarElement } from "../../../lint/editorApi";
+import { meldWijziging, useEditorApi, zichtbaarElement } from "../../../lint/editorApi";
 import { useSneltoetsen } from "../../../lint/sneltoetsen";
 import { metPakket, verwijderMarkering } from "../ooxml.ts";
 import {
@@ -385,6 +385,30 @@ export function usePagina() {
       if (!r.ok) fout(r.failure.message);
     });
   };
+  /**
+   * Watermerk via het venster van de engine. Die meldt het toepassen niet als
+   * wijziging (geen onChange; engine-verzoek), waardoor het document als
+   * opgeslagen gold. Zolang het venster open is kijken we of het document
+   * verandert en melden dat dan zelf.
+   */
+  const watermerk = () => {
+    const voor = api()?.getDocument();
+    void opdrachten.execute("watermark", null).then((r) => {
+      if (!r.ok) return fout(r.failure.message);
+      let gezien = false;
+      const klok = setInterval(() => {
+        const open = [...document.querySelectorAll<HTMLElement>("[role='dialog']")].some((d) => d.getClientRects().length && /^\s*Watermerk/.test(d.textContent ?? ""));
+        gezien ||= open;
+        const nu = api()?.getDocument();
+        if (nu && voor && nu !== voor && apis.herlaad) {
+          meldWijziging(apis.herlaad);
+          clearInterval(klok);
+        } else if (gezien && !open) clearInterval(klok);
+      }, 300);
+      // Nooit eindeloos: na tien minuten stoppen.
+      setTimeout(() => clearInterval(klok), 600000);
+    });
+  };
 
   // --- Inhoudsopgave ----------------------------------------------------------
 
@@ -600,6 +624,7 @@ export function usePagina() {
     kolomeinde,
     sectieEinde,
     paginaInstelling,
+    watermerk,
     inhoudInvoegen,
     inhoudVenster,
     inhoudBijwerken,

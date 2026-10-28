@@ -28,7 +28,6 @@ import {
   Link,
   FilePlus2,
   LayoutTemplate,
-  Stamp,
   MessageSquare,
   MessageSquarePlus,
   Check,
@@ -95,6 +94,7 @@ import {
   KopVoetInvoegenGroep,
   PaginaIndelingKnoppen,
   SectieEindes,
+  WatermerkKnop,
   kopVoetTab,
   verwijzingenTab,
 } from "../tekst/pagina/ui/PaginaLint";
@@ -721,7 +721,7 @@ export function TekstRibbon({
                     icoon={LayoutTemplate}
                     groot
                   />
-                  <W id="watermark" naam="Watermerk" icoon={Stamp} groot />
+                  <WatermerkKnop p={pagina} />
                 </Groep>
                 <KolommenGroep p={pagina} />
                 <Groep naam="Pagina-achtergrond">

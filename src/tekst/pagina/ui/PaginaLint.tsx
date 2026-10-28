@@ -38,6 +38,7 @@ import {
   Columns,
   Square,
   FilePlus2,
+  Stamp,
   type LucideIcon,
 } from "lucide-react";
 import { Groep, type RibbonTab } from "../../../Ribbon";
@@ -212,6 +213,11 @@ export function PaginaIndelingKnoppen({ p }: { p: PaginaFuncties }) {
       </div>
     </>
   );
+}
+
+/** Watermerk (venster van de engine; zie usePagina voor de wijzigingsmelding). */
+export function WatermerkKnop({ p }: { p: PaginaFuncties }) {
+  return <EigenKnop naam="Watermerk" icoon={Stamp} groot disabled={!p.bewerkbaar} onClick={p.watermerk} />;
 }
 
 export function KolommenGroep({ p }: { p: PaginaFuncties }) {
