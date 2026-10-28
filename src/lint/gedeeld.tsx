@@ -17,6 +17,7 @@ import {
   type PptxSelectCommandId,
 } from "@betteroffice/pptx-react";
 import { Undo2, Redo2, ZoomIn, type LucideIcon } from "lucide-react";
+import { LettertypeKeuze } from "../lettertypen/LettertypeKeuze";
 import {
   Groep,
   OpdrachtKnop,
@@ -128,3 +129,8 @@ export function scrollvlakVan(element: Element | null) {
     if (/(auto|scroll)/.test(getComputedStyle(vlak).overflow)) return vlak;
   return null;
 }
+
+/** Lettertypekeuze met voorbeeld en recente lettertypen, per module. */
+export const WL = () => <LettertypeKeuze opdracht={useDocxCommand("fontFamily")} />;
+export const CL = () => <LettertypeKeuze opdracht={useXlsxCommand("fontFamily")} />;
+export const PL = () => <LettertypeKeuze opdracht={usePptxCommand("fontFamily")} />;

@@ -107,3 +107,7 @@ Zonder `OPENAEC_CONVERSIE_PROFIEL` krijgt elke conversie een nieuw tijdelijk pro
 Met `OPENAEC_CONVERSIE_PROFIEL` gebruik je een eigen profielbestand. Tijdslimiet (45 s, daarna wordt de procesgroep gestopt) en groottegrens (100 MB in en uit) gelden altijd.
 
 Zonder runtime werken DOCX, XLSX en PPTX gewoon, net als alle routes "in de app". Andere formaten geven dan een duidelijke melding, met in de desktopapp de knop om het programma te kiezen.
+
+## Lettertypen
+
+De app meet en tekent met echte lettertypebestanden. Volgorde: een meegeleverd lettertype met precies die naam (`public/fonts`), dan het lettertype van deze computer (desktop: opgesomd en gelezen met de Rust-crate `fontdb` 0.24, MIT; losse TrueType/OpenType tot 40 MB, geen .ttc-verzamelingen; browser: `queryLocalFonts` na toestemming), dan een metrisch gelijkwaardige vervanger: Calibri → Carlito, Cambria → Caladea, Arial/Helvetica → Liberation Sans, Times New Roman → Liberation Serif, Courier New → Liberation Mono, Georgia → Gelasio, Comic Sans MS → Comic Relief, en benaderingen voor onder meer Segoe UI, Verdana en Aptos (`src/lettertypen/vervanging.ts`). Ontbreekt een lettertype uit het document, dan meldt het tabblad welke lettertypen zijn vervangen. In het bestand blijven de oorspronkelijke namen staan. De lettertypekeuze in het lint toont elk lettertype in zijn eigen vorm, met recent gebruikte lettertypen bovenaan en een zoekveld.

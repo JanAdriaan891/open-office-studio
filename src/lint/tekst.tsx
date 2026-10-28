@@ -81,7 +81,7 @@ import {
   type RibbonTab,
 } from "../Ribbon";
 import { useDocumentZoom, type ZoomKoppeling } from "../useDocumentZoom";
-import { W, WK, Geschiedenis, Zoom } from "./gedeeld";
+import { W, WK, WL, Geschiedenis, Zoom } from "./gedeeld";
 import {
   EigenKnop,
   TekstDialogen,
@@ -120,7 +120,7 @@ function TekstLettertype() {
   return (
     <Groep naam="Lettertype">
       <div className="ribbon-rij">
-        <WK id="fontFamily" naam="Lettertype" breed />
+        <WL />
         <OpdrachtGetal
           opdracht={grootte}
           naam="Tekengrootte"

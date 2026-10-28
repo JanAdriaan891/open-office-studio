@@ -66,7 +66,7 @@ import {
   RibbonFout,
 } from "../Ribbon";
 import { useDocumentZoom, type ZoomKoppeling } from "../useDocumentZoom";
-import { C, CK, Geschiedenis, Zoom } from "./gedeeld";
+import { C, CK, CL, Geschiedenis, Zoom } from "./gedeeld";
 import { useEditorApi, zichtbaarElement } from "./editorApi";
 import { useSneltoetsen, type Sneltoets } from "./sneltoetsen";
 import {
@@ -189,7 +189,7 @@ function RekenbladLettertype() {
   return (
     <Groep naam="Lettertype">
       <div className="ribbon-rij">
-        <CK id="fontFamily" naam="Lettertype" breed />
+        <CL />
         <OpdrachtGetal
           opdracht={grootte}
           naam="Tekengrootte"

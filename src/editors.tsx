@@ -4,7 +4,6 @@ import { configureDefaultFonts } from "@betteroffice/docx/layout";
 import { XlsxEditor, type XlsxEditorApi } from "@betteroffice/xlsx-react";
 import { PptxEditor, type PptxEditorApi } from "@betteroffice/pptx-react";
 import type { PptxFontFace } from "@betteroffice/pptx";
-import * as fonts from "@betteroffice/fonts";
 import "@betteroffice/docx-react/styles.css";
 import {
   TekstRibbon,
@@ -22,10 +21,14 @@ import {
 import { useNederlandseInvoer } from "./useNederlandseInvoer";
 import { useHerladen } from "./grafieken/ui/herladen";
 import { koppelEditor } from "./export/editorKoppeling";
+import { lettertypeModule } from "./lettertypen/provider";
+import { laadSysteemLettertypen } from "./lettertypen/systeem";
+// Meegeleverde lettertypen, aangevuld met die van deze computer (#22).
 configureDefaultFonts({
-  fonts,
+  fonts: lettertypeModule,
   baseUrl: new URL("/fonts/", location.href).href,
 });
+void laadSysteemLettertypen();
 export type Soort = "docx" | "xlsx" | "pptx";
 export interface EditorProps {
   soort: Soort;
@@ -170,29 +173,29 @@ export default function OfficeEditor(props: EditorProps) {
       props.registreer(null);
     };
   }, [documentGereed]);
+  // Lettertypen van het document: vervangers voor wat hier ontbreekt, met een
+  // melding; de presentatie-engine krijgt de lettertypebestanden zelf.
   useEffect(() => {
-    if (props.soort !== "pptx") return;
     let actief = true;
-    Promise.all(
-      fonts.BUNDLED_FONTS.filter((f) => f.family === "Carlito").map(
-        async (f) => ({
-          family: "Calibri",
-          bold: f.weight === 700,
-          italic: f.style === "italic",
-          bytes: new Uint8Array(
-            await fonts.loadBundledFontBytes(f, {
-              baseUrl: new URL("/fonts/", location.href).href,
-            }),
-          ),
-        }),
-      ),
-    )
-      .then((f) => {
-        if (actief) setFontFaces(f);
-      })
-      .catch((e) => {
-        if (actief) recent.current.fout(e);
-      });
+    void (async () => {
+      const lt = await import("./lettertypen/document");
+      const { vervangingsMelding } = await import("./lettertypen/vervanging");
+      let info: Awaited<ReturnType<typeof lt.documentLettertypen>> = { namen: [], vervangingen: [] };
+      try {
+        info = await lt.documentLettertypen(props.bytes);
+      } catch {
+        // Zonder inventaris: alleen de standaardvervanging (Calibri → Carlito).
+      }
+      if (props.soort === "pptx") {
+        const faces = await lt.presentatieLettertypen(info);
+        if (actief) setFontFaces(faces);
+      }
+      if (props.soort === "xlsx") await lt.registreerVervangers(info);
+      const melding = vervangingsMelding(info.vervangingen);
+      if (melding && actief) recent.current.fout(new Error(melding));
+    })().catch((e) => {
+      if (actief) recent.current.fout(e);
+    });
     return () => {
       actief = false;
     };

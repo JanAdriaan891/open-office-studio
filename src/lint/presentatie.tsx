@@ -62,7 +62,7 @@ import {
   OpdrachtKnop,
 } from "../Ribbon";
 import { useDocumentZoom, type ZoomKoppeling } from "../useDocumentZoom";
-import { P, PK, Geschiedenis, Zoom, scrollvlakVan, type Knop } from "./gedeeld";
+import { P, PK, PL, Geschiedenis, Zoom, scrollvlakVan, type Knop } from "./gedeeld";
 import { useDiaActies, DiaKnop, type DiaActies } from "./presentatie-acties";
 import { specialeTekens } from "./presentatie-opdrachten";
 import {
@@ -92,7 +92,7 @@ function DiaLettertype() {
   return (
     <Groep naam="Lettertype">
       <div className="ribbon-rij">
-        <PK id="fontFamily" naam="Lettertype" breed />
+        <PL />
         <OpdrachtGetal
           opdracht={grootte}
           naam="Tekengrootte"
