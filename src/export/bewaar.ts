@@ -1,11 +1,8 @@
 import type { Soort } from "../editors";
 import type { BewaarUitkomst } from "../opslag";
-import {
-  controleerPakket,
-  risicoBeleid,
-  type Risico,
-} from "../pakketcontrole";
+import { controleerPakket, risicoBeleid, type Risico } from "../pakketcontrole";
 import { opslagRapport, type Rapport } from "../import/rapport";
+import { bereidOpslag, type Bronkenmerken } from "../import/bron";
 import {
   converteer,
   kiesRoute,
@@ -32,6 +29,11 @@ export interface OpslaanKeuze {
   pdfa?: 0 | 1 | 2 | 3;
   bladwijzers?: boolean;
   bereik?: string;
+  /**
+   * Wachtwoord om het OOXML-bestand mee te versleutelen. Alleen in het
+   * geheugen van deze sessie; wordt nooit bewaard of gelogd.
+   */
+  wachtwoord?: string;
 }
 
 /** Kenmerken van het geopende document die bij opslaan meetellen. */
@@ -119,6 +121,8 @@ export async function bewaarInFormaat(
   keuze: OpslaanKeuze,
   /** Huidig pad-token van het tabblad (desktop); vervalt als het eigen formaat elders wordt bewaard. */
   token?: string,
+  /** Versleuteling en macro’s van het origineel. */
+  bron?: Bronkenmerken | null,
 ): Promise<BewaarUitkomst> {
   const formaat = uitvoerformaat(soort, keuze.ext);
   if (!formaat) throw new Error("Dit formaat wordt niet ondersteund.");
@@ -126,7 +130,10 @@ export async function bewaarInFormaat(
   const eigen = keuze.ext === soort;
   const toelichtingen: string[] = [];
   blokkeerBijVerlies(bytes, soort, eigen);
-  const melding = verliesmelding(bytes, soort, formaat, keuze.route);
+  const melding = verliesmelding(bytes, soort, formaat, keuze.route, {
+    versleuteld: !!bron?.versleuteling,
+    wachtwoord: !!keuze.wachtwoord,
+  });
   if (melding) toelichtingen.push(melding);
 
   let uitvoer: Uint8Array;
@@ -144,7 +151,15 @@ export async function bewaarInFormaat(
   } else if (eigen) {
     // Het eigen formaat heeft geen exportmodule nodig: zo kan opslaan nooit
     // stranden op een onderdeel dat nog van de server moet komen.
-    uitvoer = bytes;
+    const klaar = await bereidOpslag({
+      bytes,
+      soort,
+      ext: keuze.ext,
+      bron,
+      wachtwoord: keuze.wachtwoord,
+    });
+    uitvoer = klaar.bytes;
+    if (klaar.toelichting) toelichtingen.push(klaar.toelichting);
     mime = EIGEN_MIME[soort];
   } else {
     const { maakExport } = await laadExport();
@@ -169,7 +184,12 @@ export async function bewaarInFormaat(
     // Opslaan als: in het eigen formaat wordt het gekozen pad het nieuwe werkbestand.
     const r = await invoke<
       | { status: "geannuleerd" }
-      | { status: "opgeslagen"; naam: string; pad: string; token: string | null }
+      | {
+          status: "opgeslagen";
+          naam: string;
+          pad: string;
+          token: string | null;
+        }
     >("bewaar_als", uitvoer, {
       headers: {
         "x-office-naam": encodeURIComponent(bestandsnaam),

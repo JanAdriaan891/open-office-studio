@@ -15,6 +15,7 @@ import {
 import type { OpslaanKeuze } from "./export/bewaar";
 import type { Rapport } from "./import/rapport";
 import { Verliesrapport } from "./import/RapportMelding";
+import { VERSLEUTELBAAR } from "./import/bron";
 import type { Codering, Scheidingsteken } from "./export/csv";
 import "./OpslaanAlsDialoog.css";
 
@@ -33,7 +34,15 @@ export interface OpslaanAlsProps {
   /** Voorgeselecteerd formaat. */
   formaat: string;
   /** Verliesrapport voor dit formaat en deze route, of null. */
-  verlies: (formaat: Uitvoerformaat, route: Route | null) => Rapport | null;
+  verlies: (
+    formaat: Uitvoerformaat,
+    route: Route | null,
+    metWachtwoord: boolean,
+  ) => Rapport | null;
+  /** Het origineel was met een wachtwoord versleuteld. */
+  versleuteld?: boolean;
+  /** Wachtwoord dat in deze sessie al voor dit document is gekozen. */
+  wachtwoord?: string;
   bladen?: { namen: string[]; actief: number } | null;
   dias?: { aantal: number; huidig: number } | null;
   bevestig: (keuze: OpslaanKeuze) => void;
@@ -55,6 +64,11 @@ export function OpslaanAlsDialoog(props: OpslaanAlsProps) {
   const [scheidingsteken, setScheidingsteken] = useState<Scheidingsteken>(";");
   const [codering, setCodering] = useState<Codering>("utf8-bom");
   const [tekstcodering, setTekstcodering] = useState<Codering>("utf8");
+  const [beveiligen, setBeveiligen] = useState(
+    !!props.versleuteld || !!props.wachtwoord,
+  );
+  const [wachtwoord, setWachtwoord] = useState(props.wachtwoord ?? "");
+  const [herhaling, setHerhaling] = useState(props.wachtwoord ?? "");
   const [blad, setBlad] = useState(props.bladen?.actief ?? 0);
   const [dia, setDia] = useState(props.dias?.huidig ?? 0);
   const [pdfa, setPdfa] = useState<0 | 1 | 2 | 3>(0);
@@ -97,7 +111,18 @@ export function OpslaanAlsDialoog(props: OpslaanAlsProps) {
   const routeVan = (f: Uitvoerformaat) =>
     kiesRoute(f, desktop && (status === null || runtime));
   const route = routeVan(gekozen);
-  const verlies = props.verlies(gekozen, route);
+  const kanBeveiligen = VERSLEUTELBAAR.has(gekozen.ext) && route === "engine";
+  const metWachtwoord = kanBeveiligen && beveiligen;
+  const wachtwoordFout = !metWachtwoord
+    ? ""
+    : !wachtwoord
+      ? "Kies een wachtwoord."
+      : wachtwoord !== herhaling
+        ? "De wachtwoorden zijn niet gelijk."
+        : wachtwoord.length > 255
+          ? "Hooguit 255 tekens."
+          : "";
+  const verlies = props.verlies(gekozen, route, metWachtwoord);
   const groepen = (Object.keys(GROEPEN) as Groep[])
     .map((groep) => ({
       groep,
@@ -105,7 +130,7 @@ export function OpslaanAlsDialoog(props: OpslaanAlsProps) {
     }))
     .filter((g) => g.formaten.length);
   const bereikGeldig = !bereik.trim() || /^[\d\s,-]+$/.test(bereik);
-  const kan = !!route && !!naam.trim() && bereikGeldig;
+  const kan = !!route && !!naam.trim() && bereikGeldig && !wachtwoordFout;
 
   function bevestig() {
     if (!kan || !route) return;
@@ -120,6 +145,7 @@ export function OpslaanAlsDialoog(props: OpslaanAlsProps) {
             blad,
           }
         : {}),
+      ...(metWachtwoord ? { wachtwoord } : {}),
       ...(gekozen.ext === "txt" && route === "tekst"
         ? { codering: tekstcodering }
         : {}),
@@ -323,6 +349,49 @@ export function OpslaanAlsDialoog(props: OpslaanAlsProps) {
               Alleen het gekozen blad, met waarden in plaats van formules. Tekst
               die met =, +, - of @ begint krijgt een apostrof, zodat een
               rekenprogramma die niet als formule uitvoert.
+            </p>
+          </div>
+        )}
+        {kanBeveiligen && (
+          <div className="opslaanals-opties">
+            <label className="opslaanals-vink">
+              <input
+                type="checkbox"
+                checked={beveiligen}
+                onChange={(e) => setBeveiligen(e.target.checked)}
+              />
+              Beveiligen met een wachtwoord om te openen
+            </label>
+            {beveiligen && (
+              <>
+                <label>
+                  Wachtwoord
+                  <input
+                    type="password"
+                    autoComplete="new-password"
+                    value={wachtwoord}
+                    onChange={(e) => setWachtwoord(e.target.value)}
+                  />
+                </label>
+                <label>
+                  Herhaal wachtwoord
+                  <input
+                    type="password"
+                    autoComplete="new-password"
+                    value={herhaling}
+                    aria-invalid={!!herhaling && !!wachtwoordFout}
+                    onChange={(e) => setHerhaling(e.target.value)}
+                  />
+                </label>
+              </>
+            )}
+            <p>
+              {beveiligen
+                ? "Versleuteling volgens ECMA-376 (AES-256), te openen in Word, Excel, PowerPoint en LibreOffice. Het wachtwoord wordt niet bewaard; ben je het kwijt, dan is het bestand niet meer te openen."
+                : "Dit is geen schrijf- of bladbeveiliging: zonder vinkje wordt het bestand onversleuteld bewaard."}
+              {wachtwoordFout && beveiligen && (wachtwoord || herhaling) ? (
+                <span className="opslaanals-fout"> {wachtwoordFout}</span>
+              ) : null}
             </p>
           </div>
         )}

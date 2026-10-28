@@ -98,6 +98,7 @@ export async function bereidOpenen(
   const resultaat = await bereidOnversleuteld(naam, ontsleuteld, hulp, [
     {
       onderdeel: "Wachtwoordbeveiliging",
+      info: true,
       gevolg: `Het bestand is ontsleuteld (${versleuteling.soort === "agile" ? "ECMA-376 Agile" : "ECMA-376 Standard"}). Het wachtwoord is niet bewaard; kies bij Opslaan als opnieuw een wachtwoord om de kopie te beveiligen.`,
     },
   ]);

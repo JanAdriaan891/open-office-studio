@@ -127,6 +127,12 @@ export function OfficeStudio() {
   const ongelezenGeteld = useRef(0);
   /** Laatste keuze uit Opslaan als, per documenttabblad. */
   const opslaanKeuzes = useRef(new Map<number, OpslaanKeuze>());
+  /**
+   * Wachtwoord waarmee het werkbestand van een tabblad versleuteld wordt
+   * bewaard (null: bewust zonder wachtwoord gekozen); alleen in het
+   * geheugen, nooit opgeslagen of gelogd.
+   */
+  const wachtwoorden = useRef(new Map<number, string | null>());
   const vorigeFocus = useRef<HTMLElement | null>(null);
   const laatsteFocus = useRef(new Map<number, HTMLElement>());
 
@@ -258,6 +264,13 @@ export function OfficeStudio() {
           heeftKeuze: opslaanKeuzes.current.has(tabblad.id),
         });
     if (plan.route === "opslaanAls") return vraagOpslaanAls(tabblad.id);
+    // Een versleuteld origineel nooit stil onversleuteld terugschrijven.
+    if (
+      plan.route === "terugschrijven" &&
+      tabblad.bron?.versleuteling &&
+      !wachtwoorden.current.has(tabblad.id)
+    )
+      return vraagOpslaanAls(tabblad.id);
     const keuze = huidigeKeuze(tabblad);
     if (plan.route === "keuze" && keuze.route === "afdrukken") {
       // PDF zonder kantoorruntime: het afdrukvenster van de zichtbare editor.
@@ -287,8 +300,17 @@ export function OfficeStudio() {
     try {
       const resultaat = await opslag.opslaan(serialiseer, (bytes) =>
         plan.route === "terugschrijven" && werkbestand
-          ? schrijfTerug(tabblad.soort, werkbestand, plan.ext, bytes)
-          : bewaarInFormaat(tabblad.soort, bytes, keuze, werkbestand?.token),
+          ? schrijfTerug(tabblad.soort, werkbestand, plan.ext, bytes, {
+              bron: tabblad.bron,
+              wachtwoord: wachtwoorden.current.get(tabblad.id) ?? undefined,
+            })
+          : bewaarInFormaat(
+              tabblad.soort,
+              bytes,
+              keuze,
+              werkbestand?.token,
+              tabblad.bron,
+            ),
       );
       if (resultaat.status === "mislukt") {
         meld("Opslaan mislukt: " + resultaat.fout, tabblad.id);
@@ -301,7 +323,11 @@ export function OfficeStudio() {
         alsNodig = true;
         return false;
       }
-      if (uitkomst.status === "opgeslagen" && uitkomst.werkbestand && resultaat.actueel)
+      if (
+        uitkomst.status === "opgeslagen" &&
+        uitkomst.werkbestand &&
+        resultaat.actueel
+      )
         tabs.werkBij(tabblad.id, {
           werkbestand: uitkomst.werkbestand,
           naam: uitkomst.werkbestand.naam,
@@ -413,6 +439,9 @@ export function OfficeStudio() {
     for (const id of laatsteFocus.current.keys())
       if (!tabs.toestandRef.current.tabbladen.some((t) => t.id === id))
         laatsteFocus.current.delete(id);
+    for (const id of wachtwoorden.current.keys())
+      if (!tabs.toestandRef.current.tabbladen.some((t) => t.id === id))
+        wachtwoorden.current.delete(id);
   }
 
   /** Activeert een tabblad en zet de focus terug waar die in dat tabblad was. */
@@ -478,7 +507,9 @@ export function OfficeStudio() {
     activeer: (id) => wissel(id, true),
     sluitAlles: async () => {
       while (bezigRef.current) await new Promise((r) => setTimeout(r, 100));
-      if (!(await tabs.sluit(tabs.toestandRef.current.tabbladen.map((t) => t.id))))
+      if (
+        !(await tabs.sluit(tabs.toestandRef.current.tabbladen.map((t) => t.id)))
+      )
         return false;
       if (!verzendingRef.current) return true;
       const { invoke } = await import("@tauri-apps/api/core");
@@ -519,6 +550,7 @@ export function OfficeStudio() {
       gewijzigd?: boolean;
       melding?: string;
       rapport?: import("./import/rapport").Rapport | null;
+      bron?: import("./import/bron").Bronkenmerken | null;
     } = {},
   ) {
     return tabs.openDocument({ soort, naam, bytes, ...extra });
@@ -588,7 +620,9 @@ export function OfficeStudio() {
     const ext = naam.split(".").pop()?.toLowerCase();
     const soort = bestandssoort(ext ?? "");
     if (!ext || !soort) {
-      meld(neerzetMelding(naam) ?? `${naam}: dit formaat wordt niet ondersteund.`);
+      meld(
+        neerzetMelding(naam) ?? `${naam}: dit formaat wordt niet ondersteund.`,
+      );
       return false;
     }
     let geopend = false;
@@ -615,6 +649,7 @@ export function OfficeStudio() {
             vingerafdruk: vinger,
             gewijzigd: resultaat.gewijzigd,
             rapport: resultaat.rapport,
+            bron: resultaat.bron ?? null,
           },
         );
         if (resultaat.exportFormaat)
@@ -1072,14 +1107,20 @@ export function OfficeStudio() {
             opslaanKeuzes.current.get(opslaanDocument.id)?.ext ??
             opslaanDocument.exportFormaat
           }
-          verlies={(formaat, route) =>
+          verlies={(formaat, route, metWachtwoord) =>
             verliesrapport(
               opslaanDocument.bytes,
               opslaanDocument.soort,
               formaat,
               route,
+              {
+                versleuteld: !!opslaanDocument.bron?.versleuteling,
+                wachtwoord: metWachtwoord,
+              },
             )
           }
+          versleuteld={!!opslaanDocument.bron?.versleuteling}
+          wachtwoord={wachtwoorden.current.get(opslaanDocument.id) ?? undefined}
           bladen={editorKoppeling(opslaanDocument.soort)?.bladen?.() ?? null}
           dias={editorKoppeling(opslaanDocument.soort)?.dias?.() ?? null}
           vorigeFocus={vorigeFocus.current}
@@ -1088,6 +1129,12 @@ export function OfficeStudio() {
             beantwoordOpslaanAls(false);
           }}
           bevestig={(keuze) => {
+            // Het wachtwoord geldt voor het werkbestand in het eigen formaat.
+            if (keuze.ext === opslaanDocument.soort)
+              wachtwoorden.current.set(
+                opslaanDocument.id,
+                keuze.wachtwoord ?? null,
+              );
             opslaanKeuzes.current.set(opslaanDocument.id, keuze);
             tabs.werkBij(opslaanDocument.id, { exportFormaat: keuze.ext });
             setOpslaanAls(null);

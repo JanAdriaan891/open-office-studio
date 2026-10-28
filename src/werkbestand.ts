@@ -2,6 +2,7 @@ import type { Soort } from "./editors";
 import type { BewaarUitkomst } from "./opslag";
 import { blokkeerBijVerlies } from "./export/bewaar";
 import { converteer } from "./formaten";
+import { bereidOpslag, type Bronkenmerken } from "./import/bron";
 
 /**
  * Werkbestand van een documenttabblad (alleen in de desktopapp).
@@ -96,10 +97,17 @@ export async function schrijfTerug(
   werkbestand: Werkbestand,
   ext: string,
   bytes: Uint8Array,
+  /** Versleuteling en macro’s (src/import/bron.ts); het wachtwoord alleen uit het geheugen. */
+  extra: { bron?: Bronkenmerken | null; wachtwoord?: string } = {},
 ): Promise<BewaarUitkomst> {
   blokkeerBijVerlies(bytes, soort, ext === soort);
   let uitvoer = bytes;
-  if (ext !== soort) {
+  let toelichting: string | undefined;
+  if (ext === soort) {
+    const klaar = await bereidOpslag({ bytes, soort, ext, ...extra });
+    uitvoer = klaar.bytes;
+    toelichting = klaar.toelichting;
+  } else {
     try {
       uitvoer = await converteer(bytes, soort, ext, soort);
     } catch (fout) {
@@ -120,7 +128,10 @@ export async function schrijfTerug(
       },
     },
   );
-  return vertaal(uitkomst, werkbestand.naam);
+  const vertaald = vertaal(uitkomst, werkbestand.naam);
+  return toelichting && vertaald.status === "opgeslagen"
+    ? { ...vertaald, toelichting }
+    : vertaald;
 }
 
 export function vertaal(

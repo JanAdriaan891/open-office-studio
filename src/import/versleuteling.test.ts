@@ -163,3 +163,17 @@ describe.skipIf(!existsSync(corpus))("Corpus (Apache POI)", () => {
       expect([bytes[0], bytes[1]]).toEqual([0x50, 0x4b]);
     }, 30000);
 });
+
+describe("Door LibreOffice 24.2 versleuteld (wachtwoord: Proef-wachtwoord €1)", () => {
+  it("ontsleutelt het Standard-bestand", async () => {
+    const herkend = herkenVersleuteling(
+      readFileSync("src/import/testbestanden/libreoffice-standard.docx"),
+    )!;
+    expect(herkend.soort).toBe("standard");
+    const zip = await ontsleutel(herkend, "Proef-wachtwoord €1");
+    expect([zip[0], zip[1]]).toEqual([0x50, 0x4b]);
+    await expect(ontsleutel(herkend, "proef")).rejects.toBeInstanceOf(
+      VerkeerdWachtwoord,
+    );
+  });
+});

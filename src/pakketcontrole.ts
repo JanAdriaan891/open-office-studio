@@ -20,7 +20,8 @@ export type Risico =
   | "draaitabellen"
   | "slicers"
   | "externe_koppelingen"
-  | "gegevensverbindingen";
+  | "gegevensverbindingen"
+  | "beveiliging";
 
 /** Route waarlangs de app een bestand wegschrijft. */
 export type Opslagroute = "engine" | "conversie";
@@ -69,6 +70,7 @@ const RISICONAMEN: Record<Risico, string> = {
   slicers: "slicers of tijdlijnen",
   externe_koppelingen: "koppelingen naar externe werkmappen",
   gegevensverbindingen: "gegevensverbindingen of query's",
+  beveiliging: "schrijf-, document- of werkmapbeveiliging",
 };
 
 /** Leesbare naam van een risico, voor rapporten. */
@@ -117,6 +119,13 @@ function risicosVan(
     risicos.add("besturingselementen");
   if (heeft(/^_xmlsignatures\//) || heeft(/(^|\/)vbaProjectSignature\w*\.bin$/i))
     risicos.add("handtekening");
+  // Beveiliging zonder versleuteling (alleen-lezen aanbevolen, bewerken beperkt).
+  if (
+    /<(?:\w+:)?(?:writeProtection|documentProtection)\b/.test(tekst("word/settings.xml")) ||
+    /<(?:\w+:)?(?:workbookProtection|fileSharing)\b/.test(tekst("xl/workbook.xml")) ||
+    /<(?:\w+:)?modifyVerifier\b/.test(tekst("ppt/presentation.xml"))
+  )
+    risicos.add("beveiliging");
   if (soort === "xlsx") {
     if (heeft(/^xl\/(pivotTables|pivotCache)\//)) risicos.add("draaitabellen");
     if (heeft(/^xl\/(slicers|slicerCaches|timelines|timelineCaches)\//))
@@ -180,6 +189,8 @@ export function controleerPakket(bytes: Uint8Array, soort: Soort) {
         naam === "[Content_Types].xml" ||
         naam.endsWith(".rels") ||
         (soort === "docx" && naam === "word/document.xml") ||
+        (soort === "docx" && naam === "word/settings.xml") ||
+        (soort === "pptx" && naam === "ppt/presentation.xml") ||
         (soort === "pptx" && /^ppt\/slides\/slide\d+\.xml$/.test(naam))
       );
     },

@@ -163,6 +163,26 @@ describe("Pakketcontrole voor het rapport", () => {
   });
 });
 
+describe("Beveiliging zonder versleuteling", () => {
+  it("onderscheidt schrijf- en documentbeveiliging van versleuteling", () => {
+    const pakket = zipSync({
+      "word/document.xml": strToU8("<document/>"),
+      "word/settings.xml": strToU8(
+        '<w:settings xmlns:w="x"><w:writeProtection w:recommended="1"/></w:settings>',
+      ),
+    });
+    const { risicos } = controleerPakket(pakket, "docx");
+    expect(risicos).toEqual(["beveiliging"]);
+    const rapport = openRapport({
+      soort: "docx",
+      risicos,
+      route: "engine",
+      bronformaat: "docx",
+    })!;
+    expect(rapport.regels[0].gevolg).toContain("geen versleuteling");
+  });
+});
+
 describe("Openroute", () => {
   const niet = async () => {
     throw new Error("geen runtime");

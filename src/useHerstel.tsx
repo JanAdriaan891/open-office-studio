@@ -78,14 +78,21 @@ export function useHerstel({ tabs, bezig, opslaanAls }: Opties) {
         await gestart;
         const interval = herstelInterval();
         for (const tabblad of tabs.toestandRef.current.tabbladen) {
-          if (tabblad.type !== "document" || !tabs.isGewijzigd(tabblad))
+          // Geen onversleutelde herstelkopie van een versleuteld document.
+          if (
+            tabblad.type !== "document" ||
+            tabblad.bron?.versleuteling ||
+            !tabs.isGewijzigd(tabblad)
+          )
             continue;
           const document = tabs.opslag(tabblad.id);
           const serialiseer = tabs.serialiseerder(tabblad.id);
           if (!document || !serialiseer || document.bezig) continue;
           const versie = document.versie;
           const nu = Date.now();
-          if (!kopieNodig(bewaard.current.get(tabblad.id), versie, nu, interval))
+          if (
+            !kopieNodig(bewaard.current.get(tabblad.id), versie, nu, interval)
+          )
             continue;
           try {
             const bytes = await serialiseer();

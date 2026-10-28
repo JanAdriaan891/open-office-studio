@@ -72,6 +72,8 @@ function bijOpenen(risico: Risico, soort: Soort): string | null {
       return "Worden niet bijgewerkt; de laatst opgeslagen waarden blijven staan.";
     case "gegevensverbindingen":
       return "Worden nooit uitgevoerd of vernieuwd.";
+    case "beveiliging":
+      return "Dit is geen versleuteling: het bestand opent zonder wachtwoord. De app dwingt de beveiliging niet af en bewaart de instelling ongewijzigd.";
     default:
       return null;
   }
@@ -137,7 +139,9 @@ export function openRapport(kenmerken: OpenKenmerken): Rapport | null {
       : route === "import"
         ? `Omgezet naar een bewerkbare .${soort}-kopie; het origineel is behouden.` +
           (namen.length ? ` Let op: ${namen.join(", ")}.` : "")
-        : `Niet alles wordt volledig ondersteund: ${namen.join(", ")}.`;
+        : namen.length
+          ? `Niet alles wordt volledig ondersteund: ${namen.join(", ")}.`
+          : regels[0].gevolg;
   return { moment: "openen", kop, regels };
 }
 

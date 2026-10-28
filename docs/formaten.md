@@ -97,10 +97,28 @@ Na het openen staat er één niet-blokkerende melding boven het document als iet
 - Omgezette bestanden: de omzetting zelf en het in de testmatrix aangetoonde verlies.
 - Vóór opslaan toont Opslaan als hetzelfde soort rapport: aangetoond verlies, ongemeten kenmerken (rekenbladen via de runtime), vervallende macro’s of wachtwoordbeveiliging en wat een tekstformaat niet bewaart. Annuleren of Opslaan blijft de keuze; aangetoond engineverlies blijft opslaan in het eigen formaat blokkeren.
 
+## Wachtwoordbeveiliging
+
+Versleutelde DOCX, XLSX en PPTX (en de macro- en sjabloonvarianten) herkent de app aan de CFB-container met `EncryptionInfo` en `EncryptedPackage` (`src/import/versleuteling.ts`). Een venster vraagt het wachtwoord; bij een fout wachtwoord vraagt het opnieuw. Ontsleutelen gebeurt lokaal met WebCrypto, ook in de browser:
+
+- **ECMA-376 Agile** (Office 2010 en later; AES met SHA-1/256/384/512) en **ECMA-376 Standard** (Office 2007 en LibreOffice; AES-128/192/256 met SHA-1). Bij Agile wordt de gegevensintegriteit (HMAC) gecontroleerd.
+- **RC4** in `.doc`, `.xls` en `.ppt` (en RC4 CryptoAPI) wordt alleen herkend, met een duidelijke melding; openen kan niet.
+- ODF-versleuteling wordt niet herkend; ODT/ODS/ODP gaan via de runtime, die zonder wachtwoord weigert.
+- Schrijfbeveiliging, documentbeveiliging en werkmapbeveiliging zijn geen versleuteling. Het rapport noemt ze apart: het bestand opent zonder wachtwoord, de app dwingt ze niet af en bewaart de instelling ongewijzigd.
+
+Opslaan:
+
+- Opslaan als biedt voor DOCX, XLSX en PPTX (en DOCM, XLSM, PPTM) **Beveiligen met een wachtwoord om te openen**, met herhaling. Bij een versleuteld origineel staat het vinkje standaard aan. De app versleutelt dan zelf volgens ECMA-376 Agile (AES-256-CBC, SHA-512, 100.000 rondes, met HMAC), te openen in Word, Excel, PowerPoint en LibreOffice (beproefd met LibreOffice 24.2).
+- Zonder vinkje toont het verliesrapport dat de kopie onversleuteld wordt bewaard.
+- Ctrl+S op een versleuteld origineel schrijft nooit stil onversleuteld terug: zonder in deze sessie gekozen wachtwoord opent eerst Opslaan als. Een gekozen wachtwoord geldt daarna voor Ctrl+S op het werkbestand.
+- Wachtwoorden staan alleen in het geheugen van het venster, worden nooit bewaard of gelogd en verdwijnen bij sluiten van het tabblad. Het openingswachtwoord wordt niet onthouden.
+- Van een versleuteld document maakt automatisch herstel geen (onversleutelde) herstelkopieën.
+- Grenzen: geen certificaatversleuteling, geen IRM/DRM. Een versleuteld document dat naar een ander venster wordt gesleept, verliest de markering "versleuteld" (de inhoud gaat onversleuteld in het geheugen mee); bewaar het daarna opnieuw met wachtwoord.
+
 ## Gedrag en grenzen
 
 - Import maakt een bewerkbare OOXML-kopie. Het origineel wordt niet overschreven. Opmaak en onbekende onderdelen kunnen wijzigen.
-- Strict-XLSX wordt herkend en eerst lokaal omgezet. Wachtwoordbeveiligde documenten hebben nog geen wachtwoordinvoer.
+- Strict-XLSX wordt herkend en eerst lokaal omgezet. Wachtwoordbeveiligde documenten: zie [Wachtwoordbeveiliging](#wachtwoordbeveiliging).
 - Alles behalve het eigen formaat is een kopie. Sla ook het bewerkbare document op; een kopie wist de wijzigingsmarkering niet. CSV, TSV, DIF en PNG van een rekenblad bevatten één blad.
 - Met het veilige standaardprofiel worden macro’s tijdens conversie niet uitgevoerd. VBA-behoud of -uitvoering is niet beschikbaar.
 - Bestanden: maximaal 100 MB; OOXML: maximaal 256 MB uitgepakt, 64 MB per onderdeel en 10.000 onderdelen.

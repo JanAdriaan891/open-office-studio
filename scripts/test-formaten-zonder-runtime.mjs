@@ -22,7 +22,7 @@ import {
   writeFileSync,
 } from "node:fs";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { join, resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 
 const uitmap = ".local/formaten-zonder-runtime";
@@ -232,6 +232,92 @@ try {
       );
       if (/;2;/.test(tekst)) throw new Error("=1+1 is als formule uitgerekend");
       return "LibreOffice leest tekst, getallen en datums; formules niet uitgevoerd";
+    },
+  );
+
+  // ── #41 Wachtwoordbeveiliging ────────────────────────────────────────
+  const { versleutel, ontsleutel, herkenVersleuteling } = await laad(
+    "/src/import/versleuteling.ts",
+  );
+  const { schrijfDocx } = await laad("/src/import/docxschrijver.ts");
+  const UNO = `
+import sys, os, time, subprocess, uno
+from com.sun.star.beans import PropertyValue
+soffice, map = sys.argv[1], sys.argv[2]
+actie = sys.argv[3]
+def p(n, v):
+    x = PropertyValue(); x.Name = n; x.Value = v; return x
+profiel = "file://" + os.path.join(map, "profiel")
+proces = subprocess.Popen([soffice, "-env:UserInstallation=" + profiel, "--headless", "--norestore", "--nologo",
+    "--accept=pipe,name=proef%d;urp;" % os.getpid()], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+try:
+    lokaal = uno.getComponentContext()
+    resolver = lokaal.ServiceManager.createInstanceWithContext("com.sun.star.bridge.UnoUrlResolver", lokaal)
+    for _ in range(120):
+        try:
+            ctx = resolver.resolve("uno:pipe,name=proef%d;urp;StarOffice.ComponentContext" % os.getpid()); break
+        except Exception:
+            time.sleep(0.5)
+    desktop = ctx.ServiceManager.createInstanceWithContext("com.sun.star.frame.Desktop", ctx)
+    if actie == "lees":
+        pad, wachtwoord = sys.argv[4], sys.argv[5]
+        try:
+            doc = desktop.loadComponentFromURL(uno.systemPathToFileUrl(pad), "_blank", 0, (p("Hidden", True), p("Password", wachtwoord)))
+        except Exception as e:
+            doc = None
+        if doc is None: print("NIET GEOPEND")
+        else:
+            print(doc.getText().getString()); doc.close(True)
+    else:
+        bron, doel, wachtwoord = sys.argv[4], sys.argv[5], sys.argv[6]
+        doc = desktop.loadComponentFromURL(uno.systemPathToFileUrl(bron), "_blank", 0, (p("Hidden", True),))
+        doc.storeToURL(uno.systemPathToFileUrl(doel), (p("FilterName", "MS Word 2007 XML"), p("Password", wachtwoord)))
+        doc.close(True); print("OK")
+finally:
+    try: desktop.terminate()
+    except Exception: pass
+    time.sleep(1); proces.kill()
+`;
+  const geheim = "Proef-wachtwoord €1";
+  const proefDocx = schrijfDocx({
+    blokken: [
+      {
+        soort: "alinea",
+        inhoud: [{ soort: "tekst", tekst: "Vertrouwelijke offerte 2026" }],
+      },
+    ],
+  });
+  await proef(
+    "#41",
+    "ons versleutelde DOCX opent in LibreOffice met het wachtwoord",
+    async () => {
+      const cfb = await versleutel(proefDocx, geheim);
+      const pad = resolve(uitmap, "versleuteld-door-ons.docx");
+      writeFileSync(pad, cfb);
+      if (!soffice) return "geen LibreOffice";
+      const tekst = uno(UNO, "lees", pad, geheim);
+      bevat(tekst, "Vertrouwelijke offerte 2026");
+      const fout = uno(UNO, "lees", pad, "fout");
+      if (fout.includes("Vertrouwelijke"))
+        throw new Error("opent met fout wachtwoord");
+      return "LibreOffice leest de tekst met het goede wachtwoord, niet met een fout";
+    },
+  );
+  await proef(
+    "#41",
+    "door LibreOffice versleuteld DOCX ontsleutelen",
+    async () => {
+      if (!soffice) return "geen LibreOffice";
+      const bron = resolve(uitmap, "onversleuteld.docx");
+      const doel = resolve(uitmap, "versleuteld-door-libreoffice.docx");
+      writeFileSync(bron, proefDocx);
+      uno(UNO, "schrijf", bron, doel, geheim);
+      const herkend = herkenVersleuteling(readFileSync(doel));
+      if (!herkend) throw new Error("niet als versleuteld herkend");
+      const zip = await ontsleutel(herkend, geheim);
+      const tekst = libreOffice(zip, "docx", "txt:Text (encoded):UTF8");
+      bevat(new TextDecoder().decode(tekst), "Vertrouwelijke offerte 2026");
+      return `LibreOffice schrijft ${herkend.soort}; wij ontsleutelen het`;
     },
   );
 
