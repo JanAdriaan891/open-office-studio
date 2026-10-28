@@ -332,11 +332,13 @@
 }
 .tw-zoek-opmaakrij {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4px 8px;
+  /* Eén kolom: twee kolommen sneden de keuzelijsten af in het smalle paneel. */
+  grid-template-columns: minmax(0, 1fr);
+  gap: 4px;
 }
 .tw-zoek-opmaak span {
-  width: 72px;
+  flex: none;
+  width: 92px;
 }
 .tw-zoek-opmaak select {
   flex: 1;

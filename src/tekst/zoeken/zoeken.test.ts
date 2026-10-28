@@ -11,7 +11,7 @@ import {
   vindAlle,
   ZoekFout,
 } from "./logica";
-import { leesNummer } from "./ganaar";
+import { leesNummer, opmerkingTekst } from "./ganaar";
 
 const treffers = (tekst: string, zoek: string, opties = {}) => vindAlle(tekst, maakPatroon(zoek, opties)).map((t) => t.tekst);
 
@@ -89,6 +89,9 @@ describe("resultaten en opmaak", () => {
       { start: 3, eind: 5 },
       { start: 6, eind: 7 },
     ]);
+    // Een object (afbeelding, U+FFFC) zonder tekenopmaak is geen treffer bij ‘vet’.
+    expect(opmaakStukken("a\uFFFCb", [vet, null, gewoon], () => undefined, { vet: true })).toEqual([{ start: 0, eind: 1 }]);
+    expect(opmaakStukken("\uFFFC", [null], () => "Heading1", { stijl: "Heading1" })).toEqual([{ start: 0, eind: 1 }]);
   });
 });
 
@@ -100,5 +103,24 @@ describe("Ga naar", () => {
     expect(leesNummer("11", 1, 10)).toBeNull();
     expect(leesNummer("0", 1, 10)).toBeNull();
     expect(leesNummer("twee", 1, 10)).toBeNull();
+  });
+});
+
+describe("Ga naar: opmerkingen", () => {
+  it("toont de platte tekst van een opmerking, zonder modelvelden", () => {
+    const inhoud = [
+      {
+        type: "paragraph",
+        sourceOrdinal: 0,
+        formatting: {},
+        content: [
+          { type: "run", formatting: { bold: true }, content: [{ type: "text", text: "Kun je dit" }] },
+          { type: "run", content: [{ type: "text", text: " verduidelijken?" }] },
+        ],
+      },
+      { type: "paragraph", content: [{ type: "run", content: [{ type: "text", text: "Tweede alinea" }] }] },
+    ];
+    expect(opmerkingTekst(inhoud)).toBe("Kun je dit verduidelijken? Tweede alinea");
+    expect(opmerkingTekst(undefined)).toBe("");
   });
 });
