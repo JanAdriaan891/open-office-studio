@@ -86,6 +86,7 @@ export const tekstNl: TekstVertaling = {
     lineSpacingTitle: "Regelafstand: {label}",
     paragraphSpacing: "Alinea-afstand",
   },
+  viewer: { pageIndicator: "{current} van {total}" },
   lists: {
     ariaLabel: "Lijsten",
     typeAriaLabel: "Lijsttype",

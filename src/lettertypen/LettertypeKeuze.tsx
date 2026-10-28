@@ -386,7 +386,8 @@ export function LettertypeKeuze({
             aria-label={naam}
             data-lettertypekeuze={id}
             data-thema={thema}
-            style={{ top: plek.top, left: plek.left }}
+            // Niet onder de onderrand van het venster uit (kleine vensters).
+            style={{ top: plek.top, left: plek.left, maxHeight: `min(520px, calc(100vh - ${Math.round(plek.top) + 8}px))` }}
             onKeyDown={(e) => {
               // Ook met de focus op een knop in het paneel sluit Esc het.
               if (e.key !== "Escape" || e.defaultPrevented) return;
