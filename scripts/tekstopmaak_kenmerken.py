@@ -136,8 +136,8 @@ def controleer_lijst(pad):
     num_slot, _ = numpr(alinea_met(doc, "Slot"))
     teken = lvl(abstracts[val(nums[num_slot].find(W + "abstractNumId"))], 0)
     assert val(teken.find(W + "numFmt")) == "bullet" and val(teken.find(W + "lvlText")) == "➢"
-    # Doorgaan met nummering: de tweede alinea sluit aan bij de lijst erboven.
-    assert numpr(alinea_met(doc, "Tweede alinea"))[0] == "2"
+    # Doorgaan met nummering: de laatste alinea sluit aan bij de lijst erboven.
+    assert numpr(alinea_met(doc, "Vervolg"))[0] == num_slot
 
 
 def controleer_randen(pad):

@@ -76,6 +76,8 @@ export interface AlineaOpmaak {
   contextualSpacing?: boolean | null;
   borders?: Randen | null;
   shading?: Arcering | null;
+  /** Lijstverwijzing (`w:numPr`); de definitie zelf staat in numbering.xml. */
+  numPr?: { numId: number; ilvl: number } | null;
 }
 
 const GETYPT = [
@@ -87,6 +89,7 @@ const GETYPT = [
   "indentLeft",
   "indentRight",
   "indentFirstLine",
+  "numPr",
 ] as const;
 const PASSIEF = [
   "hangingIndent",

@@ -14,6 +14,10 @@ export interface TekstSelectie {
   leeg: boolean;
   /** Alinea's die de selectie raakt, in volgorde. */
   alineas: YrsParagraph[];
+  /** Alle alinea's van de story, met de index van de eerste en laatste geselecteerde. */
+  alle: YrsParagraph[];
+  van: number;
+  tot: number;
 }
 
 const AUTEUR = "open-tekst-auteur";
@@ -73,6 +77,9 @@ export async function leesSelectie(ref: DocxEditorRef | null): Promise<TekstSele
     },
     leeg: begin.paraId === eind.paraId && begin.offset === eind.offset,
     alineas: alleAlineas.slice(van, tot + 1),
+    alle: alleAlineas,
+    van,
+    tot,
   };
 }
 

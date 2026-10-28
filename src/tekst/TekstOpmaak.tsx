@@ -4,8 +4,8 @@
  * knoppen op te nemen.
  */
 import { createContext, useContext, useMemo, useRef, useState, type ReactNode } from "react";
-import { useDocxCommand } from "@betteroffice/docx-react";
-import { CaseSensitive, PaintBucket, Pilcrow, SquareDashed, Square } from "lucide-react";
+import { useDocxCommand, useDocxCommands } from "@betteroffice/docx-react";
+import { CaseSensitive, ListTree, PaintBucket, Pilcrow, SquareDashed, Square } from "lucide-react";
 import { RibbonFout } from "../Ribbon";
 import { useEditorApi, zichtbaarElement } from "../lint/editorApi";
 import { EigenKnop } from "../lint/tekst-opdrachten";
@@ -28,6 +28,10 @@ import type { YrsStoryRange } from "@betteroffice/docx/yrs";
 import { RandenVenster, type RandenBegin, type RandenTab, type RandenWijziging } from "./randen/RandenVenster";
 import { arceringUit, randFormulierUit } from "./randen/model";
 import { leesPaginaUitPakket, pasPaginaToe } from "./randen/pagina";
+import { LijstVenster } from "./lijst/LijstVenster";
+import { lijstVan } from "./lijst/model";
+import { leesNummering, leesNummeringUitPakket, pasNummeringToe, type GelezenNummering } from "./lijst/nummering";
+import { planLijst, type LijstKeuze } from "./lijst/plan";
 import { regelafstandNaarOoxml, type Regelafstand } from "./eenheden";
 
 type Venster =
@@ -41,9 +45,10 @@ type Venster =
       voorbeeld: string;
     }
   | { soort: "randen"; selectie: TekstSelectie; begin: RandenBegin; tab: RandenTab }
+  | { soort: "lijst"; selectie: TekstSelectie; nummering: GelezenNummering }
   | null;
 
-export type VensterSoort = "alinea" | "lettertype" | "randen";
+export type VensterSoort = "alinea" | "lettertype" | "randen" | "lijst";
 
 /** Tekens in de selectie (of het woord bij de cursor) en hun huidige opmaak. */
 function tekensVan(selectie: TekstSelectie) {
@@ -91,6 +96,7 @@ export function TekstOpmaakProvider({ children }: { children: ReactNode }) {
   const bewerkbaar = useDocxCommand("insertPageBreak").state.enabled;
   const opnemen = useDocxCommand("editingMode").state.value === "suggesting";
   const [venster, setVenster] = useState<Venster>(null);
+  const engineOpdrachten = useDocxCommands();
   const recent = useRef({ opnemen, bewerkbaar });
   recent.current = { opnemen, bewerkbaar };
 
@@ -116,7 +122,10 @@ export function TekstOpmaakProvider({ children }: { children: ReactNode }) {
       open(soort, tab) {
         void leesSelectie(api())
           .then(async (selectie) => {
-            if (soort === "randen") {
+            if (soort === "lijst") {
+              const nummering = herlaad ? leesNummeringUitPakket(await herlaad.bytes()) : leesNummering(null);
+              setVenster({ soort, selectie, nummering });
+            } else if (soort === "randen") {
               const p = selectie.alineas[0]?.properties ?? {};
               const pagina = herlaad ? leesPaginaUitPakket(await herlaad.bytes()) : { rand: null, kleur: null };
               setVenster({
@@ -159,6 +168,32 @@ export function TekstOpmaakProvider({ children }: { children: ReactNode }) {
     [api, bewerkbaar, herlaad],
   );
 
+  async function lijstToepassen(selectie: TekstSelectie, nummering: GelezenNummering, keuze: LijstKeuze) {
+    const plan = planLijst(selectie.alle, selectie.van, selectie.tot, keuze, nummering);
+    if (plan.pakket && !herlaad) throw new Error("Nieuwe lijstnotaties zijn hier niet beschikbaar.");
+    if (plan.engine.length) {
+      const per = new Map(plan.engine.map((e) => [e.paraId, e]));
+      pasAlineasToe(
+        selectie.sessie,
+        selectie.story,
+        plan.engine.map((e) => e.paraId),
+        (a) => {
+          const e = per.get(a.paraId)!;
+          return e.wisInspringen
+            ? { numPr: e.numPr, indentLeft: null, indentFirstLine: null, hangingIndent: null }
+            : { numPr: e.numPr };
+        },
+        auteurBijOpnemen(recent.current.opnemen),
+      );
+      werkWeergaveBij(selectie);
+    }
+    if (!plan.pakket || !herlaad) return;
+    // Pakketroute: de alinea's verwijzen nu naar de nieuwe numId; voeg de definitie toe en herlaad.
+    const bytes = await herlaad.bytes();
+    const paraId = selectie.ref.getSelectionInfo()?.paraId ?? undefined;
+    herlaad.vervang(pasNummeringToe(bytes, plan.pakket), { paraId });
+  }
+
   async function randenToepassen(selectie: TekstSelectie, w: RandenWijziging) {
     if (Object.keys(w.alinea).length) alineaToepassen(selectie, w.alinea);
     if (!w.pagina) return;
@@ -174,6 +209,12 @@ export function TekstOpmaakProvider({ children }: { children: ReactNode }) {
   const sneltoetsen: Sneltoets[] = [
     { toets: "Ctrl+Shift+J", uitvoeren: () => opmaak.open("alinea"), beschikbaar: kan, omschrijving: "Alinea-opmaak" },
     { toets: "Ctrl+5", uitvoeren: regelafstand({ soort: "anderhalf" }), beschikbaar: kan, omschrijving: "Regelafstand 1,5" },
+    {
+      toets: "Ctrl+Shift+L",
+      uitvoeren: () => void engineOpdrachten.execute("bulletList", null).catch(fout),
+      beschikbaar: kan,
+      omschrijving: "Opsomming",
+    },
     { toets: "Ctrl+Shift+F", uitvoeren: () => opmaak.open("lettertype"), beschikbaar: kan, omschrijving: "Lettertype" },
     {
       toets: "Ctrl+Shift+A",
@@ -228,6 +269,18 @@ export function TekstOpmaakProvider({ children }: { children: ReactNode }) {
           toepassen={(w) => {
             setVenster(null);
             void randenToepassen(venster.selectie, w).catch(fout);
+          }}
+        />
+      )}
+      {venster?.soort === "lijst" && (
+        <LijstVenster
+          inLijst={venster.selectie.alineas.some((a) => lijstVan(a.properties))}
+          niveau={venster.selectie.alineas.map((a) => lijstVan(a.properties)).find(Boolean)?.ilvl ?? 0}
+          pakketBeschikbaar={!!herlaad}
+          sluit={sluit}
+          toepassen={(keuze) => {
+            setVenster(null);
+            void lijstToepassen(venster.selectie, venster.nummering, keuze).catch(fout);
           }}
         />
       )}
@@ -320,5 +373,19 @@ export function PaginaAchtergrondKnoppen() {
         onClick={() => opmaak.open("randen", "pagina")}
       />
     </>
+  );
+}
+
+/** Lintknop die de lijstopties opent. */
+export function LijstKnop() {
+  const opmaak = useTekstOpmaak();
+  return (
+    <EigenKnop
+      naam="Lijstopties…"
+      icoon={ListTree}
+      uitleg="Nummernotatie, opsommingsteken, niveaus, opnieuw beginnen of doorgaan"
+      disabled={!opmaak.bewerkbaar}
+      onClick={() => opmaak.open("lijst")}
+    />
   );
 }

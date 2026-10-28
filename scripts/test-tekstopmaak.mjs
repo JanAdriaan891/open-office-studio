@@ -16,6 +16,8 @@ import { createYrsSession, saveYrsDocx } from "@betteroffice/docx/yrs";
 import { pasAlineasToe, pasTekensToe, runAttributen, leesTekens } from "../src/tekst/opmaak.ts";
 import { arceringNaarModel, arceringUit, metInstelling, randenNaarModel, randFormulierUit } from "../src/tekst/randen/model.ts";
 import { leesPaginaUitPakket, pasPaginaToe } from "../src/tekst/randen/pagina.ts";
+import { leesNummeringUitPakket, pasNummeringToe } from "../src/tekst/lijst/nummering.ts";
+import { planLijst } from "../src/tekst/lijst/plan.ts";
 
 const MAP = ".local/tekstopmaak";
 await mkdir(MAP, { recursive: true });
@@ -31,7 +33,8 @@ function bronDocument() {
       ["Een", "Twee", "Drie"]
         .map((t) => `<w:p><w:pPr><w:numPr><w:ilvl w:val="0"/><w:numId w:val="2"/></w:numPr></w:pPr><w:r><w:t>Lijstitem ${t}</w:t></w:r></w:p>`)
         .join("") +
-      `<w:p><w:r><w:t>Slot.</w:t></w:r></w:p>`,
+      `<w:p><w:r><w:t>Slot.</w:t></w:r></w:p>` +
+      `<w:p><w:r><w:t>Vervolg.</w:t></w:r></w:p>`,
   );
   return zipSync({ ...sjabloon, "word/document.xml": strToU8(doc) });
 }
@@ -165,6 +168,50 @@ async function bewaar(naam, bytes) {
   assert.equal(terug.strike, "dubbel");
   assert.equal(terug.afstand.scale, 90);
   meld("Lettertype: familie, stijl, grootte, kleur, onderstreping + kleur, doorhalen, super/sub, kleinkapitalen, hoofdletters, verborgen, afstand/schaal/positie", "engine (formatRange + other)");
+}
+
+// --- 11. Lijstopties (engine voor numPr, pakket voor nieuwe definities) -----
+{
+  /** Doet wat de editor doet: engine-stappen, dan (zo nodig) definitie toevoegen en herladen. */
+  async function lijstStap(s, tekst, keuze) {
+    const alle = s.paragraphs("body");
+    const i = alle.findIndex((a) => a.text.startsWith(tekst));
+    const bytes = (await saveYrsDocx(s)).bytes;
+    const plan = planLijst(alle, i, i, keuze, leesNummeringUitPakket(bytes));
+    const per = new Map(plan.engine.map((e) => [e.paraId, e]));
+    pasAlineasToe(s, "body", [...per.keys()], (a) => {
+      const e = per.get(a.paraId);
+      return e.wisInspringen ? { numPr: e.numPr, indentLeft: null, indentFirstLine: null, hangingIndent: null } : { numPr: e.numPr };
+    });
+    if (!plan.pakket) return { s, herladen: false };
+    return { s: await open(pasNummeringToe((await saveYrsDocx(s)).bytes, plan.pakket)), herladen: true };
+  }
+  const lijstVanTekst = (s, tekst) => s.paragraphs("body").find((a) => a.text.startsWith(tekst)).properties;
+  let s = await open(bronDocument());
+  let r = await lijstStap(s, "Lijstitem Een", { sjabloon: "num:a)" });
+  assert.ok(r.herladen);
+  s = r.s;
+  assert.equal(lijstVanTekst(s, "Lijstitem Een").listNumFmt, "lowerLetter", "de engine leest de nieuwe notatie na herladen");
+  r = await lijstStap(s, "Lijstitem Twee", { niveau: 1 });
+  assert.ok(!r.herladen);
+  assert.equal(lijstVanTekst(s, "Lijstitem Twee").numPr.ilvl, 1);
+  assert.ok(s.undo());
+  assert.equal(lijstVanTekst(s, "Lijstitem Twee").numPr.ilvl, 0, "niveau wijzigen is ongedaan te maken");
+  assert.ok(s.redo());
+  r = await lijstStap(s, "Lijstitem Drie", { nummering: { beginBij: 5 } });
+  s = r.s;
+  assert.equal(lijstVanTekst(s, "Lijstitem Drie").listStartOverride, 5);
+  r = await lijstStap(s, "Slot", { sjabloon: "teken:➢" });
+  s = r.s;
+  assert.equal(lijstVanTekst(s, "Slot").listIsBullet, true);
+  r = await lijstStap(s, "Vervolg", { nummering: "doorgaan" });
+  assert.equal(lijstVanTekst(s, "Vervolg").numPr.numId, lijstVanTekst(s, "Slot").numPr.numId);
+  await assert.rejects(() => lijstStap(s, "Eerste alinea", { nummering: "doorgaan" }), /geen eerdere lijst/);
+  await bewaar("lijst", (await saveYrsDocx(s)).bytes);
+  meld("Lijst: nummernotatie a), meerdere niveaus (niveau 2 = i.)", "pakket (nieuwe abstractNum + num) + engine (numPr); herladen");
+  meld("Lijst: niveau wijzigen, doorgaan met nummering", "engine (numPr, ongedaan te maken)");
+  meld("Lijst: opnieuw beginnen / startwaarde 5", "pakket (w:num met lvlOverride/startOverride) + engine (numPr); herladen");
+  meld("Lijst: opsommingsteken ➢", "pakket (abstractNum bullet) + engine (numPr); herladen");
 }
 
 // --- 22. Randen en arcering (engine), paginarand en -kleur (pakket) ---------

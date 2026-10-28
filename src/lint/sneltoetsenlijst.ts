@@ -124,6 +124,7 @@ export const vasteSneltoetsen: readonly SneltoetsInfo[] = [
   tekst("Ctrl+Shift+A", "Alle hoofdletters"),
   tekst("Ctrl+Shift+K", "Kleinkapitalen"),
   tekst("Ctrl+Shift+H", "Verborgen tekst"),
+  tekst("Ctrl+Shift+L", "Opsomming"),
   // Tekst: engine (@betteroffice/docx-react).
   tekstEngine("Ctrl+B", "Vet"),
   tekstEngine("Ctrl+I", "Cursief"),

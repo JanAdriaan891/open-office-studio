@@ -94,6 +94,7 @@ import { TabelKiezer } from "../tabelvoorbeeld/TabelKiezer";
 import {
   AlineaKnop,
   LettertypeKnop,
+  LijstKnop,
   PaginaAchtergrondKnoppen,
   RandenKnop,
   TekstOpmaakProvider,
@@ -178,6 +179,7 @@ function TekstAlinea() {
         <W id="numberedList" naam="Nummering" icoon={ListOrdered} />
         <W id="outdent" naam="Minder inspringen" icoon={IndentDecrease} />
         <W id="indent" naam="Meer inspringen" icoon={IndentIncrease} />
+        <LijstKnop />
       </div>
       <div className="ribbon-rij ribbon-iconen">
         <W
