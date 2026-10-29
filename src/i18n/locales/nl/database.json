@@ -12,5 +12,386 @@
       "replaceTitle": "Export vervangen",
       "replaceText": "Dit exportbestand bestaat al. Vervangen?"
     }
+  },
+  "model": {
+    "encrypted": "Deze database is versleuteld of met een wachtwoord beveiligd; dat wordt nog niet ondersteund.",
+    "chooseMdb": "Kies een MDB- of ACCDB-bestand.",
+    "emptyFile": "Dit bestand is leeg. Kies een database met inhoud.",
+    "tooLarge": "Kies een database van maximaal 100 MB.",
+    "status": {
+      "read": "gelezen",
+      "partial": "gedeeltelijk",
+      "notRead": "niet gelezen",
+      "notPresent": "niet aanwezig",
+      "notRun": "niet uitgevoerd"
+    },
+    "reportText": {
+      "title": "Compatibiliteitsrapport Open Database Studio",
+      "file": "Bestand: {{value}}",
+      "size": "Grootte: {{value}} bytes",
+      "format": "Formaat: {{value}}",
+      "reader": "Lezer: {{value}}",
+      "date": "Datum: {{value}}"
+    }
+  },
+  "objects": {
+    "plural": {
+      "table": "Tabellen",
+      "linkedTable": "Gekoppelde tabellen",
+      "query": "Query’s",
+      "relationship": "Relaties",
+      "vba": "VBA-modules",
+      "form": "Formulieren",
+      "report": "Rapporten",
+      "macro": "Macro’s"
+    },
+    "singular": {
+      "table": "Tabel",
+      "linkedTable": "Gekoppelde tabel",
+      "query": "Query",
+      "relationship": "Relatie",
+      "vba": "VBA",
+      "form": "Formulier",
+      "report": "Rapport",
+      "macro": "Macro"
+    },
+    "count": {
+      "tables_one": "{{count}} tabel",
+      "tables_other": "{{count}} tabellen",
+      "queries_one": "{{count}} query",
+      "queries_other": "{{count}} query’s",
+      "forms_one": "{{count}} formulier",
+      "forms_other": "{{count}} formulieren",
+      "reports_one": "{{count}} rapport",
+      "reports_other": "{{count}} rapporten",
+      "modules_one": "{{count}} VBA-module",
+      "modules_other": "{{count}} VBA-modules",
+      "skippedRows_one": "{{count}} rij overgeslagen",
+      "skippedRows_other": "{{count}} rijen overgeslagen",
+      "issues_one": "{{count}} melding",
+      "issues_other": "{{count}} meldingen"
+    }
+  },
+  "studio": {
+    "errors": {
+      "queryMissing": "Query ‘{{name}}’ bestaat niet.",
+      "tableMissing": "Tabel ‘{{name}}’ bestaat niet.",
+      "objectListFailed": "De objectenlijst kon niet worden gelezen: {{error}}",
+      "readFailed": "Bestand kon niet worden gelezen.",
+      "buildCancelled": "De opbouw van de werkkopie is geannuleerd. Je bekijkt de database nu alleen-lezen.",
+      "buildEncrypted": "{{message}} Je bekijkt alleen wat zonder ontsleutelen leesbaar is.",
+      "buildFailed": "De werkkopie kon niet worden opgebouwd: {{error}} Je bekijkt de database nu alleen-lezen.",
+      "createFailed": "De database kon niet worden gemaakt: {{error}}",
+      "exportFailed": "Exporteren mislukt: {{error}}",
+      "saveFailed": "De werkkopie kon niet worden bewaard: {{error}}",
+      "formNotReadable": "Formulier ‘{{name}}’ bestaat in het Access-origineel, maar Access-formulierontwerpen zijn niet leesbaar. Maak een formulier met dezelfde naam via Maken › Formulierontwerp; dan wordt de VBA-module Form_{{name}} eraan gekoppeld.",
+      "formMissing": "Formulier ‘{{name}}’ bestaat niet in de werkkopie.",
+      "reportMissing": "Rapport ‘{{name}}’ bestaat niet in de werkkopie (Access-rapportontwerpen zijn niet leesbaar).",
+      "autoFormFailed": "Automatisch formulier maken mislukt: {{error}}",
+      "moduleCreateFailed": "De module kon niet worden gemaakt: {{error}}",
+      "moduleDeleteFailed": "De module kon niet worden verwijderd: {{error}}",
+      "moduleNotInCopy": "Module ‘{{name}}’ staat niet in de werkkopie."
+    },
+    "unsaved": {
+      "title": "Werkkopie niet opgeslagen",
+      "text": "De huidige werkkopie heeft wijzigingen die niet als .sqlite zijn bewaard. Die gaan verloren. Doorgaan?",
+      "confirm": "Doorgaan zonder opslaan"
+    },
+    "foreignSqlite": {
+      "title": "Geen werkkopie van Open Database Studio",
+      "text": "‘{{name}}’ is een SQLite-bestand, maar niet door Open Database Studio gemaakt. Toch openen als nieuwe werkkopie? De metatabellen worden dan toegevoegd (pas in het bestand na opslaan); het bestand zelf wordt niet gewijzigd.",
+      "confirm": "Toch openen"
+    },
+    "messages": {
+      "reopened": "Werkkopie ‘{{name}}’ heropend (bron: {{source}}).",
+      "built": "Werkkopie opgebouwd: {{tables}}, {{queries}}.",
+      "builtWithIssues": "Werkkopie opgebouwd: {{tables}}, {{queries}} · {{skipped}}, {{issues}} (zie opbouwrapport).",
+      "sample": "Demonstratie met ingebouwde voorbeeldgegevens. Dit zijn geen gegevens uit een geopend databasebestand.",
+      "newEmpty": "Nieuwe lege database ‘{{name}}’. Maak een tabel via Maken › Tabel en bewaar het geheel via Start › Opslaan (.sqlite).",
+      "exportSaved": "{{what}} opgeslagen: {{path}}",
+      "exportCancelled": "Exporteren geannuleerd.",
+      "exportDownload": "{{what}}: download aangevraagd. Controleer je downloads.",
+      "autoFormCreated": "Automatisch formulier ‘{{name}}’ gemaakt voor {{source}}.",
+      "moduleCreated": "Module ‘{{name}}’ gemaakt in de werkkopie.",
+      "moduleSaved": "Module ‘{{name}}’ opgeslagen in de werkkopie.",
+      "moduleDeleted": "Module ‘{{name}}’ verwijderd uit de werkkopie.",
+      "tableDeleted": "Tabel ‘{{name}}’ verwijderd uit de werkkopie.",
+      "tableCreated": "Tabel ‘{{name}}’ gemaakt."
+    },
+    "exportKind": {
+      "export": "Export",
+      "csv": "CSV",
+      "workingCopy": "Werkkopie (SQLite)",
+      "compatibility": "Compatibiliteitsrapport",
+      "build": "Opbouwrapport",
+      "vbaSource": "VBA-bron",
+      "sql": "SQL"
+    },
+    "fileSuffix": {
+      "compatibility": "compatibiliteit",
+      "build": "opbouwrapport",
+      "workingCopy": "werkkopie"
+    },
+    "sampleName": "Voorbeelddatabase",
+    "newDatabase": {
+      "title": "Nieuwe lege database",
+      "label": "Naam van de database",
+      "default": "Nieuwe database",
+      "nameRequired": "Geef een naam."
+    },
+    "newModule": {
+      "title": "Nieuwe VBA-module",
+      "label": "Modulenaam (Form_<{{form}}> voor een formuliermodule)",
+      "formPlaceholder": "formulier"
+    },
+    "deleteModule": {
+      "title": "Module verwijderen",
+      "text": "VBA-module ‘{{name}}’ uit de werkkopie verwijderen?",
+      "textAccess": "VBA-module ‘{{name}}’ uit de werkkopie verwijderen? Hij blijft in het Access-origineel staan; na opnieuw opbouwen is hij terug."
+    },
+    "formVbaConsent": "Formulier ‘{{name}}’ heeft VBA-code (module {{module}}). Gebeurtenissen zoals Form_Load en knopklikken uitvoeren?",
+    "browser": {
+      "label": "Databaseobjecten",
+      "noDatabase": "Geen database geopend",
+      "noTables": "Nog geen tabellen",
+      "noQueries": "Geen opgeslagen query’s",
+      "noForms": "Nog geen formulieren",
+      "noReports": "Nog geen rapporten",
+      "notRun": "niet uitgevoerd",
+      "noReadableVba": "Geen leesbare VBA-bron",
+      "noModules": "Geen modules",
+      "formModule": "formulier",
+      "classModule": "klasse",
+      "external": "Externe verwijzingen",
+      "analysis": "analyse",
+      "database": "Database",
+      "relationships": "Relaties ({{count}})",
+      "buildReport": "Opbouwrapport",
+      "compatibilityReport": "Compatibiliteitsrapport",
+      "compatibility": "Compatibiliteit",
+      "report": "Rapport",
+      "empty": "Open een database, maak een nieuwe of verken het voorbeeld.",
+      "noteWorkingCopy": "Je werkt in een werkkopie. Het origineel blijft ongewijzigd; bewaar de werkkopie als .sqlite om wijzigingen te houden.",
+      "noteReadOnly": "Formulieren, rapporten en macro’s uit Access worden alleen geïnventariseerd. Niets wordt automatisch uitgevoerd.",
+      "notPresent": "Niet aanwezig"
+    },
+    "analysisObject": {
+      "fromOriginal": "{{kind}} · uit het Access-origineel",
+      "formNotReadable": "Access-formulierontwerpen (indeling, besturingselementen) zijn in het bestand opgeslagen in een niet-gedocumenteerde binaire vorm en kunnen niet worden gelezen. Maak in Open Database Studio een eigen formulier met dezelfde naam (Maken › Formulierontwerp); de VBA-module Form_{{name}} wordt dan gekoppeld.",
+      "reportNotReadable": "Access-rapportontwerpen (indeling, besturingselementen) zijn in het bestand opgeslagen in een niet-gedocumenteerde binaire vorm en kunnen niet worden gelezen. Maak in Open Database Studio een eigen rapport met dezelfde naam (Maken › Rapport).",
+      "designForm": "Formulier ‘{{name}}’ ontwerpen",
+      "designReport": "Rapport ‘{{name}}’ ontwerpen",
+      "macroNote": "Macro’s worden alleen geïnventariseerd en nooit uitgevoerd."
+    },
+    "readOnly": {
+      "title": "{{name}} · alleen lezen",
+      "noCopy": "Er is geen werkkopie: bewerken, query’s uitvoeren, formulieren, rapporten en VBA zijn daardoor niet beschikbaar. Kies links een object om het alleen-lezen te bekijken.",
+      "buildNow": "Werkkopie alsnog opbouwen"
+    },
+    "loadingTable": "Tabel laden…",
+    "loadingForm": "Formulier laden…",
+    "table": {
+      "fromAccess": "Tabel · uit Access",
+      "inCopy": "Tabel · in de werkkopie",
+      "view": "Weergave",
+      "data": "Gegevens",
+      "design": "Ontwerp"
+    },
+    "newTable": "Nieuwe tabel",
+    "query": {
+      "new": "Nieuwe query",
+      "saved": "{{kind}} · opgeslagen query",
+      "sqlView": "SQL-weergave"
+    },
+    "formDesign": {
+      "designOf": "Ontwerp van {{name}}",
+      "new": "Nieuw formulier",
+      "subtitle": "Formulierontwerp"
+    },
+    "report": {
+      "preview": "Afdrukvoorbeeld · bron {{source}}",
+      "designOf": "Ontwerp van {{name}}",
+      "new": "Nieuw rapport",
+      "subtitle": "Rapportontwerp",
+      "defaultName": "Rapport"
+    },
+    "vba": {
+      "module": "VBA-module · afgeschermd uitvoeren op de werkkopie",
+      "formModule": "VBA-formuliermodule · afgeschermd uitvoeren op de werkkopie",
+      "classModule": "VBA-klassemodule · afgeschermd uitvoeren op de werkkopie"
+    },
+    "summary": "{{tables}} · {{queries}} · {{forms}} · {{reports}} · {{modules}}",
+    "hint": "Kies links een object, of gebruik het lint: Maken voor nieuwe tabellen, query’s, formulieren en rapporten.",
+    "status": {
+      "workingCopy": "Werkkopie — het origineel blijft ongewijzigd",
+      "workingCopyUnsaved": "Werkkopie — het origineel blijft ongewijzigd · niet-opgeslagen wijzigingen",
+      "notSaved": "niet opgeslagen",
+      "readOnly": "Alleen lezen",
+      "local": "Lokaal · geen uploads",
+      "ready": "Klaar om te beginnen",
+      "vbaBusy": "VBA: {{task}}",
+      "noUploads": "Geen uploads · VBA alleen op verzoek"
+    },
+    "fileInput": "Database of werkkopie kiezen",
+    "closeMessage": "Melding sluiten",
+    "less": "Minder",
+    "more": "Meer",
+    "welcome": {
+      "title": "Geef oude databases een nieuwe werkplek",
+      "intro": "Open een .mdb- of .accdb-bestand: Open Database Studio bouwt er een bewerkbare werkkopie van. Het origineel blijft ongewijzigd.",
+      "open": "Database openen",
+      "new": "Nieuwe lege database",
+      "sample": "Voorbeeld verkennen",
+      "tablesTitle": "Tabellen en query’s",
+      "tablesText": "Gegevens bewerken met typecontrole, query’s in Access-SQL uitvoeren en resultaten als CSV bewaren.",
+      "formsTitle": "Formulieren en rapporten",
+      "formsText": "Automatische formulieren, een eenvoudige ontwerper en rapporten met groepen en totalen, af te drukken als PDF.",
+      "vbaTitle": "VBA",
+      "vbaText": "VBA-procedures afgeschermd uitvoeren op de werkkopie: alleen op verzoek, zonder bestanden, COM of Shell.",
+      "local": "Alles gebeurt lokaal. Macro’s, AutoExec en VBA worden nooit automatisch uitgevoerd. Bewaar je werk als .sqlite-werkkopie en heropen die later via Openen."
+    }
+  },
+  "ribbon": {
+    "start": "Start",
+    "database": "Database",
+    "reading": "Bestand lezen…",
+    "open": "Openen",
+    "openTitle": "Database of werkkopie openen (Ctrl+O)",
+    "new": "Nieuw",
+    "newTitle": "Nieuwe lege database",
+    "sample": "Voorbeeld",
+    "sampleTitle": "Voorbeelddatabase verkennen",
+    "clipboard": "Klembord",
+    "copy": "Kopiëren",
+    "copyTitle": "Selectie kopiëren (Ctrl+C)",
+    "copyHeaders": "Met kopteksten",
+    "copyHeadersTitle": "Selectie kopiëren met kolomkoppen (Ctrl+Shift+C)",
+    "paste": "Plakken",
+    "pasteTitle": "Plakken vanaf de actieve cel (Ctrl+V)",
+    "selectAll": "Alles selecteren",
+    "selectAllTitle": "Alle rijen en kolommen selecteren (Ctrl+A)",
+    "workingCopy": "Werkkopie",
+    "save": "Opslaan",
+    "saveTitle": "Werkkopie bewaren als .sqlite (Ctrl+S)",
+    "refresh": "Vernieuwen",
+    "close": "Sluiten",
+    "query": "Query",
+    "run": "Uitvoeren",
+    "runTitle": "Uitvoeren (F5 of Ctrl+Enter)",
+    "create": "Maken",
+    "tables": "Tabellen",
+    "table": "Tabel",
+    "queries": "Query’s",
+    "newQueryTitle": "Nieuwe query in SQL-weergave",
+    "forms": "Formulieren",
+    "form": "Formulier",
+    "autoFormFor": "Automatisch formulier voor {{source}}",
+    "autoForm": "Automatisch formulier",
+    "formDesign": "Formulierontwerp",
+    "reports": "Rapporten",
+    "report": "Rapport",
+    "reportDesign": "Rapportontwerp",
+    "code": "Code",
+    "module": "Module",
+    "newModule": "Nieuwe VBA-module",
+    "externalData": "Externe gegevens",
+    "export": "Exporteren",
+    "csv": "CSV",
+    "csvTitle": "Huidige tabel of queryresultaat als CSV",
+    "sqlite": "SQLite",
+    "sqliteTitle": "Werkkopie als SQLite-bestand",
+    "source": "Bron (.sql/.bas)",
+    "compatJson": "Compatibiliteit (JSON)",
+    "compatText": "Compatibiliteit (tekst)",
+    "buildJson": "Opbouwrapport (JSON)",
+    "tools": "Databasehulpmiddelen",
+    "overview": "Overzicht",
+    "relationships": "Relaties",
+    "compatibility": "Compatibiliteit",
+    "buildReport": "Opbouwrapport",
+    "vba": "VBA",
+    "visualBasic": "Visual Basic",
+    "visualBasicTitle": "VBA-modules en procedures",
+    "external": "Externe verwijzingen",
+    "externalTitle": "Externe afhankelijkheden van de VBA-code en Uitvoeren wat werkt",
+    "stop": "Stop",
+    "stopTitle": "Lopende VBA stoppen",
+    "view": "Beeld",
+    "display": "Weergave",
+    "light": "Licht",
+    "dark": "Donker"
+  },
+  "overview": {
+    "phase": {
+      "readFile": "Bestand lezen",
+      "prepare": "Voorbereiden",
+      "tables": "Tabellen overnemen",
+      "indexes": "Indexen aanmaken",
+      "relationships": "Relaties vastleggen",
+      "queries": "Query’s overnemen",
+      "finish": "Afronden"
+    },
+    "build": {
+      "title": "Werkkopie opbouwen",
+      "intro": "{{name}} wordt overgenomen in een bewerkbare SQLite-werkkopie. <strong>Het origineel blijft ongewijzigd.</strong>",
+      "rowsOf": "{{done}} van {{total}} rijen",
+      "tablesDone_one": "{{count}} tabel klaar",
+      "tablesDone_other": "{{count}} tabellen klaar",
+      "progressLabel": "Voortgang van de huidige stap",
+      "cancelHint": "Annuleren stopt de opbouw direct. Je kunt de database daarna alleen-lezen bekijken of opnieuw openen."
+    },
+    "buildReport": {
+      "title": "Opbouwrapport",
+      "seconds": "{{value}} s",
+      "source": "Bron",
+      "built": "Opgebouwd",
+      "indexes": "Indexen",
+      "indexesCreated": "{{created}} aangemaakt",
+      "indexesCreatedFailed": "{{created}} aangemaakt, {{failed}} mislukt",
+      "relationships": "Relaties",
+      "relationshipsSummary": "{{total}} totaal, {{enforced}} afgedwongen",
+      "queries": "Query’s",
+      "queriesSummary": "{{saved}} van {{total}} overgenomen",
+      "skippedRows": "Overgeslagen rijen",
+      "tables": "Tabellen",
+      "table": "Tabel",
+      "rowsSource": "Rijen in origineel",
+      "rowsLoaded": "Overgenomen",
+      "rowsSkipped": "Overgeslagen",
+      "columns": "Kolommen",
+      "messages_one": "Meldingen ({{count}})",
+      "messages_other": "Meldingen ({{count}})"
+    },
+    "severity": {
+      "error": "fout",
+      "warning": "let op",
+      "info": "info"
+    },
+    "compat": {
+      "title": "Compatibiliteitsrapport",
+      "text": "Tekst",
+      "part": "Onderdeel",
+      "status": "Status",
+      "count": "Aantal",
+      "explanation": "Toelichting",
+      "footnote": "Gelezen met {{reader}}. Het rapport bevat alleen aantallen, namen en meldingen, geen tabelgegevens. Het beschrijft het alleen-lezen-pad; zie het opbouwrapport voor wat in de werkkopie is overgenomen."
+    }
+  },
+  "errorBoundary": {
+    "crashed": "Deze weergave liep vast: {{message}}",
+    "unaffected": "De werkkopie is niet aangetast. Kies een ander object of probeer het opnieuw."
+  },
+  "sqlHelp": {
+    "queryKind": {
+      "select": "Selectiequery",
+      "crosstab": "Kruistabelquery",
+      "delete": "Verwijderquery",
+      "update": "Bijwerkquery",
+      "append": "Toevoegquery",
+      "maketable": "Tabelmaakquery",
+      "ddl": "Gegevensdefinitiequery",
+      "union": "Samenvoegingsquery",
+      "passthrough": "Pass-through-query"
+    }
   }
 }

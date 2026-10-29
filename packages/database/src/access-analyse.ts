@@ -23,7 +23,7 @@ import {
   type VbaVerwijzing,
 } from "./ovba.ts";
 import {
-  VERSLEUTELD_MELDING,
+  versleuteldMelding,
   type Compatibiliteitsrapport,
   type DatabaseObject,
   type Rapportregel,
@@ -636,7 +636,7 @@ export async function analyseVersleuteld(
           status: "niet gelezen",
           aantal: null,
           toelichting:
-            VERSLEUTELD_MELDING +
+            versleuteldMelding() +
             (soort ? ` Herkend: ${soort}.` : "") +
             " Er is geen wachtwoord gevraagd of geprobeerd; tabellen, query’s, relaties en VBA zijn niet gelezen.",
         },

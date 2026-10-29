@@ -11,7 +11,7 @@ import {
   maakRijfilter,
   type Rijfilter,
 } from "./access-analyse.ts";
-import { VERSLEUTELD_MELDING } from "./model.ts";
+import { versleuteldMelding } from "./model.ts";
 import type { SqliteWerkkopie } from "./werkkopie/werkkopie.ts";
 
 // De parser blijft buiten de UI-thread. Het alleen-lezen-pad (open/tabel) voert geen
@@ -56,7 +56,7 @@ context.onmessage = async ({ data }) => {
         const { rapport } = await analyseVersleuteld(bytes, bestand, versleuteling);
         context.postMessage({
           id: data.id,
-          fout: VERSLEUTELD_MELDING,
+          fout: versleuteldMelding(),
           code: "versleuteld",
           oorzaak: fout ? String((fout as Error).cause ?? fout) : undefined,
           rapport,

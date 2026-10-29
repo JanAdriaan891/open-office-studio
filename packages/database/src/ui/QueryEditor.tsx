@@ -11,7 +11,7 @@ import type { OpgeslagenQuery, QueryResultaat, TabelSchema, Waarde, Werkkopie } 
 import { kleurTokens } from "../syntaxis.ts";
 import { past } from "../../../../src/lint/sneltoetsen.ts";
 import { bewerkbaar, leesbareFout } from "./invoer.ts";
-import { ACTIENAMEN, isActiequery, querysoortVan } from "./sql.ts";
+import { actieNaam, isActiequery, querysoortVan } from "./sql.ts";
 import { Raster, useVulHoogte, type RasterKolom } from "./Raster.tsx";
 import type { PlakPlan } from "./raster-logica.ts";
 import { useDialogen } from "./Dialoog.tsx";
@@ -129,11 +129,11 @@ export function QueryEditor({
       }
       if (isActiequery(soort)) {
         const ja = await dialogen.bevestig({
-          titel: `${ACTIENAMEN[soort]} uitvoeren`,
+          titel: `${actieNaam(soort)} uitvoeren`,
           tekst: (
             <>
               <p>
-                Deze {ACTIENAMEN[soort].toLowerCase()} wijzigt {soort === "ddl" ? "de structuur van" : "gegevens in"} de werkkopie.
+                Deze {actieNaam(soort).toLowerCase()} wijzigt {soort === "ddl" ? "de structuur van" : "gegevens in"} de werkkopie.
                 Dit kan niet ongedaan worden gemaakt, maar het origineel blijft ongewijzigd.
               </p>
               <p>Doorgaan?</p>
@@ -297,7 +297,7 @@ export function QueryEditor({
             <FileSearch size={16} /> SQLite-SQL
           </button>
         )}
-        <span className="database-querysoort">{ACTIENAMEN[soort]}</span>
+        <span className="database-querysoort">{actieNaam(soort)}</span>
       </div>
       {modus === "sql" && (
         <>
