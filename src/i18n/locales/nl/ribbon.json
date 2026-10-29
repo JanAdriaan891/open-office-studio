@@ -311,7 +311,8 @@
       "contextMenu": "Snelmenu openen",
       "fillRight": "Naar rechts doorvoeren",
       "insertFunction": "Functie invoegen",
-      "toggleReference": "Verwijzing absoluut of relatief (tijdens het bewerken van een formule)"
+      "toggleReference": "Verwijzing absoluut of relatief (tijdens het bewerken van een formule)",
+      "openFilterMenu": "Filtermenu openen (op een kopcel met filterpijl)"
     }
   },
   "spreadsheet": {

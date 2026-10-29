@@ -311,7 +311,8 @@
       "contextMenu": "Apri menu contestuale",
       "fillRight": "Riempi a destra",
       "insertFunction": "Inserisci funzione",
-      "toggleReference": "Riferimento assoluto o relativo (durante la modifica di una formula)"
+      "toggleReference": "Riferimento assoluto o relativo (durante la modifica di una formula)",
+      "openFilterMenu": "Apri il menu del filtro (su una cella di intestazione con freccia)"
     }
   },
   "spreadsheet": {

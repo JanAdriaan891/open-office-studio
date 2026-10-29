@@ -98,7 +98,7 @@ export function FilterMenu({
       left: Math.max(4, Math.min(anker.left, window.innerWidth - r.width - 8)),
       top: anker.bottom + r.height + 8 > window.innerHeight ? Math.max(4, anker.top - r.height - 2) : anker.bottom + 2,
     });
-    menu.current?.querySelector<HTMLElement>("input, button")?.focus();
+    (menu.current?.querySelector<HTMLElement>("input") ?? menu.current?.querySelector<HTMLElement>("button"))?.focus();
     const buiten = (e: MouseEvent) => {
       if (!menu.current?.contains(e.target as Node)) sluit();
     };
@@ -127,7 +127,7 @@ export function FilterMenu({
       let kf: KolomFilter | null = null;
       if (soort === "waarden" && lijst && aan) {
         const gekozen = term ? zichtbaar.filter((w) => aan.has(w)) : lijst.waarden.filter((w) => aan.has(w));
-        const leeg = term ? false : leegAan;
+        const leeg = term ? false : leegAan && lijst.leeg;
         const alles = !term && gekozen.length === lijst.waarden.length && (leeg || !lijst.leeg);
         kf = alles ? null : { soort: "waarden", waarden: gekozen, leeg };
       } else if (soort === "voorwaarden") {

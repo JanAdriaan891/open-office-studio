@@ -311,7 +311,8 @@
       "contextMenu": "Ouvrir le menu contextuel",
       "fillRight": "Recopier à droite",
       "insertFunction": "Insérer une fonction",
-      "toggleReference": "Référence absolue ou relative (pendant la modification d’une formule)"
+      "toggleReference": "Référence absolue ou relative (pendant la modification d’une formule)",
+      "openFilterMenu": "Ouvrir le menu de filtre (sur une cellule d’en-tête avec flèche)"
     }
   },
   "spreadsheet": {

@@ -10,7 +10,7 @@ import { Dialoog } from "../werkruimte/Dialoog";
 import "../werkruimte/werkruimte.css";
 import { RibbonFout } from "../Ribbon";
 import { intlLocale } from "../i18n/config";
-import { leesSelectie, Melding } from "./rekenblad-opdrachten";
+import { leesSelectie, Melding, type Selectie } from "./rekenblad-opdrachten";
 import { bereikA1, kolomLetters, type Bereik } from "./rekenblad-logica";
 import { bladFilter, getalUit } from "./rekenblad-filter";
 import { sorteerLijsten, type SorteerOp } from "./rekenblad-sorteren";
@@ -26,6 +26,14 @@ import type { DatumEenheid, ReeksSoort } from "./rekenblad-reeks";
 import "./rekenblad-gereedschap.css";
 
 const tekstVan = (fout: unknown) => (fout instanceof Melding || fout instanceof Error ? fout.message : String(fout));
+
+function leesOfFout(api: XlsxEditorApi): Selectie | Error {
+  try {
+    return leesSelectie(api);
+  } catch (fout) {
+    return fout instanceof Error ? fout : new Error(String(fout));
+  }
+}
 
 // ------------------------------------------------------------ Sorteren
 
@@ -47,8 +55,8 @@ interface Doel {
 }
 
 /** Bepaalt wat het venster sorteert: het filterbereik, de selectie of het gebied rond de cel. */
-async function sorteerDoel(api: XlsxEditorApi): Promise<Doel> {
-  const { blad, sheetId, bereik, focus } = leesSelectie(api);
+async function sorteerDoel(api: XlsxEditorApi, selectie: Selectie): Promise<Doel> {
+  const { blad, sheetId, bereik, focus } = selectie;
   const f = bladFilter(api.handle, blad);
   if (f && focus.row >= f.bereik.top && focus.row <= f.bereik.bottom && focus.col >= f.bereik.left && focus.col <= f.bereik.right)
     return { blad, sheetId, bereik: f.bereik, kop: true, focus: focus.col };
@@ -67,9 +75,15 @@ export function SorteerVenster({ api, sluit }: { api: XlsxEditorApi; sluit: () =
   const [niveaus, setNiveaus] = useState<Niveau[]>([]);
   const [status, setStatus] = useState("");
   const lijsten = sorteerLijsten(intlLocale());
+  // De selectie bij het openen: daarna maakt het modale venster het raster inert.
+  const [selectie] = useState(() => leesOfFout(api));
 
   useEffect(() => {
-    void sorteerDoel(api)
+    if (selectie instanceof Error) {
+      setStatus(tekstVan(selectie));
+      return;
+    }
+    void sorteerDoel(api, selectie)
       .then((d) => {
         setDoel(d);
         setKop(d.kop);
@@ -302,14 +316,12 @@ export function ReeksVenster({ api, sluit }: { api: XlsxEditorApi; sluit: () => 
   const { t } = useTranslation("spreadsheet");
   const fout = useContext(RibbonFout);
   const id = useId();
-  const [richting, setRichting] = useState<ReeksKeuze["richting"]>(() => {
-    try {
-      const { bereik } = leesSelectie(api);
-      return bereik.right - bereik.left > bereik.bottom - bereik.top ? "rijen" : "kolommen";
-    } catch {
-      return "kolommen";
-    }
-  });
+  const [selectie] = useState(() => leesOfFout(api));
+  const [richting, setRichting] = useState<ReeksKeuze["richting"]>(() =>
+    !(selectie instanceof Error) && selectie.bereik.right - selectie.bereik.left > selectie.bereik.bottom - selectie.bereik.top
+      ? "rijen"
+      : "kolommen",
+  );
   const [soort, setSoort] = useState<ReeksSoort>("lineair");
   const [eenheid, setEenheid] = useState<DatumEenheid>("dag");
   const [stap, setStap] = useState("1");
@@ -324,7 +336,8 @@ export function ReeksVenster({ api, sluit }: { api: XlsxEditorApi; sluit: () => 
       return;
     }
     try {
-      await reeksVullen(api, { richting, soort, eenheid, stap: s, eind: e });
+      if (selectie instanceof Error) throw selectie;
+      await reeksVullen(api, { richting, soort, eenheid, stap: s, eind: e }, selectie);
       sluit();
     } catch (fout2) {
       setStatus(tekstVan(fout2));

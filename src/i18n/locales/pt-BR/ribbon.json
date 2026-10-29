@@ -311,7 +311,8 @@
       "contextMenu": "Abrir menu de contexto",
       "fillRight": "Preencher à direita",
       "insertFunction": "Inserir função",
-      "toggleReference": "Referência absoluta ou relativa (ao editar uma fórmula)"
+      "toggleReference": "Referência absoluta ou relativa (ao editar uma fórmula)",
+      "openFilterMenu": "Abrir o menu de filtro (em uma célula de cabeçalho com seta)"
     }
   },
   "spreadsheet": {

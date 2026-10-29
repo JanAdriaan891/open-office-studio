@@ -311,7 +311,8 @@
       "contextMenu": "Kontextmenü öffnen",
       "fillRight": "Nach rechts ausfüllen",
       "insertFunction": "Funktion einfügen",
-      "toggleReference": "Bezug absolut oder relativ (beim Bearbeiten einer Formel)"
+      "toggleReference": "Bezug absolut oder relativ (beim Bearbeiten einer Formel)",
+      "openFilterMenu": "Filtermenü öffnen (auf einer Kopfzelle mit Filterpfeil)"
     }
   },
   "spreadsheet": {

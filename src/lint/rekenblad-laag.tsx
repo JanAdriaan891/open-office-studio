@@ -22,7 +22,7 @@ import { useEditorApi } from "./editorApi";
 import { RibbonFout } from "../Ribbon";
 import { abonneerFilters, bladFilter, laadFilters, leesAutoFilters } from "./rekenblad-filter";
 import { doelBereik, vul, vulTotEinde, type VulKeuze, type VulRichting } from "./rekenblad-gegevens";
-import { alleenLezen, Melding } from "./rekenblad-opdrachten";
+import { alleenLezen, bewerktTekst, Melding, rekenbladHost } from "./rekenblad-opdrachten";
 import { kolomLetters, type Bereik } from "./rekenblad-logica";
 import { FilterMenu } from "./rekenblad-filtermenu";
 import "./rekenblad-gereedschap.css";
@@ -103,7 +103,9 @@ export function maakRekenbladLaag(): RekenbladLaag {
               />
             ) : null;
           })}
-        {blad >= 0 && <Filterpijlen api={api} blad={blad} sheetId={sheetId} geometry={geometry} />}
+        {blad >= 0 && (
+          <Filterpijlen api={api} blad={blad} sheetId={sheetId} geometry={geometry} focus={sel?.cells?.focus ?? null} />
+        )}
         {sel?.cells && !sel.chartId && !context.snapshot.readOnly && (
           <Vulgreep api={api} blad={blad} sheetId={sheetId} bereik={normaal(sel.cells)!} geometry={geometry} zoom={geometry.layout.zoom} />
         )}
@@ -168,15 +170,37 @@ function Filterpijlen({
   blad,
   sheetId,
   geometry,
+  focus,
 }: {
   api: XlsxEditorApi;
   blad: number;
   sheetId: string;
   geometry: XlsxPluginGeometry;
+  focus: { row: number; col: number } | null;
 }) {
   const { t } = useTranslation("spreadsheet");
   const [open, setOpen] = useState<{ kolom: number; anker: DOMRect } | null>(null);
   const f = bladFilter(api.handle, blad);
+  // Alt+Pijl-omlaag op een kopcel opent het filtermenu, zoals in Excel.
+  const recent = useRef({ f, focus });
+  recent.current = { f, focus };
+  useEffect(() => {
+    const toets = (e: KeyboardEvent) => {
+      if (!e.altKey || e.key !== "ArrowDown" || e.ctrlKey || e.metaKey || e.shiftKey || bewerktTekst()) return;
+      const { f: filter, focus: cel } = recent.current;
+      const host = rekenbladHost();
+      const actief = document.activeElement;
+      if (!filter || !cel || !host || (actief && actief !== document.body && !host.contains(actief))) return;
+      if (cel.row !== filter.bereik.top || cel.col < filter.bereik.left || cel.col > filter.bereik.right) return;
+      const knop = host.querySelector<HTMLElement>(`.rekenblad-filterpijl[data-kolom="${cel.col}"]`);
+      if (!knop) return;
+      e.preventDefault();
+      e.stopPropagation();
+      setOpen({ kolom: cel.col, anker: knop.getBoundingClientRect() });
+    };
+    window.addEventListener("keydown", toets, true);
+    return () => window.removeEventListener("keydown", toets, true);
+  }, []);
   if (!f) return null;
   const pijlen = [];
   for (let c = f.bereik.left; c <= f.bereik.right; c++) {
@@ -189,6 +213,7 @@ function Filterpijlen({
       <button
         key={c}
         type="button"
+        data-kolom={c}
         className={`rekenblad-filterpijl${actief ? " is-actief" : ""}`}
         style={{ left: r.x + r.width - grootte - 1, top: r.y + (r.height - grootte) / 2, width: grootte, height: grootte }}
         aria-label={t(actief ? "data.filter.buttonActive" : "data.filter.button", { column: naam })}

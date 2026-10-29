@@ -289,6 +289,8 @@ export const vasteSneltoetsen: readonly SneltoetsInfo[] = [
   rekenblad("Ctrl+D", "fillDown"),
   rekenblad("Ctrl+R", "fillRight"),
   rekenblad("Shift+F3", "insertFunction"),
+  // Op een kopcel met filterpijl (src/lint/rekenblad-laag.tsx).
+  rekenblad("Alt+ArrowDown", "openFilterMenu"),
   // F4 in de celinvoer of formulebalk (src/lint/rekenblad-formulebalk.tsx).
   rekenblad("F4", "toggleReference"),
   rekenblad("Ctrl+PageUp", "previousSheet"),

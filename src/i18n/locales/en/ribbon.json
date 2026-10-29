@@ -311,7 +311,8 @@
       "contextMenu": "Open context menu",
       "fillRight": "Fill right",
       "insertFunction": "Insert function",
-      "toggleReference": "Toggle absolute/relative reference (while editing a formula)"
+      "toggleReference": "Toggle absolute/relative reference (while editing a formula)",
+      "openFilterMenu": "Open filter menu (on a header cell with a filter arrow)"
     }
   },
   "spreadsheet": {

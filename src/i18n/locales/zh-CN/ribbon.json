@@ -311,7 +311,8 @@
       "contextMenu": "打开快捷菜单",
       "fillRight": "向右填充",
       "insertFunction": "插入函数",
-      "toggleReference": "切换绝对/相对引用（编辑公式时）"
+      "toggleReference": "切换绝对/相对引用（编辑公式时）",
+      "openFilterMenu": "打开筛选菜单（在带筛选箭头的标题单元格上）"
     }
   },
   "spreadsheet": {

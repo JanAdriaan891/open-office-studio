@@ -24,6 +24,7 @@ import {
   Melding,
   voerOpsUit,
   type RuweOp,
+  type Selectie,
 } from "./rekenblad-opdrachten";
 import {
   bereikA1,
@@ -407,9 +408,10 @@ export interface ReeksKeuze extends ReeksOpties {
   richting: "kolommen" | "rijen";
 }
 
-export async function reeksVullen(api: XlsxEditorApi, keuze: ReeksKeuze) {
+/** `selectie`: zoals bij het openen van het venster (een modaal venster maakt het raster inert). */
+export async function reeksVullen(api: XlsxEditorApi, keuze: ReeksKeuze, selectie: Selectie = leesSelectie(api)) {
   schrijfbaar(api);
-  const { blad, sheetId, bereik } = leesSelectie(api);
+  const { blad, sheetId, bereik } = selectie;
   const kolommen = keuze.richting === "kolommen";
   let b = bereik;
   const enkel = kolommen ? bereik.top === bereik.bottom : bereik.left === bereik.right;
