@@ -83,7 +83,8 @@ export async function maakAlle({ wortel = ".", controleer = false } = {}) {
   for (const { naam, pad } of SJABLONEN) {
     const doel = join(wortel, pad);
     const inhoud = await maakSjabloon(naam, { wortel });
-    const huidig = await readFile(doel, "utf8").catch(() => null);
+    // Regeleinden gelijkschakelen: Git kan op Windows CRLF uitchecken.
+    const huidig = (await readFile(doel, "utf8").catch(() => null))?.replace(/\r\n/g, "\n");
     if (huidig === inhoud) continue;
     verouderd.push(pad);
     if (!controleer) {
