@@ -1,43 +1,43 @@
 {
   "attribution": {
-    "system": "Font on this computer.",
-    "officeMetric": "Office font; displayed here with {{substitute}} (metric-compatible). The file keeps {{font}}.",
-    "officeApproximation": "Office font; displayed here with {{substitute}} (approximation). The file keeps {{font}}.",
-    "unknown": "Not available; the app chooses a substitute.",
+    "system": "Fonte neste computador.",
+    "officeMetric": "Fonte do Office; exibida aqui com {{substitute}} (compatível em métricas). O arquivo mantém {{font}}.",
+    "officeApproximation": "Fonte do Office; exibida aqui com {{substitute}} (aproximação). O arquivo mantém {{font}}.",
+    "unknown": "Não disponível; o aplicativo escolhe uma substituta.",
     "license": "{{license}} · {{source}}.",
-    "bundled": "included ({{package}})",
-    "metricCompatible": "Metric-compatible with {{font}}."
+    "bundled": "incluída ({{package}})",
+    "metricCompatible": "Compatível em métricas com {{font}}."
   },
   "errors": {
-    "chooseFailed": "The font could not be applied.",
-    "loadFailed": "Font {{font}} could not be loaded ({{status}})."
+    "chooseFailed": "Não foi possível aplicar a fonte.",
+    "loadFailed": "Não foi possível carregar a fonte {{font}} ({{status}})."
   },
   "groups": {
-    "document": "In this document",
-    "recent": "Recently used",
-    "sansSerif": "Sans serif",
-    "serif": "Serif",
-    "monospace": "Monospace",
-    "handwritingDisplay": "Handwriting and display",
-    "system": "On this computer"
+    "document": "Neste documento",
+    "recent": "Usadas recentemente",
+    "sansSerif": "Sem serifa",
+    "serif": "Com serifa",
+    "monospace": "Monoespaçada",
+    "handwritingDisplay": "Manuscrita e decorativa",
+    "system": "Neste computador"
   },
   "picker": {
-    "font": "Font",
-    "mixed": "mixed",
+    "font": "Fonte",
+    "mixed": "misto",
     "current": "{{name}}: {{font}}",
-    "searchPlaceholder": "Search…",
-    "searchLabel": "Search fonts",
-    "noResults": "No font found; Enter chooses “{{query}}”.",
-    "bold": "Bold",
-    "italic": "Italic",
-    "boldItalic": "Bold Italic",
-    "showAll": "Show all fonts",
-    "showFewer": "Show fewer fonts",
-    "showSystemFonts": "Show fonts on this computer…"
+    "searchPlaceholder": "Pesquisar…",
+    "searchLabel": "Pesquisar fontes",
+    "noResults": "Nenhuma fonte encontrada; Enter escolhe “{{query}}”.",
+    "bold": "Negrito",
+    "italic": "Itálico",
+    "boldItalic": "Negrito Itálico",
+    "showAll": "Mostrar todas as fontes",
+    "showFewer": "Mostrar menos fontes",
+    "showSystemFonts": "Mostrar fontes deste computador…"
   },
   "substitution": {
-    "message": "Fonts substituted because they are not installed on this computer — {{details}}. The file keeps the original names.",
-    "metric": "metric-compatible (same line breaks): {{fonts}}",
-    "approximate": "approximation (lines and pages may shift): {{fonts}}"
+    "message": "Fontes substituídas porque não estão instaladas neste computador — {{details}}. O arquivo mantém os nomes originais.",
+    "metric": "compatível em métricas (mesmas quebras de linha): {{fonts}}",
+    "approximate": "aproximação (linhas e páginas podem mudar): {{fonts}}"
   }
 }

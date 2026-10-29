@@ -1,35 +1,35 @@
 {
   "errors": {
-    "pageConversionFailed": "The page could not be converted.",
-    "noPagesSelected": "No pages have been selected.",
-    "imageUnreadable": "The image could not be read.",
-    "noSlides": "The presentation has no slides.",
-    "notAWorksheet": "Sheet ‘{{name}}’ is not a worksheet and is skipped.",
-    "sheetsEmpty": "There is nothing to print: the sheets are empty.",
-    "documentNotPrepared": "The document could not be prepared for printing.",
-    "noPages": "The document has no pages to print."
+    "pageConversionFailed": "Não foi possível converter a página.",
+    "noPagesSelected": "Nenhuma página foi selecionada.",
+    "imageUnreadable": "Não foi possível ler a imagem.",
+    "noSlides": "A apresentação não tem slides.",
+    "notAWorksheet": "A planilha ‘{{name}}’ não é uma planilha de dados e será ignorada.",
+    "sheetsEmpty": "Não há nada para imprimir: as planilhas estão vazias.",
+    "documentNotPrepared": "Não foi possível preparar o documento para impressão.",
+    "noPages": "O documento não tem páginas para imprimir."
   },
   "pageBreaks": {
-    "title": "Page Break Preview",
-    "emptySheet": "This sheet is empty.",
-    "calculating": "Calculating page breaks…",
-    "breakBeforeColumn": "Page break before column {{column}} (drag to move)",
-    "breakBeforeRow": "Page break before row {{row}} (drag to move)",
-    "help": "Solid lines are manual page breaks; dashed lines follow from the paper size and scale. Drag a break, or double-click a boundary to add or remove a break.",
-    "clearManual": "Reset All Page Breaks",
-    "done": "Done",
-    "summary_one": "Scale {{scale}} · {{pages}} page",
-    "summary_many": "Scale {{scale}} · {{pages}} pages",
-    "summary_other": "Scale {{scale}} · {{pages}} pages"
+    "title": "Visualização da quebra de página",
+    "emptySheet": "Esta planilha está vazia.",
+    "calculating": "Calculando quebras de página…",
+    "breakBeforeColumn": "Quebra de página antes da coluna {{column}} (arraste para mover)",
+    "breakBeforeRow": "Quebra de página antes da linha {{row}} (arraste para mover)",
+    "help": "Linhas contínuas são quebras de página manuais; as tracejadas decorrem do tamanho do papel e da escala. Arraste uma quebra ou clique duas vezes em um limite para adicionar ou remover uma quebra.",
+    "clearManual": "Redefinir todas as quebras de página",
+    "done": "Concluído",
+    "summary_one": "Escala {{scale}} · {{pages}} página",
+    "summary_many": "Escala {{scale}} · {{pages}} páginas",
+    "summary_other": "Escala {{scale}} · {{pages}} páginas"
   },
   "pages": {
-    "page": "Page {{number}}",
-    "pageOfTotal": "Page {{page}} of {{total}}",
-    "sheetPage": "{{sheet}}, page {{page}} of {{total}}",
+    "page": "Página {{number}}",
+    "pageOfTotal": "Página {{page}} de {{total}}",
+    "sheetPage": "{{sheet}}, página {{page}} de {{total}}",
     "slide": "Slide {{number}}",
-    "handout": "Handout {{page}} (slides {{first}}–{{last}})",
-    "notes": "Notes slide {{number}}",
-    "notesContinued": "Notes slide {{number}} (continued)",
-    "pageNumberOfTotal": "{{page}} of {{total}}"
+    "handout": "Folheto {{page}} (slides {{first}}–{{last}})",
+    "notes": "Anotações do slide {{number}}",
+    "notesContinued": "Anotações do slide {{number}} (continuação)",
+    "pageNumberOfTotal": "{{page}} de {{total}}"
   }
 }
