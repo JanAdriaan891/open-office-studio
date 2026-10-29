@@ -57,6 +57,8 @@ import { TabBalk, paneelId, tabId, tabbladIcoon } from "./TabBalk";
 import { useTabSneltoetsen } from "./useTabSneltoetsen";
 import { useVensters } from "./useVensters";
 import { useSysteembestanden } from "./systeembestanden";
+import { useHostOpenen } from "./useHostOpenen";
+import { hostBestandBekend, officeHost } from "./host";
 import { Werkruimtehulp } from "./werkruimte/Werkruimtehulp";
 import { bijNieuwDocument } from "./werkruimte/gebeurtenissen";
 import { Statusbalk } from "./status/Statusbalk";
@@ -281,7 +283,10 @@ export function OfficeStudio() {
       : opslagplan({
           soort: tabblad.soort,
           werkbestand: tabblad.werkbestand,
-          heeftKeuze: opslaanKeuzes.current.has(tabblad.id),
+          // Een document uit de host (SuperCloud-werkplek) gaat met Ctrl+S direct terug.
+          heeftKeuze:
+            opslaanKeuzes.current.has(tabblad.id) ||
+            (!!officeHost() && hostBestandBekend(tabblad.naam)),
         });
     if (plan.route === "opslaanAls") return vraagOpslaanAls(tabblad.id);
     // Een versleuteld origineel nooit stil onversleuteld terugschrijven.
@@ -768,6 +773,9 @@ export function OfficeStudio() {
     }
     return (await importeer(naam, bytes, werkbestand)) && !!werkbestand;
   }
+  // Gehoste bouw: het document dat de host (SuperCloud-werkplek) aanbiedt.
+  useHostOpenen(openBestand, meldActief);
+
   useSysteembestanden(openSysteembestand, (token) => {
     if (tabs.activeerWerkbestand(token)) herstelFocus();
   });
