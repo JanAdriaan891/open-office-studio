@@ -47,10 +47,16 @@
     },
     "linux": {
       "deb": {
-        "desktopTemplate": "linux/open-office-studio.desktop.hbs"
+        "desktopTemplate": "linux/open-office-studio.desktop.hbs",
+        "files": {
+          "/usr/share/mime/packages/open-office-studio.xml": "linux/open-office-studio-mime.xml"
+        }
       },
       "rpm": {
-        "desktopTemplate": "linux/open-office-studio.desktop.hbs"
+        "desktopTemplate": "linux/open-office-studio.desktop.hbs",
+        "files": {
+          "/usr/share/mime/packages/open-office-studio.xml": "linux/open-office-studio-mime.xml"
+        }
       }
     }
   }
