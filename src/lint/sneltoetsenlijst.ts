@@ -275,7 +275,7 @@ export const vasteSneltoetsen: readonly SneltoetsInfo[] = [
   // Rekenblad: lint (src/lint/rekenblad.tsx).
   rekenblad("Ctrl+L", "alignLeft"),
   rekenblad("Ctrl+E", "center"),
-  rekenblad("Ctrl+R", "alignRight"),
+  // Ctrl+R is naar rechts doorvoeren, zoals Ctrl+D omlaag (#63); rechts uitlijnen via het lint.
   rekenblad("Ctrl+Shift+1", "numberFormat"),
   rekenblad("Ctrl+Shift+2", "scientificFormat"),
   rekenblad("Ctrl+Shift+3", "dateFormat"),
@@ -287,6 +287,12 @@ export const vasteSneltoetsen: readonly SneltoetsInfo[] = [
   rekenblad("Ctrl+Shift+;", "currentTime"),
   rekenblad("Ctrl+Shift+:", "currentTime"),
   rekenblad("Ctrl+D", "fillDown"),
+  rekenblad("Ctrl+R", "fillRight"),
+  rekenblad("Shift+F3", "insertFunction"),
+  // Op een kopcel met filterpijl (src/lint/rekenblad-laag.tsx).
+  rekenblad("Alt+ArrowDown", "openFilterMenu"),
+  // F4 in de celinvoer of formulebalk (src/lint/rekenblad-formulebalk.tsx).
+  rekenblad("F4", "toggleReference"),
   rekenblad("Ctrl+PageUp", "previousSheet"),
   rekenblad("Ctrl+PageDown", "nextSheet"),
   rekenblad("Ctrl+F", "find"),

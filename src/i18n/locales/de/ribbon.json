@@ -319,7 +319,11 @@
       "showPen": "Präsentation: Stift",
       "showHighlighter": "Präsentation: Textmarker",
       "showLaser": "Präsentation: Laserpointer",
-      "showClearInk": "Präsentation: Freihand auf der Folie löschen"
+      "showClearInk": "Präsentation: Freihand auf der Folie löschen",
+      "fillRight": "Nach rechts ausfüllen",
+      "openFilterMenu": "Filtermenü öffnen (auf einer Kopfzelle mit Filterpfeil)",
+      "insertFunction": "Funktion einfügen",
+      "toggleReference": "Bezug absolut oder relativ (beim Bearbeiten einer Formel)"
     }
   },
   "spreadsheet": {
@@ -353,7 +357,8 @@
       "sort": "Sortieren",
       "fill": "Ausfüllen",
       "freezePanes": "Fenster fixieren",
-      "output": "Ausgabe"
+      "output": "Ausgabe",
+      "sortFilter": "Sortieren und Filtern"
     },
     "commands": {
       "fontSize": "Schriftgrad",
@@ -415,7 +420,15 @@
       "freezeFirstColumn": "Erste Spalte fixieren",
       "print": "Drucken",
       "printHint": "Druckvorschau und Drucken ({{shortcut}})",
-      "exportImage": "Als Bild exportieren"
+      "exportImage": "Als Bild exportieren",
+      "sortDialog": "Sortieren…",
+      "filter": "Filtern",
+      "filterHint": "Filter ein oder aus (Filterpfeile in der Kopfzeile)",
+      "clearFilter": "Löschen",
+      "reapplyFilter": "Erneut anwenden",
+      "fillRight": "Rechts",
+      "fillSeries": "Reihe…",
+      "insertFunction": "Funktion einfügen"
     },
     "dialogs": {
       "closeEsc": "Schließen (Esc)",

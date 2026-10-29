@@ -319,7 +319,11 @@
       "showPen": "Slide show: pen",
       "showHighlighter": "Slide show: highlighter",
       "showLaser": "Slide show: laser pointer",
-      "showClearInk": "Slide show: erase ink on the slide"
+      "showClearInk": "Slide show: erase ink on the slide",
+      "fillRight": "Fill right",
+      "openFilterMenu": "Open filter menu (on a header cell with a filter arrow)",
+      "insertFunction": "Insert function",
+      "toggleReference": "Toggle absolute/relative reference (while editing a formula)"
     }
   },
   "spreadsheet": {
@@ -353,7 +357,8 @@
       "sort": "Sort",
       "fill": "Fill",
       "freezePanes": "Freeze Panes",
-      "output": "Output"
+      "output": "Output",
+      "sortFilter": "Sort and filter"
     },
     "commands": {
       "fontSize": "Font Size",
@@ -415,7 +420,15 @@
       "freezeFirstColumn": "Freeze First Column",
       "print": "Print",
       "printHint": "Print preview and print ({{shortcut}})",
-      "exportImage": "Export as Image"
+      "exportImage": "Export as Image",
+      "sortDialog": "Sort…",
+      "filter": "Filter",
+      "filterHint": "Turn filter on or off (filter arrows in the header row)",
+      "clearFilter": "Clear",
+      "reapplyFilter": "Reapply",
+      "fillRight": "Right",
+      "fillSeries": "Series…",
+      "insertFunction": "Insert function"
     },
     "dialogs": {
       "closeEsc": "Close (Esc)",

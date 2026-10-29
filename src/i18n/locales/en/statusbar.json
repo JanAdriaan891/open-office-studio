@@ -32,7 +32,9 @@
     "count": "Count: {{value}}",
     "sum": "Sum: {{value}}",
     "summary_one": "Minimum {{min}} · Maximum {{max}} · {{numbers}} number",
-    "summary_other": "Minimum {{min}} · Maximum {{max}} · {{numbers}} numbers"
+    "summary_other": "Minimum {{min}} · Maximum {{max}} · {{numbers}} numbers",
+    "filter": "{{visible}} of {{total}} records found",
+    "filterTitle": "Filter active on this sheet"
   },
   "presentation": {
     "slideOf": "Slide {{slide}} of {{slides}}",

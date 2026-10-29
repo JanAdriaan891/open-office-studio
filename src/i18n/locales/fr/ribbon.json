@@ -319,7 +319,11 @@
       "showPen": "Diaporama : stylo",
       "showHighlighter": "Diaporama : surligneur",
       "showLaser": "Diaporama : pointeur laser",
-      "showClearInk": "Diaporama : effacer l'encre de la diapositive"
+      "showClearInk": "Diaporama : effacer l'encre de la diapositive",
+      "fillRight": "Recopier à droite",
+      "openFilterMenu": "Ouvrir le menu de filtre (sur une cellule d’en-tête avec flèche)",
+      "insertFunction": "Insérer une fonction",
+      "toggleReference": "Référence absolue ou relative (pendant la modification d’une formule)"
     }
   },
   "spreadsheet": {
@@ -353,7 +357,8 @@
       "sort": "Trier",
       "fill": "Recopier",
       "freezePanes": "Figer les volets",
-      "output": "Sortie"
+      "output": "Sortie",
+      "sortFilter": "Trier et filtrer"
     },
     "commands": {
       "fontSize": "Taille de police",
@@ -415,7 +420,15 @@
       "freezeFirstColumn": "Figer la première colonne",
       "print": "Imprimer",
       "printHint": "Aperçu avant impression et impression ({{shortcut}})",
-      "exportImage": "Exporter en tant qu'image"
+      "exportImage": "Exporter en tant qu'image",
+      "sortDialog": "Trier…",
+      "filter": "Filtrer",
+      "filterHint": "Activer ou désactiver le filtre (flèches dans la ligne d’en-tête)",
+      "clearFilter": "Effacer",
+      "reapplyFilter": "Réappliquer",
+      "fillRight": "À droite",
+      "fillSeries": "Série…",
+      "insertFunction": "Insérer une fonction"
     },
     "dialogs": {
       "closeEsc": "Fermer (Esc)",

@@ -319,7 +319,11 @@
       "showPen": "放映：笔",
       "showHighlighter": "放映：荧光笔",
       "showLaser": "放映：激光笔",
-      "showClearInk": "放映：擦除幻灯片墨迹"
+      "showClearInk": "放映：擦除幻灯片墨迹",
+      "fillRight": "向右填充",
+      "openFilterMenu": "打开筛选菜单（在带筛选箭头的标题单元格上）",
+      "insertFunction": "插入函数",
+      "toggleReference": "切换绝对/相对引用（编辑公式时）"
     }
   },
   "spreadsheet": {
@@ -353,7 +357,8 @@
       "sort": "排序",
       "fill": "填充",
       "freezePanes": "冻结窗格",
-      "output": "输出"
+      "output": "输出",
+      "sortFilter": "排序和筛选"
     },
     "commands": {
       "fontSize": "字号",
@@ -415,7 +420,15 @@
       "freezeFirstColumn": "冻结首列",
       "print": "打印",
       "printHint": "打印预览和打印（{{shortcut}}）",
-      "exportImage": "导出为图像"
+      "exportImage": "导出为图像",
+      "sortDialog": "排序…",
+      "filter": "筛选",
+      "filterHint": "打开或关闭筛选（标题行中的筛选箭头）",
+      "clearFilter": "清除",
+      "reapplyFilter": "重新应用",
+      "fillRight": "向右",
+      "fillSeries": "序列…",
+      "insertFunction": "插入函数"
     },
     "dialogs": {
       "closeEsc": "关闭 (Esc)",
