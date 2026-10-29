@@ -17,7 +17,7 @@ import {
   wijzigInstellingen,
 } from "../instellingen";
 import i18next, { huidigeTaal, NAMESPACES, zetTaal } from "./config";
-import { bepaalTaal, isRtl, TAALCODES, TAALNAMEN, zoekTaal } from "./talen";
+import { bepaalTaal, INTERFACETALEN, isRtl, TAALCODES, TAALNAMEN, zoekTaal } from "./talen";
 import { formatDatum, formatGetal, formatLijst, meervoudVorm } from "./opmaak";
 import { ENGINE_BRON, laadEngineVertaling } from "./engine";
 import { tekstEs, rekenbladEs, diaEs } from "./engine/es";
@@ -30,7 +30,10 @@ describe("taalkeuze", () => {
     expect(bepaalTaal("auto", ["xx-YY", "fr-CA"])).toBe("fr");
     expect(bepaalTaal("auto", ["xx"])).toBe("en");
     expect(bepaalTaal("auto", [])).toBe("en");
-    expect(bepaalTaal("tr", ["de"])).toBe("tr");
+    expect(bepaalTaal("it", ["de"])).toBe("it");
+    // Een voorbereide, nog niet aangeboden taal valt terug op Engels.
+    expect(bepaalTaal("tr", ["de"])).toBe("en");
+    expect(bepaalTaal("auto", ["ja-JP", "fr-FR"])).toBe("fr");
   });
 
   it("herkent volledige tags en regio's", () => {
@@ -213,7 +216,7 @@ describe("controle-script", () => {
 
   it("alle vertalingen van de app zijn in orde", async () => {
     const { fouten, talen } = await controleerVertalingen();
-    expect(talen).toHaveLength(31);
+    expect(talen).toEqual([...INTERFACETALEN]);
     expect(fouten).toEqual([]);
   });
 });

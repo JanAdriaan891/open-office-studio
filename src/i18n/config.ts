@@ -18,6 +18,7 @@ import {
   bepaalTaal,
   BRONTAAL,
   DIRECTE_TALEN,
+  INTERFACETALEN,
   INTL_LOCALE,
   isRtl,
   isTaal,
@@ -37,11 +38,8 @@ const direct = import.meta.glob<{ default: Bundel }>(
   ["./locales/nl/*.json", "./locales/en/*.json"],
   { eager: true },
 );
-const lui = import.meta.glob<{ default: Bundel }>([
-  "./locales/*/*.json",
-  "!./locales/nl/*.json",
-  "!./locales/en/*.json",
-]);
+// Alleen de aangeboden talen (INTERFACETALEN in talen.ts); voorbereide talen komen niet in de bundel.
+const lui = import.meta.glob<{ default: Bundel }>(["./locales/{de,fr,es,it,pt-BR,zh-CN}/*.json"]);
 
 /** Vertalingen die al geladen zijn, per taal en namespace. */
 const resources: Record<string, Record<string, Bundel>> = {};
@@ -83,7 +81,7 @@ export function laadTaal(taal: Taal): Promise<void> {
 /** Keuzelijst voor de instellingen: "auto" eerst, daarna de talen in hun eigen naam. */
 export const TALEN: readonly { code: TaalKeuze; naam: string }[] = [
   { code: "auto", naam: "" },
-  ...TAALCODES.map((code) => ({ code, naam: TAALNAMEN[code] })),
+  ...INTERFACETALEN.map((code) => ({ code, naam: TAALNAMEN[code] })),
 ];
 
 function zetDocumentTaal(taal: string) {
@@ -101,7 +99,7 @@ void i18next.use(initReactI18next).init({
   // Een lui geladen taal komt na het laden; tot dan Engels (zie `gereed`).
   lng: geladen.has(startTaal) ? startTaal : TERUGVALTAAL,
   fallbackLng: TERUGVALTAAL,
-  supportedLngs: [...TAALCODES],
+  supportedLngs: [...INTERFACETALEN],
   load: "currentOnly",
   ns: NAMESPACES,
   defaultNS: "common",

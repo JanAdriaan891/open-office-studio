@@ -22,7 +22,10 @@ const BRONTAAL = "nl";
 /** Leest de taalcodes uit src/i18n/talen.ts (één bron van waarheid). */
 export async function leesTaalcodes(talenBestand = "src/i18n/talen.ts") {
   const bron = await readFile(talenBestand, "utf8");
-  const lijst = /TAALCODES\s*=\s*\[([\s\S]*?)\]\s*as const/.exec(bron);
+  // De aangeboden talen; zonder INTERFACETALEN alle TAALCODES.
+  const lijst =
+    /INTERFACETALEN\s*=\s*\[([\s\S]*?)\]\s*as const/.exec(bron) ??
+    /TAALCODES\s*=\s*\[([\s\S]*?)\]\s*as const/.exec(bron);
   if (!lijst) throw new Error(`TAALCODES niet gevonden in ${talenBestand}`);
   return [...lijst[1].matchAll(/"([^"]+)"/g)].map((m) => m[1]);
 }

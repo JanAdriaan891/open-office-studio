@@ -38,6 +38,13 @@ export const TAALCODES = [
   "ko",
 ] as const;
 export type Taal = (typeof TAALCODES)[number];
+
+/**
+ * Talen die de app nu aanbiedt, laadt en controleert. De overige codes in
+ * TAALCODES zijn voorbereid (deels vertaald) maar nog niet beschikbaar.
+ */
+export const INTERFACETALEN = ["nl", "en", "de", "fr", "es", "it", "pt-BR", "zh-CN"] as const satisfies readonly Taal[];
+export const isInterfacetaal = (taal: Taal) => (INTERFACETALEN as readonly Taal[]).includes(taal);
 /** Keuze in de instellingen: een vaste taal of "auto" (volgt de systeemtaal). */
 export type TaalKeuze = "auto" | Taal;
 export const TAALKEUZES: readonly TaalKeuze[] = ["auto", ...TAALCODES];
@@ -172,10 +179,10 @@ export function zoekTaal(tag: string): Taal | null {
  * ondersteunen (zie `zoekTaal`), anders Engels.
  */
 export function bepaalTaal(keuze: TaalKeuze, systeem: readonly string[] = systeemTalen()): Taal {
-  if (keuze !== "auto") return keuze;
+  if (keuze !== "auto") return isInterfacetaal(keuze) ? keuze : TERUGVALTAAL;
   for (const tag of systeem) {
     const taal = zoekTaal(tag);
-    if (taal) return taal;
+    if (taal && isInterfacetaal(taal)) return taal;
   }
   return TERUGVALTAAL;
 }
