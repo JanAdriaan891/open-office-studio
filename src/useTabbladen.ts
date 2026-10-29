@@ -26,7 +26,7 @@ import {
   type MeldingActie,
   type NieuweMelding,
   type Toon,
-} from "./meldingen";
+} from "./meldingenWinkel";
 
 type Serialiseer = () => Promise<Uint8Array>;
 

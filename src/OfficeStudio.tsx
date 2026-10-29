@@ -54,7 +54,7 @@ import { naamloos, vingerafdruk, type Tabblad } from "./tabbladen";
 import { TabBalk, paneelId, tabId } from "./TabBalk";
 import { Titelbalk } from "./Titelbalk";
 import { Meldingen } from "./Meldingen";
-import { raadToon, zichtbaar as zichtbareMeldingen } from "./meldingen";
+import { raadToon, zichtbaar as zichtbareMeldingen } from "./meldingenWinkel";
 import { LintPlek, LintSlot, wijzigPlekken } from "./lintplek";
 import { titelbron, venstertitel } from "./venstertitel";
 import { toonInstellingen } from "./werkruimte/gebeurtenissen";

@@ -12,7 +12,7 @@ import {
   voegToe,
   zichtbaar,
   type Melding,
-} from "./meldingen";
+} from "./meldingenWinkel";
 import type { Rapport } from "./import/rapport";
 
 const info = (tabblad: number | null, tekst: string) =>

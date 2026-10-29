@@ -2,7 +2,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { CircleAlert, CircleCheck, Info, TriangleAlert, X } from "lucide-react";
 import { Rapportdetails } from "./import/RapportMelding";
-import { Afteller, rol, type Melding, type Toon } from "./meldingen";
+import { Afteller, rol, type Melding, type Toon } from "./meldingenWinkel";
 import "./meldingen.css";
 
 const ICOON = {

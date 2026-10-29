@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 /**
  * Maakt de Linux-startmenu-items (.desktop-sjablonen voor de Tauri-bundel, deb/rpm/AppImage)
  * met vertaalde GenericName/Comment/Keywords uit `src/i18n/locales/<taal>/desktop.json`

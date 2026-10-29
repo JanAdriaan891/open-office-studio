@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 /**
  * Controle van de vertalingen (zoals check-i18n.py in de OpenAEC-template).
  * Gebruik: `pnpm i18n:check` of `node scripts/controleer-i18n.mjs [map]`.
