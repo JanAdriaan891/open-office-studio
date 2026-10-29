@@ -67,6 +67,7 @@ export type RuweOp =
   | { type: "setFreezePane"; sheet: number; pane: Pane }
   | { type: "setColWidth"; sheet: number; col: number; width: number | null }
   | { type: "setRowHeight"; sheet: number; row: number; height: number | null }
+  | { type: "mergeCells"; sheet: number; range: { start: Cel; end: Cel } }
   | {
       type: "applyRangeFormat";
       sheet: number;
