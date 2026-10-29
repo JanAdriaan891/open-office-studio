@@ -114,5 +114,10 @@
   "theme": {
     "light": "Světlý motiv",
     "forge": "Motiv Forge"
+  },
+  "host": {
+    "conflict": "Někdo jiný mezitím tento dokument uložil. Vaše verze byla uložena jako kopie: {{name}}.",
+    "readOnly": "{{name}} byl otevřen jen pro čtení. Změny uložte pomocí Uložit jako.",
+    "openFailed": "Dokument z pracovní plochy nelze otevřít: {{error}}"
   }
 }
