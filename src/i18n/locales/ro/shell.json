@@ -113,5 +113,10 @@
   "theme": {
     "light": "Temă luminoasă",
     "forge": "Tema Forge"
+  },
+  "host": {
+    "conflict": "Altcineva a salvat între timp acest document. Versiunea dvs. a fost salvată ca o copie: {{name}}.",
+    "readOnly": "{{name}} a fost deschis doar în citire. Folosiți Salvare ca pentru a păstra modificările.",
+    "openFailed": "Documentul din spațiul de lucru nu a putut fi deschis: {{error}}"
   }
 }

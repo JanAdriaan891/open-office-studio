@@ -113,5 +113,10 @@
   "theme": {
     "light": "Tema claro",
     "forge": "Tema Forge"
+  },
+  "host": {
+    "conflict": "Outra pessoa guardou este documento entretanto. A sua versão foi guardada como cópia: {{name}}.",
+    "readOnly": "{{name}} foi aberto só de leitura. Utilize Guardar como para manter as suas alterações.",
+    "openFailed": "Não foi possível abrir o documento da área de trabalho: {{error}}"
   }
 }

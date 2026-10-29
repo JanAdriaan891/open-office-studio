@@ -112,5 +112,10 @@
   "theme": {
     "light": "Világos téma",
     "forge": "Forge téma"
+  },
+  "host": {
+    "conflict": "Valaki más időközben mentette ezt a dokumentumot. Az Ön verziója másolatként lett mentve: {{name}}.",
+    "readOnly": "A(z) {{name}} csak olvasásra nyílt meg. A módosítások megőrzéséhez használja a Mentés másként parancsot.",
+    "openFailed": "A munkaterület dokumentumát nem sikerült megnyitni: {{error}}"
   }
 }

@@ -112,5 +112,10 @@
   "theme": {
     "light": "Lyst tema",
     "forge": "Forge-tema"
+  },
+  "host": {
+    "conflict": "En anden har gemt dokumentet i mellemtiden. Din version blev gemt som en kopi: {{name}}.",
+    "readOnly": "{{name}} blev åbnet skrivebeskyttet. Brug Gem som for at beholde dine ændringer.",
+    "openFailed": "Dokumentet fra arbejdsområdet kunne ikke åbnes: {{error}}"
   }
 }

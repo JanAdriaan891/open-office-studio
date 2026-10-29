@@ -112,5 +112,10 @@
   "theme": {
     "light": "Light theme",
     "forge": "Forge theme"
+  },
+  "host": {
+    "conflict": "Someone else saved this document in the meantime. Your version was saved as a copy: {{name}}.",
+    "readOnly": "{{name}} was opened read-only. Use Save As to keep your changes.",
+    "openFailed": "The document from the workspace could not be opened: {{error}}"
   }
 }

@@ -112,5 +112,10 @@
   "theme": {
     "light": "Açık tema",
     "forge": "Forge teması"
+  },
+  "host": {
+    "conflict": "Bu belgeyi bu arada başka biri kaydetti. Sürümünüz kopya olarak kaydedildi: {{name}}.",
+    "readOnly": "{{name}} salt okunur açıldı. Değişikliklerinizi korumak için Farklı Kaydet'i kullanın.",
+    "openFailed": "Çalışma alanındaki belge açılamadı: {{error}}"
   }
 }

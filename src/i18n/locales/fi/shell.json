@@ -112,5 +112,10 @@
   "theme": {
     "light": "Vaalea teema",
     "forge": "Forge-teema"
+  },
+  "host": {
+    "conflict": "Joku muu tallensi tämän asiakirjan sillä välin. Versiosi tallennettiin kopiona: {{name}}.",
+    "readOnly": "{{name}} avattiin vain luku -tilassa. Säilytä muutoksesi valitsemalla Tallenna nimellä.",
+    "openFailed": "Työtilan asiakirjaa ei voitu avata: {{error}}"
   }
 }

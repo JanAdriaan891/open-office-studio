@@ -112,5 +112,10 @@
   "theme": {
     "light": "Licht thema",
     "forge": "Forge thema"
+  },
+  "host": {
+    "conflict": "Iemand anders heeft dit document intussen opgeslagen. Je versie is bewaard als kopie: {{name}}.",
+    "readOnly": "{{name}} is alleen-lezen geopend. Bewaar je wijzigingen met Opslaan als.",
+    "openFailed": "Het document van de werkplek kon niet worden geopend: {{error}}"
   }
 }
