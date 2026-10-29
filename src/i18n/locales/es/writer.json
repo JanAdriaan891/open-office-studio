@@ -1560,7 +1560,18 @@
       "toText": "Convertir en texto",
       "toTextTip": "Convertir la tabla en texto",
       "split": "Dividir tabla",
-      "splitTip": "Divide la tabla encima de la fila con el cursor. El documento se vuelve a cargar; después, Deshacer ya no funciona para los pasos anteriores."
+      "splitTip": "Divide la tabla encima de la fila con el cursor. El documento se vuelve a cargar; después, Deshacer ya no funciona para los pasos anteriores.",
+      "textDirection": "Dirección del texto",
+      "textDirectionTip": "Dirección del texto en las celdas seleccionadas",
+      "textDirectionHorizontal": "Horizontal",
+      "textDirectionDown": "Girado 90° (de arriba abajo)",
+      "textDirectionUp": "Girado 270° (de abajo arriba)",
+      "formula": "Fórmula",
+      "formulaTip": "Suma de los números junto a la celda; el resultado se inserta como valor",
+      "sumAbove": "Suma arriba",
+      "sumLeft": "Suma a la izquierda",
+      "sumBelow": "Suma abajo",
+      "sumRight": "Suma a la derecha"
     },
     "row": {
       "title": "Propiedades de fila",
@@ -1658,7 +1669,8 @@
       "noBody": "El documento no tiene texto principal.",
       "tableNotFound": "No se encontró la tabla en el documento.",
       "splitRow": "Coloque el cursor en la fila que debe ser la primera fila de la nueva tabla (no la primera fila).",
-      "splitMerged": "La tabla no se puede dividir aquí: una celda combinada abarca esta fila."
+      "splitMerged": "La tabla no se puede dividir aquí: una celda combinada abarca esta fila.",
+      "noNumbers": "No hay números junto a esta celda para sumar."
     }
   },
   "ruler": {

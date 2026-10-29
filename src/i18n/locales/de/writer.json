@@ -1549,7 +1549,18 @@
       "toText": "In Text konvertieren",
       "toTextTip": "Die Tabelle in Text konvertieren",
       "split": "Tabelle teilen",
-      "splitTip": "Teilt die Tabelle oberhalb der Zeile mit dem Cursor. Das Dokument wird neu geladen; Rückgängig funktioniert dann für frühere Schritte nicht mehr."
+      "splitTip": "Teilt die Tabelle oberhalb der Zeile mit dem Cursor. Das Dokument wird neu geladen; Rückgängig funktioniert dann für frühere Schritte nicht mehr.",
+      "textDirection": "Textrichtung",
+      "textDirectionTip": "Richtung des Texts in den markierten Zellen",
+      "textDirectionHorizontal": "Horizontal",
+      "textDirectionDown": "Um 90° gedreht (von oben nach unten)",
+      "textDirectionUp": "Um 270° gedreht (von unten nach oben)",
+      "formula": "Formel",
+      "formulaTip": "Summe der Zahlen neben der Zelle; das Ergebnis wird als Wert eingefügt",
+      "sumAbove": "Summe oberhalb",
+      "sumLeft": "Summe links",
+      "sumBelow": "Summe unterhalb",
+      "sumRight": "Summe rechts"
     },
     "row": {
       "title": "Zeileneigenschaften",
@@ -1644,7 +1655,8 @@
       "noBody": "Das Dokument hat keinen Haupttext.",
       "tableNotFound": "Die Tabelle wurde im Dokument nicht gefunden.",
       "splitRow": "Setzen Sie den Cursor in die Zeile, die die erste Zeile der neuen Tabelle werden soll (nicht die erste Zeile).",
-      "splitMerged": "Die Tabelle kann hier nicht geteilt werden: Eine verbundene Zelle überspannt diese Zeile."
+      "splitMerged": "Die Tabelle kann hier nicht geteilt werden: Eine verbundene Zelle überspannt diese Zeile.",
+      "noNumbers": "Neben dieser Zelle stehen keine Zahlen zum Addieren."
     }
   },
   "ruler": {

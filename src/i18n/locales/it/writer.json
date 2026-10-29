@@ -1560,7 +1560,18 @@
       "toText": "Converti in testo",
       "toTextTip": "Converti la tabella in testo",
       "split": "Dividi tabella",
-      "splitTip": "Divide la tabella sopra la riga con il cursore. Il documento viene ricaricato; Annulla non funziona più per i passaggi precedenti."
+      "splitTip": "Divide la tabella sopra la riga con il cursore. Il documento viene ricaricato; Annulla non funziona più per i passaggi precedenti.",
+      "textDirection": "Direzione testo",
+      "textDirectionTip": "Direzione del testo nelle celle selezionate",
+      "textDirectionHorizontal": "Orizzontale",
+      "textDirectionDown": "Ruotato di 90° (dall'alto in basso)",
+      "textDirectionUp": "Ruotato di 270° (dal basso in alto)",
+      "formula": "Formula",
+      "formulaTip": "Somma dei numeri accanto alla cella; il risultato viene inserito come valore",
+      "sumAbove": "Somma sopra",
+      "sumLeft": "Somma a sinistra",
+      "sumBelow": "Somma sotto",
+      "sumRight": "Somma a destra"
     },
     "row": {
       "title": "Proprietà riga",
@@ -1658,7 +1669,8 @@
       "noBody": "Il documento non ha testo principale.",
       "tableNotFound": "La tabella non è stata trovata nel documento.",
       "splitRow": "Posiziona il cursore nella riga che deve diventare la prima riga della nuova tabella (non la prima riga).",
-      "splitMerged": "Qui non è possibile dividere la tabella: una cella unita occupa questa riga."
+      "splitMerged": "Qui non è possibile dividere la tabella: una cella unita occupa questa riga.",
+      "noNumbers": "Nessun numero accanto a questa cella da sommare."
     }
   },
   "ruler": {

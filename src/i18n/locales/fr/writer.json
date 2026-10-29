@@ -1560,7 +1560,18 @@
       "toText": "Convertir en texte",
       "toTextTip": "Convertir le tableau en texte",
       "split": "Fractionner le tableau",
-      "splitTip": "Fractionne le tableau au-dessus de la ligne contenant le curseur. Le document est rechargé ; Annuler ne fonctionne alors plus pour les étapes précédentes."
+      "splitTip": "Fractionne le tableau au-dessus de la ligne contenant le curseur. Le document est rechargé ; Annuler ne fonctionne alors plus pour les étapes précédentes.",
+      "textDirection": "Orientation du texte",
+      "textDirectionTip": "Orientation du texte dans les cellules sélectionnées",
+      "textDirectionHorizontal": "Horizontale",
+      "textDirectionDown": "Rotation de 90° (de haut en bas)",
+      "textDirectionUp": "Rotation de 270° (de bas en haut)",
+      "formula": "Formule",
+      "formulaTip": "Somme des nombres à côté de la cellule ; le résultat est inséré comme valeur",
+      "sumAbove": "Somme au-dessus",
+      "sumLeft": "Somme à gauche",
+      "sumBelow": "Somme en dessous",
+      "sumRight": "Somme à droite"
     },
     "row": {
       "title": "Propriétés de la ligne",
@@ -1658,7 +1669,8 @@
       "noBody": "Le document n'a pas de texte principal.",
       "tableNotFound": "Le tableau est introuvable dans le document.",
       "splitRow": "Placez le curseur dans la ligne qui doit devenir la première ligne du nouveau tableau (pas la première ligne).",
-      "splitMerged": "Impossible de fractionner le tableau ici : une cellule fusionnée s'étend sur cette ligne."
+      "splitMerged": "Impossible de fractionner le tableau ici : une cellule fusionnée s'étend sur cette ligne.",
+      "noNumbers": "Aucun nombre à additionner à côté de cette cellule."
     }
   },
   "ruler": {

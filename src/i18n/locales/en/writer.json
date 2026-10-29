@@ -1549,7 +1549,18 @@
       "toText": "Convert to Text",
       "toTextTip": "Convert the table to text",
       "split": "Split Table",
-      "splitTip": "Splits the table above the row with the cursor. The document is reloaded; Undo then no longer works for earlier steps."
+      "splitTip": "Splits the table above the row with the cursor. The document is reloaded; Undo then no longer works for earlier steps.",
+      "textDirection": "Text Direction",
+      "textDirectionTip": "Direction of the text in the selected cells",
+      "textDirectionHorizontal": "Horizontal",
+      "textDirectionDown": "Rotated 90° (top to bottom)",
+      "textDirectionUp": "Rotated 270° (bottom to top)",
+      "formula": "Formula",
+      "formulaTip": "Sum of the numbers next to the cell; the result is inserted as a value",
+      "sumAbove": "Sum above",
+      "sumLeft": "Sum left",
+      "sumBelow": "Sum below",
+      "sumRight": "Sum right"
     },
     "row": {
       "title": "Row Properties",
@@ -1644,7 +1655,8 @@
       "noBody": "The document has no main text.",
       "tableNotFound": "The table was not found in the document.",
       "splitRow": "Place the cursor in the row that should become the first row of the new table (not the first row).",
-      "splitMerged": "The table cannot be split here: a merged cell spans this row."
+      "splitMerged": "The table cannot be split here: a merged cell spans this row.",
+      "noNumbers": "No numbers next to this cell to add up."
     }
   },
   "ruler": {

@@ -1560,7 +1560,18 @@
       "toText": "Converter em texto",
       "toTextTip": "Converter a tabela em texto",
       "split": "Dividir tabela",
-      "splitTip": "Divide a tabela acima da linha com o cursor. O documento é recarregado; Desfazer deixa de funcionar para as etapas anteriores."
+      "splitTip": "Divide a tabela acima da linha com o cursor. O documento é recarregado; Desfazer deixa de funcionar para as etapas anteriores.",
+      "textDirection": "Direção do texto",
+      "textDirectionTip": "Direção do texto nas células selecionadas",
+      "textDirectionHorizontal": "Horizontal",
+      "textDirectionDown": "Girado 90° (de cima para baixo)",
+      "textDirectionUp": "Girado 270° (de baixo para cima)",
+      "formula": "Fórmula",
+      "formulaTip": "Soma dos números ao lado da célula; o resultado é inserido como valor",
+      "sumAbove": "Soma acima",
+      "sumLeft": "Soma à esquerda",
+      "sumBelow": "Soma abaixo",
+      "sumRight": "Soma à direita"
     },
     "row": {
       "title": "Propriedades da linha",
@@ -1658,7 +1669,8 @@
       "noBody": "O documento não tem texto principal.",
       "tableNotFound": "A tabela não foi encontrada no documento.",
       "splitRow": "Coloque o cursor na linha que deve ser a primeira linha da nova tabela (não a primeira linha).",
-      "splitMerged": "A tabela não pode ser dividida aqui: uma célula mesclada atravessa esta linha."
+      "splitMerged": "A tabela não pode ser dividida aqui: uma célula mesclada atravessa esta linha.",
+      "noNumbers": "Não há números ao lado desta célula para somar."
     }
   },
   "ruler": {
