@@ -35,7 +35,11 @@
     "summary_other": "Minimum {{min}} · Maximum {{max}} · {{numbers}} Zahlen"
   },
   "presentation": {
-    "slideOf": "Folie {{slide}} von {{slides}}"
+    "slideOf": "Folie {{slide}} von {{slides}}",
+    "views": "Ansicht",
+    "normalView": "Normal",
+    "slideSorter": "Foliensortierung",
+    "slideShow": "Präsentation ab dieser Folie"
   },
   "zoom": {
     "label": "Zoom",

@@ -41,7 +41,11 @@
     "summary_other": "Mínimo {{min}} · Máximo {{max}} · {{numbers}} números"
   },
   "presentation": {
-    "slideOf": "Slide {{slide}} de {{slides}}"
+    "slideOf": "Slide {{slide}} de {{slides}}",
+    "views": "Modo de exibição",
+    "normalView": "Normal",
+    "slideSorter": "Classificação de Slides",
+    "slideShow": "Apresentação a partir deste slide"
   },
   "zoom": {
     "label": "Zoom",

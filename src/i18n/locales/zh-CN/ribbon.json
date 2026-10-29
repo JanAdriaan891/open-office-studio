@@ -38,7 +38,8 @@
       "moveSlide": "移动幻灯片",
       "arrange": "排列",
       "alignToSlide": "对齐幻灯片",
-      "find": "查找"
+      "find": "查找",
+      "presentationViews": "演示文稿视图"
     },
     "commands": {
       "fontSize": "字号",
@@ -101,7 +102,10 @@
       "notesPages": "备注页",
       "notesPagesHint": "打印备注页或另存为 PDF",
       "fitSlide": "使幻灯片适应窗口",
-      "findReplace": "查找和替换"
+      "findReplace": "查找和替换",
+      "presenterView": "演示者视图",
+      "normalView": "普通",
+      "slideSorter": "幻灯片浏览"
     },
     "characters": {
       "euro": "欧元符号",
@@ -308,7 +312,14 @@
       "clearCell": "清空单元格",
       "selectColumn": "选择列",
       "selectRow": "选择行",
-      "contextMenu": "打开快捷菜单"
+      "contextMenu": "打开快捷菜单",
+      "presenterView": "带演示者视图的幻灯片放映（单屏也可）",
+      "showBlackScreen": "放映：黑屏开/关",
+      "showWhiteScreen": "放映：白屏开/关",
+      "showPen": "放映：笔",
+      "showHighlighter": "放映：荧光笔",
+      "showLaser": "放映：激光笔",
+      "showClearInk": "放映：擦除幻灯片墨迹"
     }
   },
   "spreadsheet": {

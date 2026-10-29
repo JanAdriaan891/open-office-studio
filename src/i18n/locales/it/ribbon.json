@@ -38,7 +38,8 @@
       "moveSlide": "Sposta diapositiva",
       "arrange": "Disponi",
       "alignToSlide": "Allinea alla diapositiva",
-      "find": "Trova"
+      "find": "Trova",
+      "presentationViews": "Visualizzazioni presentazione"
     },
     "commands": {
       "fontSize": "Dimensione carattere",
@@ -101,7 +102,10 @@
       "notesPages": "Pagine note",
       "notesPagesHint": "Stampa le pagine note o salvale come PDF",
       "fitSlide": "Adatta la diapositiva alla finestra",
-      "findReplace": "Trova e sostituisci"
+      "findReplace": "Trova e sostituisci",
+      "presenterView": "Visualizzazione relatore",
+      "normalView": "Normale",
+      "slideSorter": "Sequenza diapositive"
     },
     "characters": {
       "euro": "Simbolo dell'euro",
@@ -308,7 +312,14 @@
       "clearCell": "Svuota cella",
       "selectColumn": "Seleziona colonna",
       "selectRow": "Seleziona riga",
-      "contextMenu": "Apri menu contestuale"
+      "contextMenu": "Apri menu contestuale",
+      "presenterView": "Presentazione con visualizzazione relatore (anche su uno schermo)",
+      "showBlackScreen": "Presentazione: schermo nero sì/no",
+      "showWhiteScreen": "Presentazione: schermo bianco sì/no",
+      "showPen": "Presentazione: penna",
+      "showHighlighter": "Presentazione: evidenziatore",
+      "showLaser": "Presentazione: puntatore laser",
+      "showClearInk": "Presentazione: cancella l'inchiostro sulla diapositiva"
     }
   },
   "spreadsheet": {

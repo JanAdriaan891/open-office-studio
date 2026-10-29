@@ -35,7 +35,11 @@
     "summary_other": "Minimum {{min}} · Maximum {{max}} · {{numbers}} getallen"
   },
   "presentation": {
-    "slideOf": "Dia {{slide}} van {{slides}}"
+    "slideOf": "Dia {{slide}} van {{slides}}",
+    "views": "Weergave",
+    "normalView": "Normaal",
+    "slideSorter": "Diasorteerder",
+    "slideShow": "Diavoorstelling vanaf deze dia"
   },
   "zoom": {
     "label": "Zoom",

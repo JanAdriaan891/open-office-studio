@@ -41,7 +41,11 @@
     "summary_other": "Minimo {{min}} · Massimo {{max}} · {{numbers}} numeri"
   },
   "presentation": {
-    "slideOf": "Diapositiva {{slide}} di {{slides}}"
+    "slideOf": "Diapositiva {{slide}} di {{slides}}",
+    "views": "Visualizzazione",
+    "normalView": "Normale",
+    "slideSorter": "Sequenza diapositive",
+    "slideShow": "Presentazione da questa diapositiva"
   },
   "zoom": {
     "label": "Zoom",

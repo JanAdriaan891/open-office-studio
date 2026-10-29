@@ -6,6 +6,7 @@ import { useOpmaak } from "../i18n/opmaak";
 import { useModuleStatus, useZoomBediening } from "./statusinfo";
 import { getal, schuifNaarZoom, zoomNaarSchuif } from "./berekening";
 import { TekstStatusExtra, TekstWeergaveKnoppen, useStatusbalkMenu } from "../tekst/info/StatusbalkItems";
+import { PresentatieWeergaveKnoppen } from "../presentatie/WeergaveKnoppen";
 import "./statusbalk.css";
 
 export interface StatusbalkProps {
@@ -201,6 +202,7 @@ export function Statusbalk({
       {document?.gereed && <ModuleInfo soort={soort} />}
       <span className="office-statusrechts">
         {soort === "docx" && document?.gereed && <TekstWeergaveKnoppen />}
+        {soort === "pptx" && document?.gereed && <PresentatieWeergaveKnoppen />}
         {document && document.zoom !== null && statusbalk.zoom && (
           <Zoomschuif zoom={document.zoom} />
         )}

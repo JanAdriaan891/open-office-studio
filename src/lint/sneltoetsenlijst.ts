@@ -318,6 +318,14 @@ export const vasteSneltoetsen: readonly SneltoetsInfo[] = [
   // Presentatie: lint (src/lint/presentatie-acties.tsx).
   presentatie("F5", "slideshowFromBeginning"),
   presentatie("Shift+F5", "slideshowFromCurrent"),
+  presentatie("Alt+F5", "presenterView"),
+  // Tijdens de voorstelling (src/presentatie/voorstelling-logica.ts).
+  presentatie("B", "showBlackScreen"),
+  presentatie("W", "showWhiteScreen"),
+  presentatie("P", "showPen"),
+  presentatie("H", "showHighlighter"),
+  presentatie("L", "showLaser"),
+  presentatie("E", "showClearInk"),
   presentatie("Ctrl+M", "newSlide"),
   presentatie("Ctrl+L", "alignLeft"),
   presentatie("Ctrl+E", "center"),
