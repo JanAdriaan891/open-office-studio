@@ -76,6 +76,8 @@ import { useDocumentZoom, type ZoomKoppeling } from "../useDocumentZoom";
 import { C, CK, CL, Geschiedenis, Zoom } from "./gedeeld";
 import { useEditorApi, zichtbaarElement } from "./editorApi";
 import { useSneltoetsen, type Sneltoets } from "./sneltoetsen";
+import { OPDRACHTEN } from "./sneltoetsenlijst";
+import { heeftOpdracht, voerOpdrachtUit } from "../tekst/menu/opdrachten";
 import {
   alleenLezen,
   autoSomInvoegen,
@@ -533,6 +535,18 @@ export function RekenbladRibbon({
     { toets: "Ctrl+Shift+F5", uitvoeren: () => setPaneel("ganaar") },
     { toets: "Ctrl+P", uitvoeren: () => vraagAfdrukvoorbeeld() },
     { toets: "Ctrl+Shift+O", uitvoeren: () => vraagAfdrukvoorbeeld() },
+    // Filter (#62) en onderstrepen: opdrachten die een ander onderdeel aanmeldt met
+    // meldOpdrachtAan(OPDRACHTEN.…); tot dan doet de toets niets en meldt F1 "nog niet beschikbaar".
+    {
+      toets: "Ctrl+Shift+L",
+      beschikbaar: () => geenTekst() && heeftOpdracht(OPDRACHTEN.rekenbladFilter),
+      uitvoeren: () => voerOpdrachtUit(OPDRACHTEN.rekenbladFilter),
+    },
+    {
+      toets: "Ctrl+U",
+      beschikbaar: () => heeftOpdracht(OPDRACHTEN.rekenbladOnderstrepen),
+      uitvoeren: () => voerOpdrachtUit(OPDRACHTEN.rekenbladOnderstrepen),
+    },
     // Zoals Excel: Alt+F1 op dit blad, F11 op een nieuw blad.
     {
       toets: "Alt+F1",

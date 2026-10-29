@@ -37,7 +37,8 @@
       "slideShow": "Diavoorstelling",
       "moveSlide": "Dia verplaatsen",
       "arrange": "Rangschikken",
-      "alignToSlide": "Uitlijnen op dia"
+      "alignToSlide": "Uitlijnen op dia",
+      "find": "Zoeken"
     },
     "commands": {
       "fontSize": "Tekengrootte",
@@ -99,7 +100,8 @@
       "printHint": "Afdrukvoorbeeld: dia’s, hand-outs of notitiepagina’s ({{shortcut}})",
       "notesPages": "Notitiepagina’s",
       "notesPagesHint": "Notitiepagina’s afdrukken of als PDF bewaren",
-      "fitSlide": "Dia passend maken"
+      "fitSlide": "Dia passend maken",
+      "findReplace": "Zoeken en vervangen"
     },
     "characters": {
       "euro": "Euroteken",
@@ -136,7 +138,21 @@
       "placeCursor": "Plaats eerst de cursor in een tekstvak.",
       "onlySlide": "De enige dia kan niet worden verwijderd."
     },
-    "dateShapeName": "Datum"
+    "dateShapeName": "Datum",
+    "find": {
+      "title": "Zoeken en vervangen",
+      "findWhat": "Zoeken naar",
+      "replaceWith": "Vervangen door",
+      "matchCase": "Hoofdlettergevoelig",
+      "previous": "Vorige",
+      "next": "Volgende",
+      "replace": "Vervangen",
+      "replaceAll": "Alles vervangen",
+      "found": "Resultaat {{current}} van {{total}} · dia {{slide}}",
+      "notFound": "Zoekterm niet gevonden.",
+      "replacedCurrent": "Vervangen.",
+      "replacedAll": "{{number}} keer vervangen (één stap ongedaan maken)."
+    }
   },
   "shortcuts": {
     "modules": {
@@ -270,7 +286,29 @@
       "undo": "Ongedaan maken",
       "zoom100": "Zoom 100%",
       "zoomIn": "Inzoomen",
-      "zoomOut": "Uitzoomen"
+      "zoomOut": "Uitzoomen",
+      "newDocument": "Nieuw document van dezelfde soort",
+      "editCell": "Cel bewerken",
+      "filter": "Filter aan/uit",
+      "newMessage": "Nieuw bericht",
+      "reply": "Beantwoorden",
+      "replyAll": "Allen beantwoorden",
+      "forward": "Doorsturen",
+      "searchMail": "Zoeken in berichten",
+      "getMail": "Berichten ophalen",
+      "deleteMessage": "Bericht verwijderen",
+      "toggleRead": "Gelezen/ongelezen",
+      "toggleStar": "Markeren met ster",
+      "archive": "Archiveren",
+      "nextMessage": "Volgend bericht",
+      "previousMessage": "Vorig bericht",
+      "nextUnread": "Volgend ongelezen bericht",
+      "searchNotes": "Zoeken in notities",
+      "copyWithHeaders": "Kopiëren met kolomnamen",
+      "clearCell": "Cel leegmaken",
+      "selectColumn": "Kolom selecteren",
+      "selectRow": "Rij selecteren",
+      "contextMenu": "Snelmenu openen"
     }
   },
   "spreadsheet": {
