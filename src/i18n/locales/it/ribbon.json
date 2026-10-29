@@ -37,7 +37,8 @@
       "slideShow": "Presentazione",
       "moveSlide": "Sposta diapositiva",
       "arrange": "Disponi",
-      "alignToSlide": "Allinea alla diapositiva"
+      "alignToSlide": "Allinea alla diapositiva",
+      "find": "Trova"
     },
     "commands": {
       "fontSize": "Dimensione carattere",
@@ -99,7 +100,8 @@
       "printHint": "Anteprima di stampa: diapositive, stampati o pagine note ({{shortcut}})",
       "notesPages": "Pagine note",
       "notesPagesHint": "Stampa le pagine note o salvale come PDF",
-      "fitSlide": "Adatta la diapositiva alla finestra"
+      "fitSlide": "Adatta la diapositiva alla finestra",
+      "findReplace": "Trova e sostituisci"
     },
     "characters": {
       "euro": "Simbolo dell'euro",
@@ -136,7 +138,21 @@
       "placeCursor": "Posiziona prima il cursore in una casella di testo.",
       "onlySlide": "Impossibile eliminare l'unica diapositiva."
     },
-    "dateShapeName": "Data"
+    "dateShapeName": "Data",
+    "find": {
+      "title": "Trova e sostituisci",
+      "findWhat": "Trova",
+      "replaceWith": "Sostituisci con",
+      "matchCase": "Maiuscole/minuscole",
+      "previous": "Precedente",
+      "next": "Successivo",
+      "replace": "Sostituisci",
+      "replaceAll": "Sostituisci tutto",
+      "found": "Risultato {{current}} di {{total}} · diapositiva {{slide}}",
+      "notFound": "Termine non trovato.",
+      "replacedCurrent": "Sostituito.",
+      "replacedAll": "Sostituzioni: {{number}} (un solo passaggio di annullamento)."
+    }
   },
   "shortcuts": {
     "modules": {
@@ -190,6 +206,7 @@
       "findReplace": "Trova e sostituisci",
       "firstSlide": "Prima diapositiva",
       "fontDialog": "Carattere…",
+      "formatCells": "Formato celle (formato numero)",
       "generalFormat": "Formato Generale",
       "goTo": "Vai a",
       "growFont": "Aumenta dimensione carattere",
@@ -228,7 +245,9 @@
       "paragraphDialog": "Paragrafo…",
       "paste": "Incolla",
       "pasteFormatting": "Incolla formato",
+      "pasteSpecial": "Incolla speciale",
       "pasteTextOnly": "Incolla solo testo",
+      "pasteValues": "Incolla valori",
       "percentFormat": "Percentuale",
       "previousPane": "Passa alla parte precedente della finestra",
       "previousSheet": "Foglio precedente",
@@ -267,7 +286,29 @@
       "undo": "Annulla",
       "zoom100": "Zoom 100%",
       "zoomIn": "Zoom avanti",
-      "zoomOut": "Zoom indietro"
+      "zoomOut": "Zoom indietro",
+      "newDocument": "Nuovo documento dello stesso tipo",
+      "editCell": "Modifica cella",
+      "filter": "Attiva/disattiva filtro",
+      "newMessage": "Nuovo messaggio",
+      "reply": "Rispondi",
+      "replyAll": "Rispondi a tutti",
+      "forward": "Inoltra",
+      "searchMail": "Cerca nei messaggi",
+      "getMail": "Scarica messaggi",
+      "deleteMessage": "Elimina messaggio",
+      "toggleRead": "Letto/non letto",
+      "toggleStar": "Contrassegna con stella",
+      "archive": "Archivia",
+      "nextMessage": "Messaggio successivo",
+      "previousMessage": "Messaggio precedente",
+      "nextUnread": "Messaggio non letto successivo",
+      "searchNotes": "Cerca nelle note",
+      "copyWithHeaders": "Copia con i nomi delle colonne",
+      "clearCell": "Svuota cella",
+      "selectColumn": "Seleziona colonna",
+      "selectRow": "Seleziona riga",
+      "contextMenu": "Apri menu contestuale"
     }
   },
   "spreadsheet": {

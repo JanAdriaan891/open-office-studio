@@ -55,6 +55,12 @@ import {
   Hash,
   FlaskConical,
   Baseline,
+  ClipboardList,
+  MoveHorizontal,
+  MoveVertical,
+  ArrowLeftRight,
+  SlidersHorizontal,
+  Files,
   type LucideIcon,
 } from "lucide-react";
 import {
@@ -70,18 +76,18 @@ import { useDocumentZoom, type ZoomKoppeling } from "../useDocumentZoom";
 import { C, CK, CL, Geschiedenis, Zoom } from "./gedeeld";
 import { useEditorApi, zichtbaarElement } from "./editorApi";
 import { useSneltoetsen, type Sneltoets } from "./sneltoetsen";
+import { OPDRACHTEN } from "./sneltoetsenlijst";
+import { heeftOpdracht, voerOpdrachtUit } from "../tekst/menu/opdrachten";
 import {
   alleenLezen,
   autoSomInvoegen,
   bewerktTekst,
   bladInvoegen,
-  bladVerwijderen,
   datumnotatie,
   datumTijdInvoegen,
   doorvoerenOmlaag,
   fixeren,
   gaNaarBlad,
-  klembord,
   kolommenInvoegen,
   kolommenVerwijderen,
   kolommenZichtbaarheid,
@@ -98,6 +104,10 @@ import {
   useRekenbladGrafieken,
 } from "../grafieken/ui/rekenblad";
 import "./rekenblad.css";
+import { openRekenbladVenster, RekenbladExtra } from "../rekenblad/RekenbladExtra";
+import { kopieer, leesKlembord, plak } from "../rekenblad/klembord";
+import { optimaleBreedte, optimaleHoogte } from "../rekenblad/structuur";
+import { valutaNotatie } from "../rekenblad/notatieOpdrachten";
 
 type Paneel = "zoeken" | "ganaar" | "hernoemen" | null;
 
@@ -288,12 +298,11 @@ function RekenbladGetal({ uitgebreid }: { uitgebreid?: boolean }) {
             />
           </>
         )}
-        <CS
-          id="numberFormat"
-          args={{ value: "currency" }}
+        <A
           naam={t("spreadsheet.commands.formatCurrency")}
           icoon={Euro}
           toets="Ctrl+Shift+4"
+          doe={valutaNotatie}
         />
         <CS
           id="numberFormat"
@@ -323,6 +332,12 @@ function RekenbladGetal({ uitgebreid }: { uitgebreid?: boolean }) {
           naam={t("spreadsheet.commands.increaseDecimal")}
           icoon={IndentIncrease}
         />
+        <A
+          naam={t("spreadsheet:numberFormat.menu")}
+          icoon={SlidersHorizontal}
+          toets="Ctrl+1"
+          doe={() => openRekenbladVenster({ soort: "getal" })}
+        />
       </div>
     </Groep>
   );
@@ -336,20 +351,29 @@ function Klembord() {
         icoon={ClipboardPaste}
         toets="Ctrl+V"
         groot
-        doe={(api) => klembord(api, "v")}
+        doe={async (api) => {
+          const inhoud = await leesKlembord();
+          if (inhoud) await plak(api, inhoud);
+        }}
       />
       <div className="ribbon-stapel">
         <A
           naam={t("spreadsheet.commands.cut")}
           icoon={Scissors}
           toets="Ctrl+X"
-          doe={(api) => klembord(api, "x")}
+          doe={(api) => kopieer(api, true)}
         />
         <A
           naam={t("spreadsheet.commands.copy")}
           icoon={Copy}
           toets="Ctrl+C"
-          doe={(api) => klembord(api, "c")}
+          doe={(api) => kopieer(api)}
+        />
+        <A
+          naam={t("spreadsheet:clipboard.pasteSpecialMenu")}
+          icoon={ClipboardList}
+          toets="Ctrl+Alt+V"
+          doe={() => openRekenbladVenster({ soort: "plakkenSpeciaal" })}
         />
       </div>
       <C id="paintFormat" naam={t("spreadsheet.commands.formatPainter")} icoon={Paintbrush} groot />
@@ -450,7 +474,6 @@ export function RekenbladRibbon({
     [
       ["1", "number"],
       ["2", "scientific"],
-      ["4", "currency"],
       ["5", "percent"],
       ["6", "automatic"],
     ] as const
@@ -466,6 +489,11 @@ export function RekenbladRibbon({
       toets: "Ctrl+Shift+3",
       beschikbaar: geenTekst,
       uitvoeren: () => uitvoeren(datumnotatie),
+    },
+    {
+      toets: "Ctrl+Shift+4",
+      beschikbaar: geenTekst,
+      uitvoeren: () => uitvoeren(valutaNotatie),
     },
     {
       toets: "Alt+=",
@@ -507,6 +535,18 @@ export function RekenbladRibbon({
     { toets: "Ctrl+Shift+F5", uitvoeren: () => setPaneel("ganaar") },
     { toets: "Ctrl+P", uitvoeren: () => vraagAfdrukvoorbeeld() },
     { toets: "Ctrl+Shift+O", uitvoeren: () => vraagAfdrukvoorbeeld() },
+    // Filter (#62) en onderstrepen: opdrachten die een ander onderdeel aanmeldt met
+    // meldOpdrachtAan(OPDRACHTEN.…); tot dan doet de toets niets en meldt F1 "nog niet beschikbaar".
+    {
+      toets: "Ctrl+Shift+L",
+      beschikbaar: () => geenTekst() && heeftOpdracht(OPDRACHTEN.rekenbladFilter),
+      uitvoeren: () => voerOpdrachtUit(OPDRACHTEN.rekenbladFilter),
+    },
+    {
+      toets: "Ctrl+U",
+      beschikbaar: () => heeftOpdracht(OPDRACHTEN.rekenbladOnderstrepen),
+      uitvoeren: () => voerOpdrachtUit(OPDRACHTEN.rekenbladOnderstrepen),
+    },
     // Zoals Excel: Alt+F1 op dit blad, F11 op een nieuw blad.
     {
       toets: "Alt+F1",
@@ -595,7 +635,13 @@ export function RekenbladRibbon({
           naam={t("spreadsheet.commands.deleteSheet")}
           icoon={Trash2}
           uit={uit || (stand?.bladen ?? 0) < 2}
-          doe={bladVerwijderen}
+          doe={() => openRekenbladVenster({ soort: "bladVerwijderen" })}
+        />
+        <A
+          naam={t("spreadsheet:sheets.moveCopy")}
+          icoon={Files}
+          uit={uit}
+          doe={() => openRekenbladVenster({ soort: "bladVerplaatsen" })}
         />
       </div>
     </Groep>
@@ -678,6 +724,36 @@ export function RekenbladRibbon({
             inhoud: (
               <>
                 <Cellen uit={uit} />
+                <Groep naam={t("spreadsheet:structure.group")}>
+                  <div className="ribbon-stapel">
+                    <A
+                      naam={t("spreadsheet:menu.columnWidth")}
+                      icoon={MoveHorizontal}
+                      uit={uit}
+                      doe={() => openRekenbladVenster({ soort: "breedte" })}
+                    />
+                    <A
+                      naam={t("spreadsheet:structure.optimalWidth")}
+                      icoon={ArrowLeftRight}
+                      uit={uit}
+                      doe={(a) => optimaleBreedte(a)}
+                    />
+                  </div>
+                  <div className="ribbon-stapel">
+                    <A
+                      naam={t("spreadsheet:menu.rowHeight")}
+                      icoon={MoveVertical}
+                      uit={uit}
+                      doe={() => openRekenbladVenster({ soort: "hoogte" })}
+                    />
+                    <A
+                      naam={t("spreadsheet:structure.optimalHeight")}
+                      icoon={MoveVertical}
+                      uit={uit}
+                      doe={(a) => optimaleHoogte(a)}
+                    />
+                  </div>
+                </Groep>
                 <Groep naam={t("spreadsheet.groups.delete")}>
                   <div className="ribbon-stapel">
                     <A
@@ -871,6 +947,7 @@ export function RekenbladRibbon({
         <BladHernoemen api={api} sluiten={sluiten} />
       )}
       {grafieken.venster}
+      <RekenbladExtra />
     </RekenbladToolbar>
   );
 }

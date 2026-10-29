@@ -37,7 +37,8 @@
       "slideShow": "Bildschirmpräsentation",
       "moveSlide": "Folie verschieben",
       "arrange": "Anordnen",
-      "alignToSlide": "An Folie ausrichten"
+      "alignToSlide": "An Folie ausrichten",
+      "find": "Suchen"
     },
     "commands": {
       "fontSize": "Schriftgrad",
@@ -99,7 +100,8 @@
       "printHint": "Druckvorschau: Folien, Handzettel oder Notizenseiten ({{shortcut}})",
       "notesPages": "Notizenseiten",
       "notesPagesHint": "Notizenseiten drucken oder als PDF speichern",
-      "fitSlide": "Folie an Fenster anpassen"
+      "fitSlide": "Folie an Fenster anpassen",
+      "findReplace": "Suchen und ersetzen"
     },
     "characters": {
       "euro": "Eurozeichen",
@@ -136,7 +138,21 @@
       "placeCursor": "Setzen Sie den Cursor zuerst in ein Textfeld.",
       "onlySlide": "Die einzige Folie kann nicht gelöscht werden."
     },
-    "dateShapeName": "Datum"
+    "dateShapeName": "Datum",
+    "find": {
+      "title": "Suchen und ersetzen",
+      "findWhat": "Suchen nach",
+      "replaceWith": "Ersetzen durch",
+      "matchCase": "Groß-/Kleinschreibung beachten",
+      "previous": "Zurück",
+      "next": "Weiter",
+      "replace": "Ersetzen",
+      "replaceAll": "Alle ersetzen",
+      "found": "Treffer {{current}} von {{total}} · Folie {{slide}}",
+      "notFound": "Suchbegriff nicht gefunden.",
+      "replacedCurrent": "Ersetzt.",
+      "replacedAll": "{{number}}-mal ersetzt (ein Rückgängig-Schritt)."
+    }
   },
   "shortcuts": {
     "modules": {
@@ -190,6 +206,7 @@
       "findReplace": "Suchen und Ersetzen",
       "firstSlide": "Erste Folie",
       "fontDialog": "Schriftart…",
+      "formatCells": "Zellen formatieren (Zahlenformat)",
       "generalFormat": "Standardformat",
       "goTo": "Gehe zu",
       "growFont": "Schriftgrad vergrößern",
@@ -228,7 +245,9 @@
       "paragraphDialog": "Absatz…",
       "paste": "Einfügen",
       "pasteFormatting": "Format einfügen",
+      "pasteSpecial": "Inhalte einfügen",
       "pasteTextOnly": "Nur als Text einfügen",
+      "pasteValues": "Werte einfügen",
       "percentFormat": "Prozent",
       "previousPane": "Zum vorherigen Fensterbereich",
       "previousSheet": "Vorheriges Blatt",
@@ -267,7 +286,29 @@
       "undo": "Rückgängig",
       "zoom100": "Zoom 100 %",
       "zoomIn": "Vergrößern",
-      "zoomOut": "Verkleinern"
+      "zoomOut": "Verkleinern",
+      "newDocument": "Neues Dokument desselben Typs",
+      "editCell": "Zelle bearbeiten",
+      "filter": "Filter ein/aus",
+      "newMessage": "Neue Nachricht",
+      "reply": "Antworten",
+      "replyAll": "Allen antworten",
+      "forward": "Weiterleiten",
+      "searchMail": "Nachrichten durchsuchen",
+      "getMail": "Nachrichten abrufen",
+      "deleteMessage": "Nachricht löschen",
+      "toggleRead": "Gelesen/ungelesen",
+      "toggleStar": "Mit Stern markieren",
+      "archive": "Archivieren",
+      "nextMessage": "Nächste Nachricht",
+      "previousMessage": "Vorherige Nachricht",
+      "nextUnread": "Nächste ungelesene Nachricht",
+      "searchNotes": "Notizen durchsuchen",
+      "copyWithHeaders": "Mit Spaltennamen kopieren",
+      "clearCell": "Zelle leeren",
+      "selectColumn": "Spalte auswählen",
+      "selectRow": "Zeile auswählen",
+      "contextMenu": "Kontextmenü öffnen"
     }
   },
   "spreadsheet": {
