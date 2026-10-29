@@ -31,7 +31,11 @@
     "filterTitle": "此工作表已启用筛选"
   },
   "presentation": {
-    "slideOf": "第 {{slide}} 张幻灯片，共 {{slides}} 张"
+    "slideOf": "第 {{slide}} 张幻灯片，共 {{slides}} 张",
+    "views": "视图",
+    "normalView": "普通",
+    "slideSorter": "幻灯片浏览",
+    "slideShow": "从当前幻灯片开始放映"
   },
   "zoom": {
     "label": "缩放",

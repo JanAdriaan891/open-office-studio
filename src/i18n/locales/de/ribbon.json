@@ -38,7 +38,8 @@
       "moveSlide": "Folie verschieben",
       "arrange": "Anordnen",
       "alignToSlide": "An Folie ausrichten",
-      "find": "Suchen"
+      "find": "Suchen",
+      "presentationViews": "Präsentationsansichten"
     },
     "commands": {
       "fontSize": "Schriftgrad",
@@ -101,7 +102,10 @@
       "notesPages": "Notizenseiten",
       "notesPagesHint": "Notizenseiten drucken oder als PDF speichern",
       "fitSlide": "Folie an Fenster anpassen",
-      "findReplace": "Suchen und ersetzen"
+      "findReplace": "Suchen und ersetzen",
+      "presenterView": "Referentenansicht",
+      "normalView": "Normal",
+      "slideSorter": "Foliensortierung"
     },
     "characters": {
       "euro": "Eurozeichen",
@@ -309,10 +313,17 @@
       "selectColumn": "Spalte auswählen",
       "selectRow": "Zeile auswählen",
       "contextMenu": "Kontextmenü öffnen",
+      "presenterView": "Bildschirmpräsentation mit Referentenansicht (auch auf einem Bildschirm)",
+      "showBlackScreen": "Präsentation: schwarzer Bildschirm ein/aus",
+      "showWhiteScreen": "Präsentation: weißer Bildschirm ein/aus",
+      "showPen": "Präsentation: Stift",
+      "showHighlighter": "Präsentation: Textmarker",
+      "showLaser": "Präsentation: Laserpointer",
+      "showClearInk": "Präsentation: Freihand auf der Folie löschen",
       "fillRight": "Nach rechts ausfüllen",
+      "openFilterMenu": "Filtermenü öffnen (auf einer Kopfzelle mit Filterpfeil)",
       "insertFunction": "Funktion einfügen",
-      "toggleReference": "Bezug absolut oder relativ (beim Bearbeiten einer Formel)",
-      "openFilterMenu": "Filtermenü öffnen (auf einer Kopfzelle mit Filterpfeil)"
+      "toggleReference": "Bezug absolut oder relativ (beim Bearbeiten einer Formel)"
     }
   },
   "spreadsheet": {

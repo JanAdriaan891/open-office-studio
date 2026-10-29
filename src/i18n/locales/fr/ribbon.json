@@ -38,7 +38,8 @@
       "moveSlide": "Déplacer la diapositive",
       "arrange": "Organiser",
       "alignToSlide": "Aligner sur la diapositive",
-      "find": "Rechercher"
+      "find": "Rechercher",
+      "presentationViews": "Modes de présentation"
     },
     "commands": {
       "fontSize": "Taille de police",
@@ -101,7 +102,10 @@
       "notesPages": "Pages de commentaires",
       "notesPagesHint": "Imprimer les pages de commentaires ou les enregistrer en PDF",
       "fitSlide": "Ajuster la diapositive à la fenêtre",
-      "findReplace": "Rechercher et remplacer"
+      "findReplace": "Rechercher et remplacer",
+      "presenterView": "Mode Présentateur",
+      "normalView": "Normal",
+      "slideSorter": "Trieuse de diapositives"
     },
     "characters": {
       "euro": "Symbole euro",
@@ -309,10 +313,17 @@
       "selectColumn": "Sélectionner la colonne",
       "selectRow": "Sélectionner la ligne",
       "contextMenu": "Ouvrir le menu contextuel",
+      "presenterView": "Diaporama en mode Présentateur (aussi sur un seul écran)",
+      "showBlackScreen": "Diaporama : écran noir activé/désactivé",
+      "showWhiteScreen": "Diaporama : écran blanc activé/désactivé",
+      "showPen": "Diaporama : stylo",
+      "showHighlighter": "Diaporama : surligneur",
+      "showLaser": "Diaporama : pointeur laser",
+      "showClearInk": "Diaporama : effacer l'encre de la diapositive",
       "fillRight": "Recopier à droite",
+      "openFilterMenu": "Ouvrir le menu de filtre (sur une cellule d’en-tête avec flèche)",
       "insertFunction": "Insérer une fonction",
-      "toggleReference": "Référence absolue ou relative (pendant la modification d’une formule)",
-      "openFilterMenu": "Ouvrir le menu de filtre (sur une cellule d’en-tête avec flèche)"
+      "toggleReference": "Référence absolue ou relative (pendant la modification d’une formule)"
     }
   },
   "spreadsheet": {

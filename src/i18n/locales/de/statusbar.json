@@ -37,7 +37,11 @@
     "filterTitle": "Filter auf diesem Blatt aktiv"
   },
   "presentation": {
-    "slideOf": "Folie {{slide}} von {{slides}}"
+    "slideOf": "Folie {{slide}} von {{slides}}",
+    "views": "Ansicht",
+    "normalView": "Normal",
+    "slideSorter": "Foliensortierung",
+    "slideShow": "Präsentation ab dieser Folie"
   },
   "zoom": {
     "label": "Zoom",

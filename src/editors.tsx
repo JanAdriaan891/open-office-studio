@@ -348,7 +348,8 @@ export default function OfficeEditor(props: EditorProps) {
               loadingIndicator={
                 <p className="office-loading">{t("loading.document")}</p>
               }
-              showRuler={liniaal}
+              // Eigen liniaal (src/tekst/liniaal) in plaats van die van de engine.
+              showRuler={false}
               showOutline={navigatie}
               showOutlineButton={false}
               colorMode="light"

@@ -37,7 +37,11 @@
     "filterTitle": "Filter active on this sheet"
   },
   "presentation": {
-    "slideOf": "Slide {{slide}} of {{slides}}"
+    "slideOf": "Slide {{slide}} of {{slides}}",
+    "views": "View",
+    "normalView": "Normal",
+    "slideSorter": "Slide Sorter",
+    "slideShow": "Slide show from this slide"
   },
   "zoom": {
     "label": "Zoom",

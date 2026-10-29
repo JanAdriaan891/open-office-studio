@@ -38,7 +38,8 @@
       "moveSlide": "Mover diapositiva",
       "arrange": "Organizar",
       "alignToSlide": "Alinear con la diapositiva",
-      "find": "Buscar"
+      "find": "Buscar",
+      "presentationViews": "Vistas de presentación"
     },
     "commands": {
       "fontSize": "Tamaño de fuente",
@@ -101,7 +102,10 @@
       "notesPages": "Páginas de notas",
       "notesPagesHint": "Imprimir páginas de notas o guardarlas como PDF",
       "fitSlide": "Ajustar la diapositiva a la ventana",
-      "findReplace": "Buscar y reemplazar"
+      "findReplace": "Buscar y reemplazar",
+      "presenterView": "Vista del moderador",
+      "normalView": "Normal",
+      "slideSorter": "Clasificador de diapositivas"
     },
     "characters": {
       "euro": "Símbolo del euro",
@@ -309,10 +313,17 @@
       "selectColumn": "Seleccionar columna",
       "selectRow": "Seleccionar fila",
       "contextMenu": "Abrir menú contextual",
+      "presenterView": "Presentación con vista del moderador (también en una pantalla)",
+      "showBlackScreen": "Presentación: pantalla negra sí/no",
+      "showWhiteScreen": "Presentación: pantalla blanca sí/no",
+      "showPen": "Presentación: pluma",
+      "showHighlighter": "Presentación: resaltador",
+      "showLaser": "Presentación: puntero láser",
+      "showClearInk": "Presentación: borrar la tinta de la diapositiva",
       "fillRight": "Rellenar hacia la derecha",
+      "openFilterMenu": "Abrir el menú de filtro (en una celda de encabezado con flecha)",
       "insertFunction": "Insertar función",
-      "toggleReference": "Referencia absoluta o relativa (al editar una fórmula)",
-      "openFilterMenu": "Abrir el menú de filtro (en una celda de encabezado con flecha)"
+      "toggleReference": "Referencia absoluta o relativa (al editar una fórmula)"
     }
   },
   "spreadsheet": {

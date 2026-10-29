@@ -38,7 +38,8 @@
       "moveSlide": "Dia verplaatsen",
       "arrange": "Rangschikken",
       "alignToSlide": "Uitlijnen op dia",
-      "find": "Zoeken"
+      "find": "Zoeken",
+      "presentationViews": "Presentatieweergaven"
     },
     "commands": {
       "fontSize": "Tekengrootte",
@@ -101,7 +102,10 @@
       "notesPages": "Notitiepagina’s",
       "notesPagesHint": "Notitiepagina’s afdrukken of als PDF bewaren",
       "fitSlide": "Dia passend maken",
-      "findReplace": "Zoeken en vervangen"
+      "findReplace": "Zoeken en vervangen",
+      "presenterView": "Presentatorweergave",
+      "normalView": "Normaal",
+      "slideSorter": "Diasorteerder"
     },
     "characters": {
       "euro": "Euroteken",
@@ -309,10 +313,17 @@
       "selectColumn": "Kolom selecteren",
       "selectRow": "Rij selecteren",
       "contextMenu": "Snelmenu openen",
+      "presenterView": "Voorstelling met presentatorweergave (ook op één scherm)",
+      "showBlackScreen": "Voorstelling: zwart scherm aan/uit",
+      "showWhiteScreen": "Voorstelling: wit scherm aan/uit",
+      "showPen": "Voorstelling: pen",
+      "showHighlighter": "Voorstelling: markeerstift",
+      "showLaser": "Voorstelling: laseraanwijzer",
+      "showClearInk": "Voorstelling: inkt op de dia wissen",
       "fillRight": "Naar rechts doorvoeren",
+      "openFilterMenu": "Filtermenu openen (op een kopcel met filterpijl)",
       "insertFunction": "Functie invoegen",
-      "toggleReference": "Verwijzing absoluut of relatief (tijdens het bewerken van een formule)",
-      "openFilterMenu": "Filtermenu openen (op een kopcel met filterpijl)"
+      "toggleReference": "Verwijzing absoluut of relatief (tijdens het bewerken van een formule)"
     }
   },
   "spreadsheet": {
