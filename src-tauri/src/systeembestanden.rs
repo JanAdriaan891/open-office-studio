@@ -141,7 +141,7 @@ pub fn startpaden(argumenten: impl Iterator<Item = OsString>, map: Option<&Path>
 pub fn lees_beperkt(pad: &Path) -> Result<Vec<u8>, String> {
     let grootte = std::fs::metadata(pad).map_err(|e| e.to_string())?.len();
     if grootte == 0 || grootte > MAX_GROOTTE {
-        return Err("Het bestand is leeg of groter dan 100 MB.".into());
+        return Err(crate::taal::t("errors.file.emptyOrTooLarge"));
     }
     std::fs::read(pad).map_err(|e| e.to_string())
 }
@@ -277,7 +277,7 @@ pub fn claim_systeembestand(
 ) -> Result<Claim, String> {
     let pad = staat
         .neem(id, venster.label())
-        .ok_or("Dit bestand is al geopend of niet voor dit venster bedoeld.")?;
+        .ok_or_else(|| crate::taal::t("errors.file.alreadyOpenedOrOtherWindow"))?;
     Ok(claim(&app, &werkbestanden, pad, venster.label()))
 }
 

@@ -2394,6 +2394,7 @@ version = "2026.44.6"
 dependencies = [
  "percent-encoding",
  "rfd",
+ "serde_json",
  "tauri",
  "tauri-build",
  "tempfile",

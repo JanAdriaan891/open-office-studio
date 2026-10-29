@@ -13,6 +13,7 @@
 import i18next from "i18next";
 import { initReactI18next } from "react-i18next";
 import { leesInstellingen, volgInstellingen } from "../instellingen";
+import { meldDesktopTaal } from "./desktop";
 import { zetUiLettertypen } from "./lettertypen";
 import {
   bepaalTaal,
@@ -90,6 +91,7 @@ function zetDocumentTaal(taal: string) {
   document.documentElement.lang = t;
   document.documentElement.dir = isRtl(t) ? "rtl" : "ltr";
   zetUiLettertypen(t);
+  meldDesktopTaal(t);
 }
 
 const startTaal = bepaalTaal(leesInstellingen().taal);
