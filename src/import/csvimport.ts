@@ -10,6 +10,7 @@ import {
   detecteerCodering,
   type Codering,
 } from "../../packages/email/src/voorbeeld/codering";
+import i18next from "../i18n/config";
 import { xmlTekst } from "./docxschrijver";
 
 export type CsvCodering =
@@ -585,14 +586,17 @@ export function csvNaarXlsx(
   };
 }
 
+/** Naam van het scheidingsteken in de interfacetaal, voor in een zin. */
 export function scheidingsnaam(teken: string) {
-  return teken === "\t"
-    ? "tab"
-    : teken === ";"
-      ? "puntkomma"
-      : teken === ","
-        ? "komma"
-        : teken === "|"
-          ? "verticale streep"
-          : `\u201c${teken}\u201d`;
+  const sleutel =
+    teken === "\t"
+      ? "tab"
+      : teken === ";"
+        ? "semicolon"
+        : teken === ","
+          ? "comma"
+          : teken === "|"
+            ? "pipe"
+            : "other";
+  return i18next.t(`import:csv.separatorNames.${sleutel}`, { character: teken });
 }

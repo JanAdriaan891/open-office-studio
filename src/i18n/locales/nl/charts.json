@@ -1,0 +1,242 @@
+{
+  "actions": {
+    "deleteTitle": "Grafiek verwijderen",
+    "deleteConfirm": "‘{{name}}’ verwijderen? Het document wordt daarna opnieuw geladen; ongedaan maken van eerdere wijzigingen is dan niet meer mogelijk.",
+    "deleteConfirmSheet": "‘{{name}}’ verwijderen van blad {{sheet}}? Het document wordt daarna opnieuw geladen; ongedaan maken van eerdere wijzigingen is dan niet meer mogelijk."
+  },
+  "compat": {
+    "extendedChart": "Dit is een uitgebreide grafiek (zoals een waterval- of boomstructuurgrafiek) die hier niet bewerkt kan worden.",
+    "unsupportedType": "Deze grafiek gebruikt een soort die hier niet bewerkt kan worden ({{types}}).",
+    "noReadableSeries": "De grafiek bevat geen reeksen die we kunnen lezen.",
+    "stackedBars": "Gestapelde staven worden bij bewerken naast elkaar gezet.",
+    "stackedLines": "Gestapelde lijnen worden bij bewerken losse lijnen.",
+    "stackedAreas": "Gestapelde vlakken worden bij bewerken losse vlakken.",
+    "linesAfterColumns": "De lijnreeksen komen bij bewerken na de kolommen.",
+    "unsupportedCombination": "Deze grafiek combineert soorten op een manier die hier niet bewerkt kan worden.",
+    "onlyLastAsLine": "Bij bewerken wordt alleen de laatste reeks als lijn getekend.",
+    "multiLevelCategories": "Categorieën met meerdere niveaus worden bij bewerken één niveau.",
+    "moreValues": "Reeks ‘{{name}}’ heeft meer waarden dan er categorieën zijn.",
+    "noSeries": "De grafiek bevat geen gegevensreeksen.",
+    "trendlines": "Trendlijnen en foutbalken vervallen bij bewerken.",
+    "invalid": "Deze grafiek kan hier niet worden bewerkt: {{reason}}",
+    "unusualXml": "Deze grafiek gebruikt een afwijkende XML-schrijfwijze en kan hier niet veilig bewerkt worden."
+  },
+  "dataSheet": {
+    "row": "Rij",
+    "series": "Reeks",
+    "deleteLastRow": "Laatste rij verwijderen",
+    "deleteLastSeries": "Laatste reeks verwijderen",
+    "paste": "Plakken",
+    "pasteHint": "Tabgescheiden tekst uit het klembord plakken, bijvoorbeeld gekopieerd uit een rekenblad",
+    "fromTable": "Uit geselecteerde tabel",
+    "fromTableHint": "Neemt de tabel over waarin de cursor staat",
+    "cornerCell": "Hoekcel",
+    "seriesName": "Naam van reeks {{n}}",
+    "category": "Categorie {{n}}",
+    "value": "Waarde rij {{row}}, reeks {{series}}",
+    "pasteNotAllowed": "Plakken via de knop is hier niet toegestaan. Klik in een cel en gebruik {{shortcut}}."
+  },
+  "defaults": {
+    "series": "Reeks {{n}}",
+    "category": "Categorie {{n}}",
+    "categoryHeader": "Categorie",
+    "chartName": "Grafiek {{n}}",
+    "sheetName": "Grafiek {{n}}",
+    "true": "WAAR",
+    "false": "ONWAAR"
+  },
+  "dialog": {
+    "insertTitle": "Grafiek invoegen",
+    "editTitle": "Grafiek bewerken",
+    "insert": "Invoegen",
+    "update": "Bijwerken",
+    "busy": "Bezig…",
+    "closeEsc": "Sluiten (Esc)",
+    "type": "Soort",
+    "data": "Gegevens",
+    "range": "Celbereik",
+    "rangePlaceholder": "Bijvoorbeeld {{example}}",
+    "nonContiguous": "De verwijzingen van deze grafiek vormen geen aaneengesloten bereik; de gegevens blijven ongewijzigd tot je een bereik opgeeft.",
+    "firstRowNames": "Eerste rij bevat namen",
+    "firstColumnNames": "Eerste kolom bevat namen",
+    "seriesIn": "Reeksen in",
+    "columns": "kolommen",
+    "rows": "rijen",
+    "series": "Reeksen",
+    "seriesNoNumbers": "{{name}}: geen getallen, telt niet mee",
+    "noNumbers": "(geen getallen)",
+    "titles": "Titels",
+    "title": "Titel",
+    "subtitle": "Ondertitel",
+    "categoryAxis": "Categorie-as",
+    "horizontalAxis": "Horizontale as",
+    "valueAxis": "Waardeas",
+    "verticalAxis": "Verticale as",
+    "secondaryAxis": "Tweede as",
+    "format": "Opmaak",
+    "legend": "Legenda",
+    "legendPosition": {
+      "onder": "Onder",
+      "rechts": "Rechts",
+      "boven": "Boven",
+      "links": "Links",
+      "geen": "Geen legenda"
+    },
+    "gridlines": "Rasterlijnen",
+    "dataLabels": "Gegevenslabels",
+    "decimals": "Decimalen",
+    "placement": "Plaatsing",
+    "besideData": "Naast de gegevens op dit blad",
+    "newSheet": "Op een nieuw blad",
+    "sheetName": "Naam van het blad",
+    "summary": "{{series}} · {{categories}}",
+    "seriesCount_one": "{{n}} reeks",
+    "seriesCount_other": "{{n}} reeksen",
+    "categoryCount_one": "{{n}} categorie",
+    "categoryCount_other": "{{n}} categorieën",
+    "reloadNote": {
+      "insert": "Het document wordt na invoegen opnieuw geladen. Ongedaan maken van wijzigingen van vóór dat moment is daarna niet meer mogelijk.",
+      "update": "Het document wordt na bijwerken opnieuw geladen. Ongedaan maken van wijzigingen van vóór dat moment is daarna niet meer mogelijk."
+    }
+  },
+  "errors": {
+    "enterRange": "Geef het celbereik met de gegevens op.",
+    "noTableAtCursor": "Zet de cursor eerst in een tabel met getallen.",
+    "pasteTooLarge": "De geplakte gegevens zijn te groot voor een grafiek.",
+    "documentNotReady": "Het document is nog niet gereed.",
+    "presentationLocked": "De presentatie kan nu niet worden bewerkt.",
+    "cannotEditHere": "Deze grafiek kan hier niet worden bewerkt.",
+    "cannotEdit": "Deze grafiek kan niet worden bewerkt.",
+    "chartNoLongerFound": "De grafiek is niet meer gevonden.",
+    "sheetNotReady": "Het rekenblad is nog niet gereed.",
+    "readOnly": "Het rekenblad is alleen-lezen.",
+    "invalidRange": "Dat is geen geldig celbereik. Gebruik bijvoorbeeld A1:D6 of 'Blad 1'!A1:D6.",
+    "noSuchSheet": "Er is geen blad met de naam ‘{{name}}’.",
+    "rangeTooLarge": "Het bereik is te groot: hoogstens {{max, number}} cellen.",
+    "selectChart": "Selecteer eerst een grafiek.",
+    "unknownType": "Onbekende grafieksoort.",
+    "needSeries": "De grafiek heeft minstens één gegevensreeks nodig.",
+    "tooManySeries": "Een grafiek kan hier hoogstens {{max, number}} reeksen bevatten.",
+    "tooManyCategories": "Een grafiek kan hier hoogstens {{max, number}} categorieën bevatten.",
+    "needCategory": "De grafiek heeft minstens één categorie nodig.",
+    "valueCountMismatch": "Reeks ‘{{name}}’ heeft niet evenveel waarden als er categorieën zijn.",
+    "noNumbers": "Er staan geen getallen in de gegevens.",
+    "comboNeedsTwoSeries": "Een combinatiegrafiek heeft minstens twee reeksen nodig: kolommen en een lijn.",
+    "scatterNeedsNumbers": "Een spreidingsgrafiek heeft getallen als X-waarden nodig in de eerste kolom of rij.",
+    "titleTooLong": "Titels mogen hoogstens {{max, number}} tekens lang zijn.",
+    "invalidColor": "Kleur ‘{{color}}’ is geen geldige kleur.",
+    "noNumbersInColumns": "Geen enkele kolom in het bereik bevat getallen, dus er is niets om te tekenen. Kies een bereik met minstens één kolom getallen, of zet ‘Reeksen in’ op rijen.",
+    "noNumbersInRows": "Geen enkele rij in het bereik bevat getallen, dus er is niets om te tekenen. Kies een bereik met minstens één rij getallen, of zet ‘Reeksen in’ op kolommen.",
+    "chooseSeries": "Kies minstens één reeks voor de grafiek.",
+    "noDataBesideHeaders": "Het bereik bevat geen gegevens naast de kopteksten.",
+    "missingMainPart": "Het document mist zijn hoofdonderdeel.",
+    "tooManyCharts": "Dit document bevat al {{amount, number}} grafieken; meer wordt niet ondersteund.",
+    "invalidSheetName": "Ongeldige bladnaam: hoogstens 31 tekens, zonder \\ / ? * [ ] :",
+    "sheetExists": "Er bestaat al een blad met de naam ‘{{name}}’.",
+    "noSheetList": "Het werkboek heeft geen bladenlijst.",
+    "drawingMissing": "De tekening van dit blad ontbreekt of is beschadigd.",
+    "drawingDamaged": "De tekening van dit blad is beschadigd.",
+    "sheetNotFound": "Het gekozen blad bestaat niet of is geen werkblad.",
+    "notWorksheet": "Een grafiek kan alleen op een gewoon werkblad worden geplaatst.",
+    "unusualXmlDocument": "Dit document gebruikt een afwijkende XML-schrijfwijze; de grafiek kan niet veilig worden ingevoegd.",
+    "noBody": "Het document heeft geen hoofdtekst.",
+    "tableTooLarge": "De tabel is te groot voor een grafiek.",
+    "slideNotFound": "De gekozen dia bestaat niet.",
+    "unusualXmlSlide": "Deze dia gebruikt een afwijkende XML-schrijfwijze; de grafiek kan niet veilig worden ingevoegd.",
+    "noShapeTree": "De dia heeft geen vormenlijst.",
+    "chartRemoved": "De grafiek bestaat niet meer in het document.",
+    "chartNotFound": "De grafiek is niet gevonden.",
+    "cannotDeleteObject": "Het grafiekobject kan niet worden verwijderd.",
+    "notChart": "Dit onderdeel is geen DrawingML-grafiek.",
+    "noPlotArea": "De grafiek heeft geen tekengebied.",
+    "documentTooLarge": "Het document is te groot om er een grafiek in te bewerken.",
+    "tooManyParts": "Het document bevat te veel of te grote onderdelen.",
+    "notZip": "Het document is geen geldig Office-bestand (zip).",
+    "invalidPartName": "Het document bevat een ongeldige onderdeelnaam.",
+    "missingContentTypes": "Het document mist [Content_Types].xml.",
+    "partMissing": "Onderdeel {{path}} ontbreekt in het document.",
+    "noFreePartName": "Er is geen vrije onderdeelnaam meer.",
+    "xmlTooLarge": "Een XML-onderdeel is te groot om te verwerken.",
+    "xmlDamaged": "Het XML-onderdeel is beschadigd.",
+    "xmlDoctype": "XML met een DOCTYPE wordt om veiligheidsredenen niet verwerkt.",
+    "xmlTooDeep": "Het XML-onderdeel is te diep genest.",
+    "xmlOverlap": "Interne fout: overlappende XML-wijzigingen."
+  },
+  "list": {
+    "title": "Grafieken in dit document",
+    "empty": "Dit document bevat nog geen grafieken.",
+    "deleteNamed": "{{name}} verwijderen",
+    "place": {
+      "slide": "dia {{n}}",
+      "sheet": "blad {{name}}",
+      "text": "grafiek {{n}} in de tekst"
+    }
+  },
+  "preview": {
+    "label": "Voorbeeld: {{title}}",
+    "untitled": "grafiek zonder titel"
+  },
+  "ribbon": {
+    "charts": "Grafieken",
+    "chart": "Grafiek",
+    "editChart": "Grafiek bewerken",
+    "allCharts": "Alle grafieken",
+    "dataAndFormat": "Gegevens en opmaak",
+    "overview": "Overzicht",
+    "type": "Soort",
+    "changeType": "Soort wijzigen",
+    "data": "Gegevens",
+    "selectData": "Gegevens selecteren",
+    "layout": "Indeling",
+    "titleAndLegend": "Titel en legenda",
+    "delete": "Verwijderen",
+    "deleteChart": "Grafiek verwijderen"
+  },
+  "types": {
+    "kolom": {
+      "name": "Kolom",
+      "description": "Waarden naast elkaar vergelijken"
+    },
+    "kolomGestapeld": {
+      "name": "Gestapelde kolom",
+      "description": "Delen en totaal per categorie"
+    },
+    "kolom100": {
+      "name": "100%-kolom",
+      "description": "Aandelen per categorie"
+    },
+    "staaf": {
+      "name": "Staaf",
+      "description": "Horizontaal, voor lange namen"
+    },
+    "lijn": {
+      "name": "Lijn",
+      "description": "Verloop over de tijd"
+    },
+    "lijnMarkering": {
+      "name": "Lijn met markeringen",
+      "description": "Verloop met zichtbare meetpunten"
+    },
+    "vlak": {
+      "name": "Vlak",
+      "description": "Verloop met nadruk op omvang"
+    },
+    "taart": {
+      "name": "Taart",
+      "description": "Verdeling van één reeks"
+    },
+    "ring": {
+      "name": "Ring",
+      "description": "Verdeling met een open midden"
+    },
+    "spreiding": {
+      "name": "Spreiding (XY)",
+      "description": "Verband tussen twee getallen"
+    },
+    "combinatie": {
+      "name": "Kolom + lijn",
+      "description": "Laatste reeks als lijn op een tweede as"
+    },
+    "unknown": "Onbekende soort"
+  }
+}

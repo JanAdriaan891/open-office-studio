@@ -1,4 +1,5 @@
 import { GrafiekFout, LIMIETEN } from "./fouten.ts";
+import { vertaal } from "./teksten.ts";
 
 export type GrafiekSoort =
   | "kolom"
@@ -13,33 +14,27 @@ export type GrafiekSoort =
   | "spreiding"
   | "combinatie";
 
-export const SOORTEN: { soort: GrafiekSoort; naam: string; uitleg: string }[] = [
-  { soort: "kolom", naam: "Kolom", uitleg: "Waarden naast elkaar vergelijken" },
-  {
-    soort: "kolomGestapeld",
-    naam: "Gestapelde kolom",
-    uitleg: "Delen en totaal per categorie",
-  },
-  { soort: "kolom100", naam: "100%-kolom", uitleg: "Aandelen per categorie" },
-  { soort: "staaf", naam: "Staaf", uitleg: "Horizontaal, voor lange namen" },
-  { soort: "lijn", naam: "Lijn", uitleg: "Verloop over de tijd" },
-  {
-    soort: "lijnMarkering",
-    naam: "Lijn met markeringen",
-    uitleg: "Verloop met zichtbare meetpunten",
-  },
-  { soort: "vlak", naam: "Vlak", uitleg: "Verloop met nadruk op omvang" },
-  { soort: "taart", naam: "Taart", uitleg: "Verdeling van één reeks" },
-  { soort: "ring", naam: "Ring", uitleg: "Verdeling met een open midden" },
-  { soort: "spreiding", naam: "Spreiding (XY)", uitleg: "Verband tussen twee getallen" },
-  {
-    soort: "combinatie",
-    naam: "Kolom + lijn",
-    uitleg: "Laatste reeks als lijn op een tweede as",
-  },
-];
+/** De grafieksoorten in de volgorde van het venster; naam en uitleg staan in `charts:types.<soort>`. */
+export const SOORTEN: { soort: GrafiekSoort }[] = (
+  [
+    "kolom",
+    "kolomGestapeld",
+    "kolom100",
+    "staaf",
+    "lijn",
+    "lijnMarkering",
+    "vlak",
+    "taart",
+    "ring",
+    "spreiding",
+    "combinatie",
+  ] as const
+).map((soort) => ({ soort }));
+/** Weergavenaam van een soort in de interfacetaal. */
 export const soortNaam = (soort: GrafiekSoort) =>
-  SOORTEN.find((s) => s.soort === soort)?.naam ?? soort;
+  SOORTEN.some((s) => s.soort === soort) ? vertaal(`types.${soort}.name`) : soort;
+/** Korte uitleg bij een soort in de interfacetaal. */
+export const soortUitleg = (soort: GrafiekSoort) => vertaal(`types.${soort}.description`);
 
 export type LegendaPositie = "rechts" | "onder" | "boven" | "links" | "geen";
 
@@ -122,40 +117,30 @@ export function nlGetal(waarde: number, decimalen = 0) {
 /** Controleert een model en geeft een Nederlandse foutmelding bij een probleem. */
 export function controleerModel(model: GrafiekModel) {
   if (!SOORTEN.some((s) => s.soort === model.soort))
-    throw new GrafiekFout("Onbekende grafieksoort.");
+    throw new GrafiekFout(vertaal("errors.unknownType"));
   if (!model.reeksen.length)
-    throw new GrafiekFout("De grafiek heeft minstens één gegevensreeks nodig.");
+    throw new GrafiekFout(vertaal("errors.needSeries"));
   if (model.reeksen.length > LIMIETEN.reeksen)
-    throw new GrafiekFout(
-      `Een grafiek kan hier hoogstens ${LIMIETEN.reeksen} reeksen bevatten.`,
-    );
+    throw new GrafiekFout(vertaal("errors.tooManySeries", { max: LIMIETEN.reeksen }));
   if (model.categorieen.length > LIMIETEN.categorieen)
-    throw new GrafiekFout(
-      `Een grafiek kan hier hoogstens ${LIMIETEN.categorieen} categorieën bevatten.`,
-    );
+    throw new GrafiekFout(vertaal("errors.tooManyCategories", { max: LIMIETEN.categorieen }));
   if (!model.categorieen.length)
-    throw new GrafiekFout("De grafiek heeft minstens één categorie nodig.");
+    throw new GrafiekFout(vertaal("errors.needCategory"));
   for (const r of model.reeksen)
     if (r.waarden.length !== model.categorieen.length)
-      throw new GrafiekFout(
-        `Reeks ‘${r.naam}’ heeft niet evenveel waarden als er categorieën zijn.`,
-      );
+      throw new GrafiekFout(vertaal("errors.valueCountMismatch", { name: r.naam }));
   if (!model.reeksen.some((r) => r.waarden.some((w) => w !== null && Number.isFinite(w))))
-    throw new GrafiekFout("Er staan geen getallen in de gegevens.");
+    throw new GrafiekFout(vertaal("errors.noNumbers"));
   if (model.soort === "combinatie" && model.reeksen.length < 2)
-    throw new GrafiekFout(
-      "Een combinatiegrafiek heeft minstens twee reeksen nodig: kolommen en een lijn.",
-    );
+    throw new GrafiekFout(vertaal("errors.comboNeedsTwoSeries"));
   if (model.soort === "spreiding" && model.categorieen.some((c) => leesGetal(c) === null))
-    throw new GrafiekFout(
-      "Een spreidingsgrafiek heeft getallen als X-waarden nodig in de eerste kolom of rij.",
-    );
+    throw new GrafiekFout(vertaal("errors.scatterNeedsNumbers"));
   for (const t of [model.titel, model.ondertitel, model.asTitelX, model.asTitelY, model.asTitelY2])
     if (t.length > LIMIETEN.titel)
-      throw new GrafiekFout(`Titels mogen hoogstens ${LIMIETEN.titel} tekens lang zijn.`);
+      throw new GrafiekFout(vertaal("errors.titleTooLong", { max: LIMIETEN.titel }));
   for (const r of model.reeksen)
     if (r.kleur && !/^[0-9A-Fa-f]{6}$/.test(r.kleur))
-      throw new GrafiekFout(`Kleur ‘${r.kleur}’ is geen geldige kleur.`);
+      throw new GrafiekFout(vertaal("errors.invalidColor", { color: r.kleur }));
 }
 
 /** Leest een getal in Nederlandse of internationale notatie; null als het geen getal is. */
@@ -294,12 +279,11 @@ export function kiesReeksen(
 ): Reeks[] {
   const gekozen = reeksen.filter((r, i) => heeftGetallen(r) && !overslaan.has(i));
   if (gekozen.length) return gekozen;
-  const wat = reeksenIn === "kolommen" ? "kolom" : "rij";
   if (reeksen.length && !reeksen.some(heeftGetallen))
     throw new GrafiekFout(
-      `Geen enkele ${wat} in het bereik bevat getallen, dus er is niets om te tekenen. Kies een bereik met minstens één ${wat} getallen, of zet ‘Reeksen in’ op ${reeksenIn === "kolommen" ? "rijen" : "kolommen"}.`,
+      vertaal(reeksenIn === "kolommen" ? "errors.noNumbersInColumns" : "errors.noNumbersInRows"),
     );
-  throw new GrafiekFout("Kies minstens één reeks voor de grafiek.");
+  throw new GrafiekFout(vertaal("errors.chooseSeries"));
 }
 
 export function kolomLetters(col: number) {
@@ -337,9 +321,7 @@ export function gegevensUitRaster(
   const rijen = cellen.length;
   const kolommen = Math.max(0, ...cellen.map((r) => r.length));
   if (rijen * kolommen > LIMIETEN.cellen)
-    throw new GrafiekFout(
-      `Het bereik is te groot: hoogstens ${LIMIETEN.cellen.toLocaleString("nl-NL")} cellen.`,
-    );
+    throw new GrafiekFout(vertaal("errors.rangeTooLarge", { max: LIMIETEN.cellen }));
   const cel = (r: number, k: number) => cellen[r]?.[k] ?? null;
   const label = (r: number, k: number) => {
     const w = weergave?.[r]?.[k];
@@ -352,7 +334,7 @@ export function gegevensUitRaster(
   const aantalCat = inKolommen ? rijen - dr : kolommen - dk;
   const aantalReeks = inKolommen ? kolommen - dk : rijen - dr;
   if (aantalCat < 1 || aantalReeks < 1)
-    throw new GrafiekFout("Het bereik bevat geen gegevens naast de kopteksten.");
+    throw new GrafiekFout(vertaal("errors.noDataBesideHeaders"));
   const waardeCel = (s: number, c: number) =>
     inKolommen ? [c + dr, s + dk] : [s + dr, c + dk];
   const abs = (r: number, k: number) => [r + (plaats?.top ?? 0), k + (plaats?.left ?? 0)];
@@ -398,7 +380,7 @@ export function gegevensUitRaster(
     const [r1, k1] = waardeCel(s, 0);
     const [r2, k2] = waardeCel(s, aantalCat - 1);
     reeksen.push({
-      naam: kop || `Reeks ${s + 1}`,
+      naam: kop || vertaal("defaults.series", { n: s + 1 }),
       waarden,
       naamRef: heeftKop
         ? inKolommen
@@ -430,6 +412,6 @@ export function leesTabgescheiden(tekst: string): string[][] {
   const raster = regels.map((r) => r.split("\t"));
   const breedte = Math.max(0, ...raster.map((r) => r.length));
   if (raster.length * breedte > LIMIETEN.cellen)
-    throw new GrafiekFout("De geplakte gegevens zijn te groot voor een grafiek.");
+    throw new GrafiekFout(vertaal("errors.pasteTooLarge"));
   return raster.map((r) => [...r, ...Array(breedte - r.length).fill("")]);
 }

@@ -1,12 +1,16 @@
 import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { ChartColumnBig, Info, X } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import { useOpmaak } from "../../i18n/opmaak";
 import {
   controleerModel,
   gegevensUitRaster,
   heeftGetallen,
   herkenKoppen,
   kiesReeksen,
+  soortNaam,
+  soortUitleg,
   SOORTEN,
   type Bereik,
   type Cel,
@@ -53,33 +57,32 @@ export interface Bevestiging {
   nieuwBlad?: string;
 }
 
-const LEGENDA: { waarde: LegendaPositie; naam: string }[] = [
-  { waarde: "onder", naam: "Onder" },
-  { waarde: "rechts", naam: "Rechts" },
-  { waarde: "boven", naam: "Boven" },
-  { waarde: "links", naam: "Links" },
-  { waarde: "geen", naam: "Geen legenda" },
-];
+/** Volgorde van de legendaposities; de namen staan in `charts:dialog.legendPosition`. */
+const LEGENDA: LegendaPositie[] = ["onder", "rechts", "boven", "links", "geen"];
 
 const tekstVan = (e: unknown) => (e instanceof Error ? e.message : String(e));
 
 export function GrafiekVenster({
-  titel,
-  knop,
+  modus,
   begin,
   gegevens,
   waarschuwingen = [],
   bevestig,
   sluit,
 }: {
-  titel: string;
-  knop: string;
+  /** Bepaalt titel, knop en de melding over herladen. */
+  modus: "invoegen" | "bewerken";
   begin: GrafiekModel;
   gegevens: Gegevensinvoer;
   waarschuwingen?: string[];
   bevestig: (b: Bevestiging) => Promise<void>;
   sluit: () => void;
 }) {
+  const { t } = useTranslation("charts");
+  const { t: tc } = useTranslation("common");
+  const { getal } = useOpmaak();
+  const titel = t(modus === "invoegen" ? "dialog.insertTitle" : "dialog.editTitle");
+  const knop = t(modus === "invoegen" ? "dialog.insert" : "dialog.update");
   const id = useId();
   const vak = useRef<HTMLDivElement>(null);
   const [opmaak, setOpmaak] = useState<GrafiekModel>(begin);
@@ -137,7 +140,7 @@ export function GrafiekVenster({
     } catch (e) {
       return { fout: tekstVan(e) };
     }
-  }, [gegevens.soort, geladen, opties]);
+  }, [gegevens.soort, geladen, opties, t]);
 
   /** Het volledige model, of een melding waarom het (nog) niet kan. */
   const resultaat = useMemo((): { model: GrafiekModel } | { fout: string } => {
@@ -150,7 +153,7 @@ export function GrafiekVenster({
         data = { ...bereikData, reeksen: kiesReeksen(bereikData.reeksen, overslaan, opties.reeksenIn) };
       } else if (!bereikTekst.trim() && begin.reeksen.length) {
         data = begin;
-      } else return { fout: "Geef het celbereik met de gegevens op." };
+      } else return { fout: t("errors.enterRange") };
       // Kleuren per reeks bewaren als het aantal gelijk blijft.
       const reeksen = data.reeksen.map((r, i) => ({ ...r, kleur: begin.reeksen.length === data.reeksen.length ? begin.reeksen[i]?.kleur : undefined }));
       const model = { ...opmaak, categorieen: data.categorieen, categorieenRef: data.categorieenRef, reeksen };
@@ -159,7 +162,8 @@ export function GrafiekVenster({
     } catch (e) {
       return { fout: tekstVan(e) };
     }
-  }, [gegevens.soort, raster, richting, bereikData, opties, overslaan, bereikTekst, begin, opmaak]);
+    // `t` erbij: een taalwissel vertaalt ook de melding (en de standaardnamen van reeksen).
+  }, [gegevens.soort, raster, richting, bereikData, opties, overslaan, bereikTekst, begin, opmaak, t]);
 
 
   async function doorgaan() {
@@ -203,38 +207,38 @@ export function GrafiekVenster({
         <header className="grafiek-kop">
           <span className="office-dialoogicoon"><ChartColumnBig size={22} /></span>
           <h2 id={id}>{titel}</h2>
-          <button type="button" className="grafiek-sluit" aria-label="Sluiten" title="Sluiten (Esc)" onClick={sluit} disabled={bezig}>
+          <button type="button" className="grafiek-sluit" aria-label={tc("close")} title={t("dialog.closeEsc")} onClick={sluit} disabled={bezig}>
             <X size={16} />
           </button>
         </header>
         <div className="grafiek-inhoud">
           <div className="grafiek-instellingen">
             <fieldset>
-              <legend>Soort</legend>
+              <legend>{t("dialog.type")}</legend>
               <div className="grafiek-soorten">
                 {SOORTEN.map((s) => (
                   <button
                     key={s.soort}
                     type="button"
                     aria-pressed={opmaak.soort === s.soort}
-                    title={s.uitleg}
+                    title={soortUitleg(s.soort)}
                     onClick={() => zet("soort", s.soort)}
                   >
                     <SoortIcoon soort={s.soort} />
-                    <span>{s.naam}</span>
+                    <span>{soortNaam(s.soort)}</span>
                   </button>
                 ))}
               </div>
             </fieldset>
             <fieldset>
-              <legend>Gegevens</legend>
+              <legend>{t("dialog.data")}</legend>
               {gegevens.soort === "bereik" ? (
                 <>
                   <label className="grafiek-veld">
-                    <span>Celbereik</span>
+                    <span>{t("dialog.range")}</span>
                     <input
                       value={bereikTekst}
-                      placeholder="Bijvoorbeeld A1:D6"
+                      placeholder={t("dialog.rangePlaceholder", { example: "A1:D6" })}
                       spellCheck={false}
                       onChange={(e) => setBereikTekst(e.target.value)}
                       onBlur={() => bereikTekst !== geladen?.tekst && void laadBereik(bereikTekst, true)}
@@ -248,29 +252,29 @@ export function GrafiekVenster({
                   </label>
                   {!bereikTekst.trim() && begin.reeksen.length > 0 && (
                     <p className="grafiek-noot">
-                      De verwijzingen van deze grafiek vormen geen aaneengesloten bereik; de gegevens blijven ongewijzigd tot je een bereik opgeeft.
+                      {t("dialog.nonContiguous")}
                     </p>
                   )}
                   {opties && (
                     <div className="grafiek-vinkjes">
-                      <label><input type="checkbox" checked={opties.koprij} onChange={(e) => zetOpties({ ...opties, koprij: e.target.checked })} /> Eerste rij bevat namen</label>
-                      <label><input type="checkbox" checked={opties.kopkolom} onChange={(e) => zetOpties({ ...opties, kopkolom: e.target.checked })} /> Eerste kolom bevat namen</label>
+                      <label><input type="checkbox" checked={opties.koprij} onChange={(e) => zetOpties({ ...opties, koprij: e.target.checked })} /> {t("dialog.firstRowNames")}</label>
+                      <label><input type="checkbox" checked={opties.kopkolom} onChange={(e) => zetOpties({ ...opties, kopkolom: e.target.checked })} /> {t("dialog.firstColumnNames")}</label>
                       <label className="grafiek-veld-rij">
-                        <span>Reeksen in</span>
+                        <span>{t("dialog.seriesIn")}</span>
                         <select value={opties.reeksenIn} onChange={(e) => zetOpties({ ...opties, reeksenIn: e.target.value as "kolommen" | "rijen" })}>
-                          <option value="kolommen">kolommen</option>
-                          <option value="rijen">rijen</option>
+                          <option value="kolommen">{t("dialog.columns")}</option>
+                          <option value="rijen">{t("dialog.rows")}</option>
                         </select>
                       </label>
                     </div>
                   )}
                   {bereikData && !("fout" in bereikData) && bereikData.reeksen.length > 0 && (
-                    <div className="grafiek-reeksen" role="group" aria-label="Reeksen">
-                      <span className="grafiek-reeksen-kop">Reeksen</span>
+                    <div className="grafiek-reeksen" role="group" aria-label={t("dialog.series")}>
+                      <span className="grafiek-reeksen-kop">{t("dialog.series")}</span>
                       {bereikData.reeksen.map((r, i) => {
                         const bruikbaar = heeftGetallen(r);
                         return (
-                          <label key={i} className={bruikbaar ? undefined : "grafiek-reeks-uit"} title={bruikbaar ? r.waardenRef : `${r.naam}: geen getallen, telt niet mee`}>
+                          <label key={i} className={bruikbaar ? undefined : "grafiek-reeks-uit"} title={bruikbaar ? r.waardenRef : t("dialog.seriesNoNumbers", { name: r.naam })}>
                             <input
                               type="checkbox"
                               checked={bruikbaar && !overslaan.has(i)}
@@ -283,7 +287,7 @@ export function GrafiekVenster({
                               }}
                             />{" "}
                             {r.naam}
-                            {!bruikbaar && <span className="grafiek-reden"> (geen getallen)</span>}
+                            {!bruikbaar && <span className="grafiek-reden"> {t("dialog.noNumbers")}</span>}
                           </label>
                         );
                       })}
@@ -300,63 +304,63 @@ export function GrafiekVenster({
                       gegevens.uitTabel
                         ? () =>
                             void gegevens.uitTabel!()
-                              .then((t) => {
-                                if (t) setRaster(t);
-                                else setMelding("Zet de cursor eerst in een tabel met getallen.");
+                              .then((tabel) => {
+                                if (tabel) setRaster(tabel);
+                                else setMelding(t("errors.noTableAtCursor"));
                               })
                               .catch((e) => setMelding(tekstVan(e)))
                         : undefined
                     }
                   />
                   <label className="grafiek-veld-rij">
-                    <span>Reeksen in</span>
+                    <span>{t("dialog.seriesIn")}</span>
                     <select value={richting} onChange={(e) => setRichting(e.target.value as "kolommen" | "rijen")}>
-                      <option value="kolommen">kolommen</option>
-                      <option value="rijen">rijen</option>
+                      <option value="kolommen">{t("dialog.columns")}</option>
+                      <option value="rijen">{t("dialog.rows")}</option>
                     </select>
                   </label>
                 </>
               )}
             </fieldset>
             <fieldset>
-              <legend>Titels</legend>
-              <label className="grafiek-veld"><span>Titel</span><input value={opmaak.titel} maxLength={255} onChange={(e) => zet("titel", e.target.value)} /></label>
-              <label className="grafiek-veld"><span>Ondertitel</span><input value={opmaak.ondertitel} maxLength={255} onChange={(e) => zet("ondertitel", e.target.value)} /></label>
+              <legend>{t("dialog.titles")}</legend>
+              <label className="grafiek-veld"><span>{t("dialog.title")}</span><input value={opmaak.titel} maxLength={255} onChange={(e) => zet("titel", e.target.value)} /></label>
+              <label className="grafiek-veld"><span>{t("dialog.subtitle")}</span><input value={opmaak.ondertitel} maxLength={255} onChange={(e) => zet("ondertitel", e.target.value)} /></label>
               {metAssen && (
                 <>
-                  <label className="grafiek-veld"><span>{opmaak.soort === "staaf" ? "Categorie-as" : "Horizontale as"}</span><input value={opmaak.asTitelX} maxLength={255} onChange={(e) => zet("asTitelX", e.target.value)} /></label>
-                  <label className="grafiek-veld"><span>{opmaak.soort === "staaf" ? "Waardeas" : "Verticale as"}</span><input value={opmaak.asTitelY} maxLength={255} onChange={(e) => zet("asTitelY", e.target.value)} /></label>
+                  <label className="grafiek-veld"><span>{t(opmaak.soort === "staaf" ? "dialog.categoryAxis" : "dialog.horizontalAxis")}</span><input value={opmaak.asTitelX} maxLength={255} onChange={(e) => zet("asTitelX", e.target.value)} /></label>
+                  <label className="grafiek-veld"><span>{t(opmaak.soort === "staaf" ? "dialog.valueAxis" : "dialog.verticalAxis")}</span><input value={opmaak.asTitelY} maxLength={255} onChange={(e) => zet("asTitelY", e.target.value)} /></label>
                   {opmaak.soort === "combinatie" && (
-                    <label className="grafiek-veld"><span>Tweede as</span><input value={opmaak.asTitelY2} maxLength={255} onChange={(e) => zet("asTitelY2", e.target.value)} /></label>
+                    <label className="grafiek-veld"><span>{t("dialog.secondaryAxis")}</span><input value={opmaak.asTitelY2} maxLength={255} onChange={(e) => zet("asTitelY2", e.target.value)} /></label>
                   )}
                 </>
               )}
             </fieldset>
             <fieldset>
-              <legend>Opmaak</legend>
+              <legend>{t("dialog.format")}</legend>
               <label className="grafiek-veld-rij">
-                <span>Legenda</span>
+                <span>{t("dialog.legend")}</span>
                 <select value={opmaak.legenda} onChange={(e) => zet("legenda", e.target.value as LegendaPositie)}>
-                  {LEGENDA.map((l) => <option key={l.waarde} value={l.waarde}>{l.naam}</option>)}
+                  {LEGENDA.map((l) => <option key={l} value={l}>{t(`dialog.legendPosition.${l}`)}</option>)}
                 </select>
               </label>
               <div className="grafiek-vinkjes">
-                {metAssen && <label><input type="checkbox" checked={opmaak.rasterlijnen} onChange={(e) => zet("rasterlijnen", e.target.checked)} /> Rasterlijnen</label>}
-                <label><input type="checkbox" checked={opmaak.gegevenslabels} onChange={(e) => zet("gegevenslabels", e.target.checked)} /> Gegevenslabels</label>
+                {metAssen && <label><input type="checkbox" checked={opmaak.rasterlijnen} onChange={(e) => zet("rasterlijnen", e.target.checked)} /> {t("dialog.gridlines")}</label>}
+                <label><input type="checkbox" checked={opmaak.gegevenslabels} onChange={(e) => zet("gegevenslabels", e.target.checked)} /> {t("dialog.dataLabels")}</label>
                 <label className="grafiek-veld-rij">
-                  <span>Decimalen</span>
+                  <span>{t("dialog.decimals")}</span>
                   <input type="number" min={0} max={6} value={opmaak.decimalen} onChange={(e) => zet("decimalen", Math.max(0, Math.min(6, Number(e.target.value) || 0)))} />
                 </label>
               </div>
             </fieldset>
             {gegevens.soort === "bereik" && gegevens.plaatsing && (
               <fieldset>
-                <legend>Plaatsing</legend>
+                <legend>{t("dialog.placement")}</legend>
                 <div className="grafiek-vinkjes">
-                  <label><input type="radio" name={`${id}-plaats`} checked={!nieuwBlad} onChange={() => setNieuwBlad(false)} /> Naast de gegevens op dit blad</label>
-                  <label><input type="radio" name={`${id}-plaats`} checked={nieuwBlad} onChange={() => setNieuwBlad(true)} /> Op een nieuw blad</label>
+                  <label><input type="radio" name={`${id}-plaats`} checked={!nieuwBlad} onChange={() => setNieuwBlad(false)} /> {t("dialog.besideData")}</label>
+                  <label><input type="radio" name={`${id}-plaats`} checked={nieuwBlad} onChange={() => setNieuwBlad(true)} /> {t("dialog.newSheet")}</label>
                   {nieuwBlad && (
-                    <label className="grafiek-veld"><span>Naam van het blad</span><input value={bladnaam} maxLength={31} onChange={(e) => setBladnaam(e.target.value)} /></label>
+                    <label className="grafiek-veld"><span>{t("dialog.sheetName")}</span><input value={bladnaam} maxLength={31} onChange={(e) => setBladnaam(e.target.value)} /></label>
                   )}
                 </div>
               </fieldset>
@@ -370,7 +374,10 @@ export function GrafiekVenster({
             )}
             {"model" in resultaat && (
               <p className="grafiek-samenvatting">
-                {resultaat.model.reeksen.length} {resultaat.model.reeksen.length === 1 ? "reeks" : "reeksen"} · {resultaat.model.categorieen.length} {resultaat.model.categorieen.length === 1 ? "categorie" : "categorieën"}
+                {t("dialog.summary", {
+                  series: t("dialog.seriesCount", { count: resultaat.model.reeksen.length, n: getal(resultaat.model.reeksen.length) }),
+                  categories: t("dialog.categoryCount", { count: resultaat.model.categorieen.length, n: getal(resultaat.model.categorieen.length) }),
+                })}
                 {resultaat.model.reeksen[0]?.waardenRef ? ` · ${resultaat.model.reeksen[0].waardenRef.split("!")[0].replace(/^'|'$/g, "")}` : ""}
               </p>
             )}
@@ -378,15 +385,15 @@ export function GrafiekVenster({
               <p key={w} className="grafiek-noot grafiek-waarschuwing">{w}</p>
             ))}
             <p className="grafiek-noot">
-              <Info size={13} /> Het document wordt na {knop.toLowerCase()} opnieuw geladen. Ongedaan maken van wijzigingen van vóór dat moment is daarna niet meer mogelijk.
+              <Info size={13} /> {t(modus === "invoegen" ? "dialog.reloadNote.insert" : "dialog.reloadNote.update")}
             </p>
             {melding && <p className="grafiek-melding" role="alert">{melding}</p>}
           </div>
         </div>
         <div className="office-dialoogacties">
-          <button type="button" onClick={sluit} disabled={bezig}>Annuleren</button>
+          <button type="button" onClick={sluit} disabled={bezig}>{tc("cancel")}</button>
           <button type="button" className="office-dialoogdoorgaan" onClick={() => void doorgaan()} disabled={bezig || !!fout || (nieuwBlad && !bladnaam.trim())}>
-            {bezig ? "Bezig…" : knop}
+            {bezig ? t("dialog.busy") : knop}
           </button>
         </div>
       </div>
