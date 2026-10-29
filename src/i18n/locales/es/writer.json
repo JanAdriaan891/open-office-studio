@@ -1055,7 +1055,8 @@
       "tocRemoved": "Tabla de contenido quitada",
       "footnoteInserted": "Nota al pie insertada",
       "endnoteInserted": "Nota al final insertada",
-      "noteFormatChanged": "Formato de notas cambiado"
+      "noteFormatChanged": "Formato de notas cambiado",
+      "marginsChanged": "Márgenes cambiados"
     },
     "errors": {
       "notReady": "El documento aún no está listo.",
@@ -1658,6 +1659,44 @@
       "tableNotFound": "No se encontró la tabla en el documento.",
       "splitRow": "Coloque el cursor en la fila que debe ser la primera fila de la nueva tabla (no la primera fila).",
       "splitMerged": "La tabla no se puede dividir aquí: una celda combinada abarca esta fila."
+    }
+  },
+  "ruler": {
+    "horizontal": "Regla horizontal",
+    "vertical": "Regla vertical",
+    "tabKindTip": "Tipo de tabulación: {{kind}}. Haga clic para cambiar.",
+    "tabKinds": {
+      "left": "Tabulación izquierda",
+      "center": "Tabulación centrada",
+      "right": "Tabulación derecha",
+      "decimal": "Tabulación decimal",
+      "bar": "Barra vertical"
+    },
+    "clickHint": "Haga clic para colocar una {{kind}}. Doble clic para el cuadro Tabulaciones.",
+    "tabStop": "{{kind}} en {{position}}",
+    "tabHint": "Arrastre para mover o fuera de la regla para quitar; doble clic para el cuadro Tabulaciones.",
+    "markers": {
+      "eerste": "Sangría de primera línea",
+      "verkeerd": "Sangría francesa",
+      "links": "Sangría izquierda",
+      "rechts": "Sangría derecha"
+    },
+    "leftMargin": "Margen izquierdo",
+    "rightMargin": "Margen derecho",
+    "topMargin": "Margen superior",
+    "bottomMargin": "Margen inferior",
+    "tableColumn": "Arrastrar ancho de columna (Mayús: solo esta columna)",
+    "tableRow": "Arrastrar alto de la fila {{n}}",
+    "altHint": "Alt: medida exacta",
+    "marginsUnavailable": "Aquí no se pueden arrastrar los márgenes; use Disposición › Márgenes.",
+    "measure": {
+      "indent": "{{name}}: {{value}} cm",
+      "tab": "Tabulación en {{value}} cm",
+      "removeTab": "Suelte para quitar la tabulación",
+      "margin": "{{name}}: {{value}} cm",
+      "columns": "Columna {{a}}: {{wa}} cm · columna {{b}}: {{wb}} cm",
+      "column": "Columna {{a}}: {{wa}} cm",
+      "row": "Fila {{n}}: {{value}} cm"
     }
   }
 }

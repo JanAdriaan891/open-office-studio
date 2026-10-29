@@ -1035,7 +1035,8 @@
       "tocRemoved": "已删除目录",
       "footnoteInserted": "已插入脚注",
       "endnoteInserted": "已插入尾注",
-      "noteFormatChanged": "已更改注释格式"
+      "noteFormatChanged": "已更改注释格式",
+      "marginsChanged": "已更改页边距"
     },
     "errors": {
       "notReady": "文档尚未就绪。",
@@ -1630,6 +1631,44 @@
       "tableNotFound": "在文档中找不到该表格。",
       "splitRow": "请将光标置于应成为新表格第一行的行中（不能是第一行）。",
       "splitMerged": "无法在此处拆分表格：有合并单元格跨越此行。"
+    }
+  },
+  "ruler": {
+    "horizontal": "水平标尺",
+    "vertical": "垂直标尺",
+    "tabKindTip": "制表位类型：{{kind}}。单击以切换。",
+    "tabKinds": {
+      "left": "左对齐制表位",
+      "center": "居中制表位",
+      "right": "右对齐制表位",
+      "decimal": "小数点对齐制表位",
+      "bar": "竖线制表位"
+    },
+    "clickHint": "单击放置{{kind}}。双击打开“制表位”对话框。",
+    "tabStop": "{{position}} 处的{{kind}}",
+    "tabHint": "拖动可移动，拖离标尺可删除；双击打开“制表位”对话框。",
+    "markers": {
+      "eerste": "首行缩进",
+      "verkeerd": "悬挂缩进",
+      "links": "左缩进",
+      "rechts": "右缩进"
+    },
+    "leftMargin": "左边距",
+    "rightMargin": "右边距",
+    "topMargin": "上边距",
+    "bottomMargin": "下边距",
+    "tableColumn": "拖动调整列宽（Shift：仅此列）",
+    "tableRow": "拖动调整第 {{n}} 行的行高",
+    "altHint": "Alt：精确尺寸",
+    "marginsUnavailable": "此处无法拖动边距；请使用“布局 › 页边距”。",
+    "measure": {
+      "indent": "{{name}}：{{value}} 厘米",
+      "tab": "制表位：{{value}} 厘米",
+      "removeTab": "松开即可删除制表位",
+      "margin": "{{name}}：{{value}} 厘米",
+      "columns": "第 {{a}} 列：{{wa}} 厘米 · 第 {{b}} 列：{{wb}} 厘米",
+      "column": "第 {{a}} 列：{{wa}} 厘米",
+      "row": "第 {{n}} 行：{{value}} 厘米"
     }
   }
 }

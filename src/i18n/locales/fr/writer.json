@@ -1055,7 +1055,8 @@
       "tocRemoved": "Table des matières supprimée",
       "footnoteInserted": "Note de bas de page insérée",
       "endnoteInserted": "Note de fin insérée",
-      "noteFormatChanged": "Format des notes modifié"
+      "noteFormatChanged": "Format des notes modifié",
+      "marginsChanged": "Marges modifiées"
     },
     "errors": {
       "notReady": "Le document n'est pas encore prêt.",
@@ -1658,6 +1659,44 @@
       "tableNotFound": "Le tableau est introuvable dans le document.",
       "splitRow": "Placez le curseur dans la ligne qui doit devenir la première ligne du nouveau tableau (pas la première ligne).",
       "splitMerged": "Impossible de fractionner le tableau ici : une cellule fusionnée s'étend sur cette ligne."
+    }
+  },
+  "ruler": {
+    "horizontal": "Règle horizontale",
+    "vertical": "Règle verticale",
+    "tabKindTip": "Type de tabulation : {{kind}}. Cliquez pour changer.",
+    "tabKinds": {
+      "left": "Tabulation gauche",
+      "center": "Tabulation centrée",
+      "right": "Tabulation droite",
+      "decimal": "Tabulation décimale",
+      "bar": "Barre verticale"
+    },
+    "clickHint": "Cliquez pour placer une {{kind}}. Double-cliquez pour la boîte de dialogue Tabulations.",
+    "tabStop": "{{kind}} à {{position}}",
+    "tabHint": "Faites glisser pour déplacer, ou hors de la règle pour supprimer ; double-cliquez pour la boîte de dialogue Tabulations.",
+    "markers": {
+      "eerste": "Retrait de première ligne",
+      "verkeerd": "Retrait négatif",
+      "links": "Retrait gauche",
+      "rechts": "Retrait droit"
+    },
+    "leftMargin": "Marge gauche",
+    "rightMargin": "Marge droite",
+    "topMargin": "Marge supérieure",
+    "bottomMargin": "Marge inférieure",
+    "tableColumn": "Faire glisser la largeur de colonne (Maj : cette colonne seulement)",
+    "tableRow": "Faire glisser la hauteur de la ligne {{n}}",
+    "altHint": "Alt : mesure exacte",
+    "marginsUnavailable": "Impossible de faire glisser les marges ici ; utilisez Mise en page › Marges.",
+    "measure": {
+      "indent": "{{name}} : {{value}} cm",
+      "tab": "Tabulation à {{value}} cm",
+      "removeTab": "Relâchez pour supprimer la tabulation",
+      "margin": "{{name}} : {{value}} cm",
+      "columns": "Colonne {{a}} : {{wa}} cm · colonne {{b}} : {{wb}} cm",
+      "column": "Colonne {{a}} : {{wa}} cm",
+      "row": "Ligne {{n}} : {{value}} cm"
     }
   }
 }
