@@ -63,13 +63,29 @@ async fn bewaar_database_export(
         .decode_utf8()
         .map_err(|_| "Ongeldige bestandsnaam.")?;
     let (naam, extensie) = exportnaam(&naam, &bytes)?;
+    // Dialoogteksten in de taal van de interface (de frontend stuurt ze mee); anders Nederlands.
+    let tekst = |kop: &str, standaard: &str| -> String {
+        request
+            .headers()
+            .get(kop)
+            .and_then(|w| w.to_str().ok())
+            .and_then(|w| percent_encoding::percent_decode_str(w).decode_utf8().ok())
+            .map(|w| w.trim().to_string())
+            .filter(|w| !w.is_empty() && w.len() <= 300)
+            .unwrap_or_else(|| standaard.to_string())
+    };
+    let titel = tekst("x-dialoog-titel", "Database-export opslaan");
+    let filter = if extensie == "sqlite" {
+        tekst("x-dialoog-filter-sqlite", "SQLite-werkkopie")
+    } else {
+        tekst("x-dialoog-filter-export", "Database-export")
+    };
+    let vervang_titel = tekst("x-vervang-titel", "Export vervangen");
+    let vervang_tekst = tekst("x-vervang-tekst", "Dit exportbestand bestaat al. Vervangen?");
     let bestand = rfd::AsyncFileDialog::new()
-        .set_title("Database-export opslaan")
+        .set_title(&titel)
         .set_file_name(&naam)
-        .add_filter(
-            if extensie == "sqlite" { "SQLite-werkkopie" } else { "Database-export" },
-            &[&extensie],
-        )
+        .add_filter(&filter, &[&extensie])
         .save_file()
         .await;
     let Some(bestand) = bestand else {
@@ -89,8 +105,8 @@ async fn bewaar_database_export(
     }
     if pad.exists()
         && rfd::AsyncMessageDialog::new()
-            .set_title("Export vervangen")
-            .set_description("Dit exportbestand bestaat al. Vervangen?")
+            .set_title(&vervang_titel)
+            .set_description(&vervang_tekst)
             .set_buttons(rfd::MessageButtons::YesNo)
             .show()
             .await
