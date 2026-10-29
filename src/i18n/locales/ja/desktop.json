@@ -1,141 +1,140 @@
 {
   "dialogs": {
-    "cancel": "Cancel",
-    "saveAsEllipsis": "Save as…",
-    "officeFile": "Office file",
-    "officeFiles": "Office files",
-    "untitled": "Untitled",
-    "saveCopy": "Save a copy",
-    "saveAs": "Save as",
-    "openFile": "Open file",
+    "cancel": "キャンセル",
+    "saveAsEllipsis": "名前を付けて保存…",
+    "officeFile": "Office ファイル",
+    "officeFiles": "Office ファイル",
+    "untitled": "無題",
+    "saveCopy": "コピーを保存",
+    "saveAs": "名前を付けて保存",
+    "openFile": "ファイルを開く",
     "replaceFile": {
-      "title": "Replace file",
-      "message": "The file {{path}} already exists. Replace it?"
+      "title": "ファイルの置き換え",
+      "message": "ファイル {{path}} は既に存在します。置き換えますか?"
     },
     "unsavedChanges": {
-      "title": "Unsaved changes",
-      "message_one": "One document in this window has changes that have not been saved. They will be lost. Close anyway?",
-      "message_other": "{{count}} documents in this window have changes that have not been saved. They will be lost. Close anyway?"
+      "title": "未保存の変更",
+      "message_other": "このウィンドウの {{count}} 件のドキュメントに保存されていない変更があります。変更は失われます。閉じてもよろしいですか?"
     },
     "fileChanged": {
-      "title": "File changed",
-      "missing": "{{name}} no longer exists in its original location. Recreate it with your version, or save it elsewhere?",
-      "changedExternally": "{{name}} has been changed outside Open Office Studio since you opened it. Overwriting discards those changes.",
-      "overwrite": "Overwrite"
+      "title": "ファイルが変更されました",
+      "missing": "{{name}} は元の場所に存在しなくなりました。このバージョンで再作成しますか、それとも別の場所に保存しますか?",
+      "changedExternally": "{{name}} は開いた後に Open Office Studio の外部で変更されています。上書きするとその変更は破棄されます。",
+      "overwrite": "上書き"
     },
     "foreignFormat": {
-      "title": "Save as {{format}}",
-      "message": "{{name}} will be updated in the {{format}} format. The office runtime converts the document for this; formatting that {{format}} does not support may be lost.",
-      "hint": "Choose Save as… to keep a DOCX, XLSX or PPTX.",
-      "update": "Update as {{format}}"
+      "title": "{{format}} として保存",
+      "message": "{{name}} は {{format}} 形式で更新されます。そのためにオフィスランタイムがドキュメントを変換します。{{format}} が対応していない書式は失われる場合があります。",
+      "hint": "DOCX、XLSX、PPTX として保存するには「名前を付けて保存…」を選択してください。",
+      "update": "{{format}} として更新"
     },
-    "chooseConverter": "Choose conversion program (soffice)",
+    "chooseConverter": "変換プログラムを選択 (soffice)",
     "databaseExport": {
-      "title": "Save database export",
-      "filter": "Database export",
-      "sqliteFilter": "SQLite working copy",
-      "replaceTitle": "Replace export",
-      "replaceMessage": "This export file already exists. Replace it?"
+      "title": "データベースのエクスポートを保存",
+      "filter": "データベースのエクスポート",
+      "sqliteFilter": "SQLite 作業コピー",
+      "replaceTitle": "エクスポートの置き換え",
+      "replaceMessage": "このエクスポート ファイルは既に存在します。置き換えますか?"
     }
   },
   "errors": {
     "file": {
-      "invalidBody": "The file is empty, larger than 100 MB or was not sent as binary data.",
-      "emptyOrTooLarge": "The file is empty or larger than 100 MB.",
-      "formatInfoMissing": "The format information is missing.",
-      "formatMissing": "The format is missing.",
-      "targetFolderMissing": "The target folder is missing.",
-      "nameMissing": "The file name is missing.",
-      "nameInvalidChars": "The file name contains invalid characters.",
-      "unsupportedFormat": "Unsupported file format.",
-      "extensionMismatch": "The chosen extension does not match the document.",
-      "alreadyOpenedOrOtherWindow": "This file is already open or is not meant for this window.",
-      "notThisWindow": "This file does not belong to this window.",
-      "notLinked": "This file is no longer linked to this tab.",
-      "tokenMissing": "The token is missing.",
-      "openInOtherTab": "{{name}} is open in another tab. Close it first or choose a different name.",
-      "readOnly": "No write permission in this folder or the file is read-only ({{path}}). Choose a different location.",
-      "notInRecentList": "This file is no longer in the list."
+      "invalidBody": "ファイルが空か、100 MB を超えているか、バイナリ データとして送信されていません。",
+      "emptyOrTooLarge": "ファイルが空か、100 MB を超えています。",
+      "formatInfoMissing": "形式の情報がありません。",
+      "formatMissing": "形式がありません。",
+      "targetFolderMissing": "保存先フォルダーがありません。",
+      "nameMissing": "ファイル名がありません。",
+      "nameInvalidChars": "ファイル名に無効な文字が含まれています。",
+      "unsupportedFormat": "サポートされていないファイル形式です。",
+      "extensionMismatch": "選択した拡張子はドキュメントに合いません。",
+      "alreadyOpenedOrOtherWindow": "このファイルは既に開かれているか、このウィンドウ用ではありません。",
+      "notThisWindow": "このファイルはこのウィンドウに属していません。",
+      "notLinked": "このファイルはこのタブにリンクされていません。",
+      "tokenMissing": "トークンがありません。",
+      "openInOtherTab": "{{name}} は別のタブで開かれています。先にそれを閉じるか、別の名前を選択してください。",
+      "readOnly": "このフォルダーへの書き込み権限がないか、ファイルが読み取り専用です ({{path}})。別の場所を選択してください。",
+      "notInRecentList": "このファイルは一覧にありません。"
     },
     "preferences": {
-      "tooLarge": "The preferences are larger than 64 kB.",
-      "invalid": "The preferences are not a valid JSON object.",
-      "configDirUnavailable": "The app's configuration folder is not available.",
-      "pathInvalid": "Invalid path for the preferences."
+      "tooLarge": "設定が 64 kB を超えています。",
+      "invalid": "設定が有効な JSON オブジェクトではありません。",
+      "configDirUnavailable": "アプリの構成フォルダーを使用できません。",
+      "pathInvalid": "設定のパスが無効です。"
     },
     "font": {
-      "notInstalled": "The font {{family}} is not installed on this computer.",
-      "notFound": "Font not found.",
-      "fileTooLarge": "This font file is too large.",
-      "inCollection": "This font is part of a collection (.ttc) and cannot be used on its own.",
-      "unreadable": "The font file could not be read.",
-      "nameInvalid": "Invalid font name."
+      "notInstalled": "フォント {{family}} はこのコンピューターにありません。",
+      "notFound": "フォントが見つかりません。",
+      "fileTooLarge": "このフォント ファイルは大きすぎます。",
+      "inCollection": "このフォントはコレクション (.ttc) の一部のため、単独では使用できません。",
+      "unreadable": "フォント ファイルを読み取れませんでした。",
+      "nameInvalid": "フォント名が無効です。"
     },
     "recovery": {
-      "keyInvalid": "Invalid recovery key.",
-      "spaceFull": "The space for recovery copies (512 MB) is full. Save your documents.",
-      "sessionMissing": "The session is missing.",
-      "keyMissing": "The key is missing.",
-      "dataInvalid": "Invalid recovery data.",
-      "unknownDocumentType": "Unknown document type.",
-      "sessionNotThisWindow": "This recovery session does not belong to this window.",
-      "sessionOtherWindow": "This recovery session belongs to another window.",
-      "sessionStillRunning": "This session is still running."
+      "keyInvalid": "回復キーが無効です。",
+      "spaceFull": "回復用コピーの領域 (512 MB) がいっぱいです。ドキュメントを保存してください。",
+      "sessionMissing": "セッションがありません。",
+      "keyMissing": "キーがありません。",
+      "dataInvalid": "回復データが無効です。",
+      "unknownDocumentType": "不明なドキュメントの種類です。",
+      "sessionNotThisWindow": "この回復セッションはこのウィンドウに属していません。",
+      "sessionOtherWindow": "この回復セッションは別のウィンドウに属しています。",
+      "sessionStillRunning": "このセッションはまだ実行中です。"
     },
     "window": {
-      "closed": "This window has been closed.",
-      "transferEmptyOrTooLarge": "The transfer is empty or too large.",
-      "mainWindowUnavailable": "The main window is not available.",
-      "openFailed": "The window could not be opened: {{error}}",
-      "transferExpired": "This transfer has expired or has already been taken.",
-      "transferAlreadyTaken": "This transfer has already been taken.",
-      "transferUnknown": "This transfer is unknown."
+      "closed": "このウィンドウは閉じられています。",
+      "transferEmptyOrTooLarge": "転送が空か、大きすぎます。",
+      "mainWindowUnavailable": "メイン ウィンドウを使用できません。",
+      "openFailed": "ウィンドウを開けませんでした: {{error}}",
+      "transferExpired": "この転送は期限切れか、既に受け取られています。",
+      "transferAlreadyTaken": "この転送は既に受け取られています。",
+      "transferUnknown": "この転送は不明です。"
     },
     "conversion": {
-      "unknownModule": "Unknown office module.",
-      "sourceFormatMismatch": "The source format does not belong to this module.",
-      "outputFormatUnsupported": "This output format is not supported.",
-      "outputFormatDirect": "This output format is created directly in the app, not by conversion.",
-      "invalidOptions": "Invalid conversion options.",
-      "chooseSoffice": "Choose the soffice program (Windows: soffice.exe) from the program folder of the office runtime.",
-      "chosenFileMissing": "The chosen file does not exist.",
-      "chosenPathNotFile": "The chosen path is not a file.",
-      "chosenFileNotExecutable": "The chosen file is not executable.",
-      "appDataDirUnavailable": "The app data folder is not available.",
-      "startFailed": "The conversion could not start: {{error}}",
-      "failed": "The conversion failed ({{reason}}). The original has been kept.",
-      "exitCode": "exit code {{code}}",
-      "processAborted": "process aborted",
-      "timeout": "The conversion exceeded the time limit and was stopped. The original has been kept.",
-      "profilePathInvalid": "The temporary profile path is invalid.",
-      "inputSize": "Choose a file of at most 100 MB that is not empty.",
-      "runtimeMissing": "This format needs an office runtime (LibreOffice). It was not found: install it, choose the program in Save as, or set OPENAEC_CONVERSIE_PROGRAMMA. DOCX, XLSX and PPTX work directly.",
-      "notConverted": "This file could not be converted. It may be damaged or protected, or the format filter is missing from the local runtime.",
-      "multipleOutputs": "The conversion produced more than one file.",
-      "noUsableOutput": "The conversion did not produce a usable file of at most 100 MB."
+      "unknownModule": "不明なオフィス モジュールです。",
+      "sourceFormatMismatch": "変換元の形式はこのモジュールに属していません。",
+      "outputFormatUnsupported": "この出力形式はサポートされていません。",
+      "outputFormatDirect": "この出力形式は変換ではなく、アプリ内で直接作成されます。",
+      "invalidOptions": "変換オプションが無効です。",
+      "chooseSoffice": "オフィスランタイムの program フォルダーから soffice プログラム (Windows: soffice.exe) を選択してください。",
+      "chosenFileMissing": "選択したファイルは存在しません。",
+      "chosenPathNotFile": "選択したパスはファイルではありません。",
+      "chosenFileNotExecutable": "選択したファイルは実行可能ではありません。",
+      "appDataDirUnavailable": "アプリのデータ フォルダーを使用できません。",
+      "startFailed": "変換を開始できませんでした: {{error}}",
+      "failed": "変換に失敗しました ({{reason}})。元のファイルは保持されています。",
+      "exitCode": "終了コード {{code}}",
+      "processAborted": "プロセスが中断されました",
+      "timeout": "変換が制限時間を超えたため停止しました。元のファイルは保持されています。",
+      "profilePathInvalid": "一時プロファイルのパスが無効です。",
+      "inputSize": "空ではない 100 MB 以下のファイルを選択してください。",
+      "runtimeMissing": "この形式にはオフィスランタイム (LibreOffice) が必要です。見つかりませんでした。インストールするか、「名前を付けて保存」でプログラムを選択するか、OPENAEC_CONVERSIE_PROGRAMMA を設定してください。DOCX、XLSX、PPTX はそのまま使用できます。",
+      "notConverted": "このファイルを変換できませんでした。破損しているか保護されているか、ローカル ランタイムに形式フィルターがありません。",
+      "multipleOutputs": "変換により複数のファイルが作成されました。",
+      "noUsableOutput": "変換で 100 MB 以下の使用可能なファイルが作成されませんでした。"
     },
     "databaseExport": {
-      "emptyOrTooLarge": "The export is empty or larger than 100 MB.",
-      "emptyInvalidOrTooLarge": "The export is empty, invalid or larger than 100 MB.",
-      "nameMissing": "File name missing.",
-      "nameInvalid": "Invalid file name.",
-      "notSqlite": "This is not an SQLite working copy.",
-      "typeNotAllowed": "Only CSV, source, report and SQLite working copy exports are allowed. Access databases are never overwritten.",
-      "textNotUtf8": "A text export must be valid UTF-8 text.",
-      "sendAsBinary": "Send the export as binary data of at most 100 MB.",
-      "extensionMismatch": "The chosen extension does not match the export."
+      "emptyOrTooLarge": "エクスポートが空か、100 MB を超えています。",
+      "emptyInvalidOrTooLarge": "エクスポートが空か、無効か、100 MB を超えています。",
+      "nameMissing": "ファイル名がありません。",
+      "nameInvalid": "ファイル名が無効です。",
+      "notSqlite": "これは SQLite 作業コピーではありません。",
+      "typeNotAllowed": "CSV、ソース、レポート、SQLite 作業コピーのエクスポートのみが許可されています。Access データベースが上書きされることはありません。",
+      "textNotUtf8": "テキストのエクスポートは有効な UTF-8 テキストである必要があります。",
+      "sendAsBinary": "エクスポートは 100 MB 以下のバイナリ データとして送信してください。",
+      "extensionMismatch": "選択した拡張子はエクスポートに合いません。"
     }
   },
   "launcher": {
     "officeStudio": {
-      "genericName": "Office suite",
-      "comment": "Local OpenAEC office environment",
-      "keywords": "word processor;spreadsheet;presentation;database;email;office;"
+      "genericName": "オフィス スイート",
+      "comment": "ローカルの OpenAEC オフィス環境",
+      "keywords": "ワープロ;表計算;プレゼンテーション;データベース;メール;オフィス;"
     },
     "databaseStudio": {
-      "genericName": "Database viewer",
-      "comment": "Open old MDB and ACCDB databases locally",
-      "keywords": "database;table;query;access;"
+      "genericName": "データベース ビューアー",
+      "comment": "古い MDB および ACCDB データベースをローカルで開きます",
+      "keywords": "データベース;テーブル;クエリ;Access;"
     }
   }
 }

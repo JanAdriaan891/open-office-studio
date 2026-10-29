@@ -1,141 +1,141 @@
 {
   "dialogs": {
-    "cancel": "Cancel",
-    "saveAsEllipsis": "Save as…",
-    "officeFile": "Office file",
-    "officeFiles": "Office files",
-    "untitled": "Untitled",
-    "saveCopy": "Save a copy",
-    "saveAs": "Save as",
-    "openFile": "Open file",
+    "cancel": "Peruuta",
+    "saveAsEllipsis": "Tallenna nimellä…",
+    "officeFile": "Toimistotiedosto",
+    "officeFiles": "Toimistotiedostot",
+    "untitled": "Nimetön",
+    "saveCopy": "Tallenna kopio",
+    "saveAs": "Tallenna nimellä",
+    "openFile": "Avaa tiedosto",
     "replaceFile": {
-      "title": "Replace file",
-      "message": "The file {{path}} already exists. Replace it?"
+      "title": "Korvaa tiedosto",
+      "message": "Tiedosto {{path}} on jo olemassa. Korvataanko se?"
     },
     "unsavedChanges": {
-      "title": "Unsaved changes",
-      "message_one": "One document in this window has changes that have not been saved. They will be lost. Close anyway?",
-      "message_other": "{{count}} documents in this window have changes that have not been saved. They will be lost. Close anyway?"
+      "title": "Tallentamattomat muutokset",
+      "message_one": "Yhdessä tämän ikkunan asiakirjassa on tallentamattomia muutoksia. Ne menetetään. Suljetaanko silti?",
+      "message_other": "{{count}} tämän ikkunan asiakirjassa on tallentamattomia muutoksia. Ne menetetään. Suljetaanko silti?"
     },
     "fileChanged": {
-      "title": "File changed",
-      "missing": "{{name}} no longer exists in its original location. Recreate it with your version, or save it elsewhere?",
-      "changedExternally": "{{name}} has been changed outside Open Office Studio since you opened it. Overwriting discards those changes.",
-      "overwrite": "Overwrite"
+      "title": "Tiedosto on muuttunut",
+      "missing": "{{name}} ei ole enää alkuperäisessä sijainnissaan. Luodaanko se uudelleen sinun versiollasi vai tallennetaanko se muualle?",
+      "changedExternally": "{{name}} on muutettu Open Office Studion ulkopuolella sen jälkeen, kun avasit sen. Korvaaminen hylkää nämä muutokset.",
+      "overwrite": "Korvaa"
     },
     "foreignFormat": {
-      "title": "Save as {{format}}",
-      "message": "{{name}} will be updated in the {{format}} format. The office runtime converts the document for this; formatting that {{format}} does not support may be lost.",
-      "hint": "Choose Save as… to keep a DOCX, XLSX or PPTX.",
-      "update": "Update as {{format}}"
+      "title": "Tallenna muodossa {{format}}",
+      "message": "{{name}} päivitetään muodossa {{format}}. Toimisto-ohjelma muuntaa asiakirjan tätä varten; muotoilu, jota {{format}} ei tue, voi kadota.",
+      "hint": "Valitse Tallenna nimellä…, jos haluat säilyttää DOCX-, XLSX- tai PPTX-tiedoston.",
+      "update": "Päivitä muodossa {{format}}"
     },
-    "chooseConverter": "Choose conversion program (soffice)",
+    "chooseConverter": "Valitse muunto-ohjelma (soffice)",
     "databaseExport": {
-      "title": "Save database export",
-      "filter": "Database export",
-      "sqliteFilter": "SQLite working copy",
-      "replaceTitle": "Replace export",
-      "replaceMessage": "This export file already exists. Replace it?"
+      "title": "Tallenna tietokannan vienti",
+      "filter": "Tietokannan vienti",
+      "sqliteFilter": "SQLite-työkopio",
+      "replaceTitle": "Korvaa vienti",
+      "replaceMessage": "Tämä vientitiedosto on jo olemassa. Korvataanko se?"
     }
   },
   "errors": {
     "file": {
-      "invalidBody": "The file is empty, larger than 100 MB or was not sent as binary data.",
-      "emptyOrTooLarge": "The file is empty or larger than 100 MB.",
-      "formatInfoMissing": "The format information is missing.",
-      "formatMissing": "The format is missing.",
-      "targetFolderMissing": "The target folder is missing.",
-      "nameMissing": "The file name is missing.",
-      "nameInvalidChars": "The file name contains invalid characters.",
-      "unsupportedFormat": "Unsupported file format.",
-      "extensionMismatch": "The chosen extension does not match the document.",
-      "alreadyOpenedOrOtherWindow": "This file is already open or is not meant for this window.",
-      "notThisWindow": "This file does not belong to this window.",
-      "notLinked": "This file is no longer linked to this tab.",
-      "tokenMissing": "The token is missing.",
-      "openInOtherTab": "{{name}} is open in another tab. Close it first or choose a different name.",
-      "readOnly": "No write permission in this folder or the file is read-only ({{path}}). Choose a different location.",
-      "notInRecentList": "This file is no longer in the list."
+      "invalidBody": "Tiedosto on tyhjä, yli 100 Mt tai sitä ei lähetetty binääridatana.",
+      "emptyOrTooLarge": "Tiedosto on tyhjä tai yli 100 Mt.",
+      "formatInfoMissing": "Muototiedot puuttuvat.",
+      "formatMissing": "Muoto puuttuu.",
+      "targetFolderMissing": "Kohdekansio puuttuu.",
+      "nameMissing": "Tiedostonimi puuttuu.",
+      "nameInvalidChars": "Tiedostonimessä on virheellisiä merkkejä.",
+      "unsupportedFormat": "Tiedostomuotoa ei tueta.",
+      "extensionMismatch": "Valittu tiedostopääte ei sovi asiakirjaan.",
+      "alreadyOpenedOrOtherWindow": "Tämä tiedosto on jo auki tai se ei ole tarkoitettu tälle ikkunalle.",
+      "notThisWindow": "Tämä tiedosto ei kuulu tähän ikkunaan.",
+      "notLinked": "Tämä tiedosto ei ole enää yhdistetty tähän välilehteen.",
+      "tokenMissing": "Tunnus puuttuu.",
+      "openInOtherTab": "{{name}} on auki toisessa välilehdessä. Sulje se ensin tai valitse toinen nimi.",
+      "readOnly": "Tähän kansioon ei ole kirjoitusoikeutta tai tiedosto on vain luku -tilassa ({{path}}). Valitse toinen sijainti.",
+      "notInRecentList": "Tämä tiedosto ei ole enää luettelossa."
     },
     "preferences": {
-      "tooLarge": "The preferences are larger than 64 kB.",
-      "invalid": "The preferences are not a valid JSON object.",
-      "configDirUnavailable": "The app's configuration folder is not available.",
-      "pathInvalid": "Invalid path for the preferences."
+      "tooLarge": "Asetukset ovat yli 64 kt.",
+      "invalid": "Asetukset eivät ole kelvollinen JSON-objekti.",
+      "configDirUnavailable": "Sovelluksen asetuskansio ei ole käytettävissä.",
+      "pathInvalid": "Asetusten polku on virheellinen."
     },
     "font": {
-      "notInstalled": "The font {{family}} is not installed on this computer.",
-      "notFound": "Font not found.",
-      "fileTooLarge": "This font file is too large.",
-      "inCollection": "This font is part of a collection (.ttc) and cannot be used on its own.",
-      "unreadable": "The font file could not be read.",
-      "nameInvalid": "Invalid font name."
+      "notInstalled": "Fonttia {{family}} ei ole asennettu tähän tietokoneeseen.",
+      "notFound": "Fonttia ei löytynyt.",
+      "fileTooLarge": "Tämä fonttitiedosto on liian suuri.",
+      "inCollection": "Tämä fontti kuuluu kokoelmaan (.ttc), eikä sitä voi käyttää yksinään.",
+      "unreadable": "Fonttitiedostoa ei voitu lukea.",
+      "nameInvalid": "Virheellinen fontin nimi."
     },
     "recovery": {
-      "keyInvalid": "Invalid recovery key.",
-      "spaceFull": "The space for recovery copies (512 MB) is full. Save your documents.",
-      "sessionMissing": "The session is missing.",
-      "keyMissing": "The key is missing.",
-      "dataInvalid": "Invalid recovery data.",
-      "unknownDocumentType": "Unknown document type.",
-      "sessionNotThisWindow": "This recovery session does not belong to this window.",
-      "sessionOtherWindow": "This recovery session belongs to another window.",
-      "sessionStillRunning": "This session is still running."
+      "keyInvalid": "Virheellinen palautusavain.",
+      "spaceFull": "Palautuskopioiden tila (512 Mt) on täynnä. Tallenna asiakirjasi.",
+      "sessionMissing": "Istunto puuttuu.",
+      "keyMissing": "Avain puuttuu.",
+      "dataInvalid": "Virheelliset palautustiedot.",
+      "unknownDocumentType": "Tuntematon asiakirjatyyppi.",
+      "sessionNotThisWindow": "Tämä palautusistunto ei kuulu tähän ikkunaan.",
+      "sessionOtherWindow": "Tämä palautusistunto kuuluu toiseen ikkunaan.",
+      "sessionStillRunning": "Tämä istunto on yhä käynnissä."
     },
     "window": {
-      "closed": "This window has been closed.",
-      "transferEmptyOrTooLarge": "The transfer is empty or too large.",
-      "mainWindowUnavailable": "The main window is not available.",
-      "openFailed": "The window could not be opened: {{error}}",
-      "transferExpired": "This transfer has expired or has already been taken.",
-      "transferAlreadyTaken": "This transfer has already been taken.",
-      "transferUnknown": "This transfer is unknown."
+      "closed": "Tämä ikkuna on suljettu.",
+      "transferEmptyOrTooLarge": "Siirto on tyhjä tai liian suuri.",
+      "mainWindowUnavailable": "Pääikkuna ei ole käytettävissä.",
+      "openFailed": "Ikkunaa ei voitu avata: {{error}}",
+      "transferExpired": "Tämä siirto on vanhentunut tai se on jo noudettu.",
+      "transferAlreadyTaken": "Tämä siirto on jo noudettu.",
+      "transferUnknown": "Tämä siirto on tuntematon."
     },
     "conversion": {
-      "unknownModule": "Unknown office module.",
-      "sourceFormatMismatch": "The source format does not belong to this module.",
-      "outputFormatUnsupported": "This output format is not supported.",
-      "outputFormatDirect": "This output format is created directly in the app, not by conversion.",
-      "invalidOptions": "Invalid conversion options.",
-      "chooseSoffice": "Choose the soffice program (Windows: soffice.exe) from the program folder of the office runtime.",
-      "chosenFileMissing": "The chosen file does not exist.",
-      "chosenPathNotFile": "The chosen path is not a file.",
-      "chosenFileNotExecutable": "The chosen file is not executable.",
-      "appDataDirUnavailable": "The app data folder is not available.",
-      "startFailed": "The conversion could not start: {{error}}",
-      "failed": "The conversion failed ({{reason}}). The original has been kept.",
-      "exitCode": "exit code {{code}}",
-      "processAborted": "process aborted",
-      "timeout": "The conversion exceeded the time limit and was stopped. The original has been kept.",
-      "profilePathInvalid": "The temporary profile path is invalid.",
-      "inputSize": "Choose a file of at most 100 MB that is not empty.",
-      "runtimeMissing": "This format needs an office runtime (LibreOffice). It was not found: install it, choose the program in Save as, or set OPENAEC_CONVERSIE_PROGRAMMA. DOCX, XLSX and PPTX work directly.",
-      "notConverted": "This file could not be converted. It may be damaged or protected, or the format filter is missing from the local runtime.",
-      "multipleOutputs": "The conversion produced more than one file.",
-      "noUsableOutput": "The conversion did not produce a usable file of at most 100 MB."
+      "unknownModule": "Tuntematon toimistomoduuli.",
+      "sourceFormatMismatch": "Lähdemuoto ei kuulu tähän moduuliin.",
+      "outputFormatUnsupported": "Tätä tulostemuotoa ei tueta.",
+      "outputFormatDirect": "Tämä tulostemuoto luodaan suoraan sovelluksessa, ei muuntamalla.",
+      "invalidOptions": "Virheelliset muunnosasetukset.",
+      "chooseSoffice": "Valitse soffice-ohjelma (Windows: soffice.exe) toimisto-ohjelman ohjelmakansiosta.",
+      "chosenFileMissing": "Valittua tiedostoa ei ole olemassa.",
+      "chosenPathNotFile": "Valittu polku ei ole tiedosto.",
+      "chosenFileNotExecutable": "Valittu tiedosto ei ole suoritettava.",
+      "appDataDirUnavailable": "Sovelluksen datakansio ei ole käytettävissä.",
+      "startFailed": "Muunnosta ei voitu käynnistää: {{error}}",
+      "failed": "Muunnos epäonnistui ({{reason}}). Alkuperäinen on säilytetty.",
+      "exitCode": "lopetuskoodi {{code}}",
+      "processAborted": "prosessi keskeytyi",
+      "timeout": "Muunnos ylitti aikarajan ja pysäytettiin. Alkuperäinen on säilytetty.",
+      "profilePathInvalid": "Väliaikaisen profiilin polku on virheellinen.",
+      "inputSize": "Valitse tiedosto, joka on enintään 100 Mt eikä ole tyhjä.",
+      "runtimeMissing": "Tämä muoto vaatii toimisto-ohjelman (LibreOffice). Sitä ei löytynyt: asenna se, valitse ohjelma kohdassa Tallenna nimellä tai aseta OPENAEC_CONVERSIE_PROGRAMMA. DOCX, XLSX ja PPTX toimivat suoraan.",
+      "notConverted": "Tätä tiedostoa ei voitu muuntaa. Se voi olla vaurioitunut tai suojattu, tai muotosuodatin puuttuu paikallisesta toimisto-ohjelmasta.",
+      "multipleOutputs": "Muunnos tuotti useamman kuin yhden tiedoston.",
+      "noUsableOutput": "Muunnos ei tuottanut käyttökelpoista, enintään 100 Mt:n tiedostoa."
     },
     "databaseExport": {
-      "emptyOrTooLarge": "The export is empty or larger than 100 MB.",
-      "emptyInvalidOrTooLarge": "The export is empty, invalid or larger than 100 MB.",
-      "nameMissing": "File name missing.",
-      "nameInvalid": "Invalid file name.",
-      "notSqlite": "This is not an SQLite working copy.",
-      "typeNotAllowed": "Only CSV, source, report and SQLite working copy exports are allowed. Access databases are never overwritten.",
-      "textNotUtf8": "A text export must be valid UTF-8 text.",
-      "sendAsBinary": "Send the export as binary data of at most 100 MB.",
-      "extensionMismatch": "The chosen extension does not match the export."
+      "emptyOrTooLarge": "Vienti on tyhjä tai yli 100 Mt.",
+      "emptyInvalidOrTooLarge": "Vienti on tyhjä, virheellinen tai yli 100 Mt.",
+      "nameMissing": "Tiedostonimi puuttuu.",
+      "nameInvalid": "Virheellinen tiedostonimi.",
+      "notSqlite": "Tämä ei ole SQLite-työkopio.",
+      "typeNotAllowed": "Vain CSV-, lähde-, raportti- ja SQLite-työkopiovienti on sallittu. Access-tietokantoja ei koskaan korvata.",
+      "textNotUtf8": "Tekstiviennin on oltava kelvollista UTF-8-tekstiä.",
+      "sendAsBinary": "Lähetä vienti binääridatana, enintään 100 Mt.",
+      "extensionMismatch": "Valittu tiedostopääte ei sovi vientiin."
     }
   },
   "launcher": {
     "officeStudio": {
-      "genericName": "Office suite",
-      "comment": "Local OpenAEC office environment",
-      "keywords": "word processor;spreadsheet;presentation;database;email;office;"
+      "genericName": "Toimisto-ohjelmisto",
+      "comment": "Paikallinen OpenAEC-toimistoympäristö",
+      "keywords": "tekstinkäsittely;taulukkolaskenta;esitys;tietokanta;sähköposti;toimisto;office;"
     },
     "databaseStudio": {
-      "genericName": "Database viewer",
-      "comment": "Open old MDB and ACCDB databases locally",
-      "keywords": "database;table;query;access;"
+      "genericName": "Tietokantakatselin",
+      "comment": "Avaa vanhoja MDB- ja ACCDB-tietokantoja paikallisesti",
+      "keywords": "tietokanta;taulu;kysely;access;database;"
     }
   }
 }

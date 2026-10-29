@@ -1,141 +1,142 @@
 {
   "dialogs": {
-    "cancel": "Cancel",
-    "saveAsEllipsis": "Save as…",
-    "officeFile": "Office file",
-    "officeFiles": "Office files",
-    "untitled": "Untitled",
-    "saveCopy": "Save a copy",
-    "saveAs": "Save as",
-    "openFile": "Open file",
+    "cancel": "ביטול",
+    "saveAsEllipsis": "שמירה בשם…",
+    "officeFile": "קובץ משרדי",
+    "officeFiles": "קבצים משרדיים",
+    "untitled": "ללא שם",
+    "saveCopy": "שמירת עותק",
+    "saveAs": "שמירה בשם",
+    "openFile": "פתיחת קובץ",
     "replaceFile": {
-      "title": "Replace file",
-      "message": "The file {{path}} already exists. Replace it?"
+      "title": "החלפת קובץ",
+      "message": "הקובץ {{path}} כבר קיים. להחליף אותו?"
     },
     "unsavedChanges": {
-      "title": "Unsaved changes",
-      "message_one": "One document in this window has changes that have not been saved. They will be lost. Close anyway?",
-      "message_other": "{{count}} documents in this window have changes that have not been saved. They will be lost. Close anyway?"
+      "title": "שינויים שלא נשמרו",
+      "message_one": "במסמך אחד בחלון זה יש שינויים שלא נשמרו. הם יאבדו. לסגור בכל זאת?",
+      "message_two": "בשני מסמכים בחלון זה יש שינויים שלא נשמרו. הם יאבדו. לסגור בכל זאת?",
+      "message_other": "ב־{{count}} מסמכים בחלון זה יש שינויים שלא נשמרו. הם יאבדו. לסגור בכל זאת?"
     },
     "fileChanged": {
-      "title": "File changed",
-      "missing": "{{name}} no longer exists in its original location. Recreate it with your version, or save it elsewhere?",
-      "changedExternally": "{{name}} has been changed outside Open Office Studio since you opened it. Overwriting discards those changes.",
-      "overwrite": "Overwrite"
+      "title": "הקובץ השתנה",
+      "missing": "{{name}} כבר לא נמצא במיקום המקורי שלו. ליצור אותו מחדש עם הגרסה שלך, או לשמור אותו במקום אחר?",
+      "changedExternally": "{{name}} שונה מחוץ ל־Open Office Studio מאז שפתחת אותו. דריסה תמחק את השינויים האלה.",
+      "overwrite": "דריסה"
     },
     "foreignFormat": {
-      "title": "Save as {{format}}",
-      "message": "{{name}} will be updated in the {{format}} format. The office runtime converts the document for this; formatting that {{format}} does not support may be lost.",
-      "hint": "Choose Save as… to keep a DOCX, XLSX or PPTX.",
-      "update": "Update as {{format}}"
+      "title": "שמירה כ־{{format}}",
+      "message": "{{name}} יעודכן בתבנית {{format}}. סביבת ההרצה המשרדית ממירה את המסמך לשם כך; עיצוב ש־{{format}} אינו תומך בו עלול ללכת לאיבוד.",
+      "hint": "בחרו „שמירה בשם…” כדי לשמור קובץ DOCX,‏ XLSX או PPTX.",
+      "update": "עדכון כ־{{format}}"
     },
-    "chooseConverter": "Choose conversion program (soffice)",
+    "chooseConverter": "בחירת תוכנית המרה (soffice)",
     "databaseExport": {
-      "title": "Save database export",
-      "filter": "Database export",
-      "sqliteFilter": "SQLite working copy",
-      "replaceTitle": "Replace export",
-      "replaceMessage": "This export file already exists. Replace it?"
+      "title": "שמירת ייצוא מסד נתונים",
+      "filter": "ייצוא מסד נתונים",
+      "sqliteFilter": "עותק עבודה של SQLite",
+      "replaceTitle": "החלפת ייצוא",
+      "replaceMessage": "קובץ הייצוא הזה כבר קיים. להחליף אותו?"
     }
   },
   "errors": {
     "file": {
-      "invalidBody": "The file is empty, larger than 100 MB or was not sent as binary data.",
-      "emptyOrTooLarge": "The file is empty or larger than 100 MB.",
-      "formatInfoMissing": "The format information is missing.",
-      "formatMissing": "The format is missing.",
-      "targetFolderMissing": "The target folder is missing.",
-      "nameMissing": "The file name is missing.",
-      "nameInvalidChars": "The file name contains invalid characters.",
-      "unsupportedFormat": "Unsupported file format.",
-      "extensionMismatch": "The chosen extension does not match the document.",
-      "alreadyOpenedOrOtherWindow": "This file is already open or is not meant for this window.",
-      "notThisWindow": "This file does not belong to this window.",
-      "notLinked": "This file is no longer linked to this tab.",
-      "tokenMissing": "The token is missing.",
-      "openInOtherTab": "{{name}} is open in another tab. Close it first or choose a different name.",
-      "readOnly": "No write permission in this folder or the file is read-only ({{path}}). Choose a different location.",
-      "notInRecentList": "This file is no longer in the list."
+      "invalidBody": "הקובץ ריק, גדול מ־100 MB או לא נשלח כנתונים בינאריים.",
+      "emptyOrTooLarge": "הקובץ ריק או גדול מ־100 MB.",
+      "formatInfoMissing": "פרטי התבנית חסרים.",
+      "formatMissing": "התבנית חסרה.",
+      "targetFolderMissing": "תיקיית היעד חסרה.",
+      "nameMissing": "שם הקובץ חסר.",
+      "nameInvalidChars": "שם הקובץ מכיל תווים לא חוקיים.",
+      "unsupportedFormat": "תבנית קובץ לא נתמכת.",
+      "extensionMismatch": "הסיומת שנבחרה אינה תואמת את המסמך.",
+      "alreadyOpenedOrOtherWindow": "הקובץ הזה כבר פתוח או שאינו מיועד לחלון הזה.",
+      "notThisWindow": "הקובץ הזה אינו שייך לחלון הזה.",
+      "notLinked": "הקובץ הזה כבר אינו מקושר ללשונית הזו.",
+      "tokenMissing": "האסימון חסר.",
+      "openInOtherTab": "{{name}} פתוח בלשונית אחרת. סגרו אותו קודם או בחרו שם אחר.",
+      "readOnly": "אין הרשאת כתיבה בתיקייה זו או שהקובץ לקריאה בלבד ({{path}}). בחרו מיקום אחר.",
+      "notInRecentList": "הקובץ הזה כבר אינו ברשימה."
     },
     "preferences": {
-      "tooLarge": "The preferences are larger than 64 kB.",
-      "invalid": "The preferences are not a valid JSON object.",
-      "configDirUnavailable": "The app's configuration folder is not available.",
-      "pathInvalid": "Invalid path for the preferences."
+      "tooLarge": "ההעדפות גדולות מ־64 kB.",
+      "invalid": "ההעדפות אינן אובייקט JSON תקין.",
+      "configDirUnavailable": "תיקיית התצורה של היישום אינה זמינה.",
+      "pathInvalid": "נתיב לא חוקי להעדפות."
     },
     "font": {
-      "notInstalled": "The font {{family}} is not installed on this computer.",
-      "notFound": "Font not found.",
-      "fileTooLarge": "This font file is too large.",
-      "inCollection": "This font is part of a collection (.ttc) and cannot be used on its own.",
-      "unreadable": "The font file could not be read.",
-      "nameInvalid": "Invalid font name."
+      "notInstalled": "הגופן {{family}} אינו מותקן במחשב זה.",
+      "notFound": "הגופן לא נמצא.",
+      "fileTooLarge": "קובץ הגופן הזה גדול מדי.",
+      "inCollection": "הגופן הזה הוא חלק מאוסף (.ttc) ואי אפשר להשתמש בו בנפרד.",
+      "unreadable": "לא ניתן היה לקרוא את קובץ הגופן.",
+      "nameInvalid": "שם גופן לא חוקי."
     },
     "recovery": {
-      "keyInvalid": "Invalid recovery key.",
-      "spaceFull": "The space for recovery copies (512 MB) is full. Save your documents.",
-      "sessionMissing": "The session is missing.",
-      "keyMissing": "The key is missing.",
-      "dataInvalid": "Invalid recovery data.",
-      "unknownDocumentType": "Unknown document type.",
-      "sessionNotThisWindow": "This recovery session does not belong to this window.",
-      "sessionOtherWindow": "This recovery session belongs to another window.",
-      "sessionStillRunning": "This session is still running."
+      "keyInvalid": "מפתח שחזור לא חוקי.",
+      "spaceFull": "השטח לעותקי שחזור (512 MB) מלא. שמרו את המסמכים שלכם.",
+      "sessionMissing": "ההפעלה חסרה.",
+      "keyMissing": "המפתח חסר.",
+      "dataInvalid": "נתוני שחזור לא חוקיים.",
+      "unknownDocumentType": "סוג מסמך לא ידוע.",
+      "sessionNotThisWindow": "הפעלת השחזור הזו אינה שייכת לחלון הזה.",
+      "sessionOtherWindow": "הפעלת השחזור הזו שייכת לחלון אחר.",
+      "sessionStillRunning": "ההפעלה הזו עדיין פועלת."
     },
     "window": {
-      "closed": "This window has been closed.",
-      "transferEmptyOrTooLarge": "The transfer is empty or too large.",
-      "mainWindowUnavailable": "The main window is not available.",
-      "openFailed": "The window could not be opened: {{error}}",
-      "transferExpired": "This transfer has expired or has already been taken.",
-      "transferAlreadyTaken": "This transfer has already been taken.",
-      "transferUnknown": "This transfer is unknown."
+      "closed": "החלון הזה נסגר.",
+      "transferEmptyOrTooLarge": "ההעברה ריקה או גדולה מדי.",
+      "mainWindowUnavailable": "החלון הראשי אינו זמין.",
+      "openFailed": "לא ניתן היה לפתוח את החלון: {{error}}",
+      "transferExpired": "תוקף ההעברה הזו פג או שהיא כבר נלקחה.",
+      "transferAlreadyTaken": "ההעברה הזו כבר נלקחה.",
+      "transferUnknown": "ההעברה הזו אינה ידועה."
     },
     "conversion": {
-      "unknownModule": "Unknown office module.",
-      "sourceFormatMismatch": "The source format does not belong to this module.",
-      "outputFormatUnsupported": "This output format is not supported.",
-      "outputFormatDirect": "This output format is created directly in the app, not by conversion.",
-      "invalidOptions": "Invalid conversion options.",
-      "chooseSoffice": "Choose the soffice program (Windows: soffice.exe) from the program folder of the office runtime.",
-      "chosenFileMissing": "The chosen file does not exist.",
-      "chosenPathNotFile": "The chosen path is not a file.",
-      "chosenFileNotExecutable": "The chosen file is not executable.",
-      "appDataDirUnavailable": "The app data folder is not available.",
-      "startFailed": "The conversion could not start: {{error}}",
-      "failed": "The conversion failed ({{reason}}). The original has been kept.",
-      "exitCode": "exit code {{code}}",
-      "processAborted": "process aborted",
-      "timeout": "The conversion exceeded the time limit and was stopped. The original has been kept.",
-      "profilePathInvalid": "The temporary profile path is invalid.",
-      "inputSize": "Choose a file of at most 100 MB that is not empty.",
-      "runtimeMissing": "This format needs an office runtime (LibreOffice). It was not found: install it, choose the program in Save as, or set OPENAEC_CONVERSIE_PROGRAMMA. DOCX, XLSX and PPTX work directly.",
-      "notConverted": "This file could not be converted. It may be damaged or protected, or the format filter is missing from the local runtime.",
-      "multipleOutputs": "The conversion produced more than one file.",
-      "noUsableOutput": "The conversion did not produce a usable file of at most 100 MB."
+      "unknownModule": "מודול משרדי לא ידוע.",
+      "sourceFormatMismatch": "תבנית המקור אינה שייכת למודול הזה.",
+      "outputFormatUnsupported": "תבנית הפלט הזו אינה נתמכת.",
+      "outputFormatDirect": "תבנית הפלט הזו נוצרת ישירות ביישום, לא באמצעות המרה.",
+      "invalidOptions": "אפשרויות המרה לא חוקיות.",
+      "chooseSoffice": "בחרו את התוכנית soffice (ב־Windows:‏ soffice.exe) מתיקיית התוכניות של סביבת ההרצה המשרדית.",
+      "chosenFileMissing": "הקובץ שנבחר אינו קיים.",
+      "chosenPathNotFile": "הנתיב שנבחר אינו קובץ.",
+      "chosenFileNotExecutable": "הקובץ שנבחר אינו בר־הרצה.",
+      "appDataDirUnavailable": "תיקיית הנתונים של היישום אינה זמינה.",
+      "startFailed": "לא ניתן היה להתחיל את ההמרה: {{error}}",
+      "failed": "ההמרה נכשלה ({{reason}}). המקור נשמר.",
+      "exitCode": "קוד יציאה {{code}}",
+      "processAborted": "התהליך הופסק",
+      "timeout": "ההמרה חרגה ממגבלת הזמן והופסקה. המקור נשמר.",
+      "profilePathInvalid": "נתיב הפרופיל הזמני אינו חוקי.",
+      "inputSize": "בחרו קובץ שאינו ריק וגודלו 100 MB לכל היותר.",
+      "runtimeMissing": "תבנית זו דורשת סביבת הרצה משרדית (LibreOffice). היא לא נמצאה: התקינו אותה, בחרו את התוכנית ב„שמירה בשם” או הגדירו את OPENAEC_CONVERSIE_PROGRAMMA. ‏DOCX,‏ XLSX ו־PPTX עובדים ישירות.",
+      "notConverted": "לא ניתן היה להמיר את הקובץ הזה. ייתכן שהוא פגום או מוגן, או שמסנן התבנית חסר בסביבת ההרצה המקומית.",
+      "multipleOutputs": "ההמרה הפיקה יותר מקובץ אחד.",
+      "noUsableOutput": "ההמרה לא הפיקה קובץ שמיש בגודל של 100 MB לכל היותר."
     },
     "databaseExport": {
-      "emptyOrTooLarge": "The export is empty or larger than 100 MB.",
-      "emptyInvalidOrTooLarge": "The export is empty, invalid or larger than 100 MB.",
-      "nameMissing": "File name missing.",
-      "nameInvalid": "Invalid file name.",
-      "notSqlite": "This is not an SQLite working copy.",
-      "typeNotAllowed": "Only CSV, source, report and SQLite working copy exports are allowed. Access databases are never overwritten.",
-      "textNotUtf8": "A text export must be valid UTF-8 text.",
-      "sendAsBinary": "Send the export as binary data of at most 100 MB.",
-      "extensionMismatch": "The chosen extension does not match the export."
+      "emptyOrTooLarge": "הייצוא ריק או גדול מ־100 MB.",
+      "emptyInvalidOrTooLarge": "הייצוא ריק, לא חוקי או גדול מ־100 MB.",
+      "nameMissing": "שם הקובץ חסר.",
+      "nameInvalid": "שם קובץ לא חוקי.",
+      "notSqlite": "זה אינו עותק עבודה של SQLite.",
+      "typeNotAllowed": "מותרים רק ייצוא CSV, קוד מקור, דוח ועותק עבודה של SQLite. מסדי נתונים של Access לעולם אינם נדרסים.",
+      "textNotUtf8": "ייצוא טקסט חייב להיות טקסט UTF-8 תקין.",
+      "sendAsBinary": "שלחו את הייצוא כנתונים בינאריים בגודל של 100 MB לכל היותר.",
+      "extensionMismatch": "הסיומת שנבחרה אינה תואמת את הייצוא."
     }
   },
   "launcher": {
     "officeStudio": {
-      "genericName": "Office suite",
-      "comment": "Local OpenAEC office environment",
-      "keywords": "word processor;spreadsheet;presentation;database;email;office;"
+      "genericName": "חבילה משרדית",
+      "comment": "סביבה משרדית מקומית של OpenAEC",
+      "keywords": "מעבד תמלילים;גיליון אלקטרוני;מצגת;מסד נתונים;דואר אלקטרוני;משרד;office;"
     },
     "databaseStudio": {
-      "genericName": "Database viewer",
-      "comment": "Open old MDB and ACCDB databases locally",
-      "keywords": "database;table;query;access;"
+      "genericName": "מציג מסדי נתונים",
+      "comment": "פתיחה מקומית של מסדי נתונים ישנים מסוג MDB ו־ACCDB",
+      "keywords": "מסד נתונים;טבלה;שאילתה;access;database;"
     }
   }
 }

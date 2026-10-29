@@ -1,141 +1,140 @@
 {
   "dialogs": {
-    "cancel": "Cancel",
-    "saveAsEllipsis": "Save as…",
-    "officeFile": "Office file",
-    "officeFiles": "Office files",
-    "untitled": "Untitled",
-    "saveCopy": "Save a copy",
-    "saveAs": "Save as",
-    "openFile": "Open file",
+    "cancel": "취소",
+    "saveAsEllipsis": "다른 이름으로 저장…",
+    "officeFile": "오피스 파일",
+    "officeFiles": "오피스 파일",
+    "untitled": "제목 없음",
+    "saveCopy": "사본 저장",
+    "saveAs": "다른 이름으로 저장",
+    "openFile": "파일 열기",
     "replaceFile": {
-      "title": "Replace file",
-      "message": "The file {{path}} already exists. Replace it?"
+      "title": "파일 바꾸기",
+      "message": "{{path}} 파일이 이미 있습니다. 바꾸시겠습니까?"
     },
     "unsavedChanges": {
-      "title": "Unsaved changes",
-      "message_one": "One document in this window has changes that have not been saved. They will be lost. Close anyway?",
-      "message_other": "{{count}} documents in this window have changes that have not been saved. They will be lost. Close anyway?"
+      "title": "저장하지 않은 변경 내용",
+      "message_other": "이 창의 문서 {{count}}개에 저장하지 않은 변경 내용이 있습니다. 변경 내용이 손실됩니다. 그래도 닫으시겠습니까?"
     },
     "fileChanged": {
-      "title": "File changed",
-      "missing": "{{name}} no longer exists in its original location. Recreate it with your version, or save it elsewhere?",
-      "changedExternally": "{{name}} has been changed outside Open Office Studio since you opened it. Overwriting discards those changes.",
-      "overwrite": "Overwrite"
+      "title": "파일이 변경됨",
+      "missing": "{{name}}이(가) 더 이상 원래 위치에 없습니다. 내 버전으로 다시 만들거나 다른 위치에 저장하시겠습니까?",
+      "changedExternally": "{{name}}을(를) 연 후 Open Office Studio 외부에서 변경되었습니다. 덮어쓰면 해당 변경 내용이 삭제됩니다.",
+      "overwrite": "덮어쓰기"
     },
     "foreignFormat": {
-      "title": "Save as {{format}}",
-      "message": "{{name}} will be updated in the {{format}} format. The office runtime converts the document for this; formatting that {{format}} does not support may be lost.",
-      "hint": "Choose Save as… to keep a DOCX, XLSX or PPTX.",
-      "update": "Update as {{format}}"
+      "title": "{{format}}(으)로 저장",
+      "message": "{{name}}이(가) {{format}} 형식으로 업데이트됩니다. 이를 위해 오피스 런타임이 문서를 변환하며, {{format}}에서 지원하지 않는 서식은 손실될 수 있습니다.",
+      "hint": "DOCX, XLSX 또는 PPTX를 유지하려면 다른 이름으로 저장…을 선택하세요.",
+      "update": "{{format}}(으)로 업데이트"
     },
-    "chooseConverter": "Choose conversion program (soffice)",
+    "chooseConverter": "변환 프로그램 선택 (soffice)",
     "databaseExport": {
-      "title": "Save database export",
-      "filter": "Database export",
-      "sqliteFilter": "SQLite working copy",
-      "replaceTitle": "Replace export",
-      "replaceMessage": "This export file already exists. Replace it?"
+      "title": "데이터베이스 내보내기 저장",
+      "filter": "데이터베이스 내보내기",
+      "sqliteFilter": "SQLite 작업 사본",
+      "replaceTitle": "내보내기 바꾸기",
+      "replaceMessage": "이 내보내기 파일이 이미 있습니다. 바꾸시겠습니까?"
     }
   },
   "errors": {
     "file": {
-      "invalidBody": "The file is empty, larger than 100 MB or was not sent as binary data.",
-      "emptyOrTooLarge": "The file is empty or larger than 100 MB.",
-      "formatInfoMissing": "The format information is missing.",
-      "formatMissing": "The format is missing.",
-      "targetFolderMissing": "The target folder is missing.",
-      "nameMissing": "The file name is missing.",
-      "nameInvalidChars": "The file name contains invalid characters.",
-      "unsupportedFormat": "Unsupported file format.",
-      "extensionMismatch": "The chosen extension does not match the document.",
-      "alreadyOpenedOrOtherWindow": "This file is already open or is not meant for this window.",
-      "notThisWindow": "This file does not belong to this window.",
-      "notLinked": "This file is no longer linked to this tab.",
-      "tokenMissing": "The token is missing.",
-      "openInOtherTab": "{{name}} is open in another tab. Close it first or choose a different name.",
-      "readOnly": "No write permission in this folder or the file is read-only ({{path}}). Choose a different location.",
-      "notInRecentList": "This file is no longer in the list."
+      "invalidBody": "파일이 비어 있거나 100MB보다 크거나 이진 데이터로 전송되지 않았습니다.",
+      "emptyOrTooLarge": "파일이 비어 있거나 100MB보다 큽니다.",
+      "formatInfoMissing": "형식 정보가 없습니다.",
+      "formatMissing": "형식이 없습니다.",
+      "targetFolderMissing": "대상 폴더가 없습니다.",
+      "nameMissing": "파일 이름이 없습니다.",
+      "nameInvalidChars": "파일 이름에 잘못된 문자가 있습니다.",
+      "unsupportedFormat": "지원되지 않는 파일 형식입니다.",
+      "extensionMismatch": "선택한 확장자가 문서와 일치하지 않습니다.",
+      "alreadyOpenedOrOtherWindow": "이 파일은 이미 열려 있거나 이 창용이 아닙니다.",
+      "notThisWindow": "이 파일은 이 창에 속하지 않습니다.",
+      "notLinked": "이 파일은 더 이상 이 탭에 연결되어 있지 않습니다.",
+      "tokenMissing": "토큰이 없습니다.",
+      "openInOtherTab": "{{name}}이(가) 다른 탭에서 열려 있습니다. 먼저 닫거나 다른 이름을 선택하세요.",
+      "readOnly": "이 폴더에 쓰기 권한이 없거나 파일이 읽기 전용입니다({{path}}). 다른 위치를 선택하세요.",
+      "notInRecentList": "이 파일은 더 이상 목록에 없습니다."
     },
     "preferences": {
-      "tooLarge": "The preferences are larger than 64 kB.",
-      "invalid": "The preferences are not a valid JSON object.",
-      "configDirUnavailable": "The app's configuration folder is not available.",
-      "pathInvalid": "Invalid path for the preferences."
+      "tooLarge": "기본 설정이 64KB보다 큽니다.",
+      "invalid": "기본 설정이 올바른 JSON 개체가 아닙니다.",
+      "configDirUnavailable": "앱의 구성 폴더를 사용할 수 없습니다.",
+      "pathInvalid": "기본 설정 경로가 잘못되었습니다."
     },
     "font": {
-      "notInstalled": "The font {{family}} is not installed on this computer.",
-      "notFound": "Font not found.",
-      "fileTooLarge": "This font file is too large.",
-      "inCollection": "This font is part of a collection (.ttc) and cannot be used on its own.",
-      "unreadable": "The font file could not be read.",
-      "nameInvalid": "Invalid font name."
+      "notInstalled": "{{family}} 글꼴이 이 컴퓨터에 설치되어 있지 않습니다.",
+      "notFound": "글꼴을 찾을 수 없습니다.",
+      "fileTooLarge": "이 글꼴 파일이 너무 큽니다.",
+      "inCollection": "이 글꼴은 컬렉션(.ttc)의 일부이므로 단독으로 사용할 수 없습니다.",
+      "unreadable": "글꼴 파일을 읽을 수 없습니다.",
+      "nameInvalid": "글꼴 이름이 잘못되었습니다."
     },
     "recovery": {
-      "keyInvalid": "Invalid recovery key.",
-      "spaceFull": "The space for recovery copies (512 MB) is full. Save your documents.",
-      "sessionMissing": "The session is missing.",
-      "keyMissing": "The key is missing.",
-      "dataInvalid": "Invalid recovery data.",
-      "unknownDocumentType": "Unknown document type.",
-      "sessionNotThisWindow": "This recovery session does not belong to this window.",
-      "sessionOtherWindow": "This recovery session belongs to another window.",
-      "sessionStillRunning": "This session is still running."
+      "keyInvalid": "복구 키가 잘못되었습니다.",
+      "spaceFull": "복구 사본용 공간(512MB)이 가득 찼습니다. 문서를 저장하세요.",
+      "sessionMissing": "세션이 없습니다.",
+      "keyMissing": "키가 없습니다.",
+      "dataInvalid": "복구 데이터가 잘못되었습니다.",
+      "unknownDocumentType": "알 수 없는 문서 유형입니다.",
+      "sessionNotThisWindow": "이 복구 세션은 이 창에 속하지 않습니다.",
+      "sessionOtherWindow": "이 복구 세션은 다른 창에 속합니다.",
+      "sessionStillRunning": "이 세션은 아직 실행 중입니다."
     },
     "window": {
-      "closed": "This window has been closed.",
-      "transferEmptyOrTooLarge": "The transfer is empty or too large.",
-      "mainWindowUnavailable": "The main window is not available.",
-      "openFailed": "The window could not be opened: {{error}}",
-      "transferExpired": "This transfer has expired or has already been taken.",
-      "transferAlreadyTaken": "This transfer has already been taken.",
-      "transferUnknown": "This transfer is unknown."
+      "closed": "이 창은 닫혔습니다.",
+      "transferEmptyOrTooLarge": "전송이 비어 있거나 너무 큽니다.",
+      "mainWindowUnavailable": "기본 창을 사용할 수 없습니다.",
+      "openFailed": "창을 열 수 없습니다: {{error}}",
+      "transferExpired": "이 전송은 만료되었거나 이미 가져갔습니다.",
+      "transferAlreadyTaken": "이 전송은 이미 가져갔습니다.",
+      "transferUnknown": "알 수 없는 전송입니다."
     },
     "conversion": {
-      "unknownModule": "Unknown office module.",
-      "sourceFormatMismatch": "The source format does not belong to this module.",
-      "outputFormatUnsupported": "This output format is not supported.",
-      "outputFormatDirect": "This output format is created directly in the app, not by conversion.",
-      "invalidOptions": "Invalid conversion options.",
-      "chooseSoffice": "Choose the soffice program (Windows: soffice.exe) from the program folder of the office runtime.",
-      "chosenFileMissing": "The chosen file does not exist.",
-      "chosenPathNotFile": "The chosen path is not a file.",
-      "chosenFileNotExecutable": "The chosen file is not executable.",
-      "appDataDirUnavailable": "The app data folder is not available.",
-      "startFailed": "The conversion could not start: {{error}}",
-      "failed": "The conversion failed ({{reason}}). The original has been kept.",
-      "exitCode": "exit code {{code}}",
-      "processAborted": "process aborted",
-      "timeout": "The conversion exceeded the time limit and was stopped. The original has been kept.",
-      "profilePathInvalid": "The temporary profile path is invalid.",
-      "inputSize": "Choose a file of at most 100 MB that is not empty.",
-      "runtimeMissing": "This format needs an office runtime (LibreOffice). It was not found: install it, choose the program in Save as, or set OPENAEC_CONVERSIE_PROGRAMMA. DOCX, XLSX and PPTX work directly.",
-      "notConverted": "This file could not be converted. It may be damaged or protected, or the format filter is missing from the local runtime.",
-      "multipleOutputs": "The conversion produced more than one file.",
-      "noUsableOutput": "The conversion did not produce a usable file of at most 100 MB."
+      "unknownModule": "알 수 없는 오피스 모듈입니다.",
+      "sourceFormatMismatch": "원본 형식이 이 모듈에 속하지 않습니다.",
+      "outputFormatUnsupported": "이 출력 형식은 지원되지 않습니다.",
+      "outputFormatDirect": "이 출력 형식은 변환이 아니라 앱에서 직접 만들어집니다.",
+      "invalidOptions": "변환 옵션이 잘못되었습니다.",
+      "chooseSoffice": "오피스 런타임의 프로그램 폴더에서 soffice 프로그램(Windows: soffice.exe)을 선택하세요.",
+      "chosenFileMissing": "선택한 파일이 없습니다.",
+      "chosenPathNotFile": "선택한 경로가 파일이 아닙니다.",
+      "chosenFileNotExecutable": "선택한 파일을 실행할 수 없습니다.",
+      "appDataDirUnavailable": "앱 데이터 폴더를 사용할 수 없습니다.",
+      "startFailed": "변환을 시작할 수 없습니다: {{error}}",
+      "failed": "변환에 실패했습니다({{reason}}). 원본은 유지되었습니다.",
+      "exitCode": "종료 코드 {{code}}",
+      "processAborted": "프로세스가 중단됨",
+      "timeout": "변환이 시간 제한을 초과하여 중지되었습니다. 원본은 유지되었습니다.",
+      "profilePathInvalid": "임시 프로필 경로가 잘못되었습니다.",
+      "inputSize": "비어 있지 않은 100MB 이하의 파일을 선택하세요.",
+      "runtimeMissing": "이 형식에는 오피스 런타임(LibreOffice)이 필요합니다. 찾을 수 없습니다: 설치하거나, 다른 이름으로 저장에서 프로그램을 선택하거나, OPENAEC_CONVERSIE_PROGRAMMA를 설정하세요. DOCX, XLSX 및 PPTX는 바로 사용할 수 있습니다.",
+      "notConverted": "이 파일을 변환할 수 없습니다. 손상되었거나 보호되어 있거나, 로컬 런타임에 형식 필터가 없을 수 있습니다.",
+      "multipleOutputs": "변환 결과 파일이 두 개 이상 생성되었습니다.",
+      "noUsableOutput": "변환 결과 100MB 이하의 사용 가능한 파일이 생성되지 않았습니다."
     },
     "databaseExport": {
-      "emptyOrTooLarge": "The export is empty or larger than 100 MB.",
-      "emptyInvalidOrTooLarge": "The export is empty, invalid or larger than 100 MB.",
-      "nameMissing": "File name missing.",
-      "nameInvalid": "Invalid file name.",
-      "notSqlite": "This is not an SQLite working copy.",
-      "typeNotAllowed": "Only CSV, source, report and SQLite working copy exports are allowed. Access databases are never overwritten.",
-      "textNotUtf8": "A text export must be valid UTF-8 text.",
-      "sendAsBinary": "Send the export as binary data of at most 100 MB.",
-      "extensionMismatch": "The chosen extension does not match the export."
+      "emptyOrTooLarge": "내보내기가 비어 있거나 100MB보다 큽니다.",
+      "emptyInvalidOrTooLarge": "내보내기가 비어 있거나 잘못되었거나 100MB보다 큽니다.",
+      "nameMissing": "파일 이름이 없습니다.",
+      "nameInvalid": "파일 이름이 잘못되었습니다.",
+      "notSqlite": "SQLite 작업 사본이 아닙니다.",
+      "typeNotAllowed": "CSV, 소스, 보고서 및 SQLite 작업 사본 내보내기만 허용됩니다. Access 데이터베이스는 절대 덮어쓰지 않습니다.",
+      "textNotUtf8": "텍스트 내보내기는 올바른 UTF-8 텍스트여야 합니다.",
+      "sendAsBinary": "내보내기를 100MB 이하의 이진 데이터로 보내세요.",
+      "extensionMismatch": "선택한 확장자가 내보내기와 일치하지 않습니다."
     }
   },
   "launcher": {
     "officeStudio": {
-      "genericName": "Office suite",
-      "comment": "Local OpenAEC office environment",
-      "keywords": "word processor;spreadsheet;presentation;database;email;office;"
+      "genericName": "오피스 제품군",
+      "comment": "로컬 OpenAEC 오피스 환경",
+      "keywords": "워드프로세서;스프레드시트;프레젠테이션;데이터베이스;이메일;오피스;office;"
     },
     "databaseStudio": {
-      "genericName": "Database viewer",
-      "comment": "Open old MDB and ACCDB databases locally",
-      "keywords": "database;table;query;access;"
+      "genericName": "데이터베이스 뷰어",
+      "comment": "오래된 MDB 및 ACCDB 데이터베이스를 로컬에서 열기",
+      "keywords": "데이터베이스;테이블;쿼리;access;database;"
     }
   }
 }

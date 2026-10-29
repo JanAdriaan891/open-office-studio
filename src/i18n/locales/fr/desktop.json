@@ -1,141 +1,142 @@
 {
   "dialogs": {
-    "cancel": "Cancel",
-    "saveAsEllipsis": "Save as…",
-    "officeFile": "Office file",
-    "officeFiles": "Office files",
-    "untitled": "Untitled",
-    "saveCopy": "Save a copy",
-    "saveAs": "Save as",
-    "openFile": "Open file",
+    "cancel": "Annuler",
+    "saveAsEllipsis": "Enregistrer sous…",
+    "officeFile": "Fichier Office",
+    "officeFiles": "Fichiers Office",
+    "untitled": "Sans titre",
+    "saveCopy": "Enregistrer une copie",
+    "saveAs": "Enregistrer sous",
+    "openFile": "Ouvrir un fichier",
     "replaceFile": {
-      "title": "Replace file",
-      "message": "The file {{path}} already exists. Replace it?"
+      "title": "Remplacer le fichier",
+      "message": "Le fichier {{path}} existe déjà. Le remplacer ?"
     },
     "unsavedChanges": {
-      "title": "Unsaved changes",
-      "message_one": "One document in this window has changes that have not been saved. They will be lost. Close anyway?",
-      "message_other": "{{count}} documents in this window have changes that have not been saved. They will be lost. Close anyway?"
+      "title": "Modifications non enregistrées",
+      "message_one": "Un document de cette fenêtre contient des modifications non enregistrées. Elles seront perdues. Fermer quand même ?",
+      "message_many": "{{count}} documents de cette fenêtre contiennent des modifications non enregistrées. Elles seront perdues. Fermer quand même ?",
+      "message_other": "{{count}} documents de cette fenêtre contiennent des modifications non enregistrées. Elles seront perdues. Fermer quand même ?"
     },
     "fileChanged": {
-      "title": "File changed",
-      "missing": "{{name}} no longer exists in its original location. Recreate it with your version, or save it elsewhere?",
-      "changedExternally": "{{name}} has been changed outside Open Office Studio since you opened it. Overwriting discards those changes.",
-      "overwrite": "Overwrite"
+      "title": "Fichier modifié",
+      "missing": "{{name}} n’existe plus à son emplacement d’origine. Le recréer avec votre version, ou l’enregistrer ailleurs ?",
+      "changedExternally": "{{name}} a été modifié en dehors d’Open Office Studio depuis que vous l’avez ouvert. Écraser le fichier supprime ces modifications.",
+      "overwrite": "Écraser"
     },
     "foreignFormat": {
-      "title": "Save as {{format}}",
-      "message": "{{name}} will be updated in the {{format}} format. The office runtime converts the document for this; formatting that {{format}} does not support may be lost.",
-      "hint": "Choose Save as… to keep a DOCX, XLSX or PPTX.",
-      "update": "Update as {{format}}"
+      "title": "Enregistrer au format {{format}}",
+      "message": "{{name}} sera mis à jour au format {{format}}. Le moteur bureautique convertit le document pour cela ; la mise en forme que {{format}} ne prend pas en charge peut être perdue.",
+      "hint": "Choisissez Enregistrer sous… pour conserver un fichier DOCX, XLSX ou PPTX.",
+      "update": "Mettre à jour au format {{format}}"
     },
-    "chooseConverter": "Choose conversion program (soffice)",
+    "chooseConverter": "Choisir le programme de conversion (soffice)",
     "databaseExport": {
-      "title": "Save database export",
-      "filter": "Database export",
-      "sqliteFilter": "SQLite working copy",
-      "replaceTitle": "Replace export",
-      "replaceMessage": "This export file already exists. Replace it?"
+      "title": "Enregistrer l’export de base de données",
+      "filter": "Export de base de données",
+      "sqliteFilter": "Copie de travail SQLite",
+      "replaceTitle": "Remplacer l’export",
+      "replaceMessage": "Ce fichier d’export existe déjà. Le remplacer ?"
     }
   },
   "errors": {
     "file": {
-      "invalidBody": "The file is empty, larger than 100 MB or was not sent as binary data.",
-      "emptyOrTooLarge": "The file is empty or larger than 100 MB.",
-      "formatInfoMissing": "The format information is missing.",
-      "formatMissing": "The format is missing.",
-      "targetFolderMissing": "The target folder is missing.",
-      "nameMissing": "The file name is missing.",
-      "nameInvalidChars": "The file name contains invalid characters.",
-      "unsupportedFormat": "Unsupported file format.",
-      "extensionMismatch": "The chosen extension does not match the document.",
-      "alreadyOpenedOrOtherWindow": "This file is already open or is not meant for this window.",
-      "notThisWindow": "This file does not belong to this window.",
-      "notLinked": "This file is no longer linked to this tab.",
-      "tokenMissing": "The token is missing.",
-      "openInOtherTab": "{{name}} is open in another tab. Close it first or choose a different name.",
-      "readOnly": "No write permission in this folder or the file is read-only ({{path}}). Choose a different location.",
-      "notInRecentList": "This file is no longer in the list."
+      "invalidBody": "Le fichier est vide, dépasse 100 Mo ou n’a pas été envoyé sous forme de données binaires.",
+      "emptyOrTooLarge": "Le fichier est vide ou dépasse 100 Mo.",
+      "formatInfoMissing": "Les informations de format sont manquantes.",
+      "formatMissing": "Le format est manquant.",
+      "targetFolderMissing": "Le dossier de destination est manquant.",
+      "nameMissing": "Le nom du fichier est manquant.",
+      "nameInvalidChars": "Le nom du fichier contient des caractères non valides.",
+      "unsupportedFormat": "Format de fichier non pris en charge.",
+      "extensionMismatch": "L’extension choisie ne correspond pas au document.",
+      "alreadyOpenedOrOtherWindow": "Ce fichier est déjà ouvert ou n’est pas destiné à cette fenêtre.",
+      "notThisWindow": "Ce fichier n’appartient pas à cette fenêtre.",
+      "notLinked": "Ce fichier n’est (plus) lié à cet onglet.",
+      "tokenMissing": "Le jeton est manquant.",
+      "openInOtherTab": "{{name}} est ouvert dans un autre onglet. Fermez-le d’abord ou choisissez un autre nom.",
+      "readOnly": "Pas de droits d’écriture dans ce dossier ou le fichier est en lecture seule ({{path}}). Choisissez un autre emplacement.",
+      "notInRecentList": "Ce fichier ne figure (plus) dans la liste."
     },
     "preferences": {
-      "tooLarge": "The preferences are larger than 64 kB.",
-      "invalid": "The preferences are not a valid JSON object.",
-      "configDirUnavailable": "The app's configuration folder is not available.",
-      "pathInvalid": "Invalid path for the preferences."
+      "tooLarge": "Les préférences dépassent 64 Ko.",
+      "invalid": "Les préférences ne sont pas un objet JSON valide.",
+      "configDirUnavailable": "Le dossier de configuration de l’application n’est pas disponible.",
+      "pathInvalid": "Chemin non valide pour les préférences."
     },
     "font": {
-      "notInstalled": "The font {{family}} is not installed on this computer.",
-      "notFound": "Font not found.",
-      "fileTooLarge": "This font file is too large.",
-      "inCollection": "This font is part of a collection (.ttc) and cannot be used on its own.",
-      "unreadable": "The font file could not be read.",
-      "nameInvalid": "Invalid font name."
+      "notInstalled": "La police {{family}} n’est pas installée sur cet ordinateur.",
+      "notFound": "Police introuvable.",
+      "fileTooLarge": "Ce fichier de police est trop volumineux.",
+      "inCollection": "Cette police fait partie d’une collection (.ttc) et ne peut pas être utilisée seule.",
+      "unreadable": "Le fichier de police n’a pas pu être lu.",
+      "nameInvalid": "Nom de police non valide."
     },
     "recovery": {
-      "keyInvalid": "Invalid recovery key.",
-      "spaceFull": "The space for recovery copies (512 MB) is full. Save your documents.",
-      "sessionMissing": "The session is missing.",
-      "keyMissing": "The key is missing.",
-      "dataInvalid": "Invalid recovery data.",
-      "unknownDocumentType": "Unknown document type.",
-      "sessionNotThisWindow": "This recovery session does not belong to this window.",
-      "sessionOtherWindow": "This recovery session belongs to another window.",
-      "sessionStillRunning": "This session is still running."
+      "keyInvalid": "Clé de récupération non valide.",
+      "spaceFull": "L’espace réservé aux copies de récupération (512 Mo) est plein. Enregistrez vos documents.",
+      "sessionMissing": "La session est manquante.",
+      "keyMissing": "La clé est manquante.",
+      "dataInvalid": "Données de récupération non valides.",
+      "unknownDocumentType": "Type de document inconnu.",
+      "sessionNotThisWindow": "Cette session de récupération n’appartient pas à cette fenêtre.",
+      "sessionOtherWindow": "Cette session de récupération appartient à une autre fenêtre.",
+      "sessionStillRunning": "Cette session est toujours en cours."
     },
     "window": {
-      "closed": "This window has been closed.",
-      "transferEmptyOrTooLarge": "The transfer is empty or too large.",
-      "mainWindowUnavailable": "The main window is not available.",
-      "openFailed": "The window could not be opened: {{error}}",
-      "transferExpired": "This transfer has expired or has already been taken.",
-      "transferAlreadyTaken": "This transfer has already been taken.",
-      "transferUnknown": "This transfer is unknown."
+      "closed": "Cette fenêtre a été fermée.",
+      "transferEmptyOrTooLarge": "Le transfert est vide ou trop volumineux.",
+      "mainWindowUnavailable": "La fenêtre principale n’est pas disponible.",
+      "openFailed": "La fenêtre n’a pas pu être ouverte : {{error}}",
+      "transferExpired": "Ce transfert a expiré ou a déjà été repris.",
+      "transferAlreadyTaken": "Ce transfert a déjà été repris.",
+      "transferUnknown": "Ce transfert est inconnu."
     },
     "conversion": {
-      "unknownModule": "Unknown office module.",
-      "sourceFormatMismatch": "The source format does not belong to this module.",
-      "outputFormatUnsupported": "This output format is not supported.",
-      "outputFormatDirect": "This output format is created directly in the app, not by conversion.",
-      "invalidOptions": "Invalid conversion options.",
-      "chooseSoffice": "Choose the soffice program (Windows: soffice.exe) from the program folder of the office runtime.",
-      "chosenFileMissing": "The chosen file does not exist.",
-      "chosenPathNotFile": "The chosen path is not a file.",
-      "chosenFileNotExecutable": "The chosen file is not executable.",
-      "appDataDirUnavailable": "The app data folder is not available.",
-      "startFailed": "The conversion could not start: {{error}}",
-      "failed": "The conversion failed ({{reason}}). The original has been kept.",
-      "exitCode": "exit code {{code}}",
-      "processAborted": "process aborted",
-      "timeout": "The conversion exceeded the time limit and was stopped. The original has been kept.",
-      "profilePathInvalid": "The temporary profile path is invalid.",
-      "inputSize": "Choose a file of at most 100 MB that is not empty.",
-      "runtimeMissing": "This format needs an office runtime (LibreOffice). It was not found: install it, choose the program in Save as, or set OPENAEC_CONVERSIE_PROGRAMMA. DOCX, XLSX and PPTX work directly.",
-      "notConverted": "This file could not be converted. It may be damaged or protected, or the format filter is missing from the local runtime.",
-      "multipleOutputs": "The conversion produced more than one file.",
-      "noUsableOutput": "The conversion did not produce a usable file of at most 100 MB."
+      "unknownModule": "Module bureautique inconnu.",
+      "sourceFormatMismatch": "Le format source n’appartient pas à ce module.",
+      "outputFormatUnsupported": "Ce format de sortie n’est pas pris en charge.",
+      "outputFormatDirect": "Ce format de sortie est créé directement dans l’application, sans conversion.",
+      "invalidOptions": "Options de conversion non valides.",
+      "chooseSoffice": "Choisissez le programme soffice (Windows : soffice.exe) dans le dossier program du moteur bureautique.",
+      "chosenFileMissing": "Le fichier choisi n’existe pas.",
+      "chosenPathNotFile": "Le chemin choisi n’est pas un fichier.",
+      "chosenFileNotExecutable": "Le fichier choisi n’est pas exécutable.",
+      "appDataDirUnavailable": "Le dossier de données de l’application n’est pas disponible.",
+      "startFailed": "La conversion n’a pas pu démarrer : {{error}}",
+      "failed": "La conversion a échoué ({{reason}}). L’original a été conservé.",
+      "exitCode": "code de sortie {{code}}",
+      "processAborted": "processus interrompu",
+      "timeout": "La conversion a dépassé le délai imparti et a été arrêtée. L’original a été conservé.",
+      "profilePathInvalid": "Le chemin du profil temporaire n’est pas valide.",
+      "inputSize": "Choisissez un fichier non vide de 100 Mo maximum.",
+      "runtimeMissing": "Ce format nécessite un moteur bureautique (LibreOffice). Il est introuvable : installez-le, choisissez le programme dans Enregistrer sous ou définissez OPENAEC_CONVERSIE_PROGRAMMA. DOCX, XLSX et PPTX fonctionnent directement.",
+      "notConverted": "Ce fichier n’a pas pu être converti. Il est peut-être endommagé ou protégé, ou le filtre de format manque dans le moteur local.",
+      "multipleOutputs": "La conversion a produit plus d’un fichier.",
+      "noUsableOutput": "La conversion n’a pas produit de fichier exploitable de 100 Mo maximum."
     },
     "databaseExport": {
-      "emptyOrTooLarge": "The export is empty or larger than 100 MB.",
-      "emptyInvalidOrTooLarge": "The export is empty, invalid or larger than 100 MB.",
-      "nameMissing": "File name missing.",
-      "nameInvalid": "Invalid file name.",
-      "notSqlite": "This is not an SQLite working copy.",
-      "typeNotAllowed": "Only CSV, source, report and SQLite working copy exports are allowed. Access databases are never overwritten.",
-      "textNotUtf8": "A text export must be valid UTF-8 text.",
-      "sendAsBinary": "Send the export as binary data of at most 100 MB.",
-      "extensionMismatch": "The chosen extension does not match the export."
+      "emptyOrTooLarge": "L’export est vide ou dépasse 100 Mo.",
+      "emptyInvalidOrTooLarge": "L’export est vide, non valide ou dépasse 100 Mo.",
+      "nameMissing": "Nom de fichier manquant.",
+      "nameInvalid": "Nom de fichier non valide.",
+      "notSqlite": "Ce n’est pas une copie de travail SQLite.",
+      "typeNotAllowed": "Seuls les exports CSV, source, rapport et copie de travail SQLite sont autorisés. Les bases de données Access ne sont jamais écrasées.",
+      "textNotUtf8": "Un export texte doit être un texte UTF-8 valide.",
+      "sendAsBinary": "Envoyez l’export sous forme de données binaires de 100 Mo maximum.",
+      "extensionMismatch": "L’extension choisie ne correspond pas à l’export."
     }
   },
   "launcher": {
     "officeStudio": {
-      "genericName": "Office suite",
-      "comment": "Local OpenAEC office environment",
-      "keywords": "word processor;spreadsheet;presentation;database;email;office;"
+      "genericName": "Suite bureautique",
+      "comment": "Environnement bureautique local OpenAEC",
+      "keywords": "traitement de texte;tableur;présentation;base de données;courriel;bureautique;"
     },
     "databaseStudio": {
-      "genericName": "Database viewer",
-      "comment": "Open old MDB and ACCDB databases locally",
-      "keywords": "database;table;query;access;"
+      "genericName": "Visionneuse de bases de données",
+      "comment": "Ouvrir localement d’anciennes bases de données MDB et ACCDB",
+      "keywords": "base de données;table;requête;Access;"
     }
   }
 }

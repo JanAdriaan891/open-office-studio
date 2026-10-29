@@ -1,141 +1,141 @@
 {
   "dialogs": {
-    "cancel": "Cancel",
-    "saveAsEllipsis": "Save as…",
-    "officeFile": "Office file",
-    "officeFiles": "Office files",
-    "untitled": "Untitled",
-    "saveCopy": "Save a copy",
-    "saveAs": "Save as",
-    "openFile": "Open file",
+    "cancel": "रद्द करें",
+    "saveAsEllipsis": "इस रूप में सहेजें…",
+    "officeFile": "ऑफ़िस फ़ाइल",
+    "officeFiles": "ऑफ़िस फ़ाइलें",
+    "untitled": "शीर्षकहीन",
+    "saveCopy": "प्रति सहेजें",
+    "saveAs": "इस रूप में सहेजें",
+    "openFile": "फ़ाइल खोलें",
     "replaceFile": {
-      "title": "Replace file",
-      "message": "The file {{path}} already exists. Replace it?"
+      "title": "फ़ाइल बदलें",
+      "message": "फ़ाइल {{path}} पहले से मौजूद है। क्या इसे बदलें?"
     },
     "unsavedChanges": {
-      "title": "Unsaved changes",
-      "message_one": "One document in this window has changes that have not been saved. They will be lost. Close anyway?",
-      "message_other": "{{count}} documents in this window have changes that have not been saved. They will be lost. Close anyway?"
+      "title": "बिना सहेजे परिवर्तन",
+      "message_one": "इस विंडो के {{count}} दस्तावेज़ में ऐसे परिवर्तन हैं जो सहेजे नहीं गए हैं। वे खो जाएँगे। फिर भी बंद करें?",
+      "message_other": "इस विंडो के {{count}} दस्तावेज़ों में ऐसे परिवर्तन हैं जो सहेजे नहीं गए हैं। वे खो जाएँगे। फिर भी बंद करें?"
     },
     "fileChanged": {
-      "title": "File changed",
-      "missing": "{{name}} no longer exists in its original location. Recreate it with your version, or save it elsewhere?",
-      "changedExternally": "{{name}} has been changed outside Open Office Studio since you opened it. Overwriting discards those changes.",
-      "overwrite": "Overwrite"
+      "title": "फ़ाइल बदल गई",
+      "missing": "{{name}} अब अपने मूल स्थान पर मौजूद नहीं है। क्या इसे अपने संस्करण से फिर से बनाएँ, या कहीं और सहेजें?",
+      "changedExternally": "आपके खोलने के बाद {{name}} को Open Office Studio के बाहर बदला गया है। अधिलेखित करने से वे परिवर्तन हट जाएँगे।",
+      "overwrite": "अधिलेखित करें"
     },
     "foreignFormat": {
-      "title": "Save as {{format}}",
-      "message": "{{name}} will be updated in the {{format}} format. The office runtime converts the document for this; formatting that {{format}} does not support may be lost.",
-      "hint": "Choose Save as… to keep a DOCX, XLSX or PPTX.",
-      "update": "Update as {{format}}"
+      "title": "{{format}} के रूप में सहेजें",
+      "message": "{{name}} को {{format}} फ़ॉर्मैट में अपडेट किया जाएगा। इसके लिए ऑफ़िस रनटाइम दस्तावेज़ को रूपांतरित करता है; जिस फ़ॉर्मैटिंग का {{format}} समर्थन नहीं करता, वह खो सकती है।",
+      "hint": "DOCX, XLSX या PPTX रखने के लिए इस रूप में सहेजें… चुनें।",
+      "update": "{{format}} के रूप में अपडेट करें"
     },
-    "chooseConverter": "Choose conversion program (soffice)",
+    "chooseConverter": "रूपांतरण प्रोग्राम चुनें (soffice)",
     "databaseExport": {
-      "title": "Save database export",
-      "filter": "Database export",
-      "sqliteFilter": "SQLite working copy",
-      "replaceTitle": "Replace export",
-      "replaceMessage": "This export file already exists. Replace it?"
+      "title": "डेटाबेस निर्यात सहेजें",
+      "filter": "डेटाबेस निर्यात",
+      "sqliteFilter": "SQLite कार्य प्रति",
+      "replaceTitle": "निर्यात बदलें",
+      "replaceMessage": "यह निर्यात फ़ाइल पहले से मौजूद है। क्या इसे बदलें?"
     }
   },
   "errors": {
     "file": {
-      "invalidBody": "The file is empty, larger than 100 MB or was not sent as binary data.",
-      "emptyOrTooLarge": "The file is empty or larger than 100 MB.",
-      "formatInfoMissing": "The format information is missing.",
-      "formatMissing": "The format is missing.",
-      "targetFolderMissing": "The target folder is missing.",
-      "nameMissing": "The file name is missing.",
-      "nameInvalidChars": "The file name contains invalid characters.",
-      "unsupportedFormat": "Unsupported file format.",
-      "extensionMismatch": "The chosen extension does not match the document.",
-      "alreadyOpenedOrOtherWindow": "This file is already open or is not meant for this window.",
-      "notThisWindow": "This file does not belong to this window.",
-      "notLinked": "This file is no longer linked to this tab.",
-      "tokenMissing": "The token is missing.",
-      "openInOtherTab": "{{name}} is open in another tab. Close it first or choose a different name.",
-      "readOnly": "No write permission in this folder or the file is read-only ({{path}}). Choose a different location.",
-      "notInRecentList": "This file is no longer in the list."
+      "invalidBody": "फ़ाइल खाली है, 100 MB से बड़ी है या बाइनरी डेटा के रूप में नहीं भेजी गई।",
+      "emptyOrTooLarge": "फ़ाइल खाली है या 100 MB से बड़ी है।",
+      "formatInfoMissing": "फ़ॉर्मैट की जानकारी मौजूद नहीं है।",
+      "formatMissing": "फ़ॉर्मैट मौजूद नहीं है।",
+      "targetFolderMissing": "लक्ष्य फ़ोल्डर मौजूद नहीं है।",
+      "nameMissing": "फ़ाइल नाम मौजूद नहीं है।",
+      "nameInvalidChars": "फ़ाइल नाम में अमान्य वर्ण हैं।",
+      "unsupportedFormat": "असमर्थित फ़ाइल फ़ॉर्मैट।",
+      "extensionMismatch": "चुना गया एक्सटेंशन दस्तावेज़ से मेल नहीं खाता।",
+      "alreadyOpenedOrOtherWindow": "यह फ़ाइल पहले से खुली है या इस विंडो के लिए नहीं है।",
+      "notThisWindow": "यह फ़ाइल इस विंडो की नहीं है।",
+      "notLinked": "यह फ़ाइल अब इस टैब से जुड़ी नहीं है।",
+      "tokenMissing": "टोकन मौजूद नहीं है।",
+      "openInOtherTab": "{{name}} किसी अन्य टैब में खुला है। पहले उसे बंद करें या कोई दूसरा नाम चुनें।",
+      "readOnly": "इस फ़ोल्डर में लिखने की अनुमति नहीं है या फ़ाइल केवल-पढ़ने योग्य है ({{path}})। कोई दूसरा स्थान चुनें।",
+      "notInRecentList": "यह फ़ाइल अब सूची में नहीं है।"
     },
     "preferences": {
-      "tooLarge": "The preferences are larger than 64 kB.",
-      "invalid": "The preferences are not a valid JSON object.",
-      "configDirUnavailable": "The app's configuration folder is not available.",
-      "pathInvalid": "Invalid path for the preferences."
+      "tooLarge": "प्राथमिकताएँ 64 kB से बड़ी हैं।",
+      "invalid": "प्राथमिकताएँ मान्य JSON ऑब्जेक्ट नहीं हैं।",
+      "configDirUnavailable": "ऐप का कॉन्फ़िगरेशन फ़ोल्डर उपलब्ध नहीं है।",
+      "pathInvalid": "प्राथमिकताओं के लिए अमान्य पथ।"
     },
     "font": {
-      "notInstalled": "The font {{family}} is not installed on this computer.",
-      "notFound": "Font not found.",
-      "fileTooLarge": "This font file is too large.",
-      "inCollection": "This font is part of a collection (.ttc) and cannot be used on its own.",
-      "unreadable": "The font file could not be read.",
-      "nameInvalid": "Invalid font name."
+      "notInstalled": "फ़ॉन्ट {{family}} इस कंप्यूटर पर इंस्टॉल नहीं है।",
+      "notFound": "फ़ॉन्ट नहीं मिला।",
+      "fileTooLarge": "यह फ़ॉन्ट फ़ाइल बहुत बड़ी है।",
+      "inCollection": "यह फ़ॉन्ट एक संग्रह (.ttc) का हिस्सा है और अकेले उपयोग नहीं किया जा सकता।",
+      "unreadable": "फ़ॉन्ट फ़ाइल पढ़ी नहीं जा सकी।",
+      "nameInvalid": "अमान्य फ़ॉन्ट नाम।"
     },
     "recovery": {
-      "keyInvalid": "Invalid recovery key.",
-      "spaceFull": "The space for recovery copies (512 MB) is full. Save your documents.",
-      "sessionMissing": "The session is missing.",
-      "keyMissing": "The key is missing.",
-      "dataInvalid": "Invalid recovery data.",
-      "unknownDocumentType": "Unknown document type.",
-      "sessionNotThisWindow": "This recovery session does not belong to this window.",
-      "sessionOtherWindow": "This recovery session belongs to another window.",
-      "sessionStillRunning": "This session is still running."
+      "keyInvalid": "अमान्य पुनर्प्राप्ति कुंजी।",
+      "spaceFull": "पुनर्प्राप्ति प्रतियों के लिए स्थान (512 MB) भर गया है। अपने दस्तावेज़ सहेजें।",
+      "sessionMissing": "सत्र मौजूद नहीं है।",
+      "keyMissing": "कुंजी मौजूद नहीं है।",
+      "dataInvalid": "अमान्य पुनर्प्राप्ति डेटा।",
+      "unknownDocumentType": "अज्ञात दस्तावेज़ प्रकार।",
+      "sessionNotThisWindow": "यह पुनर्प्राप्ति सत्र इस विंडो का नहीं है।",
+      "sessionOtherWindow": "यह पुनर्प्राप्ति सत्र किसी अन्य विंडो का है।",
+      "sessionStillRunning": "यह सत्र अभी भी चल रहा है।"
     },
     "window": {
-      "closed": "This window has been closed.",
-      "transferEmptyOrTooLarge": "The transfer is empty or too large.",
-      "mainWindowUnavailable": "The main window is not available.",
-      "openFailed": "The window could not be opened: {{error}}",
-      "transferExpired": "This transfer has expired or has already been taken.",
-      "transferAlreadyTaken": "This transfer has already been taken.",
-      "transferUnknown": "This transfer is unknown."
+      "closed": "यह विंडो बंद कर दी गई है।",
+      "transferEmptyOrTooLarge": "स्थानांतरण खाली है या बहुत बड़ा है।",
+      "mainWindowUnavailable": "मुख्य विंडो उपलब्ध नहीं है।",
+      "openFailed": "विंडो खोली नहीं जा सकी: {{error}}",
+      "transferExpired": "इस स्थानांतरण की समय-सीमा समाप्त हो गई है या इसे पहले ही ले लिया गया है।",
+      "transferAlreadyTaken": "यह स्थानांतरण पहले ही ले लिया गया है।",
+      "transferUnknown": "यह स्थानांतरण अज्ञात है।"
     },
     "conversion": {
-      "unknownModule": "Unknown office module.",
-      "sourceFormatMismatch": "The source format does not belong to this module.",
-      "outputFormatUnsupported": "This output format is not supported.",
-      "outputFormatDirect": "This output format is created directly in the app, not by conversion.",
-      "invalidOptions": "Invalid conversion options.",
-      "chooseSoffice": "Choose the soffice program (Windows: soffice.exe) from the program folder of the office runtime.",
-      "chosenFileMissing": "The chosen file does not exist.",
-      "chosenPathNotFile": "The chosen path is not a file.",
-      "chosenFileNotExecutable": "The chosen file is not executable.",
-      "appDataDirUnavailable": "The app data folder is not available.",
-      "startFailed": "The conversion could not start: {{error}}",
-      "failed": "The conversion failed ({{reason}}). The original has been kept.",
-      "exitCode": "exit code {{code}}",
-      "processAborted": "process aborted",
-      "timeout": "The conversion exceeded the time limit and was stopped. The original has been kept.",
-      "profilePathInvalid": "The temporary profile path is invalid.",
-      "inputSize": "Choose a file of at most 100 MB that is not empty.",
-      "runtimeMissing": "This format needs an office runtime (LibreOffice). It was not found: install it, choose the program in Save as, or set OPENAEC_CONVERSIE_PROGRAMMA. DOCX, XLSX and PPTX work directly.",
-      "notConverted": "This file could not be converted. It may be damaged or protected, or the format filter is missing from the local runtime.",
-      "multipleOutputs": "The conversion produced more than one file.",
-      "noUsableOutput": "The conversion did not produce a usable file of at most 100 MB."
+      "unknownModule": "अज्ञात ऑफ़िस मॉड्यूल।",
+      "sourceFormatMismatch": "स्रोत फ़ॉर्मैट इस मॉड्यूल का नहीं है।",
+      "outputFormatUnsupported": "यह आउटपुट फ़ॉर्मैट समर्थित नहीं है।",
+      "outputFormatDirect": "यह आउटपुट फ़ॉर्मैट रूपांतरण से नहीं, सीधे ऐप में बनाया जाता है।",
+      "invalidOptions": "अमान्य रूपांतरण विकल्प।",
+      "chooseSoffice": "ऑफ़िस रनटाइम के प्रोग्राम फ़ोल्डर से soffice प्रोग्राम (Windows: soffice.exe) चुनें।",
+      "chosenFileMissing": "चुनी गई फ़ाइल मौजूद नहीं है।",
+      "chosenPathNotFile": "चुना गया पथ फ़ाइल नहीं है।",
+      "chosenFileNotExecutable": "चुनी गई फ़ाइल निष्पादन योग्य नहीं है।",
+      "appDataDirUnavailable": "ऐप डेटा फ़ोल्डर उपलब्ध नहीं है।",
+      "startFailed": "रूपांतरण शुरू नहीं हो सका: {{error}}",
+      "failed": "रूपांतरण विफल रहा ({{reason}})। मूल फ़ाइल रखी गई है।",
+      "exitCode": "निकास कोड {{code}}",
+      "processAborted": "प्रक्रिया रोक दी गई",
+      "timeout": "रूपांतरण समय-सीमा से अधिक हो गया और रोक दिया गया। मूल फ़ाइल रखी गई है।",
+      "profilePathInvalid": "अस्थायी प्रोफ़ाइल पथ अमान्य है।",
+      "inputSize": "अधिकतम 100 MB की ऐसी फ़ाइल चुनें जो खाली न हो।",
+      "runtimeMissing": "इस फ़ॉर्मैट के लिए ऑफ़िस रनटाइम (LibreOffice) चाहिए। यह नहीं मिला: इसे इंस्टॉल करें, इस रूप में सहेजें में प्रोग्राम चुनें, या OPENAEC_CONVERSIE_PROGRAMMA सेट करें। DOCX, XLSX और PPTX सीधे काम करते हैं।",
+      "notConverted": "इस फ़ाइल को रूपांतरित नहीं किया जा सका। यह क्षतिग्रस्त या सुरक्षित हो सकती है, या स्थानीय रनटाइम में फ़ॉर्मैट फ़िल्टर मौजूद नहीं है।",
+      "multipleOutputs": "रूपांतरण से एक से अधिक फ़ाइलें बनीं।",
+      "noUsableOutput": "रूपांतरण से अधिकतम 100 MB की कोई उपयोग योग्य फ़ाइल नहीं बनी।"
     },
     "databaseExport": {
-      "emptyOrTooLarge": "The export is empty or larger than 100 MB.",
-      "emptyInvalidOrTooLarge": "The export is empty, invalid or larger than 100 MB.",
-      "nameMissing": "File name missing.",
-      "nameInvalid": "Invalid file name.",
-      "notSqlite": "This is not an SQLite working copy.",
-      "typeNotAllowed": "Only CSV, source, report and SQLite working copy exports are allowed. Access databases are never overwritten.",
-      "textNotUtf8": "A text export must be valid UTF-8 text.",
-      "sendAsBinary": "Send the export as binary data of at most 100 MB.",
-      "extensionMismatch": "The chosen extension does not match the export."
+      "emptyOrTooLarge": "निर्यात खाली है या 100 MB से बड़ा है।",
+      "emptyInvalidOrTooLarge": "निर्यात खाली, अमान्य या 100 MB से बड़ा है।",
+      "nameMissing": "फ़ाइल नाम मौजूद नहीं है।",
+      "nameInvalid": "अमान्य फ़ाइल नाम।",
+      "notSqlite": "यह SQLite कार्य प्रति नहीं है।",
+      "typeNotAllowed": "केवल CSV, स्रोत, रिपोर्ट और SQLite कार्य प्रति निर्यात की अनुमति है। Access डेटाबेस कभी अधिलेखित नहीं किए जाते।",
+      "textNotUtf8": "टेक्स्ट निर्यात मान्य UTF-8 टेक्स्ट होना चाहिए।",
+      "sendAsBinary": "निर्यात को अधिकतम 100 MB बाइनरी डेटा के रूप में भेजें।",
+      "extensionMismatch": "चुना गया एक्सटेंशन निर्यात से मेल नहीं खाता।"
     }
   },
   "launcher": {
     "officeStudio": {
-      "genericName": "Office suite",
-      "comment": "Local OpenAEC office environment",
-      "keywords": "word processor;spreadsheet;presentation;database;email;office;"
+      "genericName": "ऑफ़िस सूट",
+      "comment": "स्थानीय OpenAEC ऑफ़िस परिवेश",
+      "keywords": "वर्ड प्रोसेसर;स्प्रेडशीट;प्रस्तुति;डेटाबेस;ईमेल;ऑफ़िस;office;"
     },
     "databaseStudio": {
-      "genericName": "Database viewer",
-      "comment": "Open old MDB and ACCDB databases locally",
-      "keywords": "database;table;query;access;"
+      "genericName": "डेटाबेस व्यूअर",
+      "comment": "पुराने MDB और ACCDB डेटाबेस स्थानीय रूप से खोलें",
+      "keywords": "डेटाबेस;तालिका;क्वेरी;access;database;"
     }
   }
 }

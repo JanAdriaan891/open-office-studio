@@ -1,141 +1,140 @@
 {
   "dialogs": {
-    "cancel": "Cancel",
-    "saveAsEllipsis": "Save as…",
-    "officeFile": "Office file",
-    "officeFiles": "Office files",
-    "untitled": "Untitled",
-    "saveCopy": "Save a copy",
-    "saveAs": "Save as",
-    "openFile": "Open file",
+    "cancel": "Hủy",
+    "saveAsEllipsis": "Lưu thành…",
+    "officeFile": "Tệp văn phòng",
+    "officeFiles": "Tệp văn phòng",
+    "untitled": "Không có tiêu đề",
+    "saveCopy": "Lưu bản sao",
+    "saveAs": "Lưu thành",
+    "openFile": "Mở tệp",
     "replaceFile": {
-      "title": "Replace file",
-      "message": "The file {{path}} already exists. Replace it?"
+      "title": "Thay thế tệp",
+      "message": "Tệp {{path}} đã tồn tại. Thay thế tệp này?"
     },
     "unsavedChanges": {
-      "title": "Unsaved changes",
-      "message_one": "One document in this window has changes that have not been saved. They will be lost. Close anyway?",
-      "message_other": "{{count}} documents in this window have changes that have not been saved. They will be lost. Close anyway?"
+      "title": "Thay đổi chưa lưu",
+      "message_other": "{{count}} tài liệu trong cửa sổ này có thay đổi chưa được lưu. Các thay đổi đó sẽ bị mất. Vẫn đóng?"
     },
     "fileChanged": {
-      "title": "File changed",
-      "missing": "{{name}} no longer exists in its original location. Recreate it with your version, or save it elsewhere?",
-      "changedExternally": "{{name}} has been changed outside Open Office Studio since you opened it. Overwriting discards those changes.",
-      "overwrite": "Overwrite"
+      "title": "Tệp đã thay đổi",
+      "missing": "{{name}} không còn ở vị trí ban đầu. Tạo lại bằng phiên bản của bạn hay lưu vào nơi khác?",
+      "changedExternally": "{{name}} đã bị thay đổi bên ngoài Open Office Studio kể từ khi bạn mở. Ghi đè sẽ hủy các thay đổi đó.",
+      "overwrite": "Ghi đè"
     },
     "foreignFormat": {
-      "title": "Save as {{format}}",
-      "message": "{{name}} will be updated in the {{format}} format. The office runtime converts the document for this; formatting that {{format}} does not support may be lost.",
-      "hint": "Choose Save as… to keep a DOCX, XLSX or PPTX.",
-      "update": "Update as {{format}}"
+      "title": "Lưu dưới dạng {{format}}",
+      "message": "{{name}} sẽ được cập nhật ở định dạng {{format}}. Môi trường văn phòng sẽ chuyển đổi tài liệu cho việc này; định dạng mà {{format}} không hỗ trợ có thể bị mất.",
+      "hint": "Chọn Lưu thành… để giữ tệp DOCX, XLSX hoặc PPTX.",
+      "update": "Cập nhật dưới dạng {{format}}"
     },
-    "chooseConverter": "Choose conversion program (soffice)",
+    "chooseConverter": "Chọn chương trình chuyển đổi (soffice)",
     "databaseExport": {
-      "title": "Save database export",
-      "filter": "Database export",
-      "sqliteFilter": "SQLite working copy",
-      "replaceTitle": "Replace export",
-      "replaceMessage": "This export file already exists. Replace it?"
+      "title": "Lưu bản xuất cơ sở dữ liệu",
+      "filter": "Bản xuất cơ sở dữ liệu",
+      "sqliteFilter": "Bản sao làm việc SQLite",
+      "replaceTitle": "Thay thế bản xuất",
+      "replaceMessage": "Tệp xuất này đã tồn tại. Thay thế tệp này?"
     }
   },
   "errors": {
     "file": {
-      "invalidBody": "The file is empty, larger than 100 MB or was not sent as binary data.",
-      "emptyOrTooLarge": "The file is empty or larger than 100 MB.",
-      "formatInfoMissing": "The format information is missing.",
-      "formatMissing": "The format is missing.",
-      "targetFolderMissing": "The target folder is missing.",
-      "nameMissing": "The file name is missing.",
-      "nameInvalidChars": "The file name contains invalid characters.",
-      "unsupportedFormat": "Unsupported file format.",
-      "extensionMismatch": "The chosen extension does not match the document.",
-      "alreadyOpenedOrOtherWindow": "This file is already open or is not meant for this window.",
-      "notThisWindow": "This file does not belong to this window.",
-      "notLinked": "This file is no longer linked to this tab.",
-      "tokenMissing": "The token is missing.",
-      "openInOtherTab": "{{name}} is open in another tab. Close it first or choose a different name.",
-      "readOnly": "No write permission in this folder or the file is read-only ({{path}}). Choose a different location.",
-      "notInRecentList": "This file is no longer in the list."
+      "invalidBody": "Tệp trống, lớn hơn 100 MB hoặc không được gửi dưới dạng dữ liệu nhị phân.",
+      "emptyOrTooLarge": "Tệp trống hoặc lớn hơn 100 MB.",
+      "formatInfoMissing": "Thiếu thông tin định dạng.",
+      "formatMissing": "Thiếu định dạng.",
+      "targetFolderMissing": "Thiếu thư mục đích.",
+      "nameMissing": "Thiếu tên tệp.",
+      "nameInvalidChars": "Tên tệp chứa ký tự không hợp lệ.",
+      "unsupportedFormat": "Định dạng tệp không được hỗ trợ.",
+      "extensionMismatch": "Phần mở rộng đã chọn không khớp với tài liệu.",
+      "alreadyOpenedOrOtherWindow": "Tệp này đã được mở hoặc không dành cho cửa sổ này.",
+      "notThisWindow": "Tệp này không thuộc cửa sổ này.",
+      "notLinked": "Tệp này không còn liên kết với tab này.",
+      "tokenMissing": "Thiếu mã thông báo.",
+      "openInOtherTab": "{{name}} đang mở trong một tab khác. Hãy đóng nó trước hoặc chọn tên khác.",
+      "readOnly": "Không có quyền ghi vào thư mục này hoặc tệp ở chế độ chỉ đọc ({{path}}). Hãy chọn vị trí khác.",
+      "notInRecentList": "Tệp này không còn trong danh sách."
     },
     "preferences": {
-      "tooLarge": "The preferences are larger than 64 kB.",
-      "invalid": "The preferences are not a valid JSON object.",
-      "configDirUnavailable": "The app's configuration folder is not available.",
-      "pathInvalid": "Invalid path for the preferences."
+      "tooLarge": "Tùy chọn lớn hơn 64 kB.",
+      "invalid": "Tùy chọn không phải là đối tượng JSON hợp lệ.",
+      "configDirUnavailable": "Thư mục cấu hình của ứng dụng không khả dụng.",
+      "pathInvalid": "Đường dẫn tùy chọn không hợp lệ."
     },
     "font": {
-      "notInstalled": "The font {{family}} is not installed on this computer.",
-      "notFound": "Font not found.",
-      "fileTooLarge": "This font file is too large.",
-      "inCollection": "This font is part of a collection (.ttc) and cannot be used on its own.",
-      "unreadable": "The font file could not be read.",
-      "nameInvalid": "Invalid font name."
+      "notInstalled": "Phông chữ {{family}} chưa được cài đặt trên máy tính này.",
+      "notFound": "Không tìm thấy phông chữ.",
+      "fileTooLarge": "Tệp phông chữ này quá lớn.",
+      "inCollection": "Phông chữ này là một phần của bộ sưu tập (.ttc) và không thể dùng riêng.",
+      "unreadable": "Không thể đọc tệp phông chữ.",
+      "nameInvalid": "Tên phông chữ không hợp lệ."
     },
     "recovery": {
-      "keyInvalid": "Invalid recovery key.",
-      "spaceFull": "The space for recovery copies (512 MB) is full. Save your documents.",
-      "sessionMissing": "The session is missing.",
-      "keyMissing": "The key is missing.",
-      "dataInvalid": "Invalid recovery data.",
-      "unknownDocumentType": "Unknown document type.",
-      "sessionNotThisWindow": "This recovery session does not belong to this window.",
-      "sessionOtherWindow": "This recovery session belongs to another window.",
-      "sessionStillRunning": "This session is still running."
+      "keyInvalid": "Khóa khôi phục không hợp lệ.",
+      "spaceFull": "Dung lượng cho bản sao khôi phục (512 MB) đã đầy. Hãy lưu tài liệu của bạn.",
+      "sessionMissing": "Thiếu phiên.",
+      "keyMissing": "Thiếu khóa.",
+      "dataInvalid": "Dữ liệu khôi phục không hợp lệ.",
+      "unknownDocumentType": "Loại tài liệu không xác định.",
+      "sessionNotThisWindow": "Phiên khôi phục này không thuộc cửa sổ này.",
+      "sessionOtherWindow": "Phiên khôi phục này thuộc một cửa sổ khác.",
+      "sessionStillRunning": "Phiên này vẫn đang chạy."
     },
     "window": {
-      "closed": "This window has been closed.",
-      "transferEmptyOrTooLarge": "The transfer is empty or too large.",
-      "mainWindowUnavailable": "The main window is not available.",
-      "openFailed": "The window could not be opened: {{error}}",
-      "transferExpired": "This transfer has expired or has already been taken.",
-      "transferAlreadyTaken": "This transfer has already been taken.",
-      "transferUnknown": "This transfer is unknown."
+      "closed": "Cửa sổ này đã bị đóng.",
+      "transferEmptyOrTooLarge": "Nội dung chuyển trống hoặc quá lớn.",
+      "mainWindowUnavailable": "Cửa sổ chính không khả dụng.",
+      "openFailed": "Không thể mở cửa sổ: {{error}}",
+      "transferExpired": "Lần chuyển này đã hết hạn hoặc đã được nhận.",
+      "transferAlreadyTaken": "Lần chuyển này đã được nhận.",
+      "transferUnknown": "Không xác định được lần chuyển này."
     },
     "conversion": {
-      "unknownModule": "Unknown office module.",
-      "sourceFormatMismatch": "The source format does not belong to this module.",
-      "outputFormatUnsupported": "This output format is not supported.",
-      "outputFormatDirect": "This output format is created directly in the app, not by conversion.",
-      "invalidOptions": "Invalid conversion options.",
-      "chooseSoffice": "Choose the soffice program (Windows: soffice.exe) from the program folder of the office runtime.",
-      "chosenFileMissing": "The chosen file does not exist.",
-      "chosenPathNotFile": "The chosen path is not a file.",
-      "chosenFileNotExecutable": "The chosen file is not executable.",
-      "appDataDirUnavailable": "The app data folder is not available.",
-      "startFailed": "The conversion could not start: {{error}}",
-      "failed": "The conversion failed ({{reason}}). The original has been kept.",
-      "exitCode": "exit code {{code}}",
-      "processAborted": "process aborted",
-      "timeout": "The conversion exceeded the time limit and was stopped. The original has been kept.",
-      "profilePathInvalid": "The temporary profile path is invalid.",
-      "inputSize": "Choose a file of at most 100 MB that is not empty.",
-      "runtimeMissing": "This format needs an office runtime (LibreOffice). It was not found: install it, choose the program in Save as, or set OPENAEC_CONVERSIE_PROGRAMMA. DOCX, XLSX and PPTX work directly.",
-      "notConverted": "This file could not be converted. It may be damaged or protected, or the format filter is missing from the local runtime.",
-      "multipleOutputs": "The conversion produced more than one file.",
-      "noUsableOutput": "The conversion did not produce a usable file of at most 100 MB."
+      "unknownModule": "Mô-đun văn phòng không xác định.",
+      "sourceFormatMismatch": "Định dạng nguồn không thuộc mô-đun này.",
+      "outputFormatUnsupported": "Định dạng đầu ra này không được hỗ trợ.",
+      "outputFormatDirect": "Định dạng đầu ra này được tạo trực tiếp trong ứng dụng, không phải bằng chuyển đổi.",
+      "invalidOptions": "Tùy chọn chuyển đổi không hợp lệ.",
+      "chooseSoffice": "Chọn chương trình soffice (Windows: soffice.exe) trong thư mục chương trình của môi trường văn phòng.",
+      "chosenFileMissing": "Tệp đã chọn không tồn tại.",
+      "chosenPathNotFile": "Đường dẫn đã chọn không phải là tệp.",
+      "chosenFileNotExecutable": "Tệp đã chọn không thể thực thi.",
+      "appDataDirUnavailable": "Thư mục dữ liệu ứng dụng không khả dụng.",
+      "startFailed": "Không thể bắt đầu chuyển đổi: {{error}}",
+      "failed": "Chuyển đổi thất bại ({{reason}}). Bản gốc vẫn được giữ.",
+      "exitCode": "mã thoát {{code}}",
+      "processAborted": "tiến trình bị dừng",
+      "timeout": "Chuyển đổi vượt quá giới hạn thời gian và đã bị dừng. Bản gốc vẫn được giữ.",
+      "profilePathInvalid": "Đường dẫn hồ sơ tạm thời không hợp lệ.",
+      "inputSize": "Chọn một tệp không trống, tối đa 100 MB.",
+      "runtimeMissing": "Định dạng này cần môi trường văn phòng (LibreOffice). Không tìm thấy: hãy cài đặt, chọn chương trình trong Lưu thành, hoặc đặt OPENAEC_CONVERSIE_PROGRAMMA. DOCX, XLSX và PPTX hoạt động trực tiếp.",
+      "notConverted": "Không thể chuyển đổi tệp này. Tệp có thể bị hỏng hoặc được bảo vệ, hoặc môi trường cục bộ thiếu bộ lọc định dạng.",
+      "multipleOutputs": "Chuyển đổi tạo ra nhiều hơn một tệp.",
+      "noUsableOutput": "Chuyển đổi không tạo ra tệp dùng được có kích thước tối đa 100 MB."
     },
     "databaseExport": {
-      "emptyOrTooLarge": "The export is empty or larger than 100 MB.",
-      "emptyInvalidOrTooLarge": "The export is empty, invalid or larger than 100 MB.",
-      "nameMissing": "File name missing.",
-      "nameInvalid": "Invalid file name.",
-      "notSqlite": "This is not an SQLite working copy.",
-      "typeNotAllowed": "Only CSV, source, report and SQLite working copy exports are allowed. Access databases are never overwritten.",
-      "textNotUtf8": "A text export must be valid UTF-8 text.",
-      "sendAsBinary": "Send the export as binary data of at most 100 MB.",
-      "extensionMismatch": "The chosen extension does not match the export."
+      "emptyOrTooLarge": "Bản xuất trống hoặc lớn hơn 100 MB.",
+      "emptyInvalidOrTooLarge": "Bản xuất trống, không hợp lệ hoặc lớn hơn 100 MB.",
+      "nameMissing": "Thiếu tên tệp.",
+      "nameInvalid": "Tên tệp không hợp lệ.",
+      "notSqlite": "Đây không phải là bản sao làm việc SQLite.",
+      "typeNotAllowed": "Chỉ cho phép xuất CSV, mã nguồn, báo cáo và bản sao làm việc SQLite. Cơ sở dữ liệu Access không bao giờ bị ghi đè.",
+      "textNotUtf8": "Bản xuất văn bản phải là văn bản UTF-8 hợp lệ.",
+      "sendAsBinary": "Gửi bản xuất dưới dạng dữ liệu nhị phân tối đa 100 MB.",
+      "extensionMismatch": "Phần mở rộng đã chọn không khớp với bản xuất."
     }
   },
   "launcher": {
     "officeStudio": {
-      "genericName": "Office suite",
-      "comment": "Local OpenAEC office environment",
-      "keywords": "word processor;spreadsheet;presentation;database;email;office;"
+      "genericName": "Bộ ứng dụng văn phòng",
+      "comment": "Môi trường văn phòng OpenAEC cục bộ",
+      "keywords": "soạn thảo văn bản;bảng tính;trình chiếu;cơ sở dữ liệu;email;văn phòng;office;"
     },
     "databaseStudio": {
-      "genericName": "Database viewer",
-      "comment": "Open old MDB and ACCDB databases locally",
-      "keywords": "database;table;query;access;"
+      "genericName": "Trình xem cơ sở dữ liệu",
+      "comment": "Mở cục bộ các cơ sở dữ liệu MDB và ACCDB cũ",
+      "keywords": "cơ sở dữ liệu;bảng;truy vấn;access;database;"
     }
   }
 }

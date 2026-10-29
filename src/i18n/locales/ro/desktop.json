@@ -1,141 +1,142 @@
 {
   "dialogs": {
-    "cancel": "Cancel",
-    "saveAsEllipsis": "Save as…",
-    "officeFile": "Office file",
-    "officeFiles": "Office files",
-    "untitled": "Untitled",
-    "saveCopy": "Save a copy",
-    "saveAs": "Save as",
-    "openFile": "Open file",
+    "cancel": "Anulare",
+    "saveAsEllipsis": "Salvare ca…",
+    "officeFile": "Fișier Office",
+    "officeFiles": "Fișiere Office",
+    "untitled": "Fără titlu",
+    "saveCopy": "Salvare copie",
+    "saveAs": "Salvare ca",
+    "openFile": "Deschidere fișier",
     "replaceFile": {
-      "title": "Replace file",
-      "message": "The file {{path}} already exists. Replace it?"
+      "title": "Înlocuire fișier",
+      "message": "Fișierul {{path}} există deja. Îl înlocuiți?"
     },
     "unsavedChanges": {
-      "title": "Unsaved changes",
-      "message_one": "One document in this window has changes that have not been saved. They will be lost. Close anyway?",
-      "message_other": "{{count}} documents in this window have changes that have not been saved. They will be lost. Close anyway?"
+      "title": "Modificări nesalvate",
+      "message_one": "Un document din această fereastră conține modificări nesalvate. Acestea se vor pierde. Închideți oricum?",
+      "message_few": "{{count}} documente din această fereastră conțin modificări nesalvate. Acestea se vor pierde. Închideți oricum?",
+      "message_other": "{{count}} de documente din această fereastră conțin modificări nesalvate. Acestea se vor pierde. Închideți oricum?"
     },
     "fileChanged": {
-      "title": "File changed",
-      "missing": "{{name}} no longer exists in its original location. Recreate it with your version, or save it elsewhere?",
-      "changedExternally": "{{name}} has been changed outside Open Office Studio since you opened it. Overwriting discards those changes.",
-      "overwrite": "Overwrite"
+      "title": "Fișier modificat",
+      "missing": "{{name}} nu mai există în locația inițială. Îl recreați cu versiunea dvs. sau îl salvați în altă parte?",
+      "changedExternally": "{{name}} a fost modificat în afara Open Office Studio de când l-ați deschis. Suprascrierea elimină acele modificări.",
+      "overwrite": "Suprascriere"
     },
     "foreignFormat": {
-      "title": "Save as {{format}}",
-      "message": "{{name}} will be updated in the {{format}} format. The office runtime converts the document for this; formatting that {{format}} does not support may be lost.",
-      "hint": "Choose Save as… to keep a DOCX, XLSX or PPTX.",
-      "update": "Update as {{format}}"
+      "title": "Salvare ca {{format}}",
+      "message": "{{name}} va fi actualizat în formatul {{format}}. Runtime-ul office convertește documentul în acest scop; formatarea pe care {{format}} nu o acceptă se poate pierde.",
+      "hint": "Alegeți Salvare ca… pentru a păstra un DOCX, XLSX sau PPTX.",
+      "update": "Actualizare ca {{format}}"
     },
-    "chooseConverter": "Choose conversion program (soffice)",
+    "chooseConverter": "Alegere program de conversie (soffice)",
     "databaseExport": {
-      "title": "Save database export",
-      "filter": "Database export",
-      "sqliteFilter": "SQLite working copy",
-      "replaceTitle": "Replace export",
-      "replaceMessage": "This export file already exists. Replace it?"
+      "title": "Salvare export bază de date",
+      "filter": "Export bază de date",
+      "sqliteFilter": "Copie de lucru SQLite",
+      "replaceTitle": "Înlocuire export",
+      "replaceMessage": "Acest fișier de export există deja. Îl înlocuiți?"
     }
   },
   "errors": {
     "file": {
-      "invalidBody": "The file is empty, larger than 100 MB or was not sent as binary data.",
-      "emptyOrTooLarge": "The file is empty or larger than 100 MB.",
-      "formatInfoMissing": "The format information is missing.",
-      "formatMissing": "The format is missing.",
-      "targetFolderMissing": "The target folder is missing.",
-      "nameMissing": "The file name is missing.",
-      "nameInvalidChars": "The file name contains invalid characters.",
-      "unsupportedFormat": "Unsupported file format.",
-      "extensionMismatch": "The chosen extension does not match the document.",
-      "alreadyOpenedOrOtherWindow": "This file is already open or is not meant for this window.",
-      "notThisWindow": "This file does not belong to this window.",
-      "notLinked": "This file is no longer linked to this tab.",
-      "tokenMissing": "The token is missing.",
-      "openInOtherTab": "{{name}} is open in another tab. Close it first or choose a different name.",
-      "readOnly": "No write permission in this folder or the file is read-only ({{path}}). Choose a different location.",
-      "notInRecentList": "This file is no longer in the list."
+      "invalidBody": "Fișierul este gol, mai mare de 100 MB sau nu a fost trimis ca date binare.",
+      "emptyOrTooLarge": "Fișierul este gol sau mai mare de 100 MB.",
+      "formatInfoMissing": "Informațiile despre format lipsesc.",
+      "formatMissing": "Formatul lipsește.",
+      "targetFolderMissing": "Folderul de destinație lipsește.",
+      "nameMissing": "Numele fișierului lipsește.",
+      "nameInvalidChars": "Numele fișierului conține caractere nevalide.",
+      "unsupportedFormat": "Format de fișier neacceptat.",
+      "extensionMismatch": "Extensia aleasă nu corespunde documentului.",
+      "alreadyOpenedOrOtherWindow": "Acest fișier este deja deschis sau nu este destinat acestei ferestre.",
+      "notThisWindow": "Acest fișier nu aparține acestei ferestre.",
+      "notLinked": "Acest fișier nu mai este asociat acestei file.",
+      "tokenMissing": "Tokenul lipsește.",
+      "openInOtherTab": "{{name}} este deschis într-o altă filă. Închideți-l mai întâi sau alegeți alt nume.",
+      "readOnly": "Nu aveți permisiune de scriere în acest folder sau fișierul este doar în citire ({{path}}). Alegeți altă locație.",
+      "notInRecentList": "Acest fișier nu mai este în listă."
     },
     "preferences": {
-      "tooLarge": "The preferences are larger than 64 kB.",
-      "invalid": "The preferences are not a valid JSON object.",
-      "configDirUnavailable": "The app's configuration folder is not available.",
-      "pathInvalid": "Invalid path for the preferences."
+      "tooLarge": "Preferințele depășesc 64 kB.",
+      "invalid": "Preferințele nu sunt un obiect JSON valid.",
+      "configDirUnavailable": "Folderul de configurare al aplicației nu este disponibil.",
+      "pathInvalid": "Cale nevalidă pentru preferințe."
     },
     "font": {
-      "notInstalled": "The font {{family}} is not installed on this computer.",
-      "notFound": "Font not found.",
-      "fileTooLarge": "This font file is too large.",
-      "inCollection": "This font is part of a collection (.ttc) and cannot be used on its own.",
-      "unreadable": "The font file could not be read.",
-      "nameInvalid": "Invalid font name."
+      "notInstalled": "Fontul {{family}} nu este instalat pe acest computer.",
+      "notFound": "Fontul nu a fost găsit.",
+      "fileTooLarge": "Acest fișier de font este prea mare.",
+      "inCollection": "Acest font face parte dintr-o colecție (.ttc) și nu poate fi folosit separat.",
+      "unreadable": "Fișierul de font nu a putut fi citit.",
+      "nameInvalid": "Nume de font nevalid."
     },
     "recovery": {
-      "keyInvalid": "Invalid recovery key.",
-      "spaceFull": "The space for recovery copies (512 MB) is full. Save your documents.",
-      "sessionMissing": "The session is missing.",
-      "keyMissing": "The key is missing.",
-      "dataInvalid": "Invalid recovery data.",
-      "unknownDocumentType": "Unknown document type.",
-      "sessionNotThisWindow": "This recovery session does not belong to this window.",
-      "sessionOtherWindow": "This recovery session belongs to another window.",
-      "sessionStillRunning": "This session is still running."
+      "keyInvalid": "Cheie de recuperare nevalidă.",
+      "spaceFull": "Spațiul pentru copiile de recuperare (512 MB) este plin. Salvați documentele.",
+      "sessionMissing": "Sesiunea lipsește.",
+      "keyMissing": "Cheia lipsește.",
+      "dataInvalid": "Date de recuperare nevalide.",
+      "unknownDocumentType": "Tip de document necunoscut.",
+      "sessionNotThisWindow": "Această sesiune de recuperare nu aparține acestei ferestre.",
+      "sessionOtherWindow": "Această sesiune de recuperare aparține altei ferestre.",
+      "sessionStillRunning": "Această sesiune încă rulează."
     },
     "window": {
-      "closed": "This window has been closed.",
-      "transferEmptyOrTooLarge": "The transfer is empty or too large.",
-      "mainWindowUnavailable": "The main window is not available.",
-      "openFailed": "The window could not be opened: {{error}}",
-      "transferExpired": "This transfer has expired or has already been taken.",
-      "transferAlreadyTaken": "This transfer has already been taken.",
-      "transferUnknown": "This transfer is unknown."
+      "closed": "Această fereastră a fost închisă.",
+      "transferEmptyOrTooLarge": "Transferul este gol sau prea mare.",
+      "mainWindowUnavailable": "Fereastra principală nu este disponibilă.",
+      "openFailed": "Fereastra nu a putut fi deschisă: {{error}}",
+      "transferExpired": "Acest transfer a expirat sau a fost deja preluat.",
+      "transferAlreadyTaken": "Acest transfer a fost deja preluat.",
+      "transferUnknown": "Acest transfer este necunoscut."
     },
     "conversion": {
-      "unknownModule": "Unknown office module.",
-      "sourceFormatMismatch": "The source format does not belong to this module.",
-      "outputFormatUnsupported": "This output format is not supported.",
-      "outputFormatDirect": "This output format is created directly in the app, not by conversion.",
-      "invalidOptions": "Invalid conversion options.",
-      "chooseSoffice": "Choose the soffice program (Windows: soffice.exe) from the program folder of the office runtime.",
-      "chosenFileMissing": "The chosen file does not exist.",
-      "chosenPathNotFile": "The chosen path is not a file.",
-      "chosenFileNotExecutable": "The chosen file is not executable.",
-      "appDataDirUnavailable": "The app data folder is not available.",
-      "startFailed": "The conversion could not start: {{error}}",
-      "failed": "The conversion failed ({{reason}}). The original has been kept.",
-      "exitCode": "exit code {{code}}",
-      "processAborted": "process aborted",
-      "timeout": "The conversion exceeded the time limit and was stopped. The original has been kept.",
-      "profilePathInvalid": "The temporary profile path is invalid.",
-      "inputSize": "Choose a file of at most 100 MB that is not empty.",
-      "runtimeMissing": "This format needs an office runtime (LibreOffice). It was not found: install it, choose the program in Save as, or set OPENAEC_CONVERSIE_PROGRAMMA. DOCX, XLSX and PPTX work directly.",
-      "notConverted": "This file could not be converted. It may be damaged or protected, or the format filter is missing from the local runtime.",
-      "multipleOutputs": "The conversion produced more than one file.",
-      "noUsableOutput": "The conversion did not produce a usable file of at most 100 MB."
+      "unknownModule": "Modul office necunoscut.",
+      "sourceFormatMismatch": "Formatul sursă nu aparține acestui modul.",
+      "outputFormatUnsupported": "Acest format de ieșire nu este acceptat.",
+      "outputFormatDirect": "Acest format de ieșire este creat direct în aplicație, nu prin conversie.",
+      "invalidOptions": "Opțiuni de conversie nevalide.",
+      "chooseSoffice": "Alegeți programul soffice (Windows: soffice.exe) din folderul program al runtime-ului office.",
+      "chosenFileMissing": "Fișierul ales nu există.",
+      "chosenPathNotFile": "Calea aleasă nu este un fișier.",
+      "chosenFileNotExecutable": "Fișierul ales nu este executabil.",
+      "appDataDirUnavailable": "Folderul de date al aplicației nu este disponibil.",
+      "startFailed": "Conversia nu a putut porni: {{error}}",
+      "failed": "Conversia a eșuat ({{reason}}). Originalul a fost păstrat.",
+      "exitCode": "cod de ieșire {{code}}",
+      "processAborted": "proces întrerupt",
+      "timeout": "Conversia a depășit limita de timp și a fost oprită. Originalul a fost păstrat.",
+      "profilePathInvalid": "Calea profilului temporar este nevalidă.",
+      "inputSize": "Alegeți un fișier de cel mult 100 MB care nu este gol.",
+      "runtimeMissing": "Acest format necesită un runtime office (LibreOffice). Nu a fost găsit: instalați-l, alegeți programul în Salvare ca sau setați OPENAEC_CONVERSIE_PROGRAMMA. DOCX, XLSX și PPTX funcționează direct.",
+      "notConverted": "Acest fișier nu a putut fi convertit. Poate fi deteriorat sau protejat ori filtrul de format lipsește din runtime-ul local.",
+      "multipleOutputs": "Conversia a produs mai multe fișiere.",
+      "noUsableOutput": "Conversia nu a produs un fișier utilizabil de cel mult 100 MB."
     },
     "databaseExport": {
-      "emptyOrTooLarge": "The export is empty or larger than 100 MB.",
-      "emptyInvalidOrTooLarge": "The export is empty, invalid or larger than 100 MB.",
-      "nameMissing": "File name missing.",
-      "nameInvalid": "Invalid file name.",
-      "notSqlite": "This is not an SQLite working copy.",
-      "typeNotAllowed": "Only CSV, source, report and SQLite working copy exports are allowed. Access databases are never overwritten.",
-      "textNotUtf8": "A text export must be valid UTF-8 text.",
-      "sendAsBinary": "Send the export as binary data of at most 100 MB.",
-      "extensionMismatch": "The chosen extension does not match the export."
+      "emptyOrTooLarge": "Exportul este gol sau mai mare de 100 MB.",
+      "emptyInvalidOrTooLarge": "Exportul este gol, nevalid sau mai mare de 100 MB.",
+      "nameMissing": "Numele fișierului lipsește.",
+      "nameInvalid": "Nume de fișier nevalid.",
+      "notSqlite": "Aceasta nu este o copie de lucru SQLite.",
+      "typeNotAllowed": "Sunt permise doar exporturi CSV, sursă, raport și copie de lucru SQLite. Bazele de date Access nu sunt suprascrise niciodată.",
+      "textNotUtf8": "Un export text trebuie să fie text UTF-8 valid.",
+      "sendAsBinary": "Trimiteți exportul ca date binare de cel mult 100 MB.",
+      "extensionMismatch": "Extensia aleasă nu corespunde exportului."
     }
   },
   "launcher": {
     "officeStudio": {
-      "genericName": "Office suite",
-      "comment": "Local OpenAEC office environment",
-      "keywords": "word processor;spreadsheet;presentation;database;email;office;"
+      "genericName": "Suită office",
+      "comment": "Mediu office local OpenAEC",
+      "keywords": "procesor de text;foaie de calcul;prezentare;bază de date;e-mail;office;birou;"
     },
     "databaseStudio": {
-      "genericName": "Database viewer",
-      "comment": "Open old MDB and ACCDB databases locally",
-      "keywords": "database;table;query;access;"
+      "genericName": "Vizualizator baze de date",
+      "comment": "Deschideți local baze de date vechi MDB și ACCDB",
+      "keywords": "bază de date;tabel;interogare;access;"
     }
   }
 }

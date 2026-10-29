@@ -1,141 +1,141 @@
 {
   "dialogs": {
-    "cancel": "Cancel",
-    "saveAsEllipsis": "Save as…",
-    "officeFile": "Office file",
-    "officeFiles": "Office files",
-    "untitled": "Untitled",
-    "saveCopy": "Save a copy",
-    "saveAs": "Save as",
-    "openFile": "Open file",
+    "cancel": "Άκυρο",
+    "saveAsEllipsis": "Αποθήκευση ως…",
+    "officeFile": "Αρχείο Office",
+    "officeFiles": "Αρχεία Office",
+    "untitled": "Χωρίς τίτλο",
+    "saveCopy": "Αποθήκευση αντιγράφου",
+    "saveAs": "Αποθήκευση ως",
+    "openFile": "Άνοιγμα αρχείου",
     "replaceFile": {
-      "title": "Replace file",
-      "message": "The file {{path}} already exists. Replace it?"
+      "title": "Αντικατάσταση αρχείου",
+      "message": "Το αρχείο {{path}} υπάρχει ήδη. Να αντικατασταθεί;"
     },
     "unsavedChanges": {
-      "title": "Unsaved changes",
-      "message_one": "One document in this window has changes that have not been saved. They will be lost. Close anyway?",
-      "message_other": "{{count}} documents in this window have changes that have not been saved. They will be lost. Close anyway?"
+      "title": "Μη αποθηκευμένες αλλαγές",
+      "message_one": "Ένα έγγραφο σε αυτό το παράθυρο έχει αλλαγές που δεν έχουν αποθηκευτεί. Θα χαθούν. Κλείσιμο παρ’ όλα αυτά;",
+      "message_other": "{{count}} έγγραφα σε αυτό το παράθυρο έχουν αλλαγές που δεν έχουν αποθηκευτεί. Θα χαθούν. Κλείσιμο παρ’ όλα αυτά;"
     },
     "fileChanged": {
-      "title": "File changed",
-      "missing": "{{name}} no longer exists in its original location. Recreate it with your version, or save it elsewhere?",
-      "changedExternally": "{{name}} has been changed outside Open Office Studio since you opened it. Overwriting discards those changes.",
-      "overwrite": "Overwrite"
+      "title": "Το αρχείο άλλαξε",
+      "missing": "Το {{name}} δεν υπάρχει πλέον στην αρχική του θέση. Να δημιουργηθεί ξανά με τη δική σας έκδοση ή να αποθηκευτεί αλλού;",
+      "changedExternally": "Το {{name}} άλλαξε εκτός του Open Office Studio από τότε που το ανοίξατε. Η αντικατάσταση απορρίπτει αυτές τις αλλαγές.",
+      "overwrite": "Αντικατάσταση"
     },
     "foreignFormat": {
-      "title": "Save as {{format}}",
-      "message": "{{name}} will be updated in the {{format}} format. The office runtime converts the document for this; formatting that {{format}} does not support may be lost.",
-      "hint": "Choose Save as… to keep a DOCX, XLSX or PPTX.",
-      "update": "Update as {{format}}"
+      "title": "Αποθήκευση ως {{format}}",
+      "message": "Το {{name}} θα ενημερωθεί σε μορφή {{format}}. Το περιβάλλον εκτέλεσης γραφείου μετατρέπει το έγγραφο για αυτόν τον σκοπό· μορφοποίηση που δεν υποστηρίζει η μορφή {{format}} ενδέχεται να χαθεί.",
+      "hint": "Επιλέξτε Αποθήκευση ως… για να διατηρήσετε ένα DOCX, XLSX ή PPTX.",
+      "update": "Ενημέρωση ως {{format}}"
     },
-    "chooseConverter": "Choose conversion program (soffice)",
+    "chooseConverter": "Επιλογή προγράμματος μετατροπής (soffice)",
     "databaseExport": {
-      "title": "Save database export",
-      "filter": "Database export",
-      "sqliteFilter": "SQLite working copy",
-      "replaceTitle": "Replace export",
-      "replaceMessage": "This export file already exists. Replace it?"
+      "title": "Αποθήκευση εξαγωγής βάσης δεδομένων",
+      "filter": "Εξαγωγή βάσης δεδομένων",
+      "sqliteFilter": "Αντίγραφο εργασίας SQLite",
+      "replaceTitle": "Αντικατάσταση εξαγωγής",
+      "replaceMessage": "Αυτό το αρχείο εξαγωγής υπάρχει ήδη. Να αντικατασταθεί;"
     }
   },
   "errors": {
     "file": {
-      "invalidBody": "The file is empty, larger than 100 MB or was not sent as binary data.",
-      "emptyOrTooLarge": "The file is empty or larger than 100 MB.",
-      "formatInfoMissing": "The format information is missing.",
-      "formatMissing": "The format is missing.",
-      "targetFolderMissing": "The target folder is missing.",
-      "nameMissing": "The file name is missing.",
-      "nameInvalidChars": "The file name contains invalid characters.",
-      "unsupportedFormat": "Unsupported file format.",
-      "extensionMismatch": "The chosen extension does not match the document.",
-      "alreadyOpenedOrOtherWindow": "This file is already open or is not meant for this window.",
-      "notThisWindow": "This file does not belong to this window.",
-      "notLinked": "This file is no longer linked to this tab.",
-      "tokenMissing": "The token is missing.",
-      "openInOtherTab": "{{name}} is open in another tab. Close it first or choose a different name.",
-      "readOnly": "No write permission in this folder or the file is read-only ({{path}}). Choose a different location.",
-      "notInRecentList": "This file is no longer in the list."
+      "invalidBody": "Το αρχείο είναι κενό, μεγαλύτερο από 100 MB ή δεν στάλθηκε ως δυαδικά δεδομένα.",
+      "emptyOrTooLarge": "Το αρχείο είναι κενό ή μεγαλύτερο από 100 MB.",
+      "formatInfoMissing": "Λείπουν οι πληροφορίες μορφής.",
+      "formatMissing": "Λείπει η μορφή.",
+      "targetFolderMissing": "Λείπει ο φάκελος προορισμού.",
+      "nameMissing": "Λείπει το όνομα αρχείου.",
+      "nameInvalidChars": "Το όνομα αρχείου περιέχει μη έγκυρους χαρακτήρες.",
+      "unsupportedFormat": "Μη υποστηριζόμενη μορφή αρχείου.",
+      "extensionMismatch": "Η επιλεγμένη επέκταση δεν ταιριάζει με το έγγραφο.",
+      "alreadyOpenedOrOtherWindow": "Αυτό το αρχείο είναι ήδη ανοιχτό ή δεν προορίζεται για αυτό το παράθυρο.",
+      "notThisWindow": "Αυτό το αρχείο δεν ανήκει σε αυτό το παράθυρο.",
+      "notLinked": "Αυτό το αρχείο δεν είναι πλέον συνδεδεμένο με αυτή την καρτέλα.",
+      "tokenMissing": "Λείπει το διακριτικό.",
+      "openInOtherTab": "Το {{name}} είναι ανοιχτό σε άλλη καρτέλα. Κλείστε το πρώτα ή επιλέξτε διαφορετικό όνομα.",
+      "readOnly": "Δεν υπάρχει δικαίωμα εγγραφής σε αυτόν τον φάκελο ή το αρχείο είναι μόνο για ανάγνωση ({{path}}). Επιλέξτε διαφορετική θέση.",
+      "notInRecentList": "Αυτό το αρχείο δεν βρίσκεται πλέον στη λίστα."
     },
     "preferences": {
-      "tooLarge": "The preferences are larger than 64 kB.",
-      "invalid": "The preferences are not a valid JSON object.",
-      "configDirUnavailable": "The app's configuration folder is not available.",
-      "pathInvalid": "Invalid path for the preferences."
+      "tooLarge": "Οι προτιμήσεις υπερβαίνουν τα 64 kB.",
+      "invalid": "Οι προτιμήσεις δεν είναι έγκυρο αντικείμενο JSON.",
+      "configDirUnavailable": "Ο φάκελος ρυθμίσεων της εφαρμογής δεν είναι διαθέσιμος.",
+      "pathInvalid": "Μη έγκυρη διαδρομή για τις προτιμήσεις."
     },
     "font": {
-      "notInstalled": "The font {{family}} is not installed on this computer.",
-      "notFound": "Font not found.",
-      "fileTooLarge": "This font file is too large.",
-      "inCollection": "This font is part of a collection (.ttc) and cannot be used on its own.",
-      "unreadable": "The font file could not be read.",
-      "nameInvalid": "Invalid font name."
+      "notInstalled": "Η γραμματοσειρά {{family}} δεν είναι εγκατεστημένη σε αυτόν τον υπολογιστή.",
+      "notFound": "Η γραμματοσειρά δεν βρέθηκε.",
+      "fileTooLarge": "Αυτό το αρχείο γραμματοσειράς είναι πολύ μεγάλο.",
+      "inCollection": "Αυτή η γραμματοσειρά ανήκει σε συλλογή (.ttc) και δεν μπορεί να χρησιμοποιηθεί μεμονωμένα.",
+      "unreadable": "Δεν ήταν δυνατή η ανάγνωση του αρχείου γραμματοσειράς.",
+      "nameInvalid": "Μη έγκυρο όνομα γραμματοσειράς."
     },
     "recovery": {
-      "keyInvalid": "Invalid recovery key.",
-      "spaceFull": "The space for recovery copies (512 MB) is full. Save your documents.",
-      "sessionMissing": "The session is missing.",
-      "keyMissing": "The key is missing.",
-      "dataInvalid": "Invalid recovery data.",
-      "unknownDocumentType": "Unknown document type.",
-      "sessionNotThisWindow": "This recovery session does not belong to this window.",
-      "sessionOtherWindow": "This recovery session belongs to another window.",
-      "sessionStillRunning": "This session is still running."
+      "keyInvalid": "Μη έγκυρο κλειδί ανάκτησης.",
+      "spaceFull": "Ο χώρος για αντίγραφα ανάκτησης (512 MB) είναι πλήρης. Αποθηκεύστε τα έγγραφά σας.",
+      "sessionMissing": "Λείπει η περίοδος λειτουργίας.",
+      "keyMissing": "Λείπει το κλειδί.",
+      "dataInvalid": "Μη έγκυρα δεδομένα ανάκτησης.",
+      "unknownDocumentType": "Άγνωστος τύπος εγγράφου.",
+      "sessionNotThisWindow": "Αυτή η περίοδος λειτουργίας ανάκτησης δεν ανήκει σε αυτό το παράθυρο.",
+      "sessionOtherWindow": "Αυτή η περίοδος λειτουργίας ανάκτησης ανήκει σε άλλο παράθυρο.",
+      "sessionStillRunning": "Αυτή η περίοδος λειτουργίας εκτελείται ακόμα."
     },
     "window": {
-      "closed": "This window has been closed.",
-      "transferEmptyOrTooLarge": "The transfer is empty or too large.",
-      "mainWindowUnavailable": "The main window is not available.",
-      "openFailed": "The window could not be opened: {{error}}",
-      "transferExpired": "This transfer has expired or has already been taken.",
-      "transferAlreadyTaken": "This transfer has already been taken.",
-      "transferUnknown": "This transfer is unknown."
+      "closed": "Αυτό το παράθυρο έχει κλείσει.",
+      "transferEmptyOrTooLarge": "Η μεταφορά είναι κενή ή πολύ μεγάλη.",
+      "mainWindowUnavailable": "Το κύριο παράθυρο δεν είναι διαθέσιμο.",
+      "openFailed": "Δεν ήταν δυνατό το άνοιγμα του παραθύρου: {{error}}",
+      "transferExpired": "Αυτή η μεταφορά έχει λήξει ή έχει ήδη παραληφθεί.",
+      "transferAlreadyTaken": "Αυτή η μεταφορά έχει ήδη παραληφθεί.",
+      "transferUnknown": "Αυτή η μεταφορά είναι άγνωστη."
     },
     "conversion": {
-      "unknownModule": "Unknown office module.",
-      "sourceFormatMismatch": "The source format does not belong to this module.",
-      "outputFormatUnsupported": "This output format is not supported.",
-      "outputFormatDirect": "This output format is created directly in the app, not by conversion.",
-      "invalidOptions": "Invalid conversion options.",
-      "chooseSoffice": "Choose the soffice program (Windows: soffice.exe) from the program folder of the office runtime.",
-      "chosenFileMissing": "The chosen file does not exist.",
-      "chosenPathNotFile": "The chosen path is not a file.",
-      "chosenFileNotExecutable": "The chosen file is not executable.",
-      "appDataDirUnavailable": "The app data folder is not available.",
-      "startFailed": "The conversion could not start: {{error}}",
-      "failed": "The conversion failed ({{reason}}). The original has been kept.",
-      "exitCode": "exit code {{code}}",
-      "processAborted": "process aborted",
-      "timeout": "The conversion exceeded the time limit and was stopped. The original has been kept.",
-      "profilePathInvalid": "The temporary profile path is invalid.",
-      "inputSize": "Choose a file of at most 100 MB that is not empty.",
-      "runtimeMissing": "This format needs an office runtime (LibreOffice). It was not found: install it, choose the program in Save as, or set OPENAEC_CONVERSIE_PROGRAMMA. DOCX, XLSX and PPTX work directly.",
-      "notConverted": "This file could not be converted. It may be damaged or protected, or the format filter is missing from the local runtime.",
-      "multipleOutputs": "The conversion produced more than one file.",
-      "noUsableOutput": "The conversion did not produce a usable file of at most 100 MB."
+      "unknownModule": "Άγνωστη ενότητα γραφείου.",
+      "sourceFormatMismatch": "Η μορφή προέλευσης δεν ανήκει σε αυτή την ενότητα.",
+      "outputFormatUnsupported": "Αυτή η μορφή εξόδου δεν υποστηρίζεται.",
+      "outputFormatDirect": "Αυτή η μορφή εξόδου δημιουργείται απευθείας στην εφαρμογή, όχι μέσω μετατροπής.",
+      "invalidOptions": "Μη έγκυρες επιλογές μετατροπής.",
+      "chooseSoffice": "Επιλέξτε το πρόγραμμα soffice (Windows: soffice.exe) από τον φάκελο program του περιβάλλοντος εκτέλεσης γραφείου.",
+      "chosenFileMissing": "Το επιλεγμένο αρχείο δεν υπάρχει.",
+      "chosenPathNotFile": "Η επιλεγμένη διαδρομή δεν είναι αρχείο.",
+      "chosenFileNotExecutable": "Το επιλεγμένο αρχείο δεν είναι εκτελέσιμο.",
+      "appDataDirUnavailable": "Ο φάκελος δεδομένων της εφαρμογής δεν είναι διαθέσιμος.",
+      "startFailed": "Δεν ήταν δυνατή η έναρξη της μετατροπής: {{error}}",
+      "failed": "Η μετατροπή απέτυχε ({{reason}}). Το πρωτότυπο διατηρήθηκε.",
+      "exitCode": "κωδικός εξόδου {{code}}",
+      "processAborted": "η διεργασία διακόπηκε",
+      "timeout": "Η μετατροπή υπερέβη το χρονικό όριο και διακόπηκε. Το πρωτότυπο διατηρήθηκε.",
+      "profilePathInvalid": "Η διαδρομή του προσωρινού προφίλ δεν είναι έγκυρη.",
+      "inputSize": "Επιλέξτε ένα μη κενό αρχείο έως 100 MB.",
+      "runtimeMissing": "Αυτή η μορφή απαιτεί περιβάλλον εκτέλεσης γραφείου (LibreOffice). Δεν βρέθηκε: εγκαταστήστε το, επιλέξτε το πρόγραμμα στην Αποθήκευση ως ή ορίστε το OPENAEC_CONVERSIE_PROGRAMMA. Τα DOCX, XLSX και PPTX λειτουργούν απευθείας.",
+      "notConverted": "Δεν ήταν δυνατή η μετατροπή αυτού του αρχείου. Μπορεί να είναι κατεστραμμένο ή προστατευμένο ή να λείπει το φίλτρο μορφής από το τοπικό περιβάλλον εκτέλεσης.",
+      "multipleOutputs": "Η μετατροπή παρήγαγε περισσότερα από ένα αρχεία.",
+      "noUsableOutput": "Η μετατροπή δεν παρήγαγε χρησιμοποιήσιμο αρχείο έως 100 MB."
     },
     "databaseExport": {
-      "emptyOrTooLarge": "The export is empty or larger than 100 MB.",
-      "emptyInvalidOrTooLarge": "The export is empty, invalid or larger than 100 MB.",
-      "nameMissing": "File name missing.",
-      "nameInvalid": "Invalid file name.",
-      "notSqlite": "This is not an SQLite working copy.",
-      "typeNotAllowed": "Only CSV, source, report and SQLite working copy exports are allowed. Access databases are never overwritten.",
-      "textNotUtf8": "A text export must be valid UTF-8 text.",
-      "sendAsBinary": "Send the export as binary data of at most 100 MB.",
-      "extensionMismatch": "The chosen extension does not match the export."
+      "emptyOrTooLarge": "Η εξαγωγή είναι κενή ή μεγαλύτερη από 100 MB.",
+      "emptyInvalidOrTooLarge": "Η εξαγωγή είναι κενή, μη έγκυρη ή μεγαλύτερη από 100 MB.",
+      "nameMissing": "Λείπει το όνομα αρχείου.",
+      "nameInvalid": "Μη έγκυρο όνομα αρχείου.",
+      "notSqlite": "Αυτό δεν είναι αντίγραφο εργασίας SQLite.",
+      "typeNotAllowed": "Επιτρέπονται μόνο εξαγωγές CSV, προέλευσης, αναφορών και αντιγράφων εργασίας SQLite. Οι βάσεις δεδομένων Access δεν αντικαθίστανται ποτέ.",
+      "textNotUtf8": "Μια εξαγωγή κειμένου πρέπει να είναι έγκυρο κείμενο UTF-8.",
+      "sendAsBinary": "Στείλτε την εξαγωγή ως δυαδικά δεδομένα έως 100 MB.",
+      "extensionMismatch": "Η επιλεγμένη επέκταση δεν ταιριάζει με την εξαγωγή."
     }
   },
   "launcher": {
     "officeStudio": {
-      "genericName": "Office suite",
-      "comment": "Local OpenAEC office environment",
-      "keywords": "word processor;spreadsheet;presentation;database;email;office;"
+      "genericName": "Σουίτα γραφείου",
+      "comment": "Τοπικό περιβάλλον γραφείου OpenAEC",
+      "keywords": "επεξεργαστής κειμένου;υπολογιστικό φύλλο;παρουσίαση;βάση δεδομένων;email;γραφείο;office;"
     },
     "databaseStudio": {
-      "genericName": "Database viewer",
-      "comment": "Open old MDB and ACCDB databases locally",
-      "keywords": "database;table;query;access;"
+      "genericName": "Προβολή βάσεων δεδομένων",
+      "comment": "Ανοίξτε τοπικά παλιές βάσεις δεδομένων MDB και ACCDB",
+      "keywords": "βάση δεδομένων;πίνακας;ερώτημα;access;"
     }
   }
 }

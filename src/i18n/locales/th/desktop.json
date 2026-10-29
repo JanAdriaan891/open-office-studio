@@ -1,141 +1,140 @@
 {
   "dialogs": {
-    "cancel": "Cancel",
-    "saveAsEllipsis": "Save as…",
-    "officeFile": "Office file",
-    "officeFiles": "Office files",
-    "untitled": "Untitled",
-    "saveCopy": "Save a copy",
-    "saveAs": "Save as",
-    "openFile": "Open file",
+    "cancel": "ยกเลิก",
+    "saveAsEllipsis": "บันทึกเป็น…",
+    "officeFile": "ไฟล์สำนักงาน",
+    "officeFiles": "ไฟล์สำนักงาน",
+    "untitled": "ไม่มีชื่อ",
+    "saveCopy": "บันทึกสำเนา",
+    "saveAs": "บันทึกเป็น",
+    "openFile": "เปิดไฟล์",
     "replaceFile": {
-      "title": "Replace file",
-      "message": "The file {{path}} already exists. Replace it?"
+      "title": "แทนที่ไฟล์",
+      "message": "มีไฟล์ {{path}} อยู่แล้ว ต้องการแทนที่หรือไม่"
     },
     "unsavedChanges": {
-      "title": "Unsaved changes",
-      "message_one": "One document in this window has changes that have not been saved. They will be lost. Close anyway?",
-      "message_other": "{{count}} documents in this window have changes that have not been saved. They will be lost. Close anyway?"
+      "title": "การเปลี่ยนแปลงที่ยังไม่ได้บันทึก",
+      "message_other": "เอกสาร {{count}} รายการในหน้าต่างนี้มีการเปลี่ยนแปลงที่ยังไม่ได้บันทึก การเปลี่ยนแปลงจะสูญหาย ต้องการปิดต่อหรือไม่"
     },
     "fileChanged": {
-      "title": "File changed",
-      "missing": "{{name}} no longer exists in its original location. Recreate it with your version, or save it elsewhere?",
-      "changedExternally": "{{name}} has been changed outside Open Office Studio since you opened it. Overwriting discards those changes.",
-      "overwrite": "Overwrite"
+      "title": "ไฟล์มีการเปลี่ยนแปลง",
+      "missing": "{{name}} ไม่อยู่ในตำแหน่งเดิมแล้ว ต้องการสร้างใหม่ด้วยเวอร์ชันของคุณ หรือบันทึกไว้ที่อื่น",
+      "changedExternally": "{{name}} ถูกเปลี่ยนแปลงภายนอก Open Office Studio ตั้งแต่คุณเปิด การเขียนทับจะละทิ้งการเปลี่ยนแปลงเหล่านั้น",
+      "overwrite": "เขียนทับ"
     },
     "foreignFormat": {
-      "title": "Save as {{format}}",
-      "message": "{{name}} will be updated in the {{format}} format. The office runtime converts the document for this; formatting that {{format}} does not support may be lost.",
-      "hint": "Choose Save as… to keep a DOCX, XLSX or PPTX.",
-      "update": "Update as {{format}}"
+      "title": "บันทึกเป็น {{format}}",
+      "message": "{{name}} จะได้รับการอัปเดตในรูปแบบ {{format}} รันไทม์สำนักงานจะแปลงเอกสารเพื่อการนี้ การจัดรูปแบบที่ {{format}} ไม่รองรับอาจสูญหาย",
+      "hint": "เลือก บันทึกเป็น… เพื่อเก็บไฟล์ DOCX, XLSX หรือ PPTX ไว้",
+      "update": "อัปเดตเป็น {{format}}"
     },
-    "chooseConverter": "Choose conversion program (soffice)",
+    "chooseConverter": "เลือกโปรแกรมแปลง (soffice)",
     "databaseExport": {
-      "title": "Save database export",
-      "filter": "Database export",
-      "sqliteFilter": "SQLite working copy",
-      "replaceTitle": "Replace export",
-      "replaceMessage": "This export file already exists. Replace it?"
+      "title": "บันทึกการส่งออกฐานข้อมูล",
+      "filter": "การส่งออกฐานข้อมูล",
+      "sqliteFilter": "สำเนาการทำงาน SQLite",
+      "replaceTitle": "แทนที่การส่งออก",
+      "replaceMessage": "มีไฟล์ส่งออกนี้อยู่แล้ว ต้องการแทนที่หรือไม่"
     }
   },
   "errors": {
     "file": {
-      "invalidBody": "The file is empty, larger than 100 MB or was not sent as binary data.",
-      "emptyOrTooLarge": "The file is empty or larger than 100 MB.",
-      "formatInfoMissing": "The format information is missing.",
-      "formatMissing": "The format is missing.",
-      "targetFolderMissing": "The target folder is missing.",
-      "nameMissing": "The file name is missing.",
-      "nameInvalidChars": "The file name contains invalid characters.",
-      "unsupportedFormat": "Unsupported file format.",
-      "extensionMismatch": "The chosen extension does not match the document.",
-      "alreadyOpenedOrOtherWindow": "This file is already open or is not meant for this window.",
-      "notThisWindow": "This file does not belong to this window.",
-      "notLinked": "This file is no longer linked to this tab.",
-      "tokenMissing": "The token is missing.",
-      "openInOtherTab": "{{name}} is open in another tab. Close it first or choose a different name.",
-      "readOnly": "No write permission in this folder or the file is read-only ({{path}}). Choose a different location.",
-      "notInRecentList": "This file is no longer in the list."
+      "invalidBody": "ไฟล์ว่างเปล่า ใหญ่กว่า 100 MB หรือไม่ได้ส่งเป็นข้อมูลไบนารี",
+      "emptyOrTooLarge": "ไฟล์ว่างเปล่าหรือใหญ่กว่า 100 MB",
+      "formatInfoMissing": "ไม่มีข้อมูลรูปแบบ",
+      "formatMissing": "ไม่มีรูปแบบ",
+      "targetFolderMissing": "ไม่มีโฟลเดอร์ปลายทาง",
+      "nameMissing": "ไม่มีชื่อไฟล์",
+      "nameInvalidChars": "ชื่อไฟล์มีอักขระที่ไม่ถูกต้อง",
+      "unsupportedFormat": "ไม่รองรับรูปแบบไฟล์นี้",
+      "extensionMismatch": "นามสกุลที่เลือกไม่ตรงกับเอกสาร",
+      "alreadyOpenedOrOtherWindow": "ไฟล์นี้เปิดอยู่แล้วหรือไม่ได้มีไว้สำหรับหน้าต่างนี้",
+      "notThisWindow": "ไฟล์นี้ไม่ได้เป็นของหน้าต่างนี้",
+      "notLinked": "ไฟล์นี้ไม่ได้เชื่อมโยงกับแท็บนี้อีกต่อไป",
+      "tokenMissing": "ไม่มีโทเค็น",
+      "openInOtherTab": "{{name}} เปิดอยู่ในแท็บอื่น ปิดก่อนหรือเลือกชื่ออื่น",
+      "readOnly": "ไม่มีสิทธิ์เขียนในโฟลเดอร์นี้ หรือไฟล์เป็นแบบอ่านอย่างเดียว ({{path}}) เลือกตำแหน่งอื่น",
+      "notInRecentList": "ไฟล์นี้ไม่อยู่ในรายการแล้ว"
     },
     "preferences": {
-      "tooLarge": "The preferences are larger than 64 kB.",
-      "invalid": "The preferences are not a valid JSON object.",
-      "configDirUnavailable": "The app's configuration folder is not available.",
-      "pathInvalid": "Invalid path for the preferences."
+      "tooLarge": "การกำหนดลักษณะใหญ่กว่า 64 kB",
+      "invalid": "การกำหนดลักษณะไม่ใช่ออบเจ็กต์ JSON ที่ถูกต้อง",
+      "configDirUnavailable": "โฟลเดอร์การกำหนดค่าของแอปไม่พร้อมใช้งาน",
+      "pathInvalid": "เส้นทางของการกำหนดลักษณะไม่ถูกต้อง"
     },
     "font": {
-      "notInstalled": "The font {{family}} is not installed on this computer.",
-      "notFound": "Font not found.",
-      "fileTooLarge": "This font file is too large.",
-      "inCollection": "This font is part of a collection (.ttc) and cannot be used on its own.",
-      "unreadable": "The font file could not be read.",
-      "nameInvalid": "Invalid font name."
+      "notInstalled": "ไม่ได้ติดตั้งแบบอักษร {{family}} ในคอมพิวเตอร์เครื่องนี้",
+      "notFound": "ไม่พบแบบอักษร",
+      "fileTooLarge": "ไฟล์แบบอักษรนี้ใหญ่เกินไป",
+      "inCollection": "แบบอักษรนี้เป็นส่วนหนึ่งของคอลเลกชัน (.ttc) และใช้แยกเดี่ยวไม่ได้",
+      "unreadable": "อ่านไฟล์แบบอักษรไม่ได้",
+      "nameInvalid": "ชื่อแบบอักษรไม่ถูกต้อง"
     },
     "recovery": {
-      "keyInvalid": "Invalid recovery key.",
-      "spaceFull": "The space for recovery copies (512 MB) is full. Save your documents.",
-      "sessionMissing": "The session is missing.",
-      "keyMissing": "The key is missing.",
-      "dataInvalid": "Invalid recovery data.",
-      "unknownDocumentType": "Unknown document type.",
-      "sessionNotThisWindow": "This recovery session does not belong to this window.",
-      "sessionOtherWindow": "This recovery session belongs to another window.",
-      "sessionStillRunning": "This session is still running."
+      "keyInvalid": "คีย์การกู้คืนไม่ถูกต้อง",
+      "spaceFull": "พื้นที่สำหรับสำเนาการกู้คืน (512 MB) เต็มแล้ว โปรดบันทึกเอกสารของคุณ",
+      "sessionMissing": "ไม่มีเซสชัน",
+      "keyMissing": "ไม่มีคีย์",
+      "dataInvalid": "ข้อมูลการกู้คืนไม่ถูกต้อง",
+      "unknownDocumentType": "ไม่รู้จักชนิดเอกสาร",
+      "sessionNotThisWindow": "เซสชันการกู้คืนนี้ไม่ได้เป็นของหน้าต่างนี้",
+      "sessionOtherWindow": "เซสชันการกู้คืนนี้เป็นของหน้าต่างอื่น",
+      "sessionStillRunning": "เซสชันนี้ยังทำงานอยู่"
     },
     "window": {
-      "closed": "This window has been closed.",
-      "transferEmptyOrTooLarge": "The transfer is empty or too large.",
-      "mainWindowUnavailable": "The main window is not available.",
-      "openFailed": "The window could not be opened: {{error}}",
-      "transferExpired": "This transfer has expired or has already been taken.",
-      "transferAlreadyTaken": "This transfer has already been taken.",
-      "transferUnknown": "This transfer is unknown."
+      "closed": "หน้าต่างนี้ถูกปิดแล้ว",
+      "transferEmptyOrTooLarge": "การถ่ายโอนว่างเปล่าหรือใหญ่เกินไป",
+      "mainWindowUnavailable": "หน้าต่างหลักไม่พร้อมใช้งาน",
+      "openFailed": "เปิดหน้าต่างไม่ได้: {{error}}",
+      "transferExpired": "การถ่ายโอนนี้หมดอายุหรือถูกรับไปแล้ว",
+      "transferAlreadyTaken": "การถ่ายโอนนี้ถูกรับไปแล้ว",
+      "transferUnknown": "ไม่รู้จักการถ่ายโอนนี้"
     },
     "conversion": {
-      "unknownModule": "Unknown office module.",
-      "sourceFormatMismatch": "The source format does not belong to this module.",
-      "outputFormatUnsupported": "This output format is not supported.",
-      "outputFormatDirect": "This output format is created directly in the app, not by conversion.",
-      "invalidOptions": "Invalid conversion options.",
-      "chooseSoffice": "Choose the soffice program (Windows: soffice.exe) from the program folder of the office runtime.",
-      "chosenFileMissing": "The chosen file does not exist.",
-      "chosenPathNotFile": "The chosen path is not a file.",
-      "chosenFileNotExecutable": "The chosen file is not executable.",
-      "appDataDirUnavailable": "The app data folder is not available.",
-      "startFailed": "The conversion could not start: {{error}}",
-      "failed": "The conversion failed ({{reason}}). The original has been kept.",
-      "exitCode": "exit code {{code}}",
-      "processAborted": "process aborted",
-      "timeout": "The conversion exceeded the time limit and was stopped. The original has been kept.",
-      "profilePathInvalid": "The temporary profile path is invalid.",
-      "inputSize": "Choose a file of at most 100 MB that is not empty.",
-      "runtimeMissing": "This format needs an office runtime (LibreOffice). It was not found: install it, choose the program in Save as, or set OPENAEC_CONVERSIE_PROGRAMMA. DOCX, XLSX and PPTX work directly.",
-      "notConverted": "This file could not be converted. It may be damaged or protected, or the format filter is missing from the local runtime.",
-      "multipleOutputs": "The conversion produced more than one file.",
-      "noUsableOutput": "The conversion did not produce a usable file of at most 100 MB."
+      "unknownModule": "ไม่รู้จักโมดูลสำนักงาน",
+      "sourceFormatMismatch": "รูปแบบต้นทางไม่ได้เป็นของโมดูลนี้",
+      "outputFormatUnsupported": "ไม่รองรับรูปแบบผลลัพธ์นี้",
+      "outputFormatDirect": "รูปแบบผลลัพธ์นี้สร้างในแอปโดยตรง ไม่ใช่โดยการแปลง",
+      "invalidOptions": "ตัวเลือกการแปลงไม่ถูกต้อง",
+      "chooseSoffice": "เลือกโปรแกรม soffice (Windows: soffice.exe) จากโฟลเดอร์โปรแกรมของรันไทม์สำนักงาน",
+      "chosenFileMissing": "ไม่มีไฟล์ที่เลือก",
+      "chosenPathNotFile": "เส้นทางที่เลือกไม่ใช่ไฟล์",
+      "chosenFileNotExecutable": "ไฟล์ที่เลือกไม่สามารถเรียกใช้ได้",
+      "appDataDirUnavailable": "โฟลเดอร์ข้อมูลของแอปไม่พร้อมใช้งาน",
+      "startFailed": "เริ่มการแปลงไม่ได้: {{error}}",
+      "failed": "การแปลงล้มเหลว ({{reason}}) ต้นฉบับยังคงอยู่",
+      "exitCode": "รหัสออก {{code}}",
+      "processAborted": "กระบวนการถูกยกเลิก",
+      "timeout": "การแปลงเกินเวลาที่กำหนดและถูกหยุด ต้นฉบับยังคงอยู่",
+      "profilePathInvalid": "เส้นทางโปรไฟล์ชั่วคราวไม่ถูกต้อง",
+      "inputSize": "เลือกไฟล์ที่ไม่ว่างเปล่าและมีขนาดไม่เกิน 100 MB",
+      "runtimeMissing": "รูปแบบนี้ต้องใช้รันไทม์สำนักงาน (LibreOffice) แต่ไม่พบ: ติดตั้ง เลือกโปรแกรมใน บันทึกเป็น หรือตั้งค่า OPENAEC_CONVERSIE_PROGRAMMA ส่วน DOCX, XLSX และ PPTX ใช้ได้โดยตรง",
+      "notConverted": "แปลงไฟล์นี้ไม่ได้ ไฟล์อาจเสียหายหรือได้รับการป้องกัน หรือรันไทม์ในเครื่องไม่มีตัวกรองรูปแบบ",
+      "multipleOutputs": "การแปลงสร้างไฟล์มากกว่าหนึ่งไฟล์",
+      "noUsableOutput": "การแปลงไม่ได้สร้างไฟล์ที่ใช้งานได้ขนาดไม่เกิน 100 MB"
     },
     "databaseExport": {
-      "emptyOrTooLarge": "The export is empty or larger than 100 MB.",
-      "emptyInvalidOrTooLarge": "The export is empty, invalid or larger than 100 MB.",
-      "nameMissing": "File name missing.",
-      "nameInvalid": "Invalid file name.",
-      "notSqlite": "This is not an SQLite working copy.",
-      "typeNotAllowed": "Only CSV, source, report and SQLite working copy exports are allowed. Access databases are never overwritten.",
-      "textNotUtf8": "A text export must be valid UTF-8 text.",
-      "sendAsBinary": "Send the export as binary data of at most 100 MB.",
-      "extensionMismatch": "The chosen extension does not match the export."
+      "emptyOrTooLarge": "การส่งออกว่างเปล่าหรือใหญ่กว่า 100 MB",
+      "emptyInvalidOrTooLarge": "การส่งออกว่างเปล่า ไม่ถูกต้อง หรือใหญ่กว่า 100 MB",
+      "nameMissing": "ไม่มีชื่อไฟล์",
+      "nameInvalid": "ชื่อไฟล์ไม่ถูกต้อง",
+      "notSqlite": "นี่ไม่ใช่สำเนาการทำงาน SQLite",
+      "typeNotAllowed": "อนุญาตเฉพาะการส่งออก CSV ซอร์สโค้ด รายงาน และสำเนาการทำงาน SQLite เท่านั้น จะไม่เขียนทับฐานข้อมูล Access เด็ดขาด",
+      "textNotUtf8": "การส่งออกข้อความต้องเป็นข้อความ UTF-8 ที่ถูกต้อง",
+      "sendAsBinary": "ส่งการส่งออกเป็นข้อมูลไบนารีขนาดไม่เกิน 100 MB",
+      "extensionMismatch": "นามสกุลที่เลือกไม่ตรงกับการส่งออก"
     }
   },
   "launcher": {
     "officeStudio": {
-      "genericName": "Office suite",
-      "comment": "Local OpenAEC office environment",
-      "keywords": "word processor;spreadsheet;presentation;database;email;office;"
+      "genericName": "ชุดโปรแกรมสำนักงาน",
+      "comment": "สภาพแวดล้อมสำนักงาน OpenAEC ในเครื่อง",
+      "keywords": "โปรแกรมประมวลผลคำ;สเปรดชีต;งานนำเสนอ;ฐานข้อมูล;อีเมล;สำนักงาน;office;"
     },
     "databaseStudio": {
-      "genericName": "Database viewer",
-      "comment": "Open old MDB and ACCDB databases locally",
-      "keywords": "database;table;query;access;"
+      "genericName": "โปรแกรมดูฐานข้อมูล",
+      "comment": "เปิดฐานข้อมูล MDB และ ACCDB เก่าในเครื่อง",
+      "keywords": "ฐานข้อมูล;ตาราง;คิวรี;access;database;"
     }
   }
 }

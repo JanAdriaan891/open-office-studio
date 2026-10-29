@@ -1,141 +1,145 @@
 {
   "dialogs": {
-    "cancel": "Cancel",
-    "saveAsEllipsis": "Save as…",
-    "officeFile": "Office file",
-    "officeFiles": "Office files",
-    "untitled": "Untitled",
-    "saveCopy": "Save a copy",
-    "saveAs": "Save as",
-    "openFile": "Open file",
+    "cancel": "إلغاء",
+    "saveAsEllipsis": "حفظ باسم…",
+    "officeFile": "ملف مكتبي",
+    "officeFiles": "ملفات مكتبية",
+    "untitled": "بلا عنوان",
+    "saveCopy": "حفظ نسخة",
+    "saveAs": "حفظ باسم",
+    "openFile": "فتح ملف",
     "replaceFile": {
-      "title": "Replace file",
-      "message": "The file {{path}} already exists. Replace it?"
+      "title": "استبدال الملف",
+      "message": "الملف {{path}} موجود بالفعل. هل تريد استبداله؟"
     },
     "unsavedChanges": {
-      "title": "Unsaved changes",
-      "message_one": "One document in this window has changes that have not been saved. They will be lost. Close anyway?",
-      "message_other": "{{count}} documents in this window have changes that have not been saved. They will be lost. Close anyway?"
+      "title": "تغييرات غير محفوظة",
+      "message_zero": "لا توجد مستندات في هذه النافذة تحتوي على تغييرات غير محفوظة. هل تريد الإغلاق؟",
+      "message_one": "يحتوي مستند واحد في هذه النافذة على تغييرات غير محفوظة. ستُفقد هذه التغييرات. هل تريد الإغلاق على أي حال؟",
+      "message_two": "يحتوي مستندان في هذه النافذة على تغييرات غير محفوظة. ستُفقد هذه التغييرات. هل تريد الإغلاق على أي حال؟",
+      "message_few": "تحتوي {{count}} مستندات في هذه النافذة على تغييرات غير محفوظة. ستُفقد هذه التغييرات. هل تريد الإغلاق على أي حال؟",
+      "message_many": "يحتوي {{count}} مستندًا في هذه النافذة على تغييرات غير محفوظة. ستُفقد هذه التغييرات. هل تريد الإغلاق على أي حال؟",
+      "message_other": "يحتوي {{count}} مستند في هذه النافذة على تغييرات غير محفوظة. ستُفقد هذه التغييرات. هل تريد الإغلاق على أي حال؟"
     },
     "fileChanged": {
-      "title": "File changed",
-      "missing": "{{name}} no longer exists in its original location. Recreate it with your version, or save it elsewhere?",
-      "changedExternally": "{{name}} has been changed outside Open Office Studio since you opened it. Overwriting discards those changes.",
-      "overwrite": "Overwrite"
+      "title": "تغيّر الملف",
+      "missing": "لم يعد {{name}} موجودًا في موقعه الأصلي. هل تريد إعادة إنشائه بنسختك أم حفظه في مكان آخر؟",
+      "changedExternally": "تم تغيير {{name}} خارج Open Office Studio منذ فتحه. سيؤدي الاستبدال إلى تجاهل تلك التغييرات.",
+      "overwrite": "استبدال"
     },
     "foreignFormat": {
-      "title": "Save as {{format}}",
-      "message": "{{name}} will be updated in the {{format}} format. The office runtime converts the document for this; formatting that {{format}} does not support may be lost.",
-      "hint": "Choose Save as… to keep a DOCX, XLSX or PPTX.",
-      "update": "Update as {{format}}"
+      "title": "حفظ بتنسيق {{format}}",
+      "message": "سيتم تحديث {{name}} بتنسيق {{format}}. تحوّل بيئة التشغيل المكتبية المستند لهذا الغرض؛ وقد يُفقد التنسيق الذي لا يدعمه {{format}}.",
+      "hint": "اختر «حفظ باسم…» للاحتفاظ بملف DOCX أو XLSX أو PPTX.",
+      "update": "تحديث بتنسيق {{format}}"
     },
-    "chooseConverter": "Choose conversion program (soffice)",
+    "chooseConverter": "اختر برنامج التحويل (soffice)",
     "databaseExport": {
-      "title": "Save database export",
-      "filter": "Database export",
-      "sqliteFilter": "SQLite working copy",
-      "replaceTitle": "Replace export",
-      "replaceMessage": "This export file already exists. Replace it?"
+      "title": "حفظ تصدير قاعدة البيانات",
+      "filter": "تصدير قاعدة البيانات",
+      "sqliteFilter": "نسخة عمل SQLite",
+      "replaceTitle": "استبدال التصدير",
+      "replaceMessage": "ملف التصدير هذا موجود بالفعل. هل تريد استبداله؟"
     }
   },
   "errors": {
     "file": {
-      "invalidBody": "The file is empty, larger than 100 MB or was not sent as binary data.",
-      "emptyOrTooLarge": "The file is empty or larger than 100 MB.",
-      "formatInfoMissing": "The format information is missing.",
-      "formatMissing": "The format is missing.",
-      "targetFolderMissing": "The target folder is missing.",
-      "nameMissing": "The file name is missing.",
-      "nameInvalidChars": "The file name contains invalid characters.",
-      "unsupportedFormat": "Unsupported file format.",
-      "extensionMismatch": "The chosen extension does not match the document.",
-      "alreadyOpenedOrOtherWindow": "This file is already open or is not meant for this window.",
-      "notThisWindow": "This file does not belong to this window.",
-      "notLinked": "This file is no longer linked to this tab.",
-      "tokenMissing": "The token is missing.",
-      "openInOtherTab": "{{name}} is open in another tab. Close it first or choose a different name.",
-      "readOnly": "No write permission in this folder or the file is read-only ({{path}}). Choose a different location.",
-      "notInRecentList": "This file is no longer in the list."
+      "invalidBody": "الملف فارغ أو أكبر من 100 ميغابايت أو لم يُرسل كبيانات ثنائية.",
+      "emptyOrTooLarge": "الملف فارغ أو أكبر من 100 ميغابايت.",
+      "formatInfoMissing": "معلومات التنسيق مفقودة.",
+      "formatMissing": "التنسيق مفقود.",
+      "targetFolderMissing": "المجلد الهدف مفقود.",
+      "nameMissing": "اسم الملف مفقود.",
+      "nameInvalidChars": "يحتوي اسم الملف على أحرف غير صالحة.",
+      "unsupportedFormat": "تنسيق ملف غير مدعوم.",
+      "extensionMismatch": "الامتداد المختار لا يطابق المستند.",
+      "alreadyOpenedOrOtherWindow": "هذا الملف مفتوح بالفعل أو غير مخصص لهذه النافذة.",
+      "notThisWindow": "هذا الملف لا ينتمي إلى هذه النافذة.",
+      "notLinked": "لم يعد هذا الملف مرتبطًا بعلامة التبويب هذه.",
+      "tokenMissing": "الرمز المميز مفقود.",
+      "openInOtherTab": "{{name}} مفتوح في علامة تبويب أخرى. أغلقه أولًا أو اختر اسمًا آخر.",
+      "readOnly": "لا يوجد إذن بالكتابة في هذا المجلد أو أن الملف للقراءة فقط ({{path}}). اختر موقعًا آخر.",
+      "notInRecentList": "لم يعد هذا الملف في القائمة."
     },
     "preferences": {
-      "tooLarge": "The preferences are larger than 64 kB.",
-      "invalid": "The preferences are not a valid JSON object.",
-      "configDirUnavailable": "The app's configuration folder is not available.",
-      "pathInvalid": "Invalid path for the preferences."
+      "tooLarge": "التفضيلات أكبر من 64 كيلوبايت.",
+      "invalid": "التفضيلات ليست كائن JSON صالحًا.",
+      "configDirUnavailable": "مجلد إعدادات التطبيق غير متاح.",
+      "pathInvalid": "مسار غير صالح للتفضيلات."
     },
     "font": {
-      "notInstalled": "The font {{family}} is not installed on this computer.",
-      "notFound": "Font not found.",
-      "fileTooLarge": "This font file is too large.",
-      "inCollection": "This font is part of a collection (.ttc) and cannot be used on its own.",
-      "unreadable": "The font file could not be read.",
-      "nameInvalid": "Invalid font name."
+      "notInstalled": "الخط {{family}} غير مثبت على هذا الكمبيوتر.",
+      "notFound": "لم يُعثر على الخط.",
+      "fileTooLarge": "ملف الخط هذا كبير جدًا.",
+      "inCollection": "هذا الخط جزء من مجموعة (.ttc) ولا يمكن استخدامه بمفرده.",
+      "unreadable": "تعذّرت قراءة ملف الخط.",
+      "nameInvalid": "اسم خط غير صالح."
     },
     "recovery": {
-      "keyInvalid": "Invalid recovery key.",
-      "spaceFull": "The space for recovery copies (512 MB) is full. Save your documents.",
-      "sessionMissing": "The session is missing.",
-      "keyMissing": "The key is missing.",
-      "dataInvalid": "Invalid recovery data.",
-      "unknownDocumentType": "Unknown document type.",
-      "sessionNotThisWindow": "This recovery session does not belong to this window.",
-      "sessionOtherWindow": "This recovery session belongs to another window.",
-      "sessionStillRunning": "This session is still running."
+      "keyInvalid": "مفتاح استرداد غير صالح.",
+      "spaceFull": "المساحة المخصصة لنسخ الاسترداد (512 ميغابايت) ممتلئة. احفظ مستنداتك.",
+      "sessionMissing": "الجلسة مفقودة.",
+      "keyMissing": "المفتاح مفقود.",
+      "dataInvalid": "بيانات استرداد غير صالحة.",
+      "unknownDocumentType": "نوع مستند غير معروف.",
+      "sessionNotThisWindow": "جلسة الاسترداد هذه لا تنتمي إلى هذه النافذة.",
+      "sessionOtherWindow": "جلسة الاسترداد هذه تنتمي إلى نافذة أخرى.",
+      "sessionStillRunning": "هذه الجلسة لا تزال قيد التشغيل."
     },
     "window": {
-      "closed": "This window has been closed.",
-      "transferEmptyOrTooLarge": "The transfer is empty or too large.",
-      "mainWindowUnavailable": "The main window is not available.",
-      "openFailed": "The window could not be opened: {{error}}",
-      "transferExpired": "This transfer has expired or has already been taken.",
-      "transferAlreadyTaken": "This transfer has already been taken.",
-      "transferUnknown": "This transfer is unknown."
+      "closed": "تم إغلاق هذه النافذة.",
+      "transferEmptyOrTooLarge": "النقل فارغ أو كبير جدًا.",
+      "mainWindowUnavailable": "النافذة الرئيسية غير متاحة.",
+      "openFailed": "تعذّر فتح النافذة: {{error}}",
+      "transferExpired": "انتهت صلاحية هذا النقل أو تم استلامه بالفعل.",
+      "transferAlreadyTaken": "تم استلام هذا النقل بالفعل.",
+      "transferUnknown": "هذا النقل غير معروف."
     },
     "conversion": {
-      "unknownModule": "Unknown office module.",
-      "sourceFormatMismatch": "The source format does not belong to this module.",
-      "outputFormatUnsupported": "This output format is not supported.",
-      "outputFormatDirect": "This output format is created directly in the app, not by conversion.",
-      "invalidOptions": "Invalid conversion options.",
-      "chooseSoffice": "Choose the soffice program (Windows: soffice.exe) from the program folder of the office runtime.",
-      "chosenFileMissing": "The chosen file does not exist.",
-      "chosenPathNotFile": "The chosen path is not a file.",
-      "chosenFileNotExecutable": "The chosen file is not executable.",
-      "appDataDirUnavailable": "The app data folder is not available.",
-      "startFailed": "The conversion could not start: {{error}}",
-      "failed": "The conversion failed ({{reason}}). The original has been kept.",
-      "exitCode": "exit code {{code}}",
-      "processAborted": "process aborted",
-      "timeout": "The conversion exceeded the time limit and was stopped. The original has been kept.",
-      "profilePathInvalid": "The temporary profile path is invalid.",
-      "inputSize": "Choose a file of at most 100 MB that is not empty.",
-      "runtimeMissing": "This format needs an office runtime (LibreOffice). It was not found: install it, choose the program in Save as, or set OPENAEC_CONVERSIE_PROGRAMMA. DOCX, XLSX and PPTX work directly.",
-      "notConverted": "This file could not be converted. It may be damaged or protected, or the format filter is missing from the local runtime.",
-      "multipleOutputs": "The conversion produced more than one file.",
-      "noUsableOutput": "The conversion did not produce a usable file of at most 100 MB."
+      "unknownModule": "وحدة مكتبية غير معروفة.",
+      "sourceFormatMismatch": "تنسيق المصدر لا ينتمي إلى هذه الوحدة.",
+      "outputFormatUnsupported": "تنسيق الإخراج هذا غير مدعوم.",
+      "outputFormatDirect": "يُنشأ تنسيق الإخراج هذا مباشرة في التطبيق، وليس بالتحويل.",
+      "invalidOptions": "خيارات تحويل غير صالحة.",
+      "chooseSoffice": "اختر برنامج soffice (في Windows: soffice.exe) من مجلد برامج بيئة التشغيل المكتبية.",
+      "chosenFileMissing": "الملف المختار غير موجود.",
+      "chosenPathNotFile": "المسار المختار ليس ملفًا.",
+      "chosenFileNotExecutable": "الملف المختار غير قابل للتنفيذ.",
+      "appDataDirUnavailable": "مجلد بيانات التطبيق غير متاح.",
+      "startFailed": "تعذّر بدء التحويل: {{error}}",
+      "failed": "فشل التحويل ({{reason}}). تم الاحتفاظ بالأصل.",
+      "exitCode": "رمز الخروج {{code}}",
+      "processAborted": "أُوقفت العملية",
+      "timeout": "تجاوز التحويل الحد الزمني وتم إيقافه. تم الاحتفاظ بالأصل.",
+      "profilePathInvalid": "مسار الملف الشخصي المؤقت غير صالح.",
+      "inputSize": "اختر ملفًا غير فارغ لا يتجاوز 100 ميغابايت.",
+      "runtimeMissing": "يحتاج هذا التنسيق إلى بيئة تشغيل مكتبية (LibreOffice). لم يُعثر عليها: ثبّتها، أو اختر البرنامج في «حفظ باسم»، أو اضبط OPENAEC_CONVERSIE_PROGRAMMA. تعمل DOCX وXLSX وPPTX مباشرة.",
+      "notConverted": "تعذّر تحويل هذا الملف. قد يكون تالفًا أو محميًا، أو أن مرشح التنسيق مفقود في بيئة التشغيل المحلية.",
+      "multipleOutputs": "أنتج التحويل أكثر من ملف واحد.",
+      "noUsableOutput": "لم ينتج التحويل ملفًا صالحًا للاستخدام لا يتجاوز 100 ميغابايت."
     },
     "databaseExport": {
-      "emptyOrTooLarge": "The export is empty or larger than 100 MB.",
-      "emptyInvalidOrTooLarge": "The export is empty, invalid or larger than 100 MB.",
-      "nameMissing": "File name missing.",
-      "nameInvalid": "Invalid file name.",
-      "notSqlite": "This is not an SQLite working copy.",
-      "typeNotAllowed": "Only CSV, source, report and SQLite working copy exports are allowed. Access databases are never overwritten.",
-      "textNotUtf8": "A text export must be valid UTF-8 text.",
-      "sendAsBinary": "Send the export as binary data of at most 100 MB.",
-      "extensionMismatch": "The chosen extension does not match the export."
+      "emptyOrTooLarge": "التصدير فارغ أو أكبر من 100 ميغابايت.",
+      "emptyInvalidOrTooLarge": "التصدير فارغ أو غير صالح أو أكبر من 100 ميغابايت.",
+      "nameMissing": "اسم الملف مفقود.",
+      "nameInvalid": "اسم ملف غير صالح.",
+      "notSqlite": "هذه ليست نسخة عمل SQLite.",
+      "typeNotAllowed": "يُسمح فقط بتصدير CSV والمصدر والتقرير ونسخة عمل SQLite. لا يتم أبدًا الكتابة فوق قواعد بيانات Access.",
+      "textNotUtf8": "يجب أن يكون التصدير النصي نصًا صالحًا بترميز UTF-8.",
+      "sendAsBinary": "أرسل التصدير كبيانات ثنائية لا تتجاوز 100 ميغابايت.",
+      "extensionMismatch": "الامتداد المختار لا يطابق التصدير."
     }
   },
   "launcher": {
     "officeStudio": {
-      "genericName": "Office suite",
-      "comment": "Local OpenAEC office environment",
-      "keywords": "word processor;spreadsheet;presentation;database;email;office;"
+      "genericName": "حزمة مكتبية",
+      "comment": "بيئة OpenAEC المكتبية المحلية",
+      "keywords": "معالج نصوص;جدول بيانات;عرض تقديمي;قاعدة بيانات;بريد إلكتروني;مكتب;office;"
     },
     "databaseStudio": {
-      "genericName": "Database viewer",
-      "comment": "Open old MDB and ACCDB databases locally",
-      "keywords": "database;table;query;access;"
+      "genericName": "عارض قواعد البيانات",
+      "comment": "افتح قواعد بيانات MDB وACCDB القديمة محليًا",
+      "keywords": "قاعدة بيانات;جدول;استعلام;access;database;"
     }
   }
 }

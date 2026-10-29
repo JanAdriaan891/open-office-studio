@@ -1,141 +1,141 @@
 {
   "dialogs": {
-    "cancel": "Cancel",
-    "saveAsEllipsis": "Save as…",
-    "officeFile": "Office file",
-    "officeFiles": "Office files",
-    "untitled": "Untitled",
-    "saveCopy": "Save a copy",
-    "saveAs": "Save as",
-    "openFile": "Open file",
+    "cancel": "Avbryt",
+    "saveAsEllipsis": "Lagre som…",
+    "officeFile": "Kontorfil",
+    "officeFiles": "Kontorfiler",
+    "untitled": "Uten navn",
+    "saveCopy": "Lagre en kopi",
+    "saveAs": "Lagre som",
+    "openFile": "Åpne fil",
     "replaceFile": {
-      "title": "Replace file",
-      "message": "The file {{path}} already exists. Replace it?"
+      "title": "Erstatt fil",
+      "message": "Filen {{path}} finnes allerede. Vil du erstatte den?"
     },
     "unsavedChanges": {
-      "title": "Unsaved changes",
-      "message_one": "One document in this window has changes that have not been saved. They will be lost. Close anyway?",
-      "message_other": "{{count}} documents in this window have changes that have not been saved. They will be lost. Close anyway?"
+      "title": "Ulagrede endringer",
+      "message_one": "Ett dokument i dette vinduet har endringer som ikke er lagret. De går tapt. Vil du lukke likevel?",
+      "message_other": "{{count}} dokumenter i dette vinduet har endringer som ikke er lagret. De går tapt. Vil du lukke likevel?"
     },
     "fileChanged": {
-      "title": "File changed",
-      "missing": "{{name}} no longer exists in its original location. Recreate it with your version, or save it elsewhere?",
-      "changedExternally": "{{name}} has been changed outside Open Office Studio since you opened it. Overwriting discards those changes.",
-      "overwrite": "Overwrite"
+      "title": "Filen er endret",
+      "missing": "{{name}} finnes ikke lenger på den opprinnelige plasseringen. Vil du opprette den på nytt med din versjon, eller lagre den et annet sted?",
+      "changedExternally": "{{name}} er endret utenfor Open Office Studio siden du åpnet den. Overskriving forkaster disse endringene.",
+      "overwrite": "Overskriv"
     },
     "foreignFormat": {
-      "title": "Save as {{format}}",
-      "message": "{{name}} will be updated in the {{format}} format. The office runtime converts the document for this; formatting that {{format}} does not support may be lost.",
-      "hint": "Choose Save as… to keep a DOCX, XLSX or PPTX.",
-      "update": "Update as {{format}}"
+      "title": "Lagre som {{format}}",
+      "message": "{{name}} oppdateres i formatet {{format}}. Kontorprogrammet konverterer dokumentet for dette; formatering som {{format}} ikke støtter, kan gå tapt.",
+      "hint": "Velg Lagre som… for å beholde en DOCX, XLSX eller PPTX.",
+      "update": "Oppdater som {{format}}"
     },
-    "chooseConverter": "Choose conversion program (soffice)",
+    "chooseConverter": "Velg konverteringsprogram (soffice)",
     "databaseExport": {
-      "title": "Save database export",
-      "filter": "Database export",
-      "sqliteFilter": "SQLite working copy",
-      "replaceTitle": "Replace export",
-      "replaceMessage": "This export file already exists. Replace it?"
+      "title": "Lagre databaseeksport",
+      "filter": "Databaseeksport",
+      "sqliteFilter": "SQLite-arbeidskopi",
+      "replaceTitle": "Erstatt eksport",
+      "replaceMessage": "Denne eksportfilen finnes allerede. Vil du erstatte den?"
     }
   },
   "errors": {
     "file": {
-      "invalidBody": "The file is empty, larger than 100 MB or was not sent as binary data.",
-      "emptyOrTooLarge": "The file is empty or larger than 100 MB.",
-      "formatInfoMissing": "The format information is missing.",
-      "formatMissing": "The format is missing.",
-      "targetFolderMissing": "The target folder is missing.",
-      "nameMissing": "The file name is missing.",
-      "nameInvalidChars": "The file name contains invalid characters.",
-      "unsupportedFormat": "Unsupported file format.",
-      "extensionMismatch": "The chosen extension does not match the document.",
-      "alreadyOpenedOrOtherWindow": "This file is already open or is not meant for this window.",
-      "notThisWindow": "This file does not belong to this window.",
-      "notLinked": "This file is no longer linked to this tab.",
-      "tokenMissing": "The token is missing.",
-      "openInOtherTab": "{{name}} is open in another tab. Close it first or choose a different name.",
-      "readOnly": "No write permission in this folder or the file is read-only ({{path}}). Choose a different location.",
-      "notInRecentList": "This file is no longer in the list."
+      "invalidBody": "Filen er tom, større enn 100 MB eller ble ikke sendt som binære data.",
+      "emptyOrTooLarge": "Filen er tom eller større enn 100 MB.",
+      "formatInfoMissing": "Formatinformasjonen mangler.",
+      "formatMissing": "Formatet mangler.",
+      "targetFolderMissing": "Målmappen mangler.",
+      "nameMissing": "Filnavnet mangler.",
+      "nameInvalidChars": "Filnavnet inneholder ugyldige tegn.",
+      "unsupportedFormat": "Filformatet støttes ikke.",
+      "extensionMismatch": "Den valgte filtypen passer ikke til dokumentet.",
+      "alreadyOpenedOrOtherWindow": "Denne filen er allerede åpen eller er ikke ment for dette vinduet.",
+      "notThisWindow": "Denne filen hører ikke til dette vinduet.",
+      "notLinked": "Denne filen er ikke lenger knyttet til denne fanen.",
+      "tokenMissing": "Tokenet mangler.",
+      "openInOtherTab": "{{name}} er åpen i en annen fane. Lukk den først eller velg et annet navn.",
+      "readOnly": "Ingen skrivetilgang i denne mappen, eller filen er skrivebeskyttet ({{path}}). Velg en annen plassering.",
+      "notInRecentList": "Denne filen er ikke lenger i listen."
     },
     "preferences": {
-      "tooLarge": "The preferences are larger than 64 kB.",
-      "invalid": "The preferences are not a valid JSON object.",
-      "configDirUnavailable": "The app's configuration folder is not available.",
-      "pathInvalid": "Invalid path for the preferences."
+      "tooLarge": "Innstillingene er større enn 64 kB.",
+      "invalid": "Innstillingene er ikke et gyldig JSON-objekt.",
+      "configDirUnavailable": "Appens konfigurasjonsmappe er ikke tilgjengelig.",
+      "pathInvalid": "Ugyldig bane for innstillingene."
     },
     "font": {
-      "notInstalled": "The font {{family}} is not installed on this computer.",
-      "notFound": "Font not found.",
-      "fileTooLarge": "This font file is too large.",
-      "inCollection": "This font is part of a collection (.ttc) and cannot be used on its own.",
-      "unreadable": "The font file could not be read.",
-      "nameInvalid": "Invalid font name."
+      "notInstalled": "Skriften {{family}} er ikke installert på denne datamaskinen.",
+      "notFound": "Fant ikke skriften.",
+      "fileTooLarge": "Denne skriftfilen er for stor.",
+      "inCollection": "Denne skriften er en del av en samling (.ttc) og kan ikke brukes alene.",
+      "unreadable": "Skriftfilen kunne ikke leses.",
+      "nameInvalid": "Ugyldig skriftnavn."
     },
     "recovery": {
-      "keyInvalid": "Invalid recovery key.",
-      "spaceFull": "The space for recovery copies (512 MB) is full. Save your documents.",
-      "sessionMissing": "The session is missing.",
-      "keyMissing": "The key is missing.",
-      "dataInvalid": "Invalid recovery data.",
-      "unknownDocumentType": "Unknown document type.",
-      "sessionNotThisWindow": "This recovery session does not belong to this window.",
-      "sessionOtherWindow": "This recovery session belongs to another window.",
-      "sessionStillRunning": "This session is still running."
+      "keyInvalid": "Ugyldig gjenopprettingsnøkkel.",
+      "spaceFull": "Plassen for gjenopprettingskopier (512 MB) er full. Lagre dokumentene dine.",
+      "sessionMissing": "Økten mangler.",
+      "keyMissing": "Nøkkelen mangler.",
+      "dataInvalid": "Ugyldige gjenopprettingsdata.",
+      "unknownDocumentType": "Ukjent dokumenttype.",
+      "sessionNotThisWindow": "Denne gjenopprettingsøkten hører ikke til dette vinduet.",
+      "sessionOtherWindow": "Denne gjenopprettingsøkten hører til et annet vindu.",
+      "sessionStillRunning": "Denne økten kjører fortsatt."
     },
     "window": {
-      "closed": "This window has been closed.",
-      "transferEmptyOrTooLarge": "The transfer is empty or too large.",
-      "mainWindowUnavailable": "The main window is not available.",
-      "openFailed": "The window could not be opened: {{error}}",
-      "transferExpired": "This transfer has expired or has already been taken.",
-      "transferAlreadyTaken": "This transfer has already been taken.",
-      "transferUnknown": "This transfer is unknown."
+      "closed": "Dette vinduet er lukket.",
+      "transferEmptyOrTooLarge": "Overføringen er tom eller for stor.",
+      "mainWindowUnavailable": "Hovedvinduet er ikke tilgjengelig.",
+      "openFailed": "Vinduet kunne ikke åpnes: {{error}}",
+      "transferExpired": "Denne overføringen er utløpt eller allerede hentet.",
+      "transferAlreadyTaken": "Denne overføringen er allerede hentet.",
+      "transferUnknown": "Denne overføringen er ukjent."
     },
     "conversion": {
-      "unknownModule": "Unknown office module.",
-      "sourceFormatMismatch": "The source format does not belong to this module.",
-      "outputFormatUnsupported": "This output format is not supported.",
-      "outputFormatDirect": "This output format is created directly in the app, not by conversion.",
-      "invalidOptions": "Invalid conversion options.",
-      "chooseSoffice": "Choose the soffice program (Windows: soffice.exe) from the program folder of the office runtime.",
-      "chosenFileMissing": "The chosen file does not exist.",
-      "chosenPathNotFile": "The chosen path is not a file.",
-      "chosenFileNotExecutable": "The chosen file is not executable.",
-      "appDataDirUnavailable": "The app data folder is not available.",
-      "startFailed": "The conversion could not start: {{error}}",
-      "failed": "The conversion failed ({{reason}}). The original has been kept.",
-      "exitCode": "exit code {{code}}",
-      "processAborted": "process aborted",
-      "timeout": "The conversion exceeded the time limit and was stopped. The original has been kept.",
-      "profilePathInvalid": "The temporary profile path is invalid.",
-      "inputSize": "Choose a file of at most 100 MB that is not empty.",
-      "runtimeMissing": "This format needs an office runtime (LibreOffice). It was not found: install it, choose the program in Save as, or set OPENAEC_CONVERSIE_PROGRAMMA. DOCX, XLSX and PPTX work directly.",
-      "notConverted": "This file could not be converted. It may be damaged or protected, or the format filter is missing from the local runtime.",
-      "multipleOutputs": "The conversion produced more than one file.",
-      "noUsableOutput": "The conversion did not produce a usable file of at most 100 MB."
+      "unknownModule": "Ukjent kontormodul.",
+      "sourceFormatMismatch": "Kildeformatet hører ikke til denne modulen.",
+      "outputFormatUnsupported": "Dette utdataformatet støttes ikke.",
+      "outputFormatDirect": "Dette utdataformatet lages direkte i appen, ikke ved konvertering.",
+      "invalidOptions": "Ugyldige konverteringsalternativer.",
+      "chooseSoffice": "Velg programmet soffice (Windows: soffice.exe) fra programmappen til kontorprogrammet.",
+      "chosenFileMissing": "Den valgte filen finnes ikke.",
+      "chosenPathNotFile": "Den valgte banen er ikke en fil.",
+      "chosenFileNotExecutable": "Den valgte filen er ikke kjørbar.",
+      "appDataDirUnavailable": "Appens datamappe er ikke tilgjengelig.",
+      "startFailed": "Konverteringen kunne ikke starte: {{error}}",
+      "failed": "Konverteringen mislyktes ({{reason}}). Originalen er beholdt.",
+      "exitCode": "avslutningskode {{code}}",
+      "processAborted": "prosessen ble avbrutt",
+      "timeout": "Konverteringen overskred tidsgrensen og ble stoppet. Originalen er beholdt.",
+      "profilePathInvalid": "Banen til den midlertidige profilen er ugyldig.",
+      "inputSize": "Velg en fil på høyst 100 MB som ikke er tom.",
+      "runtimeMissing": "Dette formatet krever et kontorprogram (LibreOffice). Det ble ikke funnet: installer det, velg programmet i Lagre som, eller angi OPENAEC_CONVERSIE_PROGRAMMA. DOCX, XLSX og PPTX fungerer direkte.",
+      "notConverted": "Denne filen kunne ikke konverteres. Den kan være skadet eller beskyttet, eller formatfilteret mangler i det lokale kontorprogrammet.",
+      "multipleOutputs": "Konverteringen ga mer enn én fil.",
+      "noUsableOutput": "Konverteringen ga ikke en brukbar fil på høyst 100 MB."
     },
     "databaseExport": {
-      "emptyOrTooLarge": "The export is empty or larger than 100 MB.",
-      "emptyInvalidOrTooLarge": "The export is empty, invalid or larger than 100 MB.",
-      "nameMissing": "File name missing.",
-      "nameInvalid": "Invalid file name.",
-      "notSqlite": "This is not an SQLite working copy.",
-      "typeNotAllowed": "Only CSV, source, report and SQLite working copy exports are allowed. Access databases are never overwritten.",
-      "textNotUtf8": "A text export must be valid UTF-8 text.",
-      "sendAsBinary": "Send the export as binary data of at most 100 MB.",
-      "extensionMismatch": "The chosen extension does not match the export."
+      "emptyOrTooLarge": "Eksporten er tom eller større enn 100 MB.",
+      "emptyInvalidOrTooLarge": "Eksporten er tom, ugyldig eller større enn 100 MB.",
+      "nameMissing": "Filnavn mangler.",
+      "nameInvalid": "Ugyldig filnavn.",
+      "notSqlite": "Dette er ikke en SQLite-arbeidskopi.",
+      "typeNotAllowed": "Bare eksport som CSV, kildekode, rapport og SQLite-arbeidskopi er tillatt. Access-databaser overskrives aldri.",
+      "textNotUtf8": "En teksteksport må være gyldig UTF-8-tekst.",
+      "sendAsBinary": "Send eksporten som binære data på høyst 100 MB.",
+      "extensionMismatch": "Den valgte filtypen passer ikke til eksporten."
     }
   },
   "launcher": {
     "officeStudio": {
-      "genericName": "Office suite",
-      "comment": "Local OpenAEC office environment",
-      "keywords": "word processor;spreadsheet;presentation;database;email;office;"
+      "genericName": "Kontorpakke",
+      "comment": "Lokalt OpenAEC-kontormiljø",
+      "keywords": "tekstbehandling;regneark;presentasjon;database;e-post;kontor;office;"
     },
     "databaseStudio": {
-      "genericName": "Database viewer",
-      "comment": "Open old MDB and ACCDB databases locally",
-      "keywords": "database;table;query;access;"
+      "genericName": "Databaseviser",
+      "comment": "Åpne gamle MDB- og ACCDB-databaser lokalt",
+      "keywords": "database;tabell;spørring;access;"
     }
   }
 }

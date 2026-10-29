@@ -1,141 +1,140 @@
 {
   "dialogs": {
-    "cancel": "Cancel",
-    "saveAsEllipsis": "Save as…",
-    "officeFile": "Office file",
-    "officeFiles": "Office files",
-    "untitled": "Untitled",
-    "saveCopy": "Save a copy",
-    "saveAs": "Save as",
-    "openFile": "Open file",
+    "cancel": "取消",
+    "saveAsEllipsis": "另存新檔…",
+    "officeFile": "辦公室檔案",
+    "officeFiles": "辦公室檔案",
+    "untitled": "未命名",
+    "saveCopy": "儲存複本",
+    "saveAs": "另存新檔",
+    "openFile": "開啟檔案",
     "replaceFile": {
-      "title": "Replace file",
-      "message": "The file {{path}} already exists. Replace it?"
+      "title": "取代檔案",
+      "message": "檔案 {{path}} 已存在。要取代它嗎？"
     },
     "unsavedChanges": {
-      "title": "Unsaved changes",
-      "message_one": "One document in this window has changes that have not been saved. They will be lost. Close anyway?",
-      "message_other": "{{count}} documents in this window have changes that have not been saved. They will be lost. Close anyway?"
+      "title": "未儲存的變更",
+      "message_other": "此視窗中有 {{count}} 份文件含有未儲存的變更。這些變更將會遺失。仍要關閉嗎？"
     },
     "fileChanged": {
-      "title": "File changed",
-      "missing": "{{name}} no longer exists in its original location. Recreate it with your version, or save it elsewhere?",
-      "changedExternally": "{{name}} has been changed outside Open Office Studio since you opened it. Overwriting discards those changes.",
-      "overwrite": "Overwrite"
+      "title": "檔案已變更",
+      "missing": "{{name}} 已不在原本的位置。要用你的版本重新建立，還是儲存到其他位置？",
+      "changedExternally": "自你開啟 {{name}} 以來，它已在 Open Office Studio 之外被變更。覆寫將捨棄這些變更。",
+      "overwrite": "覆寫"
     },
     "foreignFormat": {
-      "title": "Save as {{format}}",
-      "message": "{{name}} will be updated in the {{format}} format. The office runtime converts the document for this; formatting that {{format}} does not support may be lost.",
-      "hint": "Choose Save as… to keep a DOCX, XLSX or PPTX.",
-      "update": "Update as {{format}}"
+      "title": "另存為 {{format}}",
+      "message": "{{name}} 將以 {{format}} 格式更新。辦公室執行環境會為此轉換文件；{{format}} 不支援的格式設定可能會遺失。",
+      "hint": "選擇「另存新檔…」可保留 DOCX、XLSX 或 PPTX 檔案。",
+      "update": "以 {{format}} 格式更新"
     },
-    "chooseConverter": "Choose conversion program (soffice)",
+    "chooseConverter": "選擇轉換程式 (soffice)",
     "databaseExport": {
-      "title": "Save database export",
-      "filter": "Database export",
-      "sqliteFilter": "SQLite working copy",
-      "replaceTitle": "Replace export",
-      "replaceMessage": "This export file already exists. Replace it?"
+      "title": "儲存資料庫匯出",
+      "filter": "資料庫匯出",
+      "sqliteFilter": "SQLite 工作複本",
+      "replaceTitle": "取代匯出",
+      "replaceMessage": "此匯出檔案已存在。要取代它嗎？"
     }
   },
   "errors": {
     "file": {
-      "invalidBody": "The file is empty, larger than 100 MB or was not sent as binary data.",
-      "emptyOrTooLarge": "The file is empty or larger than 100 MB.",
-      "formatInfoMissing": "The format information is missing.",
-      "formatMissing": "The format is missing.",
-      "targetFolderMissing": "The target folder is missing.",
-      "nameMissing": "The file name is missing.",
-      "nameInvalidChars": "The file name contains invalid characters.",
-      "unsupportedFormat": "Unsupported file format.",
-      "extensionMismatch": "The chosen extension does not match the document.",
-      "alreadyOpenedOrOtherWindow": "This file is already open or is not meant for this window.",
-      "notThisWindow": "This file does not belong to this window.",
-      "notLinked": "This file is no longer linked to this tab.",
-      "tokenMissing": "The token is missing.",
-      "openInOtherTab": "{{name}} is open in another tab. Close it first or choose a different name.",
-      "readOnly": "No write permission in this folder or the file is read-only ({{path}}). Choose a different location.",
-      "notInRecentList": "This file is no longer in the list."
+      "invalidBody": "檔案為空、大於 100 MB，或未以二進位資料傳送。",
+      "emptyOrTooLarge": "檔案為空或大於 100 MB。",
+      "formatInfoMissing": "缺少格式資訊。",
+      "formatMissing": "缺少格式。",
+      "targetFolderMissing": "缺少目標資料夾。",
+      "nameMissing": "缺少檔案名稱。",
+      "nameInvalidChars": "檔案名稱包含無效字元。",
+      "unsupportedFormat": "不支援的檔案格式。",
+      "extensionMismatch": "所選的副檔名與文件不符。",
+      "alreadyOpenedOrOtherWindow": "此檔案已開啟，或不屬於此視窗。",
+      "notThisWindow": "此檔案不屬於此視窗。",
+      "notLinked": "此檔案已不再連結到此索引標籤。",
+      "tokenMissing": "缺少權杖。",
+      "openInOtherTab": "{{name}} 已在另一個索引標籤中開啟。請先關閉它或選擇其他名稱。",
+      "readOnly": "沒有此資料夾的寫入權限，或檔案為唯讀 ({{path}})。請選擇其他位置。",
+      "notInRecentList": "此檔案已不在清單中。"
     },
     "preferences": {
-      "tooLarge": "The preferences are larger than 64 kB.",
-      "invalid": "The preferences are not a valid JSON object.",
-      "configDirUnavailable": "The app's configuration folder is not available.",
-      "pathInvalid": "Invalid path for the preferences."
+      "tooLarge": "偏好設定大於 64 kB。",
+      "invalid": "偏好設定不是有效的 JSON 物件。",
+      "configDirUnavailable": "應用程式的設定資料夾無法使用。",
+      "pathInvalid": "偏好設定的路徑無效。"
     },
     "font": {
-      "notInstalled": "The font {{family}} is not installed on this computer.",
-      "notFound": "Font not found.",
-      "fileTooLarge": "This font file is too large.",
-      "inCollection": "This font is part of a collection (.ttc) and cannot be used on its own.",
-      "unreadable": "The font file could not be read.",
-      "nameInvalid": "Invalid font name."
+      "notInstalled": "此電腦上未安裝字型 {{family}}。",
+      "notFound": "找不到字型。",
+      "fileTooLarge": "此字型檔案過大。",
+      "inCollection": "此字型屬於字型集 (.ttc)，無法單獨使用。",
+      "unreadable": "無法讀取字型檔案。",
+      "nameInvalid": "字型名稱無效。"
     },
     "recovery": {
-      "keyInvalid": "Invalid recovery key.",
-      "spaceFull": "The space for recovery copies (512 MB) is full. Save your documents.",
-      "sessionMissing": "The session is missing.",
-      "keyMissing": "The key is missing.",
-      "dataInvalid": "Invalid recovery data.",
-      "unknownDocumentType": "Unknown document type.",
-      "sessionNotThisWindow": "This recovery session does not belong to this window.",
-      "sessionOtherWindow": "This recovery session belongs to another window.",
-      "sessionStillRunning": "This session is still running."
+      "keyInvalid": "復原金鑰無效。",
+      "spaceFull": "復原複本的空間 (512 MB) 已滿。請儲存你的文件。",
+      "sessionMissing": "缺少工作階段。",
+      "keyMissing": "缺少金鑰。",
+      "dataInvalid": "復原資料無效。",
+      "unknownDocumentType": "未知的文件類型。",
+      "sessionNotThisWindow": "此復原工作階段不屬於此視窗。",
+      "sessionOtherWindow": "此復原工作階段屬於另一個視窗。",
+      "sessionStillRunning": "此工作階段仍在執行中。"
     },
     "window": {
-      "closed": "This window has been closed.",
-      "transferEmptyOrTooLarge": "The transfer is empty or too large.",
-      "mainWindowUnavailable": "The main window is not available.",
-      "openFailed": "The window could not be opened: {{error}}",
-      "transferExpired": "This transfer has expired or has already been taken.",
-      "transferAlreadyTaken": "This transfer has already been taken.",
-      "transferUnknown": "This transfer is unknown."
+      "closed": "此視窗已關閉。",
+      "transferEmptyOrTooLarge": "傳輸內容為空或過大。",
+      "mainWindowUnavailable": "主視窗無法使用。",
+      "openFailed": "無法開啟視窗：{{error}}",
+      "transferExpired": "此傳輸已過期或已被取走。",
+      "transferAlreadyTaken": "此傳輸已被取走。",
+      "transferUnknown": "此傳輸不明。"
     },
     "conversion": {
-      "unknownModule": "Unknown office module.",
-      "sourceFormatMismatch": "The source format does not belong to this module.",
-      "outputFormatUnsupported": "This output format is not supported.",
-      "outputFormatDirect": "This output format is created directly in the app, not by conversion.",
-      "invalidOptions": "Invalid conversion options.",
-      "chooseSoffice": "Choose the soffice program (Windows: soffice.exe) from the program folder of the office runtime.",
-      "chosenFileMissing": "The chosen file does not exist.",
-      "chosenPathNotFile": "The chosen path is not a file.",
-      "chosenFileNotExecutable": "The chosen file is not executable.",
-      "appDataDirUnavailable": "The app data folder is not available.",
-      "startFailed": "The conversion could not start: {{error}}",
-      "failed": "The conversion failed ({{reason}}). The original has been kept.",
-      "exitCode": "exit code {{code}}",
-      "processAborted": "process aborted",
-      "timeout": "The conversion exceeded the time limit and was stopped. The original has been kept.",
-      "profilePathInvalid": "The temporary profile path is invalid.",
-      "inputSize": "Choose a file of at most 100 MB that is not empty.",
-      "runtimeMissing": "This format needs an office runtime (LibreOffice). It was not found: install it, choose the program in Save as, or set OPENAEC_CONVERSIE_PROGRAMMA. DOCX, XLSX and PPTX work directly.",
-      "notConverted": "This file could not be converted. It may be damaged or protected, or the format filter is missing from the local runtime.",
-      "multipleOutputs": "The conversion produced more than one file.",
-      "noUsableOutput": "The conversion did not produce a usable file of at most 100 MB."
+      "unknownModule": "未知的辦公室模組。",
+      "sourceFormatMismatch": "來源格式不屬於此模組。",
+      "outputFormatUnsupported": "不支援此輸出格式。",
+      "outputFormatDirect": "此輸出格式直接在應用程式中建立，而非透過轉換。",
+      "invalidOptions": "轉換選項無效。",
+      "chooseSoffice": "請從辦公室執行環境的程式資料夾中選擇 soffice 程式（Windows：soffice.exe）。",
+      "chosenFileMissing": "所選檔案不存在。",
+      "chosenPathNotFile": "所選路徑不是檔案。",
+      "chosenFileNotExecutable": "所選檔案無法執行。",
+      "appDataDirUnavailable": "應用程式資料資料夾無法使用。",
+      "startFailed": "無法開始轉換：{{error}}",
+      "failed": "轉換失敗 ({{reason}})。原始檔案已保留。",
+      "exitCode": "結束代碼 {{code}}",
+      "processAborted": "處理程序已中止",
+      "timeout": "轉換超過時間限制，已停止。原始檔案已保留。",
+      "profilePathInvalid": "暫存設定檔路徑無效。",
+      "inputSize": "請選擇不為空且不超過 100 MB 的檔案。",
+      "runtimeMissing": "此格式需要辦公室執行環境 (LibreOffice)，但找不到：請安裝它、在「另存新檔」中選擇程式，或設定 OPENAEC_CONVERSIE_PROGRAMMA。DOCX、XLSX 和 PPTX 可直接使用。",
+      "notConverted": "無法轉換此檔案。檔案可能已損毀或受保護，或本機執行環境缺少格式篩選器。",
+      "multipleOutputs": "轉換產生了多個檔案。",
+      "noUsableOutput": "轉換未產生不超過 100 MB 的可用檔案。"
     },
     "databaseExport": {
-      "emptyOrTooLarge": "The export is empty or larger than 100 MB.",
-      "emptyInvalidOrTooLarge": "The export is empty, invalid or larger than 100 MB.",
-      "nameMissing": "File name missing.",
-      "nameInvalid": "Invalid file name.",
-      "notSqlite": "This is not an SQLite working copy.",
-      "typeNotAllowed": "Only CSV, source, report and SQLite working copy exports are allowed. Access databases are never overwritten.",
-      "textNotUtf8": "A text export must be valid UTF-8 text.",
-      "sendAsBinary": "Send the export as binary data of at most 100 MB.",
-      "extensionMismatch": "The chosen extension does not match the export."
+      "emptyOrTooLarge": "匯出內容為空或大於 100 MB。",
+      "emptyInvalidOrTooLarge": "匯出內容為空、無效或大於 100 MB。",
+      "nameMissing": "缺少檔案名稱。",
+      "nameInvalid": "檔案名稱無效。",
+      "notSqlite": "這不是 SQLite 工作複本。",
+      "typeNotAllowed": "僅允許匯出 CSV、原始碼、報表和 SQLite 工作複本。絕不會覆寫 Access 資料庫。",
+      "textNotUtf8": "文字匯出必須是有效的 UTF-8 文字。",
+      "sendAsBinary": "請以不超過 100 MB 的二進位資料傳送匯出內容。",
+      "extensionMismatch": "所選的副檔名與匯出內容不符。"
     }
   },
   "launcher": {
     "officeStudio": {
-      "genericName": "Office suite",
-      "comment": "Local OpenAEC office environment",
-      "keywords": "word processor;spreadsheet;presentation;database;email;office;"
+      "genericName": "辦公室套件",
+      "comment": "本機 OpenAEC 辦公室環境",
+      "keywords": "文書處理;試算表;簡報;資料庫;電子郵件;辦公室;office;"
     },
     "databaseStudio": {
-      "genericName": "Database viewer",
-      "comment": "Open old MDB and ACCDB databases locally",
-      "keywords": "database;table;query;access;"
+      "genericName": "資料庫檢視器",
+      "comment": "在本機開啟舊的 MDB 和 ACCDB 資料庫",
+      "keywords": "資料庫;資料表;查詢;access;database;"
     }
   }
 }

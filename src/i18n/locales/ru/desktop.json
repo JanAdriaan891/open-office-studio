@@ -1,141 +1,143 @@
 {
   "dialogs": {
-    "cancel": "Cancel",
-    "saveAsEllipsis": "Save as…",
-    "officeFile": "Office file",
-    "officeFiles": "Office files",
-    "untitled": "Untitled",
-    "saveCopy": "Save a copy",
-    "saveAs": "Save as",
-    "openFile": "Open file",
+    "cancel": "Отмена",
+    "saveAsEllipsis": "Сохранить как…",
+    "officeFile": "Офисный файл",
+    "officeFiles": "Офисные файлы",
+    "untitled": "Без названия",
+    "saveCopy": "Сохранить копию",
+    "saveAs": "Сохранить как",
+    "openFile": "Открыть файл",
     "replaceFile": {
-      "title": "Replace file",
-      "message": "The file {{path}} already exists. Replace it?"
+      "title": "Заменить файл",
+      "message": "Файл {{path}} уже существует. Заменить его?"
     },
     "unsavedChanges": {
-      "title": "Unsaved changes",
-      "message_one": "One document in this window has changes that have not been saved. They will be lost. Close anyway?",
-      "message_other": "{{count}} documents in this window have changes that have not been saved. They will be lost. Close anyway?"
+      "title": "Несохранённые изменения",
+      "message_one": "{{count}} документ в этом окне содержит несохранённые изменения. Они будут потеряны. Всё равно закрыть?",
+      "message_few": "{{count}} документа в этом окне содержат несохранённые изменения. Они будут потеряны. Всё равно закрыть?",
+      "message_many": "{{count}} документов в этом окне содержат несохранённые изменения. Они будут потеряны. Всё равно закрыть?",
+      "message_other": "{{count}} документа в этом окне содержат несохранённые изменения. Они будут потеряны. Всё равно закрыть?"
     },
     "fileChanged": {
-      "title": "File changed",
-      "missing": "{{name}} no longer exists in its original location. Recreate it with your version, or save it elsewhere?",
-      "changedExternally": "{{name}} has been changed outside Open Office Studio since you opened it. Overwriting discards those changes.",
-      "overwrite": "Overwrite"
+      "title": "Файл изменён",
+      "missing": "{{name}} больше не находится в исходном расположении. Создать его заново с вашей версией или сохранить в другом месте?",
+      "changedExternally": "{{name}} был изменён вне Open Office Studio после того, как вы его открыли. При перезаписи эти изменения будут потеряны.",
+      "overwrite": "Перезаписать"
     },
     "foreignFormat": {
-      "title": "Save as {{format}}",
-      "message": "{{name}} will be updated in the {{format}} format. The office runtime converts the document for this; formatting that {{format}} does not support may be lost.",
-      "hint": "Choose Save as… to keep a DOCX, XLSX or PPTX.",
-      "update": "Update as {{format}}"
+      "title": "Сохранить как {{format}}",
+      "message": "{{name}} будет обновлён в формате {{format}}. Для этого офисная среда преобразует документ; форматирование, которое {{format}} не поддерживает, может быть потеряно.",
+      "hint": "Выберите «Сохранить как…», чтобы сохранить DOCX, XLSX или PPTX.",
+      "update": "Обновить как {{format}}"
     },
-    "chooseConverter": "Choose conversion program (soffice)",
+    "chooseConverter": "Выберите программу преобразования (soffice)",
     "databaseExport": {
-      "title": "Save database export",
-      "filter": "Database export",
-      "sqliteFilter": "SQLite working copy",
-      "replaceTitle": "Replace export",
-      "replaceMessage": "This export file already exists. Replace it?"
+      "title": "Сохранить экспорт базы данных",
+      "filter": "Экспорт базы данных",
+      "sqliteFilter": "Рабочая копия SQLite",
+      "replaceTitle": "Заменить экспорт",
+      "replaceMessage": "Этот файл экспорта уже существует. Заменить его?"
     }
   },
   "errors": {
     "file": {
-      "invalidBody": "The file is empty, larger than 100 MB or was not sent as binary data.",
-      "emptyOrTooLarge": "The file is empty or larger than 100 MB.",
-      "formatInfoMissing": "The format information is missing.",
-      "formatMissing": "The format is missing.",
-      "targetFolderMissing": "The target folder is missing.",
-      "nameMissing": "The file name is missing.",
-      "nameInvalidChars": "The file name contains invalid characters.",
-      "unsupportedFormat": "Unsupported file format.",
-      "extensionMismatch": "The chosen extension does not match the document.",
-      "alreadyOpenedOrOtherWindow": "This file is already open or is not meant for this window.",
-      "notThisWindow": "This file does not belong to this window.",
-      "notLinked": "This file is no longer linked to this tab.",
-      "tokenMissing": "The token is missing.",
-      "openInOtherTab": "{{name}} is open in another tab. Close it first or choose a different name.",
-      "readOnly": "No write permission in this folder or the file is read-only ({{path}}). Choose a different location.",
-      "notInRecentList": "This file is no longer in the list."
+      "invalidBody": "Файл пуст, больше 100 МБ или передан не в двоичном виде.",
+      "emptyOrTooLarge": "Файл пуст или больше 100 МБ.",
+      "formatInfoMissing": "Отсутствуют сведения о формате.",
+      "formatMissing": "Не указан формат.",
+      "targetFolderMissing": "Не указана папка назначения.",
+      "nameMissing": "Не указано имя файла.",
+      "nameInvalidChars": "Имя файла содержит недопустимые символы.",
+      "unsupportedFormat": "Неподдерживаемый формат файла.",
+      "extensionMismatch": "Выбранное расширение не соответствует документу.",
+      "alreadyOpenedOrOtherWindow": "Этот файл уже открыт или не предназначен для этого окна.",
+      "notThisWindow": "Этот файл не относится к этому окну.",
+      "notLinked": "Этот файл больше не связан с этой вкладкой.",
+      "tokenMissing": "Отсутствует токен.",
+      "openInOtherTab": "{{name}} открыт в другой вкладке. Сначала закройте его или выберите другое имя.",
+      "readOnly": "Нет прав на запись в эту папку, или файл доступен только для чтения ({{path}}). Выберите другое расположение.",
+      "notInRecentList": "Этого файла больше нет в списке."
     },
     "preferences": {
-      "tooLarge": "The preferences are larger than 64 kB.",
-      "invalid": "The preferences are not a valid JSON object.",
-      "configDirUnavailable": "The app's configuration folder is not available.",
-      "pathInvalid": "Invalid path for the preferences."
+      "tooLarge": "Настройки больше 64 КБ.",
+      "invalid": "Настройки не являются допустимым объектом JSON.",
+      "configDirUnavailable": "Папка конфигурации приложения недоступна.",
+      "pathInvalid": "Недопустимый путь к настройкам."
     },
     "font": {
-      "notInstalled": "The font {{family}} is not installed on this computer.",
-      "notFound": "Font not found.",
-      "fileTooLarge": "This font file is too large.",
-      "inCollection": "This font is part of a collection (.ttc) and cannot be used on its own.",
-      "unreadable": "The font file could not be read.",
-      "nameInvalid": "Invalid font name."
+      "notInstalled": "Шрифт {{family}} не установлен на этом компьютере.",
+      "notFound": "Шрифт не найден.",
+      "fileTooLarge": "Этот файл шрифта слишком большой.",
+      "inCollection": "Этот шрифт входит в коллекцию (.ttc) и не может использоваться отдельно.",
+      "unreadable": "Не удалось прочитать файл шрифта.",
+      "nameInvalid": "Недопустимое имя шрифта."
     },
     "recovery": {
-      "keyInvalid": "Invalid recovery key.",
-      "spaceFull": "The space for recovery copies (512 MB) is full. Save your documents.",
-      "sessionMissing": "The session is missing.",
-      "keyMissing": "The key is missing.",
-      "dataInvalid": "Invalid recovery data.",
-      "unknownDocumentType": "Unknown document type.",
-      "sessionNotThisWindow": "This recovery session does not belong to this window.",
-      "sessionOtherWindow": "This recovery session belongs to another window.",
-      "sessionStillRunning": "This session is still running."
+      "keyInvalid": "Недопустимый ключ восстановления.",
+      "spaceFull": "Место для копий восстановления (512 МБ) заполнено. Сохраните документы.",
+      "sessionMissing": "Отсутствует сеанс.",
+      "keyMissing": "Отсутствует ключ.",
+      "dataInvalid": "Недопустимые данные восстановления.",
+      "unknownDocumentType": "Неизвестный тип документа.",
+      "sessionNotThisWindow": "Этот сеанс восстановления не относится к этому окну.",
+      "sessionOtherWindow": "Этот сеанс восстановления относится к другому окну.",
+      "sessionStillRunning": "Этот сеанс ещё выполняется."
     },
     "window": {
-      "closed": "This window has been closed.",
-      "transferEmptyOrTooLarge": "The transfer is empty or too large.",
-      "mainWindowUnavailable": "The main window is not available.",
-      "openFailed": "The window could not be opened: {{error}}",
-      "transferExpired": "This transfer has expired or has already been taken.",
-      "transferAlreadyTaken": "This transfer has already been taken.",
-      "transferUnknown": "This transfer is unknown."
+      "closed": "Это окно закрыто.",
+      "transferEmptyOrTooLarge": "Передача пуста или слишком велика.",
+      "mainWindowUnavailable": "Главное окно недоступно.",
+      "openFailed": "Не удалось открыть окно: {{error}}",
+      "transferExpired": "Срок этой передачи истёк, или она уже получена.",
+      "transferAlreadyTaken": "Эта передача уже получена.",
+      "transferUnknown": "Эта передача неизвестна."
     },
     "conversion": {
-      "unknownModule": "Unknown office module.",
-      "sourceFormatMismatch": "The source format does not belong to this module.",
-      "outputFormatUnsupported": "This output format is not supported.",
-      "outputFormatDirect": "This output format is created directly in the app, not by conversion.",
-      "invalidOptions": "Invalid conversion options.",
-      "chooseSoffice": "Choose the soffice program (Windows: soffice.exe) from the program folder of the office runtime.",
-      "chosenFileMissing": "The chosen file does not exist.",
-      "chosenPathNotFile": "The chosen path is not a file.",
-      "chosenFileNotExecutable": "The chosen file is not executable.",
-      "appDataDirUnavailable": "The app data folder is not available.",
-      "startFailed": "The conversion could not start: {{error}}",
-      "failed": "The conversion failed ({{reason}}). The original has been kept.",
-      "exitCode": "exit code {{code}}",
-      "processAborted": "process aborted",
-      "timeout": "The conversion exceeded the time limit and was stopped. The original has been kept.",
-      "profilePathInvalid": "The temporary profile path is invalid.",
-      "inputSize": "Choose a file of at most 100 MB that is not empty.",
-      "runtimeMissing": "This format needs an office runtime (LibreOffice). It was not found: install it, choose the program in Save as, or set OPENAEC_CONVERSIE_PROGRAMMA. DOCX, XLSX and PPTX work directly.",
-      "notConverted": "This file could not be converted. It may be damaged or protected, or the format filter is missing from the local runtime.",
-      "multipleOutputs": "The conversion produced more than one file.",
-      "noUsableOutput": "The conversion did not produce a usable file of at most 100 MB."
+      "unknownModule": "Неизвестный офисный модуль.",
+      "sourceFormatMismatch": "Исходный формат не относится к этому модулю.",
+      "outputFormatUnsupported": "Этот выходной формат не поддерживается.",
+      "outputFormatDirect": "Этот выходной формат создаётся непосредственно в приложении, а не путём преобразования.",
+      "invalidOptions": "Недопустимые параметры преобразования.",
+      "chooseSoffice": "Выберите программу soffice (Windows: soffice.exe) в папке программ офисной среды.",
+      "chosenFileMissing": "Выбранный файл не существует.",
+      "chosenPathNotFile": "Выбранный путь не является файлом.",
+      "chosenFileNotExecutable": "Выбранный файл не является исполняемым.",
+      "appDataDirUnavailable": "Папка данных приложения недоступна.",
+      "startFailed": "Не удалось запустить преобразование: {{error}}",
+      "failed": "Преобразование не удалось ({{reason}}). Оригинал сохранён.",
+      "exitCode": "код завершения {{code}}",
+      "processAborted": "процесс прерван",
+      "timeout": "Преобразование превысило ограничение по времени и было остановлено. Оригинал сохранён.",
+      "profilePathInvalid": "Недопустимый путь к временному профилю.",
+      "inputSize": "Выберите непустой файл размером не более 100 МБ.",
+      "runtimeMissing": "Для этого формата нужна офисная среда (LibreOffice). Она не найдена: установите её, выберите программу в окне «Сохранить как» или задайте OPENAEC_CONVERSIE_PROGRAMMA. DOCX, XLSX и PPTX работают напрямую.",
+      "notConverted": "Не удалось преобразовать этот файл. Возможно, он повреждён или защищён, либо в локальной среде отсутствует фильтр формата.",
+      "multipleOutputs": "В результате преобразования получилось больше одного файла.",
+      "noUsableOutput": "Преобразование не дало пригодного файла размером не более 100 МБ."
     },
     "databaseExport": {
-      "emptyOrTooLarge": "The export is empty or larger than 100 MB.",
-      "emptyInvalidOrTooLarge": "The export is empty, invalid or larger than 100 MB.",
-      "nameMissing": "File name missing.",
-      "nameInvalid": "Invalid file name.",
-      "notSqlite": "This is not an SQLite working copy.",
-      "typeNotAllowed": "Only CSV, source, report and SQLite working copy exports are allowed. Access databases are never overwritten.",
-      "textNotUtf8": "A text export must be valid UTF-8 text.",
-      "sendAsBinary": "Send the export as binary data of at most 100 MB.",
-      "extensionMismatch": "The chosen extension does not match the export."
+      "emptyOrTooLarge": "Экспорт пуст или больше 100 МБ.",
+      "emptyInvalidOrTooLarge": "Экспорт пуст, недопустим или больше 100 МБ.",
+      "nameMissing": "Не указано имя файла.",
+      "nameInvalid": "Недопустимое имя файла.",
+      "notSqlite": "Это не рабочая копия SQLite.",
+      "typeNotAllowed": "Разрешён только экспорт в CSV, исходный код, отчёт и рабочую копию SQLite. Базы данных Access никогда не перезаписываются.",
+      "textNotUtf8": "Текстовый экспорт должен быть допустимым текстом UTF-8.",
+      "sendAsBinary": "Передайте экспорт в виде двоичных данных размером не более 100 МБ.",
+      "extensionMismatch": "Выбранное расширение не соответствует экспорту."
     }
   },
   "launcher": {
     "officeStudio": {
-      "genericName": "Office suite",
-      "comment": "Local OpenAEC office environment",
-      "keywords": "word processor;spreadsheet;presentation;database;email;office;"
+      "genericName": "Офисный пакет",
+      "comment": "Локальная офисная среда OpenAEC",
+      "keywords": "текстовый процессор;электронная таблица;презентация;база данных;почта;офис;office;"
     },
     "databaseStudio": {
-      "genericName": "Database viewer",
-      "comment": "Open old MDB and ACCDB databases locally",
-      "keywords": "database;table;query;access;"
+      "genericName": "Просмотр баз данных",
+      "comment": "Локальное открытие старых баз данных MDB и ACCDB",
+      "keywords": "база данных;таблица;запрос;access;database;"
     }
   }
 }
