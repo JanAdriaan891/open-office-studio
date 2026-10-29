@@ -113,5 +113,10 @@
   "theme": {
     "light": "Thème clair",
     "forge": "Thème Forge"
+  },
+  "host": {
+    "conflict": "Quelqu’un d’autre a enregistré ce document entre-temps. Votre version a été enregistrée en tant que copie : {{name}}.",
+    "readOnly": "{{name}} a été ouvert en lecture seule. Utilisez Enregistrer sous pour conserver vos modifications.",
+    "openFailed": "Impossible d’ouvrir le document de l’espace de travail : {{error}}"
   }
 }

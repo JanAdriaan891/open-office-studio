@@ -112,5 +112,10 @@
   "theme": {
     "light": "Helles Design",
     "forge": "Design Forge"
+  },
+  "host": {
+    "conflict": "Jemand anderes hat dieses Dokument inzwischen gespeichert. Ihre Version wurde als Kopie gespeichert: {{name}}.",
+    "readOnly": "{{name}} wurde schreibgeschützt geöffnet. Speichern Sie Ihre Änderungen mit „Speichern unter“.",
+    "openFailed": "Das Dokument aus dem Arbeitsbereich konnte nicht geöffnet werden: {{error}}"
   }
 }

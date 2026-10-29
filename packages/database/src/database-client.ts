@@ -29,6 +29,8 @@ import {
   foutUitBericht,
   type WerkkopieMethode,
 } from "./werkkopie/werkkopie-brug.ts";
+import databaseWorkerUrl from "./database-worker.ts?worker&url";
+import { startWorker } from "../../../src/startWorker";
 
 /**
  * Stuurt de interfacetaal naar een worker (meldingen uit de worker in de
@@ -58,10 +60,7 @@ export class DatabaseFout extends Error {
 }
 
 export class DatabaseClient {
-  private worker = new Worker(
-    new URL("./database-worker.ts", import.meta.url),
-    { type: "module" },
-  );
+  private worker = startWorker(databaseWorkerUrl);
   private nummer = 0;
   private gesloten: string | null = null;
   private wachtend = new Map<
@@ -224,10 +223,7 @@ export class WerkkopieClient implements Werkkopie {
   private constructor(naam: string, limieten: Required<WerkkopieTijdslimieten>) {
     this._bron = { naam, sha256: "" };
     this.limieten = limieten;
-    this.worker = new Worker(
-      new URL("./database-worker.ts", import.meta.url),
-      { type: "module" },
-    );
+    this.worker = startWorker(databaseWorkerUrl);
     this.stopTaal = volgTaal(this.worker);
     this.koppel();
   }
