@@ -244,6 +244,83 @@ export async function tabelInvoegen(ref: DocxEditorRef | null, rijen: number, ko
   e.ref.focus();
 }
 
+/** Of een geplakte tabel hier als echte tabel kan komen (anders plakt de engine tekst). */
+export function kanTabelPlakken(ref: DocxEditorRef | null) {
+  try {
+    const e = engine(ref);
+    if (!e.ref.commands.getState("insertTable").enabled) return false;
+    if (e.ref.commands.getState("editingMode").value === "suggesting") return false;
+    const sel = e.sessie.selection();
+    // In een cel zou het een geneste tabel worden; die tekent de engine nog niet goed.
+    return !!sel && sel.anchor.story === sel.head.story && !/:t\d+:r\d+c\d+$/.test(sel.head.story);
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Plakt cellen (uit klembord-HTML, zoals een kopie uit Rekenblad) als echte
+ * tabel bij de cursor; een selectie wordt eerst vervangen. Kolommen gelijk
+ * verdeeld over de tekstbreedte, de cursor na de tabel. Eén ongedaan-maakstap.
+ */
+export async function plakTabel(ref: DocxEditorRef | null, cellen: readonly (readonly string[])[]) {
+  const e = engine(ref);
+  await e.ref.flushPendingInput();
+  const s = e.sessie;
+  const sel = s.selection();
+  if (!sel) throw new Error(i18next.t("writer:table.errors.cursorInDocument"));
+  const kolommen = Math.max(1, ...cellen.map((r) => r.length));
+  const breedte = breedteBijCursor(e);
+  const verhalen = [sel.head.story];
+  let doel: { story: string; paraId: string; offset: number } | null = null;
+  begin(e);
+  try {
+    let head = sel.head;
+    if (sel.anchor.paraId !== sel.head.paraId || sel.anchor.offset !== sel.head.offset) {
+      // Selectie in documentvolgorde vervangen.
+      const alineas = s.paragraphSpans(sel.head.story).map((p) => p.paraId);
+      const voor =
+        alineas.indexOf(sel.anchor.paraId) < alineas.indexOf(sel.head.paraId) ||
+        (sel.anchor.paraId === sel.head.paraId && sel.anchor.offset < sel.head.offset);
+      const [van, tot] = voor ? [sel.anchor, sel.head] : [sel.head, sel.anchor];
+      s.deleteRange({ story: sel.head.story, start: { paraId: van.paraId, offset: van.offset }, end: { paraId: tot.paraId, offset: tot.offset } });
+      head = { story: sel.head.story, paraId: van.paraId, offset: van.offset };
+    }
+    const plek = head.offset > 0 ? { story: head.story, paraId: s.splitParagraph(head).secondParaId, offset: 0 } : head;
+    const ontvangst = s.insertTable(plek, cellen.length, kolommen);
+    verhalen.push(...ontvangst.createdStoryIds);
+    ontvangst.createdStoryIds.forEach((verhaal, n) => {
+      const tekst = cellen[Math.floor(n / kolommen)]?.[n % kolommen] ?? "";
+      let alinea = s.paragraphs(verhaal)[0]?.paraId;
+      tekst.split("\n").forEach((regel, i) => {
+        if (!alinea) return;
+        if (i > 0) alinea = s.splitParagraph({ story: verhaal, paraId: alinea, offset: s.paragraphs(verhaal).find((p) => p.paraId === alinea)?.text.length ?? 0 }).secondParaId;
+        if (regel) s.insertText({ story: verhaal, paraId: alinea, offset: 0 }, regel);
+      });
+    });
+    zetBreedtes(s, ontvangst.table, gelijkeKolommen(breedte, kolommen), "autofit", { w: breedte, type: "dxa" });
+    // De alinea na de tabel draagt het tabel-embed vooraan: de cursor komt erna.
+    const offset = tekstBegin(s, plek.story, plek.paraId) - s.locateParagraph(plek.story, plek.paraId).start;
+    doel = { story: plek.story, paraId: plek.paraId, offset: Math.max(0, offset) };
+    s.setSelection(doel);
+  } finally {
+    klaar(e, verhalen);
+  }
+  e.ref.focus();
+  // Na het plakken zet de invoer van de engine de cursor terug; daarna opnieuw na de tabel.
+  if (doel) {
+    const plek = doel;
+    requestAnimationFrame(() => {
+      try {
+        s.setSelection(plek);
+        e.weergave.syncYrsInputState(false);
+      } catch {
+        // Alleen de cursorplek; de tabel staat er al.
+      }
+    });
+  }
+}
+
 /**
  * Kolombreedtes na het slepen van een tabelrand (in het document of op de
  * liniaal): tblGrid en tcW in één ongedaan-maakstap. De tabel krijgt een vaste
