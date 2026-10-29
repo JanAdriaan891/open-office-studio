@@ -55,6 +55,12 @@ import {
   Hash,
   FlaskConical,
   Baseline,
+  Filter,
+  FilterX,
+  RefreshCw,
+  ArrowDownUp,
+  ArrowRightToLine,
+  ListOrdered,
   type LucideIcon,
 } from "lucide-react";
 import {
@@ -78,7 +84,6 @@ import {
   bladVerwijderen,
   datumnotatie,
   datumTijdInvoegen,
-  doorvoerenOmlaag,
   fixeren,
   gaNaarBlad,
   klembord,
@@ -89,8 +94,23 @@ import {
   rijenInvoegen,
   rijenVerwijderen,
   rijenZichtbaarheid,
-  sorteren,
 } from "./rekenblad-opdrachten";
+import {
+  doorvoeren,
+  filterAanUit,
+  filterOpnieuw,
+  snelSorteren,
+  wisFilters,
+} from "./rekenblad-gegevens";
+import { abonneerFilters, bladFilter, heeftCriteria } from "./rekenblad-filter";
+import { ReeksVenster, SorteerVenster } from "./rekenblad-vensters";
+import {
+  Formulebalk,
+  FunctieVenster,
+  invoegplek,
+  useFormuleHulp,
+  type Invoegplek,
+} from "./rekenblad-formulebalk";
 import { BladHernoemen, GaNaar, ZoekenVervangen } from "./rekenblad-dialogen";
 import {
   Grafiekontwerp,
@@ -99,7 +119,7 @@ import {
 } from "../grafieken/ui/rekenblad";
 import "./rekenblad.css";
 
-type Paneel = "zoeken" | "ganaar" | "hernoemen" | null;
+type Paneel = "zoeken" | "ganaar" | "hernoemen" | "sorteren" | "reeks" | null;
 
 function useStand(api: XlsxEditorApi | null) {
   const [, ververs] = useReducer((n: number) => n + 1, 0);
@@ -107,18 +127,23 @@ function useStand(api: XlsxEditorApi | null) {
     if (!api) return;
     const stopOpdrachten = api.commands.subscribe(ververs);
     const stopWijzigingen = api.handle.onUpdate(() => ververs());
+    const stopFilters = abonneerFilters(api.handle, ververs);
     return () => {
       stopOpdrachten();
       stopWijzigingen();
+      stopFilters();
     };
   }, [api]);
   if (!api) return null;
   const info = api.handle.sheetInfo();
+  const filter = bladFilter(api.handle, info.activeSheet);
   return {
     bladen: info.sheetNames.length,
     actief: info.activeSheet,
     bevroren: info.frozenRows + info.frozenCols > 0,
     schrijfbaar: !alleenLezen(api),
+    filter: !!filter,
+    gefilterd: heeftCriteria(filter),
   };
 }
 
@@ -237,12 +262,11 @@ function RekenbladUitlijning() {
           icoon={AlignCenter}
           toets="Ctrl+E"
         />
-        <CS
+        <C
           id="horizontalAlignment"
           args={{ value: "right" }}
           naam={t("spreadsheet.commands.alignRight")}
           icoon={AlignRight}
-          toets="Ctrl+R"
         />
         <C
           id="textWrapping"
@@ -415,11 +439,20 @@ export function RekenbladRibbon({
     bereik: ".rekenblad-koppen",
     koppeling: zoomKoppeling,
   });
-  const api = useEditorApi().rekenblad;
+  const apis = useEditorApi();
+  const api = apis.rekenblad;
+  const laag = apis.rekenbladLaag;
   const stand = useStand(api);
   const uitvoeren = useUitvoerder();
   const fout = useContext(RibbonFout);
   const [paneel, setPaneel] = useState<Paneel>(null);
+  const [functiePlek, setFunctiePlek] = useState<Invoegplek | null>(null);
+  const formuleHulp = useFormuleHulp(laag, !!api);
+  const functieInvoegen = () => {
+    if (!api) return;
+    const plek = invoegplek(api, laag, document.activeElement);
+    if (plek) setFunctiePlek(plek);
+  };
   const uit = !stand?.schrijfbaar;
   const grafieken = useRekenbladGrafieken();
   const sluiten = () => {
@@ -438,7 +471,6 @@ export function RekenbladRibbon({
   const sneltoetsen: Sneltoets[] = [
     ["Ctrl+L", "left"],
     ["Ctrl+E", "center"],
-    ["Ctrl+R", "right"],
   ].map(([toets, value]) => ({
     toets,
     beschikbaar: geenTekst,
@@ -487,8 +519,19 @@ export function RekenbladRibbon({
     {
       toets: "Ctrl+D",
       beschikbaar: geenTekst,
-      uitvoeren: () => uitvoeren(doorvoerenOmlaag),
+      uitvoeren: () => uitvoeren((a) => doorvoeren(a, "omlaag")),
     },
+    {
+      toets: "Ctrl+R",
+      beschikbaar: geenTekst,
+      uitvoeren: () => uitvoeren((a) => doorvoeren(a, "rechts")),
+    },
+    {
+      toets: "Ctrl+Shift+L",
+      beschikbaar: geenTekst,
+      uitvoeren: () => uitvoeren(filterAanUit),
+    },
+    { toets: "Shift+F3", uitvoeren: functieInvoegen },
     {
       toets: "Ctrl+PageUp",
       beschikbaar: geenTekst,
@@ -549,6 +592,15 @@ export function RekenbladRibbon({
   );
   const functies = (
     <Groep naam={t("spreadsheet.groups.function")}>
+      <Actie
+        naam={t("spreadsheet.commands.insertFunction")}
+        icoon={Sigma}
+        groot
+        disabled={!api || uit}
+        title={`${t("spreadsheet.commands.insertFunction")} · Shift+F3`}
+        onMouseDown={(event) => event.preventDefault()}
+        onClick={functieInvoegen}
+      />
       <A
         naam={t("spreadsheet.commands.autoSum")}
         icoon={Sigma}
@@ -755,30 +807,76 @@ export function RekenbladRibbon({
             naam: t("spreadsheet.tabs.data"),
             inhoud: (
               <>
-                <Groep naam={t("spreadsheet.groups.sort")}>
+                <Groep naam={t("spreadsheet.groups.sortFilter")}>
+                  <div className="ribbon-stapel">
+                    <A
+                      naam={t("spreadsheet.commands.sortAscending")}
+                      icoon={ArrowUpAZ}
+                      uit={uit}
+                      doe={(a) => snelSorteren(a, false)}
+                    />
+                    <A
+                      naam={t("spreadsheet.commands.sortDescending")}
+                      icoon={ArrowDownZA}
+                      uit={uit}
+                      doe={(a) => snelSorteren(a, true)}
+                    />
+                  </div>
                   <A
-                    naam={t("spreadsheet.commands.sortAscending")}
-                    icoon={ArrowUpAZ}
+                    naam={t("spreadsheet.commands.sortDialog")}
+                    icoon={ArrowDownUp}
                     groot
                     uit={uit}
-                    doe={(a) => sorteren(a, false)}
+                    doe={() => setPaneel("sorteren")}
                   />
-                  <A
-                    naam={t("spreadsheet.commands.sortDescending")}
-                    icoon={ArrowDownZA}
+                  <Actie
+                    naam={t("spreadsheet.commands.filter")}
+                    icoon={Filter}
                     groot
-                    uit={uit}
-                    doe={(a) => sorteren(a, true)}
+                    disabled={!api || uit}
+                    actief={!!stand?.filter}
+                    title={`${t("spreadsheet.commands.filterHint")} · Ctrl+Shift+L`}
+                    onMouseDown={(event) => event.preventDefault()}
+                    onClick={() => uitvoeren(filterAanUit)}
                   />
+                  <div className="ribbon-stapel">
+                    <A
+                      naam={t("spreadsheet.commands.clearFilter")}
+                      icoon={FilterX}
+                      uit={uit || !stand?.gefilterd}
+                      doe={wisFilters}
+                    />
+                    <A
+                      naam={t("spreadsheet.commands.reapplyFilter")}
+                      icoon={RefreshCw}
+                      uit={uit || !stand?.filter}
+                      doe={filterOpnieuw}
+                    />
+                  </div>
                 </Groep>
                 <Groep naam={t("spreadsheet.groups.fill")}>
+                  <div className="ribbon-stapel">
+                    <A
+                      naam={t("spreadsheet.commands.fillDown")}
+                      icoon={ArrowDownToLine}
+                      toets="Ctrl+D"
+                      uit={uit}
+                      doe={(a) => doorvoeren(a, "omlaag")}
+                    />
+                    <A
+                      naam={t("spreadsheet.commands.fillRight")}
+                      icoon={ArrowRightToLine}
+                      toets="Ctrl+R"
+                      uit={uit}
+                      doe={(a) => doorvoeren(a, "rechts")}
+                    />
+                  </div>
                   <A
-                    naam={t("spreadsheet.commands.fillDown")}
-                    icoon={ArrowDownToLine}
-                    toets="Ctrl+D"
+                    naam={t("spreadsheet.commands.fillSeries")}
+                    icoon={ListOrdered}
                     groot
                     uit={uit}
-                    doe={doorvoerenOmlaag}
+                    doe={() => setPaneel("reeks")}
                   />
                 </Groep>
                 {functies}
@@ -860,15 +958,26 @@ export function RekenbladRibbon({
             : []),
         ]}
       />
-      <div className="office-formulebalk">
-        <RekenbladToolbar.FormulaBar />
-      </div>
+      <Formulebalk api={api} laag={laag} functieInvoegen={functieInvoegen} />
+      {formuleHulp}
       {api && paneel === "zoeken" && (
         <ZoekenVervangen api={api} sluiten={sluiten} />
       )}
       {api && paneel === "ganaar" && <GaNaar api={api} sluiten={sluiten} />}
       {api && paneel === "hernoemen" && (
         <BladHernoemen api={api} sluiten={sluiten} />
+      )}
+      {api && paneel === "sorteren" && <SorteerVenster api={api} sluit={sluiten} />}
+      {api && paneel === "reeks" && <ReeksVenster api={api} sluit={sluiten} />}
+      {api && functiePlek && (
+        <FunctieVenster
+          api={api}
+          plek={functiePlek}
+          sluit={() => {
+            setFunctiePlek(null);
+            api.focus();
+          }}
+        />
       )}
       {grafieken.venster}
     </RekenbladToolbar>

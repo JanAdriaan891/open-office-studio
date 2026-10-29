@@ -32,7 +32,9 @@
     "count": "Aantal: {{value}}",
     "sum": "Som: {{value}}",
     "summary_one": "Minimum {{min}} · Maximum {{max}} · {{numbers}} getal",
-    "summary_other": "Minimum {{min}} · Maximum {{max}} · {{numbers}} getallen"
+    "summary_other": "Minimum {{min}} · Maximum {{max}} · {{numbers}} getallen",
+    "filter": "{{visible}} van {{total}} rijen gevonden",
+    "filterTitle": "Filter actief op dit blad"
   },
   "presentation": {
     "slideOf": "Dia {{slide}} van {{slides}}"

@@ -267,7 +267,11 @@
       "undo": "Desfazer",
       "zoom100": "Zoom 100%",
       "zoomIn": "Ampliar",
-      "zoomOut": "Reduzir"
+      "zoomOut": "Reduzir",
+      "fillRight": "Preencher à direita",
+      "toggleFilter": "Ativar ou desativar o filtro",
+      "insertFunction": "Inserir função",
+      "toggleReference": "Referência absoluta ou relativa (ao editar uma fórmula)"
     }
   },
   "spreadsheet": {
@@ -301,7 +305,8 @@
       "sort": "Classificar",
       "fill": "Preencher",
       "freezePanes": "Congelar painéis",
-      "output": "Saída"
+      "output": "Saída",
+      "sortFilter": "Classificar e filtrar"
     },
     "commands": {
       "fontSize": "Tamanho da fonte",
@@ -363,7 +368,15 @@
       "freezeFirstColumn": "Congelar primeira coluna",
       "print": "Imprimir",
       "printHint": "Visualização de impressão e imprimir ({{shortcut}})",
-      "exportImage": "Exportar como imagem"
+      "exportImage": "Exportar como imagem",
+      "sortDialog": "Classificar…",
+      "filter": "Filtro",
+      "filterHint": "Ativar ou desativar o filtro (setas na linha de cabeçalho)",
+      "clearFilter": "Limpar",
+      "reapplyFilter": "Reaplicar",
+      "fillRight": "À direita",
+      "fillSeries": "Série…",
+      "insertFunction": "Inserir função"
     },
     "dialogs": {
       "closeEsc": "Fechar (Esc)",

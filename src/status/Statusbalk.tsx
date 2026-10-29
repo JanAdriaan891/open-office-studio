@@ -69,7 +69,13 @@ function ModuleInfo({ soort }: { soort: string | null }) {
   }
   if (info.soort === "rekenblad" && soort === "xlsx" && statusbalk.rekenblad) {
     const s = info.statistiek;
-    if (!s || s.aantal < 2) return null;
+    const f = info.filter;
+    const filter = f ? (
+      <span title={t("spreadsheet.filterTitle")}>
+        {t("spreadsheet.filter", { visible: g(f.zichtbaar), total: g(f.totaal) })}
+      </span>
+    ) : null;
+    if (!s || s.aantal < 2) return filter ? <span className="statusbalk-module">{filter}</span> : null;
     return (
       <span
         className="statusbalk-module"
@@ -87,6 +93,7 @@ function ModuleInfo({ soort }: { soort: string | null }) {
         {s.gemiddelde !== null && <span>{t("spreadsheet.average", { value: g(s.gemiddelde) })}</span>}
         <span>{t("spreadsheet.count", { value: g(s.aantal) })}</span>
         {s.getallen > 0 && <span>{t("spreadsheet.sum", { value: g(s.som) })}</span>}
+        {filter}
       </span>
     );
   }

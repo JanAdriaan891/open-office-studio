@@ -267,7 +267,11 @@
       "undo": "Ongedaan maken",
       "zoom100": "Zoom 100%",
       "zoomIn": "Inzoomen",
-      "zoomOut": "Uitzoomen"
+      "zoomOut": "Uitzoomen",
+      "fillRight": "Naar rechts doorvoeren",
+      "toggleFilter": "Filter aan of uit",
+      "insertFunction": "Functie invoegen",
+      "toggleReference": "Verwijzing absoluut of relatief (tijdens het bewerken van een formule)"
     }
   },
   "spreadsheet": {
@@ -301,7 +305,8 @@
       "sort": "Sorteren",
       "fill": "Doorvoeren",
       "freezePanes": "Vensters fixeren",
-      "output": "Uitvoer"
+      "output": "Uitvoer",
+      "sortFilter": "Sorteren en filteren"
     },
     "commands": {
       "fontSize": "Tekengrootte",
@@ -363,7 +368,15 @@
       "freezeFirstColumn": "Eerste kolom fixeren",
       "print": "Afdrukken",
       "printHint": "Afdrukvoorbeeld en afdrukken ({{shortcut}})",
-      "exportImage": "Afbeelding exporteren"
+      "exportImage": "Afbeelding exporteren",
+      "sortDialog": "Sorteren…",
+      "filter": "Filter",
+      "filterHint": "Filter aan of uit (filterpijlen in de kopregel)",
+      "clearFilter": "Wissen",
+      "reapplyFilter": "Opnieuw toepassen",
+      "fillRight": "Naar rechts",
+      "fillSeries": "Reeks…",
+      "insertFunction": "Functie invoegen"
     },
     "dialogs": {
       "closeEsc": "Sluiten (Esc)",

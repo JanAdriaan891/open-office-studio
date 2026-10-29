@@ -1,6 +1,7 @@
 import type { XlsxEditorApi } from "@betteroffice/xlsx-react";
 import i18next from "../i18n/config";
 import { meldWijziging, zichtbaarElement } from "./editorApi";
+import { filtersNaOps } from "./rekenblad-filter";
 import type {
   CapturedFormat,
   XlsxCellValue,
@@ -162,6 +163,8 @@ export async function voerOpsUit(api: XlsxEditorApi, ops: RuweOp[]) {
     const vertaald = engineteksten.find(([patroon]) => patroon.test(tekst));
     throw new Melding(vertaald ? melding(vertaald[1]) : tekst);
   }
+  // Filterbereiken schuiven mee met invoegen en verwijderen (#62).
+  if (resultaat.applied) filtersNaOps(api.handle, ops);
   // applyOps loopt buiten de wijzigingsmelding van de editor om.
   if (resultaat.applied) meldWijziging(api.handle);
   return resultaat;
