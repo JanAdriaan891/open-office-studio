@@ -1,33 +1,33 @@
 {
   "errors": {
-    "pageConversionFailed": "The page could not be converted.",
-    "noPagesSelected": "No pages have been selected.",
-    "imageUnreadable": "The image could not be read.",
-    "noSlides": "The presentation has no slides.",
-    "notAWorksheet": "Sheet ‘{{name}}’ is not a worksheet and is skipped.",
-    "sheetsEmpty": "There is nothing to print: the sheets are empty.",
-    "documentNotPrepared": "The document could not be prepared for printing.",
-    "noPages": "The document has no pages to print."
+    "pageConversionFailed": "페이지를 변환할 수 없습니다.",
+    "noPagesSelected": "선택된 페이지가 없습니다.",
+    "imageUnreadable": "그림을 읽을 수 없습니다.",
+    "noSlides": "프레젠테이션에 슬라이드가 없습니다.",
+    "notAWorksheet": "‘{{name}}’ 시트는 워크시트가 아니므로 건너뜁니다.",
+    "sheetsEmpty": "인쇄할 내용이 없습니다. 시트가 비어 있습니다.",
+    "documentNotPrepared": "문서를 인쇄용으로 준비할 수 없습니다.",
+    "noPages": "문서에 인쇄할 페이지가 없습니다."
   },
   "pageBreaks": {
-    "title": "Page Break Preview",
-    "emptySheet": "This sheet is empty.",
-    "calculating": "Calculating page breaks…",
-    "breakBeforeColumn": "Page break before column {{column}} (drag to move)",
-    "breakBeforeRow": "Page break before row {{row}} (drag to move)",
-    "help": "Solid lines are manual page breaks; dashed lines follow from the paper size and scale. Drag a break, or double-click a boundary to add or remove a break.",
-    "clearManual": "Reset All Page Breaks",
-    "done": "Done",
-    "summary_other": "Scale {{scale}} · {{pages}} pages"
+    "title": "페이지 나누기 미리 보기",
+    "emptySheet": "이 시트는 비어 있습니다.",
+    "calculating": "페이지 나누기 계산 중…",
+    "breakBeforeColumn": "{{column}} 열 앞 페이지 나누기(끌어서 이동)",
+    "breakBeforeRow": "{{row}} 행 앞 페이지 나누기(끌어서 이동)",
+    "help": "실선은 수동 페이지 나누기이고 점선은 용지 크기와 배율에 따른 페이지 나누기입니다. 페이지 나누기를 끌거나 경계를 두 번 클릭하여 페이지 나누기를 추가하거나 제거하세요.",
+    "clearManual": "페이지 나누기 모두 원래대로",
+    "done": "완료",
+    "summary_other": "배율 {{scale}} · {{pages}}페이지"
   },
   "pages": {
-    "page": "Page {{number}}",
-    "pageOfTotal": "Page {{page}} of {{total}}",
-    "sheetPage": "{{sheet}}, page {{page}} of {{total}}",
-    "slide": "Slide {{number}}",
-    "handout": "Handout {{page}} (slides {{first}}–{{last}})",
-    "notes": "Notes slide {{number}}",
-    "notesContinued": "Notes slide {{number}} (continued)",
-    "pageNumberOfTotal": "{{page}} of {{total}}"
+    "page": "{{number}}페이지",
+    "pageOfTotal": "{{page}}/{{total}}페이지",
+    "sheetPage": "{{sheet}}, {{page}}/{{total}}페이지",
+    "slide": "슬라이드 {{number}}",
+    "handout": "유인물 {{page}}(슬라이드 {{first}}–{{last}})",
+    "notes": "슬라이드 {{number}} 노트",
+    "notesContinued": "슬라이드 {{number}} 노트(계속)",
+    "pageNumberOfTotal": "{{page}}/{{total}}"
   }
 }

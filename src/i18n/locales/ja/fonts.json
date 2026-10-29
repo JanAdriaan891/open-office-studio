@@ -1,43 +1,43 @@
 {
   "attribution": {
-    "system": "Font on this computer.",
-    "officeMetric": "Office font; displayed here with {{substitute}} (metric-compatible). The file keeps {{font}}.",
-    "officeApproximation": "Office font; displayed here with {{substitute}} (approximation). The file keeps {{font}}.",
-    "unknown": "Not available; the app chooses a substitute.",
-    "license": "{{license}} · {{source}}.",
-    "bundled": "included ({{package}})",
-    "metricCompatible": "Metric-compatible with {{font}}."
+    "system": "このコンピューターのフォントです。",
+    "officeMetric": "Office フォントです。ここでは {{substitute}} で表示しています (メトリック互換)。ファイルには {{font}} が保持されます。",
+    "officeApproximation": "Office フォントです。ここでは {{substitute}} で表示しています (近似)。ファイルには {{font}} が保持されます。",
+    "unknown": "使用できません。アプリが代替フォントを選択します。",
+    "license": "{{license}} · {{source}}。",
+    "bundled": "同梱 ({{package}})",
+    "metricCompatible": "{{font}} とメトリック互換です。"
   },
   "errors": {
-    "chooseFailed": "The font could not be applied.",
-    "loadFailed": "Font {{font}} could not be loaded ({{status}})."
+    "chooseFailed": "フォントを適用できませんでした。",
+    "loadFailed": "フォント {{font}} を読み込めませんでした ({{status}})。"
   },
   "groups": {
-    "document": "In this document",
-    "recent": "Recently used",
-    "sansSerif": "Sans serif",
-    "serif": "Serif",
-    "monospace": "Monospace",
-    "handwritingDisplay": "Handwriting and display",
-    "system": "On this computer"
+    "document": "このドキュメント内",
+    "recent": "最近使用したフォント",
+    "sansSerif": "サンセリフ",
+    "serif": "セリフ",
+    "monospace": "等幅",
+    "handwritingDisplay": "手書きとディスプレイ",
+    "system": "このコンピューター上"
   },
   "picker": {
-    "font": "Font",
-    "mixed": "mixed",
+    "font": "フォント",
+    "mixed": "混在",
     "current": "{{name}}: {{font}}",
-    "searchPlaceholder": "Search…",
-    "searchLabel": "Search fonts",
-    "noResults": "No font found; Enter chooses “{{query}}”.",
-    "bold": "Bold",
-    "italic": "Italic",
-    "boldItalic": "Bold Italic",
-    "showAll": "Show all fonts",
-    "showFewer": "Show fewer fonts",
-    "showSystemFonts": "Show fonts on this computer…"
+    "searchPlaceholder": "検索…",
+    "searchLabel": "フォントを検索",
+    "noResults": "フォントが見つかりません。Enter キーで “{{query}}” を選択します。",
+    "bold": "太字",
+    "italic": "斜体",
+    "boldItalic": "太字 斜体",
+    "showAll": "すべてのフォントを表示",
+    "showFewer": "表示するフォントを減らす",
+    "showSystemFonts": "このコンピューターのフォントを表示…"
   },
   "substitution": {
-    "message": "Fonts substituted because they are not installed on this computer — {{details}}. The file keeps the original names.",
-    "metric": "metric-compatible (same line breaks): {{fonts}}",
-    "approximate": "approximation (lines and pages may shift): {{fonts}}"
+    "message": "このコンピューターにインストールされていないため、フォントを置き換えました — {{details}}。ファイルには元のフォント名が保持されます。",
+    "metric": "メトリック互換 (改行位置は同じ): {{fonts}}",
+    "approximate": "近似 (行やページがずれる場合があります): {{fonts}}"
   }
 }

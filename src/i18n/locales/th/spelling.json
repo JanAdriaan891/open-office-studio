@@ -1,51 +1,51 @@
 {
   "actions": {
-    "noSuggestions": "(no suggestions)",
-    "ignoreAll": "Ignore All",
-    "addToDictionary": "Add to Dictionary",
-    "paragraphLanguage": "Language of this paragraph"
+    "noSuggestions": "(ไม่มีคำแนะนำ)",
+    "ignoreAll": "ละเว้นทั้งหมด",
+    "addToDictionary": "เพิ่มลงในพจนานุกรม",
+    "paragraphLanguage": "ภาษาของย่อหน้านี้"
   },
   "dialog": {
-    "title": "Spelling and Grammar",
-    "closeTooltip": "Close (Esc)",
-    "checking": "Checking document…",
-    "complete": "The spelling check is complete. No (more) unknown words were found.",
-    "notInDictionary": "Not in dictionary ({{language}}):",
-    "changeTo": "Change to",
-    "suggestions": "Suggestions",
-    "searching": "Searching…",
-    "change": "Change",
-    "changeAll": "Change All",
-    "ignoreOnce": "Ignore Once"
+    "title": "การสะกดและไวยากรณ์",
+    "closeTooltip": "ปิด (Esc)",
+    "checking": "กำลังตรวจสอบเอกสาร…",
+    "complete": "ตรวจสอบการสะกดเสร็จสิ้นแล้ว ไม่พบคำที่ไม่รู้จัก (เพิ่มเติม)",
+    "notInDictionary": "ไม่มีในพจนานุกรม ({{language}}):",
+    "changeTo": "เปลี่ยนเป็น",
+    "suggestions": "คำแนะนำ",
+    "searching": "กำลังค้นหา…",
+    "change": "เปลี่ยน",
+    "changeAll": "เปลี่ยนทั้งหมด",
+    "ignoreOnce": "ละเว้นครั้งเดียว"
   },
   "language": {
-    "none": "Do not check",
+    "none": "ไม่ตรวจสอบ",
     "short": {
-      "enGB": "English (UK)",
-      "enUS": "English (US)"
+      "enGB": "อังกฤษ (สหราชอาณาจักร)",
+      "enUS": "อังกฤษ (สหรัฐอเมริกา)"
     }
   },
   "menu": {
-    "label": "Spelling: {{word}}",
-    "searchingSuggestions": "Searching for suggestions…",
-    "openDialog": "Spelling and Grammar… ({{key}})"
+    "label": "การสะกด: {{word}}",
+    "searchingSuggestions": "กำลังค้นหาคำแนะนำ…",
+    "openDialog": "การสะกดและไวยากรณ์… ({{key}})"
   },
   "settings": {
-    "title": "Spelling and AutoCorrect",
-    "checkWhileTyping": "Check spelling as you type (red wavy underline)",
-    "ignoreUppercase": "Ignore words in UPPERCASE",
-    "ignoreNumbers": "Ignore words that contain numbers",
-    "autocorrect": "AutoCorrect: TWo INitial CApitals, capitalize the first letter of sentences and common typos",
-    "dictionariesHelp": "Dictionaries: OpenTaal (Dutch) and SCOWL (English, UK and US). Right-click an underlined word for suggestions; {{key}} opens the Spelling and Grammar pane.",
-    "personalListButton": "Personal dictionary ({{number}})…",
-    "personalList": "Personal dictionary",
-    "noWords": "No words added yet.",
-    "removeWord": "Remove {{word}}"
+    "title": "การสะกดและการแก้ไขอัตโนมัติ",
+    "checkWhileTyping": "ตรวจสอบการสะกดขณะพิมพ์ (เส้นหยักสีแดง)",
+    "ignoreUppercase": "ละเว้นคำที่เป็นตัวพิมพ์ใหญ่ทั้งหมด",
+    "ignoreNumbers": "ละเว้นคำที่มีตัวเลข",
+    "autocorrect": "การแก้ไขอัตโนมัติ: ตัวพิมพ์ใหญ่สองตัวแรก (TWo INitial CApitals) ตัวพิมพ์ใหญ่ที่ต้นประโยค และคำที่พิมพ์ผิดบ่อย",
+    "dictionariesHelp": "พจนานุกรม: OpenTaal (ดัตช์) และ SCOWL (อังกฤษ สหราชอาณาจักรและสหรัฐอเมริกา) คลิกขวาที่คำที่ขีดเส้นใต้เพื่อดูคำแนะนำ {{key}} จะเปิดบานหน้าต่างการสะกดและไวยากรณ์",
+    "personalListButton": "พจนานุกรมส่วนตัว ({{number}})…",
+    "personalList": "พจนานุกรมส่วนตัว",
+    "noWords": "ยังไม่มีคำที่เพิ่มไว้",
+    "removeWord": "เอา {{word}} ออก"
   },
   "status": {
-    "unavailable": "spelling not available",
-    "checking": "checking spelling…",
-    "noErrors": "no spelling errors",
-    "errors_other": "{{errors}} spelling errors"
+    "unavailable": "ไม่สามารถใช้การตรวจสอบการสะกดได้",
+    "checking": "กำลังตรวจสอบการสะกด…",
+    "noErrors": "ไม่มีคำสะกดผิด",
+    "errors_other": "สะกดผิด {{errors}} คำ"
   }
 }

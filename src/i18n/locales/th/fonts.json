@@ -1,43 +1,43 @@
 {
   "attribution": {
-    "system": "Font on this computer.",
-    "officeMetric": "Office font; displayed here with {{substitute}} (metric-compatible). The file keeps {{font}}.",
-    "officeApproximation": "Office font; displayed here with {{substitute}} (approximation). The file keeps {{font}}.",
-    "unknown": "Not available; the app chooses a substitute.",
-    "license": "{{license}} · {{source}}.",
-    "bundled": "included ({{package}})",
-    "metricCompatible": "Metric-compatible with {{font}}."
+    "system": "ฟอนต์ในคอมพิวเตอร์เครื่องนี้",
+    "officeMetric": "ฟอนต์ Office แสดงที่นี่ด้วย {{substitute}} (เข้ากันได้ทางเมตริก) ไฟล์ยังคงใช้ {{font}}",
+    "officeApproximation": "ฟอนต์ Office แสดงที่นี่ด้วย {{substitute}} (ใกล้เคียง) ไฟล์ยังคงใช้ {{font}}",
+    "unknown": "ไม่พร้อมใช้งาน แอปจะเลือกฟอนต์ทดแทนให้",
+    "license": "{{license}} · {{source}}",
+    "bundled": "รวมมาด้วย ({{package}})",
+    "metricCompatible": "เข้ากันได้ทางเมตริกกับ {{font}}"
   },
   "errors": {
-    "chooseFailed": "The font could not be applied.",
-    "loadFailed": "Font {{font}} could not be loaded ({{status}})."
+    "chooseFailed": "ไม่สามารถใช้ฟอนต์ได้",
+    "loadFailed": "ไม่สามารถโหลดฟอนต์ {{font}} ได้ ({{status}})"
   },
   "groups": {
-    "document": "In this document",
-    "recent": "Recently used",
-    "sansSerif": "Sans serif",
-    "serif": "Serif",
-    "monospace": "Monospace",
-    "handwritingDisplay": "Handwriting and display",
-    "system": "On this computer"
+    "document": "ในเอกสารนี้",
+    "recent": "ใช้ล่าสุด",
+    "sansSerif": "ไม่มีเชิง (Sans serif)",
+    "serif": "มีเชิง (Serif)",
+    "monospace": "ความกว้างคงที่",
+    "handwritingDisplay": "ลายมือและตัวตกแต่ง",
+    "system": "ในคอมพิวเตอร์เครื่องนี้"
   },
   "picker": {
-    "font": "Font",
-    "mixed": "mixed",
+    "font": "ฟอนต์",
+    "mixed": "ผสม",
     "current": "{{name}}: {{font}}",
-    "searchPlaceholder": "Search…",
-    "searchLabel": "Search fonts",
-    "noResults": "No font found; Enter chooses “{{query}}”.",
-    "bold": "Bold",
-    "italic": "Italic",
-    "boldItalic": "Bold Italic",
-    "showAll": "Show all fonts",
-    "showFewer": "Show fewer fonts",
-    "showSystemFonts": "Show fonts on this computer…"
+    "searchPlaceholder": "ค้นหา…",
+    "searchLabel": "ค้นหาฟอนต์",
+    "noResults": "ไม่พบฟอนต์ กด Enter เพื่อเลือก “{{query}}”",
+    "bold": "ตัวหนา",
+    "italic": "ตัวเอียง",
+    "boldItalic": "ตัวหนาเอียง",
+    "showAll": "แสดงฟอนต์ทั้งหมด",
+    "showFewer": "แสดงฟอนต์น้อยลง",
+    "showSystemFonts": "แสดงฟอนต์ในคอมพิวเตอร์เครื่องนี้…"
   },
   "substitution": {
-    "message": "Fonts substituted because they are not installed on this computer — {{details}}. The file keeps the original names.",
-    "metric": "metric-compatible (same line breaks): {{fonts}}",
-    "approximate": "approximation (lines and pages may shift): {{fonts}}"
+    "message": "แทนที่ฟอนต์เนื่องจากไม่ได้ติดตั้งไว้ในคอมพิวเตอร์เครื่องนี้ — {{details}} ไฟล์ยังคงใช้ชื่อฟอนต์เดิม",
+    "metric": "เข้ากันได้ทางเมตริก (ตัดบรรทัดเหมือนเดิม): {{fonts}}",
+    "approximate": "ใกล้เคียง (บรรทัดและหน้าอาจเลื่อน): {{fonts}}"
   }
 }
