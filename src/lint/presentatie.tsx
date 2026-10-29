@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { zichtbaarElement } from "./editorApi";
+import { useEditorApi, zichtbaarElement } from "./editorApi";
 import {
   usePptxCommand,
   ToolbarCommand as DiaControl,
@@ -53,6 +53,7 @@ import {
   X,
   Printer,
   NotebookText,
+  Search,
 } from "lucide-react";
 import {
   Actie,
@@ -66,6 +67,7 @@ import { useDocumentZoom, type ZoomKoppeling } from "../useDocumentZoom";
 import { P, PK, PL, Geschiedenis, Zoom, scrollvlakVan, type Knop } from "./gedeeld";
 import { useDiaActies, DiaKnop, type DiaActies } from "./presentatie-acties";
 import { specialeTekens } from "./presentatie-opdrachten";
+import { PresentatieZoeken } from "./presentatie-zoekpaneel";
 import {
   DiaGrafiekontwerp,
   GrafiekGroep,
@@ -401,6 +403,7 @@ export function PresentatieRibbon({
     vulling = usePptxCommand("shapeFill"),
     rand = usePptxCommand("shapeStrokeColor");
   const acties = useDiaActies();
+  const api = useEditorApi().presentatie;
   const grafieken = useIngeslotenGrafieken("pptx");
   const [notities, wisselNotities] = useNotities();
   const dia = () =>
@@ -421,6 +424,17 @@ export function PresentatieRibbon({
   return (
     <>
     {grafieken.venster}
+    {api && acties.zoeken && (
+      <PresentatieZoeken
+        api={api}
+        stand={acties.zoeken}
+        bewerkbaar={acties.bewerkbaar}
+        sluiten={() => {
+          acties.setZoeken(null);
+          api.focus();
+        }}
+      />
+    )}
     <Ribbon
       bestand={bestand}
       tabs={[
@@ -466,6 +480,16 @@ export function PresentatieRibbon({
                   groot
                   uit={!acties.actief}
                   onClick={() => acties.voorstelling(true)}
+                />
+              </Groep>
+              <Groep naam={t("presentation.groups.find")}>
+                <DiaKnop
+                  naam={t("presentation.commands.findReplace")}
+                  icoon={Search}
+                  toets="Ctrl+H"
+                  groot
+                  uit={!acties.actief}
+                  onClick={() => acties.setZoeken(acties.bewerkbaar ? "vervangen" : "zoeken")}
                 />
               </Groep>
             </>

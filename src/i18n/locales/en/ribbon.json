@@ -37,7 +37,8 @@
       "slideShow": "Slide Show",
       "moveSlide": "Move Slide",
       "arrange": "Arrange",
-      "alignToSlide": "Align to Slide"
+      "alignToSlide": "Align to Slide",
+      "find": "Find"
     },
     "commands": {
       "fontSize": "Font Size",
@@ -99,7 +100,8 @@
       "printHint": "Print preview: slides, handouts or notes pages ({{shortcut}})",
       "notesPages": "Notes Pages",
       "notesPagesHint": "Print notes pages or save them as PDF",
-      "fitSlide": "Fit Slide to Window"
+      "fitSlide": "Fit Slide to Window",
+      "findReplace": "Find and replace"
     },
     "characters": {
       "euro": "Euro sign",
@@ -136,7 +138,21 @@
       "placeCursor": "Place the cursor in a text box first.",
       "onlySlide": "The only slide cannot be deleted."
     },
-    "dateShapeName": "Date"
+    "dateShapeName": "Date",
+    "find": {
+      "title": "Find and replace",
+      "findWhat": "Find what",
+      "replaceWith": "Replace with",
+      "matchCase": "Match case",
+      "previous": "Previous",
+      "next": "Next",
+      "replace": "Replace",
+      "replaceAll": "Replace all",
+      "found": "Result {{current}} of {{total}} · slide {{slide}}",
+      "notFound": "Search term not found.",
+      "replacedCurrent": "Replaced.",
+      "replacedAll": "Replaced {{number}} times (one undo step)."
+    }
   },
   "shortcuts": {
     "modules": {
@@ -267,7 +283,29 @@
       "undo": "Undo",
       "zoom100": "Zoom 100%",
       "zoomIn": "Zoom in",
-      "zoomOut": "Zoom out"
+      "zoomOut": "Zoom out",
+      "newDocument": "New document of the same type",
+      "editCell": "Edit cell",
+      "filter": "Filter on/off",
+      "newMessage": "New message",
+      "reply": "Reply",
+      "replyAll": "Reply all",
+      "forward": "Forward",
+      "searchMail": "Search messages",
+      "getMail": "Get messages",
+      "deleteMessage": "Delete message",
+      "toggleRead": "Read/unread",
+      "toggleStar": "Star",
+      "archive": "Archive",
+      "nextMessage": "Next message",
+      "previousMessage": "Previous message",
+      "nextUnread": "Next unread message",
+      "searchNotes": "Search notes",
+      "copyWithHeaders": "Copy with column names",
+      "clearCell": "Clear cell",
+      "selectColumn": "Select column",
+      "selectRow": "Select row",
+      "contextMenu": "Open context menu"
     }
   },
   "spreadsheet": {

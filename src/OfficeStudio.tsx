@@ -586,6 +586,7 @@ export function OfficeStudio() {
     opslaan: opslaanToets,
     opslaanAls: () => openOpslaanAls(),
     openen: kiesBestand,
+    nieuw: (soort) => void nieuw(soort),
     sluit: () => actief && void sluit([actief.id]),
     verwerk: (actie) => {
       tabs.verwerk(actie);
