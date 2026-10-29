@@ -1,0 +1,765 @@
+{
+  "accounts": {
+    "test": {
+      "test": "Test",
+      "testConnection": "Test connection",
+      "testing": "Testing…",
+      "retest": "Test again",
+      "failed": "Test failed"
+    },
+    "settings": {
+      "title": "Account Settings",
+      "noAccount": "There is no account yet.",
+      "addAccount": "Add account",
+      "accountList": "Accounts",
+      "saving": "Saving…",
+      "saved": "Settings saved.",
+      "saveFailed": "Could not save",
+      "tabs": {
+        "identity": "Identity",
+        "servers": "Servers",
+        "folders": "Folders",
+        "fetching": "Retrieval and privacy",
+        "advanced": "Advanced"
+      },
+      "deleteAccount": {
+        "title": "Remove account",
+        "confirm": "Are you sure you want to remove <strong>{{name}}</strong> ({{email}})? Your messages stay on the server; the stored password will be removed from the keychain.",
+        "button": "Remove account",
+        "failed": "Could not remove the account"
+      },
+      "identity": {
+        "accountName": "Account name",
+        "accountNameHint": "Only for yourself, for example \"Work\" or \"Personal\".",
+        "yourName": "Your name",
+        "email": "Email address",
+        "replyTo": "Reply-to address",
+        "replyToPlaceholder": "Empty = your email address",
+        "signature": "Signature",
+        "signatureHint": "Added below new messages and replies, after \"-- \"."
+      },
+      "oauthAccount": {
+        "signedInAs": "Signed in as <strong>{{account}}</strong> with {{provider}}",
+        "noPasswordStored": "No password is stored; access uses a token in the keychain.",
+        "signInAgain": "Sign in again",
+        "signedInAgain": "Signed in again as {{account}}."
+      },
+      "password": {
+        "change": "Change password",
+        "storedPlaceholder": "Stored · leave empty to keep",
+        "noneStoredPlaceholder": "No password stored yet"
+      },
+      "folders": {
+        "hint": "Choose where Email Studio keeps sent messages, drafts, deleted and archived messages.",
+        "roles": {
+          "sent": "Sent messages",
+          "drafts": "Drafts",
+          "trash": "Trash",
+          "archive": "Archive"
+        },
+        "automatic": "Automatic",
+        "automaticWithFolder": "Automatic ({{folder}})"
+      },
+      "fetching": {
+        "checkForNew": "Check for new messages",
+        "manualOnly": "Manually only",
+        "everyMinutes_one": "Every {{count}} minute",
+        "everyMinutes_other": "Every {{count}} minutes",
+        "externalContent": "Always show remote images and content",
+        "externalContentHint": "Off is recommended: remote images tell senders when and where you open a message.",
+        "trustedSenders": "Senders whose remote content is always shown",
+        "forgetSender": "Forget {{sender}}"
+      },
+      "advanced": {
+        "oauthIntro": "Signing in with Microsoft or Google uses OAuth2. These settings apply to all accounts. Your own client ID is only needed if the app does not include one; see <code>{{doc}}</code>.",
+        "ispdb": "Also consult the Thunderbird database for a new account",
+        "ispdbHint": "The domain name is then sent to Mozilla. Off by default.",
+        "available": "Available.",
+        "unavailable": "Not available.",
+        "loadingStatus": "Loading status…",
+        "clientId": "Client ID",
+        "clientSecret": "Client secret (optional)",
+        "saveClientId": "Save client ID",
+        "clientIdSaved": "Client ID for {{provider}} saved.",
+        "clientIdSaveFailed": "Could not save the client ID",
+        "desktopOnly": "You can only set your own client ID in the desktop app."
+      }
+    },
+    "wizard": {
+      "title": "Add account",
+      "intro": "Use your existing email address. Email Studio works with any provider that offers IMAP and SMTP.",
+      "fullName": "Your full name",
+      "fullNamePlaceholder": "First name Last name",
+      "fullNameHint": "How recipients see your name.",
+      "email": "Email address",
+      "emailPlaceholder": "name@example.com",
+      "password": "Password",
+      "passwordHint": "Only used when you choose Test or Done, and stored only in your operating system's keychain.",
+      "ispdb": "Also consult the Thunderbird database",
+      "ispdbHint": "The domain name (not your address or password) is then sent to Mozilla.",
+      "oauthPrompt": "Or sign in without a password in the app:",
+      "enterNameAndEmailFirst": "Enter your name and email address first.",
+      "saving": "Saving…",
+      "done": "Done",
+      "saveAnyway": "Save anyway",
+      "saveTitle": "Save account",
+      "saveUntestedTitle": "Not (successfully) tested yet; you can still save the account",
+      "saveFailed": "Could not save the account",
+      "foundSettings": "Settings found",
+      "serverSettings": "Server settings",
+      "serverSettingsFor": "Server settings for {{domain}}",
+      "enterEmailHint": "Enter your email address; Email Studio will then look for the right servers automatically.",
+      "searchFailed": "Search failed",
+      "fillInManually": "Enter the servers below yourself.",
+      "nothingFound": "No settings were found. Enter the servers below yourself; ask your provider for them if needed.",
+      "proposals": "Suggestions",
+      "unencrypted": "unencrypted",
+      "manualConfiguration": "Manual configuration",
+      "adjusted": "· edited",
+      "fieldsAppear": "The fields appear as soon as there is a valid email address.",
+      "bothServersFailed": "Both servers failed. Check the address, password and server names."
+    },
+    "discovery": {
+      "steps": {
+        "builtIn": "Built-in list",
+        "ownDomain": "Own domain",
+        "dns": "DNS",
+        "ispdb": "Thunderbird database",
+        "probe": "Connection probe"
+      },
+      "stepStatus": {
+        "waiting": "waiting",
+        "busy": "in progress…",
+        "found": "found",
+        "nothing": "nothing found",
+        "skipped": "not run"
+      },
+      "sources": {
+        "preset": "Built-in list",
+        "autoconfig": "Configuration from your own domain",
+        "srv": "DNS SRV records",
+        "mx": "MX records (provider recognised)",
+        "ispdb": "Thunderbird database",
+        "guess": "Common server names"
+      },
+      "unencrypted": "unencrypted",
+      "reachable": "reachable",
+      "unreachable": "not reachable",
+      "untested": "not tested"
+    },
+    "server": {
+      "incoming": "Incoming (IMAP)",
+      "outgoing": "Outgoing (SMTP)",
+      "columns": {
+        "server": "Server",
+        "port": "Port",
+        "security": "Security",
+        "authentication": "Authentication",
+        "username": "Username"
+      },
+      "hostLabel": "{{protocol}} server",
+      "portLabel": "{{protocol}} port",
+      "securityLabel": "{{protocol}} security",
+      "authenticationLabel": "{{protocol}} authentication",
+      "usernameLabel": "{{protocol}} username",
+      "imapPlaceholder": "imap.example.com",
+      "smtpPlaceholder": "smtp.example.com",
+      "securityNone": "None",
+      "authNormal": "Normal password",
+      "authEncrypted": "Encrypted password",
+      "unencryptedWarning": "<strong>Unencrypted connection.</strong> Your password and messages travel across the network in readable form. Choose SSL/TLS or STARTTLS if your provider supports it.",
+      "oauthHint": "OAuth2 asks you to sign in with the provider when testing or on first use."
+    },
+    "oauth": {
+      "notSupported": "This version of the app does not yet support signing in with Microsoft or Google.",
+      "signInFailed": "Signing in with {{provider}} failed",
+      "signInWith": "Sign in with {{provider}}",
+      "recommended": "recommended",
+      "waitTitle": "Complete sign-in in your browser",
+      "waitText": "The {{provider}} sign-in page has opened in your browser. Sign in there and grant access to email; Email Studio will then continue here.",
+      "unavailableTitle": "Signing in with {{provider}} is not available here.",
+      "unavailableHelp": "In the desktop app you can set your own client ID for {{provider}} under <em>Tools › Account Settings › Advanced</em>. How to create one is described in <code>{{doc}}</code>. You can also continue with an (app) password."
+    }
+  },
+  "errors": {
+    "code": {
+      "connection": "No connection to the server. Check your internet connection and the server name and port.",
+      "authentication": "Sign-in failed. Check your username and password (Tools › Account Settings).",
+      "certificate": "The server's certificate is not trusted or does not match this server name.",
+      "timeout": "The server did not respond in time. Please try again later.",
+      "notFound": "The message or folder no longer exists on the server.",
+      "refused": "The server refused the command.",
+      "tooLarge": "The message is too large for the server. Make attachments smaller or remove them.",
+      "unavailable": "This feature is not available here.",
+      "internal": "Something went wrong."
+    },
+    "withDetail": "{{explanation}} ({{detail}})",
+    "withContext": "{{context}}: {{message}}",
+    "backendMissing": "This version of the desktop app does not include the email feature.",
+    "unexpectedBinary": "Unexpected binary output from the backend."
+  },
+  "dialog": {
+    "closeEsc": "Close (Esc)"
+  },
+  "sendAsAttachment": {
+    "title": "Send as attachment"
+  },
+  "ribbon": {
+    "tabs": {
+      "start": "Home",
+      "view": "View",
+      "tools": "Tools"
+    },
+    "groups": {
+      "new": "New",
+      "respond": "Respond",
+      "delete": "Delete",
+      "mark": "Tags",
+      "organize": "Organize",
+      "layout": "Layout",
+      "sort": "Sort",
+      "message": "Message",
+      "accounts": "Accounts",
+      "folders": "Folders"
+    },
+    "withShortcut": "{{action}} · {{shortcut}}",
+    "fetch": "Get messages",
+    "fetchTitle": "Get messages · {{key}} or {{shortcut}}",
+    "readUnread": "Read/unread",
+    "readUnreadTitle": "Read or unread · {{shortcut}}",
+    "star": "Star",
+    "move": "Move",
+    "moveTitle": "Move to folder",
+    "folderPane": "Folder pane",
+    "readingPane": "Reading pane",
+    "resetLayout": "Reset layout",
+    "sortBy": "Sort by",
+    "sort": {
+      "date": "Date",
+      "sender": "Sender",
+      "subject": "Subject",
+      "size": "Size"
+    },
+    "ascending": "Ascending",
+    "descending": "Descending",
+    "viewSource": "View source",
+    "accountSettings": "Account Settings"
+  },
+  "studio": {
+    "errors": {
+      "loadAccounts": "Could not load accounts",
+      "loadMessages": "Could not load messages",
+      "openMessage": "Could not open the message",
+      "delete": "Could not delete",
+      "move": "Could not move",
+      "mark": "Could not mark",
+      "forwardAttachments": "Could not retrieve the attachments for forwarding",
+      "openFile": "Could not open {{name}}",
+      "saveFile": "Could not save {{name}}",
+      "source": "Could not retrieve the source",
+      "updateFolder": "Could not update the folder",
+      "deleteFolder": "Could not delete the folder"
+    },
+    "accountAdded": "Account {{email}} added.",
+    "addAccount": "Add account",
+    "deletePermanently": {
+      "title": "Delete permanently",
+      "text_one": "This message will be deleted permanently. This cannot be undone.",
+      "text_other": "{{count}} messages will be deleted permanently. This cannot be undone.",
+      "confirm": "Delete permanently"
+    },
+    "noArchiveFolder": "This account has no archive folder. Choose one in Tools › Account Settings › Folders.",
+    "fetched": "Messages retrieved.",
+    "deleteFolder": {
+      "title": "Delete folder",
+      "text": "The folder “{{folder}}” and all messages in it will be deleted on the server."
+    },
+    "welcome": {
+      "title": "No email account yet",
+      "text": "Add your account with your email address and password. Email Studio finds the right settings."
+    },
+    "folderPaneWidth": "Folder pane width",
+    "messageListWidth": "Message list width",
+    "messageList": "Message list",
+    "search": {
+      "in": "Search in {{folder}}",
+      "label": "Search messages ({{shortcut}})",
+      "clear": "Clear search"
+    },
+    "filter": {
+      "label": "Quick filter",
+      "unread": "Unread",
+      "unreadTitle": "Unread only",
+      "starred": "Starred",
+      "starredTitle": "Starred only",
+      "attachment": "Attachment",
+      "attachmentTitle": "With attachment only",
+      "body": "Body",
+      "bodyTitle": "Also search the message text (slower)"
+    },
+    "count": {
+      "filtered": "{{shown}} of {{total}}",
+      "filteredLoaded": "{{shown}} of {{loaded}} loaded",
+      "messages_one": "{{count}} message",
+      "messages_other": "{{count}} messages",
+      "selected_one": "{{count}} selected",
+      "selected_other": "{{count}} selected"
+    },
+    "noResults": "No messages found.",
+    "emptyFolder": "This folder is empty.",
+    "moveTo_one": "Move message to",
+    "moveTo_other": "Move {{count}} messages to",
+    "folderDialog": {
+      "newTitle": "New folder",
+      "renameTitle": "Rename folder",
+      "create": "Create",
+      "rename": "Rename",
+      "name": "Name",
+      "inside": "Inside “{{folder}}”"
+    },
+    "source": {
+      "title": "Message source",
+      "saveAs": "Save as {{extension}}"
+    }
+  },
+  "address": {
+    "invalid": "Invalid address: {{address}}",
+    "remove": "Remove {{address}}"
+  },
+  "list": {
+    "label": "Messages",
+    "to": "To: {{address}}",
+    "noRecipient": "(no recipient)",
+    "replied": "Replied",
+    "hasAttachment": "Has attachment",
+    "noSubject": "(no subject)",
+    "star": "Add star",
+    "unstar": "Remove star",
+    "loadingMore": "Loading more messages…"
+  },
+  "folders": {
+    "label": "Folders",
+    "loading": "Loading folders…",
+    "unread_one": "{{count}} unread",
+    "unread_other": "{{count}} unread",
+    "inbox": "Inbox"
+  },
+  "reader": {
+    "loadingMessage": "Loading message…",
+    "chooseMessage": "Choose a message to read it.",
+    "label": "Message: {{subject}}",
+    "reply": "Reply",
+    "replyTitle": "Reply · {{shortcut}}",
+    "replyAll": "Reply all",
+    "replyAllTitle": "Reply all · {{shortcut}}",
+    "forward": "Forward",
+    "forwardTitle": "Forward · {{shortcut}}",
+    "archive": "Archive",
+    "archiveTitle": "Archive · {{shortcut}}",
+    "delete": "Delete",
+    "deleteTitle": "Delete · {{shortcut}}",
+    "starTitle": "Star · {{shortcut}}",
+    "from": "From",
+    "to": "To",
+    "none": "(none)",
+    "cc": "Cc",
+    "replyTo": "Reply to",
+    "date": "Date",
+    "external": {
+      "blocked_one": "One remote image was blocked to protect your privacy.",
+      "blocked_other": "{{count}} remote images were blocked to protect your privacy.",
+      "desktopHint": "With your permission the app retrieves them and shows them without letting the message connect anywhere.",
+      "demoHint": "(In the demo they point to addresses that do not exist.)",
+      "show": "Show remote content",
+      "alwaysFrom": "Always show from {{sender}}",
+      "failed_one": "One remote image could not be retrieved.",
+      "failed_other": "{{count}} remote images could not be retrieved."
+    },
+    "attachments": {
+      "label": "Attachments",
+      "previewOrOpen": "Click: preview · double-click: open in {{module}}",
+      "preview": "Preview",
+      "openCopyTitle": "Open as an editable copy in {{module}}",
+      "openIn": "Open in {{module}}",
+      "saveTitle": "Save to this computer"
+    },
+    "content": "Message content",
+    "loadingContent": "Loading content…"
+  },
+  "compose": {
+    "errors": {
+      "saveDraft": "Could not save the draft",
+      "noRecipients": "Add at least one recipient.",
+      "send": "Could not send",
+      "attachmentsLarge": "The attachments total {{size}}; many servers refuse messages over {{max}}.",
+      "linkNotAllowed": "Only http(s), mailto and tel links are allowed."
+    },
+    "noSubject": {
+      "title": "No subject",
+      "text": "This message has no subject. Send anyway?",
+      "fillIn": "Enter a subject",
+      "sendWithout": "Send without subject"
+    },
+    "forgotAttachment": {
+      "title": "Forgot an attachment?",
+      "text": "Your message mentions <strong>“{{word}}”</strong>, but no attachment has been added.",
+      "sendAnyway": "Send anyway",
+      "keywords": "attachment|attachments|attached|enclosed|see attached"
+    },
+    "addAttachment": "Add attachment",
+    "attachment": "Attach",
+    "removeAttachment": "Remove {{name}}",
+    "attachmentsSummary_one": "{{count}} attachment · {{size}}",
+    "attachmentsSummary_other": "{{count}} attachments · {{size}}",
+    "dropToAttach": "Drop to add as an attachment",
+    "sent": "Message sent.",
+    "sentWithSubject": "Message sent: {{subject}}.",
+    "unsent": {
+      "title": "Message not sent",
+      "text": "Do you want to save this message as a draft?",
+      "discard": "Discard",
+      "saveDraft": "Save draft"
+    },
+    "label": "Compose: {{subject}}",
+    "newMessage": "New message",
+    "send": "Send",
+    "sending": "Sending…",
+    "sendTitle": "Send · {{shortcut}}",
+    "draft": "Draft",
+    "savingDraft": "Saving…",
+    "saveDraftTitle": "Save as draft · {{shortcut}}",
+    "dismissError": "Dismiss message",
+    "from": "From",
+    "to": "To",
+    "cc": "Cc",
+    "bcc": "Bcc",
+    "subject": "Subject",
+    "body": "Message text",
+    "format": {
+      "label": "Formatting",
+      "withShortcut": "{{action}} · {{shortcut}}",
+      "bold": "Bold",
+      "italic": "Italic",
+      "underline": "Underline",
+      "bullets": "Bullets",
+      "numbering": "Numbering",
+      "link": "Link",
+      "insertLink": "Insert link",
+      "clear": "Clear formatting",
+      "linkAddress": "Link address",
+      "insert": "Insert"
+    }
+  },
+  "link": {
+    "browserFailed": "Could not open the browser. Copy the address: {{url}}",
+    "phoneTitle": "Phone number",
+    "openTitle": "Open link?",
+    "copied": "Address copied.",
+    "copyFailed": "Copying failed; select the address manually.",
+    "copy": "Copy address",
+    "openInBrowser": "Open in browser",
+    "phoneIntro": "This phone number appears in the message:",
+    "realTarget": "This link actually goes to:",
+    "misleading": "The text in the message mentions <strong>{{shown}}</strong>, but the link goes to <strong>{{actual}}</strong>. This may be phishing.",
+    "unencrypted": "Note: this link does not use an encrypted connection (http)."
+  },
+  "files": {
+    "saveUnsupported": "This version of the desktop app cannot save {{name}} yet. Open the attachment in a module or update the app.",
+    "saved": "Saved: {{path}}",
+    "saveCancelled": "Save cancelled.",
+    "downloadRequested": "Download requested. Check the file in your downloads."
+  },
+  "quote": {
+    "unknownSender": "(unknown)",
+    "wroteOn": "On {{date}}, {{sender}} wrote:",
+    "wrote": "{{sender}} wrote:",
+    "forwarded": "Forwarded Message",
+    "subject": "Subject: {{value}}",
+    "date": "Date: {{value}}",
+    "from": "From: {{value}}",
+    "to": "To: {{value}}",
+    "cc": "Cc: {{value}}"
+  },
+  "demo": {
+    "banner": "Demo — real email is not possible in the browser; use the desktop app.",
+    "accountName": "Demo mailbox",
+    "folders": {
+      "notifications": "Notifications",
+      "drafts": "Drafts",
+      "sent": "Sent",
+      "archive": "Archive",
+      "junk": "Junk",
+      "trash": "Trash"
+    },
+    "welcome": {
+      "subject": "Welcome to OpenAEC Email Studio",
+      "heading": "Welcome!",
+      "intro": "This is a demo mailbox. In the browser, Email Studio cannot retrieve or send real email; use the desktop app for that.",
+      "introHtml": "This is a <strong>demo mailbox</strong>. In the browser, Email Studio cannot retrieve or send real email; use the desktop app for that.",
+      "tryIt": "Feel free to try: replying, starring (S), moving to the archive and opening an attachment in Text or Spreadsheet.",
+      "tryItHtml": "Feel free to try: replying, starring (<kbd>S</kbd>), moving to the archive and opening an attachment in Text or Spreadsheet.",
+      "logoText": "The OpenAEC logo below is an inline image from an attachment (cid:).",
+      "logoAlt": "OpenAEC logo",
+      "logoHtml": "The logo on the left is an inline image from an attachment."
+    },
+    "errors": {
+      "accountNotFound": "Account does not exist.",
+      "messageNotFound": "Message does not exist.",
+      "folderExists": "This folder already exists.",
+      "folderCannotRename": "This folder cannot be renamed.",
+      "specialFolderDelete": "Special folders cannot be deleted.",
+      "attachmentNotFound": "Attachment does not exist.",
+      "targetFolderNotFound": "Target folder does not exist.",
+      "noRecipients": "No recipients specified.",
+      "recipientRefused": "Demo: the server refuses recipient {{domain}}.",
+      "attachmentsTooLarge": "Demo: attachments are limited to {{max}}."
+    },
+    "accountAdded": {
+      "subject": "Your account has been added (demo)",
+      "text": "The account {{email}} has been added to the demo. {{notice}}"
+    },
+    "discovery": {
+      "knownProvider": "Known provider (demo).",
+      "mx": "MX record of {{domain}} points to mail.protection.outlook.com (demo).",
+      "ownServer": "{{name}} (own server)",
+      "autoconfig": "Found at autoconfig.{{domain}} (demo).",
+      "srv": "_imaps._tcp and _submission._tcp (demo).",
+      "ispdb": "From the Thunderbird database (demo).",
+      "guessImapOk": "Common server names; the IMAP probe succeeded (demo).",
+      "guessAlternative": "Alternative server name (demo)."
+    },
+    "test": {
+      "noServer": "No {{protocol}} server specified.",
+      "invalidPort": "Invalid port.",
+      "unreachable": "Demo: {{host}} cannot be reached.",
+      "simulated": "Demo: connection simulated.",
+      "simulatedUnencrypted": "Demo: connection simulated (unencrypted!)."
+    },
+    "oauthDesktopOnly": "Signing in with Microsoft or Google is only possible in the desktop app."
+  },
+  "preview": {
+    "loading": "Loading preview…",
+    "dialog": {
+      "attachments": "Attachments",
+      "previous": "Previous attachment",
+      "previousTitle": "Previous attachment (←)",
+      "next": "Next attachment",
+      "nextTitle": "Next attachment (→)",
+      "close": "Close preview",
+      "closeTitle": "Close (Esc)",
+      "fetching": "Fetching attachment…",
+      "fetchFailed": "The attachment could not be retrieved: {{message}}"
+    },
+    "card": {
+      "fileName": "File name",
+      "size": "Size",
+      "openExternal": "Open with default application",
+      "unknown": "unknown",
+      "attention": "Note",
+      "yes": "yes",
+      "no": "no"
+    },
+    "detection": {
+      "kinds": {
+        "pdf": "a PDF",
+        "dwg": "a DWG drawing",
+        "dxf": "a DXF drawing",
+        "ifc": "an IFC model",
+        "markdown": "Markdown",
+        "text": "text",
+        "image": "an image",
+        "office": "an Office document",
+        "unknown": "an unknown file"
+      },
+      "contentDiffers": "The name suggests {{kind}}, but the content is something else.",
+      "mismatch": "This attachment is named “.{{extension}}” ({{named}}), but the content is {{actual}}.",
+      "mismatchSubtype": "This attachment is named “.{{extension}}” ({{named}}), but the content is {{actual}} ({{subtype}}).",
+      "contentBinary": "The name suggests {{kind}}, but the content is binary.",
+      "notSvg": "The name suggests an SVG image, but the content is not SVG.",
+      "signatureMissing": "The name suggests {{kind}}, but the content lacks the matching characteristics."
+    },
+    "image": {
+      "loadFailed": "The image could not be loaded: {{message}}",
+      "subtitle": "Image",
+      "cannotDisplay": "This image cannot be displayed here (damaged or an unsupported variant).",
+      "tooLarge": "This image is larger than {{size}} MB and is not shown as a preview.",
+      "tooManyPixels": "This image is {{width}} × {{height}} pixels (more than {{megapixels}} megapixels) and is not shown as a preview.",
+      "toolbar": "Image",
+      "zoomOut": "Zoom out",
+      "zoomOutTitle": "Zoom out (−)",
+      "zoomIn": "Zoom in",
+      "zoomInTitle": "Zoom in (+)",
+      "fit": "Fit to window",
+      "fitTitle": "Fit to window (0)",
+      "actualSize": "Actual size (100%)",
+      "actualSizeTitle": "Actual size",
+      "rotate": "Rotate clockwise",
+      "rotateTitle": "Rotate clockwise (R)",
+      "area": "Image preview"
+    },
+    "text": {
+      "loadFailed": "The text could not be loaded: {{message}}",
+      "toolbar": "Text",
+      "encoding": "Encoding: {{encoding}}",
+      "utf8Bom": "UTF-8 (with BOM)",
+      "formatJson": "Format JSON",
+      "wrapLines": "Wrap lines",
+      "truncated": "Showing the first {{limit}} of {{size}}. Save the file to see everything.",
+      "contentOf": "Contents of {{name}}"
+    },
+    "markdown": {
+      "loadFailed": "The file could not be loaded: {{message}}",
+      "linkNotOpened": "Link not opened: {{url}}",
+      "imageFallback": "Image",
+      "externalBlocked": "{{alt}} (external image blocked)",
+      "unavailable": "{{alt}} (not available)",
+      "view": "View",
+      "rendered": "Rendered",
+      "source": "Source",
+      "showExternalImages": "Show external images",
+      "truncated": "Showing the first {{limit}} of {{size}}.",
+      "confirmLabel": "Open link",
+      "confirmQuestion": "Open this link outside Office Studio?"
+    },
+    "pdf": {
+      "loadFailed": "The PDF could not be loaded: {{message}}",
+      "properties": "Properties",
+      "frameTitle": "PDF: {{name}}",
+      "linuxUnsupported": "The webview on Linux cannot display PDFs reliably. The full preview will follow in a future version (Rust viewer).",
+      "cannotPreview": "This PDF cannot be previewed here. The full preview will follow in a future version (Rust viewer).",
+      "subtitle": "PDF document",
+      "subtitleVersion": "PDF {{version}}",
+      "pages": "Pages",
+      "author": "Author",
+      "subject": "Subject",
+      "createdWith": "Created with",
+      "created": "Created",
+      "modified": "Modified",
+      "encrypted": "Encrypted",
+      "incomplete": "the file appears to be incomplete or damaged",
+      "showPreview": "Show preview"
+    },
+    "cad": {
+      "loadFailed": "The drawing could not be loaded: {{message}}",
+      "previewLater": "A preview will follow in a future version (Rust viewer).",
+      "tooLargeToParse": "This file is too large to analyse here. A preview will follow in a future version (Rust viewer).",
+      "dwgSubtitle": "AutoCAD drawing (DWG)",
+      "dxfSubtitle": "DXF drawing",
+      "dxfBinarySubtitle": "Binary DXF drawing",
+      "format": "Format",
+      "savedAs": "Saved as",
+      "unknownAutocadVersion": "unknown AutoCAD version",
+      "units": "Units",
+      "entities": "Entities",
+      "blocks": "Blocks",
+      "layers": "Layers",
+      "thumbnailAlt": "Embedded thumbnail of the drawing",
+      "thumbnailCaption": "Thumbnail from the file",
+      "entitiesByType": "Entities by type",
+      "layersCount": "Layers ({{n}})",
+      "andMore": "… and {{n}} more",
+      "versionRange": "AutoCAD {{from}} to {{to}}",
+      "versionAndLater": "AutoCAD {{version}} and later",
+      "unitCode": "code {{code}}",
+      "unitNames": {
+        "unitless": "unitless",
+        "inch": "inch",
+        "foot": "foot",
+        "mile": "mile",
+        "millimeter": "millimetre",
+        "centimeter": "centimetre",
+        "meter": "metre",
+        "kilometer": "kilometre",
+        "microinch": "microinch",
+        "mil": "mil",
+        "yard": "yard",
+        "angstrom": "ångström",
+        "nanometer": "nanometre",
+        "micron": "micron",
+        "decimeter": "decimetre",
+        "decameter": "decametre",
+        "hectometer": "hectometre",
+        "gigameter": "gigametre",
+        "astronomicalUnit": "astronomical unit",
+        "lightYear": "light year",
+        "parsec": "parsec",
+        "usSurveyFoot": "US survey foot",
+        "usSurveyInch": "US survey inch",
+        "usSurveyYard": "US survey yard",
+        "usSurveyMile": "US survey mile"
+      }
+    },
+    "ifc": {
+      "loadFailed": "The model could not be loaded: {{message}}",
+      "previewLater": "The 3D preview will follow in a future version (Rust viewer).",
+      "tooLarge": "This model is larger than {{size}} MB and is not analysed here.",
+      "analysing": "Analysing model… {{percent}}",
+      "cancelled": "Analysis cancelled.",
+      "retry": "Analyse again",
+      "failed": "The analysis failed: {{message}}",
+      "subtitle": "IFC model",
+      "subtitleWithSchema": "IFC model · {{schemas}}",
+      "nameInFile": "Name in file",
+      "timestamp": "Timestamp",
+      "author": "Author",
+      "organization": "Organisation",
+      "application": "Application",
+      "description": "Description",
+      "sites": "Sites",
+      "buildings": "Buildings",
+      "entities": "Entities",
+      "incomplete": "the file appears to be incomplete (no END-ISO-10303-21)",
+      "storeys": "Storeys ({{n}})",
+      "elementsHeading": "Building elements",
+      "allEntityTypes": "All entity types ({{n}})",
+      "elements": {
+        "wall": "Walls",
+        "wallStandardCase": "Walls (standard case)",
+        "curtainWall": "Curtain walls",
+        "slab": "Floors and slabs",
+        "roof": "Roofs",
+        "column": "Columns",
+        "beam": "Beams",
+        "member": "Members",
+        "plate": "Plates",
+        "door": "Doors",
+        "window": "Windows",
+        "stair": "Stairs",
+        "ramp": "Ramps",
+        "railing": "Railings",
+        "covering": "Coverings",
+        "footing": "Footings",
+        "pile": "Piles",
+        "space": "Spaces",
+        "opening": "Openings",
+        "furnishing": "Furnishings",
+        "flowSegment": "Duct and pipe segments",
+        "flowTerminal": "Service terminals",
+        "proxy": "Other building elements",
+        "storey": "Storeys"
+      }
+    },
+    "office": {
+      "kinds": {
+        "document": "Text document",
+        "spreadsheet": "Spreadsheet",
+        "presentation": "Presentation",
+        "database": "Database"
+      },
+      "genericDocument": "Office document",
+      "type": "Type",
+      "openFailed": "Opening failed: {{message}}",
+      "openCopyHint": "Open an editable copy in {{module}}. The original in the email remains unchanged.",
+      "cannotOpen": "This Office format cannot be opened here.",
+      "opening": "Opening…",
+      "openIn": "Open in {{module}}"
+    },
+    "unknown": {
+      "subtitle": "No preview available",
+      "declaredType": "Declared type",
+      "extension": "Extension",
+      "none": "none",
+      "message": "No preview can be shown for this file type. Save it and only open it if you trust the sender."
+    }
+  }
+}

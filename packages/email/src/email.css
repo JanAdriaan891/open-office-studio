@@ -713,7 +713,7 @@
 .email-okregel {
   color: var(--em-ok);
   font-size: 12.5px;
-  margin-right: auto;
+  margin-inline-end: auto;
 }
 .email-dialoogacties .email-foutregel {
   margin-right: auto;
@@ -784,7 +784,7 @@
 }
 .email-servertabel th {
   padding: 4px 6px;
-  text-align: left;
+  text-align: start;
   font-weight: 500;
   color: var(--em-tekst-3);
   white-space: nowrap;
@@ -864,7 +864,7 @@
   align-content: start;
   gap: 4px;
   padding: 12px 10px;
-  border-right: 1px solid var(--em-rand);
+  border-inline-end: 1px solid var(--em-rand);
   background: var(--em-zijpaneel);
   overflow-y: auto;
 }
@@ -876,7 +876,7 @@
   border: 0;
   border-radius: 8px;
   background: none;
-  text-align: left;
+  text-align: start;
   font-size: 13px;
 }
 .email-instellingen-indeling nav button span {
@@ -1256,7 +1256,7 @@
     grid-template-columns: minmax(0, 1fr);
   }
   .email-instellingen-indeling nav {
-    border-right: 0;
+    border-inline-end: 0;
     border-bottom: 1px solid var(--em-rand);
   }
 }
@@ -1327,7 +1327,8 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 4px 10px 4px 4px;
+  padding-block: 4px;
+  padding-inline: 4px 10px;
   border: 1px solid var(--em-rand-sterk);
   border-radius: 10px;
   background: var(--em-paneel);
@@ -1346,7 +1347,7 @@
   border: 0;
   border-radius: 8px;
   background: none;
-  text-align: left;
+  text-align: start;
 }
 .email-kaartkeuze strong {
   font-size: 13.5px;
@@ -1401,7 +1402,7 @@
   gap: 6px;
 }
 .email-aanbevolen {
-  margin-left: 2px;
+  margin-inline-start: 2px;
   padding: 0 5px;
   border-radius: 6px;
   background: rgba(255, 255, 255, 0.25);
@@ -1448,7 +1449,7 @@
   font-size: 13px;
   color: var(--em-ok);
 }
-.email-oauthaccount span {
+.email-oauthaccount > span {
   flex: 1;
   display: grid;
   color: var(--em-tekst);
@@ -1477,10 +1478,10 @@
     grid-template-columns: minmax(0, 1fr);
   }
 }
-.email-servertabel input[aria-label$="-server"] {
+.email-servertabel .email-serverhost {
   min-width: 170px;
 }
-.email-servertabel input[aria-label$="-gebruikersnaam"] {
+.email-servertabel .email-servergebruiker {
   min-width: 140px;
 }
 .email-servertabel select {
