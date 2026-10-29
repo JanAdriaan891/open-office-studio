@@ -72,7 +72,8 @@
     "mainWindow": "Jendela utama",
     "windowNumber": "Jendela {{number}}",
     "unsavedTitle": "Perubahan belum disimpan",
-    "modified": "diubah"
+    "modified": "diubah",
+    "newWindow": "Jendela baru"
   },
   "windows": {
     "openInNewWindow": "Buka di jendela baru",
@@ -86,7 +87,9 @@
     "mainWindowNoResponse": "Jendela utama tidak merespons. Tab tetap terbuka di sini.",
     "newWindowTimeout": "Jendela baru tidak mengambil alih dokumen tepat waktu. Tab tetap terbuka di sini.",
     "alreadyMainWindow": "Ini sudah jendela utama.",
-    "popupBlocked": "Jendela baru tidak dapat dibuka. Izinkan jendela pop-up untuk halaman ini."
+    "popupBlocked": "Jendela baru tidak dapat dibuka. Izinkan jendela pop-up untuk halaman ini.",
+    "moveToWindow": "Pindahkan ke {{window}}",
+    "newWindowFailed": "Jendela baru tidak dapat dibuka: {{error}}"
   },
   "dropZone": {
     "release": "Lepaskan untuk membuka",
@@ -116,5 +119,27 @@
     "conflict": "Orang lain telah menyimpan dokumen ini sementara itu. Versi Anda disimpan sebagai salinan: {{name}}.",
     "readOnly": "{{name}} dibuka hanya-baca. Gunakan Simpan Sebagai untuk menyimpan perubahan Anda.",
     "openFailed": "Dokumen dari ruang kerja tidak dapat dibuka: {{error}}"
+  },
+  "title": {
+    "document": "{{document}} — {{app}} ({{module}})",
+    "module": "{{app}} ({{module}})"
+  },
+  "titleBar": {
+    "quickAccess": "Akses cepat",
+    "saveTitle": "Simpan · Ctrl+S",
+    "settings": "Pengaturan",
+    "minimize": "Perkecil",
+    "maximize": "Perbesar",
+    "restore": "Kembalikan",
+    "close": "Tutup jendela"
+  },
+  "toasts": {
+    "region": "Notifikasi",
+    "info": "Info",
+    "success": "Selesai",
+    "warning": "Perhatian",
+    "error": "Galat",
+    "details": "Detail",
+    "less": "Lebih sedikit"
   }
 }

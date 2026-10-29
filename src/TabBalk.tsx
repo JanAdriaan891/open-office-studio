@@ -39,8 +39,8 @@ interface Props {
   verplaats: (id: number, naar: number) => void;
   /** "+": opent Start om een document of module toe te voegen. */
   nieuw: () => void;
-  /** Extra contextmenu-opdrachten, zoals "In nieuw venster openen". */
-  extraMenu?: (tabblad: Tabblad) => MenuItem[];
+  /** Extra contextmenu-opdrachten, zoals "In nieuw venster openen" (mag later volgen). */
+  extraMenu?: (tabblad: Tabblad) => MenuItem[] | Promise<MenuItem[]>;
   /** Tabblad buiten de tabbalk losgelaten (schermcoördinaten in CSS-pixels). */
   losgesleept?: (id: number, x: number, y: number) => void;
 }
@@ -125,11 +125,8 @@ export function TabBalk(props: Props) {
 
   function tabMenu(tabblad: Tabblad, x: number, y: number, terug: HTMLElement) {
     const index = tabbladen.indexOf(tabblad);
-    setMenu({
-      x,
-      y,
-      terug,
-      items: [
+    const extra = props.extraMenu?.(tabblad) ?? [];
+    const basis: MenuItem[] = [
         { label: t("common:close"), actie: () => props.sluit([tabblad.id]) },
         {
           label: t("tabBar.closeOthers"),
@@ -145,9 +142,18 @@ export function TabBalk(props: Props) {
           actie: () =>
             props.sluit(tabbladen.slice(index + 1).map((tab) => tab.id)),
         },
-        ...(props.extraMenu?.(tabblad) ?? []),
-      ],
-    });
+    ];
+    const toon = (items: MenuItem[]) => setMenu({ x, y, terug, items });
+    if (Array.isArray(extra)) toon([...basis, ...extra]);
+    else {
+      // Vensteropdrachten (andere vensters) komen erbij zodra ze bekend zijn.
+      toon(basis);
+      void extra.then((items) =>
+        setMenu((menu) =>
+          menu && menu.terug === terug ? { ...menu, items: [...basis, ...items] } : menu,
+        ),
+      );
+    }
   }
 
   function toets(event: React.KeyboardEvent, tabblad: Tabblad | null) {

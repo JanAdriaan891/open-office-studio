@@ -1,6 +1,5 @@
 import i18next from "./i18n/config";
 import type { Soort } from "./editors";
-import type { Rapport } from "./import/rapport";
 import type { Bronkenmerken } from "./import/bron";
 import type { Werkbestand } from "./werkbestand";
 
@@ -21,9 +20,6 @@ export interface DocumentTabblad {
   gewijzigd: boolean;
   exportFormaat: string;
   zoom: number | null;
-  melding: string;
-  /** Rapport over onvolledige ondersteuning na openen (niet-blokkerend). */
-  rapport: Rapport | null;
   /** Versleuteling en macro’s van het origineel, voor opslaan. */
   bron: Bronkenmerken | null;
 }
@@ -33,7 +29,6 @@ export interface ModuleTabblad {
   id: number;
   module: ModuleNaam;
   gewijzigd: boolean;
-  melding: string;
 }
 
 export type Tabblad = DocumentTabblad | ModuleTabblad;
@@ -67,8 +62,6 @@ export type TabbladActie =
       werkbestand?: Werkbestand | null;
       exportFormaat?: string;
       gewijzigd?: boolean;
-      melding?: string;
-      rapport?: Rapport | null;
       bron?: Bronkenmerken | null;
     }
   | { type: "openModule"; module: ModuleNaam }
@@ -89,8 +82,6 @@ export type TabbladActie =
           | "gewijzigd"
           | "exportFormaat"
           | "zoom"
-          | "melding"
-          | "rapport"
           | "naam"
           | "werkbestand"
         >
@@ -207,8 +198,6 @@ export function tabbladReducer(
         gewijzigd: actie.gewijzigd ?? false,
         exportFormaat: actie.exportFormaat ?? actie.soort,
         zoom: null,
-        melding: actie.melding ?? "",
-        rapport: actie.rapport ?? null,
         bron: actie.bron ?? null,
       };
       return {
@@ -231,7 +220,6 @@ export function tabbladReducer(
             id,
             module: actie.module,
             gewijzigd: false,
-            melding: "",
           },
         ],
         actief: id,
@@ -289,9 +277,6 @@ export function tabbladReducer(
             : {
                 ...(actie.wijziging.gewijzigd !== undefined && {
                   gewijzigd: actie.wijziging.gewijzigd,
-                }),
-                ...(actie.wijziging.melding !== undefined && {
-                  melding: actie.wijziging.melding,
                 }),
               };
         const sleutels = Object.keys(wijziging) as (keyof typeof wijziging)[];
