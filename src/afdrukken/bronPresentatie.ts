@@ -180,7 +180,12 @@ export async function presentatiePaginas(
       .flatMap((v) => v.paragraphs)
       .map((p) => p.runs.map((r) => r.text).join(""))
       .find((t) => t.trim());
-    return eerste ? `${index + 1}. ${eerste.trim().slice(0, 80)}` : `Dia ${index + 1}`;
+    return eerste
+      ? i18next.t("presentation:print.slideWithTitle", {
+          number: index + 1,
+          title: eerste.trim().slice(0, 80),
+        })
+      : i18next.t("presentation:print.slide", { number: index + 1 });
   };
 
   if (instellingen.indeling === "dias") {
@@ -321,7 +326,9 @@ export async function presentatiePaginas(
             } else {
               const kop = schrijf(
                 ctx,
-                `Dia ${index + 1} (vervolg)`,
+                i18next.t("presentation:print.slideContinued", {
+                  number: index + 1,
+                }),
                 indeling.vervolg.x,
                 indeling.vervolg.y + 10,
                 10,

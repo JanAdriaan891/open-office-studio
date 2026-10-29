@@ -214,8 +214,11 @@ export function CsvImportVenster({
               <option key={c.waarde} value={c.waarde}>
                 {CODERINGSLABEL[c.waarde] ? t(CODERINGSLABEL[c.waarde]!) : c.naam}
                 {c.waarde === "auto" && voorbeeld.codering
-                  ? ` (${voorbeeld.codering})`
-                  : ""}
+                  ? t("csvImport.encodingDetected", {
+                      name: c.naam,
+                      encoding: voorbeeld.codering,
+                    })
+                  : c.naam}
               </option>
             ))}
           </select>

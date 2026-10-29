@@ -6,11 +6,11 @@
  * apostrofvoorvoegsel, zodat bewerken er ook geen formule van maakt.
  */
 import { strToU8, zipSync } from "fflate";
+import i18next from "../i18n/config";
 import {
   detecteerCodering,
   type Codering,
 } from "../../packages/email/src/voorbeeld/codering";
-import i18next from "../i18n/config";
 import { xmlTekst } from "./docxschrijver";
 
 export type CsvCodering =
@@ -52,9 +52,19 @@ export const STANDAARD_INSTELLINGEN: CsvInstellingen = {
 };
 
 export const CODERINGEN: { waarde: CsvCodering; naam: string }[] = [
-  { waarde: "auto", naam: "Automatisch" },
+  {
+    waarde: "auto",
+    get naam() {
+      return i18next.t("spreadsheet:csvImport.encodingAuto");
+    },
+  },
   { waarde: "utf-8", naam: "UTF-8" },
-  { waarde: "windows-1252", naam: "Windows-1252 (West-Europees)" },
+  {
+    waarde: "windows-1252",
+    get naam() {
+      return i18next.t("spreadsheet:csvImport.encodingWindows1252");
+    },
+  },
   { waarde: "iso-8859-15", naam: "ISO-8859-15 (Latin-9)" },
   { waarde: "utf-16le", naam: "UTF-16 LE" },
   { waarde: "utf-16be", naam: "UTF-16 BE" },
