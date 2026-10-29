@@ -18,6 +18,12 @@ export const SJABLONEN = [
   { naam: "databaseStudio", pad: "apps/database-studio/src-tauri/linux/open-database-studio.desktop.hbs" },
 ];
 
+/**
+ * Talen van de installers en startmenu-items (Linux .desktop, macOS Info.plist, NSIS).
+ * Alleen talen die ook in src/i18n/talen.ts staan worden gebruikt.
+ */
+export const DESKTOPTALEN = ["nl", "en", "de", "fr", "es", "it", "pt-BR", "zh-CN"];
+
 /** Taalcode van de interface → localecode in een .desktop-bestand (freedesktop). */
 export function desktopLocale(taal) {
   if (taal === "pt-PT") return "pt";
@@ -39,7 +45,7 @@ function trefwoorden(tekst) {
 
 /** Bouwt de inhoud van één sjabloon (Handlebars-variabelen van Tauri blijven staan). */
 export async function maakSjabloon(app, { wortel = ".", talenBestand } = {}) {
-  const talen = await leesTaalcodes(talenBestand ?? join(wortel, "src/i18n/talen.ts"));
+  const talen = (await leesTaalcodes(talenBestand ?? join(wortel, "src/i18n/talen.ts"))).filter((t) => DESKTOPTALEN.includes(t));
   const lees = async (taal) =>
     JSON.parse(await readFile(join(wortel, "src/i18n/locales", taal, "desktop.json"), "utf8")).launcher[app];
   const engels = await lees("en");

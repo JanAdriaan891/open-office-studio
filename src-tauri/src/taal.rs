@@ -20,12 +20,8 @@ macro_rules! bronnen {
     };
 }
 
-/// De 31 talen van de interface (zelfde volgorde als `src/i18n/talen.ts`).
-const BRONNEN: [(&str, &str); 31] = bronnen!(
-    "nl", "en", "de", "fr", "es", "it", "pt-BR", "pt-PT", "pl", "cs", "sk", "hu", "ro", "el", "sv",
-    "da", "nb", "fi", "tr", "ru", "uk", "ar", "he", "hi", "id", "vi", "th", "zh-CN", "zh-TW", "ja",
-    "ko",
-);
+/// De talen van de interface (zelfde volgorde als `src/i18n/talen.ts`).
+const BRONNEN: [(&str, &str); 8] = bronnen!("nl", "en", "de", "fr", "es", "it", "pt-BR", "zh-CN");
 const ENGELS: usize = 1;
 const ONBEKEND: usize = usize::MAX;
 
@@ -59,26 +55,10 @@ pub fn zoek_taal(tag: &str) -> Option<&'static str> {
     if let Some((code, _)) = BRONNEN.iter().find(|(code, _)| code.to_lowercase() == volledig) {
         return Some(code);
     }
-    let rest = &delen[1..];
     match hoofd {
-        "pt" => Some(match rest.iter().find(|d| d.len() == 2) {
-            None => "pt-BR",
-            Some(regio) if regio == "br" => "pt-BR",
-            Some(_) => "pt-PT",
-        }),
-        "zh" => Some(
-            if rest
-                .iter()
-                .any(|d| matches!(d.as_str(), "hant" | "tw" | "hk" | "mo"))
-            {
-                "zh-TW"
-            } else {
-                "zh-CN"
-            },
-        ),
-        "no" | "nn" => Some("nb"),
-        "iw" => Some("he"),
-        "in" => Some("id"),
+        // Eén Portugese en één Chinese variant: elke regio valt daarop terug.
+        "pt" => Some("pt-BR"),
+        "zh" => Some("zh-CN"),
         _ => BRONNEN
             .iter()
             .find(|(code, _)| *code == hoofd)
@@ -339,11 +319,11 @@ mod tests {
     fn herkent_systeemtags() {
         assert_eq!(zoek_taal("nl_NL.UTF-8"), Some("nl"));
         assert_eq!(zoek_taal("pt_BR.UTF-8"), Some("pt-BR"));
-        assert_eq!(zoek_taal("pt_PT"), Some("pt-PT"));
+        assert_eq!(zoek_taal("pt_PT"), Some("pt-BR"));
         assert_eq!(zoek_taal("pt"), Some("pt-BR"));
-        assert_eq!(zoek_taal("zh_HK"), Some("zh-TW"));
+        assert_eq!(zoek_taal("zh_HK"), Some("zh-CN"));
         assert_eq!(zoek_taal("zh-Hans-CN"), Some("zh-CN"));
-        assert_eq!(zoek_taal("nn_NO"), Some("nb"));
+        assert_eq!(zoek_taal("nn_NO"), None);
         assert_eq!(zoek_taal("de_AT@euro"), Some("de"));
         assert_eq!(zoek_taal("xx_YY"), None);
         assert_eq!(zoek_taal(""), None);

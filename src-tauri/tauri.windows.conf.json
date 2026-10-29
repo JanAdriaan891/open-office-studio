@@ -81,46 +81,9 @@
           "Spanish",
           "Italian",
           "PortugueseBR",
-          "Portuguese",
-          "Polish",
-          "Czech",
-          "Slovak",
-          "Hungarian",
-          "Romanian",
-          "Greek",
-          "Swedish",
-          "Danish",
-          "Norwegian",
-          "Finnish",
-          "Turkish",
-          "Russian",
-          "Ukrainian",
-          "Arabic",
-          "Hebrew",
-          "Hindi",
-          "Indonesian",
-          "Vietnamese",
-          "Thai",
-          "SimpChinese",
-          "TradChinese",
-          "Japanese",
-          "Korean"
+          "SimpChinese"
         ],
-        "displayLanguageSelector": true,
-        "customLanguageFiles": {
-          "Polish": "windows/talen/Polish.nsh",
-          "Czech": "windows/talen/Czech.nsh",
-          "Slovak": "windows/talen/Slovak.nsh",
-          "Hungarian": "windows/talen/Hungarian.nsh",
-          "Romanian": "windows/talen/Romanian.nsh",
-          "Greek": "windows/talen/Greek.nsh",
-          "Danish": "windows/talen/Danish.nsh",
-          "Finnish": "windows/talen/Finnish.nsh",
-          "Hebrew": "windows/talen/Hebrew.nsh",
-          "Hindi": "windows/talen/Hindi.nsh",
-          "Indonesian": "windows/talen/Indonesian.nsh",
-          "Thai": "windows/talen/Thai.nsh"
-        }
+        "displayLanguageSelector": true
       }
     }
   }
