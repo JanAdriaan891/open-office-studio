@@ -3,6 +3,7 @@
  * pagina) en notitiepagina's. Dia's worden getekend met dezelfde routine als
  * de editor (`paintSlide`), op de resolutie die het doel vraagt.
  */
+import i18next from "../i18n/config";
 import type { PptxEditorApi } from "@betteroffice/pptx-react";
 import type { SlideDisplayList } from "@betteroffice/pptx";
 import {
@@ -77,7 +78,7 @@ async function tekenDia(
             bytes
               ? decodePresentationImage(
                   bytes,
-                  "Afbeelding kon niet worden gelezen.",
+                  i18next.t("print:errors.imageUnreadable"),
                 ).catch(() => null)
               : Promise.resolve(null),
           );
@@ -131,7 +132,7 @@ function kopEnVoet(
     }),
     schrijf(
       ctx,
-      `${pagina} van ${totaal}`,
+      i18next.t("print:pages.pageNumberOfTotal", { page: pagina, total: totaal }),
       breedte / 2,
       hoogte - PAGINARAND - BAND + 14,
       9,
@@ -168,7 +169,7 @@ export async function presentatiePaginas(
     lijst: api.handle.layoutSlide(index),
     notities: slide.notes ?? "",
   }));
-  if (!dias.length) throw new Error("De presentatie heeft geen dia's.");
+  if (!dias.length) throw new Error(i18next.t("print:errors.noSlides"));
   const verhouding = dias[0].lijst.width / dias[0].lijst.height;
   const { breedte, hoogte } = maat(instellingen, dias[0].lijst);
   const paginas: AfdrukPagina[] = [];
@@ -188,7 +189,7 @@ export async function presentatiePaginas(
       paginas.push({
         breedte,
         hoogte,
-        label: `Dia ${index + 1}`,
+        label: i18next.t("print:pages.slide", { number: index + 1 }),
         teken: async (dpi) => {
           const { canvas, ctx } = paginaCanvas(breedte, hoogte, dpi);
           const vak =
@@ -228,7 +229,11 @@ export async function presentatiePaginas(
       paginas.push({
         breedte,
         hoogte,
-        label: `Hand-out ${p + 1} (dia ${eerste + 1}–${eerste + groep.length})`,
+        label: i18next.t("print:pages.handout", {
+          page: p + 1,
+          first: eerste + 1,
+          last: eerste + groep.length,
+        }),
         teken: async (dpi) => {
           const { canvas, ctx } = paginaCanvas(breedte, hoogte, dpi);
           const tekst: TekstStuk[] = kopEnVoet(
@@ -288,8 +293,8 @@ export async function presentatiePaginas(
           hoogte,
           label:
             deel === 0
-              ? `Notities dia ${index + 1}`
-              : `Notities dia ${index + 1} (vervolg)`,
+              ? i18next.t("print:pages.notes", { number: index + 1 })
+              : i18next.t("print:pages.notesContinued", { number: index + 1 }),
           teken: async (dpi) => {
             const { canvas, ctx } = paginaCanvas(breedte, hoogte, dpi);
             const tekst = kopEnVoet(

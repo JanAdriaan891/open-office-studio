@@ -32,6 +32,7 @@
     "slide": "Slide {{number}}",
     "handout": "Handout {{page}} (slides {{first}}–{{last}})",
     "notes": "Notes slide {{number}}",
-    "notesContinued": "Notes slide {{number}} (continued)"
+    "notesContinued": "Notes slide {{number}} (continued)",
+    "pageNumberOfTotal": "{{page}} of {{total}}"
   }
 }
