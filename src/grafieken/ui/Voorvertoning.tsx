@@ -1,10 +1,9 @@
 import { useMemo } from "react";
-import { useTranslation } from "react-i18next";
-import { useOpmaak } from "../../i18n/opmaak";
 import {
   isCirkel,
   kleurVan,
   leesGetal,
+  nlGetal,
   PALET,
   type GrafiekModel,
 } from "../model.ts";
@@ -32,15 +31,13 @@ function afkorten(t: string, n: number) {
 
 /** Een eigen SVG-tekening van het model, voor het live voorbeeld in het venster. */
 export function Voorvertoning({ model, klein }: { model: GrafiekModel; klein?: boolean }) {
-  const { t } = useTranslation("charts");
-  const opmaak = useOpmaak();
-  const inhoud = useMemo(() => teken(model, opmaak), [model, opmaak]);
+  const inhoud = useMemo(() => teken(model), [model]);
   return (
     <svg
       className={klein ? "grafiek-voorbeeld-klein" : "grafiek-voorbeeld"}
       viewBox={`0 0 ${B} ${H}`}
       role="img"
-      aria-label={t("preview.label", { title: model.titel || t("preview.untitled") })}
+      aria-label={`Voorbeeld: ${model.titel || "grafiek zonder titel"}`}
     >
       <rect width={B} height={H} fill="#fff" />
       {inhoud}
@@ -48,10 +45,7 @@ export function Voorvertoning({ model, klein }: { model: GrafiekModel; klein?: b
   );
 }
 
-/** Getallen in de voorvertoning volgen de interfacetaal (alleen weergave; het bestand houdt zijn getalnotatie). */
-function teken(model: GrafiekModel, opmaak: Pick<ReturnType<typeof useOpmaak>, "getal" | "procent">) {
-  const getal = (w: number, d = 0) => opmaak.getal(w, { minimumFractionDigits: d, maximumFractionDigits: d });
-  const pct = (fractie: number, d = 0) => opmaak.procent(fractie, { minimumFractionDigits: d, maximumFractionDigits: d });
+function teken(model: GrafiekModel) {
   const delen: React.ReactNode[] = [];
   let boven = 10;
   if (model.titel) {
@@ -114,7 +108,7 @@ function teken(model: GrafiekModel, opmaak: Pick<ReturnType<typeof useOpmaak>, "
   }
   if (!n || !reeksen.length) return delen;
   const label = (w: number | null, procent = false) =>
-    w === null ? "" : procent ? pct(w, model.decimalen) : getal(w, model.decimalen);
+    w === null ? "" : procent ? `${nlGetal(w * 100, model.decimalen)}%` : nlGetal(w, model.decimalen);
 
   if (cirkel) {
     const cx = (links + rechts) / 2, cy = (boven + 6 + onder) / 2;
@@ -178,7 +172,7 @@ function teken(model: GrafiekModel, opmaak: Pick<ReturnType<typeof useOpmaak>, "
   const schaal2 = combinatie ? asSchaal(Math.min(...waardenVan(tweede), 0), Math.max(...waardenVan(tweede), 0)) : null;
   const xs = spreiding ? model.categorieen.map((c) => leesGetal(c) ?? 0) : [];
   const xSchaal = spreiding ? asSchaal(Math.min(...xs), Math.max(...xs)) : null;
-  const asLabel = (w: number) => (procent ? pct(w) : getal(w, Math.abs(schaal.stap) < 1 ? Math.min(3, Math.ceil(-Math.log10(schaal.stap))) : 0));
+  const asLabel = (w: number) => (procent ? `${Math.round(w * 100)}%` : nlGetal(w, Math.abs(schaal.stap) < 1 ? Math.min(3, Math.ceil(-Math.log10(schaal.stap))) : 0));
   const breedteLabels = horizontaal ? Math.min(70, 6 + 5.5 * Math.max(...model.categorieen.map((c) => afkorten(c, 12).length))) : 8 + 5.5 * Math.max(...[schaal.min, schaal.max].map((w) => asLabel(w).length));
   if (model.asTitelY) links += 14;
   if (model.asTitelX) onder -= 14;
@@ -203,7 +197,7 @@ function teken(model: GrafiekModel, opmaak: Pick<ReturnType<typeof useOpmaak>, "
   }
   if (schaal2)
     for (let w = schaal2.min, k = 0; w <= schaal2.max + schaal2.stap / 1e6 && k < 30; w += schaal2.stap, k++)
-      delen.push(<text key={`b${k}`} x={x1 + 4} y={vw(w, schaal2) + 3} fontSize="9" fill={TEKST}>{getal(w)}</text>);
+      delen.push(<text key={`b${k}`} x={x1 + 4} y={vw(w, schaal2) + 3} fontSize="9" fill={TEKST}>{nlGetal(w)}</text>);
   // Categorie-as.
   const nul = vw(Math.max(schaal.min, Math.min(0, schaal.max)));
   delen.push(
@@ -214,7 +208,7 @@ function teken(model: GrafiekModel, opmaak: Pick<ReturnType<typeof useOpmaak>, "
   if (spreiding && xSchaal) {
     const xw = (w: number) => x0 + ((w - xSchaal.min) / (xSchaal.max - xSchaal.min)) * W;
     for (let w = xSchaal.min, k = 0; w <= xSchaal.max + xSchaal.stap / 1e6 && k < 30; w += xSchaal.stap, k++)
-      delen.push(<text key={`x${k}`} x={xw(w)} y={y1 + 12} textAnchor="middle" fontSize="9" fill={TEKST}>{getal(w, xSchaal.stap < 1 ? 1 : 0)}</text>);
+      delen.push(<text key={`x${k}`} x={xw(w)} y={y1 + 12} textAnchor="middle" fontSize="9" fill={TEKST}>{nlGetal(w, xSchaal.stap < 1 ? 1 : 0)}</text>);
     reeksen.forEach((r, ri) =>
       r.waarden.forEach((w, i) => {
         if (w === null) return;

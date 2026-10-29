@@ -4,7 +4,6 @@
  * en de rest van het onderdeel byte-voor-byte behouden.
  */
 import { GrafiekFout } from "./fouten.ts";
-import { vertaal } from "./teksten.ts";
 
 export interface XmlElement {
   soort: "element";
@@ -65,11 +64,11 @@ export function ontcijfer(tekst: string) {
 /** Ontleedt een XML-document en geeft het wortelelement terug. */
 export function leesXml(bron: string): XmlElement {
   if (bron.length > MAX_LENGTE)
-    throw new GrafiekFout(vertaal("errors.xmlTooLarge"));
+    throw new GrafiekFout("Een XML-onderdeel is te groot om te verwerken.");
   let i = 0;
   let wortel: XmlElement | null = null;
   const stapel: XmlElement[] = [];
-  const fout = (bericht = vertaal("errors.xmlDamaged")) => {
+  const fout = (bericht = "Het XML-onderdeel is beschadigd.") => {
     throw new GrafiekFout(bericht);
   };
   while (i < bron.length) {
@@ -111,7 +110,7 @@ export function leesXml(bron: string): XmlElement {
       continue;
     }
     if (bron.startsWith("<!", i))
-      fout(vertaal("errors.xmlDoctype"));
+      fout("XML met een DOCTYPE wordt om veiligheidsredenen niet verwerkt.");
     if (bron[i + 1] === "/") {
       const e = bron.indexOf(">", i);
       if (e < 0) fout();
@@ -167,7 +166,7 @@ export function leesXml(bron: string): XmlElement {
     else wortel = element;
     if (!leeg) {
       stapel.push(element);
-      if (stapel.length > MAX_DIEPTE) fout(vertaal("errors.xmlTooDeep"));
+      if (stapel.length > MAX_DIEPTE) fout("Het XML-onderdeel is te diep genest.");
     }
     i = tagEind;
   }
@@ -256,7 +255,7 @@ export function vervang(bron: string, vervangingen: Vervanging[]) {
   let positie = 0;
   for (const v of geordend) {
     if (v.start < positie)
-      throw new GrafiekFout(vertaal("errors.xmlOverlap"));
+      throw new GrafiekFout("Interne fout: overlappende XML-wijzigingen.");
     uit += bron.slice(positie, v.start) + v.tekst;
     positie = v.eind;
   }

@@ -4,7 +4,6 @@
  */
 import { strFromU8, strToU8, unzipSync, zipSync, type Zippable } from "fflate";
 import { GrafiekFout, LIMIETEN } from "./fouten.ts";
-import { vertaal } from "./teksten.ts";
 import { attr, attrTekst, kinderen, leesXml, ontsnap, vervang } from "./xml.ts";
 
 export const REL = {
@@ -38,7 +37,7 @@ export class Pakket {
 
   constructor(bytes: Uint8Array) {
     if (bytes.byteLength > LIMIETEN.pakketBytes)
-      throw new GrafiekFout(vertaal("errors.documentTooLarge"));
+      throw new GrafiekFout("Het document is te groot om er een grafiek in te bewerken.");
     let totaal = 0;
     let aantal = 0;
     let bestanden: Record<string, Uint8Array>;
@@ -48,25 +47,25 @@ export class Pakket {
           aantal++;
           totaal += f.originalSize;
           if (aantal > LIMIETEN.onderdelen || totaal > LIMIETEN.uitgepaktBytes)
-            throw new GrafiekFout(vertaal("errors.tooManyParts"));
+            throw new GrafiekFout("Het document bevat te veel of te grote onderdelen.");
           return true;
         },
       });
     } catch (e) {
       if (e instanceof GrafiekFout) throw e;
-      throw new GrafiekFout(vertaal("errors.notZip"));
+      throw new GrafiekFout("Het document is geen geldig Office-bestand (zip).");
     }
     this.onderdelen = new Map();
     this.volgorde = [];
     for (const [naam, inhoud] of Object.entries(bestanden)) {
       if (naam.endsWith("/")) continue;
       if (naam.includes("\\") || naam.split("/").includes(".."))
-        throw new GrafiekFout(vertaal("errors.invalidPartName"));
+        throw new GrafiekFout("Het document bevat een ongeldige onderdeelnaam.");
       this.onderdelen.set(naam, inhoud);
       this.volgorde.push(naam);
     }
     if (!this.onderdelen.has("[Content_Types].xml"))
-      throw new GrafiekFout(vertaal("errors.missingContentTypes"));
+      throw new GrafiekFout("Het document mist [Content_Types].xml.");
   }
 
   heeft(pad: string) {
@@ -79,7 +78,7 @@ export class Pakket {
     const t = this.tekst.get(pad);
     if (t !== undefined) return t;
     const b = this.onderdelen.get(pad);
-    if (!b) throw new GrafiekFout(vertaal("errors.partMissing", { path: pad }));
+    if (!b) throw new GrafiekFout(`Onderdeel ${pad} ontbreekt in het document.`);
     let s = strFromU8(b);
     if (s.charCodeAt(0) === 0xfeff) s = s.slice(1);
     return s;
@@ -110,7 +109,7 @@ export class Pakket {
       const pad = patroon.replace("#", String(n));
       if (!bezet.has(pad.toLowerCase())) return pad;
     }
-    throw new GrafiekFout(vertaal("errors.noFreePartName"));
+    throw new GrafiekFout("Er is geen vrije onderdeelnaam meer.");
   }
 
   // --- Relaties --------------------------------------------------------

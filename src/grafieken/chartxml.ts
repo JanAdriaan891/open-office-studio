@@ -2,7 +2,6 @@
  * DrawingML-grafiek (`c:chartSpace`) schrijven, lezen en gericht bijwerken.
  */
 import { GrafiekFout } from "./fouten.ts";
-import { vertaal } from "./teksten.ts";
 import {
   controleerModel,
   getalnotatie,
@@ -302,11 +301,11 @@ function bronWaarden(el: XmlElement | null): { tekst: string[]; getal: (number |
 
 function reeksNaam(ser: XmlElement, i: number) {
   const tx = kind(ser, "tx");
-  if (!tx) return { naam: vertaal("defaults.series", { n: i + 1 }) };
+  if (!tx) return { naam: `Reeks ${i + 1}` };
   const directe = kind(tx, "v");
   if (directe) return { naam: tekstVan(directe) };
   const b = bronWaarden(tx);
-  return { naam: b.tekst[0] || vertaal("defaults.series", { n: i + 1 }), ref: b.ref };
+  return { naam: b.tekst[0] || `Reeks ${i + 1}`, ref: b.ref };
 }
 /** Kleur van een reeks; taartreeksen hebben kleuren per punt en geven er geen. */
 function reeksKleur(ser: XmlElement) {
@@ -342,26 +341,26 @@ const AAN = (el: XmlElement | null) => !!el && attr(el, "val") !== "0" && attr(e
 export function leesGrafiekXml(xml: string): GelezenGrafiek {
   const wortel = leesXml(xml);
   if (wortel.lokaal !== "chartSpace")
-    throw new GrafiekFout(vertaal("errors.notChart"));
+    throw new GrafiekFout("Dit onderdeel is geen DrawingML-grafiek.");
   if (voorvoegselVoor(wortel, NS_C) === null)
     return {
       model: standaardModel(),
       bewerkbaar: false,
-      reden: vertaal("compat.extendedChart"),
+      reden: "Dit is een uitgebreide grafiek (zoals een waterval- of boomstructuurgrafiek) die hier niet bewerkt kan worden.",
       waarschuwingen: [],
       groepen: [],
     };
   const chart = kind(wortel, "chart");
   const plot = kind(chart, "plotArea");
-  if (!chart || !plot) throw new GrafiekFout(vertaal("errors.noPlotArea"));
+  if (!chart || !plot) throw new GrafiekFout("De grafiek heeft geen tekengebied.");
   const groepenEl = elementen(plot).filter((e) => e.lokaal.endsWith("Chart"));
   const groepen = groepenEl.map((g) => g.lokaal);
   const waarschuwingen: string[] = [];
   let reden: string | undefined;
   const onbekend = groepen.filter((g) => !ONDERSTEUND.has(g));
   if (onbekend.length)
-    reden = vertaal("compat.unsupportedType", { types: onbekend.join(", ") });
-  if (!groepenEl.length) reden = vertaal("compat.noReadableSeries");
+    reden = `Deze grafiek gebruikt een soort die hier niet bewerkt kan worden (${onbekend.join(", ")}).`;
+  if (!groepenEl.length) reden = "De grafiek bevat geen reeksen die we kunnen lezen.";
 
   const titelRegels = rijkeRegels(pad(chart, "title", "tx")).filter((r) => r.trim());
   const legend = kind(chart, "legend");
@@ -390,17 +389,17 @@ export function leesGrafiekXml(xml: string): GelezenGrafiek {
         if (dir === "bar") {
           soort = "staaf";
           if (gr === "stacked" || gr === "percentStacked")
-            waarschuwingen.push(vertaal("compat.stackedBars"));
+            waarschuwingen.push("Gestapelde staven worden bij bewerken naast elkaar gezet.");
         } else soort = gr === "stacked" ? "kolomGestapeld" : gr === "percentStacked" ? "kolom100" : "kolom";
         break;
       }
       case "lineChart":
         soort = markeringen(eerste) ? "lijnMarkering" : "lijn";
-        if (groepering(eerste) !== "standard") waarschuwingen.push(vertaal("compat.stackedLines"));
+        if (groepering(eerste) !== "standard") waarschuwingen.push("Gestapelde lijnen worden bij bewerken losse lijnen.");
         break;
       case "areaChart":
         soort = "vlak";
-        if (groepering(eerste) !== "standard") waarschuwingen.push(vertaal("compat.stackedAreas"));
+        if (groepering(eerste) !== "standard") waarschuwingen.push("Gestapelde vlakken worden bij bewerken losse vlakken.");
         break;
       case "pieChart":
         soort = "taart";
@@ -416,11 +415,11 @@ export function leesGrafiekXml(xml: string): GelezenGrafiek {
   if (groepen.length === 2 && groepen[0] === "barChart" && groepen[1] === "lineChart") soort = "combinatie";
   else if (groepen.length === 2 && groepen[0] === "lineChart" && groepen[1] === "barChart") {
     soort = "combinatie";
-    waarschuwingen.push(vertaal("compat.linesAfterColumns"));
+    waarschuwingen.push("De lijnreeksen komen bij bewerken na de kolommen.");
   } else if (groepen.length > 1 && !reden)
-    reden = vertaal("compat.unsupportedCombination");
+    reden = "Deze grafiek combineert soorten op een manier die hier niet bewerkt kan worden.";
   if (soort === "combinatie" && kinderen(groepenEl[groepen.indexOf("lineChart")], "ser").length > 1)
-    waarschuwingen.push(vertaal("compat.onlyLastAsLine"));
+    waarschuwingen.push("Bij bewerken wordt alleen de laatste reeks als lijn getekend.");
 
   // Reeksen in volgorde.
   const series = groepenEl
@@ -441,7 +440,7 @@ export function leesGrafiekXml(xml: string): GelezenGrafiek {
     const yEl = kind(ser, "val") ?? kind(ser, "yVal");
     const cat = bronWaarden(xEl);
     const val = bronWaarden(yEl);
-    if (cat.meerlaags) waarschuwingen.push(vertaal("compat.multiLevelCategories"));
+    if (cat.meerlaags) waarschuwingen.push("Categorieën met meerdere niveaus worden bij bewerken één niveau.");
     if (i === 0) {
       const n = Math.max(cat.tekst.length, val.getal.length);
       categorieen = Array.from({ length: n }, (_, k) => cat.tekst[k] || (xEl ? "" : String(k + 1)) || String(k + 1));
@@ -450,11 +449,11 @@ export function leesGrafiekXml(xml: string): GelezenGrafiek {
     const waarden = Array.from({ length: categorieen.length }, (_, k) => val.getal[k] ?? null);
     const naam = reeksNaam(ser, i);
     reeksen.push({ naam: naam.naam, naamRef: naam.ref, waarden, waardenRef: val.ref, kleur: reeksKleur(ser) });
-    if (val.getal.length > categorieen.length) waarschuwingen.push(vertaal("compat.moreValues", { name: naam.naam }));
+    if (val.getal.length > categorieen.length) waarschuwingen.push(`Reeks ‘${naam.naam}’ heeft meer waarden dan er categorieën zijn.`);
   });
-  if (!series.length && !reden) reden = vertaal("compat.noSeries");
+  if (!series.length && !reden) reden = "De grafiek bevat geen gegevensreeksen.";
   if (series.some((s) => kind(s, "trendline") || kind(s, "errBars")))
-    waarschuwingen.push(vertaal("compat.trendlines"));
+    waarschuwingen.push("Trendlijnen en foutbalken vervallen bij bewerken.");
 
   // Assen.
   const catAssen = kinderen(plot, "catAx").concat(kinderen(plot, "dateAx"));
@@ -496,14 +495,12 @@ export function leesGrafiekXml(xml: string): GelezenGrafiek {
     try {
       controleerModel(model);
     } catch (e) {
-      reden = vertaal("compat.invalid", {
-        reason: e instanceof Error ? e.message.charAt(0).toLowerCase() + e.message.slice(1) : String(e),
-      });
+      reden = `Deze grafiek kan hier niet worden bewerkt: ${e instanceof Error ? e.message.charAt(0).toLowerCase() + e.message.slice(1) : String(e)}`;
     }
   const extern = kind(wortel, "externalData");
   const prefC = voorvoegselVoor(wortel, NS_C);
   if (!reden && prefC !== "c" && prefC !== null)
-    reden = vertaal("compat.unusualXml");
+    reden = "Deze grafiek gebruikt een afwijkende XML-schrijfwijze en kan hier niet veilig bewerkt worden.";
   return {
     model,
     bewerkbaar: !reden,
@@ -521,7 +518,7 @@ export function leesGrafiekXml(xml: string): GelezenGrafiek {
 export function werkGrafiekXmlBij(xml: string, model: GrafiekModel) {
   controleerModel(model);
   const gelezen = leesGrafiekXml(xml);
-  if (!gelezen.bewerkbaar) throw new GrafiekFout(gelezen.reden ?? vertaal("errors.cannotEdit"));
+  if (!gelezen.bewerkbaar) throw new GrafiekFout(gelezen.reden ?? "Deze grafiek kan niet worden bewerkt.");
   const wortel = leesXml(xml);
   const chart = kind(wortel, "chart")!;
   const plot = kind(chart, "plotArea")!;
@@ -530,7 +527,7 @@ export function werkGrafiekXmlBij(xml: string, model: GrafiekModel) {
   const nodig: string[] = [];
   const aPref = voorvoegselVoor(wortel, NS_A);
   if (aPref === null) nodig.push(` xmlns:a="${NS_A}"`);
-  else if (aPref !== "a") throw new GrafiekFout(vertaal("compat.unusualXml"));
+  else if (aPref !== "a") throw new GrafiekFout("Deze grafiek gebruikt een afwijkende XML-schrijfwijze en kan hier niet veilig bewerkt worden.");
   if (nodig.length) {
     const p = wortel.leeg ? wortel.inhoudStart - 2 : wortel.inhoudStart - 1;
     wijzigingen.push({ start: p, eind: p, tekst: nodig.join("") });
