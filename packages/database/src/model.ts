@@ -84,8 +84,9 @@ export function controleerDatabaseBestand(file: File) {
 export const voorbeeld: DatabaseSession = {
   naam: "Voorbeelddatabase",
   voorbeeld: true,
-  melding:
-    "Demonstratie met ingebouwde voorbeeldgegevens. Dit zijn geen gegevens uit een geopend databasebestand.",
+  get melding() {
+    return i18next.t("database:model.sampleNotice");
+  },
   objecten: [
     {
       id: "materialen",

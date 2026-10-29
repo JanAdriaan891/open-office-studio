@@ -32,7 +32,8 @@
       "format": "Format: {{value}}",
       "reader": "Reader: {{value}}",
       "date": "Date: {{value}}"
-    }
+    },
+    "sampleNotice": "Demonstration with built-in sample data. This is not data from an opened database file."
   },
   "objects": {
     "plural": {

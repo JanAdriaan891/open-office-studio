@@ -32,7 +32,8 @@
       "format": "Formaat: {{value}}",
       "reader": "Lezer: {{value}}",
       "date": "Datum: {{value}}"
-    }
+    },
+    "sampleNotice": "Demonstratie met ingebouwde voorbeeldgegevens. Dit zijn geen gegevens uit een geopend databasebestand."
   },
   "objects": {
     "plural": {
