@@ -1,56 +1,56 @@
 {
   "actions": {
-    "noSuggestions": "(no suggestions)",
-    "ignoreAll": "Ignore All",
-    "addToDictionary": "Add to Dictionary",
-    "paragraphLanguage": "Language of this paragraph"
+    "noSuggestions": "(لا توجد اقتراحات)",
+    "ignoreAll": "تجاهل الكل",
+    "addToDictionary": "إضافة إلى القاموس",
+    "paragraphLanguage": "لغة هذه الفقرة"
   },
   "dialog": {
-    "title": "Spelling and Grammar",
-    "closeTooltip": "Close (Esc)",
-    "checking": "Checking document…",
-    "complete": "The spelling check is complete. No (more) unknown words were found.",
-    "notInDictionary": "Not in dictionary ({{language}}):",
-    "changeTo": "Change to",
-    "suggestions": "Suggestions",
-    "searching": "Searching…",
-    "change": "Change",
-    "changeAll": "Change All",
-    "ignoreOnce": "Ignore Once"
+    "title": "التدقيق الإملائي والنحوي",
+    "closeTooltip": "إغلاق (Esc)",
+    "checking": "جارٍ تدقيق المستند…",
+    "complete": "اكتمل التدقيق الإملائي. لم يتم العثور على (مزيد من) الكلمات غير المعروفة.",
+    "notInDictionary": "غير موجودة في القاموس ({{language}}):",
+    "changeTo": "تغيير إلى",
+    "suggestions": "الاقتراحات",
+    "searching": "جارٍ البحث…",
+    "change": "تغيير",
+    "changeAll": "تغيير الكل",
+    "ignoreOnce": "تجاهل مرة واحدة"
   },
   "language": {
-    "none": "Do not check",
+    "none": "عدم التدقيق",
     "short": {
-      "enGB": "English (UK)",
-      "enUS": "English (US)"
+      "enGB": "الإنجليزية (المملكة المتحدة)",
+      "enUS": "الإنجليزية (الولايات المتحدة)"
     }
   },
   "menu": {
-    "label": "Spelling: {{word}}",
-    "searchingSuggestions": "Searching for suggestions…",
-    "openDialog": "Spelling and Grammar… ({{key}})"
+    "label": "الإملاء: {{word}}",
+    "searchingSuggestions": "جارٍ البحث عن اقتراحات…",
+    "openDialog": "التدقيق الإملائي والنحوي… ({{key}})"
   },
   "settings": {
-    "title": "Spelling and AutoCorrect",
-    "checkWhileTyping": "Check spelling as you type (red wavy underline)",
-    "ignoreUppercase": "Ignore words in UPPERCASE",
-    "ignoreNumbers": "Ignore words that contain numbers",
-    "autocorrect": "AutoCorrect: TWo INitial CApitals, capitalize the first letter of sentences and common typos",
-    "dictionariesHelp": "Dictionaries: OpenTaal (Dutch) and SCOWL (English, UK and US). Right-click an underlined word for suggestions; {{key}} opens the Spelling and Grammar pane.",
-    "personalListButton": "Personal dictionary ({{number}})…",
-    "personalList": "Personal dictionary",
-    "noWords": "No words added yet.",
-    "removeWord": "Remove {{word}}"
+    "title": "الإملاء والتصحيح التلقائي",
+    "checkWhileTyping": "تدقيق الإملاء أثناء الكتابة (خط متموج أحمر)",
+    "ignoreUppercase": "تجاهل الكلمات المكتوبة بأحرف كبيرة",
+    "ignoreNumbers": "تجاهل الكلمات التي تحتوي على أرقام",
+    "autocorrect": "التصحيح التلقائي: حرفان كبيران في البداية، والحرف الأول من الجملة كبير، والأخطاء المطبعية الشائعة",
+    "dictionariesHelp": "القواميس: OpenTaal (الهولندية) وSCOWL (الإنجليزية، المملكة المتحدة والولايات المتحدة). انقر بزر الماوس الأيمن على كلمة مسطّرة للحصول على اقتراحات؛ يفتح {{key}} جزء التدقيق الإملائي والنحوي.",
+    "personalListButton": "القاموس الشخصي ({{number}})…",
+    "personalList": "القاموس الشخصي",
+    "noWords": "لم تتم إضافة كلمات بعد.",
+    "removeWord": "إزالة {{word}}"
   },
   "status": {
-    "unavailable": "spelling not available",
-    "checking": "checking spelling…",
-    "noErrors": "no spelling errors",
-    "errors_zero": "{{errors}} spelling errors",
-    "errors_one": "{{errors}} spelling error",
-    "errors_two": "{{errors}} spelling errors",
-    "errors_few": "{{errors}} spelling errors",
-    "errors_many": "{{errors}} spelling errors",
-    "errors_other": "{{errors}} spelling errors"
+    "unavailable": "التدقيق الإملائي غير متوفر",
+    "checking": "جارٍ التدقيق الإملائي…",
+    "noErrors": "لا توجد أخطاء إملائية",
+    "errors_zero": "الأخطاء الإملائية: {{errors}}",
+    "errors_one": "{{errors}} خطأ إملائي",
+    "errors_two": "الأخطاء الإملائية: {{errors}}",
+    "errors_few": "الأخطاء الإملائية: {{errors}}",
+    "errors_many": "الأخطاء الإملائية: {{errors}}",
+    "errors_other": "الأخطاء الإملائية: {{errors}}"
   }
 }

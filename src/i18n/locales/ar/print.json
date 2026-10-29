@@ -1,38 +1,38 @@
 {
   "errors": {
-    "pageConversionFailed": "The page could not be converted.",
-    "noPagesSelected": "No pages have been selected.",
-    "imageUnreadable": "The image could not be read.",
-    "noSlides": "The presentation has no slides.",
-    "notAWorksheet": "Sheet ‘{{name}}’ is not a worksheet and is skipped.",
-    "sheetsEmpty": "There is nothing to print: the sheets are empty.",
-    "documentNotPrepared": "The document could not be prepared for printing.",
-    "noPages": "The document has no pages to print."
+    "pageConversionFailed": "تعذّر تحويل الصفحة.",
+    "noPagesSelected": "لم يتم تحديد أي صفحات.",
+    "imageUnreadable": "تعذّرت قراءة الصورة.",
+    "noSlides": "لا يحتوي العرض التقديمي على شرائح.",
+    "notAWorksheet": "الورقة «{{name}}» ليست ورقة عمل وسيتم تخطيها.",
+    "sheetsEmpty": "لا يوجد ما يُطبع: الأوراق فارغة.",
+    "documentNotPrepared": "تعذّر تجهيز المستند للطباعة.",
+    "noPages": "لا يحتوي المستند على صفحات للطباعة."
   },
   "pageBreaks": {
-    "title": "Page Break Preview",
-    "emptySheet": "This sheet is empty.",
-    "calculating": "Calculating page breaks…",
-    "breakBeforeColumn": "Page break before column {{column}} (drag to move)",
-    "breakBeforeRow": "Page break before row {{row}} (drag to move)",
-    "help": "Solid lines are manual page breaks; dashed lines follow from the paper size and scale. Drag a break, or double-click a boundary to add or remove a break.",
-    "clearManual": "Reset All Page Breaks",
-    "done": "Done",
-    "summary_zero": "Scale {{scale}} · {{pages}} pages",
-    "summary_one": "Scale {{scale}} · {{pages}} page",
-    "summary_two": "Scale {{scale}} · {{pages}} pages",
-    "summary_few": "Scale {{scale}} · {{pages}} pages",
-    "summary_many": "Scale {{scale}} · {{pages}} pages",
-    "summary_other": "Scale {{scale}} · {{pages}} pages"
+    "title": "معاينة فواصل الصفحات",
+    "emptySheet": "هذه الورقة فارغة.",
+    "calculating": "جارٍ حساب فواصل الصفحات…",
+    "breakBeforeColumn": "فاصل صفحة قبل العمود {{column}} (اسحب للنقل)",
+    "breakBeforeRow": "فاصل صفحة قبل الصف {{row}} (اسحب للنقل)",
+    "help": "الخطوط المتصلة فواصل صفحات يدوية؛ الخطوط المتقطعة ناتجة عن حجم الورق والمقياس. اسحب فاصلاً، أو انقر نقراً مزدوجاً على حدّ لإضافة فاصل أو إزالته.",
+    "clearManual": "إعادة تعيين كل فواصل الصفحات",
+    "done": "تم",
+    "summary_zero": "المقياس {{scale}} · الصفحات: {{pages}}",
+    "summary_one": "المقياس {{scale}} · {{pages}} صفحة",
+    "summary_two": "المقياس {{scale}} · الصفحات: {{pages}}",
+    "summary_few": "المقياس {{scale}} · الصفحات: {{pages}}",
+    "summary_many": "المقياس {{scale}} · الصفحات: {{pages}}",
+    "summary_other": "المقياس {{scale}} · الصفحات: {{pages}}"
   },
   "pages": {
-    "page": "Page {{number}}",
-    "pageOfTotal": "Page {{page}} of {{total}}",
-    "sheetPage": "{{sheet}}, page {{page}} of {{total}}",
-    "slide": "Slide {{number}}",
-    "handout": "Handout {{page}} (slides {{first}}–{{last}})",
-    "notes": "Notes slide {{number}}",
-    "notesContinued": "Notes slide {{number}} (continued)",
-    "pageNumberOfTotal": "{{page}} of {{total}}"
+    "page": "الصفحة {{number}}",
+    "pageOfTotal": "الصفحة {{page}} من {{total}}",
+    "sheetPage": "{{sheet}}، الصفحة {{page}} من {{total}}",
+    "slide": "الشريحة {{number}}",
+    "handout": "النشرة {{page}} (الشرائح {{first}}–{{last}})",
+    "notes": "ملاحظات الشريحة {{number}}",
+    "notesContinued": "ملاحظات الشريحة {{number}} (تابع)",
+    "pageNumberOfTotal": "{{page}} من {{total}}"
   }
 }
