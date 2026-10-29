@@ -25,6 +25,8 @@ const GENERIEK: Record<string, string> = {
 };
 
 async function bytesVoor(familie: string, vet: boolean, cursief: boolean): Promise<{ bytes: ArrayBuffer; vet: boolean; cursief: boolean } | null> {
+  // De zelfstandige Database Studio bevat geen kantoorlettertypen; de PDF valt daar terug op beeld + tekstlaag.
+  if (import.meta.env.VITE_DATABASE_APP === "1") return null;
   const fonts = await import("@betteroffice/fonts");
   const { extraFace, isExtraFamilie, laadExtraBytes, lettertypeBasis } = await import("../../lettertypen/catalogus");
   const { opSysteem, systeemLettertypeBytes } = await import("../../lettertypen/systeem");
