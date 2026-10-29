@@ -56,6 +56,7 @@ import {
   LayoutGrid,
   GalleryVertical,
   Presentation,
+  Search,
 } from "lucide-react";
 import {
   Actie,
@@ -71,6 +72,7 @@ import { P, PK, PL, Geschiedenis, Zoom, scrollvlakVan, type Knop } from "./gedee
 import { useDiaActies, DiaKnop, huidigeIndex, type DiaActies } from "./presentatie-acties";
 import { publiceerWeergave, useDiaWeergave, zetWeergave, type DiaWeergave } from "../presentatie/weergave";
 import { specialeTekens } from "./presentatie-opdrachten";
+import { PresentatieZoeken } from "./presentatie-zoekpaneel";
 import {
   DiaGrafiekontwerp,
   GrafiekGroep,
@@ -494,6 +496,7 @@ export function PresentatieRibbon({
     vulling = usePptxCommand("shapeFill"),
     rand = usePptxCommand("shapeStrokeColor");
   const acties = useDiaActies();
+  const api = useEditorApi().presentatie;
   const grafieken = useIngeslotenGrafieken("pptx");
   const [notities, wisselNotities] = useNotities();
   const weergave = useWeergave(acties);
@@ -517,6 +520,17 @@ export function PresentatieRibbon({
     {grafieken.venster}
     {weergave.element}
     {acties.voorstellingElement}
+    {api && acties.zoeken && (
+      <PresentatieZoeken
+        api={api}
+        stand={acties.zoeken}
+        bewerkbaar={acties.bewerkbaar}
+        sluiten={() => {
+          acties.setZoeken(null);
+          api.focus();
+        }}
+      />
+    )}
     <Ribbon
       bestand={bestand}
       tabs={[
@@ -562,6 +576,16 @@ export function PresentatieRibbon({
                   groot
                   uit={!acties.actief}
                   onClick={() => acties.voorstelling(true)}
+                />
+              </Groep>
+              <Groep naam={t("presentation.groups.find")}>
+                <DiaKnop
+                  naam={t("presentation.commands.findReplace")}
+                  icoon={Search}
+                  toets="Ctrl+H"
+                  groot
+                  uit={!acties.actief}
+                  onClick={() => acties.setZoeken(acties.bewerkbaar ? "vervangen" : "zoeken")}
                 />
               </Groep>
             </>
