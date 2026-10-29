@@ -3,7 +3,7 @@ import { ExternalLink, Info, LoaderCircle } from "lucide-react";
 import { Trans, useTranslation } from "react-i18next";
 import i18next from "../../../../src/i18n/config";
 import type { Account, AccountInvoer, MailBackend, OAuthProvider, OAuthStatus } from "../contract";
-import { foutTekst, naarMailFout } from "../fouten";
+import { backendTekst, foutTekst, naarMailFout } from "../fouten";
 import { OAUTH_DOCUMENTATIE, PROVIDERNAAM } from "../oauth";
 
 export type OAuthStatussen = Record<OAuthProvider, OAuthStatus>;
@@ -76,7 +76,7 @@ export function OAuthUitleg({ provider, status }: { provider: OAuthProvider; sta
       <Info size={15} />
       <div>
         <strong>{t("accounts.oauth.unavailableTitle", { provider: PROVIDERNAAM[provider] })}</strong>
-        <p>{status?.melding ?? t("accounts.oauth.notSupported")}</p>
+        <p>{backendTekst(status) || t("accounts.oauth.notSupported")}</p>
         <p>
           <Trans
             t={t}

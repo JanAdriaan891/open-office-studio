@@ -5,7 +5,7 @@ import type { Account, AccountInvoer, MailBackend, Map, OAuthProvider, TestUitko
 import { kanOAuthClientBewaren, OAUTH_DOCUMENTATIE, PROVIDERNAAM } from "../oauth";
 import { OAuthWacht, useOAuth } from "./OAuth";
 import { isGeldigAdres } from "../adressen";
-import { foutTekst } from "../fouten";
+import { backendTekst, foutTekst } from "../fouten";
 import { Dialoog, useVraag } from "./Dialoog";
 import { ServerVelden } from "./ServerVelden";
 import { bewaarIspdb, leesIspdb, vergeetExterneAfzender, vertrouwdeAfzenders } from "./voorkeuren";
@@ -396,7 +396,7 @@ export function AccountInstellingen({
                       {oauth.status
                         ? oauth.status[provider].beschikbaar
                           ? t("accounts.settings.advanced.available")
-                          : (oauth.status[provider].melding ?? t("accounts.settings.advanced.unavailable"))
+                          : (backendTekst(oauth.status[provider]) || t("accounts.settings.advanced.unavailable"))
                         : t("accounts.settings.advanced.loadingStatus")}
                     </p>
                     <label>

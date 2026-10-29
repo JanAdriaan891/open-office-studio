@@ -2,6 +2,7 @@ import { CircleCheck, CircleX, TriangleAlert } from "lucide-react";
 import { Trans, useTranslation } from "react-i18next";
 import type { Authenticatie, Beveiliging, ServerInstelling, TestUitkomst } from "../contract";
 import { STANDAARDPOORT } from "../voorinstellingen";
+import { backendTekst } from "../fouten";
 
 // Labels zonder sleutel zijn protocolnamen en worden niet vertaald.
 const BEVEILIGING: { waarde: Beveiliging; label?: string; sleutel?: string }[] = [
@@ -39,7 +40,7 @@ export function ServerVelden({
           {resultaat && (
             <span className={`email-testuitkomst ${resultaat.ok ? "is-ok" : "is-fout"}`} role="status">
               {resultaat.ok ? <CircleCheck size={14} /> : <CircleX size={14} />}
-              {resultaat.melding}
+              {backendTekst(resultaat)}
             </span>
           )}
         </th>
