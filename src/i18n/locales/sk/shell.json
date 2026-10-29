@@ -75,7 +75,8 @@
     "mainWindow": "Hlavné okno",
     "windowNumber": "Okno {{number}}",
     "unsavedTitle": "Neuložené zmeny",
-    "modified": "zmenené"
+    "modified": "zmenené",
+    "newWindow": "Nové okno"
   },
   "windows": {
     "openInNewWindow": "Otvoriť v novom okne",
@@ -89,7 +90,9 @@
     "mainWindowNoResponse": "Hlavné okno nereaguje. Karta zostane otvorená tu.",
     "newWindowTimeout": "Nové okno neprevzalo dokument včas. Karta zostane otvorená tu.",
     "alreadyMainWindow": "Toto už je hlavné okno.",
-    "popupBlocked": "Nové okno sa nepodarilo otvoriť. Povoľte pre túto stránku automaticky otvárané okná."
+    "popupBlocked": "Nové okno sa nepodarilo otvoriť. Povoľte pre túto stránku automaticky otvárané okná.",
+    "moveToWindow": "Presunúť do: {{window}}",
+    "newWindowFailed": "Nové okno sa nepodarilo otvoriť: {{error}}"
   },
   "dropZone": {
     "release": "Uvoľnením otvoríte",
@@ -119,5 +122,27 @@
     "conflict": "Niekto iný medzitým tento dokument uložil. Vaša verzia bola uložená ako kópia: {{name}}.",
     "readOnly": "{{name}} bol otvorený iba na čítanie. Zmeny uložte pomocou Uložiť ako.",
     "openFailed": "Dokument z pracovného priestoru sa nepodarilo otvoriť: {{error}}"
+  },
+  "title": {
+    "document": "{{document}} — {{app}} ({{module}})",
+    "module": "{{app}} ({{module}})"
+  },
+  "titleBar": {
+    "quickAccess": "Rýchly prístup",
+    "saveTitle": "Uložiť · Ctrl+S",
+    "settings": "Nastavenia",
+    "minimize": "Minimalizovať",
+    "maximize": "Maximalizovať",
+    "restore": "Obnoviť",
+    "close": "Zavrieť okno"
+  },
+  "toasts": {
+    "region": "Oznámenia",
+    "info": "Informácia",
+    "success": "Hotovo",
+    "warning": "Pozor",
+    "error": "Chyba",
+    "details": "Podrobnosti",
+    "less": "Menej"
   }
 }

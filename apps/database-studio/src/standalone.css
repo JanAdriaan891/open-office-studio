@@ -1,3 +1,7 @@
+.office.database-zelfstandig {
+  /* Eigen kopbalk van de losse app; Office Studio heeft een titelbalk van 32 px. */
+  --office-kophoogte: 40px;
+}
 .database-zelfstandig {
   --module-accent: #916223;
   --module-tint: #fbf2df;

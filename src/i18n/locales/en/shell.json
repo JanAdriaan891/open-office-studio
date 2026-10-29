@@ -73,7 +73,8 @@
     "mainWindow": "Main window",
     "windowNumber": "Window {{number}}",
     "unsavedTitle": "Unsaved changes",
-    "modified": "modified"
+    "modified": "modified",
+    "newWindow": "New window"
   },
   "windows": {
     "openInNewWindow": "Open in new window",
@@ -87,7 +88,9 @@
     "mainWindowNoResponse": "The main window is not responding. The tab stays open here.",
     "newWindowTimeout": "The new window did not take over the document in time. The tab stays open here.",
     "alreadyMainWindow": "This is already the main window.",
-    "popupBlocked": "The new window could not be opened. Allow pop-up windows for this page."
+    "popupBlocked": "The new window could not be opened. Allow pop-up windows for this page.",
+    "moveToWindow": "Move to {{window}}",
+    "newWindowFailed": "A new window could not be opened: {{error}}"
   },
   "dropZone": {
     "release": "Release to open",
@@ -117,5 +120,27 @@
     "conflict": "Someone else saved this document in the meantime. Your version was saved as a copy: {{name}}.",
     "readOnly": "{{name}} was opened read-only. Use Save As to keep your changes.",
     "openFailed": "The document from the workspace could not be opened: {{error}}"
+  },
+  "title": {
+    "document": "{{document}} — {{app}} ({{module}})",
+    "module": "{{app}} ({{module}})"
+  },
+  "titleBar": {
+    "quickAccess": "Quick access",
+    "saveTitle": "Save · Ctrl+S",
+    "settings": "Settings",
+    "minimize": "Minimize",
+    "maximize": "Maximize",
+    "restore": "Restore down",
+    "close": "Close window"
+  },
+  "toasts": {
+    "region": "Notifications",
+    "info": "Info",
+    "success": "Done",
+    "warning": "Attention",
+    "error": "Error",
+    "details": "Details",
+    "less": "Less"
   }
 }

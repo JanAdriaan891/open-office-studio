@@ -77,7 +77,8 @@
     "mainWindow": "النافذة الرئيسية",
     "windowNumber": "النافذة {{number}}",
     "unsavedTitle": "تغييرات غير محفوظة",
-    "modified": "معدّل"
+    "modified": "معدّل",
+    "newWindow": "نافذة جديدة"
   },
   "windows": {
     "openInNewWindow": "فتح في نافذة جديدة",
@@ -91,7 +92,9 @@
     "mainWindowNoResponse": "النافذة الرئيسية لا تستجيب. تبقى علامة التبويب مفتوحة هنا.",
     "newWindowTimeout": "لم تتسلم النافذة الجديدة المستند في الوقت المحدد. تبقى علامة التبويب مفتوحة هنا.",
     "alreadyMainWindow": "هذه هي النافذة الرئيسية بالفعل.",
-    "popupBlocked": "تعذّر فتح النافذة الجديدة. اسمح بالنوافذ المنبثقة لهذه الصفحة."
+    "popupBlocked": "تعذّر فتح النافذة الجديدة. اسمح بالنوافذ المنبثقة لهذه الصفحة.",
+    "moveToWindow": "نقل إلى {{window}}",
+    "newWindowFailed": "تعذّر فتح نافذة جديدة: {{error}}"
   },
   "dropZone": {
     "release": "أفلت للفتح",
@@ -121,5 +124,27 @@
     "conflict": "حفظ شخص آخر هذا المستند في هذه الأثناء. حُفظت نسختك كنسخة منفصلة: {{name}}.",
     "readOnly": "فُتح {{name}} للقراءة فقط. استخدم «حفظ باسم» للاحتفاظ بتغييراتك.",
     "openFailed": "تعذّر فتح المستند من مساحة العمل: {{error}}"
+  },
+  "title": {
+    "document": "{{document}} — {{app}} ({{module}})",
+    "module": "{{app}} ({{module}})"
+  },
+  "titleBar": {
+    "quickAccess": "الوصول السريع",
+    "saveTitle": "حفظ · Ctrl+S",
+    "settings": "الإعدادات",
+    "minimize": "تصغير",
+    "maximize": "تكبير",
+    "restore": "استعادة الحجم",
+    "close": "إغلاق النافذة"
+  },
+  "toasts": {
+    "region": "الإشعارات",
+    "info": "معلومة",
+    "success": "تم",
+    "warning": "تنبيه",
+    "error": "خطأ",
+    "details": "التفاصيل",
+    "less": "أقل"
   }
 }

@@ -216,6 +216,7 @@ fn main() {
             vensters::meld_tabbladen,
             vensters::open_documenten,
             vensters::activeer_tabblad,
+            vensters::nieuw_venster,
             converteer_document,
             systeembestanden::systeembestanden,
             systeembestanden::claim_systeembestand,

@@ -73,7 +73,8 @@
     "mainWindow": "Ana pencere",
     "windowNumber": "Pencere {{number}}",
     "unsavedTitle": "Kaydedilmemiş değişiklikler",
-    "modified": "değiştirildi"
+    "modified": "değiştirildi",
+    "newWindow": "Yeni pencere"
   },
   "windows": {
     "openInNewWindow": "Yeni pencerede aç",
@@ -87,7 +88,9 @@
     "mainWindowNoResponse": "Ana pencere yanıt vermiyor. Sekme burada açık kalıyor.",
     "newWindowTimeout": "Yeni pencere belgeyi zamanında devralmadı. Sekme burada açık kalıyor.",
     "alreadyMainWindow": "Bu zaten ana pencere.",
-    "popupBlocked": "Yeni pencere açılamadı. Bu sayfa için açılır pencerelere izin verin."
+    "popupBlocked": "Yeni pencere açılamadı. Bu sayfa için açılır pencerelere izin verin.",
+    "moveToWindow": "Şuraya taşı: {{window}}",
+    "newWindowFailed": "Yeni pencere açılamadı: {{error}}"
   },
   "dropZone": {
     "release": "Açmak için bırakın",
@@ -117,5 +120,27 @@
     "conflict": "Bu belgeyi bu arada başka biri kaydetti. Sürümünüz kopya olarak kaydedildi: {{name}}.",
     "readOnly": "{{name}} salt okunur açıldı. Değişikliklerinizi korumak için Farklı Kaydet'i kullanın.",
     "openFailed": "Çalışma alanındaki belge açılamadı: {{error}}"
+  },
+  "title": {
+    "document": "{{document}} — {{app}} ({{module}})",
+    "module": "{{app}} ({{module}})"
+  },
+  "titleBar": {
+    "quickAccess": "Hızlı erişim",
+    "saveTitle": "Kaydet · Ctrl+S",
+    "settings": "Ayarlar",
+    "minimize": "Simge durumuna küçült",
+    "maximize": "Ekranı kapla",
+    "restore": "Önceki boyut",
+    "close": "Pencereyi kapat"
+  },
+  "toasts": {
+    "region": "Bildirimler",
+    "info": "Bilgi",
+    "success": "Tamamlandı",
+    "warning": "Dikkat",
+    "error": "Hata",
+    "details": "Ayrıntılar",
+    "less": "Daha az"
   }
 }
