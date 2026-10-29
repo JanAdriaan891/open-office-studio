@@ -285,7 +285,14 @@ export const vasteSneltoetsen: readonly SneltoetsInfo[] = [
   rekenbladEngine("Ctrl+Z", "undo"),
   rekenbladEngine("Ctrl+Y", "redo"),
   rekenbladEngine("Ctrl+Shift+Z", "redo"),
-  ...klembord(rekenbladEngine),
+  // Klembord als HTML-tabel en tekst, plakken speciaal (src/rekenblad/RekenbladExtra.tsx).
+  rekenblad("Ctrl+X", "cut"),
+  rekenblad("Ctrl+C", "copy"),
+  rekenblad("Ctrl+V", "paste"),
+  rekenblad("Ctrl+Shift+V", "pasteValues"),
+  rekenblad("Ctrl+Alt+V", "pasteSpecial"),
+  rekenblad("Ctrl+1", "formatCells"),
+  rekenbladEngine("Ctrl+A", "selectAll"),
 
   // Presentatie: lint (src/lint/presentatie-acties.tsx).
   presentatie("F5", "slideshowFromBeginning"),
