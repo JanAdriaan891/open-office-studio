@@ -114,5 +114,10 @@
   "theme": {
     "light": "Motyw jasny",
     "forge": "Motyw Forge"
+  },
+  "host": {
+    "conflict": "Ktoś inny zapisał w międzyczasie ten dokument. Twoja wersja została zapisana jako kopia: {{name}}.",
+    "readOnly": "{{name}} otwarto tylko do odczytu. Użyj polecenia Zapisz jako, aby zachować zmiany.",
+    "openFailed": "Nie można otworzyć dokumentu z obszaru roboczego: {{error}}"
   }
 }

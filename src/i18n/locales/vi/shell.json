@@ -111,5 +111,10 @@
   "theme": {
     "light": "Chủ đề sáng",
     "forge": "Chủ đề Forge"
+  },
+  "host": {
+    "conflict": "Người khác đã lưu tài liệu này trong lúc đó. Phiên bản của bạn đã được lưu thành bản sao: {{name}}.",
+    "readOnly": "{{name}} được mở ở chế độ chỉ đọc. Dùng Lưu thành để giữ các thay đổi của bạn.",
+    "openFailed": "Không thể mở tài liệu từ không gian làm việc: {{error}}"
   }
 }

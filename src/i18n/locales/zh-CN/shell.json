@@ -111,5 +111,10 @@
   "theme": {
     "light": "浅色主题",
     "forge": "Forge 主题"
+  },
+  "host": {
+    "conflict": "其他人在此期间保存了此文档。你的版本已另存为副本：{{name}}。",
+    "readOnly": "{{name}} 以只读方式打开。请使用“另存为”保留你的更改。",
+    "openFailed": "无法打开工作区中的文档：{{error}}"
   }
 }
