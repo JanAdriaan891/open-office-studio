@@ -115,10 +115,7 @@ impl Vensters {
 
 /// Sluitmelding met het aantal documenten in dit venster.
 pub fn sluitvraag(aantal: u32) -> String {
-    match aantal {
-        0 | 1 => "Eén document in dit venster bevat wijzigingen die nog niet zijn opgeslagen. Die gaan verloren. Toch sluiten?".to_owned(),
-        n => format!("{n} documenten in dit venster bevatten wijzigingen die nog niet zijn opgeslagen. Die gaan verloren. Toch sluiten?"),
-    }
+    crate::taal::t_aantal("dialogs.unsavedChanges.message", u64::from(aantal.max(1)), &[])
 }
 
 #[tauri::command]
@@ -137,7 +134,7 @@ pub fn wijzigingsstatus(
 #[tauri::command]
 pub async fn bevestig_verlaten(aantal: Option<u32>) -> bool {
     rfd::AsyncMessageDialog::new()
-        .set_title("Niet-opgeslagen wijzigingen")
+        .set_title(crate::taal::t("dialogs.unsavedChanges.title"))
         .set_description(sluitvraag(aantal.unwrap_or(1)))
         .set_buttons(rfd::MessageButtons::YesNo)
         .show()
@@ -236,7 +233,7 @@ pub fn open_documenten(vensters: tauri::State<Vensters>) -> Vec<VensterInfo> {
 pub fn activeer_tabblad(app: tauri::AppHandle, venster: String, id: u32) -> Result<(), String> {
     let doel = app
         .get_webview_window(&venster)
-        .ok_or("Dit venster is gesloten.")?;
+        .ok_or_else(|| crate::taal::t("errors.window.closed"))?;
     let _ = doel.unminimize();
     let _ = doel.show();
     let _ = doel.set_focus();
@@ -261,7 +258,7 @@ pub async fn bied_overdracht(
 ) -> Result<String, String> {
     let bytes = match request.body() {
         tauri::ipc::InvokeBody::Raw(b) if b.len() >= 4 && b.len() <= MAX_PAKKET => b.clone(),
-        _ => return Err("De overdracht is leeg of te groot.".into()),
+        _ => return Err(crate::taal::t("errors.window.transferEmptyOrTooLarge")),
     };
     let doel = kop(&request, "x-office-doel").unwrap_or_else(|| "nieuw".into());
     let vensters = app.state::<Vensters>();
@@ -299,7 +296,7 @@ pub async fn bied_overdracht(
         }
         None => {
             if app.get_webview_window(&doel).is_none() {
-                Err("Het hoofdvenster is niet beschikbaar.".into())
+                Err(crate::taal::t("errors.window.mainWindowUnavailable"))
             } else {
                 app.emit_to(doel.as_str(), "office-overdracht", sleutel.clone())
                     .map_err(|e| e.to_string())
@@ -308,7 +305,7 @@ pub async fn bied_overdracht(
     };
     if let Err(fout) = resultaat {
         vensters.pakketten.lock().map_err(|e| e.to_string())?.remove(&sleutel);
-        return Err(format!("Het venster kon niet worden geopend: {fout}"));
+        return Err(crate::taal::t_met("errors.window.openFailed", &[("error", &fout)]));
     }
     Ok(sleutel)
 }
@@ -343,9 +340,9 @@ pub fn neem_overdracht(
     let mut pakketten = vensters.pakketten.lock().map_err(|e| e.to_string())?;
     let pakket = pakketten
         .get_mut(&sleutel)
-        .ok_or("Deze overdracht is verlopen of al opgenomen.")?;
+        .ok_or_else(|| crate::taal::t("errors.window.transferExpired"))?;
     if pakket.geclaimd {
-        return Err("Deze overdracht is al opgenomen.".into());
+        return Err(crate::taal::t("errors.window.transferAlreadyTaken"));
     }
     pakket.geclaimd = true;
     Ok(tauri::ipc::Response::new(pakket.bytes.clone()))
@@ -364,7 +361,7 @@ pub fn bevestig_overdracht(
         .lock()
         .map_err(|e| e.to_string())?
         .remove(&sleutel)
-        .ok_or("Deze overdracht is onbekend.")?;
+        .ok_or_else(|| crate::taal::t("errors.window.transferUnknown"))?;
     if let Some(token) = &pakket.token {
         werkbestanden.herbind(token, venster.label());
     }

@@ -1,9 +1,66 @@
 {
   "bundle": {
-    "targets": ["nsis"],
-    "resources": { "resources/WebView2Loader.dll": "WebView2Loader.dll" },
+    "targets": [
+      "nsis"
+    ],
+    "resources": {
+      "resources/WebView2Loader.dll": "WebView2Loader.dll"
+    },
     "windows": {
-      "webviewInstallMode": { "type": "embedBootstrapper", "silent": true }
+      "webviewInstallMode": {
+        "type": "embedBootstrapper",
+        "silent": true
+      },
+      "nsis": {
+        "languages": [
+          "English",
+          "Dutch",
+          "German",
+          "French",
+          "Spanish",
+          "Italian",
+          "PortugueseBR",
+          "Portuguese",
+          "Polish",
+          "Czech",
+          "Slovak",
+          "Hungarian",
+          "Romanian",
+          "Greek",
+          "Swedish",
+          "Danish",
+          "Norwegian",
+          "Finnish",
+          "Turkish",
+          "Russian",
+          "Ukrainian",
+          "Arabic",
+          "Hebrew",
+          "Hindi",
+          "Indonesian",
+          "Vietnamese",
+          "Thai",
+          "SimpChinese",
+          "TradChinese",
+          "Japanese",
+          "Korean"
+        ],
+        "displayLanguageSelector": true,
+        "customLanguageFiles": {
+          "Polish": "../../../src-tauri/windows/talen/Polish.nsh",
+          "Czech": "../../../src-tauri/windows/talen/Czech.nsh",
+          "Slovak": "../../../src-tauri/windows/talen/Slovak.nsh",
+          "Hungarian": "../../../src-tauri/windows/talen/Hungarian.nsh",
+          "Romanian": "../../../src-tauri/windows/talen/Romanian.nsh",
+          "Greek": "../../../src-tauri/windows/talen/Greek.nsh",
+          "Danish": "../../../src-tauri/windows/talen/Danish.nsh",
+          "Finnish": "../../../src-tauri/windows/talen/Finnish.nsh",
+          "Hebrew": "../../../src-tauri/windows/talen/Hebrew.nsh",
+          "Hindi": "../../../src-tauri/windows/talen/Hindi.nsh",
+          "Indonesian": "../../../src-tauri/windows/talen/Indonesian.nsh",
+          "Thai": "../../../src-tauri/windows/talen/Thai.nsh"
+        }
+      }
     }
   }
 }

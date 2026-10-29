@@ -1,36 +1,127 @@
 {
   "bundle": {
-    "targets": ["nsis"],
-    "resources": { "resources/WebView2Loader.dll": "WebView2Loader.dll" },
+    "targets": [
+      "nsis"
+    ],
+    "resources": {
+      "resources/WebView2Loader.dll": "WebView2Loader.dll"
+    },
     "fileAssociations": [
       {
-        "ext": ["docx", "docm", "dotx", "dotm", "doc", "dot", "odt", "ott", "rtf"],
+        "ext": [
+          "docx",
+          "docm",
+          "dotx",
+          "dotm",
+          "doc",
+          "dot",
+          "odt",
+          "ott",
+          "rtf"
+        ],
         "name": "OpenAEC.OfficeStudio.Tekst",
         "description": "Tekstdocument",
         "role": "Editor"
       },
       {
-        "ext": ["xlsx", "xlsm", "xltx", "xltm", "xlsb", "xls", "xlt", "ods", "ots"],
+        "ext": [
+          "xlsx",
+          "xlsm",
+          "xltx",
+          "xltm",
+          "xlsb",
+          "xls",
+          "xlt",
+          "ods",
+          "ots"
+        ],
         "name": "OpenAEC.OfficeStudio.Rekenblad",
         "description": "Rekenblad",
         "role": "Editor"
       },
       {
-        "ext": ["pptx", "pptm", "potx", "potm", "ppsx", "pps", "ppt", "pot", "odp", "otp"],
+        "ext": [
+          "pptx",
+          "pptm",
+          "potx",
+          "potm",
+          "ppsx",
+          "pps",
+          "ppt",
+          "pot",
+          "odp",
+          "otp"
+        ],
         "name": "OpenAEC.OfficeStudio.Presentatie",
         "description": "Presentatie",
         "role": "Editor"
       },
       {
-        "ext": ["mdb", "accdb"],
+        "ext": [
+          "mdb",
+          "accdb"
+        ],
         "name": "OpenAEC.OfficeStudio.Database",
         "description": "Database",
         "role": "Viewer"
       }
     ],
     "windows": {
-      "webviewInstallMode": { "type": "embedBootstrapper", "silent": true },
-      "nsis": { "installerHooks": "windows/koppelingen.nsh" }
+      "webviewInstallMode": {
+        "type": "embedBootstrapper",
+        "silent": true
+      },
+      "nsis": {
+        "installerHooks": "windows/koppelingen.nsh",
+        "languages": [
+          "English",
+          "Dutch",
+          "German",
+          "French",
+          "Spanish",
+          "Italian",
+          "PortugueseBR",
+          "Portuguese",
+          "Polish",
+          "Czech",
+          "Slovak",
+          "Hungarian",
+          "Romanian",
+          "Greek",
+          "Swedish",
+          "Danish",
+          "Norwegian",
+          "Finnish",
+          "Turkish",
+          "Russian",
+          "Ukrainian",
+          "Arabic",
+          "Hebrew",
+          "Hindi",
+          "Indonesian",
+          "Vietnamese",
+          "Thai",
+          "SimpChinese",
+          "TradChinese",
+          "Japanese",
+          "Korean"
+        ],
+        "displayLanguageSelector": true,
+        "customLanguageFiles": {
+          "Polish": "windows/talen/Polish.nsh",
+          "Czech": "windows/talen/Czech.nsh",
+          "Slovak": "windows/talen/Slovak.nsh",
+          "Hungarian": "windows/talen/Hungarian.nsh",
+          "Romanian": "windows/talen/Romanian.nsh",
+          "Greek": "windows/talen/Greek.nsh",
+          "Danish": "windows/talen/Danish.nsh",
+          "Finnish": "windows/talen/Finnish.nsh",
+          "Hebrew": "windows/talen/Hebrew.nsh",
+          "Hindi": "windows/talen/Hindi.nsh",
+          "Indonesian": "windows/talen/Indonesian.nsh",
+          "Thai": "windows/talen/Thai.nsh"
+        }
+      }
     }
   }
 }

@@ -29,7 +29,7 @@
     "category": "Productivity",
     "publisher": "OpenAEC Foundation",
     "copyright": "© 2026 OpenAEC Foundation",
-    "shortDescription": "Open oude MDB- en ACCDB-databases lokaal",
+    "shortDescription": "Open old MDB and ACCDB databases locally",
     "icon": [
       "icons/32x32.png",
       "icons/128x128.png",
@@ -41,6 +41,14 @@
       "webviewInstallMode": {
         "type": "embedBootstrapper",
         "silent": true
+      }
+    },
+    "linux": {
+      "deb": {
+        "desktopTemplate": "linux/open-database-studio.desktop.hbs"
+      },
+      "rpm": {
+        "desktopTemplate": "linux/open-database-studio.desktop.hbs"
       }
     }
   }
