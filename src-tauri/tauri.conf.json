@@ -28,6 +28,7 @@
   "bundle": {
     "active": true,
     "targets": "all",
+    "createUpdaterArtifacts": false,
     "category": "Productivity",
     "publisher": "OpenAEC Foundation",
     "copyright": "© 2026 OpenAEC Foundation",
@@ -57,6 +58,15 @@
         "files": {
           "/usr/share/mime/packages/open-office-studio.xml": "linux/open-office-studio-mime.xml"
         }
+      }
+    }
+  },
+  "plugins": {
+    "updater": {
+      "pubkey": "",
+      "endpoints": [],
+      "windows": {
+        "installMode": "passive"
       }
     }
   }
