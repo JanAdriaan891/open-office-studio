@@ -140,7 +140,7 @@ export class Afteller {
  * een mislukte actie is een fout, de rest informatie.
  */
 export function raadToon(tekst: string): Toon {
-  return /mislukt|kon niet|niet gelukt|niet mogelijk|fout|failed|error|could not/i.test(tekst)
+  return /mislukt|\bkon\b.*\bniet\b|niet gelukt|niet mogelijk|fout|failed|error|could not/i.test(tekst)
     ? "fout"
     : "info";
 }
