@@ -1,53 +1,53 @@
 {
   "actions": {
-    "noSuggestions": "(no suggestions)",
-    "ignoreAll": "Ignore All",
-    "addToDictionary": "Add to Dictionary",
-    "paragraphLanguage": "Language of this paragraph"
+    "noSuggestions": "(nessun suggerimento)",
+    "ignoreAll": "Ignora tutto",
+    "addToDictionary": "Aggiungi al dizionario",
+    "paragraphLanguage": "Lingua di questo paragrafo"
   },
   "dialog": {
-    "title": "Spelling and Grammar",
-    "closeTooltip": "Close (Esc)",
-    "checking": "Checking document…",
-    "complete": "The spelling check is complete. No (more) unknown words were found.",
-    "notInDictionary": "Not in dictionary ({{language}}):",
-    "changeTo": "Change to",
-    "suggestions": "Suggestions",
-    "searching": "Searching…",
-    "change": "Change",
-    "changeAll": "Change All",
-    "ignoreOnce": "Ignore Once"
+    "title": "Controllo ortografia e grammatica",
+    "closeTooltip": "Chiudi (Esc)",
+    "checking": "Controllo del documento…",
+    "complete": "Il controllo ortografico è completato. Non sono state trovate (altre) parole sconosciute.",
+    "notInDictionary": "Non presente nel dizionario ({{language}}):",
+    "changeTo": "Cambia in",
+    "suggestions": "Suggerimenti",
+    "searching": "Ricerca in corso…",
+    "change": "Cambia",
+    "changeAll": "Cambia tutto",
+    "ignoreOnce": "Ignora una volta"
   },
   "language": {
-    "none": "Do not check",
+    "none": "Non controllare",
     "short": {
-      "enGB": "English (UK)",
-      "enUS": "English (US)"
+      "enGB": "Inglese (Regno Unito)",
+      "enUS": "Inglese (USA)"
     }
   },
   "menu": {
-    "label": "Spelling: {{word}}",
-    "searchingSuggestions": "Searching for suggestions…",
-    "openDialog": "Spelling and Grammar… ({{key}})"
+    "label": "Ortografia: {{word}}",
+    "searchingSuggestions": "Ricerca suggerimenti…",
+    "openDialog": "Controllo ortografia e grammatica… ({{key}})"
   },
   "settings": {
-    "title": "Spelling and AutoCorrect",
-    "checkWhileTyping": "Check spelling as you type (red wavy underline)",
-    "ignoreUppercase": "Ignore words in UPPERCASE",
-    "ignoreNumbers": "Ignore words that contain numbers",
-    "autocorrect": "AutoCorrect: TWo INitial CApitals, capitalize the first letter of sentences and common typos",
-    "dictionariesHelp": "Dictionaries: OpenTaal (Dutch) and SCOWL (English, UK and US). Right-click an underlined word for suggestions; {{key}} opens the Spelling and Grammar pane.",
-    "personalListButton": "Personal dictionary ({{number}})…",
-    "personalList": "Personal dictionary",
-    "noWords": "No words added yet.",
-    "removeWord": "Remove {{word}}"
+    "title": "Ortografia e correzione automatica",
+    "checkWhileTyping": "Controlla l'ortografia durante la digitazione (sottolineatura ondulata rossa)",
+    "ignoreUppercase": "Ignora le parole in MAIUSCOLO",
+    "ignoreNumbers": "Ignora le parole che contengono numeri",
+    "autocorrect": "Correzione automatica: DUe MAiuscole INiziali, maiuscola a inizio frase ed errori di battitura comuni",
+    "dictionariesHelp": "Dizionari: OpenTaal (olandese) e SCOWL (inglese, Regno Unito e USA). Fai clic con il pulsante destro su una parola sottolineata per i suggerimenti; {{key}} apre il riquadro Controllo ortografia e grammatica.",
+    "personalListButton": "Dizionario personale ({{number}})…",
+    "personalList": "Dizionario personale",
+    "noWords": "Nessuna parola ancora aggiunta.",
+    "removeWord": "Rimuovi {{word}}"
   },
   "status": {
-    "unavailable": "spelling not available",
-    "checking": "checking spelling…",
-    "noErrors": "no spelling errors",
-    "errors_one": "{{errors}} spelling error",
-    "errors_many": "{{errors}} spelling errors",
-    "errors_other": "{{errors}} spelling errors"
+    "unavailable": "ortografia non disponibile",
+    "checking": "controllo ortografia…",
+    "noErrors": "nessun errore di ortografia",
+    "errors_one": "{{errors}} errore di ortografia",
+    "errors_many": "{{errors}} errori di ortografia",
+    "errors_other": "{{errors}} errori di ortografia"
   }
 }

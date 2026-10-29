@@ -1,33 +1,33 @@
 {
   "errors": {
-    "pageConversionFailed": "The page could not be converted.",
-    "noPagesSelected": "No pages have been selected.",
-    "imageUnreadable": "The image could not be read.",
-    "noSlides": "The presentation has no slides.",
-    "notAWorksheet": "Sheet ‘{{name}}’ is not a worksheet and is skipped.",
-    "sheetsEmpty": "There is nothing to print: the sheets are empty.",
-    "documentNotPrepared": "The document could not be prepared for printing.",
-    "noPages": "The document has no pages to print."
+    "pageConversionFailed": "无法转换该页面。",
+    "noPagesSelected": "未选择任何页面。",
+    "imageUnreadable": "无法读取该图像。",
+    "noSlides": "此演示文稿没有幻灯片。",
+    "notAWorksheet": "工作表“{{name}}”不是普通工作表，已跳过。",
+    "sheetsEmpty": "没有可打印的内容：工作表为空。",
+    "documentNotPrepared": "无法为打印准备文档。",
+    "noPages": "此文档没有可打印的页面。"
   },
   "pageBreaks": {
-    "title": "Page Break Preview",
-    "emptySheet": "This sheet is empty.",
-    "calculating": "Calculating page breaks…",
-    "breakBeforeColumn": "Page break before column {{column}} (drag to move)",
-    "breakBeforeRow": "Page break before row {{row}} (drag to move)",
-    "help": "Solid lines are manual page breaks; dashed lines follow from the paper size and scale. Drag a break, or double-click a boundary to add or remove a break.",
-    "clearManual": "Reset All Page Breaks",
-    "done": "Done",
-    "summary_other": "Scale {{scale}} · {{pages}} pages"
+    "title": "分页预览",
+    "emptySheet": "此工作表为空。",
+    "calculating": "正在计算分页符…",
+    "breakBeforeColumn": "列 {{column}} 前的分页符（拖动以移动）",
+    "breakBeforeRow": "行 {{row}} 前的分页符（拖动以移动）",
+    "help": "实线为手动分页符；虚线由纸张大小和缩放决定。拖动分页符，或双击边界以添加或删除分页符。",
+    "clearManual": "重设所有分页符",
+    "done": "完成",
+    "summary_other": "缩放 {{scale}} · {{pages}} 页"
   },
   "pages": {
-    "page": "Page {{number}}",
-    "pageOfTotal": "Page {{page}} of {{total}}",
-    "sheetPage": "{{sheet}}, page {{page}} of {{total}}",
-    "slide": "Slide {{number}}",
-    "handout": "Handout {{page}} (slides {{first}}–{{last}})",
-    "notes": "Notes slide {{number}}",
-    "notesContinued": "Notes slide {{number}} (continued)",
-    "pageNumberOfTotal": "{{page}} of {{total}}"
+    "page": "第 {{number}} 页",
+    "pageOfTotal": "第 {{page}} 页，共 {{total}} 页",
+    "sheetPage": "{{sheet}}，第 {{page}} 页，共 {{total}} 页",
+    "slide": "幻灯片 {{number}}",
+    "handout": "讲义 {{page}}（幻灯片 {{first}}–{{last}}）",
+    "notes": "备注幻灯片 {{number}}",
+    "notesContinued": "备注幻灯片 {{number}}（续）",
+    "pageNumberOfTotal": "{{page}} / {{total}}"
   }
 }

@@ -1,43 +1,43 @@
 {
   "attribution": {
-    "system": "Font on this computer.",
-    "officeMetric": "Office font; displayed here with {{substitute}} (metric-compatible). The file keeps {{font}}.",
-    "officeApproximation": "Office font; displayed here with {{substitute}} (approximation). The file keeps {{font}}.",
-    "unknown": "Not available; the app chooses a substitute.",
-    "license": "{{license}} · {{source}}.",
-    "bundled": "included ({{package}})",
-    "metricCompatible": "Metric-compatible with {{font}}."
+    "system": "此计算机上的字体。",
+    "officeMetric": "Office 字体；此处以 {{substitute}} 显示（度量兼容）。文件保留 {{font}}。",
+    "officeApproximation": "Office 字体；此处以 {{substitute}} 显示（近似）。文件保留 {{font}}。",
+    "unknown": "不可用；应用将选择替代字体。",
+    "license": "{{license}} · {{source}}。",
+    "bundled": "已包含（{{package}}）",
+    "metricCompatible": "与 {{font}} 度量兼容。"
   },
   "errors": {
-    "chooseFailed": "The font could not be applied.",
-    "loadFailed": "Font {{font}} could not be loaded ({{status}})."
+    "chooseFailed": "无法应用该字体。",
+    "loadFailed": "无法加载字体 {{font}}（{{status}}）。"
   },
   "groups": {
-    "document": "In this document",
-    "recent": "Recently used",
-    "sansSerif": "Sans serif",
-    "serif": "Serif",
-    "monospace": "Monospace",
-    "handwritingDisplay": "Handwriting and display",
-    "system": "On this computer"
+    "document": "此文档中",
+    "recent": "最近使用",
+    "sansSerif": "无衬线",
+    "serif": "衬线",
+    "monospace": "等宽",
+    "handwritingDisplay": "手写和装饰",
+    "system": "此计算机上"
   },
   "picker": {
-    "font": "Font",
-    "mixed": "mixed",
-    "current": "{{name}}: {{font}}",
-    "searchPlaceholder": "Search…",
-    "searchLabel": "Search fonts",
-    "noResults": "No font found; Enter chooses “{{query}}”.",
-    "bold": "Bold",
-    "italic": "Italic",
-    "boldItalic": "Bold Italic",
-    "showAll": "Show all fonts",
-    "showFewer": "Show fewer fonts",
-    "showSystemFonts": "Show fonts on this computer…"
+    "font": "字体",
+    "mixed": "混合",
+    "current": "{{name}}：{{font}}",
+    "searchPlaceholder": "搜索…",
+    "searchLabel": "搜索字体",
+    "noResults": "未找到字体；按 Enter 选择“{{query}}”。",
+    "bold": "粗体",
+    "italic": "斜体",
+    "boldItalic": "粗斜体",
+    "showAll": "显示所有字体",
+    "showFewer": "显示较少字体",
+    "showSystemFonts": "显示此计算机上的字体…"
   },
   "substitution": {
-    "message": "Fonts substituted because they are not installed on this computer — {{details}}. The file keeps the original names.",
-    "metric": "metric-compatible (same line breaks): {{fonts}}",
-    "approximate": "approximation (lines and pages may shift): {{fonts}}"
+    "message": "以下字体未安装在此计算机上，已被替换 — {{details}}。文件保留原始名称。",
+    "metric": "度量兼容（换行相同）：{{fonts}}",
+    "approximate": "近似（行和页面可能移动）：{{fonts}}"
   }
 }

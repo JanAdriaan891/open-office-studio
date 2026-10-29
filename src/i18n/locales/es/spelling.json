@@ -1,53 +1,53 @@
 {
   "actions": {
-    "noSuggestions": "(no suggestions)",
-    "ignoreAll": "Ignore All",
-    "addToDictionary": "Add to Dictionary",
-    "paragraphLanguage": "Language of this paragraph"
+    "noSuggestions": "(sin sugerencias)",
+    "ignoreAll": "Omitir todo",
+    "addToDictionary": "Agregar al diccionario",
+    "paragraphLanguage": "Idioma de este párrafo"
   },
   "dialog": {
-    "title": "Spelling and Grammar",
-    "closeTooltip": "Close (Esc)",
-    "checking": "Checking document…",
-    "complete": "The spelling check is complete. No (more) unknown words were found.",
-    "notInDictionary": "Not in dictionary ({{language}}):",
-    "changeTo": "Change to",
-    "suggestions": "Suggestions",
-    "searching": "Searching…",
-    "change": "Change",
-    "changeAll": "Change All",
-    "ignoreOnce": "Ignore Once"
+    "title": "Ortografía y gramática",
+    "closeTooltip": "Cerrar (Esc)",
+    "checking": "Revisando el documento…",
+    "complete": "La revisión ortográfica ha finalizado. No se han encontrado (más) palabras desconocidas.",
+    "notInDictionary": "No está en el diccionario ({{language}}):",
+    "changeTo": "Cambiar por",
+    "suggestions": "Sugerencias",
+    "searching": "Buscando…",
+    "change": "Cambiar",
+    "changeAll": "Cambiar todo",
+    "ignoreOnce": "Omitir una vez"
   },
   "language": {
-    "none": "Do not check",
+    "none": "No revisar",
     "short": {
-      "enGB": "English (UK)",
-      "enUS": "English (US)"
+      "enGB": "Inglés (R. U.)",
+      "enUS": "Inglés (EE. UU.)"
     }
   },
   "menu": {
-    "label": "Spelling: {{word}}",
-    "searchingSuggestions": "Searching for suggestions…",
-    "openDialog": "Spelling and Grammar… ({{key}})"
+    "label": "Ortografía: {{word}}",
+    "searchingSuggestions": "Buscando sugerencias…",
+    "openDialog": "Ortografía y gramática… ({{key}})"
   },
   "settings": {
-    "title": "Spelling and AutoCorrect",
-    "checkWhileTyping": "Check spelling as you type (red wavy underline)",
-    "ignoreUppercase": "Ignore words in UPPERCASE",
-    "ignoreNumbers": "Ignore words that contain numbers",
-    "autocorrect": "AutoCorrect: TWo INitial CApitals, capitalize the first letter of sentences and common typos",
-    "dictionariesHelp": "Dictionaries: OpenTaal (Dutch) and SCOWL (English, UK and US). Right-click an underlined word for suggestions; {{key}} opens the Spelling and Grammar pane.",
-    "personalListButton": "Personal dictionary ({{number}})…",
-    "personalList": "Personal dictionary",
-    "noWords": "No words added yet.",
-    "removeWord": "Remove {{word}}"
+    "title": "Ortografía y Autocorrección",
+    "checkWhileTyping": "Revisar la ortografía mientras escribe (subrayado ondulado rojo)",
+    "ignoreUppercase": "Omitir palabras en MAYÚSCULAS",
+    "ignoreNumbers": "Omitir palabras que contienen números",
+    "autocorrect": "Autocorrección: DOs MAyúsculas SEguidas, mayúscula al principio de frase y errores tipográficos comunes",
+    "dictionariesHelp": "Diccionarios: OpenTaal (neerlandés) y SCOWL (inglés, R. U. y EE. UU.). Haga clic con el botón derecho en una palabra subrayada para ver sugerencias; {{key}} abre el panel Ortografía y gramática.",
+    "personalListButton": "Diccionario personal ({{number}})…",
+    "personalList": "Diccionario personal",
+    "noWords": "Todavía no se han agregado palabras.",
+    "removeWord": "Quitar {{word}}"
   },
   "status": {
-    "unavailable": "spelling not available",
-    "checking": "checking spelling…",
-    "noErrors": "no spelling errors",
-    "errors_one": "{{errors}} spelling error",
-    "errors_many": "{{errors}} spelling errors",
-    "errors_other": "{{errors}} spelling errors"
+    "unavailable": "ortografía no disponible",
+    "checking": "revisando la ortografía…",
+    "noErrors": "sin errores ortográficos",
+    "errors_one": "{{errors}} error ortográfico",
+    "errors_many": "{{errors}} errores ortográficos",
+    "errors_other": "{{errors}} errores ortográficos"
   }
 }

@@ -1,35 +1,35 @@
 {
   "errors": {
-    "pageConversionFailed": "The page could not be converted.",
-    "noPagesSelected": "No pages have been selected.",
-    "imageUnreadable": "The image could not be read.",
-    "noSlides": "The presentation has no slides.",
-    "notAWorksheet": "Sheet ‘{{name}}’ is not a worksheet and is skipped.",
-    "sheetsEmpty": "There is nothing to print: the sheets are empty.",
-    "documentNotPrepared": "The document could not be prepared for printing.",
-    "noPages": "The document has no pages to print."
+    "pageConversionFailed": "Impossibile convertire la pagina.",
+    "noPagesSelected": "Nessuna pagina selezionata.",
+    "imageUnreadable": "Impossibile leggere l'immagine.",
+    "noSlides": "La presentazione non contiene diapositive.",
+    "notAWorksheet": "Il foglio \"{{name}}\" non è un foglio di lavoro e viene ignorato.",
+    "sheetsEmpty": "Niente da stampare: i fogli sono vuoti.",
+    "documentNotPrepared": "Impossibile preparare il documento per la stampa.",
+    "noPages": "Il documento non contiene pagine da stampare."
   },
   "pageBreaks": {
-    "title": "Page Break Preview",
-    "emptySheet": "This sheet is empty.",
-    "calculating": "Calculating page breaks…",
-    "breakBeforeColumn": "Page break before column {{column}} (drag to move)",
-    "breakBeforeRow": "Page break before row {{row}} (drag to move)",
-    "help": "Solid lines are manual page breaks; dashed lines follow from the paper size and scale. Drag a break, or double-click a boundary to add or remove a break.",
-    "clearManual": "Reset All Page Breaks",
-    "done": "Done",
-    "summary_one": "Scale {{scale}} · {{pages}} page",
-    "summary_many": "Scale {{scale}} · {{pages}} pages",
-    "summary_other": "Scale {{scale}} · {{pages}} pages"
+    "title": "Anteprima interruzioni di pagina",
+    "emptySheet": "Questo foglio è vuoto.",
+    "calculating": "Calcolo delle interruzioni di pagina…",
+    "breakBeforeColumn": "Interruzione di pagina prima della colonna {{column}} (trascina per spostare)",
+    "breakBeforeRow": "Interruzione di pagina prima della riga {{row}} (trascina per spostare)",
+    "help": "Le linee continue sono interruzioni di pagina manuali; quelle tratteggiate derivano dal formato carta e dalla scala. Trascina un'interruzione, oppure fai doppio clic su un bordo per aggiungere o rimuovere un'interruzione.",
+    "clearManual": "Reimposta tutte le interruzioni di pagina",
+    "done": "Fine",
+    "summary_one": "Scala {{scale}} · {{pages}} pagina",
+    "summary_many": "Scala {{scale}} · {{pages}} pagine",
+    "summary_other": "Scala {{scale}} · {{pages}} pagine"
   },
   "pages": {
-    "page": "Page {{number}}",
-    "pageOfTotal": "Page {{page}} of {{total}}",
-    "sheetPage": "{{sheet}}, page {{page}} of {{total}}",
-    "slide": "Slide {{number}}",
-    "handout": "Handout {{page}} (slides {{first}}–{{last}})",
-    "notes": "Notes slide {{number}}",
-    "notesContinued": "Notes slide {{number}} (continued)",
-    "pageNumberOfTotal": "{{page}} of {{total}}"
+    "page": "Pagina {{number}}",
+    "pageOfTotal": "Pagina {{page}} di {{total}}",
+    "sheetPage": "{{sheet}}, pagina {{page}} di {{total}}",
+    "slide": "Diapositiva {{number}}",
+    "handout": "Stampato {{page}} (diapositive {{first}}–{{last}})",
+    "notes": "Pagina note {{number}}",
+    "notesContinued": "Pagina note {{number}} (continua)",
+    "pageNumberOfTotal": "{{page}} di {{total}}"
   }
 }

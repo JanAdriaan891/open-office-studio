@@ -1,35 +1,35 @@
 {
   "errors": {
-    "pageConversionFailed": "The page could not be converted.",
-    "noPagesSelected": "No pages have been selected.",
-    "imageUnreadable": "The image could not be read.",
-    "noSlides": "The presentation has no slides.",
-    "notAWorksheet": "Sheet ‘{{name}}’ is not a worksheet and is skipped.",
-    "sheetsEmpty": "There is nothing to print: the sheets are empty.",
-    "documentNotPrepared": "The document could not be prepared for printing.",
-    "noPages": "The document has no pages to print."
+    "pageConversionFailed": "Impossible de convertir la page.",
+    "noPagesSelected": "Aucune page n'a été sélectionnée.",
+    "imageUnreadable": "Impossible de lire l'image.",
+    "noSlides": "La présentation ne contient aucune diapositive.",
+    "notAWorksheet": "La feuille « {{name}} » n'est pas une feuille de calcul et est ignorée.",
+    "sheetsEmpty": "Rien à imprimer : les feuilles sont vides.",
+    "documentNotPrepared": "Impossible de préparer le document pour l'impression.",
+    "noPages": "Le document ne contient aucune page à imprimer."
   },
   "pageBreaks": {
-    "title": "Page Break Preview",
-    "emptySheet": "This sheet is empty.",
-    "calculating": "Calculating page breaks…",
-    "breakBeforeColumn": "Page break before column {{column}} (drag to move)",
-    "breakBeforeRow": "Page break before row {{row}} (drag to move)",
-    "help": "Solid lines are manual page breaks; dashed lines follow from the paper size and scale. Drag a break, or double-click a boundary to add or remove a break.",
-    "clearManual": "Reset All Page Breaks",
-    "done": "Done",
-    "summary_one": "Scale {{scale}} · {{pages}} page",
-    "summary_many": "Scale {{scale}} · {{pages}} pages",
-    "summary_other": "Scale {{scale}} · {{pages}} pages"
+    "title": "Aperçu des sauts de page",
+    "emptySheet": "Cette feuille est vide.",
+    "calculating": "Calcul des sauts de page…",
+    "breakBeforeColumn": "Saut de page avant la colonne {{column}} (faire glisser pour déplacer)",
+    "breakBeforeRow": "Saut de page avant la ligne {{row}} (faire glisser pour déplacer)",
+    "help": "Les lignes continues sont des sauts de page manuels ; les lignes en pointillés découlent du format du papier et de l'échelle. Faites glisser un saut, ou double-cliquez sur une limite pour ajouter ou supprimer un saut.",
+    "clearManual": "Rétablir tous les sauts de page",
+    "done": "Terminé",
+    "summary_one": "Échelle {{scale}} · {{pages}} page",
+    "summary_many": "Échelle {{scale}} · {{pages}} pages",
+    "summary_other": "Échelle {{scale}} · {{pages}} pages"
   },
   "pages": {
     "page": "Page {{number}}",
-    "pageOfTotal": "Page {{page}} of {{total}}",
-    "sheetPage": "{{sheet}}, page {{page}} of {{total}}",
-    "slide": "Slide {{number}}",
-    "handout": "Handout {{page}} (slides {{first}}–{{last}})",
-    "notes": "Notes slide {{number}}",
-    "notesContinued": "Notes slide {{number}} (continued)",
-    "pageNumberOfTotal": "{{page}} of {{total}}"
+    "pageOfTotal": "Page {{page}} sur {{total}}",
+    "sheetPage": "{{sheet}}, page {{page}} sur {{total}}",
+    "slide": "Diapositive {{number}}",
+    "handout": "Document {{page}} (diapositives {{first}}–{{last}})",
+    "notes": "Page de commentaires {{number}}",
+    "notesContinued": "Page de commentaires {{number}} (suite)",
+    "pageNumberOfTotal": "{{page}} sur {{total}}"
   }
 }
