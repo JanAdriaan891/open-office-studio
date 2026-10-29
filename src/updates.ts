@@ -74,10 +74,13 @@ type Meld = (tekst: string, toon: Toon, acties?: MeldingActie[]) => void;
  * dan zegt de melding dat, met dezelfde knop om het na het opslaan nog eens te proberen.
  */
 export async function werkBij(meld: Meld): Promise<void> {
-  meld(t("installing"), "info");
+  // Een weigering (niet-opgeslagen documenten) komt meteen terug; alleen een echte download
+  // krijgt de melding "wordt gedownload".
+  const melding = setTimeout(() => meld(t("installing"), "info"), 400);
   const uitkomst = await installeerUpdate().catch(
     (fout): Uitkomst => ({ status: "fout", code: "installeren", detail: String(fout) }),
   );
+  clearTimeout(melding);
   // Gelukt: de app start opnieuw en komt hier niet meer.
   if (uitkomst.status === "fout" && uitkomst.code === "nietOpgeslagen")
     meld(uitkomstTekst(uitkomst), "waarschuwing", [
