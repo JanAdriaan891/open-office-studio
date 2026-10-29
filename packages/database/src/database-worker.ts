@@ -1,5 +1,6 @@
 // Eerst: i18next in deze worker (de hoofdthread stuurt de taal, zie i18n-worker.ts).
 import { workerTaalGereed, zetWorkerTaal } from "./i18n-worker.ts";
+import i18next from "i18next";
 import type MDBReader from "mdb-reader";
 import { openDatabase } from "./database-parser";
 import {
@@ -143,7 +144,7 @@ context.onmessage = async ({ data }) => {
       werkkopie = null;
       werkkopie =
         data.type === "werkkopie:nieuw"
-          ? nieuweWerkkopie(SQL, String(data.naam || "Nieuwe database"))
+          ? nieuweWerkkopie(SQL, String(data.naam || i18next.t("database:client.newDatabaseName")))
           : laadWerkkopie(SQL, new Uint8Array(data.bytes as ArrayBuffer), {
               vreemdeSqlite: !!data.vreemdeSqlite,
               naam: typeof data.naam === "string" ? data.naam : undefined,
@@ -167,10 +168,10 @@ context.onmessage = async ({ data }) => {
     } else if (data.type === "werkkopie" || data.type === "werkkopie:poort") {
       context.postMessage({
         id: data.id,
-        fout: "Er is geen werkkopie geopend.",
+        fout: i18next.t("database:client.noWorkingCopy"),
         code: "intern",
       });
-    } else throw new Error("De database is nog niet geopend.");
+    } else throw new Error(i18next.t("database:client.notOpened"));
   } catch (error) {
     context.postMessage({
       id: data.id,
@@ -179,6 +180,8 @@ context.onmessage = async ({ data }) => {
         error && typeof error === "object" && "code" in error
           ? (error as { code: unknown }).code
           : undefined,
+      // Taalonafhankelijk herkennen van een vreemd SQLite-bestand (isVreemdeSqlite).
+      vreemdeSqlite: (error as { vreemdeSqlite?: unknown } | null)?.vreemdeSqlite === true || undefined,
     });
   }
 };

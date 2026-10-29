@@ -76,7 +76,7 @@ export class VbaClient {
     worker.addEventListener("message", (e: MessageEvent) => void this.ontvang(worker, e.data as VanWorker));
     worker.addEventListener("error", (e: ErrorEvent) => {
       if (worker !== this.worker) return;
-      this.beeindig({ soort: "intern", reden: "worker", beschrijving: `De VBA-worker is gestopt: ${e.message ?? "onbekende fout"}` });
+      this.beeindig({ soort: "intern", reden: "worker", beschrijving: i18next.t("vba:client.workerStopped", { message: e.message ?? i18next.t("vba:client.unknownError") }) });
     });
     this.gestart = (async () => {
       const poort = this.opties.werkkopiePoort ? await this.opties.werkkopiePoort() : undefined;
@@ -168,7 +168,7 @@ export class VbaClient {
       case "gebeurtenis":
         return host!.gebeurtenis!(v.gebeurtenis);
       case "formulier":
-        if (!f) throw new Error("Er is geen formulierhost gekoppeld.");
+        if (!f) throw new Error(i18next.t("vba:client.noFormHost"));
         switch (v.actie) {
           case "isGeopend":
             return f.isGeopend(v.doel);
@@ -202,7 +202,7 @@ export class VbaClient {
     l.begin = Date.now();
     l.timer = setTimeout(() => {
       const ms = l.ms ?? this.opties.tijdslimiet ?? 30_000;
-      l.afbreken({ soort: "afbreking", reden: "tijdslimiet", beschrijving: `De tijdslimiet van ${ms / 1000} seconden is verstreken; de VBA-worker is gestopt.` });
+      l.afbreken({ soort: "afbreking", reden: "tijdslimiet", beschrijving: i18next.t("vba:client.timeLimit", { seconds: ms / 1000 }) });
     }, Math.max(0, l.rest));
   }
 
@@ -340,21 +340,21 @@ export class VbaClient {
     for (const p of analyse.procedures) {
       const reden =
         p.soort !== "sub" && p.soort !== "function"
-          ? "eigenschapsprocedure"
+          ? i18next.t("vba:client.notRun.propertyProcedure")
           : p.moduleSoort === "klasse"
-            ? "klassenmodule (vraagt een instantie)"
+            ? i18next.t("vba:client.notRun.classModule")
             : p.gebeurtenis
-              ? "gebeurtenisprocedure"
+              ? i18next.t("vba:client.notRun.eventProcedure")
               : p.moduleSoort === "formulier" && !this.opties.formulieren
-                ? "formulier- of rapportmodule (vraagt een geopend formulier; er is geen formulierhost)"
+                ? i18next.t("vba:client.notRun.formModule")
               : !p.publiek
-                ? "niet publiek"
+                ? i18next.t("vba:client.notRun.notPublic")
                 : !p.zonderVerplichteParameters
-                  ? "heeft verplichte parameters"
+                  ? i18next.t("vba:client.notRun.requiredParameters")
                   : !toegestaan.has(p.status)
-                    ? `status ${p.status}`
+                    ? i18next.t("vba:client.notRun.status", { status: p.status })
                     : opties.filter && !opties.filter(p)
-                      ? "uitgefilterd"
+                      ? i18next.t("vba:client.notRun.filteredOut")
                       : null;
       if (reden) nietUitgevoerd.push({ module: p.module, procedure: p.naam, reden });
       else kandidaten.push(p);
@@ -398,7 +398,7 @@ export class VbaClient {
 
   /** Stopt de lopende uitvoering door de worker te beëindigen. */
   stop() {
-    this.beeindig({ soort: "afbreking", reden: "gestopt", beschrijving: "De uitvoering is gestopt." });
+    this.beeindig({ soort: "afbreking", reden: "gestopt", beschrijving: i18next.t("vba:runtime.stopped") });
   }
 
   /** Sluit de client definitief. */
