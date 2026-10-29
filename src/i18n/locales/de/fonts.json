@@ -1,43 +1,43 @@
 {
   "attribution": {
-    "system": "Font on this computer.",
-    "officeMetric": "Office font; displayed here with {{substitute}} (metric-compatible). The file keeps {{font}}.",
-    "officeApproximation": "Office font; displayed here with {{substitute}} (approximation). The file keeps {{font}}.",
-    "unknown": "Not available; the app chooses a substitute.",
+    "system": "Schriftart auf diesem Computer.",
+    "officeMetric": "Office-Schriftart; hier mit {{substitute}} angezeigt (metrisch kompatibel). Die Datei behält {{font}}.",
+    "officeApproximation": "Office-Schriftart; hier mit {{substitute}} angezeigt (Annäherung). Die Datei behält {{font}}.",
+    "unknown": "Nicht verfügbar; die App wählt einen Ersatz.",
     "license": "{{license}} · {{source}}.",
-    "bundled": "included ({{package}})",
-    "metricCompatible": "Metric-compatible with {{font}}."
+    "bundled": "mitgeliefert ({{package}})",
+    "metricCompatible": "Metrisch kompatibel mit {{font}}."
   },
   "errors": {
-    "chooseFailed": "The font could not be applied.",
-    "loadFailed": "Font {{font}} could not be loaded ({{status}})."
+    "chooseFailed": "Die Schriftart konnte nicht angewendet werden.",
+    "loadFailed": "Die Schriftart {{font}} konnte nicht geladen werden ({{status}})."
   },
   "groups": {
-    "document": "In this document",
-    "recent": "Recently used",
-    "sansSerif": "Sans serif",
+    "document": "In diesem Dokument",
+    "recent": "Zuletzt verwendet",
+    "sansSerif": "Serifenlos",
     "serif": "Serif",
-    "monospace": "Monospace",
-    "handwritingDisplay": "Handwriting and display",
-    "system": "On this computer"
+    "monospace": "Festbreite",
+    "handwritingDisplay": "Handschrift und Zierschrift",
+    "system": "Auf diesem Computer"
   },
   "picker": {
-    "font": "Font",
-    "mixed": "mixed",
+    "font": "Schriftart",
+    "mixed": "gemischt",
     "current": "{{name}}: {{font}}",
-    "searchPlaceholder": "Search…",
-    "searchLabel": "Search fonts",
-    "noResults": "No font found; Enter chooses “{{query}}”.",
-    "bold": "Bold",
-    "italic": "Italic",
-    "boldItalic": "Bold Italic",
-    "showAll": "Show all fonts",
-    "showFewer": "Show fewer fonts",
-    "showSystemFonts": "Show fonts on this computer…"
+    "searchPlaceholder": "Suchen…",
+    "searchLabel": "Schriftarten suchen",
+    "noResults": "Keine Schriftart gefunden; Eingabe wählt „{{query}}“.",
+    "bold": "Fett",
+    "italic": "Kursiv",
+    "boldItalic": "Fett Kursiv",
+    "showAll": "Alle Schriftarten anzeigen",
+    "showFewer": "Weniger Schriftarten anzeigen",
+    "showSystemFonts": "Schriftarten auf diesem Computer anzeigen…"
   },
   "substitution": {
-    "message": "Fonts substituted because they are not installed on this computer — {{details}}. The file keeps the original names.",
-    "metric": "metric-compatible (same line breaks): {{fonts}}",
-    "approximate": "approximation (lines and pages may shift): {{fonts}}"
+    "message": "Schriftarten ersetzt, weil sie auf diesem Computer nicht installiert sind — {{details}}. Die Datei behält die ursprünglichen Namen.",
+    "metric": "metrisch kompatibel (gleiche Zeilenumbrüche): {{fonts}}",
+    "approximate": "Annäherung (Zeilen und Seiten können sich verschieben): {{fonts}}"
   }
 }
