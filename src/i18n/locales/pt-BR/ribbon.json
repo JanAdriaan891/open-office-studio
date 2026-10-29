@@ -37,7 +37,8 @@
       "slideShow": "Apresentação de Slides",
       "moveSlide": "Mover slide",
       "arrange": "Organizar",
-      "alignToSlide": "Alinhar ao slide"
+      "alignToSlide": "Alinhar ao slide",
+      "presentationViews": "Modos de Exibição de Apresentação"
     },
     "commands": {
       "fontSize": "Tamanho da fonte",
@@ -99,7 +100,10 @@
       "printHint": "Visualização de impressão: slides, folhetos ou páginas de anotações ({{shortcut}})",
       "notesPages": "Páginas de anotações",
       "notesPagesHint": "Imprimir páginas de anotações ou salvá-las como PDF",
-      "fitSlide": "Ajustar slide à janela"
+      "fitSlide": "Ajustar slide à janela",
+      "presenterView": "Modo do Apresentador",
+      "normalView": "Normal",
+      "slideSorter": "Classificação de Slides"
     },
     "characters": {
       "euro": "Símbolo do euro",
@@ -267,7 +271,14 @@
       "undo": "Desfazer",
       "zoom100": "Zoom 100%",
       "zoomIn": "Ampliar",
-      "zoomOut": "Reduzir"
+      "zoomOut": "Reduzir",
+      "presenterView": "Apresentação com modo do apresentador (também em uma tela)",
+      "showBlackScreen": "Apresentação: tela preta liga/desliga",
+      "showWhiteScreen": "Apresentação: tela branca liga/desliga",
+      "showPen": "Apresentação: caneta",
+      "showHighlighter": "Apresentação: marca-texto",
+      "showLaser": "Apresentação: apontador laser",
+      "showClearInk": "Apresentação: apagar a tinta do slide"
     }
   },
   "spreadsheet": {

@@ -37,7 +37,8 @@
       "slideShow": "Bildschirmpräsentation",
       "moveSlide": "Folie verschieben",
       "arrange": "Anordnen",
-      "alignToSlide": "An Folie ausrichten"
+      "alignToSlide": "An Folie ausrichten",
+      "presentationViews": "Präsentationsansichten"
     },
     "commands": {
       "fontSize": "Schriftgrad",
@@ -99,7 +100,10 @@
       "printHint": "Druckvorschau: Folien, Handzettel oder Notizenseiten ({{shortcut}})",
       "notesPages": "Notizenseiten",
       "notesPagesHint": "Notizenseiten drucken oder als PDF speichern",
-      "fitSlide": "Folie an Fenster anpassen"
+      "fitSlide": "Folie an Fenster anpassen",
+      "presenterView": "Referentenansicht",
+      "normalView": "Normal",
+      "slideSorter": "Foliensortierung"
     },
     "characters": {
       "euro": "Eurozeichen",
@@ -267,7 +271,14 @@
       "undo": "Rückgängig",
       "zoom100": "Zoom 100 %",
       "zoomIn": "Vergrößern",
-      "zoomOut": "Verkleinern"
+      "zoomOut": "Verkleinern",
+      "presenterView": "Bildschirmpräsentation mit Referentenansicht (auch auf einem Bildschirm)",
+      "showBlackScreen": "Präsentation: schwarzer Bildschirm ein/aus",
+      "showWhiteScreen": "Präsentation: weißer Bildschirm ein/aus",
+      "showPen": "Präsentation: Stift",
+      "showHighlighter": "Präsentation: Textmarker",
+      "showLaser": "Präsentation: Laserpointer",
+      "showClearInk": "Präsentation: Freihand auf der Folie löschen"
     }
   },
   "spreadsheet": {

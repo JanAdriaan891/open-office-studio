@@ -37,7 +37,8 @@
       "slideShow": "Diavoorstelling",
       "moveSlide": "Dia verplaatsen",
       "arrange": "Rangschikken",
-      "alignToSlide": "Uitlijnen op dia"
+      "alignToSlide": "Uitlijnen op dia",
+      "presentationViews": "Presentatieweergaven"
     },
     "commands": {
       "fontSize": "Tekengrootte",
@@ -99,7 +100,10 @@
       "printHint": "Afdrukvoorbeeld: dia’s, hand-outs of notitiepagina’s ({{shortcut}})",
       "notesPages": "Notitiepagina’s",
       "notesPagesHint": "Notitiepagina’s afdrukken of als PDF bewaren",
-      "fitSlide": "Dia passend maken"
+      "fitSlide": "Dia passend maken",
+      "presenterView": "Presentatorweergave",
+      "normalView": "Normaal",
+      "slideSorter": "Diasorteerder"
     },
     "characters": {
       "euro": "Euroteken",
@@ -267,7 +271,14 @@
       "undo": "Ongedaan maken",
       "zoom100": "Zoom 100%",
       "zoomIn": "Inzoomen",
-      "zoomOut": "Uitzoomen"
+      "zoomOut": "Uitzoomen",
+      "presenterView": "Voorstelling met presentatorweergave (ook op één scherm)",
+      "showBlackScreen": "Voorstelling: zwart scherm aan/uit",
+      "showWhiteScreen": "Voorstelling: wit scherm aan/uit",
+      "showPen": "Voorstelling: pen",
+      "showHighlighter": "Voorstelling: markeerstift",
+      "showLaser": "Voorstelling: laseraanwijzer",
+      "showClearInk": "Voorstelling: inkt op de dia wissen"
     }
   },
   "spreadsheet": {

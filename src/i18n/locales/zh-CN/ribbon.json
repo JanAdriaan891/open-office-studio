@@ -37,7 +37,8 @@
       "slideShow": "幻灯片放映",
       "moveSlide": "移动幻灯片",
       "arrange": "排列",
-      "alignToSlide": "对齐幻灯片"
+      "alignToSlide": "对齐幻灯片",
+      "presentationViews": "演示文稿视图"
     },
     "commands": {
       "fontSize": "字号",
@@ -99,7 +100,10 @@
       "printHint": "打印预览：幻灯片、讲义或备注页（{{shortcut}}）",
       "notesPages": "备注页",
       "notesPagesHint": "打印备注页或另存为 PDF",
-      "fitSlide": "使幻灯片适应窗口"
+      "fitSlide": "使幻灯片适应窗口",
+      "presenterView": "演示者视图",
+      "normalView": "普通",
+      "slideSorter": "幻灯片浏览"
     },
     "characters": {
       "euro": "欧元符号",
@@ -267,7 +271,14 @@
       "undo": "撤消",
       "zoom100": "缩放 100%",
       "zoomIn": "放大",
-      "zoomOut": "缩小"
+      "zoomOut": "缩小",
+      "presenterView": "带演示者视图的幻灯片放映（单屏也可）",
+      "showBlackScreen": "放映：黑屏开/关",
+      "showWhiteScreen": "放映：白屏开/关",
+      "showPen": "放映：笔",
+      "showHighlighter": "放映：荧光笔",
+      "showLaser": "放映：激光笔",
+      "showClearInk": "放映：擦除幻灯片墨迹"
     }
   },
   "spreadsheet": {

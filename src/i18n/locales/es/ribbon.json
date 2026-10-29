@@ -37,7 +37,8 @@
       "slideShow": "Presentación con diapositivas",
       "moveSlide": "Mover diapositiva",
       "arrange": "Organizar",
-      "alignToSlide": "Alinear con la diapositiva"
+      "alignToSlide": "Alinear con la diapositiva",
+      "presentationViews": "Vistas de presentación"
     },
     "commands": {
       "fontSize": "Tamaño de fuente",
@@ -99,7 +100,10 @@
       "printHint": "Vista previa de impresión: diapositivas, documentos o páginas de notas ({{shortcut}})",
       "notesPages": "Páginas de notas",
       "notesPagesHint": "Imprimir páginas de notas o guardarlas como PDF",
-      "fitSlide": "Ajustar la diapositiva a la ventana"
+      "fitSlide": "Ajustar la diapositiva a la ventana",
+      "presenterView": "Vista del moderador",
+      "normalView": "Normal",
+      "slideSorter": "Clasificador de diapositivas"
     },
     "characters": {
       "euro": "Símbolo del euro",
@@ -267,7 +271,14 @@
       "undo": "Deshacer",
       "zoom100": "Zoom 100 %",
       "zoomIn": "Acercar",
-      "zoomOut": "Alejar"
+      "zoomOut": "Alejar",
+      "presenterView": "Presentación con vista del moderador (también en una pantalla)",
+      "showBlackScreen": "Presentación: pantalla negra sí/no",
+      "showWhiteScreen": "Presentación: pantalla blanca sí/no",
+      "showPen": "Presentación: pluma",
+      "showHighlighter": "Presentación: resaltador",
+      "showLaser": "Presentación: puntero láser",
+      "showClearInk": "Presentación: borrar la tinta de la diapositiva"
     }
   },
   "spreadsheet": {

@@ -37,7 +37,8 @@
       "slideShow": "Slide Show",
       "moveSlide": "Move Slide",
       "arrange": "Arrange",
-      "alignToSlide": "Align to Slide"
+      "alignToSlide": "Align to Slide",
+      "presentationViews": "Presentation Views"
     },
     "commands": {
       "fontSize": "Font Size",
@@ -99,7 +100,10 @@
       "printHint": "Print preview: slides, handouts or notes pages ({{shortcut}})",
       "notesPages": "Notes Pages",
       "notesPagesHint": "Print notes pages or save them as PDF",
-      "fitSlide": "Fit Slide to Window"
+      "fitSlide": "Fit Slide to Window",
+      "presenterView": "Presenter View",
+      "normalView": "Normal",
+      "slideSorter": "Slide Sorter"
     },
     "characters": {
       "euro": "Euro sign",
@@ -267,7 +271,14 @@
       "undo": "Undo",
       "zoom100": "Zoom 100%",
       "zoomIn": "Zoom in",
-      "zoomOut": "Zoom out"
+      "zoomOut": "Zoom out",
+      "presenterView": "Slide show with presenter view (also on one screen)",
+      "showBlackScreen": "Slide show: black screen on/off",
+      "showWhiteScreen": "Slide show: white screen on/off",
+      "showPen": "Slide show: pen",
+      "showHighlighter": "Slide show: highlighter",
+      "showLaser": "Slide show: laser pointer",
+      "showClearInk": "Slide show: erase ink on the slide"
     }
   },
   "spreadsheet": {
