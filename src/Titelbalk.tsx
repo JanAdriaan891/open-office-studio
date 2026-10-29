@@ -28,7 +28,7 @@ export function Titelbalk({
   const { t } = useTranslation("shell");
   return (
     <header className="office-titelbalk" data-tauri-drag-region>
-      <div className="office-titelbalk-links">
+      <div className="office-titelbalk-links" data-tauri-drag-region>
         <button
           type="button"
           className="office-titelbalk-merk"
@@ -49,7 +49,7 @@ export function Titelbalk({
       <div className="office-titelbalk-titel" data-tauri-drag-region title={titel} dir="auto">
         {titel}
       </div>
-      <div className="office-titelbalk-rechts">
+      <div className="office-titelbalk-rechts" data-tauri-drag-region>
         {rechts}
         {tauri && <Vensterknoppen />}
       </div>
