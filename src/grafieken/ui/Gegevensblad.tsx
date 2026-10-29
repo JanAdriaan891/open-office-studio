@@ -1,9 +1,12 @@
 import { useRef } from "react";
+import { useTranslation } from "react-i18next";
 import { Columns3, Rows3, Trash2, ClipboardPaste, Table2 } from "lucide-react";
 import { leesTabgescheiden } from "../model.ts";
 import { LIMIETEN } from "../fouten.ts";
+import { vertaal } from "../teksten.ts";
 
-const kolomNaam = (i: number) => (i === 0 ? "Categorie" : `Reeks ${i}`);
+/** Standaardkop van een kolom; belandt in de grafiek, dus in de interfacetaal van nu. */
+const kolomNaam = (i: number) => (i === 0 ? vertaal("defaults.categoryHeader") : vertaal("defaults.series", { n: i }));
 
 /**
  * Klein rekenblad om categorieën (eerste kolom), reeksnamen (eerste rij) en
@@ -21,6 +24,7 @@ export function Gegevensblad({
   uitTabel?: () => void;
   meld: (tekst: string) => void;
 }) {
+  const { t } = useTranslation("charts");
   const vak = useRef<HTMLTableElement>(null);
   const rijen = raster.length;
   const kolommen = raster[0]?.length ?? 0;
@@ -37,7 +41,7 @@ export function Gegevensblad({
     const hoogte = Math.max(rijen, r + blok.length);
     const breedte = Math.max(kolommen, k + Math.max(...blok.map((b) => b.length)));
     if (hoogte * breedte > LIMIETEN.cellen) {
-      meld("De geplakte gegevens zijn te groot voor een grafiek.");
+      meld(t("errors.pasteTooLarge"));
       return;
     }
     const nieuw = Array.from({ length: hoogte }, (_, i) =>
@@ -47,14 +51,15 @@ export function Gegevensblad({
     wijzig(nieuw);
   }
   function plakKlembord() {
+    const geweigerd = () => meld(t("dataSheet.pasteNotAllowed", { shortcut: "Ctrl+V" }));
     if (!navigator.clipboard?.readText) {
-      meld("Plakken via de knop is hier niet toegestaan. Klik in een cel en gebruik Ctrl+V.");
+      geweigerd();
       return;
     }
     navigator.clipboard
       .readText()
-      .then((t) => t && plak(0, 0, t))
-      .catch(() => meld("Plakken via de knop is hier niet toegestaan. Klik in een cel en gebruik Ctrl+V."));
+      .then((tekst) => tekst && plak(0, 0, tekst))
+      .catch(geweigerd);
   }
   const focus = (r: number, k: number) =>
     requestAnimationFrame(() =>
@@ -64,23 +69,23 @@ export function Gegevensblad({
     <div className="grafiek-gegevensblad">
       <div className="grafiek-gegevensblad-knoppen">
         <button type="button" onClick={() => wijzig([...raster, Array(kolommen).fill("")])} disabled={rijen >= LIMIETEN.categorieen + 1}>
-          <Rows3 size={14} /> Rij
+          <Rows3 size={14} /> {t("dataSheet.row")}
         </button>
         <button type="button" onClick={() => wijzig(raster.map((r, i) => [...r, i === 0 ? kolomNaam(kolommen) : ""]))} disabled={kolommen > LIMIETEN.reeksen}>
-          <Columns3 size={14} /> Reeks
+          <Columns3 size={14} /> {t("dataSheet.series")}
         </button>
-        <button type="button" onClick={() => rijen > 2 && wijzig(raster.slice(0, -1))} disabled={rijen <= 2} title="Laatste rij verwijderen">
-          <Trash2 size={14} /> Rij
+        <button type="button" onClick={() => rijen > 2 && wijzig(raster.slice(0, -1))} disabled={rijen <= 2} title={t("dataSheet.deleteLastRow")}>
+          <Trash2 size={14} /> {t("dataSheet.row")}
         </button>
-        <button type="button" onClick={() => kolommen > 2 && wijzig(raster.map((r) => r.slice(0, -1)))} disabled={kolommen <= 2} title="Laatste reeks verwijderen">
-          <Trash2 size={14} /> Reeks
+        <button type="button" onClick={() => kolommen > 2 && wijzig(raster.map((r) => r.slice(0, -1)))} disabled={kolommen <= 2} title={t("dataSheet.deleteLastSeries")}>
+          <Trash2 size={14} /> {t("dataSheet.series")}
         </button>
-        <button type="button" onClick={plakKlembord} title="Tabgescheiden tekst uit het klembord plakken, bijvoorbeeld gekopieerd uit een rekenblad">
-          <ClipboardPaste size={14} /> Plakken
+        <button type="button" onClick={plakKlembord} title={t("dataSheet.pasteHint")}>
+          <ClipboardPaste size={14} /> {t("dataSheet.paste")}
         </button>
         {uitTabel && (
-          <button type="button" onClick={uitTabel} title="Neemt de tabel over waarin de cursor staat">
-            <Table2 size={14} /> Uit geselecteerde tabel
+          <button type="button" onClick={uitTabel} title={t("dataSheet.fromTableHint")}>
+            <Table2 size={14} /> {t("dataSheet.fromTable")}
           </button>
         )}
       </div>
@@ -96,12 +101,12 @@ export function Gegevensblad({
                       value={cel}
                       aria-label={
                         r === 0 && k === 0
-                          ? "Hoekcel"
+                          ? t("dataSheet.cornerCell")
                           : r === 0
-                            ? `Naam van reeks ${k}`
+                            ? t("dataSheet.seriesName", { n: k })
                             : k === 0
-                              ? `Categorie ${r}`
-                              : `Waarde rij ${r}, reeks ${k}`
+                              ? t("dataSheet.category", { n: r })
+                              : t("dataSheet.value", { row: r, series: k })
                       }
                       placeholder={r === 0 && k > 0 ? kolomNaam(k) : ""}
                       inputMode={r > 0 && k > 0 ? "decimal" : undefined}
