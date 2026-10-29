@@ -28,6 +28,7 @@
   "bundle": {
     "active": true,
     "targets": "all",
+    "createUpdaterArtifacts": false,
     "category": "Productivity",
     "publisher": "OpenAEC Foundation",
     "copyright": "© 2026 OpenAEC Foundation",
@@ -47,10 +48,25 @@
     },
     "linux": {
       "deb": {
-        "desktopTemplate": "linux/open-office-studio.desktop.hbs"
+        "desktopTemplate": "linux/open-office-studio.desktop.hbs",
+        "files": {
+          "/usr/share/mime/packages/open-office-studio.xml": "linux/open-office-studio-mime.xml"
+        }
       },
       "rpm": {
-        "desktopTemplate": "linux/open-office-studio.desktop.hbs"
+        "desktopTemplate": "linux/open-office-studio.desktop.hbs",
+        "files": {
+          "/usr/share/mime/packages/open-office-studio.xml": "linux/open-office-studio-mime.xml"
+        }
+      }
+    }
+  },
+  "plugins": {
+    "updater": {
+      "pubkey": "",
+      "endpoints": [],
+      "windows": {
+        "installMode": "passive"
       }
     }
   }

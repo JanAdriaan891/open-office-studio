@@ -37,7 +37,8 @@
       "slideShow": "幻灯片放映",
       "moveSlide": "移动幻灯片",
       "arrange": "排列",
-      "alignToSlide": "对齐幻灯片"
+      "alignToSlide": "对齐幻灯片",
+      "find": "查找"
     },
     "commands": {
       "fontSize": "字号",
@@ -99,7 +100,8 @@
       "printHint": "打印预览：幻灯片、讲义或备注页（{{shortcut}}）",
       "notesPages": "备注页",
       "notesPagesHint": "打印备注页或另存为 PDF",
-      "fitSlide": "使幻灯片适应窗口"
+      "fitSlide": "使幻灯片适应窗口",
+      "findReplace": "查找和替换"
     },
     "characters": {
       "euro": "欧元符号",
@@ -136,7 +138,21 @@
       "placeCursor": "请先将光标置于文本框中。",
       "onlySlide": "无法删除唯一的幻灯片。"
     },
-    "dateShapeName": "日期"
+    "dateShapeName": "日期",
+    "find": {
+      "title": "查找和替换",
+      "findWhat": "查找内容",
+      "replaceWith": "替换为",
+      "matchCase": "区分大小写",
+      "previous": "上一个",
+      "next": "下一个",
+      "replace": "替换",
+      "replaceAll": "全部替换",
+      "found": "第 {{current}} 个，共 {{total}} 个 · 幻灯片 {{slide}}",
+      "notFound": "未找到搜索内容。",
+      "replacedCurrent": "已替换。",
+      "replacedAll": "已替换 {{number}} 处（可一步撤销）。"
+    }
   },
   "shortcuts": {
     "modules": {
@@ -190,6 +206,7 @@
       "findReplace": "查找和替换",
       "firstSlide": "第一张幻灯片",
       "fontDialog": "字体…",
+      "formatCells": "设置单元格格式（数字格式）",
       "generalFormat": "常规格式",
       "goTo": "定位",
       "growFont": "增大字号",
@@ -228,7 +245,9 @@
       "paragraphDialog": "段落…",
       "paste": "粘贴",
       "pasteFormatting": "粘贴格式",
+      "pasteSpecial": "选择性粘贴",
       "pasteTextOnly": "仅粘贴文本",
+      "pasteValues": "粘贴值",
       "percentFormat": "百分比",
       "previousPane": "移到窗口的上一部分",
       "previousSheet": "上一个工作表",
@@ -268,8 +287,29 @@
       "zoom100": "缩放 100%",
       "zoomIn": "放大",
       "zoomOut": "缩小",
+      "newDocument": "新建同类文档",
+      "editCell": "编辑单元格",
+      "filter": "开启/关闭筛选",
+      "newMessage": "新邮件",
+      "reply": "回复",
+      "replyAll": "全部回复",
+      "forward": "转发",
+      "searchMail": "搜索邮件",
+      "getMail": "收取邮件",
+      "deleteMessage": "删除邮件",
+      "toggleRead": "已读/未读",
+      "toggleStar": "加星标",
+      "archive": "归档",
+      "nextMessage": "下一封邮件",
+      "previousMessage": "上一封邮件",
+      "nextUnread": "下一封未读邮件",
+      "searchNotes": "搜索笔记",
+      "copyWithHeaders": "连同列名复制",
+      "clearCell": "清空单元格",
+      "selectColumn": "选择列",
+      "selectRow": "选择行",
+      "contextMenu": "打开快捷菜单",
       "fillRight": "向右填充",
-      "toggleFilter": "打开或关闭筛选",
       "insertFunction": "插入函数",
       "toggleReference": "切换绝对/相对引用（编辑公式时）"
     }
