@@ -4,6 +4,8 @@
  * hoort. De UI geeft alleen de vragen (wachtwoord, CSV-instellingen) mee.
  */
 import type { Soort } from "../editors";
+import i18next from "../i18n/config";
+import { formatGetal } from "../i18n/opmaak";
 import {
   bestandssoort,
   bestandstypen,
@@ -241,21 +243,34 @@ async function bereidOnversleuteld(
     const resultaat = csvNaarXlsx(bytes, instellingen, bladnaam);
     const regels: Rapportregel[] = [
       {
-        onderdeel: "Import",
-        gevolg: `${resultaat.rijen} rij(en) en ${resultaat.kolommen} kolom(men) ingelezen; ${scheidingsnaam(resultaat.scheidingsteken)} als scheidingsteken, codering ${resultaat.codering}.`,
+        onderdeel: i18next.t("spreadsheet:csvImport.report.import"),
+        gevolg: i18next.t("spreadsheet:csvImport.report.imported", {
+          rows: i18next.t("spreadsheet:csvImport.report.rows", {
+            count: resultaat.rijen,
+          }),
+          columns: i18next.t("spreadsheet:csvImport.report.columns", {
+            count: resultaat.kolommen,
+          }),
+          separator: scheidingsnaam(resultaat.scheidingsteken),
+          encoding: resultaat.codering,
+        }),
         info: true,
       },
     ];
     if (resultaat.formuleachtig)
       regels.push({
-        onderdeel: "Formuleachtige tekst",
-        gevolg: `${resultaat.formuleachtig} cel(len) die met =, +, - of @ beginnen zijn als tekst opgenomen, niet als formule (bescherming tegen CSV-injectie).`,
+        onderdeel: i18next.t("spreadsheet:csvImport.report.formulaLike"),
+        gevolg: i18next.t("spreadsheet:csvImport.report.formulaLikeCells", {
+          count: resultaat.formuleachtig,
+        }),
       });
     if (resultaat.afgekapt)
       regels.push({
-        onderdeel: "Afgekapt",
-        gevolg:
-          "Het bestand is groter dan een werkblad (1.048.576 rijen of 16.384 kolommen); de rest is niet ingelezen.",
+        onderdeel: i18next.t("spreadsheet:csvImport.report.truncated"),
+        gevolg: i18next.t("spreadsheet:csvImport.report.truncatedText", {
+          rows: formatGetal(1048576),
+          columns: formatGetal(16384),
+        }),
       });
     return {
       soort,

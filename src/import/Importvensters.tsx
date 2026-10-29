@@ -1,4 +1,6 @@
 import { useCallback, useId, useMemo, useState, type ReactNode } from "react";
+import { Trans, useTranslation } from "react-i18next";
+import { formatGetal } from "../i18n/opmaak";
 import { Dialoog } from "../werkruimte/Dialoog";
 import "../werkruimte/werkruimte.css";
 import {
@@ -42,12 +44,7 @@ function Venster({
 
 const hoofdletter = (t: string) => t.charAt(0).toUpperCase() + t.slice(1);
 
-const TYPENAMEN: Record<Kolomtype, string> = {
-  standaard: "Standaard",
-  tekst: "Tekst",
-  datum: "Datum",
-  overslaan: "Overslaan",
-};
+const KOLOMTYPEN: Kolomtype[] = ["standaard", "tekst", "datum", "overslaan"];
 
 function weergave(
   waarde: string,
@@ -64,8 +61,8 @@ function weergave(
   if (cel.soort === "getal")
     return {
       tekst: cel.procent
-        ? `${(cel.waarde * 100).toLocaleString("nl-NL")}%`
-        : cel.waarde.toLocaleString("nl-NL", { maximumFractionDigits: 10 }),
+        ? `${formatGetal(cel.waarde * 100)}%`
+        : formatGetal(cel.waarde, { maximumFractionDigits: 10 }),
       getal: true,
     };
   const ms = Date.UTC(1899, 11, 30) + cel.waarde * 86400000;
@@ -99,6 +96,7 @@ export function CsvImportVenster({
   bevestig: (instellingen: CsvInstellingen) => void;
   annuleer: () => void;
 }) {
+  const { t } = useTranslation("spreadsheet");
   const [instellingen, setInstellingen] = useState(() =>
     herkenInstellingen(bytes, ext),
   );
@@ -131,12 +129,12 @@ export function CsvImportVenster({
 
   return (
     <Venster
-      titel={`${naam} importeren`}
+      titel={t("csvImport.title", { name: naam })}
       annuleer={annuleer}
       acties={
         <>
           <button type="button" className="werkruimte-knop" onClick={annuleer}>
-            Annuleren
+            {t("common:cancel")}
           </button>
           <button
             type="button"
@@ -144,14 +142,14 @@ export function CsvImportVenster({
             disabled={!!voorbeeld.fout}
             onClick={() => bevestig({ ...instellingen, kolomtypen: typen })}
           >
-            Importeren
+            {t("csvImport.import")}
           </button>
         </>
       }
     >
       <div className="importvenster-raster">
         <label>
-          Scheidingsteken
+          {t("csvImport.separator")}
           <select
             value={scheidingKeuze}
             onChange={(e) =>
@@ -163,16 +161,16 @@ export function CsvImportVenster({
               })
             }
           >
-            <option value=";">Puntkomma ;</option>
-            <option value=",">Komma ,</option>
-            <option value={"\t"}>Tab</option>
-            <option value="|">Verticale streep |</option>
-            <option value="eigen">Eigen teken…</option>
+            <option value=";">{t("csvImport.separatorSemicolon")}</option>
+            <option value=",">{t("csvImport.separatorComma")}</option>
+            <option value={"\t"}>{t("csvImport.separatorTab")}</option>
+            <option value="|">{t("csvImport.separatorPipe")}</option>
+            <option value="eigen">{t("csvImport.separatorCustom")}</option>
           </select>
         </label>
         {scheidingKeuze === "eigen" && (
           <label>
-            Eigen teken
+            {t("csvImport.customCharacter")}
             <input
               type="text"
               maxLength={1}
@@ -185,7 +183,7 @@ export function CsvImportVenster({
           </label>
         )}
         <label>
-          Tekstafbakening
+          {t("csvImport.textQualifier")}
           <select
             value={instellingen.tekstteken}
             onChange={(e) =>
@@ -194,54 +192,56 @@ export function CsvImportVenster({
               })
             }
           >
-            <option value={'"'}>Dubbel aanhalingsteken "</option>
-            <option value="'">Enkel aanhalingsteken '</option>
-            <option value="">Geen</option>
+            <option value={'"'}>{t("csvImport.qualifierDouble")}</option>
+            <option value="'">{t("csvImport.qualifierSingle")}</option>
+            <option value="">{t("csvImport.qualifierNone")}</option>
           </select>
         </label>
         <label>
-          Tekencodering
+          {t("csvImport.encoding")}
           <select
             value={instellingen.codering}
             onChange={(e) => zet({ codering: e.target.value as CsvCodering })}
           >
             {CODERINGEN.map((c) => (
               <option key={c.waarde} value={c.waarde}>
-                {c.naam}
                 {c.waarde === "auto" && voorbeeld.codering
-                  ? ` (${voorbeeld.codering})`
-                  : ""}
+                  ? t("csvImport.encodingDetected", {
+                      name: c.naam,
+                      encoding: voorbeeld.codering,
+                    })
+                  : c.naam}
               </option>
             ))}
           </select>
         </label>
         <label>
-          Getallen
+          {t("csvImport.numbers")}
           <select
             value={instellingen.getalnotatie}
             onChange={(e) =>
               zet({ getalnotatie: e.target.value as "nl" | "en" })
             }
           >
-            <option value="nl">Nederlands (1.234,56)</option>
-            <option value="en">Engels (1,234.56)</option>
+            <option value="nl">{t("csvImport.numbersDutch")}</option>
+            <option value="en">{t("csvImport.numbersEnglish")}</option>
           </select>
         </label>
         <label>
-          Datumvolgorde
+          {t("csvImport.dateOrder")}
           <select
             value={instellingen.datumvolgorde}
             onChange={(e) =>
               zet({ datumvolgorde: e.target.value as Datumvolgorde })
             }
           >
-            <option value="DMJ">Dag-maand-jaar (31-12-2026)</option>
-            <option value="MDJ">Maand-dag-jaar (12/31/2026)</option>
-            <option value="JMD">Jaar-maand-dag (2026-12-31)</option>
+            <option value="DMJ">{t("csvImport.dateOrderDmy")}</option>
+            <option value="MDJ">{t("csvImport.dateOrderMdy")}</option>
+            <option value="JMD">{t("csvImport.dateOrderYmd")}</option>
           </select>
         </label>
         <label>
-          Vanaf rij
+          {t("csvImport.fromRow")}
           <input
             type="text"
             inputMode="numeric"
@@ -262,7 +262,7 @@ export function CsvImportVenster({
             checked={instellingen.kopregel}
             onChange={(e) => zet({ kopregel: e.target.checked })}
           />
-          Eerste rij is kopregel
+          {t("csvImport.headerRow")}
         </label>
       </div>
       {voorbeeld.fout ? (
@@ -271,7 +271,7 @@ export function CsvImportVenster({
         <div
           className="importvenster-voorbeeld"
           role="region"
-          aria-label="Voorbeeld van de eerste 50 rijen"
+          aria-label={t("csvImport.previewLabel")}
           tabIndex={0}
         >
           <table>
@@ -280,7 +280,7 @@ export function CsvImportVenster({
                 {typen.map((type, k) => (
                   <th key={k} scope="col">
                     <select
-                      aria-label={`Type van kolom ${k + 1}`}
+                      aria-label={t("csvImport.columnType", { number: k + 1 })}
                       value={type}
                       onChange={(e) => {
                         const kolomtypen = [...typen];
@@ -288,9 +288,9 @@ export function CsvImportVenster({
                         zet({ kolomtypen });
                       }}
                     >
-                      {(Object.keys(TYPENAMEN) as Kolomtype[]).map((t) => (
-                        <option key={t} value={t}>
-                          {TYPENAMEN[t]}
+                      {KOLOMTYPEN.map((soort) => (
+                        <option key={soort} value={soort}>
+                          {t(`csvImport.columnTypes.${soort}`)}
                         </option>
                       ))}
                     </select>
@@ -333,12 +333,17 @@ export function CsvImportVenster({
         </div>
       )}
       <p className="importvenster-uitleg">
-        {hoofdletter(scheidingsnaam(voorbeeld.scheidingsteken || ";"))} als
-        scheidingsteken, {kolommen} kolom(men). Kies <b>Tekst</b> voor
-        postcodes, artikelnummers en IBAN; voorloopnullen en getallen van meer
-        dan 15 cijfers blijven in Standaard al tekst. Waarden die met =, +, - of
-        @ beginnen worden nooit als formule ingelezen (apostrof in de
-        voorvertoning).
+        {t("csvImport.detected", {
+          separator: hoofdletter(
+            scheidingsnaam(voorbeeld.scheidingsteken || ";"),
+          ),
+          count: kolommen,
+        })}{" "}
+        <Trans
+          t={t}
+          i18nKey="csvImport.explanation"
+          components={{ b: <b /> }}
+        />
       </p>
     </Venster>
   );
