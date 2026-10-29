@@ -112,5 +112,10 @@
   "theme": {
     "light": "Ljust tema",
     "forge": "Forge-tema"
+  },
+  "host": {
+    "conflict": "Någon annan har sparat dokumentet under tiden. Din version sparades som en kopia: {{name}}.",
+    "readOnly": "{{name}} öppnades skrivskyddat. Använd Spara som för att behålla dina ändringar.",
+    "openFailed": "Dokumentet från arbetsytan kunde inte öppnas: {{error}}"
   }
 }

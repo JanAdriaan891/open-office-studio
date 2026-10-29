@@ -71,7 +71,13 @@ async fn converteer_document(
 
 fn schrijf_atomair(pad: &Path, bytes: &[u8]) -> Result<(), String> {
     let map = pad.parent().ok_or("De doelmap ontbreekt.")?;
-    let mut tijdelijk = tempfile::NamedTempFile::new_in(map).map_err(|e| e.to_string())?;
+    // Eindigt op .tmp: synchronisatieclients (o.a. de OpenAEC SuperCloud) slaan
+    // zulke bestanden over, zodat alleen het definitieve bestand wordt geüpload.
+    let mut tijdelijk = tempfile::Builder::new()
+        .prefix(".~oos-")
+        .suffix(".tmp")
+        .tempfile_in(map)
+        .map_err(|e| e.to_string())?;
     tijdelijk.write_all(bytes).map_err(|e| e.to_string())?;
     tijdelijk.as_file().sync_all().map_err(|e| e.to_string())?;
     tijdelijk.persist(pad).map_err(|e| e.to_string())?;
@@ -309,6 +315,17 @@ mod tests {
         schrijf_atomair(&pad, b"nieuw").unwrap();
         assert_eq!(std::fs::read(&pad).unwrap(), b"nieuw");
         assert_eq!(std::fs::read_dir(map.path()).unwrap().count(), 1);
+    }
+    #[test]
+    fn tijdelijk_bestand_eindigt_op_tmp() {
+        let map = tempfile::tempdir().unwrap();
+        let tijdelijk = tempfile::Builder::new()
+            .prefix(".~oos-")
+            .suffix(".tmp")
+            .tempfile_in(map.path())
+            .unwrap();
+        let naam = tijdelijk.path().file_name().unwrap().to_str().unwrap().to_owned();
+        assert!(naam.starts_with(".~oos-") && naam.ends_with(".tmp"), "{naam}");
     }
     #[test]
     fn fout_laat_bestaande_inhoud_met_rust() {

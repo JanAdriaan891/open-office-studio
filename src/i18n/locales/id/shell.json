@@ -111,5 +111,10 @@
   "theme": {
     "light": "Tema terang",
     "forge": "Tema Forge"
+  },
+  "host": {
+    "conflict": "Orang lain telah menyimpan dokumen ini sementara itu. Versi Anda disimpan sebagai salinan: {{name}}.",
+    "readOnly": "{{name}} dibuka hanya-baca. Gunakan Simpan Sebagai untuk menyimpan perubahan Anda.",
+    "openFailed": "Dokumen dari ruang kerja tidak dapat dibuka: {{error}}"
   }
 }

@@ -112,5 +112,10 @@
   "theme": {
     "light": "Lyst tema",
     "forge": "Forge-tema"
+  },
+  "host": {
+    "conflict": "Noen andre har lagret dokumentet i mellomtiden. Versjonen din ble lagret som en kopi: {{name}}.",
+    "readOnly": "{{name}} ble åpnet skrivebeskyttet. Bruk Lagre som for å beholde endringene.",
+    "openFailed": "Dokumentet fra arbeidsområdet kunne ikke åpnes: {{error}}"
   }
 }
