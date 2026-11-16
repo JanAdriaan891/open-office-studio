@@ -21,7 +21,7 @@ try{
    await page.waitForFunction(language=>document.documentElement.lang===language,language);
    await page.locator('input[type=file]').first().setInputFiles({name:'363 label check.docx',mimeType:'application/vnd.openxmlformats-officedocument.wordprocessingml.document',buffer:bytes});
    await page.getByRole('tab',{name:/363 label check.docx/}).waitFor();
-   const nl=language==='nl',tab=nl?'Stijlen':'Styles',pane=nl?'Stijlenpaneel':'Styles pane';
+   const nl=language==='nl',tab=nl?'Stijlen':'Styles',pane=nl?'Stijlenvenster':'Styles pane';
    await page.getByRole('tab',{name:tab,exact:true}).click();
    const paneButton=page.getByRole('button',{name:pane,exact:true});
    const group=page.locator('.ribbon-groep').filter({has:paneButton});
@@ -35,7 +35,7 @@ try{
    assert(buttons.every(b=>b.name?.trim()&&b.title?.trim()));
    assert.equal(await group.getAttribute('aria-label'),tab);
    assert(buttons.some(b=>b.name===(nl?'Nieuwe stijl…':'New Style…')));
-   assert(buttons.some(b=>b.name===(nl?'Stijlenset…':'Style Set…')));
+   assert(buttons.some(b=>b.name===(nl?'Stijlset…':'Style Set…')));
    assert(buttons.some(b=>b.name===modify));
    assert.deepEqual(errors,[]);
    const png=`${language}.png`;await page.screenshot({path:`${out}/${png}`});
