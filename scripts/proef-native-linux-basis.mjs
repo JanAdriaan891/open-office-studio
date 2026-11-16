@@ -4,8 +4,9 @@
 import assert from "node:assert/strict";
 import { spawn, execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { createServer } from "node:net";
+import { tmpdir } from "node:os";
 import { resolve, join } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
 import { unzipSync, zipSync, strFromU8, strToU8 } from "fflate";
@@ -24,6 +25,9 @@ const source = execFileSync("git", ["rev-parse", "HEAD"], {
 }).trim();
 const report = {
   sourceCommit: source,
+  sourceTree: execFileSync("git", ["rev-parse", "HEAD^{tree}"], {
+    encoding: "utf8",
+  }).trim(),
   platform: "Linux x64 / Xvfb / installed Tauri WebKitGTK",
   scope: "One synthetic Writer keyboard/save/full-process-reopen round trip",
   status: "running",
@@ -158,16 +162,28 @@ try {
     control.pakketten.some((p) => p.sha256 === report.package.sha256),
     "DEB must match the independently checked package report",
   );
-  execFileSync("sudo", ["dpkg", "--install", packagePath], {
-    stdio: "inherit",
-  });
-  const installed = await readFile(application);
-  assert.equal(
-    hash(installed),
-    hash(await readFile("src-tauri/target/release/open-office-studio")),
-    "Installed program matches this exact CI build",
-  );
-  report.executableSha256 = hash(installed);
+  // Packaging can strip the raw Cargo executable. Compare the installed bytes
+  // with the independently checksum-verified DEB payload from this job instead.
+  const extracted = await mkdtemp(join(tmpdir(), "office-native-deb-"));
+  try {
+    execFileSync("dpkg-deb", ["--extract", packagePath, extracted]);
+    const payload = await readFile(join(extracted, application));
+    report.packagedExecutableSha256 = hash(payload);
+    report.rawBuildExecutableSha256 = hash(
+      await readFile("src-tauri/target/release/open-office-studio"),
+    );
+    execFileSync("sudo", ["dpkg", "--install", packagePath], {
+      stdio: "inherit",
+    });
+    report.executableSha256 = hash(await readFile(application));
+    assert.equal(
+      report.executableSha256,
+      report.packagedExecutableSha256,
+      "Installed program matches this exact checksum-verified DEB payload",
+    );
+  } finally {
+    await rm(extracted, { recursive: true, force: true });
+  }
   report.runtime = {
     node: process.version,
     driver: execFileSync("tauri-driver", ["--version"], {
