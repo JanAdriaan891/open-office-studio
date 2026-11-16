@@ -23,7 +23,7 @@ try{
    await page.getByRole('tab',{name:/363 label check.docx/}).waitFor();
    const nl=language==='nl',tab=nl?'Stijlen':'Styles',pane=nl?'Stijlenvenster':'Styles pane';
    await page.getByRole('tab',{name:tab,exact:true}).click();
-   const paneButton=page.getByRole('button',{name:pane,exact:true});
+   const paneButton=page.getByRole('button',{name:pane,exact:true,includeHidden:true});
    const group=page.locator('.ribbon-groep').filter({has:paneButton});
    await group.waitFor({state:'attached'});
    if(!await paneButton.isVisible())await group.locator('.ribbon-groep-knop').click();
