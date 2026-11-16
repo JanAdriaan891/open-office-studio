@@ -32,7 +32,7 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo python3 scripts/gebruik-ubuntu-hoofdarchief.py /etc/apt
-          sudo apt-get update && sudo apt-get install -y --no-install-recommends libwebkit2gtk-4.1-dev libgtk-3-dev libayatana-appindicator3-dev librsvg2-dev patchelf squashfs-tools poppler-utils
+          sudo apt-get update && sudo apt-get install -y --no-install-recommends libwebkit2gtk-4.1-dev libgtk-3-dev libayatana-appindicator3-dev librsvg2-dev patchelf squashfs-tools poppler-utils webkit2gtk-driver xvfb dbus-x11
       # De conversieruntime staat niet in deze repository: zet de Actions-variabelen
       # CONVERSIE_APT_PAKKETTEN en CONVERSIE_PROGRAMMA om de echte conversieproeven te draaien.
       - name: Conversieruntime installeren
@@ -122,6 +122,21 @@ jobs:
       - name: Windows-installer werkelijk uitpakken en controleren
         if: runner.os == 'Windows'
         run: python scripts/controleer-installers.py --platform windows --rapport .local/pakketcontrole-Windows.json
+      - name: Native Linux Writer edit, save and full application reopen
+        if: runner.os == 'Linux'
+        run: |
+          cargo install tauri-driver --version 2.1.0 --locked
+          package=$(find src-tauri/target/release/bundle/deb -maxdepth 1 -name '*.deb' -print -quit)
+          test -n "$package"
+          dbus-run-session -- xvfb-run -a node scripts/proef-native-linux-basis.mjs "$package"
+      - name: Preserve actual native Linux roundtrip proof
+        if: always() && runner.os == 'Linux'
+        uses: actions/upload-artifact@v4
+        with:
+          name: native-linux-writer-roundtrip
+          path: .local/native-linux-basis
+          include-hidden-files: true
+          if-no-files-found: warn
       - uses: actions/upload-artifact@v4
         with:
           name: open-office-studio-${{ runner.os }}
