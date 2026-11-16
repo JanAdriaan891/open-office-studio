@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "asOf": "2026-11-16T09:31:31.310374+00:00",
-  "status": "draft: source freeze checked, Windows user stop, native visual gaps, harness-head CI pending",
+  "status": "draft: bounded native Windows complete/clean; Linux data roundtrip passed with paint investigation; macOS native gap; harness-head CI pending",
   "checkpoint": {
     "commit": "e1f84f84f4d72e5ce8ab967e376a6f38344edf39",
     "tree": "2e6123201cd3a357ac3b2df8126fa15760fce865",
@@ -495,34 +495,133 @@
       "run": 43838167666,
       "job": 133199897971,
       "artifact": 14212519250,
+      "artifactApiDigest": "9033cffe4cc3ea09f7d4810bc6b6d9488984639f483b2aa75db9303692c0ffea",
       "installerSha256": "2993245b1f168b8793a6f2530aa860b7c0a8fca6b052841841cdd268ffe20e25",
+      "installerIndependentlyHashed": true,
+      "zipDownloadedByCoordinator": true,
       "exeSha256": "87821a86fe4aa3c8b18ff69b0fb63278d40c297c2ad181aa05709d7645e3a0ad",
       "exeBytes": 88094208,
       "version": "2026.46.2",
       "installerExit": 0,
       "fullNativeAcceptance": false,
-      "interrupted": true,
-      "stopReason": "Computer Use reported physical Escape user stop; no further UI input issued",
-      "cleanFinish": false,
+      "nativeChecks": [
+        {
+          "module": "Writer",
+          "result": "pass within bounded scope",
+          "passed": [
+            "Native DOCX open, edit, CtrlS, full app exit/restart, reopen saved output",
+            "Dutch to English paragraph boundary via CtrlDown; refreshed language status correct",
+            "Typing, CtrlZ removes insertion, CtrlY restores",
+            "Mouse document-tab switch from Spreadsheet back to Writer preserves English caret and language",
+            "Crop top handle dragged beyond bottom: clamps at 65% top with 30% bottom, retaining 5% visible",
+            "Crop apply, CtrlZ and CtrlY visibly restore original and boundary crop",
+            "Saved XML has top65000/bottom30000, extent3048000x152400; image bytes unchanged",
+            "All original paragraphs and run languages retained except intended English insertion"
+          ],
+          "packageEvidence": {
+            "sha256": "5fbc6b1e163a05d98336493086c73e189a2959130eaa15c827b89037a7d43c45",
+            "texts": [
+              "Nederlandse taalcontrole.",
+              "English language control. Native16 saved.",
+              "Native edit-save-reopen control.",
+              "",
+              "End of native control."
+            ],
+            "languages": ["nl-NL", "en-US", "nl-NL", "en-US"],
+            "crop": [
+              {
+                "t": "65000",
+                "b": "30000"
+              }
+            ],
+            "extent": [
+              {
+                "cx": "3048000",
+                "cy": "152400"
+              }
+            ],
+            "mediaSha256": "f132d26c2c3b6ccd9beb0583a4fbf360ae0461c0a4c0b9f3a973fe3dd247ce33"
+          },
+          "limits": "One small synthetic DOCX; not a complete Writer feature acceptance; keyboard crop handles not tested"
+        },
+        {
+          "module": "Spreadsheet",
+          "result": "pass within bounded scope",
+          "passed": [
+            "Native XLSX open, B2 edit2-to6, CtrlS, full app exit/restart, reopen saved output",
+            "Blue header with white bold text and banded rows retained visibly after reopen",
+            "Actual XLSX confirms only B2 value changed; table XML and styles XML byte-identical"
+          ],
+          "packageEvidence": {
+            "sha256": "68bb5942cd6673355d02934502a3a191990526308f67d1ec21e8d1514441a242",
+            "sourceSha256": "40b516dc70c91f441721e4083c1939f13c487296da756d56c08834beebf426c0",
+            "values": {
+              "A1": "Item",
+              "B1": "Amount",
+              "A2": "First",
+              "B2": "6",
+              "A3": "Second",
+              "B3": "3",
+              "A4": "Third",
+              "B4": "4",
+              "A5": "Fourth",
+              "B5": "5"
+            },
+            "onlyB2ValueChanged": true,
+            "tableXmlByteIdentical": true,
+            "stylesXmlByteIdentical": true
+          },
+          "observations": [
+            "Existing unsupported write/document/workbook protection warning displayed"
+          ],
+          "limits": "One small Medium2 table fixture, explicit default style0; not a complete spreadsheet acceptance"
+        },
+        {
+          "module": "Presentation",
+          "result": "pass within bounded scope",
+          "passed": [
+            "Native PPTX open, Find-and-replace with whole words and case-insensitive kat-to-hond, precisely5 replacements across2slides",
+            "Close Find dialog, CtrlS, full app exit/restart, reopen saved output",
+            "Both slides visually checked after reopen; expected texts persisted",
+            "Non-text slide XML canonical-identical"
+          ],
+          "packageEvidence": {
+            "sha256": "841a1b9f5fba6a1e040d6be5bd8b0a2a5c736f4a5ed0fec58f54497c97fe6655",
+            "texts": [
+              "🧱 hond katten hond katapult _kat kat_ kat2 ékat katé kat́ 𐐀kat kat𐐀 (hond)",
+              "hond hond"
+            ],
+            "expectedFiveReplacements": true,
+            "nonTextSlideXmlIdentical": true
+          },
+          "limits": "One small2slide fixture; no full presentation feature acceptance"
+        }
+      ],
+      "interrupted": false,
+      "stopReason": null,
+      "cleanFinish": true,
       "preferencesChanged": false,
-      "remainingCleanup": "Crop modal may remain open with uncommitted original values; close/cancel modal and own clean Writer document after explicit user resume. No preference restoration needed.",
-      "passed": [
-        "Native DOCX open",
-        "Dutch to English language boundary via CtrlDown; asynchronous status refreshed to English",
-        "Typing Native16 saved.",
-        "CtrlZ removes insertion; CtrlY restores",
-        "CtrlS clean title and Done toast, actual DOCX XML confirms saved text",
-        "Original per-run languages and image bytes preserved"
+      "remainingCleanup": null,
+      "completedAtUtc": "2026-11-16T09:58:15.756056+00:00",
+      "interruptionHistory": [
+        {
+          "reason": "Computer Use reported physical Escape user stop; no further UI input issued",
+          "resolvedBy": "Explicit user resume; remaining checks completed"
+        }
       ],
-      "notRun": [
-        "Save-close-reopen",
-        "Document tab switch",
-        "Crop boundary input/apply/UndoRedo/save",
-        "Spreadsheet native route",
-        "Presentation native route"
-      ],
-      "savedSha256": "fee5aac50a3330a7c511571885f75a4c162160d500d82e851f3301b2ed0c5619",
-      "savedTextAndMediaIndependentlyVerified": true
+      "boundedWindowsChecksComplete": true,
+      "remainingDevbuildWindows": 0,
+      "allOwnDocumentTabsClosed": true,
+      "newReproducedBugs": [],
+      "platformLimits": {
+        "windows": "Bounded native routes passed on exact installed e1 package",
+        "linux": "No local native host; coordinator owns CI/native follow-up; not certified by this receipt",
+        "macos": "No local native host; coordinator owns CI/native follow-up; not certified by this receipt",
+        "browser": "Separate coordinator validation; not run in this native session"
+      },
+      "sourceFixturesUnchanged": true,
+      "outputHashesXmlAndMediaIndependentlyChecked": true,
+      "ownDevbuildProcessCountIndependentlyChecked": 0
     },
     "Linux": {
       "status": "strict data/process roundtrip passed; visual acceptance incomplete",
@@ -680,11 +779,17 @@
   ],
   "remaining": [
     "Harness-head required CI still pending",
-    "Windows physical Escape stop: no more GUI without explicit user resume; crop modal cleanup remains",
-    "Windows close/reopen/tab/crop/Spreadsheet/Presentation not complete",
     "Linux document glyphs unreadable in later captures; no full paint acceptance",
     "macOS current native edit/save/reopen/language operation not proven",
-    "Evaluate354 only in next bounded intake; no main/release/issue closure"
+    "Evaluate354 only in next bounded intake; no main/release/issue closure",
+    "No further local Windows GUI after user cleanup-only instruction; all own documents/app already closed"
   ],
-  "integrationHead": "e6765c56d1d07e0a44d5901f9e7dabc5a43e38f3"
+  "integrationHead": "e6765c56d1d07e0a44d5901f9e7dabc5a43e38f3",
+  "paintResearch": {
+    "owner": "01a1bf84-6f92-7452-93a5-c0aed5bd5173",
+    "source": "e1f84f84f4d72e5ce8ab967e376a6f38344edf39",
+    "packageSha256": "14d588cdfcebc6e50607033a324c3e6c37a77f440a5aebd36b5a6356d4ea3eb5",
+    "scope": "remote Linux capture/font/paint investigation; no proven cause or product patch yet",
+    "duplicateResearchPrevented": true
+  }
 }
