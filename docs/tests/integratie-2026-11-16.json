@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
-  "asOf": "2026-11-16T12:35:33.811377+00:00",
-  "status": "PR354 integrated and pushed; all9 standard workflows PASS on G; Windows/Linux native runtime checks pass, native Mac acceptance remains blocked. Bounded driver diagnostics in progress; no main authorization.",
+  "asOf": "2026-11-16T13:19:32.436993+00:00",
+  "status": "PR354 source intake and combined G validation round completed with explicit acceptance limitations:9standard workflows pass; native runtime controls pass across3OS; Linux32/Mac32alternate language data and WindowsTable save/reopen pass. Mac first/reopen painting359, standardCommand navigation358 and WindowsInsertColumnLeftUndo361 remain open. No main/release.",
   "checkpoint": {
     "commit": "9e0ad565402815082e8edf11a4c23943455fb6ce",
     "tree": "b79ec077abb3a7a3b199c05a45f2fb6908dc2ace",
@@ -11,7 +11,8 @@
   },
   "permission": {
     "mainWriteAllowed": false,
-    "officialReleaseAllowed": false
+    "officialReleaseAllowed": false,
+    "mainVerifiedUnchanged": "93fcc6194904f70fa12d0a3546c23dac9c673ee5"
   },
   "intake": {
     "alreadyInBase": [337, 346, 341, 343, 344, 342],
@@ -551,7 +552,7 @@
       "source": "9e0ad565402815082e8edf11a4c23943455fb6ce",
       "run": 43857127197,
       "harness": "3d3b847ffa6650c0a919a275f5be4b12b76e9803",
-      "overallConclusion": "failure in Mac native UI; converter and other native outcomes preserved separately",
+      "overallConclusion": "Initial43857127197 remains red for MacAX. Same-G/same-byte Mac-only43867748532 passes native AX/source controls. Retain original Windows/Linux/converter/hosted results. Mac ready document pixels still unaccepted359; no overall Mac painting pass.",
       "converters": {
         "windows": {
           "codePoint": "9e0ad565402815082e8edf11a4c23943455fb6ce",
@@ -745,7 +746,173 @@
       },
       "freshHostIsolation": true,
       "historicalC0EvidenceRelabelled": false,
-      "followup": "Owner8020 bounded Mac AX/window/readiness retry on same existing package/converter proof; no product or renderer change, no rebuild/broad tests. Linux source PNGs rehashed/readable, no retry needed."
+      "followup": "Evidence delivery complete; no further native-runtime tests/rebuilds authorized by this round.359 registered as investigation only, no renderer work started.",
+      "macRetry": {
+        "source": "9e0ad565402815082e8edf11a4c23943455fb6ce",
+        "harness": "8c4576e535a78b1d6e3feff3eff6a874c8bb9229",
+        "run": 43867748532,
+        "artifact": 14226083730,
+        "zipSha256": "478635240215636ed76737f2fed6276ffb1d3818aaabab74112aa837a1201ee8",
+        "package": "Open Office Studio_2026.46.2_aarch64.dmg",
+        "packageSha256": "af83cdd95ff21fafa4c1757cc9cd2a0abb47afb794dd53c6e1014c9b15ee612b",
+        "host": "macOS26.7.2 ARM64 (completed job log verified)",
+        "nativeControlStatus": "passed",
+        "visualDocumentStatus": "not accepted: ready document canvas has no readable glyphs; Save As dialog and bundled-source label readable; original images viewed serially",
+        "native": {
+          "status": "passed",
+          "originalSha256": "3040060e17a4290a253c33bb7525c52269a401f12daa7383f001102528565588",
+          "windowTitle": "Ontwerpnotitie.docx • — Open Office Studio (Text)",
+          "activation": {
+            "exitCode": 0,
+            "stderr": ""
+          },
+          "transientAXRetries": 0,
+          "windowFit": {
+            "display": {
+              "height": 768,
+              "width": 1024,
+              "x": 0,
+              "y": 0
+            },
+            "requested": [12, 30, 1000, 668],
+            "exitCode": 0,
+            "actual": "12, 31, 1000, 668",
+            "stderr": ""
+          },
+          "readyBeforeSaveAs": true,
+          "odtNativeWindow": true,
+          "saveAsShowsBundledRuntime": true,
+          "interaction": "enabled-save-as-native-AXPress",
+          "runtimeCrashEvidence": {
+            "applicable": true,
+            "newReports": [],
+            "systemAlerts": {
+              "status": "read",
+              "windowTitles": "",
+              "error": ""
+            }
+          },
+          "ownedAppClosed": true,
+          "originalUnchanged": true
+        },
+        "snapshots": [
+          {
+            "status": "ok",
+            "bounded": false,
+            "visited": 2,
+            "errors": {
+              "-25205": 3,
+              "-25212": 1
+            }
+          },
+          {
+            "status": "ok",
+            "bounded": true,
+            "visited": 800,
+            "errors": {
+              "-25205": 6,
+              "-25212": 6
+            }
+          },
+          {
+            "status": "ok",
+            "bounded": false,
+            "visited": 61,
+            "errors": {
+              "-25205": 3,
+              "-25212": 2
+            }
+          },
+          {
+            "status": "ok",
+            "bounded": false,
+            "visited": 23,
+            "errors": {
+              "-25205": 6,
+              "-25212": 7
+            }
+          }
+        ],
+        "postUiMacroDiagnostic": {
+          "positiveControl": true,
+          "fixtureSha256": "1e737ab29d1ab3868f47c2952de8de8768638550b8f8f6658c628034daaca72a",
+          "markerResetForSafeProfile": true,
+          "timing": {
+            "ms": 3871,
+            "mode": "headless-open-positive-control"
+          },
+          "cleanup": [
+            {
+              "pid": 2791,
+              "action": "kill"
+            }
+          ],
+          "exitCode": -9,
+          "crashEvidence": {
+            "applicable": true,
+            "newReports": [],
+            "systemAlerts": {
+              "status": "read",
+              "windowTitles": "",
+              "error": ""
+            }
+          }
+        },
+        "images": [
+          {
+            "member": "Open_Office_Studio_2026.46.2_aarch64.dmg/native-interface-ready.png",
+            "bytes": 142072,
+            "sha256": "07cfe27a4fd2b45ca08a2e9c8991289ce518d71a38ca3bbc347667a8afb4de7f"
+          },
+          {
+            "member": "Open_Office_Studio_2026.46.2_aarch64.dmg/native-interface.png",
+            "bytes": 239082,
+            "sha256": "78bc9e8c4e433238e96d7d97ba606639a0fdb58e565093bb794d9ed3fa4bc44e"
+          },
+          {
+            "member": "macos-macro-diagnostic/after-macro-control.png",
+            "bytes": 80423,
+            "sha256": "2265c9930d7cfd5d6ff7cc27e84f9d7aec915bf3d22d0429f9b2d0fa193e463b"
+          }
+        ],
+        "earlierBlockedRunPreserved": 43857127197
+      },
+      "legacyOutcomes": {
+        "Linux": [
+          {
+            "package": "Open_Office_Studio_2026.46.2_amd64.AppImage",
+            "outcomes": {
+              "opened-saved-reopened": 31,
+              "rejected-with-alternative": 1
+            }
+          },
+          {
+            "package": "Open_Office_Studio_2026.46.2_amd64.deb",
+            "outcomes": {
+              "opened-saved-reopened": 31,
+              "rejected-with-alternative": 1
+            }
+          }
+        ],
+        "Windows": [
+          {
+            "package": "Open_Office_Studio_2026.46.2_x64-setup.exe",
+            "outcomes": {
+              "opened-saved-reopened": 31,
+              "rejected-with-alternative": 1
+            }
+          }
+        ],
+        "macOS": [
+          {
+            "package": "Open_Office_Studio_2026.46.2_aarch64.dmg",
+            "outcomes": {
+              "opened-saved-reopened": 31,
+              "rejected-with-alternative": 1
+            }
+          }
+        ]
+      }
     },
     "standardLinux": {
       "run": 43856368812,
@@ -882,141 +1049,448 @@
       }
     },
     "writer349Mac": {
-      "status": "not accepted; bounded diagnosis, no327cache cause established",
+      "status": "scoped language/data passed using explicit alternate nativeCtrlHomeEnd; standardMacnavigation358 and visual359 unaccepted",
       "buildHost": "macOS26.7.2 ARM64",
       "nativeHost": "macOS15.8.2 ARM64",
+      "independentRootVerification": {
+        "source": "9e0ad565402815082e8edf11a4c23943455fb6ce",
+        "harness": "8c19fe83ff1a4c7d32d4534894891f8575d5214a",
+        "run": 43869351009,
+        "artifact": 14226578771,
+        "zipSha256": "06384b091264789acb196d8e123f872475c7cd1a044db763037f92314b258e93",
+        "status": "scoped-language/data passed under explicitly alternate navigation; incomplete visual/native standard-key acceptance",
+        "languageAssertions": 32,
+        "keyboardProtocol": {
+          "documentStart": "Ctrl+Home (alternate protocol)",
+          "documentEnd": "Ctrl+End (alternate protocol)",
+          "nextSingleLineParagraph": "Down",
+          "undo": "Cmd+Z",
+          "redo": "Cmd+Shift+Z",
+          "arrowIntervalMs": 50,
+          "caretProof": "single Q edit + native CmdS, independent XML offset11, native Undo + CmdS restores"
+        },
+        "alternateNavigation": {
+          "reason": "Standard macOS Command+Up/Down blocked by #358; integration-authorized single alternate trial",
+          "sdkVersion": "@betteroffice/docx-react 0.5.1",
+          "guardedInputSha256": "d17b7a630163623e99d73b8c4b3678397ec0598e332237df1e4737767799e58d",
+          "sourceSupport": "Home/End passes metaKey || ctrlKey into whole-document navigation; ArrowUp/Down passes false",
+          "limits": "Does not accept standard Cmd navigation or clear initial page paint limitation"
+        },
+        "dmg": {
+          "name": "Open Office Studio_2026.46.2_aarch64.dmg",
+          "sha256": "9b90dbf2845ab12887b52168f986f3cbd85dfe3d17fc9886223f99595d904dc6",
+          "bytes": 373702917
+        },
+        "app": {
+          "version": "2026.46.2",
+          "executableSha256": "fc73826cd8fc8e6cedbf64c0b94c06a33fe8550a9b13eacd0aa06d9639650814",
+          "plistSha256": "5644059abdb0769f40320a31437149d047082e4584b1bcd5e944eecdd9283bda",
+          "treeSha256": "6a59d8fd600859e427ecd28077e9d06d0bf6204eb38c7fed452034fb0554388c",
+          "treeAlgorithm": "Unicode sorted POSIX path TAB sha256 TAB size NEWLINE; symlinks path TAB link TAB target NEWLINE"
+        },
+        "host": {
+          "macOS": "15.8.2",
+          "machine": "arm64",
+          "platform": "macOS-15.8.2-arm64-arm-64bit-Mach-O",
+          "runnerOS": "macOS"
+        },
+        "savedSha256": "768e79aedee0a531bdaae06e0e1954e5b082790d80e5b23a000ab433e42f7c5b",
+        "savedAndOtherLanguageRunsIndependentlyExact": true,
+        "otherDocumentByteUnchanged": true,
+        "firstPid": 2087,
+        "secondPid": 3072,
+        "firstProcessClosed": true,
+        "ownedAppClosed": true,
+        "ownMountDetached": true,
+        "caretEvidence": [
+          {
+            "step": "original boundary right verified",
+            "method": "native Q edit and CmdS; independent DOCX position",
+            "expectedOffset": 11,
+            "actualParagraphs": [
+              "Nederlands QEnglish",
+              "Bonjour",
+              "Nogmaals Nederlands"
+            ],
+            "savedProbeSha256": "971bf2896ee44bb3931a15c0669d8e3f8a2865cade86da26655502da1af20820",
+            "restoredParagraphs": [
+              "Nederlands English",
+              "Bonjour",
+              "Nogmaals Nederlands"
+            ],
+            "restoredSha256": "baccf94ced6c694add16468726fbf7042e715c5f2f29014120a84705ed6603cb"
+          }
+        ],
+        "savedCheckpoints": [
+          {
+            "name": "document end after slot",
+            "expected": [
+              "Nederlands English",
+              "Bonjour",
+              "Nogmaals Nederlands slot"
+            ],
+            "actual": [
+              "Nederlands English",
+              "Bonjour",
+              "Nogmaals Nederlands slot"
+            ],
+            "sha256": "61273872b9f170db6e36769dc961ec9cf055eb8a9b341ba7d4cd256082e3b6c0"
+          },
+          {
+            "name": "document start after x",
+            "expected": [
+              "xNederlands English",
+              "Bonjour",
+              "Nogmaals Nederlands slot"
+            ],
+            "actual": [
+              "xNederlands English",
+              "Bonjour",
+              "Nogmaals Nederlands slot"
+            ],
+            "sha256": "a0168efd4411a925e8fed4e14eb3b7072eae3fc3bd10097431eb9782c70daa34"
+          }
+        ],
+        "images": [
+          {
+            "name": "after-body-focus.png",
+            "bytes": 153581,
+            "sha256": "74933a2bf4a6764ac2f4a159a8458120e94ff4d3b239da0549e9b51fe0c569de"
+          },
+          {
+            "name": "boundary-right-verified.png",
+            "bytes": 157874,
+            "sha256": "f91bc768f085e19a70141a1679b8f29ea6be7c6386a7abb01e9ea91134183dd2"
+          },
+          {
+            "name": "final-state.png",
+            "bytes": 160553,
+            "sha256": "2ac7cf942a04cd6d2773d29a604f01f7c9e528661e77a848667db380502d1b81"
+          },
+          {
+            "name": "reopened.png",
+            "bytes": 153009,
+            "sha256": "133d6b0e3feb850905cf2b1cf36ffc9a1c43887de80ef5897d2923ca4c013427"
+          },
+          {
+            "name": "save-as-modal.png",
+            "bytes": 236443,
+            "sha256": "d7a51cf64b7365ebdab19ec70887244df20feef7663d5c4d7d91e652a909777e"
+          },
+          {
+            "name": "saved.png",
+            "bytes": 158487,
+            "sha256": "f2bf803198e2e936e35db7aeca286c79e3d1e647f6bb8f47c8c377ad3bbc2ffe"
+          },
+          {
+            "name": "tabs.png",
+            "bytes": 159766,
+            "sha256": "b861b50b4b91ff5d5ac1a38f776e50116efc100567faf8621c43277502f4c839"
+          }
+        ],
+        "remainingIssues": [358, 359]
+      },
       "attempts": [
         {
           "run": 43862834105,
-          "artifact": 14224512112,
-          "zipSha256": "888e97a38e1df50bced644b55148b1aafa2df65fac7ec54b4218fdb9545c5f11",
-          "source": "9e0ad565402815082e8edf11a4c23943455fb6ce",
+          "artifact": {
+            "run": "43862834105",
+            "artifactId": 14224512112,
+            "name": "writer349-native-language-macOS",
+            "sha256": "888e97a38e1df50bced644b55148b1aafa2df65fac7ec54b4218fdb9545c5f11",
+            "bytes": 1253410,
+            "githubDigestMatched": true
+          },
           "harness": "3933729fe3da0f11dea953f4315696a121614758",
           "status": "failed",
+          "passedLanguageAssertions": 2,
           "error": "AssertionError('original boundary right: expected English')",
-          "passedLanguageSnapshots": 2,
-          "host": {
-            "macOS": "15.8.2",
-            "machine": "arm64",
-            "platform": "macOS-15.8.2-arm64-arm-64bit-Mach-O",
-            "runnerOS": "macOS"
-          },
-          "dmg": {
-            "name": "Open Office Studio_2026.46.2_aarch64.dmg",
-            "sha256": "9b90dbf2845ab12887b52168f986f3cbd85dfe3d17fc9886223f99595d904dc6",
-            "bytes": 373702917
-          },
-          "app": {
-            "version": "2026.46.2",
-            "executableSha256": "fc73826cd8fc8e6cedbf64c0b94c06a33fe8550a9b13eacd0aa06d9639650814",
-            "plistSha256": "5644059abdb0769f40320a31437149d047082e4584b1bcd5e944eecdd9283bda",
-            "treeSha256": "6a59d8fd600859e427ecd28077e9d06d0bf6204eb38c7fed452034fb0554388c",
-            "treeAlgorithm": "Unicode sorted POSIX path TAB sha256 TAB size NEWLINE; symlinks path TAB link TAB target NEWLINE"
-          },
-          "caretEvidence": [],
           "ownedAppClosed": true,
           "ownMountDetached": true
         },
         {
           "run": 43865097119,
-          "artifact": 14224344137,
-          "zipSha256": "7e0c7e6c661ecae31a27e7a1e4f686eda356efa10d7ff7e45e3e1c925a4747ba",
-          "source": "9e0ad565402815082e8edf11a4c23943455fb6ce",
+          "artifact": {
+            "run": "43865097119",
+            "artifactId": 14224344137,
+            "name": "writer349-native-language-macOS",
+            "sha256": "7e0c7e6c661ecae31a27e7a1e4f686eda356efa10d7ff7e45e3e1c925a4747ba",
+            "bytes": 1125459,
+            "githubDigestMatched": true
+          },
           "harness": "00f8685269c11e1d51ecf55e7612ddfc05901ad4",
           "status": "failed",
+          "passedLanguageAssertions": 3,
           "error": "AssertionError('Actual native caret prefix does not match the intended 11-character position')",
-          "passedLanguageSnapshots": 3,
-          "host": {
-            "macOS": "15.8.2",
-            "machine": "arm64",
-            "platform": "macOS-15.8.2-arm64-arm-64bit-Mach-O",
-            "runnerOS": "macOS"
-          },
-          "dmg": {
-            "name": "Open Office Studio_2026.46.2_aarch64.dmg",
-            "sha256": "9b90dbf2845ab12887b52168f986f3cbd85dfe3d17fc9886223f99595d904dc6",
-            "bytes": 373702917
-          },
-          "app": {
-            "version": "2026.46.2",
-            "executableSha256": "fc73826cd8fc8e6cedbf64c0b94c06a33fe8550a9b13eacd0aa06d9639650814",
-            "plistSha256": "5644059abdb0769f40320a31437149d047082e4584b1bcd5e944eecdd9283bda",
-            "treeSha256": "6a59d8fd600859e427ecd28077e9d06d0bf6204eb38c7fed452034fb0554388c",
-            "treeAlgorithm": "Unicode sorted POSIX path TAB sha256 TAB size NEWLINE; symlinks path TAB link TAB target NEWLINE"
-          },
-          "caretEvidence": [
-            {
-              "step": "original boundary right verified",
-              "expected": "Nederlands ",
-              "actualPrefix": "",
-              "length": 0,
-              "method": "native selection to document start + native clipboard"
-            }
-          ],
           "ownedAppClosed": true,
           "ownMountDetached": true
         },
         {
           "run": 43866052742,
-          "artifact": 14226390810,
-          "zipSha256": "86ffc67725a3ca391f5fe906efb8b4f58ec6f206ea3b85f44385049351ce29af",
-          "source": "9e0ad565402815082e8edf11a4c23943455fb6ce",
+          "artifact": {
+            "run": "43866052742",
+            "artifactId": 14226390810,
+            "name": "writer349-native-language-macOS",
+            "sha256": "86ffc67725a3ca391f5fe906efb8b4f58ec6f206ea3b85f44385049351ce29af",
+            "bytes": 1574984,
+            "githubDigestMatched": true
+          },
           "harness": "d680447c6e9f7785adb175cf90b52f01c1a769fc",
           "status": "failed",
+          "passedLanguageAssertions": 5,
           "error": "AssertionError('inserted boundary left: expected Dutch')",
-          "passedLanguageSnapshots": 5,
-          "host": {
-            "macOS": "15.8.2",
-            "machine": "arm64",
-            "platform": "macOS-15.8.2-arm64-arm-64bit-Mach-O",
-            "runnerOS": "macOS"
+          "ownedAppClosed": true,
+          "ownMountDetached": true
+        },
+        {
+          "run": 43867278004,
+          "artifact": {
+            "run": "43867278004",
+            "artifactId": 14226861049,
+            "name": "writer349-native-language-macOS",
+            "sha256": "479dde625b00477c3af4fb1fb4d2a51bea7367c9793370fb3ecfcbe79f08921d",
+            "bytes": 1290837,
+            "githubDigestMatched": true
           },
-          "dmg": {
-            "name": "Open Office Studio_2026.46.2_aarch64.dmg",
-            "sha256": "9b90dbf2845ab12887b52168f986f3cbd85dfe3d17fc9886223f99595d904dc6",
-            "bytes": 373702917
+          "harness": "7830f5de599d83ae45921fda13b641ad1541143a",
+          "status": "failed",
+          "passedLanguageAssertions": 5,
+          "error": "AssertionError('document end after slot: actual saved paragraphs do not match intended cursor position')",
+          "ownedAppClosed": true,
+          "ownMountDetached": true
+        },
+        {
+          "run": 43869351009,
+          "artifact": {
+            "run": "43869351009",
+            "artifactId": 14226578771,
+            "name": "writer349-native-language-macOS",
+            "sha256": "06384b091264789acb196d8e123f872475c7cd1a044db763037f92314b258e93",
+            "bytes": 2127574,
+            "githubDigestMatched": true
           },
-          "app": {
-            "version": "2026.46.2",
-            "executableSha256": "fc73826cd8fc8e6cedbf64c0b94c06a33fe8550a9b13eacd0aa06d9639650814",
-            "plistSha256": "5644059abdb0769f40320a31437149d047082e4584b1bcd5e944eecdd9283bda",
-            "treeSha256": "6a59d8fd600859e427ecd28077e9d06d0bf6204eb38c7fed452034fb0554388c",
-            "treeAlgorithm": "Unicode sorted POSIX path TAB sha256 TAB size NEWLINE; symlinks path TAB link TAB target NEWLINE"
-          },
-          "caretEvidence": [
-            {
-              "step": "original boundary right verified",
-              "method": "native Q edit and CmdS; independent DOCX position",
-              "expectedOffset": 11,
-              "actualParagraphs": [
-                "Nederlands QEnglish",
-                "Bonjour",
-                "Nogmaals Nederlands"
-              ],
-              "savedProbeSha256": "0f74fdc3fc8bc68225e549d45c23584d8760a47103b7580fc529ed4b834a0add",
-              "restoredParagraphs": [
-                "Nederlands English",
-                "Bonjour",
-                "Nogmaals Nederlands"
-              ],
-              "restoredSha256": "96788100b9d98328cf43d613684716c40c00e00f2a05fe8d9f1422aedbc85b29"
-            }
-          ],
+          "harness": "8c19fe83ff1a4c7d32d4534894891f8575d5214a",
+          "status": "passed",
+          "passedLanguageAssertions": 32,
+          "error": null,
           "ownedAppClosed": true,
           "ownMountDetached": true
         }
       ],
-      "visual": "Initial body-focus captures unreadable; third-run post-save and final captures independently viewed serially and readable. Final text Bonjourx / Nogmaals N slotederlands shows document navigation did not reach intended endpoints. No complete initial-paint/full-profile pass or causal equivalence to355 claimed.",
-      "remaining": "Later inserted-boundary-left expectation failed after initial11-character Q/DOCX/Undo proof; native modifier/navigation driver diagnosis, no full32case run or restart/reopen certification"
+      "originalInitialAndReopenedCapturesViewedSerially": "A initial/reopened glyphs absent; post-edit/save A and finalB readable; no complete document visual pass",
+      "evidence": "docs/tests/2026-11-16-pr349-native-language-G.json"
+    },
+    "separateLocalWindowsTask": {
+      "owner": "01a1a170-0fc9-70f1-8384-c1f199db750b",
+      "authorization": "User explicitly resumed newest-devbuild testing in own chat after earlier cleanup-only stop",
+      "status": "completed bounded table data/save/process-reopen route; InsertColumnLeftCtrlZ361fails; no327language claim",
+      "source": "9e0ad565402815082e8edf11a4c23943455fb6ce",
+      "evidence": [
+        "docs/tests/2026-11-16-native-windows-g.md",
+        "docs/tests/2026-11-16-native-windows-g.json"
+      ],
+      "receipt": {
+        "applicationSource": "9e0ad565402815082e8edf11a4c23943455fb6ce",
+        "applicationTree": "b79ec077abb3a7a3b199c05a45f2fb6908dc2ace",
+        "version": "2026.46.2",
+        "scope": "Manual native Windows Writer table route only; no application/CI source changes",
+        "checks": [
+          {
+            "name": "Insert3columns2rows through native ribbon",
+            "status": "pass"
+          },
+          {
+            "name": "Type alpha, Tab to existing second cell and type beta",
+            "status": "pass"
+          },
+          {
+            "name": "Last-cell Tab adds one3cellrow; delta typed in new first cell",
+            "status": "pass"
+          },
+          {
+            "name": "CtrlZ text and row separately; CtrlY restores both",
+            "status": "pass"
+          },
+          {
+            "name": "ShiftTab from new first cell returns to preceding row final cell",
+            "status": "pass"
+          },
+          {
+            "name": "Insert Column Left",
+            "status": "pass for structural insertion"
+          },
+          {
+            "name": "CtrlZ immediately after left-column ribbon route",
+            "status": "fail repeated twice;4columns retained after extra observation; issue361"
+          },
+          {
+            "name": "Document click then CtrlZ, or Home Undo control",
+            "status": "pass;3columns restored and text retained"
+          },
+          {
+            "name": "Insert Column Right then CtrlZ comparison",
+            "status": "pass in this session"
+          },
+          {
+            "name": "Native CtrlS, SaveAsDOCX, full exit zeroPIDs, newPID sameEXE, Recent reopen",
+            "status": "pass for text and3x3structure; no pixel-identical formatting claim"
+          },
+          {
+            "name": "Saved ZIP XML parses; one table, three grid columns, exact9celltexts; hash unchanged after reopen",
+            "status": "pass"
+          }
+        ],
+        "issue": {
+          "number": 361,
+          "url": "https://github.com/OpenAEC-Foundation/open-office-studio/issues/361",
+          "labels": ["tekst", "bug", "ui"],
+          "labelWorkflow": 43872127396,
+          "labelWorkflowConclusion": "success",
+          "duplicateDescriptionsRead": [
+            19, 48, 128, 136, 138, 139, 188, 340, 16
+          ],
+          "cause": "unknown; no productfix claim"
+        },
+        "processRestart": {
+          "FirstPid": 20640,
+          "ZeroOwnPidsBeforeRestart": true,
+          "RestartPid": 4716
+        },
+        "cleanup": {
+          "ownDocumentTabsClosed": true,
+          "remainingOwnApplicationPids": [],
+          "processCheck": {
+            "RemainingOwnPids": [null],
+            "Count": 0,
+            "AtUtc": "2026-11-16T13:04:10.3786691Z"
+          },
+          "ownNodeReplKernelResetConfirmed": true,
+          "resetResult": "js kernel reset",
+          "newCaptureAfterReset": false,
+          "preferencesChanged": false,
+          "otherChatProcessesTouched": false,
+          "yellowBorderDisappearanceVerified": false,
+          "helperResourceClosureIndependentlyProven": false,
+          "laterUserReopenReported": true
+        },
+        "limits": [
+          "Only one synthetic Writer table, not full Writer acceptance",
+          "No #327 language acceptance performed; its preparedA was only opened/closed unchanged",
+          "No browser/nativeLinux/nativeMac reproduction of issue361 performed; existingGCI is separate coordinator evidence",
+          "No signing/security/privacy/printer changes; no main/branch/source changes; no user documents touched"
+        ],
+        "untriagedObservations": [
+          {
+            "kind": "screenshot observation only",
+            "detail": "Table row height looks larger after saved-DOCX reopen than in live newly inserted table; same3x3structure and exacttext verified. Separate investigation not performed; not combined with361 or claimed independently reproduced formatting bug."
+          }
+        ],
+        "completedAtUtc": "2026-11-16T13:05:01.460786+00:00",
+        "provenance": {
+          "source": "9e0ad565402815082e8edf11a4c23943455fb6ce",
+          "run": 43856368812,
+          "artifact": 14223362239,
+          "zipSha256": "c15cb5e1950d0f73566401aa96e34157f91a81687bf00e31c0e79a9be3d466ef",
+          "installerSha256": "33fd74a2a17e648b8302c9ff12359af7589c03ca5c7fc90c4dc8e96ccafd32ca",
+          "installerBytes": 384538478,
+          "installerFile": "Open Office Studio_2026.46.2_x64-setup.exe"
+        },
+        "installedExe": {
+          "Bytes": 88171520,
+          "Version": "2026.46.2",
+          "Sha256": "4d070f3674ff4febaba4b57c4ccc998a78411fad40e0501433227e30ca856f07",
+          "InstallerExit": 0,
+          "isolatedInstall": "2026-11-16-integration-9e0ad565/open-office-studio.exe"
+        },
+        "embeddedExeSeparatelyExtractedAndCompared": false,
+        "provenanceLimit": "Canonical source/run/ZIP/installer and isolated install exit verified; actual started path/PID and installed EXE hash verified. No separate NSIS extraction/embedded EXE comparison; local 7z unavailable.",
+        "output": {
+          "sha256": "645ef61571f22392e29c7c2f0626c407ba4d85927384dae341774578a004cc24",
+          "bytes": 36883,
+          "tables": 1,
+          "rows": [
+            ["alpha", "beta", ""],
+            ["", "", "omega"],
+            ["delta", "", ""]
+          ],
+          "gridColumns": [
+            {
+              "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}w": "2880"
+            },
+            {
+              "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}w": "2880"
+            },
+            {
+              "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}w": "2880"
+            }
+          ],
+          "allPackageXmlParses": true,
+          "file": "writer-table-G-16nov.docx"
+        },
+        "screenshots": [
+          {
+            "label": "column-left-ctrlz-unchanged",
+            "sha256": "d38e0ca556cde1d5c751fd737b0989bdd1933be0a23f8b494e1992dd279626c0",
+            "bytes": 85849,
+            "time": "2026-11-16T13:00:14.841Z",
+            "file": "column-left-ctrlz-unchanged.png"
+          },
+          {
+            "label": "control-ribbon-undo-three-columns",
+            "sha256": "28b8150fb30ad8697aa98f06706d8ef1437c402b01dd363ade6a296d539cf845",
+            "bytes": 87816,
+            "time": "2026-11-16T13:00:55.206Z",
+            "file": "control-ribbon-undo-three-columns.png"
+          },
+          {
+            "label": "saved-table-three-by-three",
+            "sha256": "501782ce683bb41087b2159084443cc18ad221e60e19b4e42d86d6d8311df3b3",
+            "bytes": 96275,
+            "time": "2026-11-16T13:01:56.541Z",
+            "file": "saved-table-three-by-three.png"
+          },
+          {
+            "label": "reopened-table-three-by-three",
+            "sha256": "3249a3e1fd24ef3bdc03805e1405c3ee1e6ffe4e9bdb6a93b5125a3f8fdd90ec",
+            "bytes": 95210,
+            "time": "2026-11-16T13:03:49.682Z",
+            "file": "reopened-table-three-by-three.png"
+          }
+        ],
+        "independentRootVerification": {
+          "installerShaMatchesCanonical": true,
+          "installedExeShaMatchesOwner": true,
+          "allPackageXmlParses": true,
+          "exact3x3CellText": [
+            ["alpha", "beta", ""],
+            ["", "", "omega"],
+            ["delta", "", ""]
+          ],
+          "all4ScreenshotHashesMatch": true,
+          "ownedGProcessCountReadOnlyChecked": 0,
+          "embeddedPayloadComparisonCompleted": false,
+          "yellowBorderOrAllHelperClosureProven": false,
+          "localCopy": ".local/nov16-g-native-windows-final",
+          "processCheckScope": "At completed operator handoff, before a later user report about reopening G; no current global process-closure claim"
+        },
+        "host": {
+          "caption": "Microsoft Windows11Home",
+          "version": "10.0.26200",
+          "build": "26200",
+          "architecture": "64bit"
+        }
+      }
     }
   },
   "remaining": [
-    "Native Mac runtime AX/window inspection and actual readable document proof remain blocked; no native Mac acceptance from builds alone.",
-    "Native Mac Writer349 full32 language/typing/UndoRedo/tab/save/restart/reopen profile not completed. Initial11character caret was proven using native Q save and Undo, later typed-boundary expectation failed; cause unclassified.",
-    "Issue30 stays open: EPUB356/PR357 excluded and17catalog extensions still lack input fixtures.",
-    "No physical Linux/Wayland or new local Windows GUI acceptance. Windows native G coverage is the bounded private-runtime UI route; full native349 language profile on Windows G not separately executed.",
-    "Earlier F/c0/d735 results remain historical; no general performance/RAM improvement claimed.",
-    "No main merge/direct push, release or automatic issue closure. Subsequent commits only document unchanged G application/test inputs."
+    "359: nativeMac initial/reopened document glyphs absent in original captures. Bounded AX/runtime controls and32language/data assertions do not establish document-visual acceptance.",
+    "358: standardMacCommandUpDown navigates lines, not document boundaries. New user-authorized fix is separate/queued; native language32 success uses documented alternateCtrlHomeEnd, not a fix for358.",
+    "30: literal catalog input acceptance incomplete;356/PR357 excluded and17extensions lack input fixture evidence.32legacy checks per installer mean31open/save/reopen plus1expected invalid-input rejection.",
+    "361: nativeWindowsCtrlZ afterInsertColumnLeft fails twice while refocus+CtrlZ/HomeUndo restores history. LocalGTable data/save/new-process-reopen passes, but this edge remains uncorrected. Larger reopened row-height screenshot observation is separate and untriaged.",
+    "PhysicalLinux/Wayland and a separate full WindowsG-native349language profile not certified. CI Windows private-runtime UI and local boundedTable data route pass; embedded installed-exe versus installer-payload comparison missing.",
+    "SourceG native-runtime test configurations/drivers are on external test-only refcodex/formats-30-g-acceptance (3d3/8c4576). Root historical candidateJSON remains c0: do not dispatch it assumingG. Preserve explicit applicationCommit/artifactRun/package/proof guards.",
+    "No general performance/RAM claim, no release, no automatic issue closure or main merge/direct push. Future product changes need a new pinned intake/test point.",
+    "Own Windows G app closed and kernel reset confirmed; no new capture after reset. New yellow-border disappearance/all-helper closure not independently confirmed; no global safe-to-close assertion for other active user-owned chats."
   ],
   "historicalPreviousRound": {
     "schemaVersion": 1,
@@ -2581,14 +3055,28 @@
     }
   },
   "captureCleanup": {
-    "owner": "750b",
-    "ownKernelResetConfirmed": true,
-    "noNewCaptureAfterReset": true,
-    "separateDisposeAvailable": "not documented in available sky API",
-    "userConfirmedYellowBorderAbsent": true,
-    "userReply": "Nee, de rand is weg",
-    "allHelperResourcesIndependentlyVerifiedClosed": false,
-    "otherSessionsOrSharedProcessesTerminated": false
+    "historicalF": {
+      "owner": "750b",
+      "ownKernelResetConfirmed": true,
+      "noNewCaptureAfterReset": true,
+      "separateDisposeAvailable": "not documented in available sky API",
+      "userConfirmedYellowBorderAbsent": true,
+      "userReply": "Nee, de rand is weg",
+      "allHelperResourcesIndependentlyVerifiedClosed": false,
+      "otherSessionsOrSharedProcessesTerminated": false
+    },
+    "integrationChatStartedNewLocalGuiOrRecording": false,
+    "separateUserResumedWindowsSession": {
+      "owner": "750b",
+      "ownAppAndTabsClosedAtTestHandoff": true,
+      "ownGProcessCountAtHandoffIndependentlyConfirmed": 0,
+      "ownKernelResetToolConfirmed": true,
+      "newCaptureAfterReset": false,
+      "yellowBorderAbsenceVisuallyConfirmed": false,
+      "allHelperResourceClosureIndependentlyProven": false,
+      "laterUserReopenReported": true
+    },
+    "allChatsSafeToClose": "not globally asserted; later user reopenedG and separate user-owned358/356 programming tasks continue; currentG evidence and completed operator app/kernel cleanup saved"
   },
   "browserVerified": [
     {
@@ -2639,5 +3127,70 @@
       "errors": [],
       "passedCases": 9
     }
-  ]
+  ],
+  "applicationAndRootHarnessInputsUnchangedSinceFreeze": true,
+  "evidenceIntake": {
+    "runtimeCommit": "6d2aa53586f43fba27da661bcda0a6583098b437",
+    "runtimeDoc": "docs/tests/2026-11-16-runtime30-integration-g.md",
+    "writerCommit": "a5ce27f06470d8b9074a2f2b669de0172c9fd3b8",
+    "writerDocs": [
+      "docs/tests/2026-11-16-pr349-native-language-G.md",
+      "docs/tests/2026-11-16-pr349-native-language-G.json"
+    ],
+    "allRawLinuxAnd5MacReportsVerifiedUtf8Exact": true
+  },
+  "followups": {
+    "358": {
+      "kind": "bug",
+      "scope": "NativeMacCommandUpDown mapping, separate from327cache",
+      "owner": "6f92 under a new explicit user task",
+      "base": "2a4e08756889688b67d093f245b3cef6db71f408",
+      "status": "future scoped fix delivery; not included in frozenG",
+      "pr": 360,
+      "branch": "codex/writer-358-macos-navigation-2026-11-16"
+    },
+    "359": {
+      "kind": "onderzoek",
+      "scope": "Missing initial/reopened nativeMacWriter glyphs; app versuscapture/readiness unknown",
+      "owner": "central registration only; no implementation/research executor started",
+      "status": "open",
+      "url": "https://github.com/OpenAEC-Foundation/open-office-studio/issues/359"
+    },
+    "356": {
+      "pr": 357,
+      "scope": "EPUB importer",
+      "owner": "8020",
+      "status": "separate work, not partG"
+    },
+    "361": {
+      "kind": "bug",
+      "scope": "NativeWindowsCtrlZ afterInsertColumnLeft; focus workaround restores history",
+      "owner": "750b registration only, no productfixclaim",
+      "status": "open; no fix includedG",
+      "url": "https://github.com/OpenAEC-Foundation/open-office-studio/issues/361"
+    },
+    "newWindowsRibbonReports": {
+      "origin": "new user screenshots after reopeningG, via750b",
+      "scope": "Styles rawtranslationkeys and possible verticalribbonclip; duplicate/scope triage ongoing",
+      "owner": "750b coordinates362agent and363separateclaim",
+      "independentRootReproduction": false,
+      "includedAsFix": false,
+      "status": "Registered separately as362and363; sourceGallery/engineen/nl/config unchanged between93andG, no354introduction claimed"
+    },
+    "362": {
+      "kind": "bug",
+      "scope": "Writerverticalribbonfit, user screenshots1/3/4; fixed94pxband and stackedcontrols",
+      "owner": "750b user-authorized subagentwriter_ribbon_362",
+      "branch": "codex/writer-ribbon-clipping-362",
+      "worktree": "work/oos-writer-ribbon-362-tester",
+      "claimedFiles": ["src/lint/tekst.tsx", "src/stijl/openaec-office.css"],
+      "status": "future scoped fix, not partG"
+    },
+    "363": {
+      "kind": "bug",
+      "scope": "Styles rawtranslationkeys; English/Dutch key mismatch",
+      "owner": "750b reserved separate executor after362; no parallel reassignment",
+      "status": "registered, future scoped fix, not partG"
+    }
+  }
 }
