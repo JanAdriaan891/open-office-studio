@@ -18,6 +18,7 @@ jobs:
       run: ${{ steps.plan.outputs.run }}
       platforms: ${{ steps.plan.outputs.platforms }}
       hosted: ${{ steps.plan.outputs.hosted }}
+      native: ${{ steps.plan.outputs.native }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -36,11 +37,13 @@ jobs:
             assert(platforms.every(p=>["ubuntu-22.04","windows-latest","macos-latest"].includes(p)));
             const hosted=c.hostedBrowser ?? true;
             assert.equal(typeof hosted,"boolean");
-            appendFileSync(process.env.GITHUB_OUTPUT,`commit=${c.applicationCommit}\nrun=${c.artifactRun ?? ""}\nplatforms=${JSON.stringify(platforms)}\nhosted=${hosted}\n`);
+            const native=c.nativeBuild ?? true;
+            assert.equal(typeof native,"boolean");
+            appendFileSync(process.env.GITHUB_OUTPUT,`commit=${c.applicationCommit}\nrun=${c.artifactRun ?? ""}\nplatforms=${JSON.stringify(platforms)}\nhosted=${hosted}\nnative=${native}\n`);
           '
   build-and-check:
     needs: candidate
-    if: needs.candidate.outputs.run == ''
+    if: needs.candidate.outputs.native == 'true' && needs.candidate.outputs.run == ''
     strategy:
       fail-fast: false
       matrix:
@@ -166,7 +169,7 @@ jobs:
           if-no-files-found: warn
   recheck-native:
     needs: [candidate, build-and-check]
-    if: always() && needs.candidate.result == 'success' && (needs.candidate.outputs.run != '' || needs.build-and-check.result == 'success')
+    if: always() && needs.candidate.result == 'success' && needs.candidate.outputs.native == 'true' && (needs.candidate.outputs.run != '' || needs.build-and-check.result == 'success')
     strategy:
       fail-fast: false
       matrix:
