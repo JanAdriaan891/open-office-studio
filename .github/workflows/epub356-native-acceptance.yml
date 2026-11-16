@@ -47,7 +47,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-22.04, windows-latest, macos-latest]
+        os: ${{ fromJSON(needs.candidate.outputs.platforms) }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 100
     env:

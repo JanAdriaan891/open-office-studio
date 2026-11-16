@@ -60,6 +60,31 @@ The XML decoder supports both UTF-8 and UTF-16 (little/big endian), as required
 by EPUB's XML conformance rules. The UTF-16 variants are checked with real ZIP
 parts containing Unicode text; invalid byte sequences fail explicitly.
 
-Native Windows/Linux/macOS input operation and the production hosted route have
-not yet been executed for this new source. No platform pass or completed issue
-is inferred from the unit/engine results above.
+## Actual hosted proof at the fixed application point
+
+Application `2b100ada38e39d58dab42369bf4c0d3659f70834`, driver
+`a58093b6320d3b1bbcc247ff5c2575c5e8aab9c0`,
+[run 43860520929](https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/43860520929)
+**passed**. The actual production `/office/` route, without a native bridge,
+opens the EPUB, edits offline, downloads DOCX with both chapter markers in order,
+table text and exact PNG bytes, and reopens that DOCX. Independently viewed
+`reopened.png` shows the edit, both headings, image and table. A malformed EPUB
+then fails explicitly while the loaded document and tabs remain visible.
+The original EPUB hash remains unchanged; no page errors or external requests
+occurred. Archive SHA-256:
+`2bddbaf75c30e0436ceec1a97463d8df203991efc563e2c03694b916c656122c`.
+
+The first test attempt went offline before the app's existing worker storage
+preparation acknowledged completion. The corrected test observes that existing
+acknowledgement; it neither pre-saves the document nor modifies production code.
+The next attempt passed its EPUB controls but failed writing a redundant workflow
+receipt into a removed folder; its screenshot also exposed an early reopen
+capture. The final test waits for the reopened document to enable Save As and
+stores the receipt beside the actual proof. Earlier artifacts remain historical;
+they are not relabeled as unobstructed reopen proofs.
+
+Native Linux is now tested separately on the same fixed application point;
+Windows and macOS remain pending. No native platform pass or completed issue is
+inferred from the browser/unit results. Native phases can select individual
+platforms so integration G's Mac checks take precedence without changing the
+application point or repeating the valid browser proof.
