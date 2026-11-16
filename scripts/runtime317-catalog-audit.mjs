@@ -1,6 +1,13 @@
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
-import { mkdir, mkdtemp, readFile, realpath, rm } from "node:fs/promises";
+import {
+  mkdir,
+  mkdtemp,
+  readFile,
+  realpath,
+  rm,
+  writeFile,
+} from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { basename, dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -38,6 +45,23 @@ try {
     ],
     { stdio: "inherit", timeout: 120_000 },
   );
+} catch (error) {
+  await writeFile(
+    join(output, "audit-stage-error.json"),
+    JSON.stringify(
+      {
+        applicationCommit: process.env.OOS_RUNTIME_APPLICATION_COMMIT,
+        harnessCommit: process.env.OOS_RUNTIME_HARNESS_COMMIT,
+        package: deb[0],
+        error: String(error),
+        scope:
+          "Audit harness failure is not an EPUB import reproduction unless report.json records valid export and actual import",
+      },
+      null,
+      2,
+    ),
+  );
+  throw error;
 } finally {
   const target = await realpath(temporary);
   assert.equal(dirname(target), parent);
