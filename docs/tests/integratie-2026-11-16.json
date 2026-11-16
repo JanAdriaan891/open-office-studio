@@ -1,8 +1,8 @@
 {
   "schemaVersion": 3,
-  "asOf": "2026-11-16T14:05:43.163739+00:00",
+  "asOf": "2026-11-16T14:16:20.079521+00:00",
   "currentRound": "H: timed Mac-navigation/WindowsUndo follow-up",
-  "status": "358 integrated and validated at exact7632; no361/359productfix promoted; safe-stop coordination active until15:25",
+  "status": "Timed work safely closed; acceptedH and allseparateworkbranches pushed; candidateCI resumable remotely; main unchanged",
   "deadline": {
     "hardStop": "2026-11-16T15:25:00+01:00",
     "wrapStart": "2026-11-16T15:10:00+01:00",
@@ -71,7 +71,16 @@
       "tests": "18targetedtests,9languages1669keys,types/normal+hostedbuilds,6WindowsChromiumUIcasesEN/NL/lofallback,0pageerrors;6originalPNGsreviewed byproducer",
       "limits": "No nativeWindows/package/Linux/macOS/newfullplatformacceptance; no363productintake",
       "receiptOnOwnBranch": "docs/tests/2026-11-16-writer-363-style-labels.json",
-      "cleanup": "producer confirms headlessbrowsers/servers closed,no own363nodeprocesses,no CUA/capture; no newwork/automaticresume"
+      "cleanup": "producer confirms headlessbrowsers/servers closed,no own363nodeprocesses,no CUA/capture; no newwork/automaticresume",
+      "finalReview": "b22240ec428ca720ad58cd2990e92320e5b8c07b",
+      "reviewLimits": [
+        "Render mock couples currentstyle andeditable; editablewithoutstyle/namedreadonly notindependentlycovered.",
+        "Preview/browser/template startup precedestry/finally; startup failure cleanup untested, successful6runsclosed.",
+        "report.source isGitHEAD notindependent distbinding; futurebuildmanifest/bundledigest needed, actual489runsusedfreshbuilds.",
+        "Gallery/managebothStyles/Stijlen: readablebutnotdistinct, assessa11ycaption atintake."
+      ],
+      "fullIntakeDiff": "f1085923..489c4e3c; all3source/testcommits2e6446fa/7a512f9c/489c4e3c, notonlyfirstfix",
+      "reviewDocumentation": "https://github.com/OpenAEC-Foundation/open-office-studio/blob/b22240ec428ca720ad58cd2990e92320e5b8c07b/docs/tests/2026-11-16-writer-363-style-labels.md"
     },
     "356": {
       "accepted": false,
@@ -187,20 +196,34 @@
       "cases": ["default Forge/dark", "Forge/paper", "light/paper"],
       "result": "All12 original SCKwindow/display images lack glyphs at ready and8s; producer serial review. Theme changes not a fix. No cause proved.",
       "cleanup": "3 owned app PIDs closed, original document unchanged, preferences restored, mount/temp disposed; no active CI/local GUI/server/recording"
+    },
+    "observerPreparation": {
+      "branch": "codex/writer-359-observer-preparation",
+      "commit": "625167fa3205cd0f08c5a8028b977978da594da0",
+      "basedOn": "cc23c8dc75589109aab28ad223cb2577f743db12",
+      "scope": "4newfiles,explicit opt-in isolateddiagnosticfactory/runtime/tests/doc; not pluggedintoVite/product",
+      "tests": "7producerNodecontracttests pass with exact4SDK0.5.1sourceguards, syntax, inertdefault, bounds, payload/workertransportcleanup/timeout",
+      "limits": "No diagnosticnativebuild, native readouttransport, runtimeprobe, pixelpass, causefix orproductintake",
+      "cleanup": "producer confirms cleanpushedhead, no owncommands/server/app/GUI/capture/CUA/mount/workerclient,0newbranchCIruns; oldrunscompleted",
+      "documentation": "https://github.com/OpenAEC-Foundation/open-office-studio/blob/625167fa3205cd0f08c5a8028b977978da594da0/docs/tests/writer359/2026-11-16-observer-preparation.md"
     }
   },
   "safety": {
     "rootLocalGuiStarted": false,
     "rootLocalTestServersStarted": false,
-    "coordinatedStopConfirmations": "361/362/358/363received; new359diagnostic task finalreceiptpending15:15",
+    "coordinatedStopConfirmations": "358/359/361/362/363 finalsafehandoffsreceived; no ownlocaltestwork remaining",
     "userReopenedGApp": "unrelateduserapp is not closed/touched",
     "mainUnchanged": "93fcc6194904f70fa12d0a3546c23dac9c673ee5",
     "receipts": {
       "750b361and362": "Delivered safely; headlessbrowsers/previewservers closed in finally, allowncommandscompleted, no newnativeGUI/CUA/capture; userGappuntouched",
-      "6f92_358and363": "Clean pushedbranch, allowncheckscompleted, headlessbrowsers/serversclosed, no ownnodeprocesses/noCUA/capture",
-      "8020_359": "cc23research complete andcleaned; new explicituser diagnostic-only task inownbranch, finalreceipt pending15:15, ownhardstop15:20"
+      "6f92_358and363": "Finalread-onlyreview b22240ec safelypushed; app/testpoint489 unchanged; cleanworktree,no own363processes/servers,Cua/capture; stoppedbefore15:20,no automaticresume",
+      "8020_359": "Both same-Gresearch and newobserverpreparation safelyclosed/pushed. No active ownCI/localGUI/server/CUA/capture/workerclient; nextnativeprobe notstarted."
     },
-    "rootOwnLocalExecutionSessionsActive": false
+    "rootOwnLocalExecutionSessionsActive": false,
+    "externalCIIndependentOfCodex": true,
+    "closingYellowBorderClaim": "No new rootCUA/capture; executors report no new recording for these rounds. Prior nativekernelreset and later user-ownedGapp remainseparate; no fresh visualborderabsence or globalhelperclosure claim.",
+    "rootWorkStopped": true,
+    "rootLocalProcessCleanup": "No localGUI/previewserver/headlessbrowser/CUA/recording started byroot; all root CLI invocations completed before finalresponse. No shared/user processes terminated."
   },
   "openIssues": [359, 361, 362, 363, 356, 30],
   "previousRoundG": {
@@ -3444,21 +3467,106 @@
         "name": "Office browser regressions",
         "head_sha": "91af2c0570c04ce50d3189d07887598951af7043",
         "event": "workflow_dispatch",
-        "status": "in_progress",
-        "conclusion": null,
+        "status": "completed",
+        "conclusion": "success",
         "html_url": "https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/43881776385"
       }
-    ]
+    ],
+    "browserAudit": {
+      "run": 43881776385,
+      "source": "91af2c0570c04ce50d3189d07887598951af7043",
+      "status": "all3OSsuccess",
+      "cases": 54,
+      "cleanReports": 6,
+      "routes": ["/", "/office/"],
+      "zipAndReportSourceHashesIndependentlyVerified": true,
+      "WindowsLineEndings": "RawCRLFhashes preserved and verified against LF-to-CRLFcheckouttransform",
+      "notNativeColumnUndoAcceptance": true,
+      "rawAudit": "docs/tests/2026-11-16-writer-361-candidate.json"
+    },
+    "platformSnapshot": {
+      "asOf": "2026-11-16T14:14:41.855786+00:00",
+      "source": "91af2c0570c04ce50d3189d07887598951af7043",
+      "workCandidateNotAccepted": true,
+      "results": [
+        {
+          "run": 43881730576,
+          "status": "in_progress",
+          "conclusion": null,
+          "headSha": "91af2c0570c04ce50d3189d07887598951af7043",
+          "jobs": [
+            {
+              "id": 133349070669,
+              "name": "desktop (ubuntu-22.04)",
+              "status": "in_progress",
+              "conclusion": null,
+              "html_url": "https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/43881730576/job/133349070669",
+              "currentStep": "Linux-pakket bouwen"
+            },
+            {
+              "id": 133349071272,
+              "name": "desktop (macos-latest)",
+              "status": "in_progress",
+              "conclusion": null,
+              "html_url": "https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/43881730576/job/133349071272",
+              "currentStep": "macOS-pakket bouwen"
+            },
+            {
+              "id": 133349071710,
+              "name": "desktop (windows-latest)",
+              "status": "in_progress",
+              "conclusion": null,
+              "html_url": "https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/43881730576/job/133349071710",
+              "currentStep": "Windows-pakket bouwen"
+            }
+          ]
+        },
+        {
+          "run": 43881730560,
+          "status": "in_progress",
+          "conclusion": null,
+          "headSha": "91af2c0570c04ce50d3189d07887598951af7043",
+          "jobs": [
+            {
+              "id": 133349069993,
+              "name": "database (macos-latest)",
+              "status": "in_progress",
+              "conclusion": null,
+              "html_url": "https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/43881730560/job/133349069993",
+              "currentStep": "macOS-pakket bouwen"
+            },
+            {
+              "id": 133349070563,
+              "name": "database (windows-latest)",
+              "status": "in_progress",
+              "conclusion": null,
+              "html_url": "https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/43881730560/job/133349070563",
+              "currentStep": "Windows-pakket bouwen"
+            },
+            {
+              "id": 133349070626,
+              "name": "database (ubuntu-22.04)",
+              "status": "in_progress",
+              "conclusion": null,
+              "html_url": "https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/43881730560/job/133349070626",
+              "currentStep": "Linux-pakketten bouwen"
+            }
+          ]
+        }
+      ]
+    }
   },
   "nextSession": {
     "date": "2026-11-18",
     "requiresNewUserInstruction": true,
     "steps": [
       "Read this canonical handoff and verify clean remote/local heads; do not rerun obsoleteGstate scripts.",
+      "Read latest363reviewlimitations and observer359preparedcode guards; do not confuse tests/preparedinstrumentation with nativeacceptance.",
       "Assess PR364 exact91af externalCI, preserve any failures and perform missingnative keyboard controls; builds are not nativeUndo acceptance. Do not promote without relevant results.",
       "Consider next independent deliveries362,363,356 only after review/platform gates at a pinned combinedpoint; they are not in acceptedH.",
       "359 remainsresearch: preserve uninstrumented initialcaptures before diagnosticfont/worker/frameobservations; preparedcode is not a native result or productfix. PhysicalMac/WKboundary missing.",
       "Keep main/release/automaticissueclose forbidden unless explicit new permission. No automatic resume."
     ]
-  }
+  },
+  "userDecision": "16Nov: main work deferred byuser untilWednesday18Nov afterremainingchecks; no mainwriteperformed orautomaticresume"
 }
