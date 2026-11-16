@@ -162,8 +162,8 @@ try {
     control.pakketten.some((p) => p.sha256 === report.package.sha256),
     "DEB must match the independently checked package report",
   );
-  // Packaging can strip the raw Cargo executable. Compare the installed bytes
-  // with the independently checksum-verified DEB payload from this job instead.
+  // Compare against the checksum-verified DEB payload. The loose build binary
+  // need not remain byte-identical after subsequent bundle steps.
   const extracted = await mkdtemp(join(tmpdir(), "office-native-deb-"));
   try {
     execFileSync("dpkg-deb", ["--extract", packagePath, extracted]);
@@ -184,11 +184,22 @@ try {
   } finally {
     await rm(extracted, { recursive: true, force: true });
   }
+  // tauri-driver 2.1.0 has no --version flag. Read Cargo's actual installation
+  // registry and fingerprint the selected executable rather than guessing it.
+  const driverPackage = execFileSync("cargo", ["install", "--list"], {
+    encoding: "utf8",
+  })
+    .split(/\r?\n/)
+    .find((line) => line.startsWith("tauri-driver "));
+  assert.equal(driverPackage, "tauri-driver v2.1.0:");
+  const driverPath = execFileSync("which", ["tauri-driver"], {
+    encoding: "utf8",
+  }).trim();
   report.runtime = {
     node: process.version,
-    driver: execFileSync("tauri-driver", ["--version"], {
-      encoding: "utf8",
-    }).trim(),
+    driver: driverPackage,
+    driverPath,
+    driverSha256: hash(await readFile(driverPath)),
     webkitPackages: execFileSync(
       "dpkg-query",
       ["-W", "libwebkit2gtk-4.1-0", "webkit2gtk-driver"],
