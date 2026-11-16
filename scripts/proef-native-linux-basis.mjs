@@ -8,6 +8,7 @@ import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { createServer } from "node:net";
 import { tmpdir } from "node:os";
 import { resolve, join } from "node:path";
+import { fileURLToPath } from "node:url";
 import { setTimeout as delay } from "node:timers/promises";
 import { unzipSync, zipSync, strFromU8, strToU8 } from "fflate";
 
@@ -25,6 +26,12 @@ const source = execFileSync("git", ["rev-parse", "HEAD"], {
 }).trim();
 const report = {
   sourceCommit: source,
+  harnessCommit: execFileSync(
+    "git",
+    ["-C", fileURLToPath(new URL("../", import.meta.url)), "rev-parse", "HEAD"],
+    { encoding: "utf8" },
+  ).trim(),
+  harnessSha256: hash(await readFile(fileURLToPath(import.meta.url))),
   sourceTree: execFileSync("git", ["rev-parse", "HEAD^{tree}"], {
     encoding: "utf8",
   }).trim(),
@@ -125,6 +132,20 @@ async function startDocument() {
     false,
     "No compiled diagnostic editor bridge",
   );
+  await evaluate(
+    "window.__nativeKeyTrace=[]; for(const type of ['keydown','keyup'])window.addEventListener(type,e=>{if(e.ctrlKey||e.metaKey||e.key==='Control'||e.key.toLowerCase()==='s'){const v={type:e.type,key:e.key,code:e.code,ctrl:e.ctrlKey,meta:e.metaKey,shift:e.shiftKey,target:e.target?.tagName,prevented:e.defaultPrevented};window.__nativeKeyTrace.push(v);queueMicrotask(()=>v.prevented=e.defaultPrevented)}},true)",
+  );
+  await saveReady();
+}
+async function saveReady() {
+  let stable = 0;
+  await waitFor(async () => {
+    const ready = await evaluate(
+      "const e=document.querySelector('.office-snelknop[aria-label=Save]');return Boolean(e&&!e.disabled&&e.getClientRects().length)",
+    );
+    stable = ready ? stable + 1 : 0;
+    return stable >= 2;
+  }, "Visible Save control never became ready");
 }
 function ownedApplicationPids() {
   try {
@@ -155,6 +176,13 @@ try {
   assert.equal(ownedApplicationPids().length, 0, "No pre-existing test app");
   const packageBytes = await readFile(packagePath);
   report.package = { path: packagePath, sha256: hash(packageBytes) };
+  if (process.env.OFFICE_NATIVE_ARTIFACT_RECHECK === "true") {
+    const origin = JSON.parse(
+      await readFile(".local/native-recheck-origin.json", "utf8"),
+    );
+    assert.equal(origin.sourceCommit, source);
+    report.artifactOrigin = origin;
+  }
   const control = JSON.parse(
     await readFile(".local/pakketcontrole-Linux.json", "utf8"),
   );
@@ -169,9 +197,18 @@ try {
     execFileSync("dpkg-deb", ["--extract", packagePath, extracted]);
     const payload = await readFile(join(extracted, application));
     report.packagedExecutableSha256 = hash(payload);
-    report.rawBuildExecutableSha256 = hash(
-      await readFile("src-tauri/target/release/open-office-studio"),
-    );
+    report.rawBuildExecutableSha256 = await readFile(
+      "src-tauri/target/release/open-office-studio",
+    )
+      .then(hash)
+      .catch((error) => {
+        if (
+          error.code === "ENOENT" &&
+          process.env.OFFICE_NATIVE_ARTIFACT_RECHECK === "true"
+        )
+          return null;
+        throw error;
+      });
     execFileSync("sudo", ["dpkg", "--install", packagePath], {
       stdio: "inherit",
     });
@@ -256,6 +293,10 @@ try {
   );
   await chord("\uE011"); // Ctrl+Home through the native WebDriver keyboard.
   await keys([...`${marker} `].flatMap((key) => [down(key), up(key)]));
+  await saveReady();
+  report.beforeSave = await evaluate(
+    "return {saveDisabled:document.querySelector('.office-snelknop[aria-label=Save]')?.disabled,focused:document.activeElement?.tagName,keyboard:window.__nativeKeyTrace}",
+  );
   await chord("s");
   const saved = await waitFor(async () => {
     const bytes = await readFile(documentPath);
@@ -312,6 +353,10 @@ try {
 } catch (error) {
   report.status = "failed";
   report.error = String(error.stack || error);
+  if (session)
+    report.failureUi = await evaluate(
+      "return {saveDisabled:document.querySelector('.office-snelknop[aria-label=Save]')?.disabled,focused:document.activeElement?.tagName,keyboard:window.__nativeKeyTrace}",
+    ).catch(() => null);
   if (session) await screenshot("failure.png").catch(() => {});
   throw error;
 } finally {
