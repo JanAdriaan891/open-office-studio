@@ -1,5 +1,37 @@
 # Integratie — 16 november 2026
 
+Werkbranch: `codex/integratie-2026-11-16`, concept-PR [#353](https://github.com/OpenAEC-Foundation/open-office-studio/pull/353). PR [#354](https://github.com/OpenAEC-Foundation/open-office-studio/pull/354) is nu opgenomen; de gezamenlijke platform- en native controles lopen. Geen toestemming voor `main`, release of automatische issue-sluiting.
+
+## Huidige combinatie G: runtime en Writer samen
+
+Vast testpunt: **`9e0ad565402815082e8edf11a4c23943455fb6ce`**, tree `b79ec077abb3a7a3b199c05a45f2fb6908dc2ace`. De vrijgegeven #354-head `b2a17d5b813893928b4e5740c599078667197a74` is zonder conflicten samengevoegd in `586dfec9`. De standaard desktop-CI bereidt voortaan de hash-gecontroleerde private runtime voor vóór Rust-controles en pakketbouw. De #355-workaround blijft beperkt tot Linux-CI-testuitvoering; geen productinstelling of launcher is aangepast. De oorspronkelijke #317 is niet daarnaast toegepast.
+
+| Controle op G                                                  | Resultaat                                                                                                                                                      |
+| -------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Gerichte runtime-/studio-/harnesstests                         | 26 Vitest-tests in drie bestanden geslaagd                                                                                                                     |
+| Lokale gewone productiebuild                                   | Geslaagd, 39,01 s                                                                                                                                              |
+| Lokale hosted-build en controle relatieve/externe bronnen      | Geslaagd, 35,71 s                                                                                                                                              |
+| Taalstatus op gewone route en echte `/office/`-route           | Elk 25 controles, exacte opgeslagen/heropende tekst, nul browserfouten                                                                                         |
+| Writer met 600 alinea's                                        | Echt bewerken/Ctrl+S/download/heropenen, alle tekst exact, nul browserfouten                                                                                   |
+| Browsermatrix                                                  | [43856360288](https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/43856360288): Windows/Linux beide routes geslaagd; macOS loopt             |
+| Volledige desktop Windows/Linux/macOS                          | [43856368812](https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/43856368812): loopt/wacht op runner                                        |
+| Database Windows/Linux/macOS                                   | [43856368799](https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/43856368799): loopt/wacht op runner                                        |
+| Voorbeeld, Writer-formaten, legacy, Strict ODF en macrofixture | 43856368791, 43856368801, 43856368922, 43856368798 en 43856368796 geslaagd                                                                                     |
+| Nieuwe runtimepakketten, conversie en native bediening         | [43857127197](https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/43857127197): loopt; eigen testdriver `3d3b847f`, applicatie uitsluitend G |
+| Native Writer-taalcontrole                                     | Eigenaar 6f92 wacht op geverifieerde G-installers; eerdere F-resultaten niet overgedragen                                                                      |
+
+De twee lokale bundels bevatten elk 727 bestanden. Gewone boom-SHA `70674de172328e84ba4053131033b8044db7bc3d58e0449e475ffb4ba5433bf7`; hosted `9308698db821d15fd0d3a7c178385ecc48e30afe54fc7a3d40317f16322e7bcc`. De vier reeds beschikbare browserrapporten hebben expliciet bron G, een schone checkout, negen geslaagde cases per route en nul fouten; hun Actions-ZIP-digests zijn gecontroleerd. Een eerste gerichte testpoging gebruikte abusievelijk `node --test` voor Vitest-bestanden; de gecorrigeerde Vitest-run slaagt. Dit was een runnerfout.
+
+De runtimechat 8020 bezit de nieuwe pakket-/converter-/macro-/native-runtimeproeven. Chat 6f92 bezit de afgebakende native Writer-taalproeven. De integratiechat bezit de standaard CI, lokale productie/browsercontroles en dit overzicht. Er is geen nieuwe lokale appbediening of schermopname gestart.
+
+Issue #30 blijft open: EPUB-import #356 / concept-PR #357 is afzonderlijk werk en zit niet in deze intake; voor 17 catalogusextensies ontbreken nog invoerfixtures. Een geslaagde build bewijst geen native bediening. Ontbrekende native/platformresultaten blijven open; eerdere F-, c0- en d735-resultaten zijn geen G-resultaten. Fysieke Linux-/Wayland-bediening en algemene prestatie-/RAM-winst zijn niet gecertificeerd.
+
+Het [machineleesbare rapport](integratie-2026-11-16.json) bewaart huidige resultaten en de vorige ronde afzonderlijk. Na de lopende controles volgt de definitieve overdracht op hetzelfde applicatiepunt G.
+
+## Historische vorige ronde: F en de CI-only #355-workaround
+
+Onderstaande bewaarde tekst beschrijft de toestand vóór de nu opgenomen PR #354. Verwijzingen naar een volgende intake en ontbrekende runtimewijzigingen gelden uitsluitend voor die eerdere toestand. De bijbehorende bronnen, pakketten en tests blijven historisch aan F/c0/d735 gekoppeld.
+
 Werkbranch: `codex/integratie-2026-11-16`, concept-PR [#353](https://github.com/OpenAEC-Foundation/open-office-studio/pull/353). Deze kandidaat blijft concept: de afgebakende Windows-ronde is inmiddels voltooid en schoon gesloten; de CI-workaround voor Linux is gericht bevestigd; overige native Linux-/macOS-controles ontbreken nog. Er is geen toestemming voor `main`, een officiële release of voortijdige issue-sluiting.
 
 ## Vastgelegde bron en intake
