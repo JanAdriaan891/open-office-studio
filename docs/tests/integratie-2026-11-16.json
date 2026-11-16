@@ -1,6 +1,6 @@
 {
   "schemaVersion": 3,
-  "asOf": "2026-11-16T13:57:13.175823+00:00",
+  "asOf": "2026-11-16T14:05:43.163739+00:00",
   "currentRound": "H: timed Mac-navigation/WindowsUndo follow-up",
   "status": "358 integrated and validated at exact7632; no361/359productfix promoted; safe-stop coordination active until15:25",
   "deadline": {
@@ -43,23 +43,35 @@
     },
     "361": {
       "accepted": false,
-      "status": "Own pushed work candidate includes f108/H; 19 targeted tests and27 browser states pass; final clean-point builds/probes pending receipt. Not promoted; native/platform acceptance missing.",
+      "status": "Pushed clean358+361 work candidate;19focused checks, both productionroutes27states each, types/builds pass. NativeWindows/Linux/macOS acceptance missing; candidate CI separate from acceptedH.",
       "branch": "codex/writer-table-undo-361",
       "fix": "d8654bd9458959059252cca7058c979807e29b0e",
-      "combinedCandidate": "91af2c0570c04ce50d3189d07887598951af7043"
+      "combinedCandidate": "91af2c0570c04ce50d3189d07887598951af7043",
+      "pr": 364,
+      "evidence": "docs/tests/2026-11-16-writer-361-candidate.json"
     },
     "362": {
       "accepted": false,
       "source": "882932d4400349796bfa14bf0d1beb318af67cfb",
       "branch": "codex/writer-ribbon-clipping-362",
       "outsideCurrentMacUndoScope": true,
-      "nativePlatformMatrixMissing": true
+      "nativePlatformMatrixMissing": true,
+      "pushed": true,
+      "evidence": "docs/tests/2026-11-16-writer-362-queued.json",
+      "rootVerifiedReportAndImageHashes": true
     },
     "363": {
       "accepted": false,
       "owner": "6f92 after750bexplicitclaimrelease",
       "branch": "codex/writer-363-style-labels-2026-11-16",
-      "separateNewUserTask": true
+      "separateNewUserTask": true,
+      "source": "489c4e3ce10a51e14bfd5791860e5fe3e843a544",
+      "evidence": "9ce8e75851d4cb287d7cf9f2e787892dd5ca0e76",
+      "pushed": true,
+      "tests": "18targetedtests,9languages1669keys,types/normal+hostedbuilds,6WindowsChromiumUIcasesEN/NL/lofallback,0pageerrors;6originalPNGsreviewed byproducer",
+      "limits": "No nativeWindows/package/Linux/macOS/newfullplatformacceptance; no363productintake",
+      "receiptOnOwnBranch": "docs/tests/2026-11-16-writer-363-style-labels.json",
+      "cleanup": "producer confirms headlessbrowsers/servers closed,no own363nodeprocesses,no CUA/capture; no newwork/automaticresume"
     },
     "356": {
       "accepted": false,
@@ -180,9 +192,15 @@
   "safety": {
     "rootLocalGuiStarted": false,
     "rootLocalTestServersStarted": false,
-    "coordinatedStopConfirmations": "pendingfinal15:05-15:15receipts",
+    "coordinatedStopConfirmations": "361/362/358/363received; new359diagnostic task finalreceiptpending15:15",
     "userReopenedGApp": "unrelateduserapp is not closed/touched",
-    "mainUnchanged": "93fcc6194904f70fa12d0a3546c23dac9c673ee5"
+    "mainUnchanged": "93fcc6194904f70fa12d0a3546c23dac9c673ee5",
+    "receipts": {
+      "750b361and362": "Delivered safely; headlessbrowsers/previewservers closed in finally, allowncommandscompleted, no newnativeGUI/CUA/capture; userGappuntouched",
+      "6f92_358and363": "Clean pushedbranch, allowncheckscompleted, headlessbrowsers/serversclosed, no ownnodeprocesses/noCUA/capture",
+      "8020_359": "cc23research complete andcleaned; new explicituser diagnostic-only task inownbranch, finalreceipt pending15:15, ownhardstop15:20"
+    },
+    "rootOwnLocalExecutionSessionsActive": false
   },
   "openIssues": [359, 361, 362, 363, 356, 30],
   "previousRoundG": {
@@ -3380,5 +3398,67 @@
         "status": "registered, future scoped fix, not partG"
       }
     }
+  },
+  "workCandidate361": {
+    "source": "91af2c0570c04ce50d3189d07887598951af7043",
+    "pr": 364,
+    "baseBranch": "codex/integratie-2026-11-16",
+    "acceptedIntegration": false,
+    "rootSourceReportImageHashesVerified": true,
+    "sourceReceipt": "docs/tests/2026-11-16-writer-361-candidate.json",
+    "nativeFunctionalGaps": [
+      "Windows table columnCtrlZ with unchangedribbonfocus",
+      "Linux correspondingnative inputfocus",
+      "macOS correspondingnative CommandUndo/Redo"
+    ],
+    "externalRuns": [
+      {
+        "id": 43881730576,
+        "name": "Kantooromgeving controleren en bouwen",
+        "head_sha": "91af2c0570c04ce50d3189d07887598951af7043",
+        "event": "pull_request",
+        "status": "in_progress",
+        "conclusion": null,
+        "html_url": "https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/43881730576"
+      },
+      {
+        "id": 43881730560,
+        "name": "Zelfstandige databasebrowser controleren en bouwen",
+        "head_sha": "91af2c0570c04ce50d3189d07887598951af7043",
+        "event": "pull_request",
+        "status": "in_progress",
+        "conclusion": null,
+        "html_url": "https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/43881730560"
+      },
+      {
+        "id": 43881730561,
+        "name": "Zelfstandig kantoorvoorbeeld controleren",
+        "head_sha": "91af2c0570c04ce50d3189d07887598951af7043",
+        "event": "pull_request",
+        "status": "completed",
+        "conclusion": "success",
+        "html_url": "https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/43881730561"
+      },
+      {
+        "id": 43881776385,
+        "name": "Office browser regressions",
+        "head_sha": "91af2c0570c04ce50d3189d07887598951af7043",
+        "event": "workflow_dispatch",
+        "status": "in_progress",
+        "conclusion": null,
+        "html_url": "https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/43881776385"
+      }
+    ]
+  },
+  "nextSession": {
+    "date": "2026-11-18",
+    "requiresNewUserInstruction": true,
+    "steps": [
+      "Read this canonical handoff and verify clean remote/local heads; do not rerun obsoleteGstate scripts.",
+      "Assess PR364 exact91af externalCI, preserve any failures and perform missingnative keyboard controls; builds are not nativeUndo acceptance. Do not promote without relevant results.",
+      "Consider next independent deliveries362,363,356 only after review/platform gates at a pinned combinedpoint; they are not in acceptedH.",
+      "359 remainsresearch: preserve uninstrumented initialcaptures before diagnosticfont/worker/frameobservations; preparedcode is not a native result or productfix. PhysicalMac/WKboundary missing.",
+      "Keep main/release/automaticissueclose forbidden unless explicit new permission. No automatic resume."
+    ]
   }
 }
