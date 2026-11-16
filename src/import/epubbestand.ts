@@ -41,7 +41,17 @@ function pad(van: string, href: string): string {
 
 function xml(bytes: Uint8Array | undefined, naam: string, namespace: string) {
   if (!bytes) throw fout();
-  const tekst = strFromU8(bytes);
+  // EPUB XML mag volgens de standaard UTF-8 of UTF-16 zijn. Detecteer de
+  // bytevolgorde vóór het parsen; vervang ongeldige bytes nooit stil door �.
+  const codering =
+    (bytes[0] === 0xff && bytes[1] === 0xfe) ||
+    (bytes[0] === 0x3c && bytes[1] === 0)
+      ? "utf-16le"
+      : (bytes[0] === 0xfe && bytes[1] === 0xff) ||
+          (bytes[0] === 0 && bytes[1] === 0x3c)
+        ? "utf-16be"
+        : "utf-8";
+  const tekst = new TextDecoder(codering, { fatal: true }).decode(bytes);
   // Een EPUB 2 kan een standaard externe XHTML-doctype noemen. Die halen we
   // weg: geen DTD laden en nooit interne entiteitsdeclaraties verwerken.
   if (/<!ENTITY|<!DOCTYPE[^>]*\[/i.test(tekst)) throw fout();
@@ -209,7 +219,7 @@ export function zetEpubOm(bytes: Uint8Array): Tekstomzetting {
           ? data
           : null;
       });
-      document.blokken.push(...resultaat.document.blokken);
+      for (const blok of resultaat.document.blokken) document.blokken.push(blok);
       ontbrekend += resultaat.nietIngesloten;
     }
     if (!document.blokken.length) throw fout();

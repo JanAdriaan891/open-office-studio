@@ -232,6 +232,33 @@ describe("EPUB-invoer #356", () => {
     expect(doc(result.bytes)).toContain("Café");
   });
 
+  it.each(["le", "be"])(
+    "leest de toegestane UTF-16%s XML-delen zonder tekstverlies",
+    (order) => {
+      const result = zetEpubOm(
+        wijzig((files) => {
+          for (const name of [
+            "META-INF/container.xml",
+            "Boek/inhoud.opf",
+            "Boek/hoofdstukken/eerste.xhtml",
+          ]) {
+            const text = strFromU8(files[name]).replace(
+              'encoding="UTF-8"',
+              'encoding="UTF-16"',
+            );
+            const encoded = new Uint8Array(2 + text.length * 2),
+              view = new DataView(encoded.buffer);
+            encoded.set(order === "le" ? [0xff, 0xfe] : [0xfe, 0xff]);
+            for (let i = 0; i < text.length; i++)
+              view.setUint16(2 + i * 2, text.charCodeAt(i), order === "le");
+            files[name] = encoded;
+          }
+        }),
+      );
+      expect(doc(result.bytes)).toContain("Café &amp; ideeën");
+    },
+  );
+
   it("weigert herhaalde grote hoofdstukken voordat het uitvoerdocument kan uitgroeien", () => {
     const source = wijzig((files) => {
       wijzigXml(files, "Boek/hoofdstukken/eerste.xhtml", (x) =>

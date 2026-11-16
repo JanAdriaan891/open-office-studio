@@ -48,13 +48,17 @@ independence, actual editor save/reopen, inactive scripts/no fetching, explicit
 invalid/DRM/media errors and package/expanded-output limits. EPUB 2 with a
 standard XHTML doctype also passes; the doctype is removed without fetching it.
 
-Local results: 15 EPUB tests passed; 16 existing text-import regression tests
+Local results: 17 EPUB tests passed; 16 existing text-import regression tests
 passed, TypeScript passed, translation key/interpolation check passed for all
 nine active languages (23 pre-existing prepared-language warnings). Local
 dependencies remain read-only; the test runner uses a private Vite cache and
 disables result-cache writes. The direct XML dependency is resolved to the
 already installed exact 0.9.12 package for these local checks; CI must verify the
 updated frozen lockfile normally.
+
+The XML decoder supports both UTF-8 and UTF-16 (little/big endian), as required
+by EPUB's XML conformance rules. The UTF-16 variants are checked with real ZIP
+parts containing Unicode text; invalid byte sequences fail explicitly.
 
 Native Windows/Linux/macOS input operation and the production hosted route have
 not yet been executed for this new source. No platform pass or completed issue
