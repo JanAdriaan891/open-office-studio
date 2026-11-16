@@ -122,21 +122,6 @@ jobs:
       - name: Windows-installer werkelijk uitpakken en controleren
         if: runner.os == 'Windows'
         run: python scripts/controleer-installers.py --platform windows --rapport .local/pakketcontrole-Windows.json
-      - name: Native Linux Writer edit, save and full application reopen
-        if: runner.os == 'Linux'
-        run: |
-          cargo install tauri-driver --version 2.1.0 --locked
-          package=$(find src-tauri/target/release/bundle/deb -maxdepth 1 -name '*.deb' -print -quit)
-          test -n "$package"
-          dbus-run-session -- xvfb-run -a node scripts/proef-native-linux-basis.mjs "$package"
-      - name: Preserve actual native Linux roundtrip proof
-        if: always() && runner.os == 'Linux'
-        uses: actions/upload-artifact@v4
-        with:
-          name: native-linux-writer-roundtrip
-          path: .local/native-linux-basis
-          include-hidden-files: true
-          if-no-files-found: warn
       - uses: actions/upload-artifact@v4
         with:
           name: open-office-studio-${{ runner.os }}
@@ -153,3 +138,20 @@ jobs:
           path: .local/pakketcontrole-*.json
           include-hidden-files: true
           if-no-files-found: error
+      # Keep the exact checked packages even when the subsequent native UI gate
+      # fails, so a harness correction can be diagnosed against the same bytes.
+      - name: Native Linux Writer edit, save and full application reopen
+        if: runner.os == 'Linux'
+        run: |
+          cargo install tauri-driver --version 2.1.0 --locked
+          package=$(find src-tauri/target/release/bundle/deb -maxdepth 1 -name '*.deb' -print -quit)
+          test -n "$package"
+          dbus-run-session -- xvfb-run -a node scripts/proef-native-linux-basis.mjs "$package"
+      - name: Preserve actual native Linux roundtrip proof
+        if: always() && runner.os == 'Linux'
+        uses: actions/upload-artifact@v4
+        with:
+          name: native-linux-writer-roundtrip
+          path: .local/native-linux-basis
+          include-hidden-files: true
+          if-no-files-found: warn
