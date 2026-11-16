@@ -27,6 +27,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
       - name: Native library dependencies
         run: |
           sudo python3 scripts/gebruik-ubuntu-hoofdarchief.py /etc/apt
