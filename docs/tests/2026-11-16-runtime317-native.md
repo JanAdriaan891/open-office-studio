@@ -132,3 +132,51 @@ Windows proof archive digest:
 `7acb77ecde4f625220f3a9d919b0095732d69b37eb20c35fde53372a9e99c623`.
 Only Linux native operation is repeated after its driver-isolation changes;
 valid Windows and macOS results remain bound to the same application point.
+
+## Final acceptance matrix
+
+Application point for **every row**: `c0fbbcb843f0fd44e0e7e9d54a7989d017e39812`.
+The final driver point is `fb6705e79bbb3b828a61c5a390d32a0a57d2d92f`.
+
+| Platform / route | Build / package / converter proof | Actual operation | Evidence |
+| --- | --- | --- | --- |
+| Windows x64 NSIS / WebView2 | Passed; 9 format cases, independent content, positive macro control and safe macro blocking, 32 legacy cases | Passed; installed app opens ODT, native pointer opens Save As, actual bundled source, original unchanged | [Windows job](https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/43833977445/job/133186020778), `runtime317-proof-Windows` |
+| Linux x64 DEB / WebKitGTK | Passed at initial run; same installer SHA verified before reuse | Passed; fresh driver/app session, `/usr/bin/open-office-studio`, Save As bundled source, original unchanged, owned app closed | [Linux recheck](https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/43841367195/job/133210905489), `runtime317-native-recheck-Linux` |
+| Linux x64 AppImage / WebKitGTK | Passed at initial run; same archive SHA verified before reuse | Passed; actual AppImage runtime and matching `APPIMAGE` archive, Save As bundled source, original unchanged, owned app closed | Same Linux recheck and artifact |
+| macOS ARM64 DMG / WKWebView | Passed; helper signature, associations, LaunchServices, converter/content/macro/legacy checks | Passed; enabled native AXPress, bundled source/safe profile, owned app closed, original unchanged | [macOS job](https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/43833977445/job/133186020407), `runtime317-proof-macOS` |
+| Browser / real hosted `/office/` | Self-contained hosted build passed | Passed; Writer offline edit/save/reopen, Spreadsheet style/formula roundtrip, Presentation rich-note editing/roundtrip, three format-limit messages preserving the open document; no Tauri bridge | [Hosted browser job](https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/43841367195/job/133210905549), `runtime317-hosted-browser` |
+
+The [final targeted run](https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/43841367195)
+is green. Its package-build job is deliberately skipped: existing exact-byte
+installer and complete converter evidence are verified and reused. The initial
+run remains red because it records the original second-session Linux failure;
+its independent successful Windows/macOS and converter results are not relabeled.
+
+Final Linux proof archive digest:
+`f402dce17c5723ddcec62220df1fdc7163603c656fc487049bfc0671493f3026`.
+Hosted browser proof archive digest:
+`cb03342caba102e4470b1e8e6ec707e2b6e59a94cfe9cf4b827e70202c823c95`.
+
+The final Linux diagnostics directly show the AppImage process still needed
+targeted SIGTERM after the WebDriver session ended. It then closed before the
+DEB started with a different PID and executable. This confirms why explicit
+owned-app cleanup matters; the combined port/profile/process isolation change
+was tested, not an A/B experiment establishing one sole cause of the old timeout.
+
+## Integration and remaining limits
+
+- A read-only `git merge-tree --write-tree` check against integration point
+  `e1f84f84f4d72e5ce8ab967e376a6f38344edf39` completed without conflicts
+  (tree `ec1a93a965fe64ae913a1b4d04a5c6031c00e824`). The integration chat's
+  reserved desktop workflow and Linux Writer helper were not edited.
+- The integration combination still requires the integration chat's checks at
+  its own exact combined point. This matrix certifies the application point above.
+- The gray-canvas readiness screenshot remains an explicitly shared observation,
+  not a proven rendering bug or a document-painting pass. These controls prove
+  native file loading and Save As operation/source selection.
+- Native CI covered Windows/Linux x64 and macOS ARM64. Other architectures and
+  all standalone signed/notarized release variants are not certified by this run.
+- No main merge, release, local installer/app launch, local printer change or
+  local security change was performed. Original head `7e48cf58` and its historical
+  evidence remain intact. PR #317 must not be integrated in addition to this
+  continuation.
