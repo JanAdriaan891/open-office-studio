@@ -1,3 +1,39 @@
+# Integratie — 16 november 2026, ronde H
+
+De vervolgopdracht heeft een **harde stop om 15:25 Europe/Amsterdam**. Main/release blijven verboden. H bevat uitsluitend de vrijgegeven Mac-navigatiefix #358; Mac-weergave #359 en Windows-Undo #361 worden niet als opgelost of ongetest meegeleverd. De afgeronde G-ronde staat hieronder afzonderlijk bewaard.
+
+## Vast geteste kandidaat H
+
+Applicatiepunt **`7632c090651515ab3e0aad44dfe293aa340badcf`**, PR #360, is opgenomen als integratiemerge `f1085923653bd6e59982807e16a09c5fa3e3d74e`. Alle niet-documentatiebestanden zijn aantoonbaar exact gelijk aan het geteste 7632-punt; latere bewijsdocs veranderen dit niet. Daarom zijn geen identieke pakketten opnieuw gebouwd. De Mac-fix gebruikt de bestaande guarded SDK-Home/End-route uitsluitend voor Command+Up/Down op Apple, met behoud van Shift, gewone pijlen en Control/Option. Geen SDK-upgrade, renderer-/theme- of Windows-Undo-wijziging.
+
+| Controle op exact 7632       | Resultaat                                                                                                                                                                                                                                                                                                                |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Desktop Windows/Linux/macOS  | [43871354511](https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/43871354511) alle drie groen: 3.499 tests / 3 skips / 328 bestanden en 58 Python per OS; Rust Windows116, Linux/macOS117. Alle pakketten gecontroleerd                                                                               |
+| Database en voorbeeld        | [43871354515](https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/43871354515) alle drie OS'en groen; voorbeeld43871354501 groen                                                                                                                                                                       |
+| Verse root-browsermatrix     | [43877140121](https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/43877140121): alle drie OS'en, `/` én `/office/`, 54 cases, zes schone exact-7632-rapporten, nul fouten; ZIP-digests zelfstandig gecontroleerd                                                                                       |
+| Native macOS 15.8.2 ARM64    | [43875473969](https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/43875473969): echte Command- en Shift+Command-grenzen, 15 opgeslagen XML/checkpoints, 32 taalcontroles, gewone Up/Down in afgebroken alinea, Cmd+S/Cmd+Q, PID2008→nul→3140, B bytegelijk, cleanup. Dit is geen Ctrl+Home-alternatief |
+| Overige gerichte browserdata | 90 controles op dezelfde7632-app: 15 per OS/route, opgeslagen DOCX-witnesses en behouden eerdere driverfouten; zie [exacte358overdracht](2026-11-16-writer-358-macos-navigation.md)                                                                                                                                      |
+| Native Linux                 | Vier echte data/proces/heropen/Find-checks uit dezelfde desktopbuild, oorspronkelijke beelden leesbaar                                                                                                                                                                                                                   |
+
+Ruwe Mac-JSON is exact gelijk aan het geverifieerde artifact `14229571828`, ZIP `6834f4340bcbb9f8aa41f41afd95ec96f53f7e3024f03d3e33c607907419abdd`. Installer-/exe-/datahashes staan in de [358-machineoverdracht](2026-11-16-writer-358-macos-navigation.json). Een Windows-hosted CJK-fonttoast blijft afzonderlijk ongetrieerd; de datacontroles slagen, geen fontoorzaak geclaimd. Geen nieuwe native Windows-toetsproef of Mac26-toetsbediening op H geclaimd. Converter-/macro-G-bewijzen worden niet als nieuwe H-proeven gelabeld.
+
+## Open werk en scopegrenzen
+
+- **#359, Mac-weergave:** geen vrijgegeven productfix. [Same-G-onderzoek](2026-11-16-writer359-initial-paint.md) bewaart twee acquisitiemethoden: oorspronkelijke SCK-window- én displaybeelden missen initiale/heropende glyphs, ook na extra acht seconden en gewone resize. Dat sluit alleen een fout in één screencapture-opdracht uit, niet app versus gedeelde compositor. Eerste helper-CGS-assert was geen appcrash; de gecorrigeerde helper verzamelde bewijs. Font/layout/frame-tijdlijn en fysiek Mac-bewijs ontbreken. De [afgeronde themafactorcontrole](writer359/2026-11-16-resume.md) op exact G bevestigt ontbrekende glyphs in alle twaalf oorspronkelijke window-/displaybeelden bij Forge/donker, Forge/papier en licht/papier, ook na acht seconden. Themawisseling helpt niet; de oorzaak blijft onbekend. Root verifieerde ZIP-digest en ruwe JSON zelfstandig. Alle eigen app-PIDs, voorkeuren, mount en tijdelijke app zijn opgeruimd; geen actieve CI. Alleen onderzoeksdocs uit `cc23c8dc` overgenomen, geen productfix.
+- **#361, Windows-Undo:** de eerste guardkandidaat faalde terecht nog de echte browserrepro. De vervolgfix herstelt de actuele editorref via een stabiele documenteigenaar; gerichte controls worden afgerond. Niet gepromoveerd na de 14:45-intakegrens. Eigen gepushte branch `codex/writer-table-undo-361`, fix `d8654bd9`, bevat H als schone werkkandidaat `91af2c05`: 19 gerichte tests en 27 browsertoestanden slagen. Definitieve clean-point-proeven/builds volgen bij overdracht; native-/platformacceptatie ontbreekt. Niet opgenomen in de geaccepteerde integratiebranch; geen gebruikerapp sluiten.
+- **#362/#363:** buiten deze Mac/Undo-intake. #362 is lokaal opgeleverd als `882932d4400349796bfa14bf0d1beb318af67cfb`, aparte branch `codex/writer-ribbon-clipping-362`; native/platformmatrix ontbreekt. #363 is door750b expliciet vrijgegeven aan6f92 op een eigen branch voor de nieuwe gebruikerstaak; geen CSS/stijlcommando's. Beide blijven volgende intake.
+- **#356 / PR357:** afzonderlijke EPUB-vrijgave, app2b100ada en broncf64b9c0, niet in G/H. Eigen full/native/browserevidence is klaar; oudere reguliere PR-Linux43861156830 is rood wegens ontbrekende gereserveerde nativehelper. Geen nieuwe catalogusaudit vandaag; #30 blijft open.
+
+## Afsluitplan en woensdag
+
+Vanaf 15:05 alleen veilige receipts/checkpoints, vanaf 15:10 definitieve afronding en uiterlijk 15:15 eigen tijdelijke processen/servers/documenten/opnamesessies opruimen. Geen nieuwe lange lokale checks. Alleen reeds gestarte externe CI kan met hervatbare links achterblijven. De later door de gebruiker zelf heropende G-app is geen eigen testproces en wordt niet aangeraakt. De integratiechat startte zelf geen lokale GUI/opname.
+
+De definitieve stopstatus wordt vóór15:25 hier en in de bestaande private centrale overdracht opgeslagen. Woensdag **18 november** uitsluitend hervatten op een nieuwe gebruikersopdracht; geen automatische hervatting. PR #353 blijft concept, niets naar main, geen release of automatische issue-sluiting.
+
+---
+
+## Eerder afgeronde ronde G — historische bron en bewijs
+
 # Integratie — 16 november 2026
 
 PR [#354](https://github.com/OpenAEC-Foundation/open-office-studio/pull/354) is opgenomen en gepusht naar `codex/integratie-2026-11-16`, concept-PR [#353](https://github.com/OpenAEC-Foundation/open-office-studio/pull/353). De gecombineerde G-testronde is afgerond met expliciete beperkingen: **alle negen standaardworkflows zijn groen; native runtimebediening en de begrensde taal/data-/Windows-tabelroutes zijn bevestigd; #358, onderzoek #359 en de nieuw gevonden tabelafwijking #361 blijven open.** Geen main-merge, release of issue-sluiting.
