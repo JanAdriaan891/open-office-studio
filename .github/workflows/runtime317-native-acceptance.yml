@@ -17,6 +17,7 @@ jobs:
       commit: ${{ steps.plan.outputs.commit }}
       run: ${{ steps.plan.outputs.run }}
       platforms: ${{ steps.plan.outputs.platforms }}
+      hosted: ${{ steps.plan.outputs.hosted }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -33,7 +34,9 @@ jobs:
             const platforms=c.platforms ?? ["ubuntu-22.04","windows-latest","macos-latest"];
             assert(Array.isArray(platforms) && platforms.length>0 && new Set(platforms).size===platforms.length);
             assert(platforms.every(p=>["ubuntu-22.04","windows-latest","macos-latest"].includes(p)));
-            appendFileSync(process.env.GITHUB_OUTPUT,`commit=${c.applicationCommit}\nrun=${c.artifactRun ?? ""}\nplatforms=${JSON.stringify(platforms)}\n`);
+            const hosted=c.hostedBrowser ?? true;
+            assert.equal(typeof hosted,"boolean");
+            appendFileSync(process.env.GITHUB_OUTPUT,`commit=${c.applicationCommit}\nrun=${c.artifactRun ?? ""}\nplatforms=${JSON.stringify(platforms)}\nhosted=${hosted}\n`);
           '
   build-and-check:
     needs: candidate
@@ -78,7 +81,7 @@ jobs:
         run: |
           sudo python3 scripts/gebruik-ubuntu-hoofdarchief.py /etc/apt
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends libwebkit2gtk-4.1-dev libgtk-3-dev libayatana-appindicator3-dev librsvg2-dev patchelf squashfs-tools poppler-utils webkit2gtk-driver xvfb
+          sudo apt-get install -y --no-install-recommends libwebkit2gtk-4.1-dev libgtk-3-dev libayatana-appindicator3-dev librsvg2-dev patchelf squashfs-tools poppler-utils webkit2gtk-driver xvfb imagemagick
       - run: pnpm install --frozen-lockfile
       - uses: actions/cache@v4
         with:
@@ -149,6 +152,8 @@ jobs:
         run: node scripts/proef-gebundelde-runtime.mjs
       - name: Native DEB and AppImage acceptance
         if: runner.os == 'Linux'
+        env:
+          WEBKIT_DISABLE_DMABUF_RENDERER: "1"
         run: xvfb-run -a node scripts/proef-gebundelde-runtime.mjs
       - uses: actions/upload-artifact@v4
         if: always()
@@ -189,7 +194,7 @@ jobs:
         run: |
           sudo python3 scripts/gebruik-ubuntu-hoofdarchief.py /etc/apt
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends libwebkit2gtk-4.1-dev libgtk-3-dev libayatana-appindicator3-dev librsvg2-dev squashfs-tools webkit2gtk-driver xvfb
+          sudo apt-get install -y --no-install-recommends libwebkit2gtk-4.1-dev libgtk-3-dev libayatana-appindicator3-dev librsvg2-dev squashfs-tools webkit2gtk-driver xvfb imagemagick
           cargo install tauri-driver --version 2.1.0 --locked
       - run: pnpm install --frozen-lockfile
       - uses: actions/download-artifact@v4
@@ -211,7 +216,14 @@ jobs:
         run: node scripts/proef-gebundelde-runtime.mjs .local/runtime317-installers --interface-only
       - name: Real DEB and AppImage UI on the same already checked installers
         if: runner.os == 'Linux'
+        env:
+          WEBKIT_DISABLE_DMABUF_RENDERER: "1"
         run: xvfb-run -a node scripts/proef-gebundelde-runtime.mjs .local/runtime317-installers --interface-only
+      - name: Isolate historical macOS macro-control teardown after clean UI proof
+        if: runner.os == 'macOS'
+        run: |
+          python -m pip install psutil==7.0.0
+          node scripts/runtime317-macos-macro-diagnose.mjs .local/runtime317-installers
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -221,6 +233,7 @@ jobs:
           if-no-files-found: warn
   hosted-browser:
     needs: candidate
+    if: needs.candidate.outputs.hosted == 'true'
     runs-on: ubuntu-22.04
     timeout-minutes: 20
     env:

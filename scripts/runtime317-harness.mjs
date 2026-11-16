@@ -7,6 +7,8 @@ for (const file of [
   "proef-gebundelde-runtime.mjs",
   "proef-runtime-interface.mjs",
   "proef-runtime-macos-interface.py",
+  "runtime-macos-crash.py",
+  "controleer-macroproef.py",
   "runtime-macos-ax.swift",
   "runtime-webview2-ci.ps1",
   "runtime317-artifacts.mjs",

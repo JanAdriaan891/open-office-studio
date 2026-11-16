@@ -24,6 +24,9 @@ def main():
     info = plistlib.loads((app / "Contents/Info.plist").read_bytes())
     assert app.suffix == ".app" and info["CFBundleIdentifier"] == "org.openaec.office-studio"
     program = app / "Contents/MacOS" / info["CFBundleExecutable"]
+    crash = runpy.run_path(str(Path(__file__).with_name("runtime-macos-crash.py")))
+    crash_before = crash["snapshot"]()
+    runtime_program = app / "Contents/Helpers/LibreOffice.app/Contents/MacOS/soffice"
     processes = runpy.run_path(str(Path(__file__).with_name("proef-macos-openen.py")))["processen"]
     assert not processes(program), "Our extracted app must not already be running"
     document = options.document.resolve()
@@ -106,6 +109,14 @@ def main():
     except Exception as error:
         report.update(status="failed", error=str(error))
     finally:
+        report["runtimeCrashEvidence"] = crash["collect"](runtime_program, crash_before, 5)
+        if report["runtimeCrashEvidence"].get("newReports"):
+            report.update(status="failed", reason="A soffice crash report appeared during native UI operation")
+        alert = report["runtimeCrashEvidence"].get("systemAlerts", {})
+        if alert.get("status") != "read":
+            report.update(status="blocked", reason="System crash-alert inspection was unavailable")
+        if "soffice" in alert.get("windowTitles", "").lower():
+            report.update(status="blocked", reason="A soffice system alert obstructs native visual acceptance")
         try:
             subprocess.run(["screencapture", "-x", str(options.report.with_suffix(".png"))], capture_output=True, timeout=10)
         except subprocess.TimeoutExpired:

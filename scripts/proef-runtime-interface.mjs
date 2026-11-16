@@ -391,11 +391,25 @@ export async function proefInterface(
       await delay(500);
     }
     diagnostics.states.push(state);
+    diagnostics.graphicsEnvironment = {
+      WEBKIT_DISABLE_DMABUF_RENDERER:
+        env.WEBKIT_DISABLE_DMABUF_RENDERER ?? null,
+      WEBKIT_DISABLE_COMPOSITING_MODE:
+        env.WEBKIT_DISABLE_COMPOSITING_MODE ?? null,
+    };
     assert(
       state.ready,
       `Writer must finish loading and enable Save As: ${JSON.stringify(state)}`,
     );
     await screenshot(join(reportRoot, "native-interface-ready.png"));
+    if (process.platform === "linux") {
+      execFileSync(
+        "import",
+        ["-window", "root", join(reportRoot, "native-interface-ready-x11.png")],
+        { env, timeout: 15_000, stdio: "pipe" },
+      );
+      diagnostics.x11Capture = true;
+    }
     await click(state);
     let visible = "";
     for (let attempt = 0; attempt < 90; attempt++) {

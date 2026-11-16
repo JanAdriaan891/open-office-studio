@@ -26,6 +26,8 @@ def main():
     assert not marker.exists()
     before = hashlib.sha256(fixture.read_bytes()).hexdigest()
     helpers = runpy.run_path(str(Path(__file__).with_name("meet-kantoorruntime.py")))
+    crash = runpy.run_path(str(Path(__file__).with_name("runtime-macos-crash.py")))
+    crash_before = crash["snapshot"]()
     profile = Path("src-tauri/src/conversieprofiel.xcu").read_text(encoding="utf-8")
     # Deliberately enable macros ONLY for this generated positive control. The
     # production profile is never changed and the next Rust probe uses it verbatim.
@@ -44,6 +46,7 @@ def main():
         # the positive control; the production negative control still converts.
         started = time.monotonic()
         children = []
+        cleanup = []
         with options.report.with_suffix(".log").open("wb") as log:
             process = psutil.Popen([
                 str(options.program.resolve()), "-env:UserInstallation=" + (root / "profile").as_uri(),
@@ -64,17 +67,21 @@ def main():
             finally:
                 for child in reversed(children + [process]):
                     try:
+                        cleanup.append({"pid": child.pid, "action": "kill"})
                         child.kill()
                     except psutil.NoSuchProcess:
                         pass
-                psutil.wait_procs(children + [process], timeout=10)
+                gone, alive = psutil.wait_procs(children + [process], timeout=10)
+                assert not alive, "The owned macro-control process tree must close"
         timing = {"ms": round((time.monotonic() - started) * 1000), "mode": "headless-open-positive-control"}
         assert marker.is_file(), "The on-load fixture must actually execute in its positive control"
         assert marker.read_text(encoding="utf-8").strip() == "unexpected macro execution"
         marker.unlink()  # This generated marker must be absent for the safe-profile test.
     assert hashlib.sha256(fixture.read_bytes()).hexdigest() == before
     options.report.write_text(json.dumps({"positiveControl": True, "fixtureSha256": before,
-        "markerResetForSafeProfile": True, "timing": timing}, indent=2), encoding="utf-8")
+        "markerResetForSafeProfile": True, "timing": timing, "cleanup": cleanup,
+        "exitCode": process.returncode,
+        "crashEvidence": crash["collect"](options.program, crash_before, 10)}, indent=2), encoding="utf-8")
 
 
 if __name__ == "__main__":
