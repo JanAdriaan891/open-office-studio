@@ -255,6 +255,11 @@ export async function proefInterface(
         [],
         "A previous app must not intercept this package's launch",
       );
+      // A separate app data/cache root for each package avoids reusing an old
+      // WebKit profile, recovery state or remembered converter selection.
+      env.XDG_DATA_HOME = join(temporary, "xdg-data");
+      env.XDG_CONFIG_HOME = join(temporary, "xdg-config");
+      env.XDG_CACHE_HOME = join(temporary, "xdg-cache");
       // Install only our freshly built DEB on this disposable VM, so Tauri resolves
       // its real installed resource directory instead of an invented test path.
       let application;
@@ -274,7 +279,18 @@ export async function proefInterface(
         application = payload.packagePath;
       }
       driverPort = await freePort();
-      start("tauri-driver", ["--port", String(driverPort)]);
+      let nativePort;
+      do {
+        nativePort = await freePort();
+      } while (nativePort === driverPort);
+      // tauri-driver has two servers. Reusing native port 4445 can connect a
+      // second package to the preceding WebKit driver instead of a fresh one.
+      start(
+        "tauri-driver",
+        ["--port", String(driverPort), "--native-port", String(nativePort)],
+        { detached: true },
+      );
+      diagnostics.ownedProcessGroup = process_.pid;
       for (let attempt = 0; attempt < 60; attempt++) {
         try {
           await request("GET", "/status");
@@ -473,7 +489,18 @@ export async function proefInterface(
         );
       }
       if (browser) await browser.close().catch(() => {});
-      if (process_?.pid && process_.exitCode === null) {
+      if (process_?.pid && process.platform === "linux") {
+        // The detached driver owns this process group, including WebKit's
+        // driver child. Closing only tauri-driver can leave that child behind.
+        for (const signal of ["SIGTERM", "SIGKILL"]) {
+          try {
+            process.kill(-process_.pid, signal);
+          } catch (error) {
+            if (error.code !== "ESRCH") throw error;
+          }
+          await delay(500);
+        }
+      } else if (process_?.pid && process_.exitCode === null) {
         if (process.platform === "win32") {
           try {
             execFileSync(
@@ -489,7 +516,7 @@ export async function proefInterface(
             if (process_.exitCode === null)
               throw new Error("Unable to close the owned native test app");
           }
-        } else process_.kill("SIGTERM");
+        }
         await delay(1000);
       }
       if (installedWindows) {
