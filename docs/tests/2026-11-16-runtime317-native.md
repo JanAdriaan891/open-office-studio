@@ -87,6 +87,14 @@ another package route starts. It refuses a launch intercepted by an existing app
 
 ## First native results at the new application point
 
+- Windows x64 NSIS **passed**: the actual installed app was reached through
+  WebView2/CDP, opened the ODT and showed the bundled runtime/safe profile in
+  Save As. The original was unchanged, no page errors occurred and cleanup
+  completed. Converter/content/macro/32-legacy checks also passed. Installer
+  SHA-256: `bad11543f52a190ddce3aa35ec423487d1e53f4eb8dd8105dc7472ee22ddd93d`.
+  This same-point result is reused; subsequent Windows driver changes only
+  avoid recreating an already existing policy key, without changing the app's
+  CDP arguments or the tested interaction.
 - macOS ARM64 DMG **passed**: native AXPress opened Save As and the AX status
   text showed the bundled runtime and safe macro profile. AX traversal visited
   23 nodes for the status check; it did not time out. The owned app closed and
@@ -120,3 +128,7 @@ initial run. macOS proof archive digest:
 `74d3783cac5c117835ae85a7a1966ee77be35d5f342de19f2b83651896671fa0`;
 Linux proof archive digest:
 `bb74217c79b870c1ee6990fab569e6f2715665bacb0c8ff329416a3bf7eb8ee4`.
+Windows proof archive digest:
+`7acb77ecde4f625220f3a9d919b0095732d69b37eb20c35fde53372a9e99c623`.
+Only Linux native operation is repeated after its driver-isolation changes;
+valid Windows and macOS results remain bound to the same application point.
