@@ -277,12 +277,8 @@ jobs:
       - run: node scripts/kopieer-assets.mjs
       - run: pnpm build:hosted
       - run: node .local/harness/scripts/epub356-harness.mjs
-      - name: Real hosted Writer, Spreadsheet and Presentation operation
-        run: node scripts/proef-hosted-platforms.mjs
-      - name: Explicit conversion limits preserve the existing hosted document
-        env:
-          OOS_TEST_ROUTE: /office/
-        run: node scripts/proef-formaatbeperking-browser.mjs dist-hosted
+      # The independent generic hosted cases already passed at this exact app
+      # point in run 43858493474. This driver-only correction repeats EPUB only.
       - name: Actual hosted EPUB input, offline edit, image-preserving save and reopen
         run: node scripts/proef-epub356-hosted.mjs
       - name: Record exact browser application and driver points
@@ -293,7 +289,7 @@ jobs:
               codePoint:process.env.OOS_RUNTIME_APPLICATION_COMMIT,
               harnessPoint:process.env.OOS_RUNTIME_HARNESS_COMMIT,
               route:"/office/", status:"passed", nativeBridge:false,
-              writer:true, spreadsheet:true, presentation:true, conversionLimits:true
+              epubInput:true, scope:"EPUB input/edit/save/reopen", genericHostedCasesRun:43858493474
             },null,2));
           '
       - uses: actions/upload-artifact@v4
