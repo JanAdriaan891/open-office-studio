@@ -2,6 +2,7 @@ name: Runtime 317 native acceptance
 on:
   push:
     branches: [codex/formats-30-native-acceptance]
+    paths-ignore: ["docs/**"]
   workflow_dispatch:
 permissions:
   contents: read

@@ -84,3 +84,39 @@ The workflow concurrency group queues those reruns until the build run finishes.
 The Linux driver also records the owning app PID and executable, verifies
 `APPIMAGE` identifies the actual archive, and closes only that proven PID before
 another package route starts. It refuses a launch intercepted by an existing app.
+
+## First native results at the new application point
+
+- macOS ARM64 DMG **passed**: native AXPress opened Save As and the AX status
+  text showed the bundled runtime and safe macro profile. AX traversal visited
+  23 nodes for the status check; it did not time out. The owned app closed and
+  the original ODT hash stayed unchanged. Converter/content/macro/32-legacy
+  checks, helper signature verification, associations and LaunchServices also
+  passed. DMG SHA-256:
+  `3269782d7c98b4b8952fcd4bb372c86acaa0d566b2f70d8096b4922bfc2f0a3f`.
+  This valid same-point result is reused; no new native Mac behavior was changed
+  by the subsequent Linux isolation fixes.
+- Linux x64 AppImage **passed** native pointer/Save As/source/original-file
+  checks. Archive SHA-256:
+  `79eaf0a891e5704f31f2b06d6a864f8774640d5c2f6d3c8c70b4955aed9ab6d3`.
+- Linux x64 DEB converter/content/macro/32-legacy checks **passed**, but its
+  second WebDriver session timed out before a session was created. DEB SHA-256:
+  `3c2f6fae2765b01e27b14f488883e0e6762f3da7e2514e61ed0d3a9e266d54c4`.
+  Native DEB acceptance remains pending. The next driver isolates both the
+  intermediary and native WebKit ports, the owned process group and XDG app
+  state. These address inter-session interference; the initial timeout alone
+  does not prove which component caused it.
+- Linux project checks at this point passed: 325 JavaScript test files,
+  58 Python tests, 117 Rust tests (7 intentionally ignored), engine/command
+  checks, package build and production browser smoke checks.
+- Screenshot observation only: the AppImage readiness capture showed a gray
+  document canvas with a 109-word count and a font-substitution warning. Save As
+  was visible and operable. This does not establish a separate rendering bug or
+  prove document painting; it was shared with the integration chat's native
+  Writer work. The report deliberately says `odtLoadedInWriter`.
+
+Proof artifacts: `runtime317-proof-Linux` and `runtime317-proof-macOS` in the
+initial run. macOS proof archive digest:
+`74d3783cac5c117835ae85a7a1966ee77be35d5f342de19f2b83651896671fa0`;
+Linux proof archive digest:
+`bb74217c79b870c1ee6990fab569e6f2715665bacb0c8ff329416a3bf7eb8ee4`.
