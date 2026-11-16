@@ -1,11 +1,37 @@
 /** Real packaged UI on isolated CI hosts; never opens the user's installed app. */
 import assert from "node:assert/strict";
 import { spawn, execFileSync } from "node:child_process";
-import { access, chmod, readFile, writeFile } from "node:fs/promises";
+import {
+  access,
+  chmod,
+  readFile,
+  readdir,
+  readlink,
+  realpath,
+  writeFile,
+} from "node:fs/promises";
 import { createServer } from "node:net";
 import { dirname, join } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
 import { chromium } from "playwright";
+
+async function linuxApps() {
+  const result = [];
+  for (const entry of await readdir("/proc")) {
+    if (!/^\d+$/.test(entry)) continue;
+    try {
+      const executable = (await readlink(`/proc/${entry}/exe`)).replace(
+        / \(deleted\)$/,
+        "",
+      );
+      if (executable.endsWith("/open-office-studio"))
+        result.push({ pid: Number(entry), executable });
+    } catch {
+      /* Other process exited or belongs to another account. */
+    }
+  }
+  return result;
+}
 
 // Observe readiness without changing app state or mocking IPC. Merely finding
 // the editor textarea is too early: the document may still be loading.
@@ -66,7 +92,7 @@ export async function proefInterface(
       {
         env,
         stdio: "inherit",
-        timeout: 240_000,
+        timeout: 420_000,
       },
     );
     return JSON.parse(await readFile(report, "utf8"));
@@ -93,6 +119,7 @@ export async function proefInterface(
     );
   let process_, browser, session, driverPort, installedWindows, installedLinux;
   let policyState;
+  let linuxApp;
   const diagnostics = { launch: null, states: [], errors: [] };
   function start(program, args, options) {
     process_ = spawn(program, args, {
@@ -223,6 +250,11 @@ export async function proefInterface(
       assert.equal(status.bron, "meegeleverd", JSON.stringify(status));
       diagnostics.runtimeStatus = status;
     } else {
+      assert.deepEqual(
+        await linuxApps(),
+        [],
+        "A previous app must not intercept this package's launch",
+      );
       // Install only our freshly built DEB on this disposable VM, so Tauri resolves
       // its real installed resource directory instead of an invented test path.
       let application;
@@ -263,6 +295,33 @@ export async function proefInterface(
       });
       session = created.sessionId;
       assert(session, "A real WebKitGTK session must be created");
+      const running = await linuxApps();
+      assert.equal(
+        running.length,
+        1,
+        "Exactly one newly launched native app must own this session",
+      );
+      linuxApp = running[0];
+      diagnostics.ownedApp = linuxApp;
+      if (installedLinux) {
+        assert.equal(linuxApp.executable, await realpath(application));
+      } else {
+        const variables = (
+          await readFile(`/proc/${linuxApp.pid}/environ`, "utf8")
+        ).split("\0");
+        const archive = variables
+          .find((v) => v.startsWith("APPIMAGE="))
+          ?.slice(9);
+        assert(
+          archive,
+          "The actual AppImage runtime must identify its source archive",
+        );
+        assert.equal(
+          await realpath(archive),
+          await realpath(payload.packagePath),
+        );
+        diagnostics.ownedApp.appImageArchive = archive;
+      }
       evaluate = (script) =>
         request("POST", `/session/${session}/execute/sync`, {
           script: `return (${script.toString()})()`,
@@ -353,7 +412,7 @@ export async function proefInterface(
       status: "passed",
       packagedApp: true,
       defaultBundledStatus: true,
-      odtRenderedInWriter: true,
+      odtLoadedInWriter: true,
       saveAsShowsBundledRuntime: true,
       interaction: "enabled-save-as-native-pointer",
       entryPoint: payload.packagePath.endsWith(".AppImage")
@@ -379,6 +438,40 @@ export async function proefInterface(
     try {
       if (session)
         await request("DELETE", `/session/${session}`).catch(() => {});
+      if (linuxApp) {
+        const stillOwned = async () =>
+          (await linuxApps()).some(
+            (p) =>
+              p.pid === linuxApp.pid && p.executable === linuxApp.executable,
+          );
+        // Import creates a modified working copy. A normal window close may
+        // display an unsaved-changes prompt; terminate only this proven PID.
+        for (let attempt = 0; attempt < 10 && (await stillOwned()); attempt++)
+          await delay(200);
+        if (await stillOwned()) {
+          try {
+            process.kill(linuxApp.pid, "SIGTERM");
+          } catch (error) {
+            if (error.code !== "ESRCH") throw error;
+          }
+          diagnostics.ownedApp.terminated = true;
+          for (let attempt = 0; attempt < 10 && (await stillOwned()); attempt++)
+            await delay(200);
+        }
+        if (await stillOwned()) {
+          try {
+            process.kill(linuxApp.pid, "SIGKILL");
+          } catch (error) {
+            if (error.code !== "ESRCH") throw error;
+          }
+          await delay(500);
+        }
+        diagnostics.ownedApp.closed = !(await stillOwned());
+        assert(
+          diagnostics.ownedApp.closed,
+          "The owned package app must close before the next route",
+        );
+      }
       if (browser) await browser.close().catch(() => {});
       if (process_?.pid && process_.exitCode === null) {
         if (process.platform === "win32") {

@@ -1,8 +1,10 @@
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
 import { preview } from "vite";
+const route = process.env.OOS_TEST_ROUTE || "/";
 const server = await preview({
   configFile: false,
+  base: route,
   cacheDir: ".local/runtime-browser-cache",
   build: { outDir: process.argv[2] || "dist" },
   preview: { host: "127.0.0.1", port: 0, open: false },
@@ -12,7 +14,7 @@ try {
     process.execPath,
     [
       "scripts/test-formaatfouten-browser.mjs",
-      `http://127.0.0.1:${server.httpServer.address().port}/`,
+      `http://127.0.0.1:${server.httpServer.address().port}${route}`,
     ],
     { timeout: 180_000 },
   );

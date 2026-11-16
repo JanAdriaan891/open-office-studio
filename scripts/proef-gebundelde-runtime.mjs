@@ -15,6 +15,7 @@ import { tmpdir } from "node:os";
 import { basename, dirname, join, resolve } from "node:path";
 import { maakMacroproef } from "./maak-runtime-macroproef.mjs";
 import { proefInterface } from "./proef-runtime-interface.mjs";
+import { verifyConverterEvidence } from "./runtime317-artifacts.mjs";
 
 const python =
   process.env.OOS_RUNTIME_PYTHON ||
@@ -107,21 +108,7 @@ for (const packageFile of packages) {
     const proofFile = join(reportRoot, "converter-proof.json");
     if (interfaceOnly) {
       const previous = JSON.parse(await readFile(proofFile, "utf8"));
-      assert.equal(
-        previous.codePoint,
-        codePoint,
-        "Reused proof must be from the exact application point",
-      );
-      assert.equal(
-        previous.packageSha256,
-        payload.packageSha256,
-        "Reused proof must match the actual installer hash",
-      );
-      assert.equal(
-        previous.status,
-        "passed",
-        "Converter proof must have completed before UI-only reruns",
-      );
+      verifyConverterEvidence(previous, codePoint, payload.packageSha256);
     } else {
       const { fixture, marker } = await maakMacroproef(
         join(reportRoot, "macro"),

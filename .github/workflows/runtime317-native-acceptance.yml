@@ -15,6 +15,7 @@ jobs:
     outputs:
       commit: ${{ steps.plan.outputs.commit }}
       run: ${{ steps.plan.outputs.run }}
+      platforms: ${{ steps.plan.outputs.platforms }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -28,7 +29,10 @@ jobs:
             const c=JSON.parse(readFileSync(".github/runtime317-candidate.json","utf8"));
             assert.match(c.applicationCommit,/^[a-f0-9]{40}$/);
             assert(c.artifactRun===null || (Number.isSafeInteger(c.artifactRun) && c.artifactRun>0));
-            appendFileSync(process.env.GITHUB_OUTPUT,`commit=${c.applicationCommit}\nrun=${c.artifactRun ?? ""}\n`);
+            const platforms=c.platforms ?? ["ubuntu-22.04","windows-latest","macos-latest"];
+            assert(Array.isArray(platforms) && platforms.length>0 && new Set(platforms).size===platforms.length);
+            assert(platforms.every(p=>["ubuntu-22.04","windows-latest","macos-latest"].includes(p)));
+            appendFileSync(process.env.GITHUB_OUTPUT,`commit=${c.applicationCommit}\nrun=${c.artifactRun ?? ""}\nplatforms=${JSON.stringify(platforms)}\n`);
           '
   build-and-check:
     needs: candidate
@@ -160,7 +164,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-22.04, windows-latest, macos-latest]
+        os: ${{ fromJSON(needs.candidate.outputs.platforms) }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 25
     env:
@@ -212,5 +216,67 @@ jobs:
         with:
           name: runtime317-native-recheck-${{ runner.os }}
           path: .local/gebundelde-runtime-proef
+          include-hidden-files: true
+          if-no-files-found: warn
+  hosted-browser:
+    needs: candidate
+    runs-on: ubuntu-22.04
+    timeout-minutes: 20
+    env:
+      OOS_RUNTIME_APPLICATION_COMMIT: ${{ needs.candidate.outputs.commit }}
+      OOS_RUNTIME_HARNESS_COMMIT: ${{ github.sha }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.candidate.outputs.commit }}
+      - uses: actions/checkout@v4
+        with:
+          path: .local/harness
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.25.0
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm exec playwright install --with-deps chromium
+      - uses: actions/cache@v4
+        with:
+          path: |
+            .local/lettertypen-cache
+            .local/woordenboeken-cache
+          key: runtime317-browser-assets-${{ hashFiles('assets/lettertypen.json', 'assets/woordenboeken.json') }}
+      - run: node scripts/haal-lettertypen.mjs
+      - run: node scripts/haal-woordenboeken.mjs
+      - run: node scripts/kopieer-assets.mjs
+      - run: pnpm build:hosted
+      - run: node .local/harness/scripts/runtime317-harness.mjs
+      - name: Real hosted Writer, Spreadsheet and Presentation operation
+        run: node scripts/proef-hosted-platforms.mjs
+      - name: Explicit conversion limits preserve the existing hosted document
+        env:
+          OOS_TEST_ROUTE: /office/
+        run: node scripts/proef-formaatbeperking-browser.mjs dist-hosted
+      - name: Record exact browser application and driver points
+        run: |
+          node --input-type=module -e '
+            import {writeFileSync} from "node:fs";
+            writeFileSync(".local/hosted-platforms/source.json",JSON.stringify({
+              codePoint:process.env.OOS_RUNTIME_APPLICATION_COMMIT,
+              harnessPoint:process.env.OOS_RUNTIME_HARNESS_COMMIT,
+              route:"/office/", status:"passed", nativeBridge:false,
+              writer:true, spreadsheet:true, presentation:true, conversionLimits:true
+            },null,2));
+          '
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: runtime317-hosted-browser
+          path: |
+            .local/hosted-platforms
+            .local/formaatfouten-browser
           include-hidden-files: true
           if-no-files-found: warn

@@ -22,7 +22,7 @@ if ($Phase -eq 'Enable') {
     $state.kind = (Get-Item -LiteralPath $key).GetValueKind($name).ToString()
   }
   $state | ConvertTo-Json | Set-Content -LiteralPath $StateFile -Encoding utf8
-  New-Item -Path $key -Force | Out-Null
+  if (-not (Test-Path -LiteralPath $key)) { New-Item -Path $key -Force | Out-Null }
   New-ItemProperty -LiteralPath $key -Name $name -Value "--remote-debugging-port=$Port --remote-debugging-address=127.0.0.1" -PropertyType String -Force | Out-Null
 } elseif (Test-Path -LiteralPath $StateFile) {
   $state = Get-Content -LiteralPath $StateFile -Raw | ConvertFrom-Json

@@ -120,6 +120,8 @@ def main():
                 os.kill(pid, signal.SIGKILL)
         report["ownedAppClosed"] = not processes(program)
         report["originalUnchanged"] = hashlib.sha256(document.read_bytes()).hexdigest() == before
+        if not report["ownedAppClosed"] or not report["originalUnchanged"]:
+            report.update(status="failed", reason="Owned app cleanup or original-file preservation failed")
         options.report.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
         assert report["ownedAppClosed"] and report["originalUnchanged"]
         print(json.dumps(report, ensure_ascii=False), flush=True)

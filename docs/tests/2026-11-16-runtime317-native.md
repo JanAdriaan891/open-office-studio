@@ -63,3 +63,24 @@ Local lightweight checks: 25 targeted tests passed (runtime packaging/config,
 immutable package verification and Writer readiness); Node syntax, Python
 compilation, PowerShell parsing and version consistency passed. Native platform
 results remain pending until actual CI execution.
+
+The subsequent complete-converter-proof guard adds one more passing targeted
+test (26 unique targeted tests total). Its rerun uses an isolated `.local`
+Vite cache and disables the result cache. Reused proofs must include successful
+native, macro, independent-content and all 32 legacy checks, as well as the
+exact application point and installer hash.
+
+The real hosted browser build is also checked under `/office/` with no Tauri
+bridge: Writer offline edit/download/reopen, Spreadsheet cell-style roundtrip,
+Presentation rich-note roundtrip, and explicit unsupported-format messages
+preserving an already open document. This is separate from the ordinary
+production `dist` smoke check.
+
+Initial application build/full-check run:
+[`43833977445`](https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/43833977445)
+(driver `9a9bfe392679103f3a9bde17db7e8d91168165f0`). Subsequent native-only
+checks reuse this run's exact installer manifests and complete converter proofs.
+The workflow concurrency group queues those reruns until the build run finishes.
+The Linux driver also records the owning app PID and executable, verifies
+`APPIMAGE` identifies the actual archive, and closes only that proven PID before
+another package route starts. It refuses a launch intercepted by an existing app.

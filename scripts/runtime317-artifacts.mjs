@@ -50,6 +50,30 @@ export async function verify(root, applicationCommit) {
   );
   return recorded;
 }
+export function verifyConverterEvidence(
+  proof,
+  applicationCommit,
+  packageSha256,
+) {
+  assert.equal(
+    proof.codePoint,
+    applicationCommit,
+    "Converter proof source must match",
+  );
+  assert.equal(
+    proof.packageSha256,
+    packageSha256,
+    "Converter proof installer must match",
+  );
+  assert.equal(proof.status, "passed", "Converter proof must be complete");
+  for (const check of ["native", "macrosDisabled", "independentContent"])
+    assert.equal(proof[check], true, `Converter proof lacks ${check}`);
+  assert.equal(
+    proof.legacyFixtures,
+    32,
+    "Converter proof lacks the immutable legacy suite",
+  );
+}
 if (
   process.argv[1] &&
   import.meta.url === pathToFileURL(resolve(process.argv[1])).href

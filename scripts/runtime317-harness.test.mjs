@@ -8,10 +8,40 @@ import {
   writeFile,
 } from "node:fs/promises";
 import { basename, dirname, join, resolve } from "node:path";
-import { manifest, verify } from "./runtime317-artifacts.mjs";
+import {
+  manifest,
+  verify,
+  verifyConverterEvidence,
+} from "./runtime317-artifacts.mjs";
 import { interfaceState } from "./proef-runtime-interface.mjs";
 
 describe("immutable native acceptance artifacts", () => {
+  it("reuses only complete native, macro, content and legacy evidence for the exact package", () => {
+    const point = "a".repeat(40),
+      hash = "b".repeat(64);
+    const proof = {
+      status: "passed",
+      codePoint: point,
+      packageSha256: hash,
+      native: true,
+      macrosDisabled: true,
+      independentContent: true,
+      legacyFixtures: 32,
+    };
+    expect(() => verifyConverterEvidence(proof, point, hash)).not.toThrow();
+    for (const [key, value] of Object.entries({
+      status: "blocked",
+      codePoint: "c".repeat(40),
+      packageSha256: "d".repeat(64),
+      native: false,
+      macrosDisabled: false,
+      independentContent: false,
+      legacyFixtures: 31,
+    }))
+      expect(() =>
+        verifyConverterEvidence({ ...proof, [key]: value }, point, hash),
+      ).toThrow();
+  });
   it("rejects other source points, modified installers and missing packages", async () => {
     const parent = resolve(".local");
     await mkdir(parent, { recursive: true });

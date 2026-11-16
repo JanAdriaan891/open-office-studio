@@ -11,5 +11,6 @@ for (const file of [
   "runtime-webview2-ci.ps1",
   "runtime317-artifacts.mjs",
   "runtime317-harness.test.mjs",
+  "proef-formaatbeperking-browser.mjs",
 ])
   await copyFile(join(source, file), join("scripts", file));
