@@ -16,20 +16,22 @@ verliesrapporten blijven van toepassing; de bundeling maakt ongeteste varianten
 niet automatisch ondersteund. De [dekking per extensie](../tests/formatendekking/matrix.md)
 uit #43 blijft het controleerbare bewijs voor het verschil.
 
-De registrymetadata van de private Windows x64-distributie bevat alle in de
-catalogus genoemde exportfilternamen. Van de invoerextensies staan alleen de
-drie modulegebonden UOF-extensies (`uot`, `uos`, `uop`) en het app-eigen `ifcx`
-niet als afzonderlijke extensie in die metadata. IFCX heeft een eigen approute;
-voor de UOF-varianten blijven de expliciete ontbrekende praktijkvoorbeelden uit
-#43 gelden. Dit is beschikbaarheidsinformatie uit de configuratie, geen bewijs
-dat ieder document of iedere variant correct wordt geconverteerd.
+De registrymetadata van de private Windows x64-distributie bevat de in de
+catalogus genoemde exportfilternamen. Een vermelde extensie of filter is geen
+bewijs van een werkende invoerroute: de EPUB-filter heeft bijvoorbeeld alleen
+`EXPORT ALIEN 3RDPARTYFILTER`, zonder `IMPORT`. De modulegebonden UOF-extensies
+(`uot`, `uos`, `uop`) ontbreken als afzonderlijke extensies; IFCX heeft een eigen
+approute. De #43-matrix bevat nog 17 extensies zonder invoervoorbeeld. De
+letterlijke #30-eis dat iedere catalogusinvoer opent, blijft daarom open totdat
+dit daadwerkelijk is getest en eventuele fouten zijn opgelost. Zie het
+[acceptatieverslag van 16 november](../tests/2026-11-16-runtime317-native.md).
 
-| Route | Bevinding | Besluit |
-|---|---|---|
-| A: native sidecar/runtime | De bestaande conversiecode en echte legacyproeven werken met een onveranderde, uitgepakte officiële distributie. Deze bevat Writer, Calc, Impress en de oudere importfilters. Installatieomvang en geheugen zijn aanzienlijk; exacte pakketten/hashes worden vastgelegd. | Gebruiken voor ontbrekende conversies, rechtstreeks uit de appresources. |
-| A: WASM | De gebruikte WASM-editors lezen en schrijven OOXML. Een volledige LibreOffice-WASM-integratie zit niet in de huidige bron/dependencies; de native runtime is geen browsermodule. Opstart-, geheugen- en formaatdekking zijn daarvoor niet gemeten. | Geen onbewezen gelijkstelling met de native dekking. |
+| Route                              | Bevinding                                                                                                                                                                                                                                                                                                                           | Besluit                                                                                                      |
+| ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| A: native sidecar/runtime          | De bestaande conversiecode en echte legacyproeven werken met een onveranderde, uitgepakte officiële distributie. Deze bevat Writer, Calc, Impress en de oudere importfilters. Installatieomvang en geheugen zijn aanzienlijk; exacte pakketten/hashes worden vastgelegd.                                                            | Gebruiken voor ontbrekende conversies, rechtstreeks uit de appresources.                                     |
+| A: WASM                            | De gebruikte WASM-editors lezen en schrijven OOXML. Een volledige LibreOffice-WASM-integratie zit niet in de huidige bron/dependencies; de native runtime is geen browsermodule. Opstart-, geheugen- en formaatdekking zijn daarvoor niet gemeten.                                                                                  | Geen onbewezen gelijkstelling met de native dekking.                                                         |
 | B: eigen import/export per formaat | Eigen tekst/RTF/HTML/CSV-import en PDF-uitvoer bestaan al. ODF-conversie heeft modulegebonden behoudscorrecties uit #31–#36. Een volledige eigen implementatie moet ook tabellen, secties, noten, velden, grafieken en oude binaire varianten bewaren. De huidige editor-API's bieden daarvoor geen volledige ODF-/legacy-importer. | Bestaande eigen routes behouden; geen eenvoudige tekstextractie als vervanging voor documentbehoud invoeren. |
-| C: combinatie | Native routes voorkomen conversie waar de app die zelf correct uitvoert. Een private runtime biedt de bestaande overige routes offline aan, met dezelfde profiel-/tijd-/omvanggrenzen. Een verplichte eerste download zou de standaardinstallatie en offlineacceptatie niet halen. | Native routes plus runtime in de standaardinstaller. |
+| C: combinatie                      | Native routes voorkomen conversie waar de app die zelf correct uitvoert. Een private runtime biedt de bestaande overige routes offline aan, met dezelfde profiel-/tijd-/omvanggrenzen. Een verplichte eerste download zou de standaardinstallatie en offlineacceptatie niet halen.                                                  | Native routes plus runtime in de standaardinstaller.                                                         |
 
 ## Herkomst en distributie
 
@@ -108,23 +110,45 @@ gebruikte Tauri-bundler 2.10.3 (`bundle/macos/app.rs`).
 Op 10 november 2026, LibreOffice 26.8.2.2 x64, met de volledige oorspronkelijke
 distributie plus app-lokale CRT/fonts:
 
-| Meting | Uitkomst |
-|---|---:|
-| Officieel MSI-archief | 375.934.976 bytes |
-| Private runtimebestanden | 19.450 |
-| Som bestandsgroottes, symlinks niet dubbel geteld | 1.582.271.950 bytes |
-| Initialisatie met nieuw veilig profiel, eerste gemeten aanroep | 10.314 ms |
-| Initialisatie met tweede nieuw veilig profiel | 2.178 ms |
-| DOCX-voorbeeld → ODT, inclusief processtart | 13.365 ms |
-| DOCX-voorbeeld → PDF, inclusief processtart | 6.766 ms |
-| Hoogste bemonsterde som-RSS tijdens de twee conversies | 562.020.352 bytes |
+| Meting                                                         |            Uitkomst |
+| -------------------------------------------------------------- | ------------------: |
+| Officieel MSI-archief                                          |   375.934.976 bytes |
+| Private runtimebestanden                                       |              19.450 |
+| Som bestandsgroottes, symlinks niet dubbel geteld              | 1.582.271.950 bytes |
+| Initialisatie met nieuw veilig profiel, eerste gemeten aanroep |           10.314 ms |
+| Initialisatie met tweede nieuw veilig profiel                  |            2.178 ms |
+| DOCX-voorbeeld → ODT, inclusief processtart                    |           13.365 ms |
+| DOCX-voorbeeld → PDF, inclusief processtart                    |            6.766 ms |
+| Hoogste bemonsterde som-RSS tijdens de twee conversies         |   562.020.352 bytes |
 
 Het profiel was steeds nieuw; dit is geen meting na een koude OS-/diskboot.
 De procesboom is iedere 50 ms bemonsterd; gedeelde pagina's kunnen in de som-RSS
 meermaals meetellen. Het zijn gemeten voorbeelden op één Windows-host, geen
-algemene snelheidsbelofte. De definitieve gecomprimeerde installeromvang en
-platformmetingen komen uit de uitgepakte CI-installers. Op dit bronpunt zijn die
-nieuwe pakketproeven nog niet afgerond.
+algemene snelheidsbelofte. Deze eerste lokale meting blijft historisch; de
+onderstaande nieuwe pakketmetingen komen uit de werkelijk uitgepakte CI-installers.
+
+## Pakketmetingen op het vastgelegde acceptatiepunt
+
+Applicatiepunt `c0fbbcb843f0fd44e0e7e9d54a7989d017e39812`, pakketbouwrun
+[`43833977445`](https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/43833977445).
+Alle waarden zijn bytes of milliseconden. Linux gebruikt hier de AppImage;
+de afzonderlijke DEB is 383.790.432 bytes. De pakket-hashes en native
+bedieningsproeven staan in het gekoppelde acceptatieverslag.
+
+| Meting                                          | Windows x64 NSIS | Linux x64 AppImage | macOS ARM64 DMG |
+| ----------------------------------------------- | ---------------: | -----------------: | --------------: |
+| Gecomprimeerd pakket                            |      384.545.360 |        429.812.216 |     373.701.608 |
+| Private runtimebestanden                        |           19.450 |             13.982 |          17.451 |
+| Som runtimebestandsgroottes                     |    1.582.271.053 |        730.727.046 |     803.455.763 |
+| Initialisatie nieuw profiel 1 / 2 (ms)          |    2.707 / 2.706 |          217 / 217 |       388 / 572 |
+| DOCX → ODT inclusief processtart (ms)           |            9.814 |              1.034 |           2.200 |
+| DOCX → PDF inclusief processtart (ms)           |            9.536 |                815 |           1.938 |
+| Hoogste bemonsterde som-RSS van deze conversies |      359.723.008 |        255.180.800 |     265.846.784 |
+
+De proeven gebruiken per aanroep een nieuw veilig profiel en bemonsteren de
+procesboom iedere 50 ms. Het zijn verschillende hosted CI-machines, geen koude
+OS-/diskboot of gecontroleerde snelheidsvergelijking. Gedeelde geheugenpagina's
+kunnen meermaals meetellen. De metingen bewijzen evenmin alle catalogusformaten.
 
 Er wordt voor deze oplossing niet in filters, woordenboeken, hyphenatie of
 localegegevens gesnoeid om de omvang kunstmatig te verlagen. Dat zou opnieuw
@@ -161,10 +185,16 @@ eigen DEB op de tijdelijke CI-host en bedient WebKitGTK via `tauri-driver` 2.1.0
 Beide proeven openen een ODT in Writer, vragen de echte native runtime-status
 op en controleren dat Opslaan als de meegeleverde bron toont. De oorspronkelijke
 ODT moet ongewijzigd blijven. Dit gebruikt geen gemockte IPC of productie-testbrug.
-De AppImage krijgt dezelfde inhoudsproeven; native bediening wordt bij de DEB
-gecontroleerd. macOS behoudt de afzonderlijke LaunchServices-proef en probeert
-op de CI-host via System Events de eigen app met ODT te openen en de echte
-meegeleverde bron in Opslaan als te lezen. Ontbreekt toestemming voor
+De AppImage krijgt dezelfde inhoudsproeven en een eigen native bedieningsproef
+via het werkelijke AppImage-startpunt; een geslaagde DEB vervangt die niet.
+Linux voert de native Xvfb-CI-stap uit met
+`WEBKIT_DISABLE_DMABUF_RENDERER=1`, na herhaalde vastgelegde A/B-proeven tegen
+een grijs documentvlak onder softwaregraphics. De productie-launcher krijgt
+deze omgevingsvariabele niet.
+macOS behoudt de afzonderlijke LaunchServices-proef en bedient via een begrensde
+native Accessibility-helper de ingeschakelde knop Opslaan als. De status moet
+de meegeleverde bron tonen. Nieuwe soffice-crashrapporten of een systeemmelding
+blokkeren de visuele acceptatie. Ontbreekt toestemming voor
 Accessibility, dan wordt de native interfacecontrole expliciet als geblokkeerd
 gerapporteerd; de proef verleent of omzeilt die toestemming niet. Die bediening
 blijft dan een handmatige restcontrole. Een geslaagde runtimeconversie of build

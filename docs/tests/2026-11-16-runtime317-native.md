@@ -16,13 +16,13 @@
 
 ## Remaining gates
 
-| Route | Historical result | Required new proof |
-| --- | --- | --- |
-| Windows NSIS / WebView2 | CDP endpoint unavailable | Installed app opens ODT; enabled Save As shows bundled source |
-| Linux DEB / WebKitGTK | Save As not observed | Installed app opens ODT; native pointer opens Save As with bundled source |
-| Linux AppImage / WebKitGTK | GUI not run | Actual AppImage entry point passes the same native controls |
-| macOS DMG / WKWebView | Unbounded AX traversal timed out | Bounded native AX interaction observes Save As with bundled source |
-| Browser production build | Passed at historical point | Offline edit/save/reopen and explicit conversion limitations at the new point |
+| Route                      | Historical result                | Required new proof                                                            |
+| -------------------------- | -------------------------------- | ----------------------------------------------------------------------------- |
+| Windows NSIS / WebView2    | CDP endpoint unavailable         | Installed app opens ODT; enabled Save As shows bundled source                 |
+| Linux DEB / WebKitGTK      | Save As not observed             | Installed app opens ODT; native pointer opens Save As with bundled source     |
+| Linux AppImage / WebKitGTK | GUI not run                      | Actual AppImage entry point passes the same native controls                   |
+| macOS DMG / WKWebView      | Unbounded AX traversal timed out | Bounded native AX interaction observes Save As with bundled source            |
+| Browser production build   | Passed at historical point       | Offline edit/save/reopen and explicit conversion limitations at the new point |
 
 Native `blocked` is never a pass. Builds and converter tests are recorded
 separately from actual native operation. No local app, installer, printer or
@@ -133,18 +133,21 @@ Windows proof archive digest:
 Only Linux native operation is repeated after its driver-isolation changes;
 valid Windows and macOS results remain bound to the same application point.
 
-## Final acceptance matrix
+## First completed native control matrix (before visual review)
 
 Application point for **every row**: `c0fbbcb843f0fd44e0e7e9d54a7989d017e39812`.
-The final driver point is `fb6705e79bbb3b828a61c5a390d32a0a57d2d92f`.
+The driver point for this historical control matrix is
+`fb6705e79bbb3b828a61c5a390d32a0a57d2d92f`. Subsequent visual review and
+the corrective recheck are recorded below; this table does not establish that
+every catalog input format works.
 
-| Platform / route | Build / package / converter proof | Actual operation | Evidence |
-| --- | --- | --- | --- |
-| Windows x64 NSIS / WebView2 | Passed; 9 format cases, independent content, positive macro control and safe macro blocking, 32 legacy cases | Passed; installed app opens ODT, native pointer opens Save As, actual bundled source, original unchanged | [Windows job](https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/43833977445/job/133186020778), `runtime317-proof-Windows` |
-| Linux x64 DEB / WebKitGTK | Passed at initial run; same installer SHA verified before reuse | Passed; fresh driver/app session, `/usr/bin/open-office-studio`, Save As bundled source, original unchanged, owned app closed | [Linux recheck](https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/43841367195/job/133210905489), `runtime317-native-recheck-Linux` |
-| Linux x64 AppImage / WebKitGTK | Passed at initial run; same archive SHA verified before reuse | Passed; actual AppImage runtime and matching `APPIMAGE` archive, Save As bundled source, original unchanged, owned app closed | Same Linux recheck and artifact |
-| macOS ARM64 DMG / WKWebView | Passed; helper signature, associations, LaunchServices, converter/content/macro/legacy checks | Passed; enabled native AXPress, bundled source/safe profile, owned app closed, original unchanged | [macOS job](https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/43833977445/job/133186020407), `runtime317-proof-macOS` |
-| Browser / real hosted `/office/` | Self-contained hosted build passed | Passed; Writer offline edit/save/reopen, Spreadsheet style/formula roundtrip, Presentation rich-note editing/roundtrip, three format-limit messages preserving the open document; no Tauri bridge | [Hosted browser job](https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/43841367195/job/133210905549), `runtime317-hosted-browser` |
+| Platform / route                 | Build / package / converter proof                                                                            | Actual operation                                                                                                                                                                                  | Evidence                                                                                                                                               |
+| -------------------------------- | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Windows x64 NSIS / WebView2      | Passed; 9 format cases, independent content, positive macro control and safe macro blocking, 32 legacy cases | Passed; installed app opens ODT, native pointer opens Save As, actual bundled source, original unchanged                                                                                          | [Windows job](https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/43833977445/job/133186020778), `runtime317-proof-Windows`          |
+| Linux x64 DEB / WebKitGTK        | Passed at initial run; same installer SHA verified before reuse                                              | Passed; fresh driver/app session, `/usr/bin/open-office-studio`, Save As bundled source, original unchanged, owned app closed                                                                     | [Linux recheck](https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/43841367195/job/133210905489), `runtime317-native-recheck-Linux` |
+| Linux x64 AppImage / WebKitGTK   | Passed at initial run; same archive SHA verified before reuse                                                | Passed; actual AppImage runtime and matching `APPIMAGE` archive, Save As bundled source, original unchanged, owned app closed                                                                     | Same Linux recheck and artifact                                                                                                                        |
+| macOS ARM64 DMG / WKWebView      | Passed; helper signature, associations, LaunchServices, converter/content/macro/legacy checks                | Passed; enabled native AXPress, bundled source/safe profile, owned app closed, original unchanged                                                                                                 | [macOS job](https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/43833977445/job/133186020407), `runtime317-proof-macOS`              |
+| Browser / real hosted `/office/` | Self-contained hosted build passed                                                                           | Passed; Writer offline edit/save/reopen, Spreadsheet style/formula roundtrip, Presentation rich-note editing/roundtrip, three format-limit messages preserving the open document; no Tauri bridge | [Hosted browser job](https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/43841367195/job/133210905549), `runtime317-hosted-browser`  |
 
 The [final targeted run](https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/43841367195)
 is green. Its package-build job is deliberately skipped: existing exact-byte
@@ -171,12 +174,99 @@ was tested, not an A/B experiment establishing one sole cause of the old timeout
   reserved desktop workflow and Linux Writer helper were not edited.
 - The integration combination still requires the integration chat's checks at
   its own exact combined point. This matrix certifies the application point above.
-- The gray-canvas readiness screenshot remains an explicitly shared observation,
-  not a proven rendering bug or a document-painting pass. These controls prove
-  native file loading and Save As operation/source selection.
+- The original gray-canvas observation and macOS screenshot obstruction are
+  superseded by the isolated same-package recheck below. The older artifacts
+  remain available and are not relabeled as visual passes.
 - Native CI covered Windows/Linux x64 and macOS ARM64. Other architectures and
   all standalone signed/notarized release variants are not certified by this run.
 - No main merge, release, local installer/app launch, local printer change or
   local security change was performed. Original head `7e48cf58` and its historical
   evidence remain intact. PR #317 must not be integrated in addition to this
   continuation.
+
+## Visual review and same-package correction
+
+Review of the initial macOS screenshot found a system **“soffice quit
+unexpectedly”** alert over Save As. The AX interaction remained valid, but that
+image was not unobstructed visual acceptance. No crash PID/report was captured
+then, so neither a product crash nor the macro-control teardown is established
+as its cause.
+
+The integration chat's separate fixed-package Linux A/B investigation isolated
+the gray document canvas to the WebKitGTK DMABUF rendering path under Xvfb and
+software graphics. Both baseline repeats were gray; both repeats with
+`WEBKIT_DISABLE_DMABUF_RENDERER=1` showed readable saved and reopened documents
+in X11 and WebDriver captures. The central CI-only change is
+`d73539b10d6a0a96956050766b0d850474b55910` (#355). This is not a global product
+launcher change or a conclusion about ordinary hardware-accelerated desktops.
+
+The #30 driver applies the same variable only to native Linux CI execution
+steps. It leaves `WEBKIT_DISABLE_COMPOSITING_MODE` unset. macOS now takes its
+native UI proof on a fresh host before any converter/legacy/macro probes and
+fails on new soffice diagnostic reports, a soffice system alert, or unavailable
+alert inspection. It does not dismiss alerts or change permissions.
+
+Same application point **`c0fbbcb843f0fd44e0e7e9d54a7989d017e39812`**,
+same installer SHA-256 values above; test driver
+**`70841b98c9cda34b070e7b33f6d511a0bcac46d0`**:
+
+| Route          | New targeted result                                                                                                                                                                                                                 | Evidence                                                                                                                                           |
+| -------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Linux DEB      | Passed native pointer/Save As/bundled source; original unchanged, owned app closed. Independently viewed X11 readiness image shows document heading and body text. Graphics environment records DMABUF flag `1`, compositing unset. | [Linux job](https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/43850798162/job/133242575162), `runtime317-native-recheck-Linux` |
+| Linux AppImage | Same controls passed through the actual AppImage entry point. Independently viewed X11 image shows readable document heading and body.                                                                                              | Same Linux job and artifact                                                                                                                        |
+| macOS DMG      | Native AXPress opens Save As with bundled source/safe profile; original unchanged and owned app closed. Screenshot is unobstructed. Zero new soffice diagnostic reports; system-alert inspection succeeded and found no windows.    | [macOS job](https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/43850798162/job/133242575073), `runtime317-native-recheck-macOS` |
+
+Proof archive SHA-256 digests: Linux
+`906d6b0a0c170a3c22e6aedf3dacdc69d0716aaf6d7a8a37473ac8473f1e8755`;
+macOS `27946ba844976ed69a5c4de23b9dcd2e08baff8f922828b32689913fb2a07637`.
+Windows and actual hosted-browser results remain the valid same-point results
+from the earlier runs; they were not repeated for this test-only correction.
+
+After the clean macOS UI proof, a separately extracted copy of the same DMG
+ran the historical harmless positive macro control. Its marker executed;
+the recorded cleanup killed owned PID 2993 (exit -9). Ten-second diagnostic
+collection found no new soffice reports or system-alert windows; the following
+desktop screenshot was unobstructed. This experiment **did not reproduce** the
+old alert and does not identify its cause. Production macro blocking and the
+safe profile were not weakened.
+
+No local app or recording session was started by this chat. Downloaded CI
+screenshots were inspected as files; CI scripts close their owned app processes.
+
+## Literal #30 catalog criterion
+
+The native controls above establish bundled-runtime discovery and operation.
+They do not prove the issue's separate requirement that every input advertised
+by `src/formaten.json` opens after a standard installation.
+
+The #43 input matrix still marks 17 extensions without an input fixture:
+`dps`, `dpt`, `epub`, `et`, `ett`, `gnm`, `sdd`, `stc`, `sti`, `stw`, `sylk`,
+`uop`, `uos`, `uot`, `wb2`, `wq2`, `xlsb`. Registry metadata alone cannot close
+these cases. In particular, the private runtime's EPUB filter is marked
+`EXPORT ALIEN 3RDPARTYFILTER`, without `IMPORT`, although EPUB is in the app's
+input catalog.
+
+The actual immutable-package audit
+[`43852869341`](https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/43852869341),
+driver `5c92c51ec2d7c1cfe168e83152407893bbc9b542`, confirms one concrete failure:
+the same pinned c0 DEB exports a 4,010-byte EPUB from the repository DOCX
+fixture, independently verifies its mimetype/container/nonempty OPF spine, then
+cannot import it to DOCX in another fresh safe profile. Export exits 0;
+import exits 1 with `Error: source file could not be loaded`; no DOCX is
+produced. The original fixture stays unchanged. EPUB SHA-256:
+`a1dae7bb740c07bfffa6210e6b406456e26f7e9837d18e77c573793324adbed0`.
+The artifact retains `valid-runtime-export.epub`, `report.json` and
+`package.json`. This is a CLI reproduction; an app-UI failure and other
+platforms' EPUB behavior have not been separately reproduced.
+
+The independently scoped bug is
+[#356](https://github.com/OpenAEC-Foundation/open-office-studio/issues/356),
+created after a final open-and-closed EPUB title/body duplicate search and
+coordinated with the integration chat. It links the existing #43 matrix and
+blocks #30's catalog-input criterion. No general importer rewrite was started.
+Earlier audit attempts `43852028451` and `43852334485` failed before the EPUB
+probe on missing harness dependencies/Python version and are not import
+reproductions. Those setup errors were corrected before the valid audit.
+
+#30 remains open until its literal catalog criterion and the integration
+combination are actually covered. No acceptance checkbox has been weakened.
