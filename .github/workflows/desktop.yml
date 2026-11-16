@@ -44,6 +44,17 @@ jobs:
           PAKKETTEN: ${{ vars.CONVERSIE_APT_PAKKETTEN }}
         run: sudo apt-get install -y --no-install-recommends $PAKKETTEN
       - run: pnpm install --frozen-lockfile
+      - name: Cache van de vastgepinde kantoorruntime
+        uses: actions/cache@v4
+        with:
+          path: .local/kantoorruntime-cache
+          key: kantoorruntime-${{ runner.os }}-${{ runner.arch }}-${{ hashFiles('assets/kantoorruntime.json') }}
+          restore-keys: |
+            kantoorruntime-${{ runner.os }}-${{ runner.arch }}-
+            runtime317-assets-${{ runner.os }}-${{ runner.arch }}-
+      # Native resource mappings must exist before Rust checks and packaging.
+      # The preparer validates the pinned archive/receipt hashes on every host.
+      - run: node scripts/voorbereiden-kantoorruntime.mjs
       # Extra open lettertypen (assets/lettertypen.json): bewaard per manifestversie,
       # zodat een build zonder netwerk naar GitHub ook werkt.
       - name: Lettertypencache
