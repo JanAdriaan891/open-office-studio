@@ -4,7 +4,7 @@ Werkbranch: `codex/integratie-2026-11-16`, concept-PR [#353](https://github.com/
 
 ## Vastgelegde bron en intake
 
-De applicatiefreeze is **`e1f84f84f4d72e5ce8ab967e376a6f38344edf39`**, tree `2e6123201cd3a357ac3b2df8126fa15760fce865`. De latere testharness `e6765c56d1d07e0a44d5901f9e7dabc5a43e38f3` voegt uitsluitend test-/workflowbestanden toe; `src`, `src-tauri`, `public`, `assets`, `vendor`, package-/lockfile en Vite-/TypeScript-config verschillen niet van de freeze. Resultaten hieronder blijven bij hun werkelijk geteste commit en pakket. De verplichte CI op de nieuwe harness-head is afzonderlijk gestart; die uitslag wordt niet uit de eerdere bron afgeleid.
+De applicatiefreeze is **`e1f84f84f4d72e5ce8ab967e376a6f38344edf39`**, tree `2e6123201cd3a357ac3b2df8126fa15760fce865`. De latere testharness `e6765c56d1d07e0a44d5901f9e7dabc5a43e38f3` voegt uitsluitend test-/workflowbestanden toe; `src`, `src-tauri`, `public`, `assets`, `vendor`, package-/lockfile en Vite-/TypeScript-config verschillen niet van de freeze. Resultaten hieronder blijven bij hun werkelijk geteste commit en pakket. De verplichte CI op harness-head e676 is afzonderlijk uitgevoerd en volledig geslaagd; die uitslag is niet uit de eerdere bron afgeleid.
 
 Basis is `93fcc6194904f70fa12d0a3546c23dac9c673ee5`. PR #248 was al op 11 november samengevoegd. De zes late leveringen #337, #346, #341, #343, #344 en #342 zitten al in deze basis en zijn niet dubbel toegepast; zie de [vervolgbundel](2026-11-11-vervolgbundel.md), [prioriteitenbundel](2026-11-12-prioriteitenbundel.md) en [crop-/klembordcorrecties](2026-11-13-crop-and-paste.md).
 
@@ -51,11 +51,17 @@ Uitvoer-SHA's: Writer `5fbc6b1e163a05d98336493086c73e189a2959130eaa15c827b89037a
 
 De gebruiker vroeg daarna alles lokaal te sluiten. Alle eigen tabs en de devbuild zijn gesloten, voorkeuren zijn niet gewijzigd en bronfixtures zijn behouden. De coördinator bevestigt nul processen van deze eigen devbuild. De latere toestemming in de integratiechat betreft uitsluitend opruimen; er volgt geen verdere Windows-bediening. Dit blijft acceptatie van kleine synthetische fixtures, geen volledige featurecertificering; keyboard-cropgrepen zijn niet getest.
 
+## Opnamesessie opgeruimd
+
+Resultaten en eigen testdocumenten zijn eerst opgeslagen en de devbuild is gesloten. De operator heeft daarna uitsluitend zijn eigen gebruikte `mcp__node_repl`-kernel via `js_reset` gereset, met toolbevestiging. De beschikbare sky-API documenteerde geen aparte stop-/disposefunctie. Daarna is geen nieuwe opname, screenshot of appbediening gestart; gedeelde processen en andere chatsessies zijn niet beëindigd.
+
+De gebruiker heeft vervolgens zelf bevestigd: **“Nee, de rand is weg.”** De kernelreset en het verdwijnen van de gele rand zijn daarmee afzonderlijk bevestigd. Dit is geen onafhankelijke audit van alle onderliggende helperresources; die sluiting wordt niet als technisch bewezen voorgesteld. Er staat geen verdere lokale cleanupactie of toestemming open.
+
 ## Prestatiebewijs en volgende stappen
 
 Het [bronrapport](2026-11-16-pr349-combination.md) bewaart de volledige CPU4/CPU8-context, ook eerdere ongunstige metingen. CPU8 A/B/A: 7.747,98 / 8.167,27 / 10.510,58 ms inclusief rust en uitgesteld werk. De kandidaat valt tussen de controles; geen algemene snelheids- of RAM-winst claimen. Tekst/caret/geometrie/opslagcontroles slagen.
 
-1. Beoordeel de afzonderlijke CI op harness-head e676: [desktop 43842910043](https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/43842910043), [database 43842910068](https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/43842910068), Writer 43842910064 en voorbeeld 43842910029. Bij het schrijven lopen de eerste controles nog; ze zijn niet groen verklaard.
+1. Beoordeel de afzonderlijke CI op harness-head e676: [desktop 43842910043](https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/43842910043), [database 43842910068](https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/43842910068), Writer 43842910064 en voorbeeld 43842910029. Alle vier workflows zijn inmiddels geslaagd. Desktop Windows/Linux/macOS heeft elk opnieuw 3.480 tests / drie skips / 325 bestanden, 58 Python en 113 Rust; Linux telt zes ignored, Windows/macOS vijf. Alle build-/pakketcontroles slagen. De gewone Linux-job doorstaat nu ook de vier strikte native edit/save/procesexit/heropen/Find-checks op e676. De uitvoerbare Linux-payload is bytegelijk aan de geteste F-payload (SHA `170a7caaf7a9e44ef8616becc5a3492bace4d78d14f0ac081d2e011a9b6e8b85`). De onleesbare glyphs blijven ook in de nieuwe capture zichtbaar en gelden niet als visuele pass.
 2. Windows is schoon afgesloten. Hervat geen lokale GUI of nieuwe tests onder de opruimtoestemming; nieuw werk vereist een passende afzonderlijke opdracht.
 3. Houd de native visuele Linux- en macOS-bedieningsgaten expliciet open. Eén aangewezen chat (6f92) onderzoekt de Linux-capture-/font-/paintketen op precies hetzelfde bewaarde F-DEB; de runtimechat ondersteunt uitsluitend met bestaand bewijs, zonder dubbele matrix. De beschikbare begrensde Mac-AX-driver kan later op het huidige pakket worden aangepast, met echte modalcontrole en zonder rechtenwijzigingen.
 4. Beoordeel daarna de volgende bronintake PR #354 en test die nieuwe applicatiecombinatie opnieuw. Neem #317 niet daarnaast op. Geen automatische nieuwe issuescope, main-merge of release.
