@@ -234,6 +234,14 @@ try {
   }).trim();
   report.runtime = {
     node: process.version,
+    graphics: Object.fromEntries(
+      [
+        "GDK_BACKEND",
+        "LIBGL_ALWAYS_SOFTWARE",
+        "WEBKIT_DISABLE_DMABUF_RENDERER",
+        "WEBKIT_DISABLE_COMPOSITING_MODE",
+      ].map((key) => [key, env[key] ?? null]),
+    ),
     driver: driverPackage,
     driverPath,
     driverSha256: hash(await readFile(driverPath)),

@@ -46,6 +46,8 @@ jobs:
       - name: Native edit, Ctrl+S and full process reopen on unchanged package
         env:
           OFFICE_NATIVE_ARTIFACT_RECHECK: "true"
+          # #355: same CI-only graphics path as the packaged Linux smoke test.
+          WEBKIT_DISABLE_DMABUF_RENDERER: "1"
         run: |
           package=$(find .local/native-recheck-package -maxdepth 1 -name '*.deb' -print -quit)
           test -n "$package"

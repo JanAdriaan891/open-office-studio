@@ -145,6 +145,9 @@ jobs:
       # fails, so a harness correction can be diagnosed against the same bytes.
       - name: Native Linux Writer edit, save and full application reopen
         if: runner.os == 'Linux'
+        env:
+          # #355: tested fallback for this Xvfb/software-graphics runner only.
+          WEBKIT_DISABLE_DMABUF_RENDERER: "1"
         run: |
           cargo install tauri-driver --version 2.1.0 --locked
           package=$(find src-tauri/target/release/bundle/deb -maxdepth 1 -name '*.deb' -print -quit)
