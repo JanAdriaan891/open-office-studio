@@ -141,6 +141,12 @@ try {
   });
   await page.getByRole("tab", { name: /EPUB-heropend\.docx/ }).waitFor();
   await input.waitFor();
+  await page.waitForFunction(() => {
+    const b = document.querySelector(".office-snelknop:has(.lucide-save-all)");
+    return document.title.includes("EPUB-heropend") && b && !b.disabled;
+  });
+  await page.waitForLoadState("networkidle");
+  await page.screenshot({ path: `${output}/reopened.png` });
   const tabs = await page.locator(".office-tabnaam").allTextContents();
   await page.locator(".office > input[type=file]").setInputFiles({
     name: "Ongeldig.epub",

@@ -285,7 +285,7 @@ jobs:
         run: |
           node --input-type=module -e '
             import {writeFileSync} from "node:fs";
-            writeFileSync(".local/hosted-platforms/source.json",JSON.stringify({
+            writeFileSync(".local/epub356-hosted/source.json",JSON.stringify({
               codePoint:process.env.OOS_RUNTIME_APPLICATION_COMMIT,
               harnessPoint:process.env.OOS_RUNTIME_HARNESS_COMMIT,
               route:"/office/", status:"passed", nativeBridge:false,
