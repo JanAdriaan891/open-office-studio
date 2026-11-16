@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
-  "asOf": "2026-11-16T11:25:31.784803+00:00",
-  "status": "PR354 integrated and pushed; combined G CI/native acceptance in progress",
+  "asOf": "2026-11-16T12:35:33.811377+00:00",
+  "status": "PR354 integrated and pushed; all9 standard workflows PASS on G; Windows/Linux native runtime checks pass, native Mac acceptance remains blocked. Bounded driver diagnostics in progress; no main authorization.",
   "checkpoint": {
     "commit": "9e0ad565402815082e8edf11a4c23943455fb6ce",
     "tree": "b79ec077abb3a7a3b199c05a45f2fb6908dc2ace",
@@ -50,8 +50,6 @@
       "files": 3,
       "log": ".local/nov16-pr354-focused-vitest.log"
     },
-    "normalBuildSeconds": 39.01,
-    "hostedBuildSeconds": 35.71,
     "hostedStrictCheck": "passed",
     "languageNormal": {
       "source": "9e0ad565402815082e8edf11a4c23943455fb6ce",
@@ -355,39 +353,670 @@
         "fileCount": 727
       }
     },
-    "localNativeGuiOrCaptureStarted": false
+    "localNativeGuiOrCaptureStarted": false,
+    "normalBuildViteSeconds": 39.01,
+    "hostedBuildViteSeconds": 35.71
   },
   "ci": {
-    "desktop": 43856368812,
-    "database": 43856368799,
-    "writer": 43856368801,
-    "example": 43856368791,
-    "browser": 43856360288,
-    "legacy": 43856368922,
-    "odf": 43856368798,
-    "macro": 43856368796,
-    "presentation": 43856368935
+    "source": "9e0ad565402815082e8edf11a4c23943455fb6ce",
+    "asOf": "2026-11-16T12:01:39.450839+00:00",
+    "runs": {
+      "desktop": {
+        "run": 43856368812,
+        "url": "https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/43856368812",
+        "status": "completed",
+        "conclusion": "success",
+        "source": "9e0ad565402815082e8edf11a4c23943455fb6ce",
+        "jobs": [
+          {
+            "id": 133261556088,
+            "name": "desktop (macos-latest)",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "id": 133261556431,
+            "name": "desktop (windows-latest)",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "id": 133261557496,
+            "name": "desktop (ubuntu-22.04)",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      },
+      "database": {
+        "run": 43856368799,
+        "url": "https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/43856368799",
+        "status": "completed",
+        "conclusion": "success",
+        "source": "9e0ad565402815082e8edf11a4c23943455fb6ce",
+        "jobs": [
+          {
+            "id": 133261556030,
+            "name": "database (windows-latest)",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "id": 133261556404,
+            "name": "database (ubuntu-22.04)",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "id": 133261556571,
+            "name": "database (macos-latest)",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      },
+      "browser": {
+        "run": 43856360288,
+        "url": "https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/43856360288",
+        "status": "completed",
+        "conclusion": "success",
+        "source": "9e0ad565402815082e8edf11a4c23943455fb6ce",
+        "jobs": [
+          {
+            "id": 133261531904,
+            "name": "browser (macos-latest)",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "id": 133261532240,
+            "name": "browser (ubuntu-22.04)",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "id": 133261532299,
+            "name": "browser (windows-latest)",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      },
+      "example": {
+        "run": 43856368791,
+        "url": "https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/43856368791",
+        "status": "completed",
+        "conclusion": "success",
+        "source": "9e0ad565402815082e8edf11a4c23943455fb6ce",
+        "jobs": [
+          {
+            "id": 133261555727,
+            "name": "voorbeeld",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      },
+      "writer": {
+        "run": 43856368801,
+        "url": "https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/43856368801",
+        "status": "completed",
+        "conclusion": "success",
+        "source": "9e0ad565402815082e8edf11a4c23943455fb6ce",
+        "jobs": [
+          {
+            "id": 133261555928,
+            "name": "writer",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      },
+      "legacy": {
+        "run": 43856368922,
+        "url": "https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/43856368922",
+        "status": "completed",
+        "conclusion": "success",
+        "source": "9e0ad565402815082e8edf11a4c23943455fb6ce",
+        "jobs": [
+          {
+            "id": 133261556701,
+            "name": "legacy",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      },
+      "strictOdf": {
+        "run": 43856368798,
+        "url": "https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/43856368798",
+        "status": "completed",
+        "conclusion": "success",
+        "source": "9e0ad565402815082e8edf11a4c23943455fb6ce",
+        "jobs": [
+          {
+            "id": 133261556234,
+            "name": "odf",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      },
+      "macro": {
+        "run": 43856368796,
+        "url": "https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/43856368796",
+        "status": "completed",
+        "conclusion": "success",
+        "source": "9e0ad565402815082e8edf11a4c23943455fb6ce",
+        "jobs": [
+          {
+            "id": 133261555673,
+            "name": "macro-fixture",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      },
+      "presentation": {
+        "run": 43856368935,
+        "url": "https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/43856368935",
+        "status": "completed",
+        "conclusion": "success",
+        "source": "9e0ad565402815082e8edf11a4c23943455fb6ce",
+        "jobs": [
+          {
+            "id": 133261556426,
+            "name": "presentation (macOS)",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "id": 133261556671,
+            "name": "presentation (Windows)",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "id": 133261556810,
+            "name": "presentation (Linux)",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ]
+      }
+    }
   },
   "native": {
     "runtime": {
-      "owner": "8020",
+      "source": "9e0ad565402815082e8edf11a4c23943455fb6ce",
       "run": 43857127197,
-      "applicationSource": "9e0ad565402815082e8edf11a4c23943455fb6ce",
       "harness": "3d3b847ffa6650c0a919a275f5be4b12b76e9803",
-      "status": "in progress; fresh builds/converter proof then independent fresh-host native UI"
+      "overallConclusion": "failure in Mac native UI; converter and other native outcomes preserved separately",
+      "converters": {
+        "windows": {
+          "codePoint": "9e0ad565402815082e8edf11a4c23943455fb6ce",
+          "harnessPoint": "3d3b847ffa6650c0a919a275f5be4b12b76e9803",
+          "run": 43857127197,
+          "artifact": 14224202257,
+          "zipSha256": "3d01838a95769099cb48328de75e2db4a0cf51208f4c18ca3ee2b2f09407a830",
+          "packages": [
+            {
+              "package": "Open Office Studio_2026.46.2_x64-setup.exe",
+              "packageSha256": "00a7836ffb387d03917ce5b2a73f3620274f49b568fcbbd1f2af09556732ad5f",
+              "packageBytes": 384522997,
+              "scope": "converter-only",
+              "macrosDisabled": true,
+              "independentContent": true,
+              "legacyFixtures": 32,
+              "nativeInterface": {
+                "status": "not-run",
+                "reason": "Converter-only job; native UI runs on a separate fresh host"
+              }
+            }
+          ]
+        },
+        "linux": {
+          "codePoint": "9e0ad565402815082e8edf11a4c23943455fb6ce",
+          "harnessPoint": "3d3b847ffa6650c0a919a275f5be4b12b76e9803",
+          "run": 43857127197,
+          "artifact": 14223150446,
+          "zipSha256": "7d46c6288b0b78edb1044098988be85ea3a3ba509f80cfd875babb59bf67ba9f",
+          "packages": [
+            {
+              "package": "Open Office Studio_2026.46.2_amd64.AppImage",
+              "packageSha256": "866044e566dfb1e9933edc666671e0ebe9bea37cc6eae41ed66c678985a8a347",
+              "packageBytes": 429812216,
+              "scope": "converter-only",
+              "macrosDisabled": true,
+              "independentContent": true,
+              "legacyFixtures": 32,
+              "nativeInterface": {
+                "status": "not-run",
+                "reason": "Converter-only job; native UI runs on a separate fresh host"
+              }
+            },
+            {
+              "package": "Open Office Studio_2026.46.2_amd64.deb",
+              "packageSha256": "6634cc1750e8073e57487af664a67ccbe769bbe85645d18e9c8a8d9950443c38",
+              "packageBytes": 383783890,
+              "scope": "converter-only",
+              "macrosDisabled": true,
+              "independentContent": true,
+              "legacyFixtures": 32,
+              "nativeInterface": {
+                "status": "not-run",
+                "reason": "Converter-only job; native UI runs on a separate fresh host"
+              }
+            }
+          ]
+        },
+        "macos": {
+          "codePoint": "9e0ad565402815082e8edf11a4c23943455fb6ce",
+          "harnessPoint": "3d3b847ffa6650c0a919a275f5be4b12b76e9803",
+          "run": 43857127197,
+          "artifact": 14224913540,
+          "zipSha256": "sha256:cd4f4e06c4aed06a70435ee72f198a500f377db3a33121c169e89c24e65b49f6",
+          "packages": [
+            {
+              "package": "Open Office Studio_2026.46.2_aarch64.dmg",
+              "packageSha256": "af83cdd95ff21fafa4c1757cc9cd2a0abb47afb794dd53c6e1014c9b15ee612b",
+              "packageBytes": 373703908,
+              "scope": "converter-only",
+              "macrosDisabled": true,
+              "independentContent": true,
+              "legacyFixtures": 32,
+              "nativeInterface": {
+                "status": "not-run",
+                "reason": "Converter-only job; native UI runs on a separate fresh host"
+              }
+            }
+          ]
+        }
+      },
+      "native": {
+        "source": "9e0ad565402815082e8edf11a4c23943455fb6ce",
+        "harness": "3d3b847ffa6650c0a919a275f5be4b12b76e9803",
+        "run": 43857127197,
+        "platforms": {
+          "Linux": {
+            "artifact": 14224947379,
+            "zipSha256": "sha256:fcba3151c0f3ef4b1bdb8eb00c5422b543c8ecac91fba9bb37fcd4ddf6d20037",
+            "packages": [
+              {
+                "package": "Open Office Studio_2026.46.2_amd64.AppImage",
+                "sha256": "866044e566dfb1e9933edc666671e0ebe9bea37cc6eae41ed66c678985a8a347",
+                "status": "passed",
+                "nativeInterface": {
+                  "status": "passed",
+                  "packagedApp": true,
+                  "defaultBundledStatus": true,
+                  "odtLoadedInWriter": true,
+                  "saveAsShowsBundledRuntime": true,
+                  "interaction": "enabled-save-as-native-pointer",
+                  "entryPoint": "appimage-runtime",
+                  "originalUnchanged": true
+                }
+              },
+              {
+                "package": "Open Office Studio_2026.46.2_amd64.deb",
+                "sha256": "6634cc1750e8073e57487af664a67ccbe769bbe85645d18e9c8a8d9950443c38",
+                "status": "passed",
+                "nativeInterface": {
+                  "status": "passed",
+                  "packagedApp": true,
+                  "defaultBundledStatus": true,
+                  "odtLoadedInWriter": true,
+                  "saveAsShowsBundledRuntime": true,
+                  "interaction": "enabled-save-as-native-pointer",
+                  "entryPoint": "installed-app",
+                  "originalUnchanged": true
+                }
+              }
+            ]
+          },
+          "Windows": {
+            "artifact": 14226085730,
+            "zipSha256": "sha256:e2bc2ecf8f3f3584100264a16b46ee7bd9f30ea43a054f721011ddcea06cce09",
+            "packages": [
+              {
+                "package": "Open Office Studio_2026.46.2_x64-setup.exe",
+                "sha256": "00a7836ffb387d03917ce5b2a73f3620274f49b568fcbbd1f2af09556732ad5f",
+                "status": "passed",
+                "nativeInterface": {
+                  "status": "passed",
+                  "packagedApp": true,
+                  "defaultBundledStatus": true,
+                  "odtLoadedInWriter": true,
+                  "saveAsShowsBundledRuntime": true,
+                  "interaction": "enabled-save-as-native-pointer",
+                  "entryPoint": "installed-app",
+                  "originalUnchanged": true
+                }
+              }
+            ]
+          },
+          "macOS": {
+            "artifact": 14224324502,
+            "zipSha256": "sha256:530e2c037116be68cfa4af1741b994301909199556d01a0e4ec1fdfdfc0e5486",
+            "packages": [
+              {
+                "package": "Open Office Studio_2026.46.2_aarch64.dmg",
+                "sha256": "af83cdd95ff21fafa4c1757cc9cd2a0abb47afb794dd53c6e1014c9b15ee612b",
+                "status": "blocked",
+                "nativeInterface": {
+                  "status": "blocked",
+                  "packagedApp": "/private/var/folders/h5/t85nd63d71x27_8gl5gw3l_w0000gn/T/oos-bundle-probe-LFTkzB/payload/Open Office Studio.app",
+                  "originalSha256": "3040060e17a4290a253c33bb7525c52269a401f12daa7383f001102528565588",
+                  "snapshots": [
+                    {
+                      "errors": {
+                        "-25204": 1
+                      },
+                      "pressed": false,
+                      "reason": "Native AX window inspection failed",
+                      "status": "blocked",
+                      "trusted": true
+                    }
+                  ],
+                  "windowTitle": "Ontwerpnotitie.docx • — Open Office Studio (Text)",
+                  "reason": "Native AX window inspection failed",
+                  "runtimeCrashEvidence": {
+                    "applicable": true,
+                    "newReports": [],
+                    "systemAlerts": {
+                      "status": "read",
+                      "windowTitles": "",
+                      "error": ""
+                    }
+                  },
+                  "ownedAppClosed": true,
+                  "originalUnchanged": true
+                }
+              }
+            ]
+          }
+        },
+        "visualInspection": {
+          "Windows": "Original native ready/dialog PNGs independently viewed: readable document and bundled-runtime/safe-profile/macros-off label",
+          "LinuxAppImage": "Original X11 ready capture independently viewed: readable document",
+          "LinuxDEB": "Original X11 PNG independently rehashed against ZIP and viewed serially: readable, byte-identical to AppImage (168997bytes, SHA2565724e59f4ee8ec9b66af4800071132e708aeb4ee66ec5a11d190eee796da5a98). Earlier black parallel viewer result was not in the source artifact; no Linux retest needed.",
+          "macOS": "Original capture partly outside viewport, document glyphs unreadable; AX inspection blocked (-25204). No native or visual pass."
+        }
+      },
+      "freshHostIsolation": true,
+      "historicalC0EvidenceRelabelled": false,
+      "followup": "Owner8020 bounded Mac AX/window/readiness retry on same existing package/converter proof; no product or renderer change, no rebuild/broad tests. Linux source PNGs rehashed/readable, no retry needed."
     },
-    "writer349": {
-      "owner": "6f92",
-      "status": "awaiting G installers; historical F results not relabelled"
+    "standardLinux": {
+      "run": 43856368812,
+      "job": 133261557496,
+      "artifact": 14222116423,
+      "zipSha256": "b8d27093f88054b43fbdcbd9e8975b5a25ce562627dbb2d2cef67c211e534738",
+      "report": {
+        "sourceCommit": "9e0ad565402815082e8edf11a4c23943455fb6ce",
+        "harnessCommit": "9e0ad565402815082e8edf11a4c23943455fb6ce",
+        "harnessSha256": "0a96af9d43abe7c941da7ce52736a041306457b4d9d46cf512753837d0c4ce67",
+        "sourceTree": "b79ec077abb3a7a3b199c05a45f2fb6908dc2ace",
+        "platform": "Linux x64 / Xvfb / installed Tauri WebKitGTK",
+        "scope": "One synthetic Writer keyboard/save/full-process-reopen round trip",
+        "status": "passed",
+        "checks": [
+          "Real installed DEB opens a native Writer document",
+          "Actual keyboard edit and Ctrl+S persist exactly one marker",
+          "Application process fully exits after saving",
+          "Fresh native process reopens unchanged saved DOCX and Find returns the marker"
+        ],
+        "limits": [
+          "Writer only; no general Spreadsheet/Presentation or complete native issue acceptance",
+          "Virtual X11 display and software graphics, not physical hardware",
+          "DEB only; AppImage native operation is not certified"
+        ],
+        "package": {
+          "path": "/home/runner/work/open-office-studio/open-office-studio/src-tauri/target/release/bundle/deb/Open Office Studio_2026.46.2_amd64.deb",
+          "sha256": "6b254885cb8ba65c8e3cd75f29f132a473b0a32652b035ae4f2d5ee9719e67b9"
+        },
+        "packagedExecutableSha256": "38fddbfdd4a550b86f13256b1dad83364f2cdb4cf29c37d69df5b00ab9b5e76d",
+        "rawBuildExecutableSha256": "fdeb3404e2c01aecec9fabac088d856dd56304d9023689c317d003e5e7e66c49",
+        "executableSha256": "38fddbfdd4a550b86f13256b1dad83364f2cdb4cf29c37d69df5b00ab9b5e76d",
+        "runtime": {
+          "node": "v22.23.4",
+          "graphics": {
+            "GDK_BACKEND": "x11",
+            "LIBGL_ALWAYS_SOFTWARE": "1",
+            "WEBKIT_DISABLE_DMABUF_RENDERER": "1",
+            "WEBKIT_DISABLE_COMPOSITING_MODE": null
+          },
+          "driver": "tauri-driver v2.1.0:",
+          "driverPath": "/home/runner/.cargo/bin/tauri-driver",
+          "driverSha256": "a71b247ca519f3ed02a364cd8692d71d381ffe81279c94c6ed65ec300d217868",
+          "webkitPackages": "libwebkit2gtk-4.1-0:amd64\t2.50.4-0ubuntu0.22.04.1\nwebkit2gtk-driver\t2.50.4-0ubuntu0.22.04.1"
+        },
+        "originalTemplateSha256": "d9086d4aa437d814620135a6dffb06ff940a9dbf5c34a6589d537d9112c41f74",
+        "inputSha256": "a7aab0de1f05d461052a13a54c00a0e4f4b0df946afe1ddc7a56b304dc0fbb21",
+        "beforeSave": {
+          "saveDisabled": false,
+          "keyboard": [
+            {
+              "code": "ControlLeft",
+              "prevented": false,
+              "ctrl": true,
+              "shift": false,
+              "target": "TEXTAREA",
+              "type": "keydown",
+              "key": "Control",
+              "meta": false
+            },
+            {
+              "code": "Home",
+              "prevented": false,
+              "ctrl": true,
+              "shift": false,
+              "target": "TEXTAREA",
+              "type": "keydown",
+              "key": "Home",
+              "meta": false
+            },
+            {
+              "code": "Home",
+              "prevented": false,
+              "ctrl": true,
+              "shift": false,
+              "target": "TEXTAREA",
+              "type": "keyup",
+              "key": "Home",
+              "meta": false
+            },
+            {
+              "code": "ControlLeft",
+              "prevented": false,
+              "ctrl": false,
+              "shift": false,
+              "target": "TEXTAREA",
+              "type": "keyup",
+              "key": "Control",
+              "meta": false
+            },
+            {
+              "code": "KeyS",
+              "prevented": false,
+              "ctrl": false,
+              "shift": false,
+              "target": "TEXTAREA",
+              "type": "keydown",
+              "key": "S",
+              "meta": false
+            },
+            {
+              "code": "KeyS",
+              "prevented": false,
+              "ctrl": false,
+              "shift": false,
+              "target": "TEXTAREA",
+              "type": "keyup",
+              "key": "S",
+              "meta": false
+            }
+          ],
+          "focused": "TEXTAREA"
+        },
+        "savedSha256": "9f0be74ac13dcdae26350735371aa82ffdb66ebc80a9bc349a6fbf99df528385",
+        "ownedApplicationClosed": true
+      },
+      "independentSavedXmlExactChars": 58,
+      "independentSavedReopenedImagesReadable": true
+    },
+    "writer349Linux": {
+      "evidence": "docs/tests/2026-11-16-pr349-native-language-G.json",
+      "independentRootVerification": {
+        "source": "9e0ad565402815082e8edf11a4c23943455fb6ce",
+        "run": 43858722629,
+        "checks": 32,
+        "samePayloadAsCentralNative": true,
+        "savedAndOtherXmlRunsExact": true,
+        "otherDocumentByteUnchanged": true,
+        "cleanExitAndNewPid": true,
+        "ownedApplicationClosed": true,
+        "images": "three original PNGs independently viewed; readable English/Italian/French statuses",
+        "packageSha256": "6b254885cb8ba65c8e3cd75f29f132a473b0a32652b035ae4f2d5ee9719e67b9",
+        "savedSha256": "4108aa0ecc466370c7add1a4639471cc76781aca410f2fb301b0dad598aa4a38"
+      }
+    },
+    "writer349Mac": {
+      "status": "not accepted; bounded diagnosis, no327cache cause established",
+      "buildHost": "macOS26.7.2 ARM64",
+      "nativeHost": "macOS15.8.2 ARM64",
+      "attempts": [
+        {
+          "run": 43862834105,
+          "artifact": 14224512112,
+          "zipSha256": "888e97a38e1df50bced644b55148b1aafa2df65fac7ec54b4218fdb9545c5f11",
+          "source": "9e0ad565402815082e8edf11a4c23943455fb6ce",
+          "harness": "3933729fe3da0f11dea953f4315696a121614758",
+          "status": "failed",
+          "error": "AssertionError('original boundary right: expected English')",
+          "passedLanguageSnapshots": 2,
+          "host": {
+            "macOS": "15.8.2",
+            "machine": "arm64",
+            "platform": "macOS-15.8.2-arm64-arm-64bit-Mach-O",
+            "runnerOS": "macOS"
+          },
+          "dmg": {
+            "name": "Open Office Studio_2026.46.2_aarch64.dmg",
+            "sha256": "9b90dbf2845ab12887b52168f986f3cbd85dfe3d17fc9886223f99595d904dc6",
+            "bytes": 373702917
+          },
+          "app": {
+            "version": "2026.46.2",
+            "executableSha256": "fc73826cd8fc8e6cedbf64c0b94c06a33fe8550a9b13eacd0aa06d9639650814",
+            "plistSha256": "5644059abdb0769f40320a31437149d047082e4584b1bcd5e944eecdd9283bda",
+            "treeSha256": "6a59d8fd600859e427ecd28077e9d06d0bf6204eb38c7fed452034fb0554388c",
+            "treeAlgorithm": "Unicode sorted POSIX path TAB sha256 TAB size NEWLINE; symlinks path TAB link TAB target NEWLINE"
+          },
+          "caretEvidence": [],
+          "ownedAppClosed": true,
+          "ownMountDetached": true
+        },
+        {
+          "run": 43865097119,
+          "artifact": 14224344137,
+          "zipSha256": "7e0c7e6c661ecae31a27e7a1e4f686eda356efa10d7ff7e45e3e1c925a4747ba",
+          "source": "9e0ad565402815082e8edf11a4c23943455fb6ce",
+          "harness": "00f8685269c11e1d51ecf55e7612ddfc05901ad4",
+          "status": "failed",
+          "error": "AssertionError('Actual native caret prefix does not match the intended 11-character position')",
+          "passedLanguageSnapshots": 3,
+          "host": {
+            "macOS": "15.8.2",
+            "machine": "arm64",
+            "platform": "macOS-15.8.2-arm64-arm-64bit-Mach-O",
+            "runnerOS": "macOS"
+          },
+          "dmg": {
+            "name": "Open Office Studio_2026.46.2_aarch64.dmg",
+            "sha256": "9b90dbf2845ab12887b52168f986f3cbd85dfe3d17fc9886223f99595d904dc6",
+            "bytes": 373702917
+          },
+          "app": {
+            "version": "2026.46.2",
+            "executableSha256": "fc73826cd8fc8e6cedbf64c0b94c06a33fe8550a9b13eacd0aa06d9639650814",
+            "plistSha256": "5644059abdb0769f40320a31437149d047082e4584b1bcd5e944eecdd9283bda",
+            "treeSha256": "6a59d8fd600859e427ecd28077e9d06d0bf6204eb38c7fed452034fb0554388c",
+            "treeAlgorithm": "Unicode sorted POSIX path TAB sha256 TAB size NEWLINE; symlinks path TAB link TAB target NEWLINE"
+          },
+          "caretEvidence": [
+            {
+              "step": "original boundary right verified",
+              "expected": "Nederlands ",
+              "actualPrefix": "",
+              "length": 0,
+              "method": "native selection to document start + native clipboard"
+            }
+          ],
+          "ownedAppClosed": true,
+          "ownMountDetached": true
+        },
+        {
+          "run": 43866052742,
+          "artifact": 14226390810,
+          "zipSha256": "86ffc67725a3ca391f5fe906efb8b4f58ec6f206ea3b85f44385049351ce29af",
+          "source": "9e0ad565402815082e8edf11a4c23943455fb6ce",
+          "harness": "d680447c6e9f7785adb175cf90b52f01c1a769fc",
+          "status": "failed",
+          "error": "AssertionError('inserted boundary left: expected Dutch')",
+          "passedLanguageSnapshots": 5,
+          "host": {
+            "macOS": "15.8.2",
+            "machine": "arm64",
+            "platform": "macOS-15.8.2-arm64-arm-64bit-Mach-O",
+            "runnerOS": "macOS"
+          },
+          "dmg": {
+            "name": "Open Office Studio_2026.46.2_aarch64.dmg",
+            "sha256": "9b90dbf2845ab12887b52168f986f3cbd85dfe3d17fc9886223f99595d904dc6",
+            "bytes": 373702917
+          },
+          "app": {
+            "version": "2026.46.2",
+            "executableSha256": "fc73826cd8fc8e6cedbf64c0b94c06a33fe8550a9b13eacd0aa06d9639650814",
+            "plistSha256": "5644059abdb0769f40320a31437149d047082e4584b1bcd5e944eecdd9283bda",
+            "treeSha256": "6a59d8fd600859e427ecd28077e9d06d0bf6204eb38c7fed452034fb0554388c",
+            "treeAlgorithm": "Unicode sorted POSIX path TAB sha256 TAB size NEWLINE; symlinks path TAB link TAB target NEWLINE"
+          },
+          "caretEvidence": [
+            {
+              "step": "original boundary right verified",
+              "method": "native Q edit and CmdS; independent DOCX position",
+              "expectedOffset": 11,
+              "actualParagraphs": [
+                "Nederlands QEnglish",
+                "Bonjour",
+                "Nogmaals Nederlands"
+              ],
+              "savedProbeSha256": "0f74fdc3fc8bc68225e549d45c23584d8760a47103b7580fc529ed4b834a0add",
+              "restoredParagraphs": [
+                "Nederlands English",
+                "Bonjour",
+                "Nogmaals Nederlands"
+              ],
+              "restoredSha256": "96788100b9d98328cf43d613684716c40c00e00f2a05fe8d9f1422aedbc85b29"
+            }
+          ],
+          "ownedAppClosed": true,
+          "ownMountDetached": true
+        }
+      ],
+      "visual": "Initial body-focus captures unreadable; third-run post-save and final captures independently viewed serially and readable. Final text Bonjourx / Nogmaals N slotederlands shows document navigation did not reach intended endpoints. No complete initial-paint/full-profile pass or causal equivalence to355 claimed.",
+      "remaining": "Later inserted-boundary-left expectation failed after initial11-character Q/DOCX/Undo proof; native modifier/navigation driver diagnosis, no full32case run or restart/reopen certification"
     }
   },
   "remaining": [
-    "Finish G Windows/Linux/macOS mandatory CI, installer checks and actual hosted browser tests.",
-    "Finish G private runtime/content/macro/legacy and native installer UI acceptance.",
-    "Finish G Writer349 native language checks; a build alone is not native acceptance.",
-    "Issue30 stays open: EPUB356 excluded and 17 catalog extensions lack input fixtures.",
-    "No physical Linux/Wayland acceptance or broad performance/RAM claim.",
-    "No main merge, direct main push, official release or automatic issue closure."
+    "Native Mac runtime AX/window inspection and actual readable document proof remain blocked; no native Mac acceptance from builds alone.",
+    "Native Mac Writer349 full32 language/typing/UndoRedo/tab/save/restart/reopen profile not completed. Initial11character caret was proven using native Q save and Undo, later typed-boundary expectation failed; cause unclassified.",
+    "Issue30 stays open: EPUB356/PR357 excluded and17catalog extensions still lack input fixtures.",
+    "No physical Linux/Wayland or new local Windows GUI acceptance. Windows native G coverage is the bounded private-runtime UI route; full native349 language profile on Windows G not separately executed.",
+    "Earlier F/c0/d735 results remain historical; no general performance/RAM improvement claimed.",
+    "No main merge/direct push, release or automatic issue closure. Subsequent commits only document unchanged G application/test inputs."
   ],
   "historicalPreviousRound": {
     "schemaVersion": 1,
@@ -1965,34 +2594,50 @@
     {
       "platform": "linux",
       "route": "/",
-      "cases": 9,
+      "codepoint": "9e0ad565402815082e8edf11a4c23943455fb6ce",
+      "dirty": false,
       "errors": [],
-      "source": "9e0ad565402815082e8edf11a4c23943455fb6ce",
-      "dirty": false
+      "passedCases": 9
     },
     {
       "platform": "linux",
       "route": "/office/",
-      "cases": 9,
+      "codepoint": "9e0ad565402815082e8edf11a4c23943455fb6ce",
+      "dirty": false,
       "errors": [],
-      "source": "9e0ad565402815082e8edf11a4c23943455fb6ce",
-      "dirty": false
+      "passedCases": 9
+    },
+    {
+      "platform": "darwin",
+      "route": "/",
+      "codepoint": "9e0ad565402815082e8edf11a4c23943455fb6ce",
+      "dirty": false,
+      "errors": [],
+      "passedCases": 9
+    },
+    {
+      "platform": "darwin",
+      "route": "/office/",
+      "codepoint": "9e0ad565402815082e8edf11a4c23943455fb6ce",
+      "dirty": false,
+      "errors": [],
+      "passedCases": 9
     },
     {
       "platform": "win32",
       "route": "/",
-      "cases": 9,
+      "codepoint": "9e0ad565402815082e8edf11a4c23943455fb6ce",
+      "dirty": false,
       "errors": [],
-      "source": "9e0ad565402815082e8edf11a4c23943455fb6ce",
-      "dirty": false
+      "passedCases": 9
     },
     {
       "platform": "win32",
       "route": "/office/",
-      "cases": 9,
+      "codepoint": "9e0ad565402815082e8edf11a4c23943455fb6ce",
+      "dirty": false,
       "errors": [],
-      "source": "9e0ad565402815082e8edf11a4c23943455fb6ce",
-      "dirty": false
+      "passedCases": 9
     }
   ]
 }
