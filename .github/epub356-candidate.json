@@ -1,0 +1,6 @@
+{
+  "applicationCommit": "c1226e1964287fcb69aea0e7660055fac642a367",
+  "artifactRun": null,
+  "platforms": ["ubuntu-22.04", "windows-latest", "macos-latest"],
+  "hostedBrowser": true
+}
