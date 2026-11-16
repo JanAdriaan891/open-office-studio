@@ -1,4 +1,4 @@
-"""Try real packaged WKWebView interaction on our CI host; report AX denial honestly."""
+"""Operate packaged WKWebView with bounded native AX calls on isolated CI."""
 import argparse
 import hashlib
 import json
@@ -29,14 +29,31 @@ def main():
     document = options.document.resolve()
     before = hashlib.sha256(document.read_bytes()).hexdigest()
     report = {"status": "failed", "packagedApp": str(app), "originalSha256": before}
-    labels = [json.loads(path.read_text(encoding="utf-8"))["saveAs"]["sourceBundled"]
-              for path in Path("src/i18n/locales").glob("*/backstage.json")]
+    labels = {"source": [], "saveAs": []}
+    for path in Path("src/i18n/locales").glob("*/backstage.json"):
+        locale = json.loads(path.read_text(encoding="utf-8"))
+        labels["source"].append(locale["saveAs"]["sourceBundled"])
+        shell = json.loads(path.with_name("shell.json").read_text(encoding="utf-8"))
+        labels["saveAs"].append(shell["header"]["saveAs"])
+    label_file = options.report.with_name("ax-labels.json")
+    label_file.write_text(json.dumps(labels, ensure_ascii=False), encoding="utf-8")
+    helper = options.report.with_name("runtime-ax-helper")
+    subprocess.run(["xcrun", "swiftc", str(Path(__file__).with_name("runtime-macos-ax.swift")),
+                    "-o", str(helper)], check=True, timeout=120)
+    report["snapshots"] = []
     started = False
 
     def applescript(pid, body):
         script = ('tell application "System Events"\ntell (first application process whose unix id is '
                   + str(pid) + ')\n' + body + '\nend tell\nend tell')
         return subprocess.run(["osascript", "-e", script], text=True, capture_output=True, timeout=15)
+
+    def inspect(pid, action):
+        result = subprocess.run([str(helper), str(pid), str(label_file), action],
+                                check=True, text=True, capture_output=True, timeout=25)
+        snapshot = json.loads(result.stdout)
+        report["snapshots"].append(snapshot)
+        return snapshot
 
     try:
         started = True
@@ -59,34 +76,40 @@ def main():
             time.sleep(.5)
         else:
             raise RuntimeError("The converted ODT did not appear in the packaged app window title")
-        shortcut = applescript(pid, 'set frontmost to true\nkeystroke "s" using {command down, shift down}')
-        if shortcut.returncode:
-            report.update(status="blocked", reason="System Events could not operate the packaged app", details=shortcut.stderr.strip())
-            return
+        applescript(pid, 'set frontmost to true')
+        deadline = time.monotonic() + 90
+        while time.monotonic() < deadline:
+            state = inspect(pid, "press")
+            if state["status"] == "blocked":
+                report.update(status="blocked", reason=state["reason"])
+                return
+            if state["pressed"]:
+                break
+            time.sleep(.5)
+        else:
+            raise RuntimeError("Converted Writer document did not enable the native Save As button")
         deadline = time.monotonic() + 45
         while time.monotonic() < deadline:
-            texts = applescript(pid, '''set collectedTexts to {}
-repeat with uiElement in (entire contents of window 1)
-try
-set end of collectedTexts to (name of uiElement) as string
-end try
-try
-set end of collectedTexts to (value of uiElement) as string
-end try
-end repeat
-return collectedTexts as string''')
-            if texts.returncode:
-                report.update(status="blocked", reason="WKWebView Accessibility content is unavailable", details=texts.stderr.strip())
+            state = inspect(pid, "inspect")
+            if state["status"] == "blocked":
+                report.update(status="blocked", reason=state["reason"])
                 return
-            if any(label in texts.stdout for label in labels):
-                report.update(status="passed", odtNativeWindow=True, saveAsShowsBundledRuntime=True)
+            if any(label in text for label in labels["source"] for text in state.get("texts", [])):
+                report.update(status="passed", odtNativeWindow=True, saveAsShowsBundledRuntime=True,
+                              interaction="enabled-save-as-native-AXPress")
                 break
             time.sleep(.5)
         else:
             raise RuntimeError("Native Save As did not expose the bundled runtime source")
     except subprocess.TimeoutExpired:
         report.update(status="blocked", reason="The CI host did not answer the native Accessibility request within its limit")
+    except Exception as error:
+        report.update(status="failed", error=str(error))
     finally:
+        try:
+            subprocess.run(["screencapture", "-x", str(options.report.with_suffix(".png"))], capture_output=True, timeout=10)
+        except subprocess.TimeoutExpired:
+            report["screenshot"] = "timed-out"
         if started:
             for pid in processes(program):
                 os.kill(pid, signal.SIGTERM)

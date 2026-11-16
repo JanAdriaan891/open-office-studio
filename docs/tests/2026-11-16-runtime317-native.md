@@ -27,3 +27,39 @@
 Native `blocked` is never a pass. Builds and converter tests are recorded
 separately from actual native operation. No local app, installer, printer or
 security settings are touched; native probes run only on isolated hosted CI.
+
+## Immutable application and repeatable drivers
+
+The new application point is `c0fbbcb843f0fd44e0e7e9d54a7989d017e39812`.
+The dedicated workflow checks out that exact point for all application builds,
+unit checks, native converter checks and production browser tests. Only after
+packaging does it overlay the native test drivers from the workflow head;
+reports record that separate `harnessPoint`.
+
+Installers and their source/SHA-256 manifest are uploaded before native UI gates.
+`converter-proof.json` records successful converter/content/macro/legacy checks
+before attempting the UI. A later driver-only run can reuse those exact packages
+and the generated ODT by setting `artifactRun` in
+`.github/runtime317-candidate.json`. It refuses different application points,
+different package bytes or incomplete converter proofs. Reuse does not certify
+any newer application source.
+
+Windows uses an executable-scoped HKLM WebView2 debugging override on the
+disposable hosted runner, because elevated WebView2 ignores environment
+overrides. The prior value is saved and restored in `finally`; no override is
+added to production code or the user's computer. See [Microsoft's documented
+override rules](https://learn.microsoft.com/microsoft-edge/webview2/concepts/security#for-an-elevated-host-app-use-appropriate-override-flags).
+
+Linux waits for Writer to finish loading and enable Save As, then uses a native
+pointer action. AppImage is launched through its original runtime/AppRun with
+`APPIMAGE_EXTRACT_AND_RUN=1`; a successful DEB never substitutes for AppImage UI.
+
+macOS uses AXPress on the enabled Save As button. Its native AX helper caps IPC
+timeouts, traversal depth, children per node, total nodes and wall time, and
+does not request the editor text area's value. It neither grants TCC permissions
+nor adds an app test bridge. See [Apple's per-process AX timeout API](https://developer.apple.com/documentation/applicationservices/1459345-axuielementsetmessagingtimeout).
+
+Local lightweight checks: 25 targeted tests passed (runtime packaging/config,
+immutable package verification and Writer readiness); Node syntax, Python
+compilation, PowerShell parsing and version consistency passed. Native platform
+results remain pending until actual CI execution.

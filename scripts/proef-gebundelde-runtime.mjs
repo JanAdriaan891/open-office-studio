@@ -1,5 +1,6 @@
 /** Test the actual installer payload, never the installed user's app. */
 import { execFileSync } from "node:child_process";
+import assert from "node:assert/strict";
 import { closeSync, openSync } from "node:fs";
 import {
   mkdir,
@@ -19,6 +20,7 @@ const python =
   process.env.OOS_RUNTIME_PYTHON ||
   (process.platform === "win32" ? "python" : "python3");
 const output = resolve(".local/gebundelde-runtime-proef");
+const interfaceOnly = process.argv.includes("--interface-only");
 await mkdir(output, { recursive: true });
 const root = resolve(process.argv[2] || "src-tauri/target/release/bundle");
 const packages = [];
@@ -70,10 +72,17 @@ function run(program, args, log, extraEnv = {}) {
 }
 
 const results = [];
-const codePoint = execFileSync("git", ["rev-parse", "HEAD"], {
+const checkoutPoint = execFileSync("git", ["rev-parse", "HEAD"], {
   encoding: "utf8",
   windowsHide: true,
 }).trim();
+const codePoint = interfaceOnly
+  ? process.env.OOS_RUNTIME_APPLICATION_COMMIT
+  : checkoutPoint;
+assert.match(codePoint || "", /^[a-f0-9]{40}$/);
+if (!interfaceOnly && process.env.OOS_RUNTIME_APPLICATION_COMMIT)
+  assert.equal(checkoutPoint, process.env.OOS_RUNTIME_APPLICATION_COMMIT);
+const harnessPoint = process.env.OOS_RUNTIME_HARNESS_COMMIT || checkoutPoint;
 for (const packageFile of packages) {
   const name = basename(packageFile).replace(/[^a-zA-Z0-9.-]/g, "_");
   const reportRoot = join(output, name);
@@ -94,93 +103,127 @@ for (const packageFile of packages) {
     );
     const payload = JSON.parse(await readFile(reportFile, "utf8"));
     payload.packagePath = packageFile;
-    const { fixture, marker } = await maakMacroproef(join(reportRoot, "macro"));
-    run(
-      python,
-      [
-        "scripts/controleer-macroproef.py",
-        payload.program,
-        fixture,
-        marker,
-        join(reportRoot, "macro-positive.json"),
-      ],
-      join(reportRoot, "macro-positive-control.log"),
-    );
     const nativeOutput = join(reportRoot, "native");
-    run(
-      "cargo",
-      [
-        "test",
-        "--manifest-path",
-        "src-tauri/Cargo.toml",
-        "--locked",
-        "gebundelde_runtime_werkt_zonder_externe_installatie",
-        "--",
-        "--ignored",
-        "--test-threads=1",
-        "--nocapture",
-      ],
-      join(reportRoot, "native.log"),
-      {
-        OFFICE_BUNDLE_TEST_RESOURCES: payload.resources,
-        OFFICE_BUNDLE_TEST_OUTPUT: nativeOutput,
-        OFFICE_BUNDLE_MACRO_FIXTURE: fixture,
-        OFFICE_BUNDLE_MACRO_MARKER: marker,
-      },
+    const proofFile = join(reportRoot, "converter-proof.json");
+    if (interfaceOnly) {
+      const previous = JSON.parse(await readFile(proofFile, "utf8"));
+      assert.equal(
+        previous.codePoint,
+        codePoint,
+        "Reused proof must be from the exact application point",
+      );
+      assert.equal(
+        previous.packageSha256,
+        payload.packageSha256,
+        "Reused proof must match the actual installer hash",
+      );
+      assert.equal(
+        previous.status,
+        "passed",
+        "Converter proof must have completed before UI-only reruns",
+      );
+    } else {
+      const { fixture, marker } = await maakMacroproef(
+        join(reportRoot, "macro"),
+      );
+      run(
+        python,
+        [
+          "scripts/controleer-macroproef.py",
+          payload.program,
+          fixture,
+          marker,
+          join(reportRoot, "macro-positive.json"),
+        ],
+        join(reportRoot, "macro-positive-control.log"),
+      );
+      run(
+        "cargo",
+        [
+          "test",
+          "--manifest-path",
+          "src-tauri/Cargo.toml",
+          "--locked",
+          "gebundelde_runtime_werkt_zonder_externe_installatie",
+          "--",
+          "--ignored",
+          "--test-threads=1",
+          "--nocapture",
+        ],
+        join(reportRoot, "native.log"),
+        {
+          OFFICE_BUNDLE_TEST_RESOURCES: payload.resources,
+          OFFICE_BUNDLE_TEST_OUTPUT: nativeOutput,
+          OFFICE_BUNDLE_MACRO_FIXTURE: fixture,
+          OFFICE_BUNDLE_MACRO_MARKER: marker,
+        },
+      );
+      run(
+        python,
+        ["scripts/controleer-runtime-uitvoer.py", nativeOutput],
+        join(reportRoot, "independent-content.log"),
+      );
+      run(
+        python,
+        [
+          "scripts/meet-kantoorruntime.py",
+          "--program",
+          payload.program,
+          "--runtime-root",
+          payload.runtime,
+          "--output",
+          join(reportRoot, "performance"),
+        ],
+        join(reportRoot, "performance.log"),
+      );
+      // The 32 immutable legacy inputs use this exact installer's private converter.
+      run(
+        process.execPath,
+        [
+          "node_modules/vitest/vitest.mjs",
+          "run",
+          "--config",
+          "scripts/formatendekking.config.ts",
+          "--configLoader",
+          "runner",
+        ],
+        join(reportRoot, "legacy.log"),
+        {
+          OPENAEC_CONVERSIE_PROGRAMMA: payload.program,
+          OOS_DEKKING_UIT: join(reportRoot, "legacy"),
+          OOS_DEKKING_SELECTIE: "",
+        },
+      );
+      await writeFile(
+        proofFile,
+        JSON.stringify(
+          {
+            status: "passed",
+            codePoint,
+            harnessPoint,
+            packageSha256: payload.packageSha256,
+            native: true,
+            macrosDisabled: true,
+            independentContent: true,
+            legacyFixtures: 32,
+          },
+          null,
+          2,
+        ),
+      );
+    }
+    const nativeInterface = await proefInterface(
+      payload,
+      nativeOutput,
+      reportRoot,
+      temporary,
     );
-    run(
-      python,
-      ["scripts/controleer-runtime-uitvoer.py", nativeOutput],
-      join(reportRoot, "independent-content.log"),
-    );
-    run(
-      python,
-      [
-        "scripts/meet-kantoorruntime.py",
-        "--program",
-        payload.program,
-        "--runtime-root",
-        payload.runtime,
-        "--output",
-        join(reportRoot, "performance"),
-      ],
-      join(reportRoot, "performance.log"),
-    );
-    // The 32 immutable legacy inputs use this exact installer's private converter.
-    run(
-      process.execPath,
-      [
-        "node_modules/vitest/vitest.mjs",
-        "run",
-        "--config",
-        "scripts/formatendekking.config.ts",
-        "--configLoader",
-        "runner",
-      ],
-      join(reportRoot, "legacy.log"),
-      {
-        OPENAEC_CONVERSIE_PROGRAMMA: payload.program,
-        OOS_DEKKING_UIT: join(reportRoot, "legacy"),
-        OOS_DEKKING_SELECTIE: "",
-      },
-    );
-    const nativeInterface =
-      process.platform === "linux" && !packageFile.endsWith(".deb")
-        ? {
-            status: "not-run",
-            reason:
-              "Installed native UI is checked through the DEB from the same source; AppImage receives private-runtime and independent-content checks.",
-          }
-        : await proefInterface(payload, nativeOutput, reportRoot, temporary);
     await writeFile(
       join(reportRoot, "native-interface.json"),
       JSON.stringify(nativeInterface, null, 2) + "\n",
     );
     results.push({
-      status:
-        nativeInterface.status === "blocked"
-          ? "remaining-native-interface-control"
-          : "passed",
+      status: nativeInterface.status,
       package: payload.package,
       packageBytes: payload.packageBytes,
       packageSha256: payload.packageSha256,
@@ -197,14 +240,16 @@ for (const packageFile of packages) {
         ),
       ),
     });
-    console.log(`Private bundled runtime verified: ${payload.package}`);
+    console.log(
+      `Private runtime/native UI ${nativeInterface.status}: ${payload.package}`,
+    );
   } catch (error) {
     results.push({
       status: "failed",
       package: basename(packageFile),
       error: String(error),
     });
-    throw error;
+    console.error(error);
   } finally {
     // Validate the resolved absolute target before recursive cleanup on Windows.
     const target = await realpath(temporary);
@@ -217,10 +262,21 @@ for (const packageFile of packages) {
     await writeFile(
       join(output, "resultaat.json"),
       JSON.stringify(
-        { codePoint, platform: process.platform, arch: process.arch, results },
+        {
+          codePoint,
+          harnessPoint,
+          interfaceOnly,
+          platform: process.platform,
+          arch: process.arch,
+          results,
+        },
         null,
         2,
       ) + "\n",
     );
   }
 }
+assert(
+  results.every((result) => result.status === "passed"),
+  "Every actual installer, including AppImage, must pass native operation; blocked/not-run is not acceptance",
+);

@@ -1,11 +1,42 @@
 /** Real packaged UI on isolated CI hosts; never opens the user's installed app. */
 import assert from "node:assert/strict";
 import { spawn, execFileSync } from "node:child_process";
-import { access, readFile, writeFile } from "node:fs/promises";
+import { access, chmod, readFile, writeFile } from "node:fs/promises";
 import { createServer } from "node:net";
-import { join } from "node:path";
+import { dirname, join } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
 import { chromium } from "playwright";
+
+// Observe readiness without changing app state or mocking IPC. Merely finding
+// the editor textarea is too early: the document may still be loading.
+export function interfaceState() {
+  const button = document.querySelector(
+    ".office-snelknop:has(.lucide-save-all)",
+  );
+  const bounds = button?.getBoundingClientRect();
+  return {
+    ready:
+      Boolean(document.querySelector('[data-testid="yrs-input"]')) &&
+      Boolean(button && !button.disabled && bounds.width && bounds.height),
+    button: button
+      ? {
+          disabled: button.disabled,
+          title: button.title,
+          x: bounds.x + bounds.width / 2,
+          y: bounds.y + bounds.height / 2,
+        }
+      : null,
+    title: document.title,
+    tabs: [...document.querySelectorAll(".office-tabnaam")].map(
+      (t) => t.textContent,
+    ),
+    dialogs: [...document.querySelectorAll('[role="dialog"]')].map((d) =>
+      d.textContent.slice(0, 2000),
+    ),
+    activeElement: document.activeElement?.outerHTML.slice(0, 500),
+    runtime: document.querySelector(".opslaanals-runtime")?.textContent || "",
+  };
+}
 
 export async function proefInterface(
   payload,
@@ -61,6 +92,34 @@ export async function proefInterface(
       ).saveAs.sourceBundled,
     );
   let process_, browser, session, driverPort, installedWindows, installedLinux;
+  let policyState;
+  const diagnostics = { launch: null, states: [], errors: [] };
+  function start(program, args, options) {
+    process_ = spawn(program, args, {
+      env,
+      stdio: ["ignore", "pipe", "pipe"],
+      ...options,
+    });
+    diagnostics.launch = {
+      program,
+      args,
+      pid: process_.pid,
+      stdout: "",
+      stderr: "",
+    };
+    for (const stream of ["stdout", "stderr"])
+      process_[stream].on("data", (b) => {
+        diagnostics.launch[stream] = (diagnostics.launch[stream] + b).slice(
+          -64_000,
+        );
+      });
+    process_.on("error", (e) => {
+      diagnostics.launch.error = String(e);
+    });
+    process_.on("exit", (code, signal) => {
+      diagnostics.launch.exit = { code, signal };
+    });
+  }
   const request = async (method, route, body) => {
     const response = await fetch(`http://127.0.0.1:${driverPort}${route}`, {
       method,
@@ -81,7 +140,7 @@ export async function proefInterface(
     await new Promise((resolve) => server.close(resolve));
     return port;
   }
-  let evaluate, screenshot;
+  let evaluate, screenshot, click;
   try {
     if (process.platform === "win32") {
       const installation = join(temporary, "installed");
@@ -99,15 +158,35 @@ export async function proefInterface(
       const port = await freePort();
       env.WEBVIEW2_ADDITIONAL_BROWSER_ARGUMENTS = `--remote-debugging-port=${port} --remote-debugging-address=127.0.0.1`;
       env.WEBVIEW2_USER_DATA_FOLDER = join(temporary, "webview-profile");
-      process_ = spawn(join(installation, "open-office-studio.exe"), [input], {
-        env,
-        stdio: "ignore",
-      });
-      process_.on("error", () => {});
-      for (let attempt = 0; attempt < 180; attempt++) {
+      policyState = join(temporary, "webview-policy.json");
+      execFileSync(
+        "pwsh",
+        [
+          "-NoProfile",
+          "-File",
+          "scripts/runtime-webview2-ci.ps1",
+          "-Phase",
+          "Enable",
+          "-StateFile",
+          policyState,
+          "-Port",
+          String(port),
+        ],
+        { env, windowsHide: true, stdio: "inherit" },
+      );
+      const exe = join(installation, "open-office-studio.exe");
+      start(exe, [input], { cwd: dirname(exe) });
+      const deadline = Date.now() + 90_000;
+      while (Date.now() < deadline) {
+        if (diagnostics.launch.error) throw new Error(diagnostics.launch.error);
         if (process_.exitCode !== null)
           throw new Error(`Packaged app exited: ${process_.exitCode}`);
         try {
+          const response = await fetch(
+            `http://127.0.0.1:${port}/json/version`,
+            { signal: AbortSignal.timeout(1000) },
+          );
+          if (!response.ok) throw new Error("CDP not ready");
           browser = await chromium.connectOverCDP(`http://127.0.0.1:${port}`, {
             timeout: 1500,
           });
@@ -117,12 +196,24 @@ export async function proefInterface(
         }
       }
       assert(browser, "The actual packaged WebView2 must become accessible");
-      const page = browser.contexts()[0].pages()[0];
+      let page;
+      for (let attempt = 0; attempt < 60; attempt++) {
+        page = browser
+          .contexts()
+          .flatMap((c) => c.pages())
+          .find((p) => /tauri|localhost/.test(p.url()));
+        if (page) break;
+        await delay(500);
+      }
       assert(page, "Packaged app must have a page");
+      page.on("pageerror", (e) => diagnostics.errors.push(String(e)));
       evaluate = (script) => page.evaluate(script);
       screenshot = (path) => page.screenshot({ path });
+      click = async () => {
+        await page.locator(".office-snelknop:has(.lucide-save-all)").click();
+      };
       await page.waitForFunction(
-        () => document.querySelector('[data-testid="yrs-input"]'),
+        () => Boolean(window.__TAURI_INTERNALS__),
         undefined,
         { timeout: 90_000 },
       );
@@ -130,20 +221,28 @@ export async function proefInterface(
         window.__TAURI_INTERNALS__.invoke("conversie_status"),
       );
       assert.equal(status.bron, "meegeleverd", JSON.stringify(status));
-      await page.keyboard.press("Control+Shift+s");
+      diagnostics.runtimeStatus = status;
     } else {
       // Install only our freshly built DEB on this disposable VM, so Tauri resolves
       // its real installed resource directory instead of an invented test path.
-      execFileSync("sudo", ["dpkg", "--install", payload.packagePath], {
-        stdio: "inherit",
-      });
-      installedLinux = true;
+      let application;
+      if (payload.packagePath.endsWith(".deb")) {
+        execFileSync("sudo", ["dpkg", "--install", payload.packagePath], {
+          stdio: "inherit",
+        });
+        installedLinux = true;
+        application = "/usr/bin/open-office-studio";
+      } else {
+        assert(payload.packagePath.endsWith(".AppImage"));
+        await chmod(payload.packagePath, 0o755);
+        // Execute the real AppImage runtime/AppRun, not a substitute bare binary.
+        // Hosted runners need no FUSE mount or system configuration change.
+        env.APPIMAGE_EXTRACT_AND_RUN = "1";
+        env.TMPDIR = temporary;
+        application = payload.packagePath;
+      }
       driverPort = await freePort();
-      process_ = spawn("tauri-driver", ["--port", String(driverPort)], {
-        env,
-        stdio: "ignore",
-      });
-      process_.on("error", () => {});
+      start("tauri-driver", ["--port", String(driverPort)]);
       for (let attempt = 0; attempt < 60; attempt++) {
         try {
           await request("GET", "/status");
@@ -156,7 +255,7 @@ export async function proefInterface(
         capabilities: {
           alwaysMatch: {
             "tauri:options": {
-              application: "/usr/bin/open-office-studio",
+              application,
               args: [input],
             },
           },
@@ -177,6 +276,26 @@ export async function proefInterface(
             "base64",
           ),
         );
+      click = async (state) =>
+        request("POST", `/session/${session}/actions`, {
+          actions: [
+            {
+              type: "pointer",
+              id: "mouse",
+              parameters: { pointerType: "mouse" },
+              actions: [
+                {
+                  type: "pointerMove",
+                  duration: 0,
+                  x: Math.round(state.button.x),
+                  y: Math.round(state.button.y),
+                },
+                { type: "pointerDown", button: 0 },
+                { type: "pointerUp", button: 0 },
+              ],
+            },
+          ],
+        });
       await request("POST", `/session/${session}/timeouts`, { script: 90_000 });
       const status = await request(
         "POST",
@@ -188,38 +307,21 @@ export async function proefInterface(
         },
       );
       assert.equal(status.bron, "meegeleverd", JSON.stringify(status));
-      for (let attempt = 0; attempt < 180; attempt++) {
-        if (
-          await evaluate(() =>
-            Boolean(document.querySelector('[data-testid="yrs-input"]')),
-          )
-        )
-          break;
-        await delay(500);
-      }
-      assert(
-        await evaluate(() =>
-          Boolean(document.querySelector('[data-testid="yrs-input"]')),
-        ),
-        "Converted ODT must render in Writer",
-      );
-      await request("POST", `/session/${session}/actions`, {
-        actions: [
-          {
-            type: "key",
-            id: "keyboard",
-            actions: [
-              { type: "keyDown", value: "\uE009" },
-              { type: "keyDown", value: "\uE008" },
-              { type: "keyDown", value: "s" },
-              { type: "keyUp", value: "s" },
-              { type: "keyUp", value: "\uE008" },
-              { type: "keyUp", value: "\uE009" },
-            ],
-          },
-        ],
-      });
+      diagnostics.runtimeStatus = status;
     }
+    let state;
+    for (let attempt = 0; attempt < 180; attempt++) {
+      state = await evaluate(interfaceState);
+      if (state.ready) break;
+      await delay(500);
+    }
+    diagnostics.states.push(state);
+    assert(
+      state.ready,
+      `Writer must finish loading and enable Save As: ${JSON.stringify(state)}`,
+    );
+    await screenshot(join(reportRoot, "native-interface-ready.png"));
+    await click(state);
     let visible = "";
     for (let attempt = 0; attempt < 90; attempt++) {
       visible = await evaluate(
@@ -246,15 +348,24 @@ export async function proefInterface(
       "Opening must preserve the original ODT",
     );
     await screenshot(join(reportRoot, "native-interface.png"));
+    diagnostics.states.push(await evaluate(interfaceState));
     return {
       status: "passed",
       packagedApp: true,
       defaultBundledStatus: true,
       odtRenderedInWriter: true,
       saveAsShowsBundledRuntime: true,
+      interaction: "enabled-save-as-native-pointer",
+      entryPoint: payload.packagePath.endsWith(".AppImage")
+        ? "appimage-runtime"
+        : "installed-app",
       originalUnchanged: true,
     };
   } catch (error) {
+    if (evaluate)
+      diagnostics.states.push(
+        await evaluate(interfaceState).catch((e) => ({ error: String(e) })),
+      );
     if (screenshot)
       await screenshot(join(reportRoot, "native-interface-failure.png")).catch(
         () => {},
@@ -265,38 +376,67 @@ export async function proefInterface(
     );
     throw error;
   } finally {
-    if (session) await request("DELETE", `/session/${session}`).catch(() => {});
-    if (browser) await browser.close().catch(() => {});
-    if (process_?.pid && process_.exitCode === null) {
-      if (process.platform === "win32") {
-        try {
-          execFileSync("taskkill", ["/PID", String(process_.pid), "/T", "/F"], {
+    try {
+      if (session)
+        await request("DELETE", `/session/${session}`).catch(() => {});
+      if (browser) await browser.close().catch(() => {});
+      if (process_?.pid && process_.exitCode === null) {
+        if (process.platform === "win32") {
+          try {
+            execFileSync(
+              "taskkill",
+              ["/PID", String(process_.pid), "/T", "/F"],
+              {
+                windowsHide: true,
+                stdio: "ignore",
+              },
+            );
+          } catch {
+            await delay(250);
+            if (process_.exitCode === null)
+              throw new Error("Unable to close the owned native test app");
+          }
+        } else process_.kill("SIGTERM");
+        await delay(1000);
+      }
+      if (installedWindows) {
+        execFileSync(
+          join(installedWindows, "uninstall.exe"),
+          ["/S", `_?=${installedWindows}`],
+          {
+            env,
             windowsHide: true,
-            stdio: "ignore",
-          });
-        } catch {
-          await delay(250);
-          if (process_.exitCode === null)
-            throw new Error("Unable to close the owned native test app");
-        }
-      } else process_.kill("SIGTERM");
-      await delay(1000);
-    }
-    if (installedWindows) {
-      execFileSync(
-        join(installedWindows, "uninstall.exe"),
-        ["/S", `_?=${installedWindows}`],
-        {
-          env,
-          windowsHide: true,
+            stdio: "inherit",
+            timeout: 120_000,
+          },
+        );
+      }
+      if (installedLinux)
+        execFileSync("sudo", ["dpkg", "--remove", "open-office-studio"], {
           stdio: "inherit",
-          timeout: 120_000,
-        },
-      );
+        });
+    } finally {
+      try {
+        if (policyState)
+          execFileSync(
+            "pwsh",
+            [
+              "-NoProfile",
+              "-File",
+              "scripts/runtime-webview2-ci.ps1",
+              "-Phase",
+              "Restore",
+              "-StateFile",
+              policyState,
+            ],
+            { env, windowsHide: true, stdio: "inherit" },
+          );
+      } finally {
+        await writeFile(
+          join(reportRoot, "native-diagnostics.json"),
+          JSON.stringify(diagnostics, null, 2),
+        );
+      }
     }
-    if (installedLinux)
-      execFileSync("sudo", ["dpkg", "--remove", "open-office-studio"], {
-        stdio: "inherit",
-      });
   }
 }
