@@ -1,7 +1,11 @@
 {
-  "applicationCommit": "c1226e1964287fcb69aea0e7660055fac642a367",
+  "applicationCommit": "2b100ada38e39d58dab42369bf4c0d3659f70834",
   "artifactRun": null,
-  "platforms": ["ubuntu-22.04", "windows-latest", "macos-latest"],
+  "platforms": [
+    "ubuntu-22.04",
+    "windows-latest",
+    "macos-latest"
+  ],
   "hostedBrowser": true,
   "nativeBuild": false
 }
