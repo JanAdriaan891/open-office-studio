@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "candidateApplicationCommit": "e92b93a607c1bc6b2e37b56273ccc5047498f9e6",
+  "integrationBase": "771fd66e0e4bd612dba4f7b6e34b517f39d52e86",
+  "proposedVersion": "2026.47.1",
+  "entries": [
+    {
+      "file": "source-proof.json",
+      "bytes": 2869,
+      "sha256": "45142ef8c3bdb369952e1d604f916be6c858309122561d5b8b53b8bd7345dfc6",
+      "kind": "independent root version-only source proof"
+    },
+    {
+      "file": "readiness.md",
+      "bytes": 7517,
+      "sha256": "d07d33df42b089af5224225bd3b2f070cd3da59ac2eaa8ce48b85407623dbbb6",
+      "kind": "issue-owner read-only readiness/completeness assessment"
+    },
+    {
+      "file": "readiness.json",
+      "bytes": 17957,
+      "sha256": "ddf8650a89f40b16262ae5a8db31d43c7687c9b5da96ffcc54afa5661a187b80",
+      "kind": "issue-owner input hashes and readiness/completeness evidence"
+    },
+    {
+      "file": "release-notes.md",
+      "bytes": 8971,
+      "sha256": "8a9b7e856f890ad3bd8872aff7bffe6eb738859bce7e476356a817b34fb3c5f4",
+      "kind": "unaltered owner draft notes and final-installer checklist"
+    },
+    {
+      "file": "release-notes.json",
+      "bytes": 36710,
+      "sha256": "3813b2ed2eebdeb29ef20d6ef2ee8eb2af067070ee5c567bd20165a3e5dfbcc2",
+      "kind": "unaltered owner draft notes and final-installer checklist"
+    },
+    {
+      "file": "pipeline.md",
+      "bytes": 15099,
+      "sha256": "71f623f44f45addb268f280889ad1ba84f4b42eccd04f2089731232684cb46d3",
+      "kind": "unaltered read-only pipeline owner evidence; metadata only, no secret values"
+    },
+    {
+      "file": "pipeline.json",
+      "bytes": 27684,
+      "sha256": "a1d0a8e49c7afb8bdfb98bc00c45ee1af5d07b31686a9c2791682dd8c60d6d11",
+      "kind": "unaltered read-only pipeline owner evidence; metadata only, no secret values"
+    },
+    {
+      "file": "pipeline-sources.json",
+      "bytes": 4316,
+      "sha256": "f7d8cdd4496321fe4b807165272c44f65b0d43a128c39f444fc34a4d3f5be86e",
+      "kind": "unaltered read-only pipeline owner evidence; metadata only, no secret values"
+    },
+    {
+      "file": "pipeline-api.json",
+      "bytes": 243185,
+      "sha256": "019ec6ad36092d1c0837ff37e79c8bd88511e11c721a49b3cc2dcb6c6c559854",
+      "kind": "unaltered read-only pipeline owner evidence; metadata only, no secret values"
+    },
+    {
+      "file": "pipeline-preflight.json",
+      "bytes": 7475,
+      "sha256": "fd10114da479304cfc0ecd152173ed479364713d3675b968057ab49a6a45a1ff",
+      "kind": "unaltered read-only pipeline owner evidence; metadata only, no secret values"
+    }
+  ]
+}
