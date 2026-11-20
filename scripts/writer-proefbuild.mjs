@@ -72,10 +72,12 @@ export async function verifyBuildReceipt({
 }) {
   assert(receiptPath, "OFFICE_TEST_BUILD_RECEIPT is required");
   assert(["/", "/office/"].includes(route), "Unknown browser route");
-  cwd = await realpath(cwd);
-  const target = resolve(cwd, outDir);
+  const originalCwd = resolve(cwd);
+  cwd = await realpath(originalCwd);
+  // macOS /var and Windows short TEMP names can alias the same workspace.
+  // Resolve both paths before checking containment; an escaping link still fails.
+  const target = await realpath(resolve(originalCwd, outDir));
   const output = slash(inside(cwd, target));
-  inside(cwd, await realpath(target));
   const receipt = JSON.parse(await readFile(resolve(cwd, receiptPath), "utf8"));
   assert.equal(receipt.schemaVersion, 1, "Unknown build receipt schema");
   assert.equal(receipt.route, route, "Build route mismatch");

@@ -1,8 +1,15 @@
 import { it as test } from "vitest";
 import assert from "node:assert/strict";
-import { mkdtemp, mkdir, writeFile, readFile, rm } from "node:fs/promises";
+import {
+  mkdtemp,
+  mkdir,
+  writeFile,
+  readFile,
+  rm,
+  symlink,
+} from "node:fs/promises";
 import { tmpdir } from "node:os";
-import { join, resolve, relative, basename, sep } from "node:path";
+import { join, resolve, relative, basename, dirname, sep } from "node:path";
 import { createHash } from "node:crypto";
 import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
@@ -112,4 +119,44 @@ test("rejects receipt from another commit", () =>
       JSON.stringify(receipt),
     );
     await assert.rejects(verifyBuildReceipt(options), /source differs/);
+  }));
+
+test("accepts canonical and aliased paths to the same source and output", () =>
+  fixture(async ({ directory, options, receipt }) => {
+    const alias = join(directory, ".local/workspace-alias");
+    await symlink(
+      directory,
+      alias,
+      process.platform === "win32" ? "junction" : "dir",
+    );
+    const result = await verifyBuildReceipt({
+      ...options,
+      cwd: alias,
+      outDir: join(directory, ".local/output"),
+      receiptPath: join(directory, ".local/build.json"),
+    });
+    assert.equal(result.source, receipt.source);
+    assert.equal(
+      (
+        await verifyBuildReceipt({
+          ...options,
+          outDir: join(alias, ".local/output"),
+        })
+      ).source,
+      receipt.source,
+    );
+  }));
+
+test("rejects an output alias that escapes the source workspace", () =>
+  fixture(async ({ directory, options }) => {
+    const alias = join(directory, ".local/outside-alias");
+    await symlink(
+      dirname(directory),
+      alias,
+      process.platform === "win32" ? "junction" : "dir",
+    );
+    await assert.rejects(
+      verifyBuildReceipt({ ...options, outDir: alias }),
+      /below the workspace/,
+    );
   }));
