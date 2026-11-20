@@ -31,50 +31,77 @@ afterEach(async () => {
 
 describe("#363 gerenderde stijlbeheerlabels", () => {
   const toestanden = [
-    { huidigeStijl: true, kanHerladen: true, disabled: [false, false, false, false, false] },
-    { huidigeStijl: false, kanHerladen: true, disabled: [false, false, true, true, false] },
-    { huidigeStijl: true, kanHerladen: false, disabled: [false, true, true, true, true] },
-    { huidigeStijl: false, kanHerladen: false, disabled: [false, true, true, true, true] },
+    {
+      huidigeStijl: true,
+      kanHerladen: true,
+      disabled: [false, false, false, false, false],
+    },
+    {
+      huidigeStijl: false,
+      kanHerladen: true,
+      disabled: [false, false, true, true, false],
+    },
+    {
+      huidigeStijl: true,
+      kanHerladen: false,
+      disabled: [false, true, true, true, true],
+    },
+    {
+      huidigeStijl: false,
+      kanHerladen: false,
+      disabled: [false, true, true, true, true],
+    },
   ];
-  it.each(INTERFACETALEN.flatMap(taal => toestanden.map(staat => ({ taal, ...staat }))))(
+  it.each(
+    INTERFACETALEN.flatMap((taal) =>
+      toestanden.map((staat) => ({ taal, ...staat })),
+    ),
+  )(
     "$taal: stijl=$huidigeStijl, bewerkbaar=$kanHerladen",
     async ({ taal, huidigeStijl, kanHerladen, disabled }) => {
       await zetTaal(taal);
-        Object.assign(proef, { huidigeStijl, kanHerladen });
-        const html = renderToStaticMarkup(<StijlBeheerGroep />);
-        expect(html).not.toMatch(/styles\.manage\.|\{\{|writer:/);
-        for (const sleutel of [
-          "styles.gallery.group",
-          "styles.shortcutPane",
-          "styles.pane.newStyle",
-          "styles.pane.styleSet",
-        ])
-          expect(html).toContain(tekst(i18next.t(`writer:${sleutel}`)));
-        const name = "Project Body";
-        expect(html).toContain(
-          tekst(
-            i18next.t(
-              huidigeStijl
-                ? "writer:styles.editor.modifyTitle"
-                : "writer:styles.editor.modify",
-              { name },
-            ),
+      Object.assign(proef, { huidigeStijl, kanHerladen });
+      const html = renderToStaticMarkup(<StijlBeheerGroep />);
+      expect(html).not.toMatch(/styles\.[\w.]|\{\{|writer:/);
+      for (const sleutel of [
+        "styles.gallery.group",
+        "styles.shortcutPane",
+        "styles.pane.newStyle",
+        "styles.pane.styleSet",
+      ])
+        expect(html).toContain(tekst(i18next.t(`writer:${sleutel}`)));
+      const name = "Project Body";
+      expect(html).toContain(
+        tekst(
+          i18next.t(
+            huidigeStijl
+              ? "writer:styles.editor.modifyTitle"
+              : "writer:styles.editor.modify",
+            { name },
           ),
-        );
-        expect(html).toContain(
-          tekst(
-            i18next.t(
-              huidigeStijl
-                ? "writer:styles.update.title"
-                : "writer:styles.update.confirm",
-              { name },
-            ),
+        ),
+      );
+      expect(html).toContain(
+        tekst(
+          i18next.t(
+            huidigeStijl
+              ? "writer:styles.update.title"
+              : "writer:styles.update.confirm",
+            { name },
           ),
-        );
-        const knoppen = html.match(/<button\b[^>]*class="ribbon-actie [^>]*>/g) ?? [];
-        expect(knoppen).toHaveLength(5);
-        // Pane/new/update/modify/set, independently of whether a style exists.
-        expect(knoppen.map(knop => /\bdisabled=""/.test(knop))).toEqual(disabled);
+        ),
+      );
+      const knoppen =
+        html.match(/<button\b[^>]*class="ribbon-actie [^>]*>/g) ?? [];
+      expect(knoppen).toHaveLength(5);
+      for (const knop of knoppen) {
+        expect(knop).toMatch(/\baria-label="[^"]+"/);
+        expect(knop).toMatch(/\btitle="[^"]+"/);
+      }
+      // Pane/new/update/modify/set, independently of whether a style exists.
+      expect(knoppen.map((knop) => /\bdisabled=""/.test(knop))).toEqual(
+        disabled,
+      );
     },
   );
 });
