@@ -1,0 +1,249 @@
+import assert from "node:assert/strict";
+import fs from "node:fs";
+import { execFileSync } from "node:child_process";
+import { createHash } from "node:crypto";
+import { chromium } from "playwright";
+import { preview } from "vite";
+import { unzipSync, zipSync, strFromU8, strToU8 } from "fflate";
+
+const label = process.argv[2] ?? "361-baseline";
+const fixed = process.argv.includes("--fixed");
+const route = process.env.OFFICE_TEST_BASE ?? "/";
+const output = ".local/" + label;
+fs.mkdirSync(output, { recursive: true });
+const p = unzipSync(fs.readFileSync("public/templates/nieuw.docx"));
+const x = strFromU8(p["word/document.xml"]);
+const cell = (t) =>
+  `<w:tc><w:tcPr><w:tcW w:w="2880" w:type="dxa"/></w:tcPr><w:p><w:r><w:t>${t}</w:t></w:r></w:p></w:tc>`;
+const rows = [
+  ["alpha", "beta", ""],
+  ["", "", "omega"],
+  ["delta", "", ""],
+];
+const table = `<w:tbl><w:tblPr><w:tblW w:w="8640" w:type="dxa"/></w:tblPr><w:tblGrid>${'<w:gridCol w:w="2880"/>'.repeat(3)}</w:tblGrid>${rows.map((r) => "<w:tr>" + r.map(cell).join("") + "</w:tr>").join("")}</w:tbl><w:p/>`;
+p["word/document.xml"] = strToU8(
+  x.replace(/(<w:body>)[\s\S]*?(<w:sectPr)/, `$1${table}$2`),
+);
+const fixture = Buffer.from(zipSync(p));
+const report = {
+  source: execFileSync("git", ["rev-parse", "HEAD"], {
+    encoding: "utf8",
+  }).trim(),
+  dirty: execFileSync("git", ["status", "--porcelain"], {
+    encoding: "utf8",
+  }).trim(),
+  route,
+  sourceHashes: Object.fromEntries(
+    [
+      "src/lint/gedeeld.tsx",
+      "src/lint/tekst-kolomfocus.ts",
+      "scripts/proef-writer-kolom-undo.mjs",
+    ].map((p) => [
+      p,
+      createHash("sha256").update(fs.readFileSync(p)).digest("hex"),
+    ]),
+  ),
+  checks: [],
+  errors: [],
+};
+const server = await preview({
+  configFile: false,
+  base: route,
+  build: { outDir: process.env.OFFICE_TEST_DIR ?? "dist" },
+  preview: { host: "127.0.0.1", port: 0 },
+});
+const browser = await chromium.launch({ headless: true });
+try {
+  const context = await browser.newContext({
+    viewport: { width: 1600, height: 1000 },
+  });
+  await context.addInitScript(() =>
+    localStorage.setItem(
+      "openaec-office-instellingen",
+      JSON.stringify({
+        taal: "en",
+        thema: "forge",
+        spelling: { controleren: false, autocorrectie: false },
+      }),
+    ),
+  );
+  const page = await context.newPage();
+  page.setDefaultTimeout(20000);
+  page.on("pageerror", (e) => report.errors.push(e.message));
+  await page.goto(server.resolvedUrls.local[0]);
+  await page.locator("input[type=file]").first().setInputFiles({
+    name: "table-undo.docx",
+    mimeType:
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    buffer: fixture,
+  });
+  const canvas = page.locator(".canvas-page canvas").first();
+  await canvas.waitFor();
+  await page.evaluate(() => document.fonts.ready);
+  await canvas.click({ position: { x: 150, y: 110 } });
+  await page.keyboard.press("Control+Home");
+  await page.getByRole("tab", { name: "Table Design", exact: true }).waitFor();
+  const state = async () =>
+    page.evaluate(() => ({
+      focus: {
+        tag: document.activeElement?.tagName,
+        role: document.activeElement?.getAttribute("role"),
+        name: document.activeElement?.getAttribute("aria-label"),
+        id: document.activeElement?.id,
+      },
+      tables: [...document.querySelectorAll("[role=table]")]
+        .filter((t) => !t.closest("[hidden], [inert]"))
+        .map((t) => ({
+          rows: Number(t.getAttribute("aria-rowcount")),
+          columns: Number(t.getAttribute("aria-colcount")),
+          text: [...t.querySelectorAll("[role=cell]")].map(
+            (c) => c.textContent,
+          ),
+        })),
+    }));
+  const check = async (name, columns) => {
+    await page.waitForTimeout(250);
+    const s = await state();
+    report.checks.push({ name, ...s });
+    assert.equal(s.tables[0].columns, columns, name);
+    return s;
+  };
+  await page.getByRole("tab", { name: "Table Design", exact: true }).click();
+  report.checks.push({ name: "after ribbon tab", ...(await state()) });
+  await page
+    .getByRole("button", { name: "Insert Column Left", exact: true })
+    .click();
+  await page.waitForTimeout(500);
+  report.checks.push({ name: "after insert", ...(await state()) });
+  await page.keyboard.press("Control+z");
+  await page.waitForTimeout(500);
+  report.checks.push({ name: "after immediate undo", ...(await state()) });
+  assert.equal(report.checks.at(-1).tables[0].columns, fixed ? 3 : 4);
+  await page.screenshot({ path: output + "/after-undo.png" });
+  if (fixed) {
+    await page.keyboard.press("Control+y");
+    await check("left Redo", 4);
+    await page.keyboard.press("Control+z");
+    await check("left second Undo", 3);
+    await page.getByRole("tab", { name: "Home", exact: true }).click();
+    await page.getByRole("tab", { name: "Table Design", exact: true }).click();
+    await page
+      .getByRole("button", { name: "Insert Column Right", exact: true })
+      .click();
+    await check("right insert", 4);
+    await page.keyboard.press("Control+z");
+    await check("right Undo", 3);
+    await page.keyboard.press("Control+y");
+    await check("right Redo", 4);
+    await page.keyboard.press("Control+z");
+    await check("right reset", 3);
+    await canvas.click({ position: { x: 600, y: 180 } });
+    await page.keyboard.press("Tab");
+    await page.keyboard.type("newrow");
+    const added = await check("last-cell Tab and typing", 3);
+    assert.equal(added.tables[0].rows, 4);
+    assert.equal(added.tables[0].text[9], "newrow");
+    await page.keyboard.press("Control+z");
+    await page.keyboard.press("Control+z");
+    const rowUndo = await check("Tab row Undo", 3);
+    assert.equal(rowUndo.tables[0].rows, 3);
+    await canvas.click({ position: { x: 145, y: 110 } });
+    await page.keyboard.press("Home");
+    await page.keyboard.type("X");
+    assert.equal(
+      (await check("ordinary typing", 3)).tables[0].text[0],
+      "Xalpha",
+    );
+    await page.keyboard.press("Control+z");
+    assert.equal((await check("typing Undo", 3)).tables[0].text[0], "alpha");
+    await page.keyboard.press("Control+y");
+    assert.equal((await check("typing Redo", 3)).tables[0].text[0], "Xalpha");
+    await page.keyboard.press("Control+z");
+    await page.getByRole("tab", { name: "Table Design", exact: true }).click();
+    await page
+      .getByRole("button", { name: "Insert Column Right", exact: true })
+      .click();
+    await check("before search input", 4);
+    await page.keyboard.press("Control+h");
+    const search = page.getByLabel("Find what", { exact: true });
+    await search.click();
+    await page.keyboard.type("abc");
+    await page.keyboard.press("Control+z");
+    assert.equal(await search.inputValue(), "");
+    await check("search input owns Undo", 4);
+    await page
+      .getByRole("search")
+      .getByRole("button", { name: "Close", exact: true })
+      .click();
+    await page.waitForFunction(() =>
+      document.activeElement?.matches(".paged-editor__yrs-input"),
+    );
+    await page.keyboard.press("Control+z");
+    assert.deepEqual(
+      (await check("search close and document Undo", 3)).tables[0].text,
+      rows.flat(),
+    );
+    await page
+      .locator("input[type=file]")
+      .first()
+      .setInputFiles({
+        name: "table-other.docx",
+        mimeType:
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        buffer: fixture,
+      });
+    const otherCanvas = page.locator(".canvas-page canvas:visible").first();
+    await otherCanvas.waitFor();
+    await otherCanvas.click({ position: { x: 150, y: 110 } });
+    await page.keyboard.press("Control+Home");
+    await page.getByRole("tab", { name: "Table Design", exact: true }).click();
+    await page
+      .getByRole("button", { name: "Insert Column Right", exact: true })
+      .click();
+    await check("other document insert", 4);
+    await page.keyboard.press("Control+z");
+    await check("other document Undo", 3);
+    await page.getByRole("tab", { name: /^table-undo\.docx/ }).click();
+    await check("original tab isolated", 3);
+    await page.keyboard.press("Control+y");
+    await check("original tab Redo", 4);
+    await page.getByRole("tab", { name: /^table-other\.docx/ }).click();
+    await check("other tab still isolated", 3);
+    await page.keyboard.press("Control+y");
+    await check("other tab Redo", 4);
+    await page.keyboard.press("Control+z");
+    await check("other tab reset", 3);
+    await page.getByRole("tab", { name: /^table-undo\.docx/ }).click();
+    await check("original tab retains its own edit", 4);
+    await page.keyboard.press("Control+z");
+    await check("original tab final reset", 3);
+  } else {
+    await canvas.click({ position: { x: 150, y: 110 } });
+    await page.keyboard.press("Control+z");
+    await page.waitForTimeout(500);
+  }
+  report.checks.push({
+    name: fixed ? "final table state" : "after body focus undo",
+    ...(await state()),
+  });
+  await page.screenshot({ path: output + "/after-control.png" });
+  assert.deepEqual(report.errors, []);
+} catch (e) {
+  report.error = String(e);
+  throw e;
+} finally {
+  fs.writeFileSync(output + "/report.json", JSON.stringify(report, null, 2));
+  await browser.close();
+  await server.close();
+}
+console.log(
+  JSON.stringify({
+    source: report.source,
+    checks: report.checks.map((c) => ({
+      name: c.name,
+      focus: c.focus,
+      tables: c.tables,
+    })),
+    errors: report.errors,
+  }),
+);
