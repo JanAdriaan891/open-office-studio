@@ -1,6 +1,6 @@
 {
   "schemaVersion": 4,
-  "asOf": "2026-11-20T13:14:40.283251+00:00",
+  "asOf": "2026-11-20T13:34:28.703355+00:00",
   "currentRound": "I3, 20 November 2026",
   "status": "I3 evidence checkpoint: four code fixes integrated; core and cross-platform browser passed; native limits explicitly retained; no main",
   "checkpoint": {
@@ -112,7 +112,7 @@
     "361": {
       "codeIntegrated": true,
       "browser": "passed all three platforms/both routes; original macOS second-Undo failure preserved with cause unknown",
-      "nativeWindows": "passed scoped functional/history/save/reopen routes",
+      "nativeWindows": "passed scoped functional/history/save/reopen routes; additional real CtrlH/Replace input abc -> exactly one CtrlZ -> empty, exact3x4 grid unchanged, no Save; independent root28file audit",
       "nativeLinux": "17 core records and16 remaining records passed (four repeated setup records). Original Find-input Undo failed; matched oldG Home\u2192Replace also retained abc with input focus/exact3x4. Different open route explicit, cause not established; originalI3 failure not erased.",
       "nativeMacOS": "blocked; blank body/unreliable table-cell geometry after ordinary maximize",
       "fullyAcceptedAcrossPlatforms": false,
@@ -122,7 +122,7 @@
       "codeIntegrated": true,
       "browser": "passed vertical content and group-focus cases all platforms/both routes; horizontal observations retained",
       "nativeWindows": "bounded full Delete focus/menu/Escape at923x952 and selected wider states passed",
-      "nativeLinux": "Normal light1600 Text group six controls/icons passed. W3C and separately bound/foregrounded XTest ArrowDown/Right routes both fail :focus-visible; no native keyboard/group/width/theme matrix pass. Original reports retained.",
+      "nativeLinux": "W3C and foreground-verified XTest ArrowDown routes retain focus-visible failure. Separate exact Tab,Tab entry reached all six Text commands with focusVisible/ring4 and no clipping: one normal plus six focus cases, light1600 only. Subsequent screenshot timed out; zero group cases; native matrix remains failed; no further retry.",
       "nativeMacOS": "unavailable; table-targeting blocker",
       "genuineDisabledDeletePassed": false,
       "fullNativeMatrixClaimed": false,
@@ -152,21 +152,28 @@
     "macOSEPUB": "integratie-2026-11-16/2026-11-20-I3/native/macOS-EPUB/audit.json",
     "Linux361RemainingAnd363": "integratie-2026-11-16/2026-11-20-I3/native/Linux-remaining/audit.json",
     "macOSBlockedMaximize": "integratie-2026-11-16/2026-11-20-I3/native/macOS-blocked-maximize/audit.json",
-    "macOS363": "integratie-2026-11-16/2026-11-20-I3/native/macOS363/audit.json"
+    "macOS363": "integratie-2026-11-16/2026-11-20-I3/native/macOS363/audit.json",
+    "Linux362Tab": "integratie-2026-11-16/2026-11-20-I3/native/Linux362-XTest-Tab-partial/audit.json",
+    "WindowsCtrlH": "integratie-2026-11-16/2026-11-20-I3/native/Windows-CtrlH/audit.json"
   },
   "evidenceIndex": "integratie-2026-11-16/2026-11-20-I3/index.json",
   "readiness": {
     "readyForMain": false,
     "blockers": [
-      "Native Linux362 focus-visible gate failed, despite verified foreground and real XTest keys; cause unknown",
+      "Native Linux362 original ArrowDown focus-visible failure retained; alternative Tab route only partial (six focused Text commands, then screenshot timeout), no full native matrix",
       "Native Linux Find input Undo fails in this driver setup and oldG control; no I3 regression cause established",
       "Native macOS361/362 table-targeting/body route remains unavailable; no359 fix claimed"
     ],
-    "pending": [
-      "One bounded alternative native Tab\u2192Tab keyboard-entry control is prepared, not yet executed; original arrow failure remains",
-      "User-authorized Windows CtrlH/Replace-only case reserved for after integration handoff;39 existing Windows checks reused"
-    ],
-    "noProductionChangesAfterTestedI3Expected": true
+    "pending": [],
+    "noProductionChangesAfterTestedI3Expected": true,
+    "completedSupplementaryLinuxTab": {
+      "run": 44744186201,
+      "status": "failed; partial route-specific geometry evidence",
+      "normalCases": 1,
+      "focusCases": 6,
+      "groupCases": 0,
+      "retryAllowed": false
+    }
   },
   "otherWork": {
     "359": "research outside four fixes; no proven cause/product fix",
@@ -181,7 +188,20 @@
     "ownKernelResetConfirmed": true,
     "kernelResetUTC": "2026-11-20T11:11:22Z",
     "borderVisuallyConfirmedGone": false,
-    "allHelpersIndependentlyConfirmedClosed": false
+    "allHelpersIndependentlyConfirmedClosed": false,
+    "originalRoundOnly": true,
+    "supplementaryWindowsCleanupPending": false,
+    "supplementaryWindows": {
+      "searchPaneClosed": true,
+      "ownDocumentChangesDiscarded": true,
+      "ownAppClosedNormally": true,
+      "finalOfficeProcesses": [],
+      "fixtureByteUnchanged": true,
+      "windowSizeThemeLanguageUnchanged": true,
+      "ownNodeRuntimeResetConfirmed": true,
+      "captureRestartedToInspectBorder": false,
+      "limit": "Runtime reset does not independently prove all helper resources or the yellow capture border disappeared; no extra capture was made."
+    }
   },
   "historicalRounds": {
     "H_and_prior_as_published_16Nov": {
@@ -3936,6 +3956,82 @@
       "sourceCommit": "9e0ad565402815082e8edf11a4c23943455fb6ce",
       "diagnosticOnly": true,
       "outcome": "same abc-retained symptom under matched driver/WebKit; UI open route differs; no cause proved"
+    },
+    "LinuxXTestTab": {
+      "run": 44744186201,
+      "artifactId": 14631039998,
+      "archiveSha256": "f87c37604a200b60b320d2126784c1dbba0e55744be39c7f4ac07b6ca95ee79a",
+      "applicationCommit": "7f126f4b8e5269a54388cf78c48c78d2acc0daa1",
+      "applicationTree": "8bc608488760e48919d7fb4e72a42569175b52a4",
+      "harnessCommit": "cd423ab2ef232d3bf38ad03770f9c3ac46bbbc80",
+      "module": {
+        "moduleCommit": "2cba4b113e03c0411614a04af63a66c36d9b57dd",
+        "moduleSha256": "2acdd2f0a32797a3b0149c425c301b1698612541d366f3958ece92e229c16c83"
+      },
+      "pid": 4731,
+      "x11Window": "2097155",
+      "status": "partial; native matrix failed",
+      "entry": "Exactly Tab, Tab; real XTest, own verified foreground window. Different route from prior ArrowDown failures.",
+      "normalCases": 1,
+      "focusCases": 6,
+      "focusedNames": [
+        "Special Character",
+        "Date",
+        "Time",
+        "Date & Time",
+        "Insert field\u2026",
+        "Update fields"
+      ],
+      "allRecordedGeometryPassed": true,
+      "groupCases": 0,
+      "stop": "Screenshot request timed out after six successful focus measurements; failure screenshot also timed out. No later matrix/menu/theme/width cases executed. Cause unknown; no retry.",
+      "originalArrowFailurePreserved": true,
+      "inheritedFindFailurePreserved": true,
+      "nativePass": false,
+      "cleanup": {
+        "module": [
+          {
+            "label": "release own input actions",
+            "status": "fulfilled"
+          },
+          {
+            "label": "restore original theme and tab",
+            "status": "fulfilled"
+          },
+          {
+            "label": "restore window rectangle",
+            "status": "fulfilled"
+          },
+          {
+            "label": "fixture remains byte-identical",
+            "status": "fulfilled"
+          }
+        ],
+        "caller": {
+          "ownedApplicationClosed": true
+        }
+      },
+      "rootOriginalImageReview": "Serially reviewed original 1600x1000 normal image: readable Text group and six fixture words, whole Special Character outline visible. No separate original image for remaining five focused states; raw metrics only.",
+      "rawReportSha256": "85b6931abe62af5205221231bb519857a099baac8a22ba352c58e639d43ec3da",
+      "moduleReportSha256": "acf8dacca9dfa9d1869ca48388ee5230142846c4fcdb07519b166c0b54819057"
+    },
+    "WindowsCtrlH": {
+      "status": "passed bounded native input Undo case",
+      "PID": 27196,
+      "rawReceiptSha256": "674995a3e08653e36520c16fec55a6a3653aabe602c7901c51d3f4ff2d939ba4",
+      "rootAuditSha256": "91325ece22ef7216f6009291501f0947aee434f2ae593f079d4ba9b18d3c9488",
+      "filesVerified": 28,
+      "cleanup": {
+        "searchPaneClosed": true,
+        "ownDocumentChangesDiscarded": true,
+        "ownAppClosedNormally": true,
+        "finalOfficeProcesses": [],
+        "fixtureByteUnchanged": true,
+        "windowSizeThemeLanguageUnchanged": true,
+        "ownNodeRuntimeResetConfirmed": true,
+        "captureRestartedToInspectBorder": false,
+        "limit": "Runtime reset does not independently prove all helper resources or the yellow capture border disappeared; no extra capture was made."
+      }
     }
   }
 }

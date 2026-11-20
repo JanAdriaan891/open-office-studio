@@ -1962,6 +1962,104 @@
         "run": 44739164950,
         "artifactId": 14629619042
       }
+    },
+    {
+      "file": "native/Linux362-XTest-Tab-partial/audit.json",
+      "bytes": 2214,
+      "sha256": "a50a3168281a1191073dfb29abb02e3dd08b94d5d9f2ef76bd6d3fd15fe6a0f1",
+      "kind": "derived independent root audit",
+      "origin": {
+        "run": 44744186201,
+        "artifactId": 14631039998,
+        "applicationCommit": "7f126f4b8e5269a54388cf78c48c78d2acc0daa1"
+      }
+    },
+    {
+      "file": "native/Linux362-XTest-Tab-partial/caller-report.json",
+      "bytes": 41600,
+      "sha256": "85b6931abe62af5205221231bb519857a099baac8a22ba352c58e639d43ec3da",
+      "kind": "unaltered native original",
+      "origin": {
+        "run": 44744186201,
+        "artifactId": 14631039998,
+        "applicationCommit": "7f126f4b8e5269a54388cf78c48c78d2acc0daa1"
+      }
+    },
+    {
+      "file": "native/Linux362-XTest-Tab-partial/module-report.json",
+      "bytes": 100881,
+      "sha256": "acf8dacca9dfa9d1869ca48388ee5230142846c4fcdb07519b166c0b54819057",
+      "kind": "unaltered native original",
+      "origin": {
+        "run": 44744186201,
+        "artifactId": 14631039998,
+        "applicationCommit": "7f126f4b8e5269a54388cf78c48c78d2acc0daa1"
+      }
+    },
+    {
+      "file": "native/Linux362-XTest-Tab-partial/failure-anatomy.json",
+      "bytes": 2899,
+      "sha256": "6fa08de9d8af127038d49f17de3bec4b4bfd3a616fc5bad4790129967bc21e1f",
+      "kind": "unaltered native original",
+      "origin": {
+        "run": 44744186201,
+        "artifactId": 14631039998,
+        "applicationCommit": "7f126f4b8e5269a54388cf78c48c78d2acc0daa1"
+      }
+    },
+    {
+      "file": "native/Linux362-XTest-Tab-partial/light-1600-Text-normal.png",
+      "bytes": 80877,
+      "sha256": "5003d68514a936899e542f5fe46d2e3ee995c14582c8064ecc0de9eb19f96aec",
+      "kind": "unaltered native original; root serial review",
+      "origin": {
+        "run": 44744186201,
+        "artifactId": 14631039998,
+        "applicationCommit": "7f126f4b8e5269a54388cf78c48c78d2acc0daa1"
+      }
+    },
+    {
+      "file": "owner-reviews/362-Linux-Tab.json",
+      "bytes": 20443,
+      "sha256": "c52d79c041e867b348fb6059697320ee1b01707558324f0a2667b61d4dd58fb2",
+      "kind": "derived issue-owner read-only review; exact raw report and anatomy hashes verified",
+      "origin": {
+        "run": 44744186201,
+        "applicationCommit": "7f126f4b8e5269a54388cf78c48c78d2acc0daa1"
+      }
+    },
+    {
+      "file": "native/Windows-CtrlH/audit.json",
+      "bytes": 9465,
+      "sha256": "91325ece22ef7216f6009291501f0947aee434f2ae593f079d4ba9b18d3c9488",
+      "kind": "derived independent root audit; original private-path receipt retained locally",
+      "origin": {
+        "applicationCommit": "7f126f4b8e5269a54388cf78c48c78d2acc0daa1",
+        "PID": 27196,
+        "rawReceiptSha256": "674995a3e08653e36520c16fec55a6a3653aabe602c7901c51d3f4ff2d939ba4"
+      }
+    },
+    {
+      "file": "native/Windows-CtrlH/before-undo.jpg",
+      "bytes": 107222,
+      "sha256": "88c4781bfd6e7efdf2ee9ea0030d9defd2be8d4041a184b843850b6a91468a9d",
+      "kind": "unaltered native original; root serial review",
+      "origin": {
+        "applicationCommit": "7f126f4b8e5269a54388cf78c48c78d2acc0daa1",
+        "PID": 27196,
+        "rawReceiptSha256": "674995a3e08653e36520c16fec55a6a3653aabe602c7901c51d3f4ff2d939ba4"
+      }
+    },
+    {
+      "file": "native/Windows-CtrlH/after-undo.jpg",
+      "bytes": 107214,
+      "sha256": "ff6acb054520837b81ad467fff45f561583af3b170f296ea8832e4ca7e20fe5c",
+      "kind": "unaltered native original; root serial review",
+      "origin": {
+        "applicationCommit": "7f126f4b8e5269a54388cf78c48c78d2acc0daa1",
+        "PID": 27196,
+        "rawReceiptSha256": "674995a3e08653e36520c16fec55a6a3653aabe602c7901c51d3f4ff2d939ba4"
+      }
     }
   ],
   "limits": [
