@@ -47,7 +47,8 @@ jobs:
       - run: pnpm exec playwright install --with-deps chromium
       - run: pnpm exec tsc --noEmit
       - run: pnpm exec vitest run src/useTabSneltoetsen.test.ts src/tabbladen.test.ts src/lint/sneltoetsen.test.ts
-      - run: pnpm exec vitest run scripts/writer-proefbuild.test.mjs scripts/tekstnavigatie-macos.test.ts src/lint/tekst-kolomfocus.test.ts src/tekst/stijlen/StijlBeheerGroep.test.tsx src/import/epubbestand.test.ts
+      - run: pnpm exec vitest run scripts/writer-proefbuild.test.mjs scripts/writer-363-resources.test.mjs scripts/proef-writer-363-labels.test.mjs scripts/tekstnavigatie-macos.test.ts src/lint/tekst-kolomfocus.test.ts src/tekst/stijlen/StijlBeheerGroep.test.tsx src/import/epubbestand.test.ts
+      - run: node --test scripts/proef-epub356-hosted-startup.node-test.mjs
       - name: Build source-bound production frontend
         run: node scripts/writer-proefbuild.mjs build .local/dist-focus /
         env:
@@ -72,15 +73,16 @@ jobs:
           node scripts/test-writer-pdf-interne-links.mjs
         env:
           OFFICE_TEST_DIST: .local/dist-focus
+      - name: Build source-bound hosted frontend
+        run: node scripts/writer-proefbuild.mjs build .local/dist-focus-hosted /office/
+        env:
+          OFFICE_TEST_SOURCE: ${{ github.event.pull_request.head.sha || github.sha }}
       - name: Standalone hosted browser route
-        run: |
-          node scripts/writer-proefbuild.mjs build .local/dist-focus-hosted /office/
-          node scripts/test-office-tab-undo.mjs
+        run: node scripts/test-office-tab-undo.mjs
         env:
           OOS_TEST_DIST: .local/dist-focus-hosted
           OOS_TEST_ROUTE: /office/
           OOS_TEST_UIT: .local/tab-focus-hosted
-          OFFICE_TEST_SOURCE: ${{ github.event.pull_request.head.sha || github.sha }}
       - name: Combined Writer issues on the supported hosted route
         run: node scripts/writer-combinatie-proef.mjs .local/dist-focus-hosted /office/
         env:
