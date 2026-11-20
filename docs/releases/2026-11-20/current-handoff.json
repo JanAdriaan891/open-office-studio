@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "asOfUTC": "2026-11-20T14:43:52.267909+00:00",
   "status": "Safely saved release candidate; stable release still blocked; no main/tag/publication today.",
-  "resumeDate": "2026-11-21",
+  "resumeDate": "2026-11-23",
   "resumeRequiresNewUserInstruction": true,
   "applicationCommit": "420af640c10ab9ada6c66c844c0098caea87c493",
   "applicationTree": "c1334c8f4d92914e9d2114d56e467ef11eab9646",
@@ -287,6 +287,8 @@
     "noNewCaptureToCheckBorder": true
   },
   "tomorrowSteps": [
+    "Resume Monday23November only on new instruction. Recheck week-version/tags before publication;2026.47.1 remains the frozen test candidate. Any version change needs matching package evidence.",
+    "Resume Monday23November only on new instruction. Before publishing, recheck week-version/tag availability;2026.47.1 remains the frozen test candidate and any new version needs matching package evidence.",
     "Read this handoff and verify current branch/PR heads; do not rerun stale version-only source proof or older I3 statewriters.",
     "Inspect job136347096445/current420 Windows runtime-preparation failure and its complete log once available; distinguish it from oldE92 job136327207416 signed-build failure before making a corrective change.",
     "Fetch statuses/logs/artifactmetadata of the recorded runs. Download from exact run IDs and validate source/version/hash before app tests; artifact expiry timestamps are recorded when available.",
@@ -345,5 +347,6 @@
         "failedSteps": []
       }
     ]
-  }
+  },
+  "planningUpdate": "User postponed to Monday23November; no new tasks/tests or automatic weekend resume/publication."
 }
