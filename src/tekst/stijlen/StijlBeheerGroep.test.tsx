@@ -4,7 +4,7 @@ import i18next, { zetTaal } from "../../i18n/config";
 import { INTERFACETALEN } from "../../i18n/talen";
 import { StijlBeheerGroep } from "./StijlGalerij";
 
-const proef = vi.hoisted(() => ({ huidigeStijl: true }));
+const proef = vi.hoisted(() => ({ huidigeStijl: true, kanHerladen: true }));
 vi.mock("./StijlenBeheer", () => ({
   useStijlen: () => ({
     alineastijl: proef.huidigeStijl ? "ProjectBody" : undefined,
@@ -13,7 +13,7 @@ vi.mock("./StijlenBeheer", () => ({
         ? [{ styleId: "ProjectBody", name: "Project Body", type: "paragraph" }]
         : [],
     },
-    kanHerladen: proef.huidigeStijl,
+    kanHerladen: proef.kanHerladen,
     open: vi.fn(),
     werkBij: vi.fn(),
     fout: vi.fn(),
@@ -30,47 +30,78 @@ afterEach(async () => {
 });
 
 describe("#363 gerenderde stijlbeheerlabels", () => {
-  it.each(INTERFACETALEN)(
-    "vertaalt labels, namen en hints in %s",
-    async (taal) => {
+  const toestanden = [
+    {
+      huidigeStijl: true,
+      kanHerladen: true,
+      disabled: [false, false, false, false, false],
+    },
+    {
+      huidigeStijl: false,
+      kanHerladen: true,
+      disabled: [false, false, true, true, false],
+    },
+    {
+      huidigeStijl: true,
+      kanHerladen: false,
+      disabled: [false, true, true, true, true],
+    },
+    {
+      huidigeStijl: false,
+      kanHerladen: false,
+      disabled: [false, true, true, true, true],
+    },
+  ];
+  it.each(
+    INTERFACETALEN.flatMap((taal) =>
+      toestanden.map((staat) => ({ taal, ...staat })),
+    ),
+  )(
+    "$taal: stijl=$huidigeStijl, bewerkbaar=$kanHerladen",
+    async ({ taal, huidigeStijl, kanHerladen, disabled }) => {
       await zetTaal(taal);
-      for (const huidigeStijl of [true, false]) {
-        proef.huidigeStijl = huidigeStijl;
-        const html = renderToStaticMarkup(<StijlBeheerGroep />);
-        expect(html).not.toMatch(/styles\.manage\.|\{\{|writer:/);
-        for (const sleutel of [
-          "styles.gallery.group",
-          "styles.shortcutPane",
-          "styles.pane.newStyle",
-          "styles.pane.styleSet",
-        ])
-          expect(html).toContain(tekst(i18next.t(`writer:${sleutel}`)));
-        const name = "Project Body";
-        expect(html).toContain(
-          tekst(
-            i18next.t(
-              huidigeStijl
-                ? "writer:styles.editor.modifyTitle"
-                : "writer:styles.editor.modify",
-              { name },
-            ),
+      Object.assign(proef, { huidigeStijl, kanHerladen });
+      const html = renderToStaticMarkup(<StijlBeheerGroep />);
+      expect(html).not.toMatch(/styles\.[\w.]|\{\{|writer:/);
+      for (const sleutel of [
+        "styles.gallery.group",
+        "styles.shortcutPane",
+        "styles.pane.newStyle",
+        "styles.pane.styleSet",
+      ])
+        expect(html).toContain(tekst(i18next.t(`writer:${sleutel}`)));
+      const name = "Project Body";
+      expect(html).toContain(
+        tekst(
+          i18next.t(
+            huidigeStijl
+              ? "writer:styles.editor.modifyTitle"
+              : "writer:styles.editor.modify",
+            { name },
           ),
-        );
-        expect(html).toContain(
-          tekst(
-            i18next.t(
-              huidigeStijl
-                ? "writer:styles.update.title"
-                : "writer:styles.update.confirm",
-              { name },
-            ),
+        ),
+      );
+      expect(html).toContain(
+        tekst(
+          i18next.t(
+            huidigeStijl
+              ? "writer:styles.update.title"
+              : "writer:styles.update.confirm",
+            { name },
           ),
-        );
-        expect((html.match(/class="ribbon-actie /g) ?? []).length).toBe(5);
-        // No current style: update/modify remain disabled and their labels readable.
-        if (!huidigeStijl)
-          expect((html.match(/disabled=""/g) ?? []).length).toBe(4);
+        ),
+      );
+      const knoppen =
+        html.match(/<button\b[^>]*class="ribbon-actie [^>]*>/g) ?? [];
+      expect(knoppen).toHaveLength(5);
+      for (const knop of knoppen) {
+        expect(knop).toMatch(/\baria-label="[^"]+"/);
+        expect(knop).toMatch(/\btitle="[^"]+"/);
       }
+      // Pane/new/update/modify/set, independently of whether a style exists.
+      expect(knoppen.map((knop) => /\bdisabled=""/.test(knop))).toEqual(
+        disabled,
+      );
     },
   );
 });
