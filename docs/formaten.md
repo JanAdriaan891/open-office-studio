@@ -9,9 +9,20 @@ DOCX, XLSX en PPTX werken rechtstreeks in de editors. Eenvoudige tekst- en tabel
 | Presentatie | PPTX | PPT, PPS, POT, PPTM, POTM, PPSX, POTX, ODP, OTP, FODP, SXI, STI, DPS, DPT, KEY, SDD, UOP |
 
 Deze tabel groepeert bestandskeuzes; niet elke keuze vereist conversie. TXT,
-Markdown, HTML, RTF, CSV/TSV/TAB gebruiken de eigen import; OOXML-sjablonen,
+Markdown, HTML, RTF, EPUB, CSV/TSV/TAB gebruiken de eigen import; OOXML-sjablonen,
 macrovormen en PPSX/POTX hebben eigen pakketbehandeling. IFCX staat in alle drie
 modules: de gevalideerde dossierinhoud bepaalt de editor.
+
+EPUB 2/3 opent als een bewerkbare DOCX-kopie, ook in de browser, zonder
+kantoorruntime. De app volgt de leesvolgorde van het boek en bewaart tekst,
+basisopmaak, lijsten, tabellen en ingesloten PNG/JPEG/GIF-afbeeldingen.
+Boekstijlbladen, lettertypen, vaste paginaopmaak, interne navigatie, scripts,
+audio/video en SVG blijven niet behouden; dit staat in het importrapport.
+Ontbrekende of externe afbeeldingen worden niet opgehaald en worden gemeld.
+DRM en niet-ondersteunde hoofdstukformaten worden expliciet geweigerd.
+De eerste bewaarkeuze is DOCX; openen overschrijft het oorspronkelijke EPUB
+niet. EPUB-export houdt zijn bestaande desktopruntime-route. Zie de
+[gerichte EPUB-proeven](tests/epub356/README.md).
 
 ## Dekking en oudere varianten (#43)
 
