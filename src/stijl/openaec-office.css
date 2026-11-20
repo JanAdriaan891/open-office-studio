@@ -260,6 +260,11 @@
   background: var(--oa-shell-bg);
   box-shadow: none;
 }
+/* Writer has three-row stacks: retain their 26px targets, group caption and
+   the full 2px focus outline plus its 2px offset inside the clipped track. */
+.office[data-module="docx"] .ribbon-inhoud {
+  height: 114px;
+}
 .office .ribbon-groep {
   padding: 0 6px;
   border-color: var(--oa-shell-ribbon-group-separator);
