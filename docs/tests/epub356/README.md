@@ -83,8 +83,15 @@ capture. The final test waits for the reopened document to enable Save As and
 stores the receipt beside the actual proof. Earlier artifacts remain historical;
 they are not relabeled as unobstructed reopen proofs.
 
-Native Linux is now tested separately on the same fixed application point;
-Windows and macOS remain pending. No native platform pass or completed issue is
-inferred from the browser/unit results. Native phases can select individual
-platforms so integration G's Mac checks take precedence without changing the
-application point or repeating the valid browser proof.
+The later [platform receipt at e41665fc](https://github.com/OpenAEC-Foundation/open-office-studio/blob/e41665fc2bfc06e1c6e429d9a619576b0a224a8d/docs/tests/epub356/2026-11-16-platforms.md)
+records successful bounded native input controls on the same fixed application
+point: Linux run `43861149912`, Windows `43865702789` and macOS `43870192245`.
+Those controls open EPUB and inspect the real app's Save As/source panel; they
+do not prove an OS-file-dialog write and fresh-process reopen on every native
+host. Actual saved-DOCX content and reopen evidence comes from the engine and
+browser checks above. The earlier ordinary PR Linux run `43861156830` remains
+red because that older branch lacked the coordinator's reserved native helper.
+
+These are historical results for `2b100ada`, not acceptance of a later combined
+integration source. The November 20 combination requires its own pinned
+platform and native controls, with missing checks explicitly recorded.
