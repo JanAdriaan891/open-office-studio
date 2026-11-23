@@ -1,6 +1,6 @@
 {
   "schemaVersion": 3,
-  "asOfUTC": "2026-11-23T10:33:07.503106+00:00",
+  "asOfUTC": "2026-11-23T10:50:46.174541+00:00",
   "status": "P2 core Mac359 and Linux368/369 accepted within bounded native scopes; final seven-product package and standalone acceptance active; Windows release blocked by one test timeout. NOT stable-release approved.",
   "date": "2026-11-23",
   "proposedVersion": "2026.48.1",
@@ -30,11 +30,11 @@
     "LinuxCurrent420368369": "writer_362; P2 actual DEB native complete, now native STW",
     "LinuxStandaloneSixApps": "standalone_linux; final six-app harness preserved, active native GNM first",
     "MacStandaloneSixAppsAndDownloads": "6f92; completed coverage audit, now QA-only Mac standalone cases",
-    "WindowsStandaloneSixApps": "8020; final6app harness preserved; nativeGNM/XLSB complete; active nativeUOS only",
+    "WindowsStandaloneSixApps": "8020; final6app harness preserved; nativeGNM/XLSB/UOS complete; active nativeSTC only",
     "VersionFreezePipelineIntegrationAndReadiness": "root",
-    "LinuxNativeXLSB": "d410",
+    "LinuxNativeXLSB": "d410; boundednativeXLSB complete, now independentread-only374source review",
     "STWVisualTriageAndBrowser": "9d3b; Windows operator750b only",
-    "NextFormatUOT": "e0d7; STC/UOS complete, UOT only active",
+    "NextFormatUOT": "e0d7; STC/UOS complete,UOTlimitedFAIL,UOPcolorbug375recorded; noactive nextformatclaim",
     "FuturePresentation78": "0c73; schemeClr solid slide background, separate later intake;87 completed separately"
   },
   "MacCriticalPath": {
@@ -72,6 +72,15 @@
         45150062617,
         45150982621
       ]
+    },
+    "remaining361": {
+      "firstRun": 45156137621,
+      "firstArtifact": 14808443160,
+      "firstArchiveSha256": "e0d2f8d8ba9e2f70e1fa9e0270633ba8bcebe8d0f9f14a7f5720442478e6b04d",
+      "result": "Nativecelltyping/save/UndoRedo preflightPASS;3Tabs left3x3, driver-vs-productundecided. Find/twodocnotreached. No productpatch.",
+      "targetedHIDRun": 45157451631,
+      "qaSource": "1af35a5f",
+      "status": "queued awaitingMacrunner; noinputrepeat/rowcriteriachange; independentFind/twodocstillplanned."
     }
   },
   "Windows372": {
@@ -186,7 +195,34 @@
       "newNativeHelpersMacCompiled": false,
       "result": "Fresh Mac15 host capabilities proven, new code compiles/checks before finalappstart; final sixDMGs pending."
     },
-    "matrix": "P2-standalone-matrix.json"
+    "matrix": "P2-standalone-matrix.json",
+    "conditionalStartAuthorization": {
+      "Linux": {
+        "source": "dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b",
+        "run": 45150438420,
+        "job": 137610274931,
+        "attempt": 1,
+        "artifactName": "uitgave-Linux",
+        "owner": "standalone_linux"
+      },
+      "macOS": {
+        "source": "dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b",
+        "run": 45150438420,
+        "job": 137610274868,
+        "attempt": 1,
+        "artifactName": "uitgave-macOS",
+        "owner": "6f92"
+      },
+      "gates": "Owner may start after own successful package/signature gates and unique official artifact upload, independently verifies source/tree/version/attempt/job/time/parent/API ZIPdigest before full hashdownload and selective app-only preparation. Memberhashes derive from verified parent. Send concrete intake atstart, no extra rootACK/unrelatedOSwait. This is P2baseline; no unknownP3 or stableapproval."
+    },
+    "LinuxExecution": {
+      "qaRun": 45159559656,
+      "qaCode": "bc1f1348",
+      "intakeCommit": "f326520c54b519640c2473aedf724eb4bfc6d568",
+      "intakeSha256": "22e66e34c7376a01a73c58e6c3bc0bc79ce045f207ebd9084a692f28030daed9",
+      "goCommit": "3637ddddfe4cbc01ec4418257dc40ce9e9532632",
+      "status": "Requestpassed, onefullparentprep queued;12 nativecases not-run untilownpackagegates."
+    }
   },
   "deferred366": "Explicitly deferred user-reported stale page count; no fix in this task.",
   "reuseRule": "Old evidence keeps exact source/tree/host/package scope; changed production/version inputs require matching new builds and applicable checks. Platforms start independently after own package identity/preflight, not on unrelated platform success.",
@@ -274,6 +310,12 @@
       "sourceImportAcceptance": false,
       "overallFormatAcceptance": false,
       "result": "StrictsourceCR-reference preservation failed: convertedspaces,202→201chars. No explicitlinebreakelement/normativesemanticproof; no unprovennewlinebugissue. DownstreamoriginalconverterDOCXengineeditUndoRedo/savefreshreopen passes separately. No productpatch."
+    },
+    "UOP": {
+      "proofCommit": "e280e9521cfad3b2c61c26d19fbb5df8b5b74a42",
+      "overallFormatAcceptance": false,
+      "bug": 375,
+      "result": "AuthenticindependentUOF1fixture;3slides/8objects/Chinese/bullets/notes andengineeditUndoRedo/savefreshreopen retained; strictfillfidelityFAIL."
     }
   },
   "completenessRecheck": {
@@ -305,7 +347,15 @@
     },
     "Linux": {
       "job": 137610274931,
-      "status": "in_progress seven-product build"
+      "status": "SUCCESS",
+      "attempt": 1,
+      "artifact": 14808939009,
+      "name": "uitgave-Linux",
+      "bytes": 4444678701,
+      "archiveSha256": "904a128efa87e73b6fb58072c208c348a043f86553d614c5d39fb9de83ea3f09",
+      "rootProducerAudit": "P2-Linux-release-producer.json",
+      "rootRuntimeProofAudit": "P2-Linux-release-runtime/root-audit.json",
+      "scope": "Seven-product build and installer gates passed; Suite native-runtime proof covers actualDEB/AppImage and32legacyfixtures. Sixapp independence still separate; root hashed small proof, not4.44GB installerparent."
     },
     "finalPackageAcceptance": false,
     "tagReleaseOrPublicationPerformed": false
@@ -334,7 +384,13 @@
         "archiveSha256": "ce7616c7c1fbeaf4fd7c76e7466c3bdc22d8d16bdcda055f6553ea431ae7831d",
         "status": "Actual native I/O/XML/style/placeholder/save/fullquit/newPID PASS; visual title/DOCVARIABLE overlap after append remains unresolved. No unconditional GUI pass."
       },
-      "Linux": "writer_362 nativeSTW active; portal protocol9f321450 contractchecked, realnativecase pending",
+      "Linux": {
+        "run": 45157371765,
+        "qaSource": "2c18bccb",
+        "artifact": 14809896182,
+        "archiveSha256": "9f1a31198c7f7e46e846ca902a15620b80d657bf7eef48d173bcf2ed5e32a886",
+        "status": "Owner reports actualOpenFile+SaveFile/RustIPC/privateconverter/edit/DOCXsave/normalAltF4/newPIDreopen/resave and3independentXMLoraclesPASS. Finalownerimage/auditreceipt pending; known374 titlelayout notunconditionallyapproved."
+      },
       "macOS": "6f92 pending ownWriterDMG"
     },
     "XLSB": {
@@ -345,11 +401,27 @@
         "archiveSha256": "4dc73ee03e4d4557c0a8ac43b8bfe10accc20d413dfbae2c10dfef28e91f67d4",
         "status": "Owner reports native filepicker/RustIPC/30formulas/editA15=42/XLSXsave/normalfullquit/newPIDreopen and3independentXML oraclesPASS; root raw audit pending."
       },
-      "Linux": "d410 active",
+      "Linux": {
+        "saveEditReopenRun": 45157164075,
+        "saveProofCommit": "3a740f0d65938af76e633a672116172173b4157d",
+        "saveArtifact": 14808249573,
+        "saveArchiveSha256": "62dab9aeafe98fb3a4825152fcab4f3cc215bcee9b5614abad13522a4d7010f6",
+        "openFileRun": 45158544195,
+        "openProofCommit": "1208537ddeab3c8510d24c05cb617c3affbea8e9",
+        "openArtifact": 14810500641,
+        "openArchiveSha256": "48d4fb5cb1ad2609a3656c326bb2371a902347f9ec9f75f328a0f32249c7094a",
+        "status": "Owner reports actualOpenFile andSaveFile independentlyPASS; nativeA15=42/all30formula/caches/save/fullquit/newPIDPASS. NoCLI fallback credited as picker. First importedcopyCtrlS observation remainsunclassified. ActualP2DEB only, noAppImage/finalstandaloneclaim; root rawauditpending."
+      },
       "macOS": "6f92 pending ownSpreadsheetDMG"
     },
     "UOS": {
-      "Windows": "8020 newlyassigned sameordinaryP2Suite; realUOF1fixture/oracle4f94d347 only",
+      "Windows": {
+        "run": 45157740183,
+        "proofCommit": "1881c38cc6188d2a25c59cf31581e214db9e2170",
+        "artifact": 14809801710,
+        "archiveSha256": "a526e268692c9e3c02aa4b0694c856d0a5e6dc34446ae214b03949a352455966",
+        "status": "Owner reports nativepicker/RustIPC/source156cells/3sheets/newSUMUndoRedo2→9/save/fullquit/newPID/nativepickerreopen and5independentXLSXoraclesPASS. Nooriginalformulaimport/UOF2/export/opmaak/finalstandaloneclaim."
+      },
       "otherPlatforms": "No new native UOS claims; CLI/engineproof retained, not universal formatcoverage"
     }
   },
@@ -367,6 +439,14 @@
       "archiveSha256": "6abbe498f364cdf884dfffbf28b4be6ab40fb69949daafcba9b0c7eea70fb716",
       "rootBaselineAudit": "P2-field374-baseline/root-audit.json",
       "rootImageReview": "Root verified officialartifact/Gitproofbytes/all12payloadhashes and viewed original overlap vs diagnostic cleanwrapping PNGs. Not a new rootGUIrepro; flatteneddiagnostic not fix."
+    },
+    {
+      "issue": 375,
+      "scope": "OneauthenticUOF1UOPfixture loses two explicit rectanglefillcolors duringprivateconverterimport",
+      "owner": "e0d7",
+      "proofCommit": "e280e9521cfad3b2c61c26d19fbb5df8b5b74a42",
+      "result": "Source#14213d/#046eff bothbecomeaccent1 resolving#18a303 beforeengine andremainafteredit/save/freshreopen. Source/object/themeXML independentlyverified; noownvisual/nativeclaim.",
+      "releaseIntake": "Notincluded innecessary374/CIround; documentasconcreteimportlimitation, noformatpass. Stroke/sizeobservationsnotbundled."
     }
   ],
   "research373": {

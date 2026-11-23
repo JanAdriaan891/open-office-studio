@@ -31,23 +31,27 @@
       "app": "Writer",
       "packageForm": "Linux x64 DEB",
       "owner": "standalone_linux",
-      "status": "not-run; own final verified package pending",
+      "status": "Verifiedproducer/intake; parentprep queued; nativecase not-run",
       "artifact": null,
       "packageSha256": null,
       "identityProfileResources": null,
       "coreEditSaveFullQuitFreshReopen": null,
-      "externalDependencies": null
+      "externalDependencies": null,
+      "producerArtifact": 14808939009,
+      "producerArchiveSha256": "904a128efa87e73b6fb58072c208c348a043f86553d614c5d39fb9de83ea3f09"
     },
     {
       "app": "Writer",
       "packageForm": "Linux x64 AppImage",
       "owner": "standalone_linux",
-      "status": "not-run; own final verified package pending",
+      "status": "Verifiedproducer/intake; parentprep queued; nativecase not-run",
       "artifact": null,
       "packageSha256": null,
       "identityProfileResources": null,
       "coreEditSaveFullQuitFreshReopen": null,
-      "externalDependencies": null
+      "externalDependencies": null,
+      "producerArtifact": 14808939009,
+      "producerArchiveSha256": "904a128efa87e73b6fb58072c208c348a043f86553d614c5d39fb9de83ea3f09"
     },
     {
       "app": "Spreadsheet",
@@ -75,23 +79,27 @@
       "app": "Spreadsheet",
       "packageForm": "Linux x64 DEB",
       "owner": "standalone_linux",
-      "status": "not-run; own final verified package pending",
+      "status": "Verifiedproducer/intake; parentprep queued; nativecase not-run",
       "artifact": null,
       "packageSha256": null,
       "identityProfileResources": null,
       "coreEditSaveFullQuitFreshReopen": null,
-      "externalDependencies": null
+      "externalDependencies": null,
+      "producerArtifact": 14808939009,
+      "producerArchiveSha256": "904a128efa87e73b6fb58072c208c348a043f86553d614c5d39fb9de83ea3f09"
     },
     {
       "app": "Spreadsheet",
       "packageForm": "Linux x64 AppImage",
       "owner": "standalone_linux",
-      "status": "not-run; own final verified package pending",
+      "status": "Verifiedproducer/intake; parentprep queued; nativecase not-run",
       "artifact": null,
       "packageSha256": null,
       "identityProfileResources": null,
       "coreEditSaveFullQuitFreshReopen": null,
-      "externalDependencies": null
+      "externalDependencies": null,
+      "producerArtifact": 14808939009,
+      "producerArchiveSha256": "904a128efa87e73b6fb58072c208c348a043f86553d614c5d39fb9de83ea3f09"
     },
     {
       "app": "Presentation",
@@ -119,23 +127,27 @@
       "app": "Presentation",
       "packageForm": "Linux x64 DEB",
       "owner": "standalone_linux",
-      "status": "not-run; own final verified package pending",
+      "status": "Verifiedproducer/intake; parentprep queued; nativecase not-run",
       "artifact": null,
       "packageSha256": null,
       "identityProfileResources": null,
       "coreEditSaveFullQuitFreshReopen": null,
-      "externalDependencies": null
+      "externalDependencies": null,
+      "producerArtifact": 14808939009,
+      "producerArchiveSha256": "904a128efa87e73b6fb58072c208c348a043f86553d614c5d39fb9de83ea3f09"
     },
     {
       "app": "Presentation",
       "packageForm": "Linux x64 AppImage",
       "owner": "standalone_linux",
-      "status": "not-run; own final verified package pending",
+      "status": "Verifiedproducer/intake; parentprep queued; nativecase not-run",
       "artifact": null,
       "packageSha256": null,
       "identityProfileResources": null,
       "coreEditSaveFullQuitFreshReopen": null,
-      "externalDependencies": null
+      "externalDependencies": null,
+      "producerArtifact": 14808939009,
+      "producerArchiveSha256": "904a128efa87e73b6fb58072c208c348a043f86553d614c5d39fb9de83ea3f09"
     },
     {
       "app": "Email",
@@ -163,23 +175,27 @@
       "app": "Email",
       "packageForm": "Linux x64 DEB",
       "owner": "standalone_linux",
-      "status": "not-run; own final verified package pending",
+      "status": "Verifiedproducer/intake; parentprep queued; nativecase not-run",
       "artifact": null,
       "packageSha256": null,
       "identityProfileResources": null,
       "coreEditSaveFullQuitFreshReopen": null,
-      "externalDependencies": null
+      "externalDependencies": null,
+      "producerArtifact": 14808939009,
+      "producerArchiveSha256": "904a128efa87e73b6fb58072c208c348a043f86553d614c5d39fb9de83ea3f09"
     },
     {
       "app": "Email",
       "packageForm": "Linux x64 AppImage",
       "owner": "standalone_linux",
-      "status": "not-run; own final verified package pending",
+      "status": "Verifiedproducer/intake; parentprep queued; nativecase not-run",
       "artifact": null,
       "packageSha256": null,
       "identityProfileResources": null,
       "coreEditSaveFullQuitFreshReopen": null,
-      "externalDependencies": null
+      "externalDependencies": null,
+      "producerArtifact": 14808939009,
+      "producerArchiveSha256": "904a128efa87e73b6fb58072c208c348a043f86553d614c5d39fb9de83ea3f09"
     },
     {
       "app": "Notition",
@@ -207,23 +223,27 @@
       "app": "Notition",
       "packageForm": "Linux x64 DEB",
       "owner": "standalone_linux",
-      "status": "not-run; own final verified package pending",
+      "status": "Verifiedproducer/intake; parentprep queued; nativecase not-run",
       "artifact": null,
       "packageSha256": null,
       "identityProfileResources": null,
       "coreEditSaveFullQuitFreshReopen": null,
-      "externalDependencies": null
+      "externalDependencies": null,
+      "producerArtifact": 14808939009,
+      "producerArchiveSha256": "904a128efa87e73b6fb58072c208c348a043f86553d614c5d39fb9de83ea3f09"
     },
     {
       "app": "Notition",
       "packageForm": "Linux x64 AppImage",
       "owner": "standalone_linux",
-      "status": "not-run; own final verified package pending",
+      "status": "Verifiedproducer/intake; parentprep queued; nativecase not-run",
       "artifact": null,
       "packageSha256": null,
       "identityProfileResources": null,
       "coreEditSaveFullQuitFreshReopen": null,
-      "externalDependencies": null
+      "externalDependencies": null,
+      "producerArtifact": 14808939009,
+      "producerArchiveSha256": "904a128efa87e73b6fb58072c208c348a043f86553d614c5d39fb9de83ea3f09"
     },
     {
       "app": "Database",
@@ -251,23 +271,27 @@
       "app": "Database",
       "packageForm": "Linux x64 DEB",
       "owner": "standalone_linux",
-      "status": "not-run; own final verified package pending",
+      "status": "Verifiedproducer/intake; parentprep queued; nativecase not-run",
       "artifact": null,
       "packageSha256": null,
       "identityProfileResources": null,
       "coreEditSaveFullQuitFreshReopen": null,
-      "externalDependencies": null
+      "externalDependencies": null,
+      "producerArtifact": 14808939009,
+      "producerArchiveSha256": "904a128efa87e73b6fb58072c208c348a043f86553d614c5d39fb9de83ea3f09"
     },
     {
       "app": "Database",
       "packageForm": "Linux x64 AppImage",
       "owner": "standalone_linux",
-      "status": "not-run; own final verified package pending",
+      "status": "Verifiedproducer/intake; parentprep queued; nativecase not-run",
       "artifact": null,
       "packageSha256": null,
       "identityProfileResources": null,
       "coreEditSaveFullQuitFreshReopen": null,
-      "externalDependencies": null
+      "externalDependencies": null,
+      "producerArtifact": 14808939009,
+      "producerArchiveSha256": "904a128efa87e73b6fb58072c208c348a043f86553d614c5d39fb9de83ea3f09"
     }
   ],
   "ready": false

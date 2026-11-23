@@ -1,0 +1,881 @@
+{
+  "source": "dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b",
+  "run": 45150438420,
+  "job": 137610274931,
+  "attempt": 1,
+  "artifact": 14808774038,
+  "archiveSha256": "881032d1c1c759b31ac840088149e132b0d882e7b9308b313c0996d7bcd25f06",
+  "allProofPayloadHashes": [
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/converter-proof.json",
+      "sha256": "988f7d474961cadfea60caf548e11493eb2f5e14249559f510877b271be077ae"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/extraction.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/independent-content.log",
+      "sha256": "4f0b8d07b86e11e9d807026e459c227f0689a9619dec0531a8b60ac207fa19bd"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-123-1/conversie.json",
+      "sha256": "efe8bf925dd7403f51451cc78387307ad4196cbe7c95a37647b10d6593b3fab0"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-123-1/omgezet.xlsx",
+      "sha256": "438f308b4bbbcf80be9cc4bb2821743908c921582ce47d373b70c4570f2d5db3"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-abw-1/conversie.json",
+      "sha256": "3d66a7edba9bb3af7fb614d4f41bd59a04d3851343080c3523e7ed74cbb4eb7b"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-abw-1/omgezet.docx",
+      "sha256": "1d73d4bee6606f4a724f8bea386dfd12cbc6fbb5500966a8ab234a9078e8b079"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-dbf-1/conversie.json",
+      "sha256": "577e6439b34104231ed3bb21d100dc130c27898d1b68816393b61032026af820"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-dbf-1/omgezet.xlsx",
+      "sha256": "4239df8a8b2be4ca5f685cf9a3c335ceb9f1325a3f3c4fddbdc7211fa5ab932e"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-dif-1/conversie.json",
+      "sha256": "4fe8d18dce14cc1b6dd8548a316f495a6af41ae32e479169b45933cd1fd45a8d"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-dif-1/omgezet.xlsx",
+      "sha256": "623eab7a5c0550615b1cfb0230942e709c8fd2049a4959ee897dfb4945b17c95"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-fb2-1/conversie.json",
+      "sha256": "9ef56db10e3ae0c0acdc071ccdf3faf67bc01cc1b897429bac92a360a9deeb43"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-fb2-1/omgezet.docx",
+      "sha256": "9d3573be84daca23e97c983ea5ea74bcb443a7af3ad8566437a8506e05ead851"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-gnumeric-1/conversie.json",
+      "sha256": "9568b2d3ded20f3a48742d1102da32ed125fc6e835662ed3d902309104e903ea"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-gnumeric-1/omgezet.xlsx",
+      "sha256": "b2ba30aaab17d4765342d451dd292eb1e09cf2aa3eae2ca10727615e9dfb5939"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-hwp-1/conversie.json",
+      "sha256": "b4d33d25ef8ee6dae0a870a32f6214daacf913999bd9212c80dc5e1e2207edfe"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-hwp-1/omgezet.docx",
+      "sha256": "f3d655c4c184d2838e237db209e773714e42d8b01a71a4b177b8e2bc08324e8a"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-key-1/conversie.json",
+      "sha256": "4b8ee1480a72fd897892d26833c4ee838e299c18e20d94ae3ecf15ab6d484997"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-key-1/omgezet.pptx",
+      "sha256": "af9a202c2ed34b2a18872c8e2ba091813d53bd41e867b3365fc9e211f45b4831"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-key-2/conversie.json",
+      "sha256": "67795e6cec712ea0094e1cd660788266b7f123a3b5033865cd4f67944cc78569"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-key-2/omgezet.pptx",
+      "sha256": "5e64bfec8f3985d969f2a3835aa573a05f3e600d761145e7aefc8bf1c0d2db83"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-lwp-1/conversie.json",
+      "sha256": "7a6db9db0191046dc2b2a684087d0ce01e18eaa6aa09866a0ce74a689ba7a1bb"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-lwp-1/omgezet.docx",
+      "sha256": "a9fc5925dd4c03517a54dc9367b3249b97bd7393c3417712430b2c07582f13ce"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-numbers-1/conversie.json",
+      "sha256": "cf66080257c29c0805be21b94f04b6d2c7c108e92418f0cffc12b5164eab2cb1"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-numbers-1/omgezet.xlsx",
+      "sha256": "a0958ebab3453f44c13fa540f50fd4bd088adaddd90bd011c47eae83c5951777"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-pages-1/conversie.json",
+      "sha256": "08035f04f5c8e3c4e460b257f14fb9d657d09daa1bee239ada31355fad8a9457"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-pages-1/omgezet.docx",
+      "sha256": "931cfbdc302d064c88c5217c0d3e899c4727e851db5ee400a863fb80153d01ce"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-pages-2/conversie.json",
+      "sha256": "92b8de4c2004e1942cfd764aeae65a861864f11817c035418624a0ce087a657e"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-pages-2/omgezet.docx",
+      "sha256": "0a4a5495ce8b4d04a97d3bde1f83beb39a132ffec150562054a12dc16e491227"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-psw-1/conversie.json",
+      "sha256": "e102c7d89000cb6409990937e657457a3209ee3f809dae490b32bc50aa0b76e2"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-psw-1/omgezet.docx",
+      "sha256": "57115ad67caca79b475a0c067a4d030887bb509b7350bfa012afb9ddb4ed1cdc"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-sdw-1/conversie.json",
+      "sha256": "2154c6a016ec57f0164e3032a2196b7275ce5bb6691ec00d870f8cbbee2943f6"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-sdw-1/omgezet.docx",
+      "sha256": "6d06750bed4ceebcbdd710e2d168d39c1709a5d9c2f889b8e2921b7198340dce"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-slk-1/conversie.json",
+      "sha256": "80ea242b17d204cd15379f308915914fdad25b4538fed7a46ec09b56aa702d27"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-slk-2/conversie.json",
+      "sha256": "d8e8dbe0ce11a01ede1310b5b2f69698bf4ca0aa1853949c0612b86f482ea744"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-slk-2/omgezet.xlsx",
+      "sha256": "222303dfd02aa1f5e3f023e0bac9bf82fe7d287585e6ce5781d036bc42191574"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-sxc-1/conversie.json",
+      "sha256": "c2abfbb69165e61e42a87e5ef05a0457705394ebc60541650844c307ac693f31"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-sxc-1/omgezet.xlsx",
+      "sha256": "8d2e7de90cf934a72a6ce184c2179207a31baaa8eefe411bf15c90e6a4b1d831"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-sxi-1/conversie.json",
+      "sha256": "c04b3e6e06508ddb773649cd8669ce0a8e9a14e02649966f423a7e66962fb557"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-sxi-1/omgezet.pptx",
+      "sha256": "bd3f88a055c6439087437df79f45d2102c978c097b50d0bd827b20c4bbde63db"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-sxw-1/conversie.json",
+      "sha256": "c01fa2a631e1cbb5d647543e78399d00fc220aa277184b6cb4db9dea43915b62"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-sxw-1/omgezet.docx",
+      "sha256": "9ac71339e62d241d44ff09c6abf5b80f4677e5c779eac4803a25f1ad5dd88290"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-wb1-1/conversie.json",
+      "sha256": "6236adfc136e0de0c5a34578a7de2bbdf3bed8c88142024d399fc1ab4c9bcd6d"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-wk1-1/conversie.json",
+      "sha256": "72374358c62dd6775672ff989e3a4381a4a99aa9e77b37f66c0b4053437bf50e"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-wb1-1/omgezet.xlsx",
+      "sha256": "ac2bd6ac1279235b364dd0cf8f00b3bd6e8ec7a0f8456c3ec4801ad3cdbf3db5"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-wk1-1/omgezet.xlsx",
+      "sha256": "5cd51d8841eb05291f748dfa7dc761b0ab95acea4d9133833ac3a3619205ff04"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-wk3-1/conversie.json",
+      "sha256": "50375a3c3eb78ebe3ffe0223b56c2f40c37fb0e6998f66a450e8dccb78c32770"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-wk3-1/omgezet.xlsx",
+      "sha256": "b5cb7dcf469609860faf22d0d5e63cce4eca0fd848ab4d742df2fe3870bc9d51"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-wk4-1/conversie.json",
+      "sha256": "be9f3036503904c07176128255d36cddceef1e9b32122218af1f55c9a1db8d25"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-wk4-1/omgezet.xlsx",
+      "sha256": "d5eff3e8e011284e085aa588c356ea51d6d48980c23b5aa6e2bed6b3b5e6f76d"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-wks-1/conversie.json",
+      "sha256": "718e416327696ffdb09cc59d2458e9d6d70043b0ae381ea50fc69f49685267af"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-wks-1/omgezet.xlsx",
+      "sha256": "7b4d0abec97575fd0ab27291bd7cbd6c4af8eb54fbb19208909a91670140618d"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-wpd-1/conversie.json",
+      "sha256": "1881347087d70074a16c6f9e79e9ab5845b72b7788ce320d818d315869c4658e"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-wpd-1/omgezet.docx",
+      "sha256": "880c1db3b171e462520a5030e58ca6516f0f83be1a9ed5efda6132c932aaa72a"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-wpd-2/conversie.json",
+      "sha256": "2ca525a28c3a6b060a04907f975d7b9f86f508d3890e5f5655db63571c9ca0bb"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-wpd-2/omgezet.docx",
+      "sha256": "24ac0a8b3c9f9a6cc1a7c8ac3b2510bc5d02da70fac53056235cc2f8c18a6fec"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-wps-1/conversie.json",
+      "sha256": "1cb6f5714c16bc4dbaf4ca5843a9e7d744e28cc02f3c4d47856df8f5b1666fc8"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-wps-1/omgezet.docx",
+      "sha256": "069a50c69e346dc821241e0095b9c9204d92011d134ec7ca7c2d0beda550876e"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-wps-2/conversie.json",
+      "sha256": "a78056724ab75276e35b3b5d6afa40bf3390a571b9ab1bff157bc0842bcc98be"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-wps-2/omgezet.docx",
+      "sha256": "5e2568bbf536efc05892f11da416920248d6f84e2dd87eaa23d28fef31436635"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-wq1-1/conversie.json",
+      "sha256": "5c8604bebb09aa49575a1858d8e32d1857aebd17f5831cab6c85eebe4af70f4f"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-wq1-1/omgezet.xlsx",
+      "sha256": "fa7669284f7f917e662fa33b549bb699139cd26ef3bb13c5d34ec0623d4191f3"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-wri-1/conversie.json",
+      "sha256": "bcc8edaf0dde88f62784313c57543da2b162dd440ac880e0fe0e82d4bfc0204f"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-wri-1/omgezet.docx",
+      "sha256": "8bb9391acf3f528ad0537690732c53363979f9ac92130f6f6b29d490c10b18b7"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-zabw-1/conversie.json",
+      "sha256": "33ac884175700f3db2bfa956e3fa22037cd44f823064490a1839f19fd461646d"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/lo-zabw-1/omgezet.docx",
+      "sha256": "79f5fc3f098a544c8e159a76d6a515fd94528585a1871ccadb3294befdef5b47"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy/a8875aac-06ce-4ac8-8d44-a5c92623b70f/resultaat.json",
+      "sha256": "3581fdd1eeeeaa08a4a0e75fb93eb4d10f76a38d98680ec770ac4e5fddec61ac"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/legacy.log",
+      "sha256": "20d140462a288a531711ec7f28c2152b027fe422923d6e92713f04685e095b82"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/macro/.~lock.macro-guard.odt#",
+      "sha256": "d028dbdd3ac0f02d7740e749bbb708479898b5ef5c00be759eda45d4f6033c07"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/macro/macro-guard.odt",
+      "sha256": "58f7b6f847cab3b53f3f295b770b8e155933b294a353b545696014707e3af965"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/macro-positive-control.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/macro-positive.json",
+      "sha256": "3e6aef8348b24daa81bdd9f1eb700927b601523010dd3a37fa13501531eba281"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/macro-positive.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/native/Materiaaloverzicht-via-ods.xlsx",
+      "sha256": "583a88d764317c4c69b8c961057d571c3ac5995118e8cea03ce510e42e74f7af"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/native/Materiaaloverzicht-via-xls.xlsx",
+      "sha256": "c0c50aa31e04234696a4024b1b93ee9cadfa1d7cf998dc9498a27524697c4c84"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/native/Materiaaloverzicht.ods",
+      "sha256": "1ac9853a832a9bdebd8bf8561d6c21bc49554d308fcb00ee9760fa88322e5340"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/native/Materiaaloverzicht.pdf",
+      "sha256": "aee18d0a24178442841d449e67677066fbfb8e5dc050d7561cc42cf48d562b15"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/native/Materiaaloverzicht.xls",
+      "sha256": "d2dbabc17a8689f9844a6f626fe25ed4565d015547ff583aca01a633fdabf48e"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/native/Ontwerpnotitie-via-doc.docx",
+      "sha256": "07beb1ce3d42607d40cc30ac5c35e9d3abf123ee587e2bfc75c49fea44f8ef89"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/native/Ontwerpnotitie-via-odt.docx",
+      "sha256": "7d9f0462e9ab802d448e124525674eeb1cc031a318809720bcf1809cdda32a4c"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/native/Ontwerpnotitie.doc",
+      "sha256": "4a7392ab07ade963fd7fe2ba3d5df23e788661d16797947ae18a417860cb55ee"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/native/Ontwerpnotitie.odt",
+      "sha256": "8ba4c6f059891ba51114a1c5c6bfdbd8ecacb8c5abff50f8268e581460ff163b"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/native/Ontwerpnotitie.pdf",
+      "sha256": "a969344a85f98894047fb93a2702e38816a7cec7da13f621407dbdd0aea25c21"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/native/Ontwerpvisie-via-odp.pptx",
+      "sha256": "ac08e7b7ebffca554b2526f59e606f0bfb0c3bbcb1369b7839b89ae8efb6adf8"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/native/Ontwerpvisie-via-ppt.pptx",
+      "sha256": "e78f8b557ec8a9d9d1a2ba30ca6b98067beed4b267c4d1f9a3b0eb4f72cdfba9"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/native/Ontwerpvisie.odp",
+      "sha256": "7032f2c99ea93dc62de8983ff2d2de896553215501ba71fddaee998a2eca3f05"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/native/Ontwerpvisie.pdf",
+      "sha256": "b1389f668cfb006d665b9cda19e667fac13e4a360f46ba766b109b283c27d65c"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/native/Ontwerpvisie.ppt",
+      "sha256": "27075536b6a16ee2de43ed2ad9b20e4e3c72bc4a54f1d9949599815b94c42086"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/native/native-result.json",
+      "sha256": "ae769a1cccd9e530186ddaac455e3be37087be0690293663282f6e19eb01f314"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/native-diagnostics.json",
+      "sha256": "359bc9a7a64b0a764a4b8087020e96c8520fd676ebc4513eac22b12fd3d38140"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/native-interface-ready-x11.png",
+      "sha256": "460fff6d94fc3dc8d952c993e67fe33877917c3cb116699dd41168bf079f746c"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/native-interface-ready.png",
+      "sha256": "c92e488a20a068f95419e4bb440ad6496b7b8278c221815733035b294b1fb290"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/native-interface.json",
+      "sha256": "5ac7cdbcc89a93ca91b3f6f49e605c54198dc433e174e8fad5e33f79a1b62291"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/native-interface.png",
+      "sha256": "2545d213cd3f30d35b77e7786d3d554928ccded0578f8833cdc7b61295f4ede4"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/native.log",
+      "sha256": "9596817726c99365ec5053d4cb01d5d31f374e666295b9646cd08ff29de6d7c6"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/package.json",
+      "sha256": "19f74d33a5e1eda4eb3707d617265f96fde414aea2c4793a69e4195f0fabcbb6"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/performance/Ontwerpnotitie.odt",
+      "sha256": "371028e6eed8a84aa701c42188d7ee577c03b567c0abc14215907dc82ad8983c"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/performance/Ontwerpnotitie.pdf",
+      "sha256": "7619d5579d9f8314c65f4f140f49df1e7e5bae47076968f846a740638fef5e41"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/performance/init-new-profile-1.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/performance/init-new-profile-2.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/performance/performance.json",
+      "sha256": "f64b3be0501b13ff31ff0d0987bec3700103fadee567635de3dffe5e6c599a0a"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/performance/writer-to-odt.log",
+      "sha256": "5339b4821135befaf38fd8dfac950cb149e7a338ef9b2a315ce41d6f98855e64"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/performance/writer-to-pdf.log",
+      "sha256": "05b86f2c820b60f650a3bd24bd3ca1b597ce875687c2ff43a2a4536793508bdd"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.AppImage/performance.log",
+      "sha256": "cabfe9ff9a8ea9914f16490033a91f7087fb10ce3ba1da187317401640aa609a"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/converter-proof.json",
+      "sha256": "3c4cf17653f6dfc96a61839f76bb27cd0629e04fc30ce85fe21ef04df8258874"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/extraction.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/independent-content.log",
+      "sha256": "4f0b8d07b86e11e9d807026e459c227f0689a9619dec0531a8b60ac207fa19bd"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-123-1/conversie.json",
+      "sha256": "8207d689bc44a9d7b2d31889b925161d3cd356d3ce6a6d73ec72300e77aaf272"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-123-1/omgezet.xlsx",
+      "sha256": "535398d2c20a0b3ab18a7be1ad5a39061b5eddeab3f41af616e9ebf72b5d9204"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-abw-1/conversie.json",
+      "sha256": "833eca1260750d356b95952f6d8243a9235faedeb8b0184b535d1bfc52c1afda"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-abw-1/omgezet.docx",
+      "sha256": "107d2f2e8b42e98ff00edf08a042b50db00b524e6c5bc9258bc06564eab7e51b"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-dbf-1/conversie.json",
+      "sha256": "beeb94c3b30c166e1245903d73e1f22af123bb664031a6b1556e6d7a231795f3"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-dbf-1/omgezet.xlsx",
+      "sha256": "1af2e207165e1947bf07079e66cd47116e90688e7f9249b0149065435b18a67a"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-dif-1/conversie.json",
+      "sha256": "30e3e63857406902c36e2c80bd9d0ee292fe65e3fd2aa5880f8c93cfd05f2e89"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-dif-1/omgezet.xlsx",
+      "sha256": "a26e1e99c191399a35d8d89b44735abb263df5c4c263a33de2989aee9c439470"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-fb2-1/conversie.json",
+      "sha256": "7004a84363c6ba08aa23a0cb4f8c7df5035a0e225210d8bc30d1e280a308e4cd"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-fb2-1/omgezet.docx",
+      "sha256": "6a6a20755ea290a5768deaeeb7b826484d9b046c83925be9835ec81bf967f8d7"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-gnumeric-1/conversie.json",
+      "sha256": "ce76898574bc40372b0d1271306794b250857d7d973944f305267daccf609289"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-gnumeric-1/omgezet.xlsx",
+      "sha256": "843c31c74f45650e7d2655b19d5603886ae2a7b4b0e9dcedc3c694b3f485c8e3"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-hwp-1/conversie.json",
+      "sha256": "7fcd50c9476bfe8ffbf20e3f77c112a897cd0c143e916a44d3733729f9ef0889"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-hwp-1/omgezet.docx",
+      "sha256": "3792451cb26c080ce735b86d18b350d37f4b5718da08d02f6acf71a1aab61762"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-key-1/conversie.json",
+      "sha256": "363bb5928036908809b5296ba9f088e699b11edf4ff777fb8f8444bd7405462f"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-key-1/omgezet.pptx",
+      "sha256": "cca7b31161ea1d7eaac279cca75c5254625237671fcd250cfd00322bf1d7b97b"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-key-2/conversie.json",
+      "sha256": "5ff2e37569d19b0ef11fa91b5f19b1930203b5c0353d7e0f0cd3d34fd9dc1964"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-key-2/omgezet.pptx",
+      "sha256": "4ce1c6d592b5663921598f2246fe61f5a5f0f4ac2208fee657bbc8be3630385d"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-lwp-1/conversie.json",
+      "sha256": "9559faf4622886dd2faa29d5e9ca3479692fef6c765fd9efc9ac8a8f2594105c"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-lwp-1/omgezet.docx",
+      "sha256": "5bf8a82501aa696a7de5c72a993354b230d935ad5e29d139088fba1914c25a62"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-numbers-1/conversie.json",
+      "sha256": "d40a9f255d9be645fd67f23a0b2bed04ea9184a79c827c051b513d48c1bd6615"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-numbers-1/omgezet.xlsx",
+      "sha256": "4c2d494023317d1d3d288c30ce487d0d3db89ffb0f171c81f19d947843aa5dc3"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-pages-1/conversie.json",
+      "sha256": "87212271fdb9b9b148af4cb6ba7dd17a7bbe3bdf159ff19f44e43696c92a0e6e"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-pages-1/omgezet.docx",
+      "sha256": "2bbbeb8edfb4bb27d6841d89f0e36d76a5cb0dea6d04afb4895d0e72f85a2c63"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-pages-2/conversie.json",
+      "sha256": "4f1d7a350542ae734304815cbce5b5f1c7e551ae1b09a173f986deab2d4d7150"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-pages-2/omgezet.docx",
+      "sha256": "0218c8857117208c186ba154a3ef8ea071b640894301f5470a180dbe3fc6e2fe"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-psw-1/conversie.json",
+      "sha256": "acc1d9dbcca7e3eac9df5f19bdbf66cd52254bc97474be4d210d5ba1e0562b3b"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-psw-1/omgezet.docx",
+      "sha256": "7f73c7d0a42093d32e75ca68fac4c2723ea6751405b64e2dc845f839e2c9d5d9"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-sdw-1/conversie.json",
+      "sha256": "c881a70cd9c82e8dd0f1cf7f19f52d941d5deeef7eb747286ba282a220ab6013"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-sdw-1/omgezet.docx",
+      "sha256": "60eb46073fecef3043be4e0d75471c1b0042ce137ea99b37b9ce57ff2f0b547d"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-slk-1/conversie.json",
+      "sha256": "1d84a0733211b4313b013c0995112fde3dab250a2ac1c59855a7c82ffea8dfbf"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-slk-2/omgezet.xlsx",
+      "sha256": "580f874a5ae226b15841a3dc745c5180ad711d03d56f0ebd6572aef49e0217b0"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-slk-2/conversie.json",
+      "sha256": "5c4bbf5688f66ff2012597e9843574d22f04273c7e628b49cd2e54fc1b111f1b"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-sxc-1/conversie.json",
+      "sha256": "2a9ced65ed835d899006e7f1367f6c936e6efd540ed5a283807957e81455447a"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-sxc-1/omgezet.xlsx",
+      "sha256": "3d07c2392bc2c4dd40cf2ce261ffc2bf392e0016fc3b56056554e11532cd0801"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-sxi-1/conversie.json",
+      "sha256": "db2f18866eb5080358a6dd093932e94ca370a61b00dec6675525ca447639a99e"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-sxi-1/omgezet.pptx",
+      "sha256": "33c8cf95444a68892f216ffe9b01886dc871371fe7743a241ea3daaf2ff070e2"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-sxw-1/conversie.json",
+      "sha256": "2d264529e48b2d76cfc60dcd32ac201537dc862decec5ee5d8ddf548b9d7ce00"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-sxw-1/omgezet.docx",
+      "sha256": "e886049defa25f332112b4a5c5624fceac65d9fe916215c72c5310c72e8f9260"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-wb1-1/conversie.json",
+      "sha256": "a80e64eebef1cfc58ffa10a0827e43723b624b64a3166b8d74cf0f44b794d4ba"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-wb1-1/omgezet.xlsx",
+      "sha256": "b18599f971bb27229d1193b393a78420f1bf050db7cc50e0d630c8d67c45c529"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-wk1-1/conversie.json",
+      "sha256": "08ead400290baec010091b536e6ee4c67162a1540b5cd81e5669b0f3ebe365fa"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-wk1-1/omgezet.xlsx",
+      "sha256": "9301dec5d5e46930ee72029c4d9461d8150a6e9783d77cce7a1a398b65ff1c5e"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-wk3-1/conversie.json",
+      "sha256": "01b314618c2b7a6c66688c68493391e6cf8e27fbd4ffe00d7c9e12bd5bbce58b"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-wk3-1/omgezet.xlsx",
+      "sha256": "d1bb87b68e4628fec87c170a1326a1ad58c5eac45f0a823da0b3dc5add957500"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-wk4-1/conversie.json",
+      "sha256": "db57cef878789832a4174c039e76b0921c9bb40ebe33e62c7afb342a17a27ce8"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-wk4-1/omgezet.xlsx",
+      "sha256": "20f589296fe06da79d5d4238764b336e4cc18996f77c7bd3ad022d3019b2387e"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-wks-1/conversie.json",
+      "sha256": "ccda599a51b5910eaaeb7c2711eab15a11ecb61e1cf103408627d81323882fb8"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-wks-1/omgezet.xlsx",
+      "sha256": "af42996eca19ede5d0c23e387a72f0d97da41da3fd5833f2a120db17a481c895"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-wpd-1/conversie.json",
+      "sha256": "cecc80a7c3e75551eb13e29b619015112c7be843f40b7ee00ac72217127ce79d"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-wpd-1/omgezet.docx",
+      "sha256": "56d4e64946a13eed52cb39ebb4c8292686082a839cf04ec49e4a5e5e3e82e980"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-wpd-2/conversie.json",
+      "sha256": "c006197bba742593392ce71ab18dbc846abccdf1e58f38e88da0ff0c6555d554"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-wpd-2/omgezet.docx",
+      "sha256": "d9795bcdd7bb6be01af6666b88cc940bab965aa25b53ba4e596a5ba05251087b"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-wps-1/conversie.json",
+      "sha256": "619c61ca5eaab7d62fce7123ee6f75674676ec2a0535908e4cdf1de1125459a8"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-wps-1/omgezet.docx",
+      "sha256": "8d5e7be0ac2453b3dc9475e80e6e346d150000198ed2b9e57dd9aa93a5d0a88a"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-wps-2/conversie.json",
+      "sha256": "c05f77bad305c231d1b1279e5cb0c7b9ab620153f82d1b4c3fe248c406de3115"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-wps-2/omgezet.docx",
+      "sha256": "f74039945231f4d0142b9de787c32edb22c2418aed59c04b060b94b4cbd1d627"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-wq1-1/conversie.json",
+      "sha256": "8e868e197f2c42dba94d2e8063695e9028ffce5ad7364b5f00cf0ffd1b1205eb"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-wq1-1/omgezet.xlsx",
+      "sha256": "9b2afea8069473301b175d2b7756cc5dcd38d10ffbfb1326446a3a3bc6c24b4f"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-wri-1/conversie.json",
+      "sha256": "638f327dec6e8802bfdc0b99c1a722f374b4f36c532de650dc6ddf73de35fcd6"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-wri-1/omgezet.docx",
+      "sha256": "e03275607100264ba527bf2fffbc3bc60e9397752e82741c7abf5cf71e0fde18"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-zabw-1/conversie.json",
+      "sha256": "aefdc12d053bb8b50ee55eace6a5a1b58d32d87ec85f222d5096847e500ed92e"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/lo-zabw-1/omgezet.docx",
+      "sha256": "107d2f2e8b42e98ff00edf08a042b50db00b524e6c5bc9258bc06564eab7e51b"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy/5d67c472-09da-4d9a-b5b0-d5c2bfffb8ff/resultaat.json",
+      "sha256": "5b938e84e3ecb9fdcfb9be5d738cbb054b6c752d9bc41c1b4039d13f716a14f8"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/legacy.log",
+      "sha256": "f144059142390fe25068a8603f709c75b910179868fc4a569bc0ae3726860a87"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/macro/macro-guard.odt",
+      "sha256": "c7c99825d87b6e6d4c129df1d351ec422926999149d67eec4cf1362b55c1a7c1"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/macro/.~lock.macro-guard.odt#",
+      "sha256": "9f8dffff386796c117bd7b507a80021986e55e12604830116b047e45413c8eb1"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/macro-positive-control.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/macro-positive.json",
+      "sha256": "803d0b82e6dad89617d12a58aa42b2bf2e4a3ee20647e164e12057ba86589025"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/macro-positive.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/native/Materiaaloverzicht-via-ods.xlsx",
+      "sha256": "343a491d09c74cc671c129c5c8f9f1b1f85e5028bebbbab0352b6e94b9ab8289"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/native/Materiaaloverzicht-via-xls.xlsx",
+      "sha256": "755a7933bdf1cc69597264cc9cd188bf89d0fee26f032a77b2e9e6a1dc4aeff5"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/native/Materiaaloverzicht.ods",
+      "sha256": "b9677f7e94fb7602a689d23e0b42ce739097257fd50b632b966346953577156d"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/native/Materiaaloverzicht.pdf",
+      "sha256": "4cf3c9b35835a5f5970021f6766409700d8f8513a59c6136741e42a382f84962"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/native/Materiaaloverzicht.xls",
+      "sha256": "d2dbabc17a8689f9844a6f626fe25ed4565d015547ff583aca01a633fdabf48e"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/native/Ontwerpnotitie-via-doc.docx",
+      "sha256": "3942a72ca986e0d279b474d11dc765824040c1cf7c429255108569e7e85f7b39"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/native/Ontwerpnotitie-via-odt.docx",
+      "sha256": "6b25b1f123b2f61bc1df1d6ad92932cfb0b68a1e4e0426ac66ab8ed43e5d0f00"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/native/Ontwerpnotitie.doc",
+      "sha256": "4a7392ab07ade963fd7fe2ba3d5df23e788661d16797947ae18a417860cb55ee"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/native/Ontwerpnotitie.odt",
+      "sha256": "1983e8ff4edad9ab3b8cc26948eaa72e14460fa141c392267331d0e7cb8b428d"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/native/Ontwerpnotitie.pdf",
+      "sha256": "b47cdcd49dccecb6c8f66c6d7dc1d1930905f87db3a20235e50db0f64bfe1874"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/native/Ontwerpvisie-via-odp.pptx",
+      "sha256": "368a6a817fd5ec7323dccb61ab9c5af7af5e0cdaf7fc405a20252da46a5ff857"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/native/Ontwerpvisie-via-ppt.pptx",
+      "sha256": "f53ef4094a3978ba71404dd8f64afe5824300d9208f45c702a9d10fc3b93784a"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/native/Ontwerpvisie.odp",
+      "sha256": "e696c0295cc367fdc8bb6ca686c4a3656912caa2e879a323c813060c572cf683"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/native/Ontwerpvisie.pdf",
+      "sha256": "28b3b20aed49320c5a12f47d35f28560b12db8841626c06ceb5b82e8d0506d26"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/native/Ontwerpvisie.ppt",
+      "sha256": "27075536b6a16ee2de43ed2ad9b20e4e3c72bc4a54f1d9949599815b94c42086"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/native/native-result.json",
+      "sha256": "7dd092b18da71726676e5a5cd6d09c73aa0b6d2ab7456099f0fa9ac4b9abe2cb"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/native-diagnostics.json",
+      "sha256": "e7650fafd829c07f7611e24379b1b91d0a48a30869c429b408e5d101bb430e96"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/native-interface-ready-x11.png",
+      "sha256": "1c9a04d44a6d56bb26ee919d0bb6bc24fef5360970b8ba0871b577baff7358b3"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/native-interface-ready.png",
+      "sha256": "adffcd0b92e61639a263364391ff62f7e3ddf5164123f7b04a884aef31c3e0f1"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/native-interface.json",
+      "sha256": "1a9d7ad606288dc1c8c63e72706950120c7dac2421125754f235218fcd32fe55"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/native-interface.png",
+      "sha256": "a185ac9c099d6842128dae0efeef543b1835aa03fa8e2bd5b2506dd46e9f40f6"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/native.log",
+      "sha256": "26c6bc843f327863798f9b34c6e822d3e15af22a9f13ad7cdc3e531b36b1f514"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/package.json",
+      "sha256": "279ba961c50895567ef443059f4a6d76051eafb02c5e1b81706c8cc7b43611d3"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/performance/Ontwerpnotitie.odt",
+      "sha256": "c871cedc9affaf8e0dccf9eb11327dcf4e005d5ccd4767f8c860406491ade849"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/performance/Ontwerpnotitie.pdf",
+      "sha256": "6ed5b011dceb902c024b9374c53d21101ef3c849b5fc8313721ab1002ec415d5"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/performance/init-new-profile-1.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/performance/performance.json",
+      "sha256": "04a1737b60f71aa6f09b7ab88d99ff36f3b3563c74d3f71f0fa9e1a152523815"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/performance/init-new-profile-2.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/performance/writer-to-odt.log",
+      "sha256": "fd17be8a0e9d1b79d615e6972ea4dca330728a8f6934701d85fd22c889f708fe"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/performance/writer-to-pdf.log",
+      "sha256": "07b2c68a46103deecd6718d0e9223bcb420fb0f344da22078c2e9bd902b8b636"
+    },
+    {
+      "path": "Open_Office_Studio_2026.48.1_amd64.deb/performance.log",
+      "sha256": "b4b248e1489138b94584f19b231ee864e6e17578b6f2bb1acbace26cdc9dadf3"
+    },
+    {
+      "path": "resultaat.json",
+      "sha256": "2c1027b218ecd43cea87cc3a7b53434db31e68a08f447fd44169b3fd5a802816"
+    }
+  ],
+  "testedSuitePackages": [
+    {
+      "name": "Open Office Studio_2026.48.1_amd64.AppImage",
+      "bytes": 429857272,
+      "sha256": "cbc0e02077f04fdd21640e31a45b683b79c95089679f5b2284944edf4203baa9",
+      "nativeInterface": {
+        "status": "passed",
+        "packagedApp": true,
+        "defaultBundledStatus": true,
+        "odtLoadedInWriter": true,
+        "saveAsShowsBundledRuntime": true,
+        "interaction": "enabled-save-as-native-pointer",
+        "entryPoint": "appimage-runtime",
+        "originalUnchanged": true
+      },
+      "legacyFixtures": 32
+    },
+    {
+      "name": "Open Office Studio_2026.48.1_amd64.deb",
+      "bytes": 383814214,
+      "sha256": "5bda24b3af77ce453aaa1bec202258beb1a438814461e8a05cae22ef3fd2ce01",
+      "nativeInterface": {
+        "status": "passed",
+        "packagedApp": true,
+        "defaultBundledStatus": true,
+        "odtLoadedInWriter": true,
+        "saveAsShowsBundledRuntime": true,
+        "interaction": "enabled-save-as-native-pointer",
+        "entryPoint": "installed-app",
+        "originalUnchanged": true
+      },
+      "legacyFixtures": 32
+    }
+  ],
+  "scope": "Proof bytes and source metadata independently hashed byroot; CI executed actual releaseSuite DEB/AppImage/nativeUI and bundledconverter32fixtures. Root has not downloaded or rehashed installerbodybytes. Not sixapp independence, allGUI acceptance or unknownP3."
+}
