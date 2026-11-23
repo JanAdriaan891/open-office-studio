@@ -1,4 +1,22 @@
-# Releasekandidaat 2026.47.1 — voorbereiding en hervatten
+# Releasevoorbereiding — actuele weekversie 2026.48.1
+
+## Maandag 23 november — actieve opdracht
+
+De gebruiker heeft de releasevoorbereiding hervat: Windows-uitpakken/bouwen herstellen, de Mac-native documentblokkade met prioriteit verklaren en oplossen, de Linux-correcties in echte pakketten controleren, en zelfstandige werking van alle zes losse apps aantonen. **Geen main-merge/push, releasetag of publicatie zonder afzonderlijk akkoord.** Vrijdag15:50 is geen deadline voor vandaag. Het doel is vandaag een stabiele release mogelijk maken als alle noodzakelijke controles werkelijk slagen; dit is geen garantie of voorafgaande vrijgave.
+
+De centrale [actuele machineoverdracht](current-handoff.json) bevat de huidige taakverdeling. De [vrijdagoverdracht](historical-handoff-2026-11-20.json) en alle oorspronkelijke bewijzen blijven behouden met hun eigen bron. Voorstel2026.48.1 is via het officiële script ingesteld en de negen bestaande weekversietests slagen; tag en release bestonden niet bij de controle van23nov. Nieuwe versiebinaries vereisen eigen pakketbewijs.
+
+Windows krijgt een expliciete tussenkandidaat **`3a0decac3d45234d4b4d487e431b21cff961ccca`**, tree `e46b8faed3ca6b468e71a4d0d77b6dc8ce259360`, versie2026.48.1. Die bevat uitsluitend de weekversiewijziging en de verklaarde uitpakcorrectie #372 boven de bewaarde vrijdagbasis. De compatibele .NET-ZIP-extractie slaagt op de echte Windows-runner met de gepinde officiële runtime en elf gerichte tests. De oude route faalde doordat WindowsPowerShell5.1 een Archive-module uit PowerShell7 laadde met een incompatibele overload. Dit was geen bewezen signingfout. Nieuw Office-pakket en native Windowsbediening zijn nog niet geaccepteerd. De Windows-only tussenronde voorkomt dat Windows op de Mac-diagnose moet wachten; de definitieve volledige vergelijking krijgt daarna één gezamenlijke bron.
+
+Mac blijft het kritieke pad: het documentafhankelijke lege canvas is ook in het echte vrijdagpakket420 bevestigd. De positieve EPUB-controle bevat een afbeelding en gebruikt daardoor een andere SDK-presentatieroute. Native worker-presentatie wordt nu causaal onderzocht; er is nog geen productcorrectie vrijgegeven. Linux valideert de echte420-pakketten met #368/#369, niet een helper in een oud I3-pakket. Dit bewijs houdt die bronidentiteit; de latere definitieve versie krijgt passende pakket- en combinatiecontroles.
+
+De bestaande architectuur levert zeven echte producten: de suite plus Writer, Spreadsheet, Presentation, Email, Notition en Database, ieder met eigen identiteit, executable en profiel. Daarmee zijn alle zes geregistreerde werkruimtes afzonderlijk afgedekt. PDF-functies, VBA/SQL en teken-/grafiekgereedschap zijn geen afzonderlijk uitgebrachte apps; een Draw-app is niet aangetoond als geleverd product. Beschikbare downloadlinks bewijzen geen zelfstandige functionaliteit. Daarom worden de zes apps op verse Windows-, Linux- en Mac-hosts getest zonder suite-installatie/-profiel/-resources, met passende synthetische open/bewerk/save/full-exit/reopen-cases en onafhankelijke inhoudscontroles. E-mail gebruikt uitsluitend lokale synthetische data; geen echte mails of gebruikersprofielen.
+
+De platformeigenaren beginnen zodra hun eigen pakketbron/versie/hash en testhost zijn gecontroleerd. Na de gerichte intake wordt één definitieve bron vastgezet voor de volledige combinatie, losse installers, signatures en downloadcontrole. Latere ontdekkingen gaan naar een volgende ronde. #366 blijft expliciet uitgesteld. **Stabiele vrijgave: nog NEE; Mac-oorzaak, definitieve pakketten en zelfstandigheidsmatrix zijn open.**
+
+---
+
+## Behouden vrijdagstand — 2026.47.1
 
 Dit is een opgeslagen voorstel, geen gepubliceerde of volledig vrijgegeven release. **Laatste gebruikersbesluit: vandaag tot uiterlijk 15:50 Europe/Amsterdam gericht aan de Linux/macOS-blokkades werken en alles veilig overdragen voor maandag 23 november. Vandaag geen main-merge/push, tag of publicatie.** Het eerdere publicatiedoel vóór 15:50 is ingetrokken. Maandag hervatten en een release uitbrengen kan alleen na een nieuwe gebruikersopdracht en de vereiste controles/besluiten.
 
