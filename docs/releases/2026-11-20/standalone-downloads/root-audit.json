@@ -1,0 +1,155 @@
+{
+  "kind": "Root verified owner handoff, source hashes and copied original bytes; no repeated network or installer/native acceptance",
+  "verifiedAtUTC": "2026-11-23T08:37:31.036749+00:00",
+  "currentDocumentationHead": "19f768c070a9991d500c4fdb9d4c53ec4235bd72",
+  "applicationPin": "3a0decac3d45234d4b4d487e431b21cff961ccca",
+  "originalOwnerPayloadSha256": {
+    "standalone-download-coverage-2026-11-23.md": "705b50b2c3f59415ffc3e46f67daa8feb2aaab55e9d64864d2f4023b4c8656a1",
+    "standalone-download-coverage-2026-11-23.json": "2d495cf067533947def4afa6de24e4bf2745ebadfc38e2e855438c1cdc1f9bc8"
+  },
+  "publishedPayloadSha256": {
+    "standalone-download-coverage-2026-11-23.md": "705b50b2c3f59415ffc3e46f67daa8feb2aaab55e9d64864d2f4023b4c8656a1",
+    "standalone-download-coverage-2026-11-23.json": "43c54d9c419f85d50a33fe08a84d4a6e7009fe11624cc16952d9e352a2405c0d"
+  },
+  "sourceChecks": [
+    {
+      "path": "AGENTS.md",
+      "originalSha256": "54b2b508eab9bbec5c5da80c5087c0543d34a51f230960b6a3ec648a03f8d9dc",
+      "unchangedAtCurrentHead": true,
+      "onlyOfficialWeekVersionChanged": false
+    },
+    {
+      "path": "assets/studios.json",
+      "originalSha256": "5f15ccf38443a92e8e48db40a68d233dff89c7852549611f74d64f4f28d76528",
+      "unchangedAtCurrentHead": true,
+      "onlyOfficialWeekVersionChanged": false
+    },
+    {
+      "path": "src/StartScherm.tsx",
+      "originalSha256": "c6497299679d98b5016caa2a850ac83403470c8ee69fab93176b85ef70ac02ef",
+      "unchangedAtCurrentHead": true,
+      "onlyOfficialWeekVersionChanged": false
+    },
+    {
+      "path": "src/tabbladen.ts",
+      "originalSha256": "127b65adaa84179585a85fa34497ca2e7db64b89e651fb5f31f556202de3acea",
+      "unchangedAtCurrentHead": true,
+      "onlyOfficialWeekVersionChanged": false
+    },
+    {
+      "path": "src/OfficeStudio.tsx",
+      "originalSha256": "c91736b8864dc7e150af2c060b4b6aad7a0a95b3201cf440274e4b4cfe80f6c1",
+      "unchangedAtCurrentHead": true,
+      "onlyOfficialWeekVersionChanged": false
+    },
+    {
+      "path": "src/studios/model.ts",
+      "originalSha256": "ad9c18f74caf3a44bebfced53ef0b2c98d2f0a575cc337c6a4b1ea49e7f3e15a",
+      "unchangedAtCurrentHead": true,
+      "onlyOfficialWeekVersionChanged": false
+    },
+    {
+      "path": "src/studios/gekozen.ts",
+      "originalSha256": "90f5a4fb39b0d31ad4935b7fd7b9f2a502a9e5f1ffe7713818031e028e9e98ef",
+      "unchangedAtCurrentHead": true,
+      "onlyOfficialWeekVersionChanged": false
+    },
+    {
+      "path": "scripts/studio-config.mjs",
+      "originalSha256": "09dd29fdf2c7e7385111ff619ebc8f0495f80993a3042b78bd6a5b58692efdfc",
+      "unchangedAtCurrentHead": true,
+      "onlyOfficialWeekVersionChanged": false
+    },
+    {
+      "path": "scripts/controleer-uitgave.mjs",
+      "originalSha256": "6c70f2c15a5b788b820a98509407113915018a843c262ae8b71567ab6f5d4657",
+      "unchangedAtCurrentHead": true,
+      "onlyOfficialWeekVersionChanged": false
+    },
+    {
+      "path": ".github/workflows/release.yml",
+      "originalSha256": "620e90485493163b87163a8763ffbbfcc2f0af5f03251b592af577721c5a9c64",
+      "unchangedAtCurrentHead": true,
+      "onlyOfficialWeekVersionChanged": false
+    },
+    {
+      "path": "docs/studios.md",
+      "originalSha256": "2603aa83eb988dde707a226603868fd1322263713c5ddaf11bcf0a05ebb03a67",
+      "unchangedAtCurrentHead": true,
+      "onlyOfficialWeekVersionChanged": false
+    },
+    {
+      "path": "apps/database-studio/src-tauri/tauri.conf.json",
+      "originalSha256": "0204203e725389dd9cb11d0c7d782c8d86b94b56fd08ce8d26d1fefe9c404199",
+      "unchangedAtCurrentHead": false,
+      "onlyOfficialWeekVersionChanged": true
+    },
+    {
+      "path": "src-tauri/tauri.conf.json",
+      "originalSha256": "e786ddf11daf5eb308314bb68439fec0af02b26aac32d2b69f97570e11ca33f7",
+      "unchangedAtCurrentHead": false,
+      "onlyOfficialWeekVersionChanged": true
+    },
+    {
+      "path": "packages/vba/README.md",
+      "originalSha256": "c3151e5d20871f84df679231a6ba2e1bf3a7fdaf190fa5e1cc4e5f287e800a6e",
+      "unchangedAtCurrentHead": true,
+      "onlyOfficialWeekVersionChanged": false
+    },
+    {
+      "path": "packages/database/src/ui/VbaPaneel.tsx",
+      "originalSha256": "48769e0284187f5d381634870bff86f7beaa3bbccb2d131f1a169910438fe33c",
+      "unchangedAtCurrentHead": true,
+      "onlyOfficialWeekVersionChanged": false
+    },
+    {
+      "path": "packages/database/src/ui/QueryEditor.tsx",
+      "originalSha256": "a6f7e9d6f1641bc58c5184e195200e233b8f0b002a0151c7009044ec973d9af6",
+      "unchangedAtCurrentHead": true,
+      "onlyOfficialWeekVersionChanged": false
+    },
+    {
+      "path": "src/export/PdfOpties.tsx",
+      "originalSha256": "3e406547af093747cb344a04a38fbda3d5662d4ea877a613aacada10c20dfab5",
+      "unchangedAtCurrentHead": true,
+      "onlyOfficialWeekVersionChanged": false
+    },
+    {
+      "path": "docs/ontwerp/tekenmodule-onderzoek.md",
+      "originalSha256": "99619d7f83d6790f9b69fbab76647f32afa5e3dcd0b6b422672f061bd0d9f291",
+      "unchangedAtCurrentHead": true,
+      "onlyOfficialWeekVersionChanged": false
+    },
+    {
+      "path": "src-tauri/Cargo.toml",
+      "originalSha256": "da7d63b754955cd8adfcfd17a3f3fd3682c5f6e487016a9f7b12fdc275c63658",
+      "unchangedAtCurrentHead": false,
+      "onlyOfficialWeekVersionChanged": true
+    },
+    {
+      "path": "apps/database-studio/src-tauri/Cargo.toml",
+      "originalSha256": "8c9b702a0d17dadc68be58ba0180f1325c2734cfc786cc6d58183921df626a1a",
+      "unchangedAtCurrentHead": false,
+      "onlyOfficialWeekVersionChanged": true
+    },
+    {
+      "path": "src/export/pdf/schrijver.ts",
+      "originalSha256": "c1b6f84f8724497243399df42c6ede61383e2439799b48c4b52ddf900275b2f7",
+      "unchangedAtCurrentHead": true,
+      "onlyOfficialWeekVersionChanged": false
+    },
+    {
+      "path": "packages/email/src/voorbeeld/herkenning.ts",
+      "originalSha256": "200e1c3cea33a87fc9ba621b4d5d4750a5c02dd245c3e31a2b01781df11293b1",
+      "unchangedAtCurrentHead": true,
+      "onlyOfficialWeekVersionChanged": false
+    },
+    {
+      "path": "src/editors.tsx",
+      "originalSha256": "8c66552879c727d2d02d9da6f0609ca1f3a10ff94275ba7d802289b3b65f9bce",
+      "unchangedAtCurrentHead": true,
+      "onlyOfficialWeekVersionChanged": false
+    }
+  ],
+  "notFinalCandidateNativeAcceptance": true
+}
