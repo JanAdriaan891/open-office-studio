@@ -1,0 +1,788 @@
+{
+  "scope": "Independent audit of four successful P5 standalone Linux core apps, both DEB/AppImage; excludes Email/Spreadsheet",
+  "application": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+  "tree": "e30879fd772871e690847c061ef66e6b81808a05",
+  "version": "2026.48.1",
+  "qa": "b3d594aaf09a83215bb809bdbcda6305a0af1612",
+  "run": 45190082427,
+  "attempt": 1,
+  "preparationGit": "5d4198b7001c21cac7a03cf752900aac6e4dd91e",
+  "preparationOriginalSha256": "fca2df562568db776db938f0f30211a6eaac03de7e13739eaeed803c7d4f49d7",
+  "sourceFileSha256": {
+    "scripts/proef-standalone-linux.mjs": "bd967f47ad858256fe654a98ad089a6215b0b877b6e80b4c9c333e7218c93efa",
+    "scripts/standalone-linux-ooxml.mjs": "06dcf6974b1461759b7bf63cba23f9090fbaeaf87152c8d74dcd812f9b491111",
+    "scripts/database-normal-picker-probe.py": "b1c774d9887dca4e732f51ae1f88b917f86582fc7f4f7b2c5f1b8ae116ed08bf",
+    "scripts/linux-p2-ribbon-native.mjs": "bf4e548c63f87931680b108d80a5cdebc3c0b432d855325f74e845c35eeafe72",
+    "scripts/linux-p2-native-ready.mjs": "bd44f20e9b1a2eadc9e08f32c91ca631102c78bea9c02e9a7b84c750484b85b5",
+    "scripts/linux-p2-native-capture.py": "a90f94d6583ee5e3e8aed35b9260811ab1d3fc2803c9f5411476dec86a847341",
+    "scripts/linux-stw-portal.py": "9594b9bf350fc76bf9bc36a3a78d570f4c31fd65e50617fb66968832e9f5f165",
+    ".github/workflows/standalone-linux-native-p5.yml": "fa06afb8340de7d7045e13312e8a47748c5b5ea7bdcf539fe7aad02ee766b974"
+  },
+  "rows": [
+    {
+      "app": "writer",
+      "packageType": "appimage",
+      "status": "passed-with-recorded-QA-metadata-limit",
+      "identity": "org.openaec.writer-studio",
+      "package": {
+        "path": "Open Writer Studio_2026.48.1_amd64.AppImage",
+        "canonicalMember": "dist-installers/writer/appimage/Open Writer Studio_2026.48.1_amd64.AppImage",
+        "sha256": "bd800d149bea0a23ea0175fc9b81b9cb7ab381c9baa313f0b4e26a0a34efc5d9",
+        "bytes": 429861368
+      },
+      "payloadExecutableSha256": "d60398903674a1121a40b45277dcf22d2282bcdfe2bed741101da6ee709d3559",
+      "launches": [
+        {
+          "pid": 5230,
+          "runningElfSha256": "d60398903674a1121a40b45277dcf22d2282bcdfe2bed741101da6ee709d3559",
+          "xid": "8388611",
+          "nativeFocusChecks": 10
+        },
+        {
+          "pid": 5397,
+          "runningElfSha256": "d60398903674a1121a40b45277dcf22d2282bcdfe2bed741101da6ee709d3559",
+          "xid": "8388611",
+          "nativeFocusChecks": 11
+        }
+      ],
+      "sourceCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+      "sourceTree": "e30879fd772871e690847c061ef66e6b81808a05",
+      "proofArtifact": 14825591637,
+      "proofZipSha256": "fac7e788a7b73f4a116688d33bbab7db54e11ee452860a4150fe779212559a22",
+      "job": 137745921948,
+      "sourceReportSha256": "dd5dd51d6ea1801c5bb46fcc2cba6d1160513ee0157a91b506a09eec2b97652f",
+      "ownProfileAndNoSuiteReceiptChecked": true,
+      "normalCloseAndCleanupReceiptChecked": true,
+      "limits": [
+        "Virtual X11/Xvfb, software rendering",
+        "One synthetic core scenario per app; no complete format/conversion or live account certification",
+        "Private conversion runtime presence is inspected where bundled; native format conversion is outside this core scenario",
+        "Where exercised, native file dialogs use the private test desktop's XDG portal and GTK provider; missing-portal behavior is not certified by this core matrix"
+      ]
+    },
+    {
+      "app": "writer",
+      "packageType": "deb",
+      "status": "passed-with-recorded-QA-metadata-limit",
+      "identity": "org.openaec.writer-studio",
+      "package": {
+        "path": "Open Writer Studio_2026.48.1_amd64.deb",
+        "canonicalMember": "dist-installers/writer/deb/Open Writer Studio_2026.48.1_amd64.deb",
+        "sha256": "16728e64e28fa43543fdc19332867aebf310a4bfa7a7ab4b337f102bafae5dbd",
+        "bytes": 383844254
+      },
+      "payloadExecutableSha256": "f9d62fd353f0daa8aa62d04f61d502c69aae048f8ebbb79c78a901d8555374b1",
+      "launches": [
+        {
+          "pid": 5729,
+          "runningElfSha256": "f9d62fd353f0daa8aa62d04f61d502c69aae048f8ebbb79c78a901d8555374b1",
+          "xid": "8388611",
+          "nativeFocusChecks": 10
+        },
+        {
+          "pid": 5857,
+          "runningElfSha256": "f9d62fd353f0daa8aa62d04f61d502c69aae048f8ebbb79c78a901d8555374b1",
+          "xid": "8388611",
+          "nativeFocusChecks": 11
+        }
+      ],
+      "sourceCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+      "sourceTree": "e30879fd772871e690847c061ef66e6b81808a05",
+      "proofArtifact": 14825591637,
+      "proofZipSha256": "fac7e788a7b73f4a116688d33bbab7db54e11ee452860a4150fe779212559a22",
+      "job": 137745921948,
+      "sourceReportSha256": "67aeec0da35a5f66af576563f655686286a140493b7bf9a791f6c9a8c10e9a81",
+      "ownProfileAndNoSuiteReceiptChecked": true,
+      "normalCloseAndCleanupReceiptChecked": true,
+      "limits": [
+        "Virtual X11/Xvfb, software rendering",
+        "One synthetic core scenario per app; no complete format/conversion or live account certification",
+        "Private conversion runtime presence is inspected where bundled; native format conversion is outside this core scenario",
+        "Where exercised, native file dialogs use the private test desktop's XDG portal and GTK provider; missing-portal behavior is not certified by this core matrix"
+      ]
+    },
+    {
+      "app": "presentation",
+      "packageType": "appimage",
+      "status": "passed-with-recorded-QA-metadata-limit",
+      "identity": "org.openaec.presentation-studio",
+      "package": {
+        "path": "Open Presentation Studio_2026.48.1_amd64.AppImage",
+        "canonicalMember": "dist-installers/presentation/appimage/Open Presentation Studio_2026.48.1_amd64.AppImage",
+        "sha256": "f9b72975725305243660bec067e0cde13d59d39e5eda2ecbacc6ada5fd54d934",
+        "bytes": 429873656
+      },
+      "payloadExecutableSha256": "bd6194e5a512a1a9a81f551da59cf39cd63fa70dce1dad94727e4afda692b432",
+      "launches": [
+        {
+          "pid": 4815,
+          "runningElfSha256": "bd6194e5a512a1a9a81f551da59cf39cd63fa70dce1dad94727e4afda692b432",
+          "xid": "8388611",
+          "nativeFocusChecks": 19
+        },
+        {
+          "pid": 4988,
+          "runningElfSha256": "bd6194e5a512a1a9a81f551da59cf39cd63fa70dce1dad94727e4afda692b432",
+          "xid": "8388611",
+          "nativeFocusChecks": 5
+        }
+      ],
+      "sourceCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+      "sourceTree": "e30879fd772871e690847c061ef66e6b81808a05",
+      "proofArtifact": 14824614985,
+      "proofZipSha256": "d7f47c5af33f4268e79ff5af61d2c4e9fb2b4ec8a11cb61fa525379c512ff535",
+      "job": 137745921818,
+      "sourceReportSha256": "6ed08b6d48cdb41969c70d31538460093172d2763675dc8387a24911975ca686",
+      "ownProfileAndNoSuiteReceiptChecked": true,
+      "normalCloseAndCleanupReceiptChecked": true,
+      "limits": [
+        "Virtual X11/Xvfb, software rendering",
+        "One synthetic core scenario per app; no complete format/conversion or live account certification",
+        "Private conversion runtime presence is inspected where bundled; native format conversion is outside this core scenario",
+        "Where exercised, native file dialogs use the private test desktop's XDG portal and GTK provider; missing-portal behavior is not certified by this core matrix"
+      ]
+    },
+    {
+      "app": "presentation",
+      "packageType": "deb",
+      "status": "passed-with-recorded-QA-metadata-limit",
+      "identity": "org.openaec.presentation-studio",
+      "package": {
+        "path": "Open Presentation Studio_2026.48.1_amd64.deb",
+        "canonicalMember": "dist-installers/presentation/deb/Open Presentation Studio_2026.48.1_amd64.deb",
+        "sha256": "b1ea114547f035804549bed296df0e3a1f33ca582dedc50b573902dd66f6774e",
+        "bytes": 383929578
+      },
+      "payloadExecutableSha256": "72bc0f3e2af427706dba61fc42b5916ad97af233306c94f6dc18f6dd2c204d81",
+      "launches": [
+        {
+          "pid": 5281,
+          "runningElfSha256": "72bc0f3e2af427706dba61fc42b5916ad97af233306c94f6dc18f6dd2c204d81",
+          "xid": "8388611",
+          "nativeFocusChecks": 19
+        },
+        {
+          "pid": 5405,
+          "runningElfSha256": "72bc0f3e2af427706dba61fc42b5916ad97af233306c94f6dc18f6dd2c204d81",
+          "xid": "8388611",
+          "nativeFocusChecks": 5
+        }
+      ],
+      "sourceCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+      "sourceTree": "e30879fd772871e690847c061ef66e6b81808a05",
+      "proofArtifact": 14824614985,
+      "proofZipSha256": "d7f47c5af33f4268e79ff5af61d2c4e9fb2b4ec8a11cb61fa525379c512ff535",
+      "job": 137745921818,
+      "sourceReportSha256": "e16bbd5fcfceb3c93c83c191285aeb13d5ece7044b00797d9050ba41c3eb762c",
+      "ownProfileAndNoSuiteReceiptChecked": true,
+      "normalCloseAndCleanupReceiptChecked": true,
+      "limits": [
+        "Virtual X11/Xvfb, software rendering",
+        "One synthetic core scenario per app; no complete format/conversion or live account certification",
+        "Private conversion runtime presence is inspected where bundled; native format conversion is outside this core scenario",
+        "Where exercised, native file dialogs use the private test desktop's XDG portal and GTK provider; missing-portal behavior is not certified by this core matrix"
+      ]
+    },
+    {
+      "app": "notition",
+      "packageType": "appimage",
+      "status": "passed-with-recorded-QA-metadata-limit",
+      "identity": "org.openaec.notition-studio",
+      "package": {
+        "path": "Open Notition Studio_2026.48.1_amd64.AppImage",
+        "canonicalMember": "dist-installers/notition/appimage/Open Notition Studio_2026.48.1_amd64.AppImage",
+        "sha256": "08ddb2cb9f1088f69779aec92a48e3ace7b58d605779fd930c2c70345056b83e",
+        "bytes": 153893368
+      },
+      "payloadExecutableSha256": "c59c37a2153a0bddbf56985046b326895766c97b297015d86a77400f5ebdb82f",
+      "launches": [
+        {
+          "pid": 4873,
+          "runningElfSha256": "c59c37a2153a0bddbf56985046b326895766c97b297015d86a77400f5ebdb82f",
+          "xid": "8388611",
+          "nativeFocusChecks": 21
+        },
+        {
+          "pid": 5105,
+          "runningElfSha256": "c59c37a2153a0bddbf56985046b326895766c97b297015d86a77400f5ebdb82f",
+          "xid": "8388611",
+          "nativeFocusChecks": 3
+        }
+      ],
+      "sourceCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+      "sourceTree": "e30879fd772871e690847c061ef66e6b81808a05",
+      "proofArtifact": 14826375277,
+      "proofZipSha256": "fe92e3a501645ad4ffc33f0cd4287793357f0af9284aeb02cd09099ea54ab4f3",
+      "job": 137745921942,
+      "sourceReportSha256": "68df30b730d269cd0e2b972bd138934a9f94529c58734e1367352e9257d2089a",
+      "ownProfileAndNoSuiteReceiptChecked": true,
+      "normalCloseAndCleanupReceiptChecked": true,
+      "limits": [
+        "Virtual X11/Xvfb, software rendering",
+        "One synthetic core scenario per app; no complete format/conversion or live account certification",
+        "Private conversion runtime presence is inspected where bundled; native format conversion is outside this core scenario",
+        "Where exercised, native file dialogs use the private test desktop's XDG portal and GTK provider; missing-portal behavior is not certified by this core matrix"
+      ]
+    },
+    {
+      "app": "notition",
+      "packageType": "deb",
+      "status": "passed-with-recorded-QA-metadata-limit",
+      "identity": "org.openaec.notition-studio",
+      "package": {
+        "path": "Open Notition Studio_2026.48.1_amd64.deb",
+        "canonicalMember": "dist-installers/notition/deb/Open Notition Studio_2026.48.1_amd64.deb",
+        "sha256": "68e8b78913dee415936bf7dc081d257da80bba9f295c66d519353a85433c241a",
+        "bytes": 76312910
+      },
+      "payloadExecutableSha256": "a5065fbe7ef53364b06d833f7513430518bf5ff961b4dea17c7beec031649311",
+      "launches": [
+        {
+          "pid": 5398,
+          "runningElfSha256": "a5065fbe7ef53364b06d833f7513430518bf5ff961b4dea17c7beec031649311",
+          "xid": "8388611",
+          "nativeFocusChecks": 21
+        },
+        {
+          "pid": 5561,
+          "runningElfSha256": "a5065fbe7ef53364b06d833f7513430518bf5ff961b4dea17c7beec031649311",
+          "xid": "8388611",
+          "nativeFocusChecks": 3
+        }
+      ],
+      "sourceCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+      "sourceTree": "e30879fd772871e690847c061ef66e6b81808a05",
+      "proofArtifact": 14826375277,
+      "proofZipSha256": "fe92e3a501645ad4ffc33f0cd4287793357f0af9284aeb02cd09099ea54ab4f3",
+      "job": 137745921942,
+      "sourceReportSha256": "84f8105f39512577a61f794d146e53d4399de1bb49badd532964cee2ac176bd9",
+      "ownProfileAndNoSuiteReceiptChecked": true,
+      "normalCloseAndCleanupReceiptChecked": true,
+      "limits": [
+        "Virtual X11/Xvfb, software rendering",
+        "One synthetic core scenario per app; no complete format/conversion or live account certification",
+        "Private conversion runtime presence is inspected where bundled; native format conversion is outside this core scenario",
+        "Where exercised, native file dialogs use the private test desktop's XDG portal and GTK provider; missing-portal behavior is not certified by this core matrix"
+      ]
+    },
+    {
+      "app": "database",
+      "packageType": "appimage",
+      "status": "passed-with-recorded-QA-metadata-limit",
+      "identity": "org.openaec.database-studio",
+      "package": {
+        "path": "Open Database Studio_2026.48.1_amd64.AppImage",
+        "canonicalMember": "dist-installers/database/appimage/Open Database Studio_2026.48.1_amd64.AppImage",
+        "sha256": "9a3618b91f1c20c9cf78eed95a2cf7424e9eaa12a97563297d8de4ec6a80417c",
+        "bytes": 119671288
+      },
+      "payloadExecutableSha256": "b9779e48e1836e25568701ad679341bfa677726d9395e4f0e4a172d986f95864",
+      "launches": [
+        {
+          "pid": 4831,
+          "runningElfSha256": "b9779e48e1836e25568701ad679341bfa677726d9395e4f0e4a172d986f95864",
+          "xid": "8388611",
+          "nativeFocusChecks": 3
+        }
+      ],
+      "sourceCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+      "sourceTree": "e30879fd772871e690847c061ef66e6b81808a05",
+      "proofArtifact": 14825227335,
+      "proofZipSha256": "3cc2dfcdbedc40d095dc25813148412680cc7ff6f7324299079dd436fffd8a9e",
+      "job": 137745922006,
+      "sourceReportSha256": "f874ab4a4cf04686a2f244d2e925495da57f7611e7b967106b58fc54706cd747",
+      "ownProfileAndNoSuiteReceiptChecked": true,
+      "normalCloseAndCleanupReceiptChecked": true,
+      "limits": [
+        "Virtual X11/Xvfb, software rendering",
+        "One synthetic core scenario per app; no complete format/conversion or live account certification",
+        "Private conversion runtime presence is inspected where bundled; native format conversion is outside this core scenario",
+        "Where exercised, native file dialogs use the private test desktop's XDG portal and GTK provider; missing-portal behavior is not certified by this core matrix"
+      ]
+    },
+    {
+      "app": "database",
+      "packageType": "deb",
+      "status": "passed-with-recorded-QA-metadata-limit",
+      "identity": "org.openaec.database-studio",
+      "package": {
+        "path": "Open Database Studio_2026.48.1_amd64.deb",
+        "canonicalMember": "dist-installers/database/deb/Open Database Studio_2026.48.1_amd64.deb",
+        "sha256": "847f5486dd0ab3241a66b031dc75d8fd23e91ab8a68986cb4d6cd9ae2db6c26d",
+        "bytes": 41412256
+      },
+      "payloadExecutableSha256": "a6087e8ea5ce37fefc698328aca9322eebaf0774954bf1daef7232ce074c2b30",
+      "launches": [
+        {
+          "pid": 12786,
+          "runningElfSha256": "a6087e8ea5ce37fefc698328aca9322eebaf0774954bf1daef7232ce074c2b30",
+          "xid": "4194307",
+          "nativeFocusChecks": 3
+        }
+      ],
+      "sourceCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+      "sourceTree": "e30879fd772871e690847c061ef66e6b81808a05",
+      "proofArtifact": 14825227335,
+      "proofZipSha256": "3cc2dfcdbedc40d095dc25813148412680cc7ff6f7324299079dd436fffd8a9e",
+      "job": 137745922006,
+      "sourceReportSha256": "2d574eb6e68205f6e0a99697bc41ec04cf6babea73eb4e7abd3439ac7b90a7f6",
+      "ownProfileAndNoSuiteReceiptChecked": true,
+      "normalCloseAndCleanupReceiptChecked": true,
+      "limits": [
+        "Virtual X11/Xvfb, software rendering",
+        "One synthetic core scenario per app; no complete format/conversion or live account certification",
+        "Private conversion runtime presence is inspected where bundled; native format conversion is outside this core scenario",
+        "Where exercised, native file dialogs use the private test desktop's XDG portal and GTK provider; missing-portal behavior is not certified by this core matrix"
+      ]
+    }
+  ],
+  "allEightBoundedCoreRoutesPassed": true,
+  "independentSavedContent": [
+    {
+      "app": "writer",
+      "kind": "appimage",
+      "inputFixtureExpectation": "Original synthetic Writer text. from pinned syntheticDocument source/template",
+      "outputSha256": "3bf7e7c7210e2c80acb3e838e80fbe6140483cf48cdb05166166683534df8b9c",
+      "paragraphs": [
+        "STANDALONE_WRITER_SAVED Original synthetic Writer text."
+      ],
+      "exactSingleMarkerAndOriginalText": true,
+      "status": "passed"
+    },
+    {
+      "app": "writer",
+      "kind": "deb",
+      "inputFixtureExpectation": "Original synthetic Writer text. from pinned syntheticDocument source/template",
+      "outputSha256": "92c95d2fa7609e5765d2b152b3d75c1d8af4acc44d772c68796d66001675a984",
+      "paragraphs": [
+        "STANDALONE_WRITER_SAVED Original synthetic Writer text."
+      ],
+      "exactSingleMarkerAndOriginalText": true,
+      "status": "passed"
+    },
+    {
+      "app": "presentation",
+      "kind": "appimage",
+      "outputSha256": "19ad3a696c5a714cc717beabfd5a16695ee217f68c1ff60176b53b2ee663ba93",
+      "slideCount": 2,
+      "orderedSlideParts": [
+        "ppt/slides/slide1.xml",
+        "ppt/slides/slide2.xml"
+      ],
+      "orderedSlideTexts": [
+        "STANDALONE_PRESENTATION_SAVEDVoeg een ondertitel toe",
+        ""
+      ],
+      "expectedEdit": "first title replaced; Ctrl+M adds blank slide2",
+      "status": "passed"
+    },
+    {
+      "app": "presentation",
+      "kind": "deb",
+      "outputSha256": "a414085516f84ca077d3fea712b6fca653455e660f435a62d339030a827a383e",
+      "slideCount": 2,
+      "orderedSlideParts": [
+        "ppt/slides/slide1.xml",
+        "ppt/slides/slide2.xml"
+      ],
+      "orderedSlideTexts": [
+        "STANDALONE_PRESENTATION_SAVEDVoeg een ondertitel toe",
+        ""
+      ],
+      "expectedEdit": "first title replaced; Ctrl+M adds blank slide2",
+      "status": "passed"
+    },
+    {
+      "app": "notition",
+      "kind": "appimage",
+      "localStateSha256": "3fadd4e30632bb2ac031ba43f918ec2d533634e4e6fe3231d527929286104f32",
+      "backupSha256": "3fadd4e30632bb2ac031ba43f918ec2d533634e4e6fe3231d527929286104f32",
+      "backupEqualsLocalState": true,
+      "title": "Synthetic standalone notebook",
+      "blockTexts": [
+        "STANDALONE_NOTITION_SAVED",
+        "Collect your ideas, make a to-do list or write up your meeting. Organise your notebook into sections and pages.",
+        "Today",
+        "Capture a first idea",
+        "Create a section of your own",
+        "Your notes stay locally on this computer. Make a backup regularly to take them to another computer."
+      ],
+      "status": "passed",
+      "limit": "Own-profile cold reopen, not importing the exported backup into a new profile."
+    },
+    {
+      "app": "notition",
+      "kind": "deb",
+      "localStateSha256": "291b04b8b7e2de226c11f0d8010d32c169eb003863185b20d800205c8778f1d9",
+      "backupSha256": "291b04b8b7e2de226c11f0d8010d32c169eb003863185b20d800205c8778f1d9",
+      "backupEqualsLocalState": true,
+      "title": "Synthetic standalone notebook",
+      "blockTexts": [
+        "STANDALONE_NOTITION_SAVED",
+        "Collect your ideas, make a to-do list or write up your meeting. Organise your notebook into sections and pages.",
+        "Today",
+        "Capture a first idea",
+        "Create a section of your own",
+        "Your notes stay locally on this computer. Make a backup regularly to take them to another computer."
+      ],
+      "status": "passed",
+      "limit": "Own-profile cold reopen, not importing the exported backup into a new profile."
+    },
+    {
+      "app": "database",
+      "kind": "appimage",
+      "sqlite": [
+        {
+          "file": "normal-appimage-input.sqlite",
+          "sha256": "4d0b734aa48197a00ecc4142fcbf93711cde0c86ecdb21531763075ea4c55aa4",
+          "rows": [
+            [
+              1,
+              "SyntheticAlpha",
+              7
+            ],
+            [
+              2,
+              "SyntheticBeta",
+              11
+            ]
+          ],
+          "types": [
+            [
+              "integer",
+              "text",
+              "integer"
+            ],
+            [
+              "integer",
+              "text",
+              "integer"
+            ]
+          ],
+          "sum": 18
+        },
+        {
+          "file": "normal-appimage-saved.sqlite",
+          "sha256": "6d8bd61ad6eb620db035563b2ed6a0ffbdcaa6356c3048e9f2e75ac88a640d44",
+          "rows": [
+            [
+              1,
+              "SyntheticAlpha",
+              13
+            ],
+            [
+              2,
+              "SyntheticBeta",
+              11
+            ]
+          ],
+          "types": [
+            [
+              "integer",
+              "text",
+              "integer"
+            ],
+            [
+              "integer",
+              "text",
+              "integer"
+            ]
+          ],
+          "sum": 24
+        }
+      ],
+      "normalExitCodes": [
+        0,
+        0
+      ],
+      "firstPid": 4964,
+      "reopenedPid": 12431,
+      "credentialBoundSaveFile": "/org/freedesktop/portal/desktop/request/1_24/ashpd_DGpjOQETLc",
+      "status": "passed"
+    },
+    {
+      "app": "database",
+      "kind": "deb",
+      "sqlite": [
+        {
+          "file": "normal-deb-input.sqlite",
+          "sha256": "4d0b734aa48197a00ecc4142fcbf93711cde0c86ecdb21531763075ea4c55aa4",
+          "rows": [
+            [
+              1,
+              "SyntheticAlpha",
+              7
+            ],
+            [
+              2,
+              "SyntheticBeta",
+              11
+            ]
+          ],
+          "types": [
+            [
+              "integer",
+              "text",
+              "integer"
+            ],
+            [
+              "integer",
+              "text",
+              "integer"
+            ]
+          ],
+          "sum": 18
+        },
+        {
+          "file": "normal-deb-saved.sqlite",
+          "sha256": "07cf11287b655d5b55879880dbd5d17ce9ac149b2dde10292886e0f5886d775c",
+          "rows": [
+            [
+              1,
+              "SyntheticAlpha",
+              13
+            ],
+            [
+              2,
+              "SyntheticBeta",
+              11
+            ]
+          ],
+          "types": [
+            [
+              "integer",
+              "text",
+              "integer"
+            ],
+            [
+              "integer",
+              "text",
+              "integer"
+            ]
+          ],
+          "sum": 24
+        }
+      ],
+      "normalExitCodes": [
+        0,
+        0
+      ],
+      "firstPid": 12878,
+      "reopenedPid": 19953,
+      "credentialBoundSaveFile": "/org/freedesktop/portal/desktop/request/1_2191/ashpd_PXVas5nncD",
+      "status": "passed"
+    }
+  ],
+  "originalPNGReviews": [
+    {
+      "app": "writer",
+      "kind": "appimage",
+      "file": "writer/raw/standalone-linux-results/writer/appimage/saved.png",
+      "sha256": "43d7ebdea556c500d864b27334954e8676d34a54dbe42a79969932ce5a79afef",
+      "directSerialOriginalImageReview": true,
+      "status": "passed",
+      "finding": "Visible STANDALONE_WRITER_SAVED plus Original synthetic Writer text; reopened Find shows one result.",
+      "fullDocumentLayoutClaim": false
+    },
+    {
+      "app": "writer",
+      "kind": "appimage",
+      "file": "writer/raw/standalone-linux-results/writer/appimage/reopened.png",
+      "sha256": "1c5643a7123cd8c090cfa13d73e96a0d3523cf648b51967973c7c4819387bb6c",
+      "directSerialOriginalImageReview": true,
+      "status": "passed",
+      "finding": "Visible STANDALONE_WRITER_SAVED plus Original synthetic Writer text; reopened Find shows one result.",
+      "fullDocumentLayoutClaim": false
+    },
+    {
+      "app": "writer",
+      "kind": "deb",
+      "file": "writer/raw/standalone-linux-results/writer/deb/saved.png",
+      "sha256": "0e1f3bebfb3392b1448a05d70e5a5cd80bbee368b4587368d44634b70eaff783",
+      "directSerialOriginalImageReview": true,
+      "status": "passed",
+      "finding": "Visible STANDALONE_WRITER_SAVED plus Original synthetic Writer text; reopened Find shows one result.",
+      "fullDocumentLayoutClaim": false
+    },
+    {
+      "app": "writer",
+      "kind": "deb",
+      "file": "writer/raw/standalone-linux-results/writer/deb/reopened.png",
+      "sha256": "1c5643a7123cd8c090cfa13d73e96a0d3523cf648b51967973c7c4819387bb6c",
+      "directSerialOriginalImageReview": true,
+      "status": "passed",
+      "finding": "Visible STANDALONE_WRITER_SAVED plus Original synthetic Writer text; reopened Find shows one result.",
+      "fullDocumentLayoutClaim": false
+    },
+    {
+      "app": "presentation",
+      "kind": "appimage",
+      "file": "presentation/raw/standalone-linux-results/presentation/appimage/saved.png",
+      "sha256": "63f378a653ac250aab29215b650772f6f5bf42e3a23187d6139296777e6aa9f2",
+      "directSerialOriginalImageReview": true,
+      "status": "passed",
+      "finding": "Saved image has the new blank second slide selected and two thumbnails; reopened Outline visibly shows exact STANDALONE_PRESENTATION_SAVED in slide1 plus empty slide2.",
+      "fullDocumentLayoutClaim": false
+    },
+    {
+      "app": "presentation",
+      "kind": "appimage",
+      "file": "presentation/raw/standalone-linux-results/presentation/appimage/reopened.png",
+      "sha256": "6344316dbd9fcabc893694e037acbcfc0f93ef31ad88b79cbc1eec9b7ef043d9",
+      "directSerialOriginalImageReview": true,
+      "status": "passed",
+      "finding": "Saved image has the new blank second slide selected and two thumbnails; reopened Outline visibly shows exact STANDALONE_PRESENTATION_SAVED in slide1 plus empty slide2.",
+      "fullDocumentLayoutClaim": false
+    },
+    {
+      "app": "presentation",
+      "kind": "deb",
+      "file": "presentation/raw/standalone-linux-results/presentation/deb/saved.png",
+      "sha256": "1b3caced39e723b6a7d760a6042a4978511371d654d8c94df416fe694cb8e8e8",
+      "directSerialOriginalImageReview": true,
+      "status": "passed",
+      "finding": "Saved image has the new blank second slide selected and two thumbnails; reopened Outline visibly shows exact STANDALONE_PRESENTATION_SAVED in slide1 plus empty slide2.",
+      "fullDocumentLayoutClaim": false
+    },
+    {
+      "app": "presentation",
+      "kind": "deb",
+      "file": "presentation/raw/standalone-linux-results/presentation/deb/reopened.png",
+      "sha256": "6344316dbd9fcabc893694e037acbcfc0f93ef31ad88b79cbc1eec9b7ef043d9",
+      "directSerialOriginalImageReview": true,
+      "status": "passed",
+      "finding": "Saved image has the new blank second slide selected and two thumbnails; reopened Outline visibly shows exact STANDALONE_PRESENTATION_SAVED in slide1 plus empty slide2.",
+      "fullDocumentLayoutClaim": false
+    },
+    {
+      "app": "notition",
+      "kind": "appimage",
+      "file": "notition/raw/standalone-linux-results/notition/appimage/saved.png",
+      "sha256": "5c95a1701f768e865b681b15b114c220c44a8cbb6ca27d3be0f75690a46d9ada",
+      "directSerialOriginalImageReview": true,
+      "status": "passed",
+      "finding": "Synthetic standalone notebook title and STANDALONE_NOTITION_SAVED remain visible after backup save and fresh process reopening.",
+      "fullDocumentLayoutClaim": false
+    },
+    {
+      "app": "notition",
+      "kind": "appimage",
+      "file": "notition/raw/standalone-linux-results/notition/appimage/reopened.png",
+      "sha256": "724fef7684217a4bb2eb581c23101559272e95810d0c86239d8205103ff8f7c0",
+      "directSerialOriginalImageReview": true,
+      "status": "passed",
+      "finding": "Synthetic standalone notebook title and STANDALONE_NOTITION_SAVED remain visible after backup save and fresh process reopening.",
+      "fullDocumentLayoutClaim": false
+    },
+    {
+      "app": "notition",
+      "kind": "deb",
+      "file": "notition/raw/standalone-linux-results/notition/deb/saved.png",
+      "sha256": "4ef07df45f046119a1c5bbfa44ab26be00fe1bfd9f0ea16ffede53ed18306064",
+      "directSerialOriginalImageReview": true,
+      "status": "passed",
+      "finding": "Synthetic standalone notebook title and STANDALONE_NOTITION_SAVED remain visible after backup save and fresh process reopening.",
+      "fullDocumentLayoutClaim": false
+    },
+    {
+      "app": "notition",
+      "kind": "deb",
+      "file": "notition/raw/standalone-linux-results/notition/deb/reopened.png",
+      "sha256": "bcb18a075643cc36624e2e8f280f6ee5717b9926e923d541fd7d437e7353de62",
+      "directSerialOriginalImageReview": true,
+      "status": "passed",
+      "finding": "Synthetic standalone notebook title and STANDALONE_NOTITION_SAVED remain visible after backup save and fresh process reopening.",
+      "fullDocumentLayoutClaim": false
+    },
+    {
+      "app": "database",
+      "kind": "appimage",
+      "file": "database/raw/linux-p2-native/database-normal-appimage/edited.png",
+      "sha256": "3ec548d5ff48dea8f2e31283d8f72f7e4a1e923ede225898fc4dfcc519af64b6",
+      "directSerialOriginalImageReview": true,
+      "status": "passed",
+      "finding": "Real SQL View shows edited/reopened SUM(amount)=24; input versus saved SQLite names and own app title visible.",
+      "fullDocumentLayoutClaim": false
+    },
+    {
+      "app": "database",
+      "kind": "appimage",
+      "file": "database/raw/linux-p2-native/database-normal-appimage/reopened.png",
+      "sha256": "a5c851dde434b7a7682ee55254b56923d88923d1ac00f934f88279b36c956c89",
+      "directSerialOriginalImageReview": true,
+      "status": "passed",
+      "finding": "Real SQL View shows edited/reopened SUM(amount)=24; input versus saved SQLite names and own app title visible.",
+      "fullDocumentLayoutClaim": false
+    },
+    {
+      "app": "database",
+      "kind": "deb",
+      "file": "database/raw/linux-p2-native/database-normal-deb/edited.png",
+      "sha256": "eabc9f1dba6b362ccb2a4064efd401d95f5072f3c25f9557bf9b37154dfff4a6",
+      "directSerialOriginalImageReview": true,
+      "status": "passed",
+      "finding": "Real SQL View shows edited/reopened SUM(amount)=24; input versus saved SQLite names and own app title visible.",
+      "fullDocumentLayoutClaim": false
+    },
+    {
+      "app": "database",
+      "kind": "deb",
+      "file": "database/raw/linux-p2-native/database-normal-deb/reopened.png",
+      "sha256": "165c975d900e137c0bb2cd47e017404c09f9a57c43967507744eabb9c705da5f",
+      "directSerialOriginalImageReview": true,
+      "status": "passed",
+      "finding": "Real SQL View shows edited/reopened SUM(amount)=24; input versus saved SQLite names and own app title visible.",
+      "fullDocumentLayoutClaim": false
+    }
+  ],
+  "ancillaryMetadataInconsistencies": [
+    {
+      "app": "writer",
+      "kind": "deb",
+      "reportedZenityDeclaredByDeb": false,
+      "actualDeclaredDependencies": "zenity, libwebkit2gtk-4.1-0, libgtk-3-0",
+      "classification": "Ancillary QA regex rejects comma after zenity; pinned Depends and normal apt install/which observation retain actual dependency evidence. Not a foreign-format confirmation acceptance."
+    },
+    {
+      "app": "presentation",
+      "kind": "deb",
+      "reportedZenityDeclaredByDeb": false,
+      "actualDeclaredDependencies": "zenity, libwebkit2gtk-4.1-0, libgtk-3-0",
+      "classification": "Ancillary QA regex rejects comma after zenity; pinned Depends and normal apt install/which observation retain actual dependency evidence. Not a foreign-format confirmation acceptance."
+    },
+    {
+      "app": "notition",
+      "kind": "deb",
+      "reportedZenityDeclaredByDeb": false,
+      "actualDeclaredDependencies": "zenity, libwebkit2gtk-4.1-0, libgtk-3-0",
+      "classification": "Ancillary QA regex rejects comma after zenity; pinned Depends and normal apt install/which observation retain actual dependency evidence. Not a foreign-format confirmation acceptance."
+    },
+    {
+      "app": "database",
+      "kind": "deb",
+      "reportedZenityDeclaredByDeb": false,
+      "actualDeclaredDependencies": "zenity, libwebkit2gtk-4.1-0, libgtk-3-0",
+      "classification": "Ancillary QA regex rejects comma after zenity; pinned Depends and normal apt install/which observation retain actual dependency evidence. Not a foreign-format confirmation acceptance."
+    }
+  ],
+  "auditorRehashedInstallersOrChildPackages": false,
+  "auditorRehashedParentInstallerZIP": false,
+  "packageIdentityScope": "Exact preparation snapshot, official metadata and native tester receipt/hash bindings; proof ZIP bytes independently hashed. No installer download/re-extraction by auditor.",
+  "fullDependencyClosure": false,
+  "detachedLinuxSignatureAcceptance": false,
+  "newNativeOperationOrCIRun": false,
+  "downloadCoordinationLimit": "Four small proof ZIP downloads were already complete when corrected reuse notice arrived; Presentation/Notition duplicate small downloads are retained and disclosed. No installer/parent download.",
+  "officialParentJobVerified": {
+    "run": 45177730188,
+    "job": 137703365848,
+    "attempt": 1,
+    "conclusion": "success",
+    "requiredGatesVerified": [
+      "Pakket bouwen (onondertekend)",
+      "Linux-installers werkelijk uitpakken en controleren",
+      "Meet- en inhoudscontrole voor de meegeleverde runtime",
+      "Linux native WebKit-interface en private installer controleren",
+      "Run actions/upload-artifact@v4"
+    ]
+  }
+}

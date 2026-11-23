@@ -1,7 +1,7 @@
 {
   "schemaVersion": 3,
-  "asOfUTC": "2026-11-23T13:50:25.764785+00:00",
-  "status": "P5 intake closed. All ten project workflows/eighteen exact-tree jobs and independently audited Windows/Linux/macOS browser acceptance on both routes PASS. Stable readiness NO pending final native, standalone, installer and signature acceptance.",
+  "asOfUTC": "2026-11-23T14:58:06.400188+00:00",
+  "status": "STOPPED by explicit user request before16:00CET23November. All new work and unused go revoked; resume only on new user instruction24November. Stable release NOT ready. Existing remote Mac/375/WRI jobs may finish unattended; exact source/results/limits preserved.",
   "date": "2026-11-23",
   "proposedVersion": "2026.48.1",
   "intermediateWindowsSource": "3a0decac3d45234d4b4d487e431b21cff961ccca",
@@ -1037,7 +1037,9 @@
     "publication": false,
     "mainWritesAllowed": false,
     "readyForStableRelease": false,
-    "projectCIAudit": "P5-ci-checkouts.json"
+    "projectCIAudit": "P5-ci-checkouts.json",
+    "macProducerRun": 45195055147,
+    "macProducerWorkflowHead": "2af94cdcefa3e88e4980b631d16a88d7d7de5ae8"
   },
   "P5BrowserAcceptance": {
     "applicationSource": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
@@ -1082,25 +1084,41 @@
   "extraReleaseCapacity": {
     "packageSignatureAcceptance": "Reviewed unchanged verifier and concrete disabled P5 request; independent final parent-byte/signature audit after all producer packages are available.",
     "releaseNotesDownloadMatrix": "Four source-checked draft files; nineteen Git source inputs and twenty-eight product/platform rows checked, no fabricated final links or hashes.",
-    "macStandaloneDriverReview": "Two focused-modal/cleanup QA defects found, fixed by existing Mac owner and compiled in mandatory native preflight; no product or native acceptance inferred.",
-    "browserEvidenceAudit": "Complete: Windows/Linux and Mac source/receipts/documents independently audited using existing small ZIPs. Sixteen Windows/Linux images directly reviewed; exact eight-image Mac owner review reused against unchanged PNG hashes. No new test, download or native pass.",
-    "readinessEstimateCET": "17:00-19:00 provisional, conditional on actual package availability and successful native/signature tests; no guaranteed deadline or approval to publish."
+    "macStandaloneDriverReview": "Two initial focused-modal/cleanup defects and a later incomplete-tree-readiness cleanup gap independently reviewed. Owner fixes preserve actual focus/unknown-modal/hard traversal guards; latest QA c43259ee has75 directed tests PASS. Fresh final Mac preflight/native effectiveness remains required.",
+    "browserEvidenceAudit": "Browser3OS/two routes and four Linux standalone apps/eight forms independently audited; all original bytes/outputs/PNG hashes preserved.",
+    "readinessEstimateCET": "Superseded: user ordered safe shutdown before16:00; no final release ETA promised.",
+    "LinuxEmailIndependentAudit": "d410: actual805B multipart MIME/exact APPEND/UIDFETCH and lifecycle identity checked independently; final corrected raw Git EMLs verified. Next readonly Spreadsheet core/supplement audit on existing proof, no new download/run."
   },
   "P5PackageProgress": {
-    "asOfUTC": "2026-11-23T13:49:02.626862+00:00",
+    "asOfUTC": "2026-11-23T14:47:28.760948+00:00",
     "run": 45177730188,
     "attempt": 1,
-    "Linux": "Official producer completed SUCCESS. Original Linux job log independently proves exact P5 checkout; all applicable package/runtime/native gates PASS. Native preparation awaits corrected exact-byte QA intake binding, no large download in failed prep.",
-    "Windows": "Signed seven-product package build in progress; final package/signature gates not yet complete.",
-    "macOS": "Signed/notarized seven-product package build in progress; final package/signature gates not yet complete.",
+    "Linux": "Official producer and corrected one-parent preparation SUCCESS. Suite DEB/AppImage metadata and child ZIP bindings delivered to native owners; actual consumer package/ELF validation and native tests next.",
+    "Windows": "Official original attempt1 job137703365803 SUCCESS14:34:04Z. Archive14828525724/2037941610B/SHA24816ccb... verified by own one-parent preparer; six fresh app-only native hosts and separate signed Suite consumer started.",
+    "macOS": "Original attempt1 job failed DMG creation. Separate Mac-only run45195055147/job137763371873 actually in progress; application source remains exactP5, separate workflow head explicit. No final Mac artifact/native acceptance yet.",
     "officialArtifactListEmpty": false,
-    "finalNativeGoIssued": "Linux conditional package-verified go issued; Windows/Mac equivalent exact-source go activates only after own producer gates and artifact verification.",
+    "finalNativeGoIssued": false,
     "LinuxArtifact": {
       "id": 14824745492,
       "bytes": 4444993178,
       "sha256": "c64b0e90e2144d1a5a6d17ad7e4881429a70ade8c48e76f7a22858b54c3928c5"
     },
-    "producerAudit": "P5-package-intake/audit.json"
+    "producerAudit": "P5-package-intake/audit.json",
+    "nativeGoIssuedForVerifiedPackage": {
+      "Linux": true,
+      "Windows": true,
+      "macOS": false
+    },
+    "conditionalStartAuthorizedForOwnedPackage": {
+      "Linux": true,
+      "Windows": true,
+      "macOS": true
+    },
+    "WindowsArtifact": {
+      "id": 14828525724,
+      "bytes": 2037941610,
+      "sha256": "24816ccb20360bbfc976abf38810988dfe4b27a3305c80d5b80b711719587e0d"
+    }
   },
   "future375Witness": {
     "run": 45182719759,
@@ -1124,6 +1142,209 @@
     "originalParentBytesDownloaded": 0,
     "correction": "Producer writes and hashes exact canonical Git bytes; consumer raw-byte hash and all original source/job/attempt/time/ZIP/package/ELF gates remain strict.",
     "SuiteTransferPriority": "Suite DEB and AppImage first, separate from six app-only hosts; d410 short377 and writer_362 Suite/378/374 share canonical verifier/input identity.",
-    "nativeAcceptance": false
+    "nativeAcceptance": false,
+    "successfulRun": 45188332685,
+    "successfulJob": 137739713476,
+    "qa": "86fe2d5c8bde47005fd40b3059d6fa92d98e7b4c",
+    "status": "One canonical parent successfully hashed/split by native preparer; no second parent download. Small original metadata ZIP independently hashed/safely extracted by root.",
+    "metadataAudit": "P5-package-intake/Linux-Suite-children/root-metadata-audit.json",
+    "canonicalVerifierGit": "67d95a1c27bc597ca8c6be62528db21789ebceb6",
+    "SuiteDEBDescriptor": "P5-package-intake/Linux-Suite-children/office-deb-descriptor.json",
+    "SuiteAppImageDescriptor": "P5-package-intake/Linux-Suite-children/office-appimage-descriptor.json",
+    "SuiteDEBConsumer": "writer_362 Suite/378/374; d410 only short377 on separate own host",
+    "SuiteAppImageConsumer": "writer_362 Suite/AppImage scope"
+  },
+  "P5MacIndependentProducer": {
+    "run": 45195055147,
+    "job": 137763371873,
+    "attempt": 1,
+    "startedUTC": "2026-11-23T14:31:29Z",
+    "signedBuildStepStartedUTC": "2026-11-23T14:35:43Z",
+    "producerCommit": "2af94cdcefa3e88e4980b631d16a88d7d7de5ae8",
+    "producerTree": "94340e40228ddcb11aace00e4dd01f614a13273e",
+    "producerBranch": "codex/p5-macos-only-producer-20261123",
+    "applicationCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+    "applicationTree": "e30879fd772871e690847c061ef66e6b81808a05",
+    "version": "2026.48.1",
+    "explicitAppCheckouts": 2,
+    "originalBuildStepsRetained": 38,
+    "signingRequired": true,
+    "publisherAbsent": true,
+    "onlyWorkflowDispatch": true,
+    "rootReview": "P5-Mac-recovery/root-review.json",
+    "sourceWitnessMember": ".local/macos-only-producer-source.json",
+    "sourceWitnessContract": {
+      "member": "literal above",
+      "sha256": "freeze actual original bytes only after parent verification",
+      "bytes": "actual count",
+      "rawBase64": "unchanged original bytes",
+      "value": "JSON parsed from those exact bytes"
+    },
+    "finalMacArtifact": null,
+    "nativeAccepted": false,
+    "noSecondOldMacRetry": true,
+    "automaticFollowupAllowed": false
+  },
+  "P5LinuxStandaloneAcceptance": {
+    "matrix": "P5-standalone-matrix.json",
+    "coreFourAudit": "P5-Linux-standalone-four-core/independent-audit.json",
+    "EmailAudit": "P5-Linux-email/independent-audit.json",
+    "boundedCoreFormsIndependentlyPassed": 12,
+    "Spreadsheet": "Both core XLSX forms independently audited PASS. DEB both GNM formats and AppImage.gnm passed; AppImage.gnumeric remains failed/unclassified, diagnostic45197550291 in progress. AppImage final inventory missing explicitly retained; no blanket/full-format pass.",
+    "Email": "Both package forms native CtrlS/exact one APPEND/MIME/fullquit/newPID/UIDFETCH/body/cleanup PASS independently; no real provider or SMTP claim.",
+    "SpreadsheetCoreAudit": "P5-Linux-spreadsheet-core/independent-audit.json",
+    "latestAppImageDiagnostic": {
+      "run": 45197550291,
+      "job": 137772125699,
+      "CI": "success",
+      "artifact": 14829826268,
+      "bytes": 3355358,
+      "sha256": "9cc7f012da9f63a1d7b9717bad4aef04c4257de0418fb1370d277e12e128411e",
+      "expires": "2027-02-21",
+      "downloadedAndAuditedAtStop": false,
+      "oldFailuresRemainOpen": true
+    }
+  },
+  "P5LinuxSuiteAcceptance": {
+    "owner": "writer_362",
+    "coreRun": 45189806911,
+    "coreJob": 137745078121,
+    "coreScope": "64 functional checks, 258 ribbon content and24 group observations, explicit partial/disabled-control limits; initial bodypaint unsupported retained.",
+    "AppImageRun": 45193170006,
+    "AppImageJob": 137756775739,
+    "AppImageScopedTestsPassed": "13 preflight/negative +7 positive checks, actual missing-helper error and Cancel/Overwrite/save/newPID, original images readable; no broad matrix/GPG claim.",
+    "DEB374Run": 45193639082,
+    "DEB374Job": 137758403838,
+    "DEB374Scope": "19 native checks/eight source XML checks, actual converted-control edit/save/newPID and retained Windows route; six exports and seven original title PNGs independently reviewed PASS by9d3b, no title overlap/clipping.",
+    "DEB374IndependentReviewGit": "658512c9a1511140e23bde0a81fb194fbac90d03",
+    "DEB378Positive": "16 checks including genuine Cancel/Overwrite and new process; historical process-scan failure retained separately.",
+    "DEBMissingOnlyRun": 45196900595,
+    "DEBMissingOnlyJob": 137769907340,
+    "DEBMissingOnly": "SUCCESS13 checks and cleanup; original-image/hash audit and final receipt completed by owner0810c25b, final-receiptSHA267ecaa97893e6dbbe8aa8df7b9ff826e78f317cf2fbfdc5cfeb02586a80a3b6. Extra independent Suite final audit underway.",
+    "issue377": {
+      "status": "PASS bounded CtrlS/Save XLSX proposal/cancel/original unchanged/dirty",
+      "run": 45190827271,
+      "job": 137748390686,
+      "harness": "f312038536ba5ca05aa31226918e9bd80735efbf",
+      "proofCommit": "497c27eba01f9c3985c8a68af75b5629e7df7db1",
+      "artifact": 14826475945,
+      "zipSha256": "ae2ed056c652d9e64391d0aed706d0b93aef8869ba867ef4219d15c61cf19067"
+    },
+    "fullSuiteAllAxesOrOtherPlatformsAccepted": false,
+    "finalOwnerProofCommit": "0810c25bc0532e12ab44e87635668faa33ef4ca5",
+    "finalIndependentAudit": "STOPPED INCOMPLETE; P5-Linux-Suite-final-audit/stopped-checkpoint.json. Owner PASS retained separately, no independent whole-suite pass."
+  },
+  "P5WindowsNativeProgress": {
+    "preparerRun": 45195780472,
+    "preparerCommit": "f88a805beb152d42a22806d135d9af1c912aedcb",
+    "preparerJob": 137765723008,
+    "parentDownloads": 1,
+    "sixFreshAppOnlyHostsActuallyStarted": true,
+    "SuiteNativeRun": 45196601365,
+    "SuiteQA": "3bb2641cd37785a1893e11bd4b0fb3172e9f25d0",
+    "SuiteNativeJob": 137768600967,
+    "SuiteCore": "Owner reports12 native core checks PASS after actual signed installer/payload/installed PE/identity/timestamp validation; short title SaveAs output missing, overall failed, targeted driver-versus-product diagnosis pending.",
+    "SuiteDescriptorArtifact": 14828970973,
+    "SuiteChildArtifact": 14828676560,
+    "NotitionDatabase": "Initial native jobs failed on Save filename selector and read-only app-identifier ACL respectively; owner investigating QA with original failures retained. Other four app hosts continue independently.",
+    "WindowsIssue377": "Short Spreadsheet-only follow-up planned with same approved child; not accepted yet.",
+    "signatureEndAudit": "Independent final OpenPGP/checksum job not started; awaiting actual Mac package plus reviewed separate-producer adapter."
+  },
+  "deadline17CET": {
+    "requested": true,
+    "stableReadyBy17Realistic": false,
+    "reason": "Final Mac installer absent; new signed/notarized seven-product build and mandatory native/installer/end-signature acceptance remain. More agents cannot make missing package evidence green.",
+    "checkpointBefore17Required": true,
+    "mainWritesAllowed": false,
+    "publicationAllowed": false,
+    "supersededByHardStop16": true
+  },
+  "userStop": {
+    "date": "2026-11-23",
+    "stopRequestedBeforeCET": "16:00",
+    "recordedUTC": "2026-11-23T14:58:06.400188+00:00",
+    "resumeDate": "2026-11-24",
+    "resumeRequiresNewUserInstruction": true,
+    "newWorkAllowed": false,
+    "allUnstartedGoRevoked": true,
+    "mainWritesAllowed": false,
+    "tagReleaseOrPublicationAllowed": false,
+    "stableReleaseReady": false,
+    "application": {
+      "commit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+      "tree": "e30879fd772871e690847c061ef66e6b81808a05",
+      "version": "2026.48.1"
+    },
+    "resumePlan": "RESUME-2026-11-24.md",
+    "ownerReceipts": [
+      {
+        "file": "Mac-standalone.json",
+        "originalLocalPath": "C:\\Users\\alper\\Desktop\\Documents\\ChatGPT\\code slaafjes\\work\\oos-standalone-macos-20261123-6f92\\.local\\mac-standalone-stop-handoff-2026-11-23.json",
+        "bytes": 19332,
+        "sha256": "7a5883b37d949f02be118042efa4fed15e88a59f729e3778fe38f0e9182e4c7f"
+      },
+      {
+        "file": "Mac-Suite-WIP.json",
+        "originalLocalPath": "C:\\Users\\alper\\Desktop\\Documents\\ChatGPT\\code slaafjes\\work\\oos-mac-native-blocker-20261120\\docs\\tests\\2026-11-23-mac-native-P5\\STOP-2026-11-23-dual-source-WIP.json",
+        "bytes": 2668,
+        "sha256": "21dfd45a41f79226af5266bb50673a4ad86c836bcd005dd6a7fdf9eb3a09b24b"
+      },
+      {
+        "file": "Linux-standalone.json",
+        "originalLocalPath": "C:\\Users\\alper\\Desktop\\Documents\\ChatGPT\\code slaafjes\\work\\oos-linux-release-input-p5-2026-11-23\\docs\\tests\\linux-release-input-p5\\STOP-2026-11-23.json",
+        "bytes": 6409,
+        "sha256": "19a6277e9542de780464a37d5a84a52ca45e667da2711aa83fd5c1a4cf4210a2"
+      },
+      {
+        "file": "Windows-Suite.json",
+        "originalLocalPath": "C:\\Users\\alper\\Desktop\\Documents\\ChatGPT\\code slaafjes\\work\\oos-windows-final-native-20261123\\docs\\tests\\windows-final-native-20261123-stop-handoff.json",
+        "bytes": 8663,
+        "sha256": "056b73e9e4384b81c6e60e02d5730ab9272392bbb022bad1695cab29d656b03d"
+      },
+      {
+        "file": "Linux377-and-independent-audits.json",
+        "originalLocalPath": "C:\\Users\\alper\\Desktop\\Documents\\ChatGPT\\code slaafjes\\work\\oos-xlsb377-native-retest-d410\\qa\\xlsb377-native\\shutdown-2026-11-23.json",
+        "bytes": 5158,
+        "sha256": "e6fc5e5f6da6e77d5575b2e6caa7871ef0954c011fde332736df7ce8f15fc64a"
+      },
+      {
+        "file": "Future375.json",
+        "originalLocalPath": "C:\\Users\\alper\\Desktop\\Documents\\ChatGPT\\code slaafjes\\work\\oos-presentation-375-uop-rectangle-fills-2026-11-23-0c73\\docs\\tests\\presentation-375\\stop-2026-11-23.json",
+        "copied": false,
+        "note": "Owner final delivery preserved in chat; use its exact worktree stop file tomorrow."
+      }
+    ],
+    "externalJobsMayFinishWithoutLocalSession": [
+      {
+        "run": 45195055147,
+        "job": 137763371873,
+        "attempt": 1,
+        "scope": "Mac-only producer; no auto prep/native",
+        "workflowHead": "2af94cdcefa3e88e4980b631d16a88d7d7de5ae8"
+      },
+      {
+        "run": 45197419347,
+        "job": 137771513436,
+        "attempt": 1,
+        "scope": "Separate375 source witness outsideP5; absolute limit20:14:23CET"
+      },
+      {
+        "run": 45198852740,
+        "job": 137776546305,
+        "attempt": 1,
+        "scope": "SeparateWRI QA outsideP5; result not yet assessed"
+      }
+    ],
+    "localCleanup": "Root started no local GUI/capture/server/app; own foreground CLI commands finish before close. Owners report their own watcher/process cleanup; user/shared apps not touched.",
+    "unreviewedSavedCryptoAdapter": {
+      "commit": "af2ca505004450cd83c8d1008a6b9a7e849899fa",
+      "branch": "codex/qa-package-mac-producer-binding-20261123",
+      "worktree": "C:\\Users\\alper\\Desktop\\Documents\\ChatGPT\\code slaafjes\\work\\oos-package-mac-producer-binding-20261123",
+      "pushed": false,
+      "testsBeforeStop": 22,
+      "rootReview": "OPEN",
+      "triggerCreated": false,
+      "keysUsed": false
+    }
   }
 }

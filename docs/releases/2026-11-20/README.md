@@ -1,5 +1,7 @@
 # Releasevoorbereiding — actuele weekversie 2026.48.1
 
+**Gebruikersstop23nov vóór16:00 CET: nieuw werk gestopt, geen automatische hervatting.** [Startplan voor dinsdag24nov](RESUME-2026-11-24.md) en [eindreceipts](STOP-2026-11-23/index.json). Alleen na een nieuwe gebruikersopdracht; geen main/tag/publicatie.
+
 ## Maandag 23 november — actieve opdracht
 
 De gebruiker heeft de releasevoorbereiding hervat: Windows-uitpakken/bouwen herstellen, de Mac-native documentblokkade met prioriteit verklaren en oplossen, de Linux-correcties in echte pakketten controleren, en zelfstandige werking van alle zes losse apps aantonen. **Geen main-merge/push, releasetag of publicatie zonder afzonderlijk akkoord.** Vrijdag15:50 is geen deadline voor vandaag. Het doel is vandaag een stabiele release mogelijk maken als alle noodzakelijke controles werkelijk slagen; dit is geen garantie of voorafgaande vrijgave.
@@ -11,6 +13,16 @@ De centrale [actuele machineoverdracht](current-handoff.json) bevat de huidige t
 Exact P5:44 SDKcontroles,9 configuratiecontroles en syntax van beide CIharnassen slagen. De volledige lokale P4testgang (3657pass,0fail,10 expliciete skips) blijft op haar oorspronkelijke bron. Alle tien nieuwe P5-projectworkflows zijn geslaagd; de [checkoutaudit van achttien jobs](P5-ci-checkouts.json) bevestigt dezelfde vastgelegde tree, inclusief de werkelijk uitgevoerde PR-mergecheckouts. De immutable branch `codex/release-candidate-2026-11-23-p5` bouwt zeven producten in [45177730188](https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/45177730188), met `publiceren=false`.
 
 **Stabiele-releasegereedheid: NEE.** [De nieuwe28-pakketmatrix](P5-standalone-matrix.json) vereist eigen P5pakketbytes, nativebediening, zelfstandigheid van alle zes apps en installer-/handtekeningcontroles. De nieuwe [P5-Windows/Linux-browserbewijzen](P5-browser/README.md) zijn onafhankelijk gecontroleerd op bron, beide routes, documenten en zestien originele titelbeelden. Ook de [Mac-only P5-herproef45183129618](P5-browser/macOS-followup/README.md) is onafhankelijk geaccepteerd op beide routes, inclusief bron-/receipt-/DOCX-audit en acht originele titelbeelden. Samen:54 Officecases,24 eerdere Writerissue-routechecks,44 SDKcontroles per OS en24 onafhankelijke veld-DOCX-/titelbeeldcontroles. De oorspronkelijke Mac-driver-/opnamefailures blijven behouden; de criteria zijn niet versoepeld. De byte-identieke herbouwde tekstkern en eerdere P4-bewijzen behouden hun eigen bron. NativeMac-standalonedriverdiagnose blijft apart op P2bytes; geen opstart-/downloadbewijs als functionaliteit. #366 blijft uitgesteld; #78/#87/#375/#380 blijven buiten P5.
+
+## Actuele native voortgang — P5
+
+Alle twaalf Linux-standalone kernroutes (zes apps, DEB en AppImage) hebben onafhankelijke inhouds-/lifecycle-audits: [vier apps](P5-Linux-standalone-four-core/README.md), [Email Ctrl+S/MIME](P5-Linux-email/independent-audit.json) en [Spreadsheet-core](P5-Linux-spreadsheet-core/independent-audit.json). De AppImage-`.gnumeric`-aanvulling blijft afzonderlijk mislukt/ongeclassificeerd; een ontbrekende laatste profielinventaris wordt niet als uitgevoerd voorgesteld. Dit is geen algemene formaat-, provider- of FUSE-goedkeuring.
+
+De oorspronkelijke Windows-producent137703365803 is geslaagd en de zes aparte apphosts plus de ondertekende Suite-consumer zijn gestart. De Suite-core12 slaagt; een afzonderlijk titel-savebestand ontbreekt nog en wordt gericht onderzocht. Root behoudt geldige onderdelen en oorspronkelijke failures.
+
+De oorspronkelijke Mac-job faalde bij `hdiutil create: Resource busy` na geaccepteerde appnotarisatie. GitHub weigerde een geselecteerde jobherhaling zolang Windows liep. Daarom is de aparte [Mac-only producer45195055147](https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/45195055147) daadwerkelijk gestart: producerhead `2af94cdcefa3e88e4980b631d16a88d7d7de5ae8`, maar beide werkelijke appcheckouts blijven P5 `b696ab86`/tree `e30879fd`. Alle38 oorspronkelijke bouwstappen blijven behouden, ondertekening is verplicht en de publisher ontbreekt. [Herstel-/bronbewijs](P5-Mac-recovery/root-review.json) houdt beide bronketens gescheiden. Geen oude Mac-herkansing daarnaast.
+
+**Vóór17:00 aantoonbaar stabiel gereed: niet verantwoord haalbaar op de huidige voortgang.** Er is nog geen nieuw Mac-installerbewijs, en native/signature-acceptatie blijft nodig. De actuele matrix bewaart afgeronde resultaten zonder open controles groen te maken; geen main, tag of publicatie is toegestaan.
 
 ## Behouden P2-bewijs en historische voortgang
 

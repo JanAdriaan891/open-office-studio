@@ -1,0 +1,58 @@
+signal time=1795442798.865059 sender=org.freedesktop.DBus -> destination=:1.2189 serial=2 path=/org/freedesktop/DBus; interface=org.freedesktop.DBus; member=NameAcquired
+   string ":1.2189"
+signal time=1795442798.865079 sender=org.freedesktop.DBus -> destination=:1.2189 serial=4 path=/org/freedesktop/DBus; interface=org.freedesktop.DBus; member=NameLost
+   string ":1.2189"
+signal time=1795442798.866717 sender=:1.2190 -> destination=(null destination) serial=2 path=/org/openaec/epub356; interface=org.openaec.epub356; member=Ready
+   string "epub356_3c74c80570dd47d7b1f1ff0dbe380c87"
+method call time=1795442799.044078 sender=:1.2191 -> destination=org.freedesktop.portal.Desktop serial=12 path=/org/freedesktop/portal/desktop; interface=org.freedesktop.portal.FileChooser; member=SaveFile
+   string ""
+   string "Save database export"
+   array [
+      dict entry(
+         string "handle_token"
+         variant             string "ashpd_PXVas5nncD"
+      )
+      dict entry(
+         string "current_name"
+         variant             string "normal-deb-input.sqlite"
+      )
+      dict entry(
+         string "filters"
+         variant             array [
+               struct {
+                  string "SQLite working copy"
+                  array [
+                     struct {
+                        uint32 0
+                        string "*.sqlite"
+                     }
+                  ]
+               }
+            ]
+      )
+   ]
+method call time=1795442799.045495 sender=:1.3 -> destination=:1.2182 serial=164 path=/org/freedesktop/portal/desktop; interface=org.freedesktop.impl.portal.FileChooser; member=SaveFile
+   object path "/org/freedesktop/portal/desktop/request/1_2191/ashpd_PXVas5nncD"
+   string ""
+   string ""
+   string "Save database export"
+   array [
+      dict entry(
+         string "filters"
+         variant             array [
+               struct {
+                  string "SQLite working copy"
+                  array [
+                     struct {
+                        uint32 0
+                        string "*.sqlite"
+                     }
+                  ]
+               }
+            ]
+      )
+      dict entry(
+         string "current_name"
+         variant             string "normal-deb-input.sqlite"
+      )
+   ]

@@ -1,0 +1,20 @@
+{
+  "id": 14827731026,
+  "node_id": "MDg6QXJ0aWZhY3QxNDgyNzczMTAyNg==",
+  "name": "linux-suite-final-deb-80f85a5cb4ae536f1bf7248fbe4cfeeb2653d7d4",
+  "size_in_bytes": 14256701,
+  "url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/actions/artifacts/14827731026",
+  "archive_download_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/actions/artifacts/14827731026/zip",
+  "expired": false,
+  "digest": "sha256:336d4c6e693f6e74595dc980276a89357e574e37b32b9314276e078640eb751e",
+  "created_at": "2026-11-23T14:33:46Z",
+  "updated_at": "2026-11-23T14:33:46Z",
+  "expires_at": "2027-02-21T14:23:12Z",
+  "workflow_run": {
+    "id": 45193639082,
+    "repository_id": 1427673882,
+    "head_repository_id": 1427673882,
+    "head_branch": "codex/linux-suite-final-acceptance-2026-11-23",
+    "head_sha": "80f85a5cb4ae536f1bf7248fbe4cfeeb2653d7d4"
+  }
+}

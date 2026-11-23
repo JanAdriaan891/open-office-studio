@@ -1,0 +1,64 @@
+{
+  "status": "attributed",
+  "ownedPid": 4964,
+  "busId": "5bc778590b9fe9f4422241326b044805",
+  "privateBusAddress": "unix:abstract=/tmp/dbus-xf3cmcwzs6,guid=ff8c6381c01e7f2333ef3bdd6b044805",
+  "display": ":99",
+  "member": "SaveFile",
+  "calls": [
+    {
+      "sender": ":1.24",
+      "destination": "org.freedesktop.portal.Desktop",
+      "serial": 12,
+      "interface": "org.freedesktop.portal.FileChooser",
+      "member": "SaveFile",
+      "token": "ashpd_DGpjOQETLc",
+      "currentName": "normal-appimage-input.sqlite",
+      "handle": null
+    },
+    {
+      "sender": ":1.3",
+      "destination": ":1.8",
+      "serial": 122,
+      "interface": "org.freedesktop.impl.portal.FileChooser",
+      "member": "SaveFile",
+      "token": null,
+      "currentName": "normal-appimage-input.sqlite",
+      "handle": "/org/freedesktop/portal/desktop/request/1_24/ashpd_DGpjOQETLc"
+    }
+  ],
+  "readyBeforeSave": true,
+  "protocolBaseCommit": "75ca3dfe836f58a54c0bde5c1006a24b85b5ec3d",
+  "observerPid": 5175,
+  "ownedProcessGroup": 5175,
+  "monitorPid": 5180,
+  "correlation": {
+    "ownedPid": 4964,
+    "requestHandle": "/org/freedesktop/portal/desktop/request/1_24/ashpd_DGpjOQETLc",
+    "frontend": {
+      "sender": ":1.24",
+      "destination": "org.freedesktop.portal.Desktop",
+      "serial": 12,
+      "interface": "org.freedesktop.portal.FileChooser",
+      "member": "SaveFile",
+      "token": "ashpd_DGpjOQETLc",
+      "currentName": "normal-appimage-input.sqlite",
+      "handle": null
+    },
+    "backend": {
+      "sender": ":1.3",
+      "destination": ":1.8",
+      "serial": 122,
+      "interface": "org.freedesktop.impl.portal.FileChooser",
+      "member": "SaveFile",
+      "token": null,
+      "currentName": "normal-appimage-input.sqlite",
+      "handle": "/org/freedesktop/portal/desktop/request/1_24/ashpd_DGpjOQETLc"
+    },
+    "brokerUniqueName": ":1.3",
+    "backendUniqueName": ":1.8",
+    "backendPid": 4860
+  },
+  "backendExecutable": "/usr/libexec/xdg-desktop-portal-gtk",
+  "monitorClosed": true
+}

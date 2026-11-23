@@ -1,0 +1,88 @@
+{
+  "date": "2026-11-23",
+  "stopRequestedBeforeCET": "16:00",
+  "recordedUTC": "2026-11-23T14:58:06.400188+00:00",
+  "resumeDate": "2026-11-24",
+  "resumeRequiresNewUserInstruction": true,
+  "newWorkAllowed": false,
+  "allUnstartedGoRevoked": true,
+  "mainWritesAllowed": false,
+  "tagReleaseOrPublicationAllowed": false,
+  "stableReleaseReady": false,
+  "application": {
+    "commit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+    "tree": "e30879fd772871e690847c061ef66e6b81808a05",
+    "version": "2026.48.1"
+  },
+  "resumePlan": "RESUME-2026-11-24.md",
+  "ownerReceipts": [
+    {
+      "file": "Mac-standalone.json",
+      "originalLocalPath": "C:\\Users\\alper\\Desktop\\Documents\\ChatGPT\\code slaafjes\\work\\oos-standalone-macos-20261123-6f92\\.local\\mac-standalone-stop-handoff-2026-11-23.json",
+      "bytes": 19332,
+      "sha256": "7a5883b37d949f02be118042efa4fed15e88a59f729e3778fe38f0e9182e4c7f"
+    },
+    {
+      "file": "Mac-Suite-WIP.json",
+      "originalLocalPath": "C:\\Users\\alper\\Desktop\\Documents\\ChatGPT\\code slaafjes\\work\\oos-mac-native-blocker-20261120\\docs\\tests\\2026-11-23-mac-native-P5\\STOP-2026-11-23-dual-source-WIP.json",
+      "bytes": 2668,
+      "sha256": "21dfd45a41f79226af5266bb50673a4ad86c836bcd005dd6a7fdf9eb3a09b24b"
+    },
+    {
+      "file": "Linux-standalone.json",
+      "originalLocalPath": "C:\\Users\\alper\\Desktop\\Documents\\ChatGPT\\code slaafjes\\work\\oos-linux-release-input-p5-2026-11-23\\docs\\tests\\linux-release-input-p5\\STOP-2026-11-23.json",
+      "bytes": 6409,
+      "sha256": "19a6277e9542de780464a37d5a84a52ca45e667da2711aa83fd5c1a4cf4210a2"
+    },
+    {
+      "file": "Windows-Suite.json",
+      "originalLocalPath": "C:\\Users\\alper\\Desktop\\Documents\\ChatGPT\\code slaafjes\\work\\oos-windows-final-native-20261123\\docs\\tests\\windows-final-native-20261123-stop-handoff.json",
+      "bytes": 8663,
+      "sha256": "056b73e9e4384b81c6e60e02d5730ab9272392bbb022bad1695cab29d656b03d"
+    },
+    {
+      "file": "Linux377-and-independent-audits.json",
+      "originalLocalPath": "C:\\Users\\alper\\Desktop\\Documents\\ChatGPT\\code slaafjes\\work\\oos-xlsb377-native-retest-d410\\qa\\xlsb377-native\\shutdown-2026-11-23.json",
+      "bytes": 5158,
+      "sha256": "e6fc5e5f6da6e77d5575b2e6caa7871ef0954c011fde332736df7ce8f15fc64a"
+    },
+    {
+      "file": "Future375.json",
+      "originalLocalPath": "C:\\Users\\alper\\Desktop\\Documents\\ChatGPT\\code slaafjes\\work\\oos-presentation-375-uop-rectangle-fills-2026-11-23-0c73\\docs\\tests\\presentation-375\\stop-2026-11-23.json",
+      "copied": false,
+      "note": "Owner final delivery preserved in chat; use its exact worktree stop file tomorrow."
+    }
+  ],
+  "externalJobsMayFinishWithoutLocalSession": [
+    {
+      "run": 45195055147,
+      "job": 137763371873,
+      "attempt": 1,
+      "scope": "Mac-only producer; no auto prep/native",
+      "workflowHead": "2af94cdcefa3e88e4980b631d16a88d7d7de5ae8"
+    },
+    {
+      "run": 45197419347,
+      "job": 137771513436,
+      "attempt": 1,
+      "scope": "Separate375 source witness outsideP5; absolute limit20:14:23CET"
+    },
+    {
+      "run": 45198852740,
+      "job": 137776546305,
+      "attempt": 1,
+      "scope": "SeparateWRI QA outsideP5; result not yet assessed"
+    }
+  ],
+  "localCleanup": "Root started no local GUI/capture/server/app; own foreground CLI commands finish before close. Owners report their own watcher/process cleanup; user/shared apps not touched.",
+  "unreviewedSavedCryptoAdapter": {
+    "commit": "af2ca505004450cd83c8d1008a6b9a7e849899fa",
+    "branch": "codex/qa-package-mac-producer-binding-20261123",
+    "worktree": "C:\\Users\\alper\\Desktop\\Documents\\ChatGPT\\code slaafjes\\work\\oos-package-mac-producer-binding-20261123",
+    "pushed": false,
+    "testsBeforeStop": 22,
+    "rootReview": "OPEN",
+    "triggerCreated": false,
+    "keysUsed": false
+  }
+}

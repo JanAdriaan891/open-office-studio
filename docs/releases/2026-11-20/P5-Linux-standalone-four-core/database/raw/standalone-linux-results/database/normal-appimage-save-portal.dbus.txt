@@ -1,0 +1,58 @@
+signal time=1795442708.282424 sender=org.freedesktop.DBus -> destination=:1.22 serial=2 path=/org/freedesktop/DBus; interface=org.freedesktop.DBus; member=NameAcquired
+   string ":1.22"
+signal time=1795442708.282448 sender=org.freedesktop.DBus -> destination=:1.22 serial=4 path=/org/freedesktop/DBus; interface=org.freedesktop.DBus; member=NameLost
+   string ":1.22"
+signal time=1795442708.587860 sender=:1.23 -> destination=(null destination) serial=2 path=/org/openaec/epub356; interface=org.openaec.epub356; member=Ready
+   string "epub356_d1ab7f9a7953457dab66bf917e1d20b8"
+method call time=1795442708.753746 sender=:1.24 -> destination=org.freedesktop.portal.Desktop serial=12 path=/org/freedesktop/portal/desktop; interface=org.freedesktop.portal.FileChooser; member=SaveFile
+   string ""
+   string "Save database export"
+   array [
+      dict entry(
+         string "handle_token"
+         variant             string "ashpd_DGpjOQETLc"
+      )
+      dict entry(
+         string "current_name"
+         variant             string "normal-appimage-input.sqlite"
+      )
+      dict entry(
+         string "filters"
+         variant             array [
+               struct {
+                  string "SQLite working copy"
+                  array [
+                     struct {
+                        uint32 0
+                        string "*.sqlite"
+                     }
+                  ]
+               }
+            ]
+      )
+   ]
+method call time=1795442708.755478 sender=:1.3 -> destination=:1.8 serial=122 path=/org/freedesktop/portal/desktop; interface=org.freedesktop.impl.portal.FileChooser; member=SaveFile
+   object path "/org/freedesktop/portal/desktop/request/1_24/ashpd_DGpjOQETLc"
+   string ""
+   string ""
+   string "Save database export"
+   array [
+      dict entry(
+         string "filters"
+         variant             array [
+               struct {
+                  string "SQLite working copy"
+                  array [
+                     struct {
+                        uint32 0
+                        string "*.sqlite"
+                     }
+                  ]
+               }
+            ]
+      )
+      dict entry(
+         string "current_name"
+         variant             string "normal-appimage-input.sqlite"
+      )
+   ]
