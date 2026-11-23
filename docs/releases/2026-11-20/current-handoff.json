@@ -1,7 +1,7 @@
 {
   "schemaVersion": 3,
-  "asOfUTC": "2026-11-23T10:50:46.174541+00:00",
-  "status": "P2 core Mac359 and Linux368/369 accepted within bounded native scopes; final seven-product package and standalone acceptance active; Windows release blocked by one test timeout. NOT stable-release approved.",
+  "asOfUTC": "2026-11-23T11:42:42.844900+00:00",
+  "status": "P2 core Mac359/361 and Linux368/369 scoped native checks accepted. Three necessary productfixes374/377/378 are reviewable; internal next-combination staging starts, not frozen. Sixapp Linux round exposed fixture/shortcut/ACL issues; final stable approval remainsNO.",
   "date": "2026-11-23",
   "proposedVersion": "2026.48.1",
   "intermediateWindowsSource": "3a0decac3d45234d4b4d487e431b21cff961ccca",
@@ -26,16 +26,16 @@
   },
   "owners": {
     "WindowsRuntime372AndOfficeNative": "750b; product30f35dcf copied as3a0decac, own QA build and native preflight",
-    "MacBody359": "mac_native_release_blocker; core complete, now remaining native361 Tab/Find/two-document isolation",
-    "LinuxCurrent420368369": "writer_362; P2 actual DEB native complete, now native STW",
-    "LinuxStandaloneSixApps": "standalone_linux; final six-app harness preserved, active native GNM first",
+    "MacBody359": "mac_native_release_blocker;359core+361P2scopedcomplete, finalnewpackageawaited",
+    "LinuxCurrent420368369": "writer_362;368/369/STWproofcomplete,378productready, finalLinuxSuiteplanprepared",
+    "LinuxStandaloneSixApps": "standalone_linux; activeEmaildifferential/localshortcutifconfirmed, DatabaseACLdriverthenboundedAppImagefollowup",
     "MacStandaloneSixAppsAndDownloads": "6f92; completed coverage audit, now QA-only Mac standalone cases",
-    "WindowsStandaloneSixApps": "8020; final6app harness preserved; nativeGNM/XLSB/UOS complete; active nativeSTC only",
+    "WindowsStandaloneSixApps": "8020; nativeGNM/XLSB/UOS/STC done,SXCstrictpreservationFAILretained; noactive nextclaim",
     "VersionFreezePipelineIntegrationAndReadiness": "root",
-    "LinuxNativeXLSB": "d410; boundednativeXLSB complete, now independentread-only374source review",
+    "LinuxNativeXLSB": "d410;377sourcefixdone, shortnative377retestpreparedawaitingnewpackage",
     "STWVisualTriageAndBrowser": "9d3b; Windows operator750b only",
-    "NextFormatUOT": "e0d7; STC/UOS complete,UOTlimitedFAIL,UOPcolorbug375recorded; noactive nextformatclaim",
-    "FuturePresentation78": "0c73; schemeClr solid slide background, separate later intake;87 completed separately"
+    "NextFormatUOT": "e0d7; activeWB2sourceQA; earlierproofsretained",
+    "FuturePresentation78": "0c73;78/87doneforfuture,375causalUNO/runtimepatchproposalactiveoutsidecriticalintake"
   },
   "MacCriticalPath": {
     "current420NativeBaselineRun": 45136241393,
@@ -74,13 +74,18 @@
       ]
     },
     "remaining361": {
-      "firstRun": 45156137621,
-      "firstArtifact": 14808443160,
-      "firstArchiveSha256": "e0d2f8d8ba9e2f70e1fa9e0270633ba8bcebe8d0f9f14a7f5720442478e6b04d",
-      "result": "Nativecelltyping/save/UndoRedo preflightPASS;3Tabs left3x3, driver-vs-productundecided. Find/twodocnotreached. No productpatch.",
-      "targetedHIDRun": 45157451631,
-      "qaSource": "1af35a5f",
-      "status": "queued awaitingMacrunner; noinputrepeat/rowcriteriachange; independentFind/twodocstillplanned."
+      "proofCommit": "fd2edc4e5b2f058adf4d9897bbb7c9fc0951ad38",
+      "scopedAcceptance": "YES for agreed P2Tab/Find/two-document scope; not finalsignedSuite/newsource",
+      "findTwoDocRun": 45165715341,
+      "findArtifact": 14813629072,
+      "findArchiveSha256": "1ebbd602018702cd3333f647a2cbf5c71ca3c47d771aee404f7bf1ccda43c0e9",
+      "tabModelOracleRun": 45164433686,
+      "tabModelArtifact": 14813093059,
+      "tabModelArchiveSha256": "eaf722dc6197685b2c908d5c04d4e3f0e67886308743ef2f181eb81a5cbd416e",
+      "tabHistoryRun": 45166342456,
+      "tabHistoryArtifact": 14815380479,
+      "tabHistoryArchiveSha256": "849901dc28b589dfe52d5031eadded2b048568ea585d2917eed74cf5ae3bd659",
+      "result": "Actual3HIDTabs+newrow+CmdS gives4x3 independentXML; earlyAX3x3 wasstale. Undo1 removesnewrow,Undo2 removesrow;Redo1 emptyrow4,Redo2 newrow; alloriginalcells intact. FindinputUndo/Redo isolatedfromtable,Escape/documentUndo and A/BsamePIDhistories+saveoraclesPASS. OriginalAX/acquisition failures retainedunchanged."
     }
   },
   "Windows372": {
@@ -178,7 +183,7 @@
     "suiteIsSeventhProduct": true,
     "expectedInstallerCountIncludingSuite": 28,
     "coverageAudit": "All six registered workspaces have standalone identities/products. Published v2026.46.2 download links checked; no new-version native approval inferred.",
-    "functionalMatrix": "Final48.1 actual app cases not-run until own verified release artifacts. Independent OS starts; old host/oldapp preflights do not count.",
+    "functionalMatrix": "Real P2 Linux appcases underway: perapp/DEB/AppImage results and open failures kept separate. Mac ownartifact pending; Windows finalsource/pkgs pending. No complete standaloneapproval.",
     "finalPackageSource": "dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b",
     "noRealMailOrUserProfileMutation": true,
     "downloadAudit": "standalone-downloads/standalone-download-coverage-2026-11-23.md",
@@ -221,7 +226,33 @@
       "intakeCommit": "f326520c54b519640c2473aedf724eb4bfc6d568",
       "intakeSha256": "22e66e34c7376a01a73c58e6c3bc0bc79ce045f207ebd9084a692f28030daed9",
       "goCommit": "3637ddddfe4cbc01ec4418257dc40ce9e9532632",
-      "status": "Requestpassed, onefullparentprep queued;12 nativecases not-run untilownpackagegates."
+      "status": "Initial45159559656 completedFAILURE: Writer/Presentation/Notition bothforms jobsSUCCESS, reportaudits pending; SpreadsheetDEBPASS/AppImageGnumericintermittent; EmailfixturethenCtrlSrouteunderdiagnosis; DatabasemetadataACLdriverfailurebeforeUI. Nooverallpass.",
+      "preparedCommit": "926f7e649d50fb436e305c3f2793393da500bdd1",
+      "preparedGitSha256": "1ab08cf2ca0b41fb553ec845e17871dc3034506bff925f4971a24fbed41e6b84",
+      "preparedOwnerCRLFSha256": "a7a58c0efb3892685e3ae06f3f8cdf6a7b078998753394875cf08daf1628af95",
+      "rootPreparedAudit": "P2-Linux-standalone-input/root-audit.json"
+    },
+    "LinuxOpenFindings": {
+      "SpreadsheetAppImage": {
+        "first": "Second.gnumericimport showed actualCouldntOpen; DEBbothaliasesPASS andAppImagefirst.gnmPASS. NoZenityconfirm reached.",
+        "focusedRetryRun": 45162569158,
+        "focusedRetryArtifact": 14813071228,
+        "focusedRetryArchiveSha256": "2826bf8f076595df9d41eb2ae69cf55a4aec93d10c368a6109db7552cf6322cd",
+        "status": "Sameimmutableappimage bothaliases/core/save/reopenPASS onretry;1failure/1pass remains unexplainedintermittent. Boundedrepeat/relevantfinalsourcecheck stillneeded, nofixedproductclaim. Zenitynotinstalled/probedonretry."
+      },
+      "Email": {
+        "firstFailure": "Credentialfixture fedsecret-toolstdinignore; productnotimplicated, bothroutesnoStoredPassword/0IMAPcommands.",
+        "fixtureCorrection": "Explicitstdinpipe+nonemptySecretServiceroundtripPASS; actualLOGIN/CAPABILITY/LIST/STATUS/EXAMINE nowobserved.",
+        "nextRun": 45164206640,
+        "nextArtifact": 14814821763,
+        "nextArchiveSha256": "b3da7a47d48f412788117699c94dfb196b0c5a6f80f5e1442fc8cf4482540834",
+        "nextFailure": "AdvertisedCtrlSinsidearia-modalcomposer causesnoAPPEND/no status/error; globalshortcuthookexcludesdialogs andlocalhandlerhasnoSave. NativeDraftbuttondifferentialpending; boundedlocalfixallowedonlyifconfirmed."
+      },
+      "Database": {
+        "firstFailure": "plugin:app|version notallowedbyACL beforePID/focus/picker; testdriverassumedSuitecapability. Notproductbug.",
+        "next": "Capabilityawarepreflight usingstrictpackage/runningELF/ownprofileidentity, noextraACLgrant; thenactualCtrlO/SQLite/query/save/reopen sameinput.",
+        "auditSha256": "df09e98b784865e26291f4ed304774339b0d7d5dc64f55cf5f72b4ad66db51c8"
+      }
     }
   },
   "deferred366": "Explicitly deferred user-reported stale page count; no fix in this task.",
@@ -316,6 +347,24 @@
       "overallFormatAcceptance": false,
       "bug": 375,
       "result": "AuthenticindependentUOF1fixture;3slides/8objects/Chinese/bullets/notes andengineeditUndoRedo/savefreshreopen retained; strictfillfidelityFAIL."
+    },
+    "SXCWindows": {
+      "proof": "d74ff7a8fa29a1109b2a0f6b8290615a0899a3f2",
+      "nativeRun": 45164747391,
+      "converterControl": 45166523239,
+      "overallAcceptance": false,
+      "result": "ActualnativeIO/celleditUndoRedo/save/3normalexits/2newPIDsPASS; strictpreservationFAIL3vectorwidths+0.009cm andtypedradio/textboxcontrolslossalreadyinconverter. Annotation/bitmap/vectorpresets/group/startanchorsretained; allobjectpartsbyteidenticalthrough4nativeexports. Nofullvisualpass/productfix/issueclaimed."
+    },
+    "SDD": {
+      "proof": "fe66bec9a7ec9b5242fcc8a72646bee00b79b573",
+      "run": 45163525359,
+      "boundedCoreRoute": "PASS; authenticCFB/nativepage/string/boundsoracle33x3outputchecks; actualconverter/PPTXengineeditUndoRedo/savefresh",
+      "fullFormatAcceptance": false,
+      "limits": "OpaqueOLE/bitmap/pattern/handoutnotes/StarBASIC/font/renderingnotcertified; no nativeGUI."
+    },
+    "WB2": {
+      "owner": "e0d7",
+      "status": "StrictsheetnameoracleA mismatchesconverterSheet1 withnoexplicitnativepage-name; normativesource-defaultuncertain. Source33values/10formulascachesretained; downstreamactualengineproofinprogress, noformatpassorunprovenbug."
     }
   },
   "completenessRecheck": {
@@ -389,7 +438,9 @@
         "qaSource": "2c18bccb",
         "artifact": 14809896182,
         "archiveSha256": "9f1a31198c7f7e46e846ca902a15620b80d657bf7eef48d173bcf2ed5e32a886",
-        "status": "Owner reports actualOpenFile+SaveFile/RustIPC/privateconverter/edit/DOCXsave/normalAltF4/newPIDreopen/resave and3independentXMLoraclesPASS. Finalownerimage/auditreceipt pending; known374 titlelayout notunconditionallyapproved."
+        "status": "OwnerfinalauditPASS13nativecontrols/3XMLaudits/OpenFile+SaveFile/privateconverter/normalexit/newPID; allownprocessesclosed. Longmarker no374titleGUIclaim; bottomimages stillpage1, no paginationclaim.",
+        "proofCommit": "5622eeb0148111c2da08b5eb3060784519f6bc39",
+        "receiptSha256": "12f5b76dfd84e13f90294627b32e605eab74360ddb63fc088fab360b442c684a"
       },
       "macOS": "6f92 pending ownWriterDMG"
     },
@@ -457,30 +508,41 @@
   "futureProductRounds": [
     {
       "issue": 87,
-      "productCommit": "d96aec716b15bc0a0072993b7772b21727f460fd",
-      "proofCommit": "c605f51255ae84ba2137c2744bb9cd43a3348fe1",
-      "tests": "Windows/Linux33+tsc+build; real normal/hostedbrowser open/edit/save/fresh/daychange PASS45153653733",
-      "remaining": "macOS frontend and nativepackageacceptance allOS; not P2/release intake"
+      "product": "d96aec716b15bc0a0072993b7772b21727f460fd",
+      "proof": "c605f51255ae84ba2137c2744bb9cd43a3348fe1",
+      "remaining": "macOS/nativepackageacceptance; outsideP3"
     },
     {
       "issue": 78,
-      "owner": "0c73",
-      "scope": "Solid slide background schemeClr theme color only; future isolated branch fromP2, not currentrelease"
+      "product": "33711565a4dde5a0c81c34f9bc4a8bcfd9d655b2",
+      "proof": "d4ae6682745a3c27d07026508f3f582b454e6bac",
+      "checks": "29Win/Linux+realnormal/hostedbrowserPASS; unsupportedthemeOverridechoicecorrectlydisabled, SDKthemeoverridecolorlimitationseparate",
+      "remaining": "macOS/nativepackageacceptance; outsideP3"
+    },
+    {
+      "issue": 375,
+      "proof": "0febb419709510190cad053e3e90c7d681baa1c8",
+      "result": "ActualUNOobservedcorrectRGB+incorrectinheritedAccent1; clearonlyComplexColor inowncopy yieldscorrectPPTX. BotholdrunsFAILbecauseaddedcache/UUIDpaths;alloriginal15082entries unchanged. Notproductfixed.",
+      "next": "Ownreadonlymount/cache-isolationdiagnostic permitted; reviewableimportsourcepatch/tests againstLO9dea; buildresourceplanneeded, nobuild/runtimepinapprovalyet. Noexistingselfhostedrunner/LOsourcecachefound; onlybinaryruntimecache."
     }
   ],
   "plannedNecessaryNextIntake": {
     "frozen": false,
     "source": null,
     "scope": [
-      "374 boundedcaps-consistentfieldmeasurement, only afterproductdiff/regression/reproducibleWASMreview",
-      "Prepared isolated commit9988aceb widens only positive realPowerShellZIP test budget to30s; intake requires explicitnewcommonpin with necessary374fix, no globaltimeout/skip/retry/producthelperchange."
+      "374 allCapsfieldwidth/tracking/horizontalscale preservingoriginalfield/cache; product85ac155f",
+      "377 import-onlyXLSB mustuseexistingXLSXSaveAs, productcbacb7d1",
+      "378 preserveportalbackend, explicitZenitydependency+visiblemissinghelper/failclosed, product82b047fb",
+      "OnlypositivePowerShellrealZIPtestbudget30s, prepared9988aceb",
+      "PotentialEmailcomposeCtrlSlocalfix after nativeDraftbuttondifferential; notyetacceptedproduct"
     ],
     "exclude": [
-      "87automaticfooterdate enhancement",
+      "87automaticdate enhancement",
       "78schemeClrbackground enhancement",
-      "otherlatefeatures"
+      "375UOPRGB/runtimework",
+      "allotherlateformatfeatures/experiments"
     ],
-    "rule": "CurrentP2Mac/Linuxbuild and ownappcases may proceed as exactlylabelledP2baseline. Reviewnecessaryfixes, setoneexplicitnewpoint, rebuildaffectedbytes and reruninvalidatedchecks; no silentpassrelabelling.",
+    "rule": "Review/fuse necessarycode in internalstaging andrun directedchecks; not a finalpin. Closeonlywhen necessaryfixesready, then oneimmutablecommonpoint+newpackages/3OSbrowser/native/standalone. NeverrelabeloldP2results.",
     "zipTestBudget": {
       "branch": "codex/release-481-zip-test-budget-20261123",
       "commit": "9988aceb278aeafaf03a529163099f2d8fa2902f",
@@ -495,6 +557,30 @@
       },
       "intaken": false,
       "ciResultClaimed": false
+    },
+    "stagingBranch": "codex/release-481-p3-staging-20261123",
+    "product374Review": {
+      "product": "85ac155f1e7dc2c7d2469fcebf647f6a7fe34823",
+      "rootAudit": "next-intake-field374/root-audit.json",
+      "rootWindowsSDK": "44PASS onexactproduct/defaultvendor modules, notnative",
+      "sourceBinaryReview": "5files exactparentP2/equaltestedblobs, realkernelZIPmembers==Gitvendor bytes; patch/meta hashesmatch; Linuxbrowserorig/freshimages titlepixelsidentical andcorrect. Initialrootvisualmisinterpretationcorrected, noactualcapturebugreproduced."
+    },
+    "product377": {
+      "product": "cbacb7d1396aeeca9a0da72c5739def75c036a73",
+      "files": [
+        "src/werkbestand.ts",
+        "src/werkbestand.test.ts"
+      ],
+      "ownerChecks": "46directedtests+TSC Windows/Linux45163780721PASS; newnativefixedpackagepending",
+      "nativeRetestQA": "201344545cfe01816daa9b8260baf92431651760",
+      "nativeRetestOwner": "d410; noP2 or4GBparentredownloadcredit"
+    },
+    "product378": {
+      "product": "82b047fbced83acf421597df903c5f4c6c20dea9",
+      "proofCommit": "e161d5f4aac25d423494dfc8cd05e6b1910d6ef3",
+      "sourceCI": 45164983592,
+      "checks": "4LinuxstdRust+9config/callsite checks,31existingVitests,TSC/i18nPASS; nativehelpernotexecuted byavailabilityprobe",
+      "remaining": "FullRust/Tauritypewiring andrealnewDEBDepends/AppImageerror/YesCancel/save/focus/nativechecks onnewpoint. Cargo/lock/portal unchanged."
     }
   }
 }
