@@ -1,7 +1,7 @@
 {
   "schemaVersion": 3,
-  "asOfUTC": "2026-11-23T12:54:10.662139+00:00",
-  "status": "P5 closed with necessaryproductfixes plus two CIdependencyresolver commands. ExactP5SDK44/config9/syntaxPASS; newmatching builds/checks underway. Stable readinessNO pending actualnative/standalone/packages/signatures.",
+  "asOfUTC": "2026-11-23T13:44:01.057758+00:00",
+  "status": "P5 intake closed. All ten project workflows/eighteen exact-tree jobs and independently audited Windows/Linux/macOS browser acceptance on both routes PASS. Stable readiness NO pending final native, standalone, installer and signature acceptance.",
   "date": "2026-11-23",
   "proposedVersion": "2026.48.1",
   "intermediateWindowsSource": "3a0decac3d45234d4b4d487e431b21cff961ccca",
@@ -28,14 +28,14 @@
     "WindowsRuntime372AndOfficeNative": "750b; product30f35dcf copied as3a0decac, own QA build and native preflight",
     "MacBody359": "mac_native_release_blocker;359core+361P2scopedcomplete, finalnewpackageawaited",
     "LinuxCurrent420368369": "writer_362;368/369/STWproofcomplete,378productready, finalLinuxSuiteplanprepared",
-    "LinuxStandaloneSixApps": "standalone_linux;379integrated, Database driver diagnosis and bounded AppImage repeat, then finalP3sixapps",
-    "MacStandaloneSixAppsAndDownloads": "6f92;P2driverdiagnosis/native49testpreflight, newP3package intake pending",
+    "LinuxStandaloneSixApps": "standalone_linux; P5 one-parent preparation and six app-only hosts, separate Suite DEB/AppImage transfers; actual final packages pending",
+    "MacStandaloneSixAppsAndDownloads": "6f92; bounded P2 driver validation; P5 six-app native and separate Suite transfer await final Mac package",
     "WindowsStandaloneSixApps": "8020;final6appQAreserved, future380chordrender separate",
     "VersionFreezePipelineIntegrationAndReadiness": "root",
     "LinuxNativeXLSB": "d410;377sourcefixdone, shortnative377retestpreparedawaitingnewpackage",
     "STWVisualTriageAndBrowser": "9d3b; Windows operator750b only",
-    "NextFormatUOT": "e0d7; ETsourcegap proof f51228f4done, ETTexclusiveQA only",
-    "FuturePresentation78": "0c73;78/87future,375isolatedruntimewitness outsideP3"
+    "NextFormatUOT": "e0d7; current DPT source qualification/QA only on P2, outside P5",
+    "FuturePresentation78": "0c73; 78/87 retained for future integration; 375 independent bounded source-build witness outside P5"
   },
   "MacCriticalPath": {
     "current420NativeBaselineRun": 45136241393,
@@ -340,7 +340,7 @@
       "proofCommit": "232a10af3966774a49a3c5052bb4a32c6a4ecb14",
       "sourceImportAcceptance": false,
       "overallFormatAcceptance": false,
-      "result": "StrictsourceCR-reference preservation failed: convertedspaces,202\u2192201chars. No explicitlinebreakelement/normativesemanticproof; no unprovennewlinebugissue. DownstreamoriginalconverterDOCXengineeditUndoRedo/savefreshreopen passes separately. No productpatch."
+      "result": "StrictsourceCR-reference preservation failed: convertedspaces,202→201chars. No explicitlinebreakelement/normativesemanticproof; no unprovennewlinebugissue. DownstreamoriginalconverterDOCXengineeditUndoRedo/savefreshreopen passes separately. No productpatch."
     },
     "UOP": {
       "proofCommit": "e280e9521cfad3b2c61c26d19fbb5df8b5b74a42",
@@ -367,7 +367,7 @@
       "proof": "0ddb6106bd991873cbcab6338755497a570c1d65",
       "strictSourceImportAcceptance": false,
       "overallFormatAcceptance": false,
-      "result": "NoexplicitnameRecord; inferrednativeA vsconverterSheet1 remainsnormativelyuncertain. Downstream33cells/10formulas,editC2=10\u219270,UndoRedo/savefresh3XML PASS separately. No unprovenbugissue."
+      "result": "NoexplicitnameRecord; inferrednativeA vsconverterSheet1 remainsnormativelyuncertain. Downstream33cells/10formulas,editC2=10→70,UndoRedo/savefresh3XML PASS separately. No unprovenbugissue."
     },
     "WQ2": {
       "owner": "e0d7",
@@ -378,7 +378,7 @@
       "strictSourceImportAcceptance": false,
       "overallFormatAcceptance": false,
       "issue": 381,
-      "result": "Real native61cell/fourRPNVLOOKUP oracle: missing zero\u2192one-based indextranslation beforeengine; wrongformularesults reproduced after engine/recalculation/edit/UndoRedo/savefresh.57othercells correct. Separate importlimitation outsideP4; noHLOOKUP/cacheproblem bundled.",
+      "result": "Real native61cell/fourRPNVLOOKUP oracle: missing zero→one-based indextranslation beforeengine; wrongformularesults reproduced after engine/recalculation/edit/UndoRedo/savefresh.57othercells correct. Separate importlimitation outsideP4; noHLOOKUP/cacheproblem bundled.",
       "rootIndependentAudit": "pending; bounded delivery coordinator-recorded, not rootGUI/nativeacceptance"
     },
     "ET": {
@@ -473,7 +473,7 @@
         "proofCommit": "1881c38cc6188d2a25c59cf31581e214db9e2170",
         "artifact": 14809801710,
         "archiveSha256": "a526e268692c9e3c02aa4b0694c856d0a5e6dc34446ae214b03949a352455966",
-        "status": "Owner reports nativepicker/RustIPC/source156cells/3sheets/newSUMUndoRedo2\u21929/save/fullquit/newPID/nativepickerreopen and5independentXLSXoraclesPASS. Nooriginalformulaimport/UOF2/export/opmaak/finalstandaloneclaim."
+        "status": "Owner reports nativepicker/RustIPC/source156cells/3sheets/newSUMUndoRedo2→9/save/fullquit/newPID/nativepickerreopen and5independentXLSXoraclesPASS. Nooriginalformulaimport/UOF2/export/opmaak/finalstandaloneclaim."
       },
       "otherPlatforms": "No new native UOS claims; CLI/engineproof retained, not universal formatcoverage"
     }
@@ -853,7 +853,7 @@
       "payloadHashesVerified": 242,
       "findings": [
         "Maximize-once succeeds to1024x677; logged1920x1080 beforeappstart reverts in laterhelperprocesses.",
-        "Writer actualinput/saveXML; sentenceautocorrect changesvelvet\u2192Velvet, requires explicitly repinnedneutralfixture andstrictoracle.",
+        "Writer actualinput/saveXML; sentenceautocorrect changesvelvet→Velvet, requires explicitly repinnedneutralfixture andstrictoracle.",
         "Spreadsheet selectedAXCell isvalidselection but drivertextfocuscheck rejects it; use nativeformulaBarAXTextField with actualfocus.",
         "PresentationOutline isAXCheckBox insideViewtoolbar; target correctrole/context."
       ],
@@ -954,7 +954,7 @@
   },
   "candidateP5": {
     "schemaVersion": 1,
-    "asOfUTC": "2026-11-23T12:54:10.662139+00:00",
+    "asOfUTC": "2026-11-23T13:41:53.532936+00:00",
     "source": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
     "tree": "e30879fd772871e690847c061ef66e6b81808a05",
     "version": "2026.48.1",
@@ -1003,15 +1003,82 @@
       "macOS": 137703365843,
       "Linux": 137703365848
     },
-    "browserRun": null,
-    "browserStatus": "Await Mac-only read-only boundary-guard correction; P4originalfailure retained, no stale success relabelled.",
+    "browserRun": 45179944903,
+    "browserStatus": "PASS on all three OS and both supported routes; exact source, receipts, SDK44 per OS, saved documents, original title images and cleanup independently audited. Earlier driver/capture failures remain retained.",
     "publication": false,
     "mainWritesAllowed": false,
-    "readyForStableRelease": false
+    "readyForStableRelease": false,
+    "projectCIAudit": "P5-ci-checkouts.json"
   },
   "P5BrowserAcceptance": {
-    "run": null,
-    "status": "notstarted until minimalMac boundaryguard reviewed; sourceP5 remainsfrozen",
-    "applicationSource": "b696ab86bd1c128729a079b68c0082e6df3d36a5"
+    "applicationSource": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+    "applicationTree": "e30879fd772871e690847c061ef66e6b81808a05",
+    "initialRun": 45179944903,
+    "LinuxWindowsHarness": "7be704895534c3095f697292af07dc10d2e5860b",
+    "LinuxWindows": "PASS independent complete ZIP/source/receipts, 36 Office cases, prior Writer checks, SDK44 per OS, sixteen field DOCX and sixteen original final title PNGs.",
+    "audit": "P5-browser/root-audit.json",
+    "MacFollowupRun": 45183129618,
+    "MacFollowupJob": 137721777872,
+    "MacFollowupHarness": "6bff15bf7a4b529e389460b6c0ffa397cfaa1e9a",
+    "MacArtifact": 14823150600,
+    "MacArchiveSha256": "4355f4220b22a521f708fa8f3965f42662e7f1f58f326e47426778bb27ab7864",
+    "MacOriginalPNGReview": "8a53e729b5bf6d52daf78e2286dc20e85f29e8a6:qa/field374/evidence/p5-mac-original-png-review.json",
+    "Mac": "PASS independent complete original ZIP/source/tree/receipts, eighteen Office cases, eight prior Writer issue-route checks, SDK44, eight field DOCX audits and matching eight original final title PNG reviews.",
+    "MacQABoundary": "Only extra post-screenshot delay removed on darwin; double rAF, complete current paint, three identical original PNGs, minimum 200 ms and 15 s deadline unchanged. Model-end projection guard retained; ink-edge mismatch remains a separate observation, no broad caret correctness claim.",
+    "retainedFailedRuns": [
+      45172148763,
+      45175445760,
+      45179944903
+    ],
+    "status": "PASS: three OS, two routes; browser scopes only",
+    "nativeAcceptance": false,
+    "MacAudit": "P5-browser/macOS-followup/independent-mac-audit.json",
+    "aggregateOfficeCases": 54,
+    "aggregatePriorWriterIssueRouteChecks": 24,
+    "aggregateSDKChecks": 132,
+    "aggregateIndependentFieldDOCXAudits": 24,
+    "aggregateOriginalFinalTitlePNGReviews": 24
+  },
+  "P5ProjectCI": {
+    "audit": "P5-ci-checkouts.json",
+    "workflowsPassed": 10,
+    "jobsAudited": 18,
+    "allActualCheckoutTreesMatchP5": true,
+    "actualCheckoutCommits": [
+      "9e129b82afce50123407e24348e687bf03af3386",
+      "b696ab86bd1c128729a079b68c0082e6df3d36a5"
+    ],
+    "limit": "Project source/build checks include native Linux basis; no full final Suite or standalone acceptance inferred."
+  },
+  "extraReleaseCapacity": {
+    "packageSignatureAcceptance": "Reviewed unchanged verifier and concrete disabled P5 request; independent final parent-byte/signature audit after all producer packages are available.",
+    "releaseNotesDownloadMatrix": "Four source-checked draft files; nineteen Git source inputs and twenty-eight product/platform rows checked, no fabricated final links or hashes.",
+    "macStandaloneDriverReview": "Two focused-modal/cleanup QA defects found, fixed by existing Mac owner and compiled in mandatory native preflight; no product or native acceptance inferred.",
+    "browserEvidenceAudit": "Complete: Windows/Linux and Mac source/receipts/documents independently audited using existing small ZIPs. Sixteen Windows/Linux images directly reviewed; exact eight-image Mac owner review reused against unchanged PNG hashes. No new test, download or native pass.",
+    "readinessEstimateCET": "17:00-19:00 provisional, conditional on actual package availability and successful native/signature tests; no guaranteed deadline or approval to publish."
+  },
+  "P5PackageProgress": {
+    "asOfUTC": "2026-11-23T13:40:37Z",
+    "run": 45177730188,
+    "attempt": 1,
+    "Linux": "Seven-product build, actual installer extraction and runtime content gates SUCCESS; native WebKit/private installer gate in progress since 13:38:58Z.",
+    "Windows": "Signed seven-product package build in progress; final package/signature gates not yet complete.",
+    "macOS": "Signed/notarized seven-product package build in progress; final package/signature gates not yet complete.",
+    "officialArtifactListEmpty": true,
+    "finalNativeGoIssued": false
+  },
+  "future375Witness": {
+    "run": 45182719759,
+    "job": 137720371933,
+    "qa": "73653c134cf6a049e273b975ab9b8452b2f45af3",
+    "startCET": "2026-11-23 14:19:03",
+    "prefixDeadlineCET": "2026-11-23 15:04:03",
+    "controllerDeadlineCET": "2026-11-23 18:39:03",
+    "hardDeadlineCET": "2026-11-23 18:49:03",
+    "maximumCompilerAndTestMinutes": 210,
+    "automaticRetryAllowed": false,
+    "P5Intake": false,
+    "newRuntimeAcceptance": false,
+    "limit": "Separate explicitly allocated first compilation witness after preserved preparation-only failures. No mixed P2 binaries, application build or runtime pin change."
   }
 }

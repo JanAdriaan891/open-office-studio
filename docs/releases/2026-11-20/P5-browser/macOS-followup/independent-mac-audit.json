@@ -1,0 +1,369 @@
+{
+  "status": "passed",
+  "application": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+  "tree": "e30879fd772871e690847c061ef66e6b81808a05",
+  "version": "2026.48.1",
+  "qa": "6bff15bf7a4b529e389460b6c0ffa397cfaa1e9a",
+  "run": 45183129618,
+  "job": 137721777872,
+  "attempt": 1,
+  "classicOfficeCases": 18,
+  "oldWriterIssueRouteChecks": 8,
+  "SDKchecks": 44,
+  "fieldPaintCases": 8,
+  "fieldDOCXIndependentAudits": 8,
+  "reusedOriginalPNGReviews": 8,
+  "sourceAndCleanupChecks": [
+    {
+      "route": "normal",
+      "issue": 356,
+      "rawReportSha256": "3cfe77c06b6c9b6976f77acbb87d9a893fd19f1938309ac7855898df2fc0e0a8",
+      "sourceChecks": [],
+      "cleanupVerified": true
+    },
+    {
+      "route": "normal",
+      "issue": 361,
+      "rawReportSha256": "7da8f17a3d518ba72896ee44926deb868c9a3f31c5d080a170cf331f35909253",
+      "sourceChecks": [
+        {
+          "commit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+          "file": "src/lint/gedeeld.tsx",
+          "exactGitLFsha256": "832565e47a27970cbe7762cb0a52e7324be63cdfcdb9f2388073efaee1929a86",
+          "noNormalization": true
+        },
+        {
+          "commit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+          "file": "src/lint/tekst-kolomfocus.ts",
+          "exactGitLFsha256": "2f75f897b6756f0a13fab941233e6661e3f5dade26fcdb78b5f2a5ff5fb9cd88",
+          "noNormalization": true
+        },
+        {
+          "commit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+          "file": "scripts/proef-writer-kolom-undo.mjs",
+          "exactGitLFsha256": "5a31205e75ad80ea48cc4179059745164fc2407872bb2697d277155c4be39d15",
+          "noNormalization": true
+        }
+      ],
+      "cleanupVerified": true
+    },
+    {
+      "route": "normal",
+      "issue": 362,
+      "rawReportSha256": "339a3ba0f02802e848277d3719d8720973b3fea7f6bee6c39dd75baf6ff74ff8",
+      "sourceChecks": [
+        {
+          "commit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+          "file": "src/lint/tekst.tsx",
+          "exactGitLFsha256": "3e04e86bb12d0ee47b1b55163c644bf5141cd1206dd8247a4c842a45f144a14b",
+          "noNormalization": true
+        },
+        {
+          "commit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+          "file": "src/stijl/openaec-office.css",
+          "exactGitLFsha256": "2c728ab6a1b976f673d1eb98159e9fe596aaaf6e6a09c3dafe34826d3c61cc42",
+          "noNormalization": true
+        },
+        {
+          "commit": "6bff15bf7a4b529e389460b6c0ffa397cfaa1e9a",
+          "file": "scripts/proef-writer-linthoogte.mjs",
+          "exactGitLFsha256": "c8fc555ddd1990831fffaedf338e19cac10704e5f1ecd965f798a93852158c38",
+          "noNormalization": true
+        }
+      ],
+      "cleanupVerified": true
+    },
+    {
+      "route": "normal",
+      "issue": 363,
+      "rawReportSha256": "7d00a16f47067bc3cb7305c61898ba34b944c97852d3025672c4f1e8688481b7",
+      "sourceChecks": [],
+      "cleanupVerified": true
+    },
+    {
+      "route": "normal",
+      "scope": "Office9",
+      "sourceChecks": [
+        {
+          "commit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+          "file": "src/OfficeStudio.tsx",
+          "exactGitLFsha256": "ff08de011fc90c0739b50546b22f215381da9c58a5e7c0f565525ff3740245aa",
+          "noNormalization": true
+        },
+        {
+          "commit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+          "file": "src/TabBalk.tsx",
+          "exactGitLFsha256": "4b0dd0ea33801207dd0b688461a47175e3354dcf85b706cb2a05ce2cee1fa4c0",
+          "noNormalization": true
+        },
+        {
+          "commit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+          "file": "src/export/koppeling.ts",
+          "exactGitLFsha256": "590d6faad8017cd982629b2b63207b833ed0d219c9e7c489e2b2e59f7a724ae6",
+          "noNormalization": true
+        },
+        {
+          "commit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+          "file": "src/export/editorKoppeling.ts",
+          "exactGitLFsha256": "8125f620ab52642e416a60ff1a06660a6ae87cb22cea79361dcab3d73470486c",
+          "noNormalization": true
+        }
+      ]
+    },
+    {
+      "route": "normal",
+      "scope": "field374",
+      "sourceChecks": [
+        {
+          "commit": "6bff15bf7a4b529e389460b6c0ffa397cfaa1e9a",
+          "file": "qa/field374/browser.mjs",
+          "exactGitLFsha256": "3ad5f492f4334fec4c47e0dc42b9ca77625826e5acb72c630076a3c41d77574a",
+          "noNormalization": true
+        },
+        {
+          "commit": "6bff15bf7a4b529e389460b6c0ffa397cfaa1e9a",
+          "file": "qa/field374/contract.mjs",
+          "exactGitLFsha256": "c1dcf1696188b851b794e6120533c58f2774fb092e84c70072a84db456fcf35e",
+          "noNormalization": true
+        },
+        {
+          "commit": "6bff15bf7a4b529e389460b6c0ffa397cfaa1e9a",
+          "file": "qa/field374/capture.mjs",
+          "exactGitLFsha256": "07836d9e82659537026be659de64de7e3d5f0550c06c975fe7862bb546a7ed19",
+          "noNormalization": true
+        }
+      ]
+    },
+    {
+      "route": "normal",
+      "scope": "mac-caret-helper",
+      "sourceChecks": [
+        {
+          "commit": "6bff15bf7a4b529e389460b6c0ffa397cfaa1e9a",
+          "file": "qa/field374/mac-field-caret.mjs",
+          "exactGitLFsha256": "5c3a9228c44e265d20bbd0633f61bbaa496728bde163a75c1f50130bca20b72d",
+          "noNormalization": true
+        }
+      ],
+      "readOnlyPreflightPassed": true,
+      "fullInkEdgeMatched": false,
+      "semanticModelBoundaryGuard": true
+    },
+    {
+      "route": "hosted",
+      "issue": 356,
+      "rawReportSha256": "ed7084704e51e2f8a5c9e0bc0c23c45b367dede20c0e281e0c46dc972b730dac",
+      "sourceChecks": [],
+      "cleanupVerified": true
+    },
+    {
+      "route": "hosted",
+      "issue": 361,
+      "rawReportSha256": "fcf4ffc82b2a417ec1fe1b77608c98b560b3cc0777dac604a067aff96c0aa3c6",
+      "sourceChecks": [
+        {
+          "commit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+          "file": "src/lint/gedeeld.tsx",
+          "exactGitLFsha256": "832565e47a27970cbe7762cb0a52e7324be63cdfcdb9f2388073efaee1929a86",
+          "noNormalization": true
+        },
+        {
+          "commit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+          "file": "src/lint/tekst-kolomfocus.ts",
+          "exactGitLFsha256": "2f75f897b6756f0a13fab941233e6661e3f5dade26fcdb78b5f2a5ff5fb9cd88",
+          "noNormalization": true
+        },
+        {
+          "commit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+          "file": "scripts/proef-writer-kolom-undo.mjs",
+          "exactGitLFsha256": "5a31205e75ad80ea48cc4179059745164fc2407872bb2697d277155c4be39d15",
+          "noNormalization": true
+        }
+      ],
+      "cleanupVerified": true
+    },
+    {
+      "route": "hosted",
+      "issue": 362,
+      "rawReportSha256": "b9082dc901d3ba308961607c1ec583fec742bbb39f506d2e1a036310934aeb2f",
+      "sourceChecks": [
+        {
+          "commit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+          "file": "src/lint/tekst.tsx",
+          "exactGitLFsha256": "3e04e86bb12d0ee47b1b55163c644bf5141cd1206dd8247a4c842a45f144a14b",
+          "noNormalization": true
+        },
+        {
+          "commit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+          "file": "src/stijl/openaec-office.css",
+          "exactGitLFsha256": "2c728ab6a1b976f673d1eb98159e9fe596aaaf6e6a09c3dafe34826d3c61cc42",
+          "noNormalization": true
+        },
+        {
+          "commit": "6bff15bf7a4b529e389460b6c0ffa397cfaa1e9a",
+          "file": "scripts/proef-writer-linthoogte.mjs",
+          "exactGitLFsha256": "c8fc555ddd1990831fffaedf338e19cac10704e5f1ecd965f798a93852158c38",
+          "noNormalization": true
+        }
+      ],
+      "cleanupVerified": true
+    },
+    {
+      "route": "hosted",
+      "issue": 363,
+      "rawReportSha256": "a50884698fae5dc2b82bb2407c787587cf9914f2a5fec9db7e7b9c99a60cbb49",
+      "sourceChecks": [],
+      "cleanupVerified": true
+    },
+    {
+      "route": "hosted",
+      "scope": "Office9",
+      "sourceChecks": [
+        {
+          "commit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+          "file": "src/OfficeStudio.tsx",
+          "exactGitLFsha256": "ff08de011fc90c0739b50546b22f215381da9c58a5e7c0f565525ff3740245aa",
+          "noNormalization": true
+        },
+        {
+          "commit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+          "file": "src/TabBalk.tsx",
+          "exactGitLFsha256": "4b0dd0ea33801207dd0b688461a47175e3354dcf85b706cb2a05ce2cee1fa4c0",
+          "noNormalization": true
+        },
+        {
+          "commit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+          "file": "src/export/koppeling.ts",
+          "exactGitLFsha256": "590d6faad8017cd982629b2b63207b833ed0d219c9e7c489e2b2e59f7a724ae6",
+          "noNormalization": true
+        },
+        {
+          "commit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+          "file": "src/export/editorKoppeling.ts",
+          "exactGitLFsha256": "8125f620ab52642e416a60ff1a06660a6ae87cb22cea79361dcab3d73470486c",
+          "noNormalization": true
+        }
+      ]
+    },
+    {
+      "route": "hosted",
+      "scope": "field374",
+      "sourceChecks": [
+        {
+          "commit": "6bff15bf7a4b529e389460b6c0ffa397cfaa1e9a",
+          "file": "qa/field374/browser.mjs",
+          "exactGitLFsha256": "3ad5f492f4334fec4c47e0dc42b9ca77625826e5acb72c630076a3c41d77574a",
+          "noNormalization": true
+        },
+        {
+          "commit": "6bff15bf7a4b529e389460b6c0ffa397cfaa1e9a",
+          "file": "qa/field374/contract.mjs",
+          "exactGitLFsha256": "c1dcf1696188b851b794e6120533c58f2774fb092e84c70072a84db456fcf35e",
+          "noNormalization": true
+        },
+        {
+          "commit": "6bff15bf7a4b529e389460b6c0ffa397cfaa1e9a",
+          "file": "qa/field374/capture.mjs",
+          "exactGitLFsha256": "07836d9e82659537026be659de64de7e3d5f0550c06c975fe7862bb546a7ed19",
+          "noNormalization": true
+        }
+      ]
+    },
+    {
+      "route": "hosted",
+      "scope": "mac-caret-helper",
+      "sourceChecks": [
+        {
+          "commit": "6bff15bf7a4b529e389460b6c0ffa397cfaa1e9a",
+          "file": "qa/field374/mac-field-caret.mjs",
+          "exactGitLFsha256": "5c3a9228c44e265d20bbd0633f61bbaa496728bde163a75c1f50130bca20b72d",
+          "noNormalization": true
+        }
+      ],
+      "readOnlyPreflightPassed": true,
+      "fullInkEdgeMatched": false,
+      "semanticModelBoundaryGuard": true
+    },
+    {
+      "scope": "SDK44",
+      "sourceChecks": [
+        {
+          "commit": "6bff15bf7a4b529e389460b6c0ffa397cfaa1e9a",
+          "file": "qa/field374/sdk.mjs",
+          "exactGitLFsha256": "f6850ea604e26dfe37147f5585442b7c1b3f65f471b760aa23948f3fdadc9306",
+          "noNormalization": true
+        },
+        {
+          "commit": "6bff15bf7a4b529e389460b6c0ffa397cfaa1e9a",
+          "file": "qa/field374/contract.mjs",
+          "exactGitLFsha256": "c1dcf1696188b851b794e6120533c58f2774fb092e84c70072a84db456fcf35e",
+          "noNormalization": true
+        }
+      ]
+    }
+  ],
+  "reusedReview": {
+    "commit": "8a53e729b5bf6d52daf78e2286dc20e85f29e8a6",
+    "rawGitJsonSha256": "088b808724365fb3024ba2bff090c28794dd2c6e63d573745f66d75ba8e17a91",
+    "rawGitJsonPreserved": true,
+    "images": [
+      {
+        "file": "macOS/field-normal/after-real-edit.png",
+        "sha256": "ceaafda14eeb91547e6e6b2be68fe3e9e7fb36fa3c9e8ea75cae952ceefeaf94",
+        "reviewCommit": "8a53e729b5bf6d52daf78e2286dc20e85f29e8a6",
+        "reviewReusedWithoutNewImageInspection": true
+      },
+      {
+        "file": "macOS/field-normal/fresh-context-reopen.png",
+        "sha256": "257930df6b1f37276c252d53c988d2d4ed40a4989a23d33f8479f0769e4a08c5",
+        "reviewCommit": "8a53e729b5bf6d52daf78e2286dc20e85f29e8a6",
+        "reviewReusedWithoutNewImageInspection": true
+      },
+      {
+        "file": "macOS/field-normal/unchanged-windows-source.png",
+        "sha256": "9991760dea5b0ce5d0014d1695600a80aa2f8ff549fcae64d4ba12edd4bc512a",
+        "reviewCommit": "8a53e729b5bf6d52daf78e2286dc20e85f29e8a6",
+        "reviewReusedWithoutNewImageInspection": true
+      },
+      {
+        "file": "macOS/field-normal/unmodified-control.png",
+        "sha256": "98e5fa4ff942719a822cf1cd59ec31112e8cb7179e035860eee30d1ca4a3ff2d",
+        "reviewCommit": "8a53e729b5bf6d52daf78e2286dc20e85f29e8a6",
+        "reviewReusedWithoutNewImageInspection": true
+      },
+      {
+        "file": "macOS/field-hosted/after-real-edit.png",
+        "sha256": "ceaafda14eeb91547e6e6b2be68fe3e9e7fb36fa3c9e8ea75cae952ceefeaf94",
+        "reviewCommit": "8a53e729b5bf6d52daf78e2286dc20e85f29e8a6",
+        "reviewReusedWithoutNewImageInspection": true
+      },
+      {
+        "file": "macOS/field-hosted/fresh-context-reopen.png",
+        "sha256": "83913205ab1f36ac4a4153b1efc2487392964faf3bf92d127f2f517be58c0a1b",
+        "reviewCommit": "8a53e729b5bf6d52daf78e2286dc20e85f29e8a6",
+        "reviewReusedWithoutNewImageInspection": true
+      },
+      {
+        "file": "macOS/field-hosted/unchanged-windows-source.png",
+        "sha256": "9991760dea5b0ce5d0014d1695600a80aa2f8ff549fcae64d4ba12edd4bc512a",
+        "reviewCommit": "8a53e729b5bf6d52daf78e2286dc20e85f29e8a6",
+        "reviewReusedWithoutNewImageInspection": true
+      },
+      {
+        "file": "macOS/field-hosted/unmodified-control.png",
+        "sha256": "98e5fa4ff942719a822cf1cd59ec31112e8cb7179e035860eee30d1ca4a3ff2d",
+        "reviewCommit": "8a53e729b5bf6d52daf78e2286dc20e85f29e8a6",
+        "reviewReusedWithoutNewImageInspection": true
+      }
+    ]
+  },
+  "existing178FilesUnchanged": true,
+  "originalCompleteIndexSha256": "0fe32c2cc903b850fb4abf05c13be36d2761c3d77a6da057f726f8ef8d0d0f24",
+  "limits": [
+    "Browser evidence only; no native/signed package acceptance.",
+    "CI assets absent from archive: no separate full asset-byte rehash.",
+    "Caret model-end projection differs from ink edge; guarded and documented QA boundary, no new unproved product navigation bug.",
+    "No repeated original image review; exact eight-image Git-reviewed evidence reused.",
+    "No new archive download, GUI, CI or app build."
+  ]
+}
