@@ -1,6 +1,6 @@
 {
   "schemaVersion": 3,
-  "asOfUTC": "2026-11-23T10:27:26.808642+00:00",
+  "asOfUTC": "2026-11-23T10:33:07.503106+00:00",
   "status": "P2 core Mac359 and Linux368/369 accepted within bounded native scopes; final seven-product package and standalone acceptance active; Windows release blocked by one test timeout. NOT stable-release approved.",
   "date": "2026-11-23",
   "proposedVersion": "2026.48.1",
@@ -252,7 +252,7 @@
     "owners": {
       "01a1bf9c-8020-7953-84ff-ac467a399694": "GNM Linux converter/engine/browser +Windowsnative done436ee5b7; next nativeWindowsXLSB",
       "01a1bf84-d410-7383-b369-f055b021c20c": "XLSB converter/engine donefb7e7b8a; active nativeLinuxXLSB",
-      "01a1bf84-e0d7-71f2-b6f4-7658c0cb40da": "STC a7962244 andUOS4f94d347 complete; activeUOTonly",
+      "01a1bf84-e0d7-71f2-b6f4-7658c0cb40da": "STCa7962244/UOS4f94d347 complete; UOT232a10af strictsourceimportFAILforCRwhitespace(downstreamenginePASS separately), activeUOPonly",
       "01a1bf84-0c73-7170-b0b9-6d54748fca7d": "STI/#373 complete9471a4be;87completedfuturec605f512, new78future",
       "01a1bf9c-9d3b-7463-8a79-dfa9d88eee5c": "STW canonicalruntime+engine+realbrowser donee74512d3; active field-overlap triage and native-result aggregation"
     },
@@ -268,6 +268,12 @@
       "baseArtifactDescriptorSha256": "9497f67c9c9e4f30b11c85f32cf3d3254a3f857ad6d53a40ab2f9a01d0f3adb5",
       "rootAudit": "P2-runtime-input/root-metadata-audit.json",
       "result": "Runtime-only shared input delivered and consumed with15082entry/mode/link/launcher/ELF/source/parentDEB checks. Root independently hashed the305MB runtime ZIP and read smallmetadata; no runtime TAR extraction/execution by root."
+    },
+    "UOT": {
+      "proofCommit": "232a10af3966774a49a3c5052bb4a32c6a4ecb14",
+      "sourceImportAcceptance": false,
+      "overallFormatAcceptance": false,
+      "result": "StrictsourceCR-reference preservation failed: convertedspaces,202→201chars. No explicitlinebreakelement/normativesemanticproof; no unprovennewlinebugissue. DownstreamoriginalconverterDOCXengineeditUndoRedo/savefreshreopen passes separately. No productpatch."
     }
   },
   "completenessRecheck": {
@@ -358,7 +364,9 @@
       "proofCommit": "77f4cba0",
       "browserRun": 45154167386,
       "artifact": 14806409519,
-      "archiveSha256": "6abbe498f364cdf884dfffbf28b4be6ab40fb69949daafcba9b0c7eea70fb716"
+      "archiveSha256": "6abbe498f364cdf884dfffbf28b4be6ab40fb69949daafcba9b0c7eea70fb716",
+      "rootBaselineAudit": "P2-field374-baseline/root-audit.json",
+      "rootImageReview": "Root verified officialartifact/Gitproofbytes/all12payloadhashes and viewed original overlap vs diagnostic cleanwrapping PNGs. Not a new rootGUIrepro; flatteneddiagnostic not fix."
     }
   ],
   "research373": {
@@ -385,13 +393,28 @@
     "source": null,
     "scope": [
       "374 boundedcaps-consistentfieldmeasurement, only afterproductdiff/regression/reproducibleWASMreview",
-      "Consider positive realPowerShellZIP test-only30s budget with explicit sourcepin; no globaltimeout/skip/retry/producthelperchange"
+      "Prepared isolated commit9988aceb widens only positive realPowerShellZIP test budget to30s; intake requires explicitnewcommonpin with necessary374fix, no globaltimeout/skip/retry/producthelperchange."
     ],
     "exclude": [
       "87automaticfooterdate enhancement",
       "78schemeClrbackground enhancement",
       "otherlatefeatures"
     ],
-    "rule": "CurrentP2Mac/Linuxbuild and ownappcases may proceed as exactlylabelledP2baseline. Reviewnecessaryfixes, setoneexplicitnewpoint, rebuildaffectedbytes and reruninvalidatedchecks; no silentpassrelabelling."
+    "rule": "CurrentP2Mac/Linuxbuild and ownappcases may proceed as exactlylabelledP2baseline. Reviewnecessaryfixes, setoneexplicitnewpoint, rebuildaffectedbytes and reruninvalidatedchecks; no silentpassrelabelling.",
+    "zipTestBudget": {
+      "branch": "codex/release-481-zip-test-budget-20261123",
+      "commit": "9988aceb278aeafaf03a529163099f2d8fa2902f",
+      "files": [
+        "scripts/kantoorruntime-windows.test.mjs"
+      ],
+      "delta": "Only positive external-process ZIP test gets30s budget plus explanatory comment; all4 original assertions/cases and producthelper unchanged.",
+      "localWindowsTests": {
+        "passed": 4,
+        "failed": 0,
+        "positiveDurationMs": 581.7493
+      },
+      "intaken": false,
+      "ciResultClaimed": false
+    }
   }
 }
