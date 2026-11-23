@@ -1,6 +1,6 @@
 {
   "schemaVersion": 3,
-  "asOfUTC": "2026-11-23T08:23:56.494882+00:00",
+  "asOfUTC": "2026-11-23T08:44:21.812925+00:00",
   "status": "Active Monday release preparation and blocker resolution; NOT stable-release approved.",
   "date": "2026-11-23",
   "proposedVersion": "2026.48.1",
@@ -39,19 +39,37 @@
     "browserRendererBoundaryRun": 45136610926,
     "nativeDiagnosticWorkerOffRun": 45137361883,
     "hypothesis": "SDK skips worker replay for documents with image primitives; original text/table is eligible. Browser works untouched; Mac native worker presentation needs causal confirmation.",
-    "productCorrectionProven": false
+    "productCorrectionProven": false,
+    "browserRendererBoundaryStatus": "Cancelled while queued to prioritize native diagnostic; no pass/failure inferred.",
+    "nativeDiagnosticWorkerOffStatus": "Runner acquired 08:35 UTC; building separately identified diagnostic DMG. No product correction proven."
   },
   "Windows372": {
     "officialRuntimeAndHelperRun": 45136505294,
     "result": "Old Expand-Archive route fails on runner PS5.1 loading Archive module from PowerShell7; compatible2argument framework extraction passes pinned lessmsi/MSI, offline and headless runtime checks.",
     "rootIntakeTests": 11,
-    "OfficePackageAndNativeAcceptance": "pending intermediate exact48.1 build, separate from final common candidate"
+    "OfficePackageAndNativeAcceptance": "pending intermediate exact48.1 build, separate from final common candidate",
+    "intermediateOfficeBuildRun": 45138607445,
+    "intermediateOfficeBuildStatus": "In progress: runtime preparation, pnpm/Python/Rust checks and Vite passed; installer build ongoing. Native acceptance pending."
   },
   "Linux": {
     "canonical420DesktopRun": 44753496663,
     "packageArtifact": 14639121545,
     "packageSource": "420af640c10ab9ada6c66c844c0098caea87c493",
-    "nativeFixedInputAndRibbonAcceptance": "in progress; no I3-helper injection accepted as a fixed package"
+    "nativeFixedInputAndRibbonAcceptance": "in progress; no I3-helper injection accepted as a fixed package",
+    "nativeAttempts": [
+      {
+        "run": 45138542777,
+        "artifact": 14800842616,
+        "zipSha256": "6552192989043bd541a7533f1d2997a1167e589c7ba85a197c415cf65ead2768",
+        "result": "36 positive real-package native checks, then fourth app startup GTK initialization failure before W3C session; Replace/ribbon unexecuted; overall not passed."
+      },
+      {
+        "run": 45139459966,
+        "artifact": 14801483141,
+        "zipSha256": "eecd229049b0bb0880c4a2d279ee57127c9f8123f514c9dabc488f0b1043d5e4",
+        "result": "34 positive native checks, then partial typed save marker; driver ownership/key acknowledgement being investigated. Overall not passed; no GTK-cause or product correction claimed."
+      }
+    ]
   },
   "standaloneRequirement": {
     "apps": [
@@ -73,11 +91,30 @@
     "coverageAudit": "All six registered workspaces have standalone identities/products. Published v2026.46.2 download links checked; no new-version native approval inferred.",
     "functionalMatrix": "Preparation active; final actual packages and clean hosts required without suite/profiles/resources.",
     "finalPackageSource": null,
-    "noRealMailOrUserProfileMutation": true
+    "noRealMailOrUserProfileMutation": true,
+    "downloadAudit": "standalone-downloads/standalone-download-coverage-2026-11-23.md",
+    "rootDownloadAudit": "standalone-downloads/root-audit.json",
+    "WindowsHostCapability": {
+      "run": 45138671226,
+      "result": "Native keyboard/focus/OS save dialog/file/full exit/new-PID reopen capability passed; not a standalone app acceptance."
+    },
+    "MacHarnessPreparation": {
+      "source": "51f8be84ddf6f3a19484cd76d8597b3021983d30",
+      "hostCapabilityRun": 45139637001,
+      "result": "16 local QA contract/oracle/archive/mail checks pass; native final app cases pending."
+    }
   },
   "deferred366": "Explicitly deferred user-reported stale page count; no fix in this task.",
   "reuseRule": "Old evidence keeps exact source/tree/host/package scope; changed production/version inputs require matching new builds and applicable checks. Platforms start independently after own package identity/preflight, not on unrelated platform success.",
   "readyForStableRelease": false,
   "activeWorkMayResumeToday": true,
-  "automaticPublication": false
+  "automaticPublication": false,
+  "signingCapabilityPreflight": {
+    "firstRun": 45140372759,
+    "firstResult": "OpenPGP synthetic receipt signed and verified using expected primary public key. Windows failed before signing at synthetic compiler relative-path handling; no signer failure inferred.",
+    "correctedRun": 45140566799,
+    "qaSource": "1b6983357e017bc0cd915ec3cfe2dcc63e3d3882",
+    "result": "Passed OpenPGP and timestamped Authenticode on inert synthetic payloads. Root verified both artifact digests and the downloaded executable signature; OpenPGP public-key-only verification ran on CI. Not final package/signature acceptance; no publication capability granted.",
+    "rootAudit": "signing-capability/root-audit.json"
+  }
 }

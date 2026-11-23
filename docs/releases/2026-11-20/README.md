@@ -16,6 +16,10 @@ De [downloadtabel per app en pakketvorm](standalone-downloads/standalone-downloa
 
 De platformeigenaren beginnen zodra hun eigen pakketbron/versie/hash en testhost zijn gecontroleerd. Na de gerichte intake wordt één definitieve bron vastgezet voor de volledige combinatie, losse installers, signatures en downloadcontrole. Latere ontdekkingen gaan naar een volgende ronde. #366 blijft expliciet uitgesteld. **Stabiele vrijgave: nog NEE; Mac-oorzaak, definitieve pakketten en zelfstandigheidsmatrix zijn open.**
 
+De [actieve conceptreleasenotes voor2026.48.1](release-notes-2026.48.1-draft.md) beschrijven de opgenomen productwijzigingen, losse apps en resterende acceptatie. De oudere bestanden met `final` in de naam hieronder zijn vrijdagbewijzen bij hun toenmalige bron, geen actuele maandagvrijgave.
+
+Een [afzonderlijke niet-publicerende signeerproef](https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/45140566799) slaagt voor OpenPGP en Authenticode met tijdstempel op kleine synthetische bestanden. De [root-audit](signing-capability/root-audit.json) verifieert beide artifactdigests, de payloadhashes en onafhankelijk de handtekening van de gedownloade Windows-testexe. OpenPGP-verificatie gebruikt op CI een tweede homedir met uitsluitend de publieke sleutel. De Windows-certificaatnaam is `Impertio Studio B.V.`; de geïnstalleerde productuitgever blijft afzonderlijke pakketmetadata. De eerste proef faalde in het synthetische compilerpad vóór tekenen; de gecorrigeerde proef slaagt. Dit bewijst beschikbaarheid van de signeerroute, geen definitieve installerhandtekening of native werking. Er is geen tag, release of publicatie gemaakt.
+
 ---
 
 ## Behouden vrijdagstand — 2026.47.1

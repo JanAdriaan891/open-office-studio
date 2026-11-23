@@ -1,0 +1,13 @@
+{
+  "kind": "synthetic signing capability only",
+  "nativeOrPackageAcceptance": false,
+  "publication": false,
+  "source": "1b6983357e017bc0cd915ec3cfe2dcc63e3d3882",
+  "run": "45140566799",
+  "valid": true,
+  "unsignedSha256": "c47e68b1d70987db06db1cc51216173a42db34d726a1fd521eb77873f2a66f9f",
+  "signedSha256": "bb81e5e65a4fd0787db4734be4cd8f067f5fd6fac073273065bdb1370603b77d",
+  "subject": "CN=Impertio Studio B.V., O=Impertio Studio B.V., STREET=Burg de Raadtsingel 31, L=Dordrecht, S=Zuid-Holland, C=NL, PostalCode=3311 JG",
+  "signerThumbprint": "6CA044A50E18DA34A53465F42D15F62BA48B9D85",
+  "timestampSubject": "CN=Microsoft Public RSA Time Stamping Authority, OU=nShield TSS ESN:7A00-05E0-D947, OU=Microsoft America Operations, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+}
