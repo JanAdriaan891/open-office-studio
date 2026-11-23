@@ -1,7 +1,7 @@
 {
   "schemaVersion": 3,
-  "asOfUTC": "2026-11-23T12:06:41.707933+00:00",
-  "status": "P3 intake closed with necessary374/377/378/379 and scoped ZIP test budget. Directed229+SDK44+config9+TSC pass. New seven-product build and three-OS/two-route browser checks running. Stable readiness remains NO pending actual packages/native/standalone/signatures.",
+  "asOfUTC": "2026-11-23T12:15:06.839457+00:00",
+  "status": "P4 closed after the bounded Vitest runner correction; all necessary product fixes retained. Local full3657PASS/0FAIL/10explicitSKIP, exactP4SDK44/config9/TSC PASS. New same-source all-platform builds/browser underway. Native/standalone/signature acceptance pending; stable readinessNO.",
   "date": "2026-11-23",
   "proposedVersion": "2026.48.1",
   "intermediateWindowsSource": "3a0decac3d45234d4b4d487e431b21cff961ccca",
@@ -18,7 +18,7 @@
   "newUserApprovalNeededForConcreteMainAndRelease": true,
   "FridayDeadlineAppliesToday": false,
   "deadlineToday": null,
-  "finalCombinedFreeze": "98b340429436cf597a569549d043bd75b486e2ab / tree 780c0789c8badedc6760a8402a6994154a3bf402 /2026.48.1; immutable P3 branch. P2 remains historical exact-source evidence, not relabelled.",
+  "finalCombinedFreeze": "04fa6cd43b84e3f59fb9d5055bb2d00dde351a47 / tree 94fa38c20b51a73e4912964f37f0e1a659b0fb1b /2026.48.1; immutable P4. P2/P3 evidence retains original source and failures.",
   "historicalHandoff": {
     "file": "historical-handoff-2026-11-20.json",
     "sourceCommit": "0dff40895e600e5716d6a72ba2791987d107825b",
@@ -374,17 +374,18 @@
     "explanation": "Specific completed historical deliveries found while assigning idle format workers are retained despite old CLOSED-without-merge PR metadata. No old stopped experiments resumed or blindly cherry-picked. Separate proof-only SYLK retains historical scope."
   },
   "finalSevenProductBuild": {
-    "run": 45170708933,
-    "source": "98b340429436cf597a569549d043bd75b486e2ab",
-    "tree": "780c0789c8badedc6760a8402a6994154a3bf402",
+    "run": 45172070275,
+    "source": "04fa6cd43b84e3f59fb9d5055bb2d00dde351a47",
+    "tree": "94fa38c20b51a73e4912964f37f0e1a659b0fb1b",
     "version": "2026.48.1",
     "publiceren": false,
-    "status": "in_progress",
+    "attempt": 1,
     "jobs": {
-      "Linux": 137679288372,
-      "Windows": 137679288429,
-      "macOS": 137679288433
+      "Windows": 137683944804,
+      "macOS": 137683944827,
+      "Linux": 137683944835
     },
+    "status": "in_progress",
     "finalNativeOrSigningAcceptance": false
   },
   "additionalNativeFormats": {
@@ -560,8 +561,8 @@
       "checks": "4LinuxstdRust+9config/callsite checks,31existingVitests,TSC/i18nPASS; nativehelpernotexecuted byavailabilityprobe",
       "remaining": "FullRust/Tauritypewiring andrealnewDEBDepends/AppImageerror/YesCancel/save/focus/nativechecks onnewpoint. Cargo/lock/portal unchanged."
     },
-    "status": "CLOSED and integrated as P3; original staging references are historical",
-    "closedApplicationCommit": "98b340429436cf597a569549d043bd75b486e2ab"
+    "status": "CLOSED as P4; P3 import-runner correction explicitly recorded",
+    "closedApplicationCommit": "04fa6cd43b84e3f59fb9d5055bb2d00dde351a47"
   },
   "candidateP3": {
     "schemaVersion": 1,
@@ -763,7 +764,8 @@
     "releaseRun": 45170708933,
     "publiceren": false,
     "browserRun": 45170997055,
-    "browserHarness": "49df8893d08404268b549aefdbdf63758d0a6724"
+    "browserHarness": "49df8893d08404268b549aefdbdf63758d0a6724",
+    "superseded": "Full-CI test runner mismatch; original failure preserved in P4-source/audit.json. No final P3packages."
   },
   "historicalP2SevenProductBuild": {
     "run": 45150438420,
@@ -807,5 +809,58 @@
     "status": "driver-corrected repeat in progress; initial six jobs failed before functional acceptance",
     "observed": "1024x768 host with offscreen1440x950 windows; latest fresh host supports1920x1080, actual native mode before appstart; keep originals and strict focus/uniqueness/content/save/reopen criteria",
     "finalP3Acceptance": false
+  },
+  "historicalP3SevenProductBuild": {
+    "run": 45170708933,
+    "source": "98b340429436cf597a569549d043bd75b486e2ab",
+    "tree": "780c0789c8badedc6760a8402a6994154a3bf402",
+    "version": "2026.48.1",
+    "publiceren": false,
+    "status": "in_progress",
+    "jobs": {
+      "Linux": 137679288372,
+      "Windows": 137679288429,
+      "macOS": 137679288433
+    },
+    "finalNativeOrSigningAcceptance": false
+  },
+  "candidateP4": {
+    "schemaVersion": 1,
+    "asOfUTC": "2026-11-23T12:15:06.839457+00:00",
+    "source": "04fa6cd43b84e3f59fb9d5055bb2d00dde351a47",
+    "tree": "94fa38c20b51a73e4912964f37f0e1a659b0fb1b",
+    "version": "2026.48.1",
+    "immutableBranch": "codex/release-candidate-2026-11-23-p4",
+    "intake": "closed",
+    "sourceChangeFromP3": "Exactly one test import node:test -> vitest; all nine configuration/source guards retained. No runtime/product behavior changes. Other changed files are P3 release evidence/documentation.",
+    "localChecks": {
+      "fullVitest": 3657,
+      "fullVitestFailed": 0,
+      "fullVitestSkipped": 10,
+      "exactSourceSDK": 44,
+      "exactSourceConfigVitest": 9,
+      "nonincrementalTSCExitCode": 0
+    },
+    "P3RetainedFailure": {
+      "releaseRun": 45170708933,
+      "WindowsJob": 137679288429,
+      "attempt": 1,
+      "rawLogSha256": "a059035a658d829593b4cdf5778509ff739746408da5b6f6dd29e19f6e1cd575",
+      "reason": "No test suite found: node:test tests were discovered by project Vitest. All3652 ordinary tests passed,6skipped. ZIP4cases passed.",
+      "releaseAndBrowserCancelledBeforeFinalPackages": true,
+      "browserRun": 45170997055
+    },
+    "releaseRun": 45172070275,
+    "releaseAttempt": 1,
+    "releaseJobs": {
+      "Windows": 137683944804,
+      "macOS": 137683944827,
+      "Linux": 137683944835
+    },
+    "browserRun": 45172148763,
+    "browserHarness": "22b82fda992632976ca1b84a78f8335bad7ee14b",
+    "publication": false,
+    "mainWritesAllowed": false,
+    "stableReady": false
   }
 }
