@@ -11,7 +11,7 @@ Dit is de actieve voorbereiding van maandag 23 november. Productpunt P2 is vastg
 - De native Linux-zoek-/vervangvelden krijgen hun eigen Ctrl+Z/Ctrl+Shift+Z/Ctrl+Y-invoergeschiedenis, met behoud van aparte documentgeschiedenis (#368).
 - Bestaande toetsenbordnavigatie in het lint vraagt expliciet zichtbare focus na muisbediening (#369).
 - De Windows-bouw gebruikt voor de runtime-uitpakroute een compatibele .NET-ZIP-aanroep wanneer Windows PowerShell 5.1 een Archive-module uit PowerShell 7 erft (#372). Dit herstelt de verklaarde bouwblokkade; het is geen signingcorrectie.
-- Native macOS Writer-presentatie kiest de bestaande DOM-canvasroute om de aangetoonde lege workerpresentatie te vermijden (#359). Openen en indeling blijven hun eigen workers gebruiken. De gedeelde koppeling geldt ook voor Writer-documenten in Office en Email; de nieuwe native productpakketacceptatie is nog open.
+- Native macOS Writer-presentatie kiest de bestaande DOM-canvasroute om de aangetoonde lege workerpresentatie te vermijden (#359). Openen en indeling blijven hun eigen workers gebruiken. De gedeelde koppeling geldt ook voor Writer-documenten in Office en Email; de begrensde body/tabelcore is in het echte gewone P2-Macpakket geaccepteerd; definitieve signed Suite-/standaloneacceptatie blijft open.
 
 Eerder geaccepteerd integratiewerk, waaronder de private kantoorruntime, PR #349 en macOS Command+↑/↓ (#358), blijft behouden. Een afzonderlijke bewijsuitbreiding voor SYLK is geen ontbrekende productfix. Opgenomen code is niet hetzelfde als volledige native goedkeuring; die grens geldt ook voor #359.
 
@@ -26,10 +26,12 @@ Ingebouwde PDF-, VBA/SQL-, grafiek- en vormfuncties zijn geen aparte apps. Voor 
 ## Bekende grens en nog open acceptatie
 
 - #366, de gemelde achterblijvende paginateller, blijft uitdrukkelijk uitgesteld en ongefixt.
-- De native macOS-document-/tabelbodyacceptatie is nog open. Het causale diagnostische pakket blijft apart van de opgenomen P2-productcorrectie; die laatste moet nog in het normale nieuw gebouwde pakket worden bediend.
-- De Linux-correcties worden in het echte bron420-pakket getest. Gedeeltelijke successen, testdriverproblemen en niet-uitgevoerde cases blijven afzonderlijk zichtbaar; volledige lint-/invoer-/saveacceptatie is nog niet bereikt.
+- Native Mac #359 body/tabelcore slaagt op P2 in45151872444, inclusief echte input/Undo/Redo/save/volledig-afsluiten/heropenen. Overige #361 Tab/Find/twee-documentcases en finale signed/standalonevariant blijven apart.
+- Linux #368/#369 slagen in de geteste native P2-DEB-scopes van45148819548. Zes disabled-Deletevarianten waren niet bereikbaar; vier horizontale lintwaarnemingen blijven apart van het verticale acceptatiepunt. AppImage/finale releasebytes zijn hiermee niet goedgekeurd.
 - De Windows-tussenbron `3a0decac3d45234d4b4d487e431b21cff961ccca`, tree `e46b8faed3ca6b468e71a4d0d77b6dc8ce259360`, is versie2026.48.1 met #372. Dit is geen definitieve gezamenlijke platformgoedkeuring.
-- Definitieve drie-OS/browser-combinatie, native suite-/standaloneacceptatie, 28 pakketidentiteiten/hashes, 14 rapporten en toepasselijke signatures/notarisatie moeten nog op één vaste bron worden afgerond. Geldige oude resultaten behouden hun eigen bron en scope.
+- P2 reguliere builds en acht workflows/14jobs met exact dezelfde tree plus de drie-OS/twee-route-browsercombinatie slagen. Definitieve native suite-/standaloneacceptatie, 28 pakketidentiteiten/hashes, 14 rapporten en toepasselijke signatures/notarisatie moeten nog op één vaste bron worden afgerond. Geldige oude resultaten behouden hun eigen bron en scope.
+- Nieuwe #374 is een zelfstandig bevestigde zichtbare DOCVARIABLE-titeloverlap na append/save/heropenen. Correctie wordt buiten P2 onderzocht; inhouds-/stijlaudits maken deze visuele fout niet geslaagd. De nieuwe #87/#78-verbeteringen horen bij een volgende productronde.
+- De zeven-productbouw45150438420 gebruikt P2 en publiceren=false. Windows faalde vóór bouwen/signing op een real-process-testtimeout; Mac/Linux bouwen nog. Een volledige WindowsP2retry is nu uitgesteld wegens de onderzochte noodzakelijke #374-correctie, om onnodige opvolgende builds te voorkomen.
 - Controle van openbare definitieve downloadbytes volgt pas na afzonderlijk toegestane upload; er worden nu geen nieuwe download-URLs als bestaand voorgesteld.
 
 **Stabiele release gereed: NEE.** Deze concepttekst wordt pas definitief nadat de productcorrecties en vereiste controles werkelijk zijn afgerond en de concrete bron, pakketset en resterende beperkingen reviewbaar zijn.

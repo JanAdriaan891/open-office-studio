@@ -1,6 +1,6 @@
 {
   "schemaVersion": 3,
-  "asOfUTC": "2026-11-23T10:23:46.144922+00:00",
+  "asOfUTC": "2026-11-23T10:27:26.808642+00:00",
   "status": "P2 core Mac359 and Linux368/369 accepted within bounded native scopes; final seven-product package and standalone acceptance active; Windows release blocked by one test timeout. NOT stable-release approved.",
   "date": "2026-11-23",
   "proposedVersion": "2026.48.1",
@@ -289,7 +289,7 @@
       "status": "FAILURE before signing/build",
       "failure": "Positive real ZIP PowerShell test exceeded default5000ms;17272ms measured; other3 negative ZIP tests pass, no byte assertion mismatch reported.",
       "rawLogSha256": "78e00164c0945cdbffd3bd1c0cae2f75a10327e1b9244963f924644fd681965f",
-      "rerun": "One unchanged Windows-job retry planned after overall run finishes; attempted job-only rerun rejected403 because containing workflow still active. No retry executed yet; original failure preserved. Read-only bounded timing review assigned750b.",
+      "rerun": "Initially planned unchangedP2retry; now explicitly postponed because independently reproduced374 needs bounded textkernel fix review. Avoid redundant complete7appWindowsbuild followed immediately by necessarynewpin. No retry executed. Existing rawfailure preserved.",
       "timingReview": "750b independently verified only Vitest default5s external-process budget failed; time is whole fixture/ZIP/PS/extract/read path, not proven PSstartup-only. Same P2Desktop4cases total1860ms. If one unchanged retry repeats, propose only positive real-process test30s and newexplicitpin; no globaltimeout/retry/skip/producthelper change.",
       "skippedCoverage": "Release6skips vsDesktop3: common3 DB corpus skips; release extra3 spellingWASM-tests because units precede assetprebuild. SameP2Desktop spelling26/26PASS; release beforeBuild prebuild builds required WASM with failclosed non-dev gate. No claim release ran those3 nor missinginstallerresource inferred."
     },
@@ -311,7 +311,14 @@
         "proofCommit": "436ee5b79562d7c9ef0292d45665bd9976f7e848",
         "status": "Owner reports actual native both aliases/RustIPC/import/edit/save/fullquit/newPID/4XML oraclesPASS; root raw audit pending."
       },
-      "Linux": "standalone_linux actual native GNMinprogress; initial preflight/import observed, nofullpassyet",
+      "Linux": {
+        "run": 45155198992,
+        "qaSource": "c576379059fa819ac64017f9c84e1e519ce135fa",
+        "proofCommit": "0f7c505ec4c66e72fe038da991a944d7af3ba28d",
+        "artifact": 14807469215,
+        "archiveSha256": "af6201d1238c34efd5f41926322563cd4075115b11215a218904097a0a007ee5",
+        "status": "Owner reports actualP2DEB bothaliases picker/RustIPC/8cells4formulas/Sheet2edit/XLSXsave/fullquit/newPIDreopen and independentXMLPASS,58checks/23captures; root raw audit pending. AppImage/standalone not covered."
+      },
       "macOS": "6f92 pending own finalSpreadsheet DMG"
     },
     "STW": {
@@ -346,7 +353,7 @@
       "evidenceType": "Two owners independently viewed original Windows testartifact screenshots; no independently established cause yet.",
       "triageOwner": "9d3b",
       "WindowsOperator": "750b",
-      "status": "Independently reproduced on actual P2 browser with unmodified Windows-saved DOCX. Same fonts/styles/other19ZIPentries; replacing only Title-DOCVARIABLE by identical cached text removes overlap. Flattening is diagnostic, not fix. Exclusive bounded source/fix investigation9d3b; no P2intake yet.",
+      "status": "Confirmed374 cause candidate: pinnedSDKprepare_field_run measures cached fallback withoutcaps whilepaintingallCaps, unlike normaltext. ExactSDKwidthregression+boundedreproducibletextkernelpatch/WASMbuild inprogress9d3b; no productcommit/review/newP3pin yet.",
       "issue": 374,
       "proofCommit": "77f4cba0",
       "browserRun": 45154167386,
@@ -372,5 +379,19 @@
       "owner": "0c73",
       "scope": "Solid slide background schemeClr theme color only; future isolated branch fromP2, not currentrelease"
     }
-  ]
+  ],
+  "plannedNecessaryNextIntake": {
+    "frozen": false,
+    "source": null,
+    "scope": [
+      "374 boundedcaps-consistentfieldmeasurement, only afterproductdiff/regression/reproducibleWASMreview",
+      "Consider positive realPowerShellZIP test-only30s budget with explicit sourcepin; no globaltimeout/skip/retry/producthelperchange"
+    ],
+    "exclude": [
+      "87automaticfooterdate enhancement",
+      "78schemeClrbackground enhancement",
+      "otherlatefeatures"
+    ],
+    "rule": "CurrentP2Mac/Linuxbuild and ownappcases may proceed as exactlylabelledP2baseline. Reviewnecessaryfixes, setoneexplicitnewpoint, rebuildaffectedbytes and reruninvalidatedchecks; no silentpassrelabelling."
+  }
 }
