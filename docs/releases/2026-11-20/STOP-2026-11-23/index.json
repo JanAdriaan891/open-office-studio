@@ -84,5 +84,20 @@
     "rootReview": "OPEN",
     "triggerCreated": false,
     "keysUsed": false
-  }
+  },
+  "finalOwnerStopCommits": {
+    "WindowsStandalone": "865952e5a680a0b3b892f328f505ca1cec78da4f",
+    "WindowsSuite": "2dc4a0c49accc69ccadd170945b590dcc8d8c602",
+    "STWIndependentReview": "3fa75ce0a6817655a06e0a052eacb72c9f66047d",
+    "LinuxStandalone": "41f7bd4df8c1fc9a992c9e007d2e380af345eae0",
+    "LinuxSuite": "0810c25bc0532e12ab44e87635668faa33ef4ca5",
+    "MacStandalone": "b4c42b78a9936c6aeb154ee2a4c7fb7bdba1c022",
+    "MacSuiteWIP": "9577eeb7cda6943839b408d7dd6dd4738f1b2c45",
+    "Linux377AndReadonlyAudits": "aaccb5468277cee9d27f481d727d3ca90103a44a",
+    "Future375": "e6987b287b11f6d5d2b2275a419077f1bbf8b802",
+    "FutureWRI": "2fcad26a724b834dc2c4f8e13d881162312abf76"
+  },
+  "allOwnersReportedStopped": true,
+  "rootNoLocalGuiCaptureOrPersistentWatcherStarted": true,
+  "savedUTC": "2026-11-23T14:59:24.127842+00:00"
 }
