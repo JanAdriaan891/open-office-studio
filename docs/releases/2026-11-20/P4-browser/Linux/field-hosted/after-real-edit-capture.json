@@ -1,0 +1,58 @@
+{
+  "status": "stable-original-PNG-captured",
+  "doubleAnimationFramesPerSample": true,
+  "requiredConsecutive": 3,
+  "requiredStableMs": 200,
+  "samples": [
+    {
+      "at": "2026-11-23T12:19:01.204Z",
+      "pngSha256": "8e1a17e74c45f1dbe75b862b0edbf4874bcd4b68aecdd6b7a2505b4ed7399551",
+      "completePaintUnchangedDuringCapture": true,
+      "consecutive": 1,
+      "stableForMs": 0,
+      "paintSignature": "[\"worker0\",1,6,[45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70]]"
+    },
+    {
+      "at": "2026-11-23T12:19:01.426Z",
+      "pngSha256": "0bab3807e569c888ade93a2a97eb299ca6c13a448dbf9488ef42b1570ae7a1b6",
+      "completePaintUnchangedDuringCapture": true,
+      "consecutive": 1,
+      "stableForMs": 0,
+      "paintSignature": "[\"worker0\",1,6,[45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70]]"
+    },
+    {
+      "at": "2026-11-23T12:19:01.653Z",
+      "pngSha256": "e95cc109d82edf1fcfd5dae6081e4b898e83c7f1b434bcd500dc543203dff732",
+      "completePaintUnchangedDuringCapture": true,
+      "consecutive": 1,
+      "stableForMs": 0,
+      "paintSignature": "[\"worker0\",1,6,[45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70]]"
+    },
+    {
+      "at": "2026-11-23T12:19:01.869Z",
+      "pngSha256": "5e5371df423d947c49e8aa49f9b9a0b15d98210b5339706da04c4f61cad69513",
+      "completePaintUnchangedDuringCapture": true,
+      "consecutive": 1,
+      "stableForMs": 0,
+      "paintSignature": "[\"worker0\",1,6,[45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70]]"
+    },
+    {
+      "at": "2026-11-23T12:19:02.100Z",
+      "pngSha256": "5e5371df423d947c49e8aa49f9b9a0b15d98210b5339706da04c4f61cad69513",
+      "completePaintUnchangedDuringCapture": true,
+      "consecutive": 2,
+      "stableForMs": 231,
+      "paintSignature": "[\"worker0\",1,6,[45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70]]"
+    },
+    {
+      "at": "2026-11-23T12:19:02.307Z",
+      "pngSha256": "5e5371df423d947c49e8aa49f9b9a0b15d98210b5339706da04c4f61cad69513",
+      "completePaintUnchangedDuringCapture": true,
+      "consecutive": 3,
+      "stableForMs": 438,
+      "paintSignature": "[\"worker0\",1,6,[45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70]]"
+    }
+  ],
+  "acceptedPngSha256": "5e5371df423d947c49e8aa49f9b9a0b15d98210b5339706da04c4f61cad69513",
+  "markerReview": "Review the original PNG; worker glyph records and pixel stability alone do not establish visible marker text."
+}
