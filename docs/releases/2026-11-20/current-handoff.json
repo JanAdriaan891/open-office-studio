@@ -1,6 +1,6 @@
 {
   "schemaVersion": 3,
-  "asOfUTC": "2026-11-23T12:15:06.839457+00:00",
+  "asOfUTC": "2026-11-23T12:20:35.851271+00:00",
   "status": "P4 closed after the bounded Vitest runner correction; all necessary product fixes retained. Local full3657PASS/0FAIL/10explicitSKIP, exactP4SDK44/config9/TSC PASS. New same-source all-platform builds/browser underway. Native/standalone/signature acceptance pending; stable readinessNO.",
   "date": "2026-11-23",
   "proposedVersion": "2026.48.1",
@@ -34,7 +34,7 @@
     "VersionFreezePipelineIntegrationAndReadiness": "root",
     "LinuxNativeXLSB": "d410;377sourcefixdone, shortnative377retestpreparedawaitingnewpackage",
     "STWVisualTriageAndBrowser": "9d3b; Windows operator750b only",
-    "NextFormatUOT": "e0d7;WQ2exclusiveQA, priorproofsretained outsideP3",
+    "NextFormatUOT": "e0d7; WQ2QA completed strictFAIL/#381; no next scope auto-started",
     "FuturePresentation78": "0c73;78/87future,375isolatedruntimewitness outsideP3"
   },
   "MacCriticalPath": {
@@ -317,14 +317,14 @@
     "source": "dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b",
     "productionIntake": "Closed P2 remains unchanged; source fixtures/oracles/QA initially, new bugs/fixes require separate scoped registration and intake decision.",
     "owners": {
-      "01a1bf9c-8020-7953-84ff-ac467a399694": "GNM Linux converter/engine/browser +Windowsnative done436ee5b7; next nativeWindowsXLSB",
-      "01a1bf84-d410-7383-b369-f055b021c20c": "XLSB converter/engine donefb7e7b8a; active nativeLinuxXLSB",
-      "01a1bf84-e0d7-71f2-b6f4-7658c0cb40da": "STCa7962244/UOS4f94d347 complete; UOT232a10af strictsourceimportFAILforCRwhitespace(downstreamenginePASS separately), activeUOPonly",
-      "01a1bf84-0c73-7170-b0b9-6d54748fca7d": "STI/#373 complete9471a4be;87completedfuturec605f512, new78future",
-      "01a1bf9c-9d3b-7463-8a79-dfa9d88eee5c": "STW canonicalruntime+engine+realbrowser donee74512d3; active field-overlap triage and native-result aggregation"
+      "01a1bf9c-8020-7953-84ff-ac467a399694": "WindowsGNM/XLSB/UOS/STC/nativeSXCproofs retained;380futurechord complete; now reservedP4sixWindowsapps",
+      "01a1bf84-d410-7383-b369-f055b021c20c": "XLSBnativeDEB+OpenFile complete;377productintegrated, exclusive shortP4nativehertest pendingownpackage",
+      "01a1bf84-e0d7-71f2-b6f4-7658c0cb40da": "STC/UOS/UOT/UOP/SDD/WB2/WQ2QA completed;381strictformulaimportbug registered; no next scope automatically",
+      "01a1bf84-0c73-7170-b0b9-6d54748fca7d": "STI373explained;87/78futurecomplete;375runtimewitness own bounded build ininitialization",
+      "01a1bf9c-9d3b-7463-8a79-dfa9d88eee5c": "374productintegrated; independentP4nativeexportoracles, no secondGUI"
     },
     "resourceScope": "Own worktrees/QA/Linux CI; no extra Mac build, local GUI/capture, shared source edits, main/tag/publication. No full4GB release download per format.",
-    "WindowsStandaloneOwnerSequence": "8020 preserves744d76b1 QA; only one active scope, completes bounded Gnumeric before Windows-six-app execution when final own packages arrive; real schedule conflict must be raised.",
+    "WindowsStandaloneOwnerSequence": "Completed boundedformat/chordscopes are retained;8020 now prepares P4sixappacceptance only until ownofficialWindowsbytes.",
     "sharedRuntimePreparation": {
       "producerRun": 45147346793,
       "qaSource": "22a8577d215911976400adca4c541f2636212918",
@@ -364,7 +364,22 @@
     },
     "WB2": {
       "owner": "e0d7",
-      "status": "StrictsheetnameoracleA mismatchesconverterSheet1 withnoexplicitnativepage-name; normativesource-defaultuncertain. Source33values/10formulascachesretained; downstreamactualengineproofinprogress, noformatpassorunprovenbug."
+      "proof": "0ddb6106bd991873cbcab6338755497a570c1d65",
+      "strictSourceImportAcceptance": false,
+      "overallFormatAcceptance": false,
+      "result": "NoexplicitnameRecord; inferrednativeA vsconverterSheet1 remainsnormativelyuncertain. Downstream33cells/10formulas,editC2=10\u219270,UndoRedo/savefresh3XML PASS separately. No unprovenbugissue."
+    },
+    "WQ2": {
+      "owner": "e0d7",
+      "proof": "c8f1f648dbf94fa0c15b76fdb639dd0205c5a46d",
+      "run": 45170944200,
+      "artifact": 14817860054,
+      "archiveSha256": "4fc2da77b1e52eaa9ddc97ba8c8b4e3f119b9f9b9a16f9b3747fe98dd1a8711b",
+      "strictSourceImportAcceptance": false,
+      "overallFormatAcceptance": false,
+      "issue": 381,
+      "result": "Real native61cell/fourRPNVLOOKUP oracle: missing zero\u2192one-based indextranslation beforeengine; wrongformularesults reproduced after engine/recalculation/edit/UndoRedo/savefresh.57othercells correct. Separate importlimitation outsideP4; noHLOOKUP/cacheproblem bundled.",
+      "rootIndependentAudit": "pending; bounded delivery coordinator-recorded, not rootGUI/nativeacceptance"
     }
   },
   "completenessRecheck": {
@@ -461,7 +476,7 @@
       "evidenceType": "Two owners independently viewed original Windows testartifact screenshots; no independently established cause yet.",
       "triageOwner": "9d3b",
       "WindowsOperator": "750b",
-      "status": "Confirmed374 cause candidate: pinnedSDKprepare_field_run measures cached fallback withoutcaps whilepaintingallCaps, unlike normaltext. ExactSDKwidthregression+boundedreproducibletextkernelpatch/WASMbuild inprogress9d3b; no productcommit/review/newP3pin yet.",
+      "status": "Product85ac155f integrated inP4 with identical5blobs, SDK44/browserproof; newP4native/visual regression still pendingactualpackages.",
       "issue": 374,
       "proofCommit": "77f4cba0",
       "browserRun": 45154167386,
@@ -489,20 +504,33 @@
       "issue": 87,
       "product": "d96aec716b15bc0a0072993b7772b21727f460fd",
       "proof": "c605f51255ae84ba2137c2744bb9cd43a3348fe1",
-      "remaining": "macOS/nativepackageacceptance; outsideP3"
+      "remaining": "macOS/nativepackageacceptance; outsideP4"
     },
     {
       "issue": 78,
       "product": "33711565a4dde5a0c81c34f9bc4a8bcfd9d655b2",
       "proof": "d4ae6682745a3c27d07026508f3f582b454e6bac",
       "checks": "29Win/Linux+realnormal/hostedbrowserPASS; unsupportedthemeOverridechoicecorrectlydisabled, SDKthemeoverridecolorlimitationseparate",
-      "remaining": "macOS/nativepackageacceptance; outsideP3"
+      "remaining": "macOS/nativepackageacceptance; outsideP4"
     },
     {
       "issue": 375,
-      "proof": "0febb419709510190cad053e3e90c7d681baa1c8",
-      "result": "ActualUNOobservedcorrectRGB+incorrectinheritedAccent1; clearonlyComplexColor inowncopy yieldscorrectPPTX. BotholdrunsFAILbecauseaddedcache/UUIDpaths;alloriginal15082entries unchanged. Notproductfixed.",
-      "next": "Ownreadonlymount/cache-isolationdiagnostic permitted; reviewableimportsourcepatch/tests againstLO9dea; buildresourceplanneeded, nobuild/runtimepinapprovalyet. Noexistingselfhostedrunner/LOsourcecachefound; onlybinaryruntimecache."
+      "proof": "d63e150f5c4a53e7cf948ede329bf99e0cf2d72b",
+      "result": "Readonlynamespace causalUNO run45167757305 SUCCESS/all15082entries unchanged. Bounded importerpatch+realUOP/inheritancefixtures prepared; no activated productruntime.",
+      "next": "One conditional270mintotal/210mincompiler witness approved, resourcegates everynewVM. Initial45172855782 failed13.34s beforeAPT/checkout/build; sameoriginaldeadline retained. No paidrunner/secondcoldbuild/portableUbuntu22runtimeclaim or P4intake.",
+      "remaining": ""
+    },
+    {
+      "issue": 380,
+      "owner": "8020",
+      "product": "cbaebf81",
+      "proof": "3df5ec0314c8af95da4bc35324baa55a136e0b85",
+      "testedHarness": "42d161a3d494fb56fa159501a510a34ac95f6fd0",
+      "run": 45171202941,
+      "artifact": 14817341148,
+      "archiveSha256": "8598a2e4bf252395f86c8d6e6a4317a4a65161dc0805fc0e3998ca051137af55",
+      "checks": "Ownerreports25Win/Linux+TSC;realVitedevnormal/hostedroutes/editUndoRedo/savefreshXML;4printcanvases156880nonedgepixels0mismatch.",
+      "remaining": "Separate future source review/integration and nativeWin/Linux/Mac/optimizedhosted/packageacceptance. No rawSXCbrowser/nativePDF/standaloneclaim; SXCcontrols/widths and GIFpreviewobservation remain separate."
     }
   ],
   "plannedNecessaryNextIntake": {
@@ -808,7 +836,21 @@
     "source": "dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b",
     "status": "driver-corrected repeat in progress; initial six jobs failed before functional acceptance",
     "observed": "1024x768 host with offscreen1440x950 windows; latest fresh host supports1920x1080, actual native mode before appstart; keep originals and strict focus/uniqueness/content/save/reopen criteria",
-    "finalP3Acceptance": false
+    "finalP3Acceptance": false,
+    "independentReview": {
+      "source": "dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b",
+      "run": 45170301076,
+      "reviewer": "mac_native_release_blocker read-only;6f92 soleoperator",
+      "reviewSha256": "db3c1707a43c8c1591eec5f9471c4a721d72dcdc3cdf3f8871a8bd98fc842e2c",
+      "payloadHashesVerified": 242,
+      "findings": [
+        "Maximize-once succeeds to1024x677; logged1920x1080 beforeappstart reverts in laterhelperprocesses.",
+        "Writer actualinput/saveXML; sentenceautocorrect changesvelvet\u2192Velvet, requires explicitly repinnedneutralfixture andstrictoracle.",
+        "Spreadsheet selectedAXCell isvalidselection but drivertextfocuscheck rejects it; use nativeformulaBarAXTextField with actualfocus.",
+        "PresentationOutline isAXCheckBox insideViewtoolbar; target correctrole/context."
+      ],
+      "limits": "No independentnewappoperation/productbug; originalfailures retained. No finalP4functionalpass."
+    }
   },
   "historicalP3SevenProductBuild": {
     "run": 45170708933,
