@@ -1,6 +1,6 @@
 {
   "schemaVersion": 3,
-  "asOfUTC": "2026-11-23T13:44:01.057758+00:00",
+  "asOfUTC": "2026-11-23T13:50:25.764785+00:00",
   "status": "P5 intake closed. All ten project workflows/eighteen exact-tree jobs and independently audited Windows/Linux/macOS browser acceptance on both routes PASS. Stable readiness NO pending final native, standalone, installer and signature acceptance.",
   "date": "2026-11-23",
   "proposedVersion": "2026.48.1",
@@ -25,16 +25,16 @@
     "sha256": "3615935edefe948c1387b55289daa26c274381bb079994642c81d0ad575172ea"
   },
   "owners": {
-    "WindowsRuntime372AndOfficeNative": "750b; product30f35dcf copied as3a0decac, own QA build and native preflight",
-    "MacBody359": "mac_native_release_blocker;359core+361P2scopedcomplete, finalnewpackageawaited",
-    "LinuxCurrent420368369": "writer_362;368/369/STWproofcomplete,378productready, finalLinuxSuiteplanprepared",
+    "WindowsRuntime372AndOfficeNative": "750b; P5 signed Suite/Writer core and374 title regression, separate verified Suite child and actual Authenticode/NSIS payload checks",
+    "MacBody359": "mac_native_release_blocker; historical359/361 accepted in scope, P5 signed Suite core+374 waits own verified child",
+    "LinuxCurrent420368369": "writer_362; P5 Suite DEB/AppImage,368/369/362/378/374 native plan ready, canonical children pending",
     "LinuxStandaloneSixApps": "standalone_linux; P5 one-parent preparation and six app-only hosts, separate Suite DEB/AppImage transfers; actual final packages pending",
     "MacStandaloneSixAppsAndDownloads": "6f92; bounded P2 driver validation; P5 six-app native and separate Suite transfer await final Mac package",
     "WindowsStandaloneSixApps": "8020;final6appQAreserved, future380chordrender separate",
     "VersionFreezePipelineIntegrationAndReadiness": "root",
     "LinuxNativeXLSB": "d410;377sourcefixdone, shortnative377retestpreparedawaitingnewpackage",
     "STWVisualTriageAndBrowser": "9d3b; Windows operator750b only",
-    "NextFormatUOT": "e0d7; current DPT source qualification/QA only on P2, outside P5",
+    "NextFormatUOT": "e0d7; ETT/DPS/DPT reports completed; exclusive SDW source-oracle QA on P2 outside P5.",
     "FuturePresentation78": "0c73; 78/87 retained for future integration; 375 independent bounded source-build witness outside P5"
   },
   "MacCriticalPath": {
@@ -317,14 +317,14 @@
     "source": "dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b",
     "productionIntake": "Closed P2 remains unchanged; source fixtures/oracles/QA initially, new bugs/fixes require separate scoped registration and intake decision.",
     "owners": {
-      "01a1bf9c-8020-7953-84ff-ac467a399694": "WindowsGNM/XLSB/UOS/STC/nativeSXCproofs retained;380futurechord complete; now reservedP4sixWindowsapps",
-      "01a1bf84-d410-7383-b369-f055b021c20c": "XLSBnativeDEB+OpenFile complete;377productintegrated, exclusive shortP4nativehertest pendingownpackage",
-      "01a1bf84-e0d7-71f2-b6f4-7658c0cb40da": "ETsourcegapdone; ETTonlysourcequalification/QA onP2 outsideP5",
+      "01a1bf9c-8020-7953-84ff-ac467a399694": "Historical bounded Windows format proofs and future380 complete; now exclusive P5 parent preparation and six standalone native apps.",
+      "01a1bf84-d410-7383-b369-f055b021c20c": "377 integrated; exclusive short P5 native CtrlS/Save XLSX/cancel/source-fingerprint test awaiting canonical Suite DEB child.",
+      "01a1bf84-e0d7-71f2-b6f4-7658c0cb40da": "DPT qualification gap and matching382 variant complete; next exclusive SDW source-oracle/QA on P2, outside P5.",
       "01a1bf84-0c73-7170-b0b9-6d54748fca7d": "STI373explained;87/78futurecomplete;375runtimewitness own bounded build ininitialization",
-      "01a1bf9c-9d3b-7463-8a79-dfa9d88eee5c": "374productintegrated; independentP4nativeexportoracles, no secondGUI"
+      "01a1bf9c-9d3b-7463-8a79-dfa9d88eee5c": "374 integrated; Mac browser original-image review complete; independent new-P5 native STW export audits only, no second GUI operator."
     },
     "resourceScope": "Own worktrees/QA/Linux CI; no extra Mac build, local GUI/capture, shared source edits, main/tag/publication. No full4GB release download per format.",
-    "WindowsStandaloneOwnerSequence": "Completed boundedformat/chordscopes are retained;8020 now prepares P4sixappacceptance only until ownofficialWindowsbytes.",
+    "WindowsStandaloneOwnerSequence": "Completed bounded-format/chord scopes retained; 8020 now performs P5 six-app acceptance only after own official Windows package verification.",
     "sharedRuntimePreparation": {
       "producerRun": 45147346793,
       "qaSource": "22a8577d215911976400adca4c541f2636212918",
@@ -388,6 +388,35 @@
       "fullFormatAcceptance": false,
       "run": 45176643338,
       "result": "CandidateWPSBIFF8+ETExtData fromSayi attachment test lacks independentnativeETSaveAsprovenance; samepublicXLS Workbook/ExtDatabyteidentical. No renaming claimed, no runtimeconversion/engine/nativepass."
+    },
+    "ETT": {
+      "proof": "3940dbfb51877dbe790be8ebc2779b24f803fc87",
+      "run": 45179206300,
+      "bug": 382,
+      "result": "Source qualification gap plus actual production filename-template predicate omission; no genuine import/save/overwrite claim.",
+      "sourceGatePassed": false,
+      "sourceImportAcceptance": false,
+      "fullFormatAcceptance": false,
+      "rootIndependentAudit": "Coordinator records bounded owner delivery; no root conversion or native reproduction claimed."
+    },
+    "DPS": {
+      "proof": "3facfd5acbcab7ca1c4c0a5d6cc588207f1af415",
+      "run": 45183381288,
+      "result": "Source qualification gap: specific Spire sample license unresolved, alternative native-producer provenance insufficient; no conversion or positive format acceptance.",
+      "sourceGatePassed": false,
+      "sourceImportAcceptance": false,
+      "fullFormatAcceptance": false,
+      "rootIndependentAudit": "Coordinator records bounded owner delivery; no root conversion or native reproduction claimed."
+    },
+    "DPT": {
+      "proof": "2c533adf51e9469554dd27ce5259583b61ab6c38",
+      "run": 45185797593,
+      "bug": 382,
+      "result": "Source qualification gap plus independently tested DPT/uppercase filename-template omission, added as same bounded cause/criteria to382. No duplicate issue, actual import/save/overwrite or P5 correction.",
+      "sourceGatePassed": false,
+      "sourceImportAcceptance": false,
+      "fullFormatAcceptance": false,
+      "rootIndependentAudit": "Coordinator records bounded owner delivery; no root conversion or native reproduction claimed."
     }
   },
   "completenessRecheck": {
@@ -866,7 +895,7 @@
     "tree": "780c0789c8badedc6760a8402a6994154a3bf402",
     "version": "2026.48.1",
     "publiceren": false,
-    "status": "in_progress",
+    "status": "cancelled after preserved Windows test-registration failure; no final native/signing acceptance",
     "jobs": {
       "Linux": 137679288372,
       "Windows": 137679288429,
@@ -919,7 +948,7 @@
     "tree": "94fa38c20b51a73e4912964f37f0e1a659b0fb1b",
     "initialRun": 45172148763,
     "LinuxWindows": "4platformroutesPASS; rootZIP/receipt/Office36cases/16downloadedfieldDOCX/SDK44perOS+paint/capture/original16PNGboundedindependentreview; seeP4-browseraudits",
-    "Mac": "initial normalcorecombination+SDK44passed, fieldeditdriverwrongprefixFAIL; hostednotrun. Mac-onlydrivercorrectedretry45175445760inprogress. NoMacpass claimed.",
+    "Mac": "Initial marker-position driver failure retained. Mac-only follow-up45175445760 failed before typing on incorrect QA ink-edge assumption; superseded by bounded successful P5 follow-up, no historical pass relabelled.",
     "mainAudit": "P4-browser/root-audit.json",
     "fieldAudit": "P4-browser/field-root-audit.json",
     "initialMacFailure": "P4-browser/macOS-initial-failure/root-audit.json",
@@ -1058,14 +1087,20 @@
     "readinessEstimateCET": "17:00-19:00 provisional, conditional on actual package availability and successful native/signature tests; no guaranteed deadline or approval to publish."
   },
   "P5PackageProgress": {
-    "asOfUTC": "2026-11-23T13:40:37Z",
+    "asOfUTC": "2026-11-23T13:49:02.626862+00:00",
     "run": 45177730188,
     "attempt": 1,
-    "Linux": "Seven-product build, actual installer extraction and runtime content gates SUCCESS; native WebKit/private installer gate in progress since 13:38:58Z.",
+    "Linux": "Official producer completed SUCCESS. Original Linux job log independently proves exact P5 checkout; all applicable package/runtime/native gates PASS. Native preparation awaits corrected exact-byte QA intake binding, no large download in failed prep.",
     "Windows": "Signed seven-product package build in progress; final package/signature gates not yet complete.",
     "macOS": "Signed/notarized seven-product package build in progress; final package/signature gates not yet complete.",
-    "officialArtifactListEmpty": true,
-    "finalNativeGoIssued": false
+    "officialArtifactListEmpty": false,
+    "finalNativeGoIssued": "Linux conditional package-verified go issued; Windows/Mac equivalent exact-source go activates only after own producer gates and artifact verification.",
+    "LinuxArtifact": {
+      "id": 14824745492,
+      "bytes": 4444993178,
+      "sha256": "c64b0e90e2144d1a5a6d17ad7e4881429a70ade8c48e76f7a22858b54c3928c5"
+    },
+    "producerAudit": "P5-package-intake/audit.json"
   },
   "future375Witness": {
     "run": 45182719759,
@@ -1080,5 +1115,15 @@
     "P5Intake": false,
     "newRuntimeAcceptance": false,
     "limit": "Separate explicitly allocated first compilation witness after preserved preparation-only failures. No mixed P2 binaries, application build or runtime pin change."
+  },
+  "P5LinuxPreparation": {
+    "owner": "standalone_linux",
+    "failedRun": 45187253554,
+    "failedQA": "b5f2fbf0531ca080609a11778bb7474bf3a8441c",
+    "failureScope": "QA binder hashed Windows CRLF intake bytes while Git checkout carried LF. Consumer rejected rawhash before archive creation/download; JSON metadata unchanged. No package/product failure inferred.",
+    "originalParentBytesDownloaded": 0,
+    "correction": "Producer writes and hashes exact canonical Git bytes; consumer raw-byte hash and all original source/job/attempt/time/ZIP/package/ELF gates remain strict.",
+    "SuiteTransferPriority": "Suite DEB and AppImage first, separate from six app-only hosts; d410 short377 and writer_362 Suite/378/374 share canonical verifier/input identity.",
+    "nativeAcceptance": false
   }
 }
