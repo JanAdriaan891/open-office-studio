@@ -1,0 +1,768 @@
+{
+  "source": "dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b",
+  "run": {
+    "id": 45148819548,
+    "url": "https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/45148819548",
+    "artifact": 14805173075,
+    "artifactSha256": "55a62c612872f94aa6ed1883d9b00174220a8d40f89e9f83389bf9005d2c9202",
+    "artifactBytes": 7719263,
+    "archive": "native-artifact.zip",
+    "reportSha256": "234ef3704fdb068e5ed75ad1101501794f2ba420c2111585d8f7c76a5597b29c",
+    "ribbonReportSha256": "fe76383eba45c26f65909ad01651010bfbecd0c0f4bc4bbe6905683907df2688",
+    "rawStatus": "passed tested native scopes; wider ribbon state matrix partial"
+  },
+  "officialArtifactMetadataMatched": true,
+  "copied": [
+    {
+      "path": "receipt.json",
+      "sha256": "a452f3e3ca42505161a2e8c5cec098a896b11e1e27076d8b2db3eb924795da18",
+      "bytes": 23925
+    },
+    {
+      "path": "native-input-descriptor.json",
+      "sha256": "fc296348a7029ecd9740575664a18ab4bbc0a501f6bc7d90a8657e91a9809a92",
+      "bytes": 2532
+    },
+    {
+      "path": "protocol-checks.log",
+      "sha256": "9b48a5ae8121a576672deb6ae369530a622b8af3daebb911d60e76f9a0fd9427",
+      "bytes": 241
+    },
+    {
+      "path": "native-artifact.zip",
+      "sha256": "55a62c612872f94aa6ed1883d9b00174220a8d40f89e9f83389bf9005d2c9202",
+      "bytes": 7719263
+    }
+  ],
+  "archivePayloadHashes": [
+    {
+      "path": "linux-p2-input/identity.json",
+      "sha256": "66322ac6b9d1a51a6a6cb857d5bd1bab10dc116a93702c89ea1c7269f247f199"
+    },
+    {
+      "path": "linux-p2-input/api-run.json",
+      "sha256": "e1cc2e2c638e204386930e043c0168dc8d3acf67fffe1cc258840221e21d58d1"
+    },
+    {
+      "path": "linux-p2-input/native-input-descriptor.json",
+      "sha256": "fc296348a7029ecd9740575664a18ab4bbc0a501f6bc7d90a8657e91a9809a92"
+    },
+    {
+      "path": "linux-p2-input/canonical-package-report.json",
+      "sha256": "51f99b9955ed0116372c8b24527e153ebe9b91a2ee24c25b3dbf742294d85f8b"
+    },
+    {
+      "path": "linux-p2-native/driver.log",
+      "sha256": "a8774a25f502ad2018a273165f9bf65b693875856d8f4ceecda87e8fe3cc7844"
+    },
+    {
+      "path": "linux-p2-native/final-reopened.png",
+      "sha256": "d031b0fa26662fb5ec99fe8cee2658b1c1e0dfda8055d33adf399c00e2d459eb"
+    },
+    {
+      "path": "linux-p2-native/find-redo.png",
+      "sha256": "2a72188c3fe8300fa5e6b595a477786f3da2ffdb69cb716e511a5274ff7c57e1"
+    },
+    {
+      "path": "linux-p2-native/find-table.docx",
+      "sha256": "0e7c25cc2375580b8fff194d1466178d47d282cfbdc84caecdcc5beefb70b4aa"
+    },
+    {
+      "path": "linux-p2-native/keyboard-command-focus.png",
+      "sha256": "607aa680654101bee4e7a2fb7a7a9da00cf5fbb0d40bc2966fa95487a4703b92"
+    },
+    {
+      "path": "linux-p2-native/keyboard-command-reopened.png",
+      "sha256": "5a6cbc7600b6959acbdca4c81d12e4120a9fba38ffff189d307fdb2dbd4fa0c1"
+    },
+    {
+      "path": "linux-p2-native/keyboard-command.docx",
+      "sha256": "d0b7cecfe392a6a2ffb35521d3c65a44e1f1461b00afb55d73a440d033dcec45"
+    },
+    {
+      "path": "linux-p2-native/other-table.docx",
+      "sha256": "ab3f62436973538adbbb98801ff497d1872f4691579db4c52f0bbfd7ac201b17"
+    },
+    {
+      "path": "linux-p2-native/preflight-reopened.png",
+      "sha256": "2aef3e72b779b09d6fd1e4e045aa9665fec7b1ba6d8be97c982d56d0a16d581f"
+    },
+    {
+      "path": "linux-p2-native/preflight-saved.png",
+      "sha256": "a28944672d477560a7701a66da97f4316d05d6764aa0ff7f3a432db8a28bdb8a"
+    },
+    {
+      "path": "linux-p2-native/preflight.docx",
+      "sha256": "664b32c23fe544025a2c8e4abff41928f9599441577b332d08601c5cca4e5970"
+    },
+    {
+      "path": "linux-p2-native/profile/config/org.openaec.office-studio/voorkeuren.json",
+      "sha256": "1270bee19eb01bcd0c40e1d16d59f7de2dd21b0d88248cdb487ceabc610909cd"
+    },
+    {
+      "path": "linux-p2-native/profile/data/org.openaec.office-studio/recent.json",
+      "sha256": "0c4c1bcce0815c99e33930ebec49027b6bec8c786dcb585fa2d446501a19764b"
+    },
+    {
+      "path": "linux-p2-native/replace-redo.png",
+      "sha256": "e007702e737a4587ac0536c92528e1761d434179073bbd50333d2951e30fe59f"
+    },
+    {
+      "path": "linux-p2-native/replace-table.docx",
+      "sha256": "ab3f62436973538adbbb98801ff497d1872f4691579db4c52f0bbfd7ac201b17"
+    },
+    {
+      "path": "linux-p2-native/report.json",
+      "sha256": "234ef3704fdb068e5ed75ad1101501794f2ba420c2111585d8f7c76a5597b29c"
+    },
+    {
+      "path": "linux-p2-native/ribbon/forge-1600-Alignment-active.png",
+      "sha256": "5e6853fb1fc978a62fcbe9d2af7e57a49d9a40f11e426ae22854e249ce07bf5b"
+    },
+    {
+      "path": "linux-p2-native/ribbon/forge-1600-Alignment-focus.png",
+      "sha256": "71ea364d03ec86a22e330dff08d94f6a99ae45c0bba229d4f0705c6d149be7fe"
+    },
+    {
+      "path": "linux-p2-native/ribbon/forge-1600-Alignment-normal.png",
+      "sha256": "5e6853fb1fc978a62fcbe9d2af7e57a49d9a40f11e426ae22854e249ce07bf5b"
+    },
+    {
+      "path": "linux-p2-native/ribbon/forge-1600-Alignment.png",
+      "sha256": "c569e5ee08f3d1f85812ca6b509810570ef401d42d91ed390b1e24396c0d5e2c"
+    },
+    {
+      "path": "linux-p2-native/ribbon/forge-1600-Data-active.png",
+      "sha256": "be40cb2b29f965d6d969e5ca0656b4efb97f83f3477e30ab85a95d67f0825593"
+    },
+    {
+      "path": "linux-p2-native/ribbon/forge-1600-Data-focus.png",
+      "sha256": "8fb86b3c3e8c5025bf1b7dc218d957d9fc6d9be2b0496bac304057b80f6d875b"
+    },
+    {
+      "path": "linux-p2-native/ribbon/forge-1600-Data-normal.png",
+      "sha256": "be40cb2b29f965d6d969e5ca0656b4efb97f83f3477e30ab85a95d67f0825593"
+    },
+    {
+      "path": "linux-p2-native/ribbon/forge-1600-Data.png",
+      "sha256": "4b68928b9f0af6d1c2c5cd8d59dbd4ed043421fb682835fe0f98dbbc3d79e531"
+    },
+    {
+      "path": "linux-p2-native/ribbon/forge-1600-Delete-focus.png",
+      "sha256": "64bc07d9202f9958e3a3f5c920c4b9280f9cc72bf273d76a4a4c41c2f5ddb4df"
+    },
+    {
+      "path": "linux-p2-native/ribbon/forge-1600-Delete-normal.png",
+      "sha256": "5eafdc75fb4a94a37fa01341adeeaf5c0411423f4b6f3b61149d5f217d9a3c54"
+    },
+    {
+      "path": "linux-p2-native/ribbon/forge-1600-Delete.png",
+      "sha256": "e1bf488e6bd33559194b1e0cb842b05f13da3692a01f62e07f7127efe90b5bc7"
+    },
+    {
+      "path": "linux-p2-native/ribbon/forge-1600-Text-focus.png",
+      "sha256": "8ba2b5e6a04daf7f9962f5403890ec00eeb1bca38f2b61fe51005ee20d44287f"
+    },
+    {
+      "path": "linux-p2-native/ribbon/forge-1600-Text-normal.png",
+      "sha256": "327ca3e930d69dc2c017e8273b4293f2f5882818a94ef28f5d61a08c0d669623"
+    },
+    {
+      "path": "linux-p2-native/ribbon/forge-1600-Text.png",
+      "sha256": "8c275ac39192f7eba2cdb39fb835b9fae71da31e9814243ece91aa2452f300f7"
+    },
+    {
+      "path": "linux-p2-native/ribbon/forge-800-Alignment-active.png",
+      "sha256": "43355097924f58e8068f2699bf8de8f22ef58b2113414c5a565f5d677e3d2682"
+    },
+    {
+      "path": "linux-p2-native/ribbon/forge-800-Alignment-focus.png",
+      "sha256": "0ccddc4d1ea41e654f7d547b759488fa22d7430745fc7354d6b662d14639f304"
+    },
+    {
+      "path": "linux-p2-native/ribbon/forge-800-Alignment-normal.png",
+      "sha256": "43355097924f58e8068f2699bf8de8f22ef58b2113414c5a565f5d677e3d2682"
+    },
+    {
+      "path": "linux-p2-native/ribbon/forge-800-Alignment.png",
+      "sha256": "dcb1e64af538c57de7347256441531f794fb7585c7912194ecab40e56e1bcc1c"
+    },
+    {
+      "path": "linux-p2-native/ribbon/forge-800-Data-active.png",
+      "sha256": "857915c1def74b959016d5b4e0dd6be1ba06a093a5e1b5b97f9bed73ed0e6efc"
+    },
+    {
+      "path": "linux-p2-native/ribbon/forge-800-Data-focus.png",
+      "sha256": "389e50406659931b31d8a51b1149daa96e994ed09814aca5e29de00ca0fbe69a"
+    },
+    {
+      "path": "linux-p2-native/ribbon/forge-800-Data-keyboard-group-after-escape.png",
+      "sha256": "4ab69948d0d2f5c793a659bcdd5700ad21a0114afa60df98c8c7cc2181fe6356"
+    },
+    {
+      "path": "linux-p2-native/ribbon/forge-800-Data-keyboard-group-focus.png",
+      "sha256": "975005e86abf3e498b75cef68d02026aa6ff4225c0f987bf1b923b4553312124"
+    },
+    {
+      "path": "linux-p2-native/ribbon/forge-800-Data-normal.png",
+      "sha256": "857915c1def74b959016d5b4e0dd6be1ba06a093a5e1b5b97f9bed73ed0e6efc"
+    },
+    {
+      "path": "linux-p2-native/ribbon/forge-800-Data.png",
+      "sha256": "921e27ec0266fb0a387a294de6e07ccaed1fdda7731ca6200d5107da094178af"
+    },
+    {
+      "path": "linux-p2-native/ribbon/forge-800-Delete-focus.png",
+      "sha256": "d6608c36275438484bd9db0bf64aff87c296bfa9d79f640f747b139cc861d073"
+    },
+    {
+      "path": "linux-p2-native/ribbon/forge-800-Delete-keyboard-group-after-escape.png",
+      "sha256": "0a46bf8f73708352a7b306bf8fdd2b8a11db5fb1078ead20fb4e9608e89d6e51"
+    },
+    {
+      "path": "linux-p2-native/ribbon/forge-800-Delete-keyboard-group-focus.png",
+      "sha256": "54dae5333add521d8ffd7f6a980e778ac00cbba64bed573ce34b5dd2d91ff2b6"
+    },
+    {
+      "path": "linux-p2-native/ribbon/forge-800-Delete-normal.png",
+      "sha256": "5fb60bff8e1a35b3fb497db7a676c86013f4a845e65bf3eb3e1def79a37e1923"
+    },
+    {
+      "path": "linux-p2-native/ribbon/forge-800-Delete.png",
+      "sha256": "12e915211e04d6b5582ca4bb228d3eaff7d6c54353b46c395b5e8b58d67acde3"
+    },
+    {
+      "path": "linux-p2-native/ribbon/forge-800-Text-focus.png",
+      "sha256": "9051a33629f6c082adbbebed3739049e7df334e1e8e194a4eace17f2707b9fe9"
+    },
+    {
+      "path": "linux-p2-native/ribbon/forge-800-Text-keyboard-group-after-escape.png",
+      "sha256": "ceee839633f745ba34d723636851a2675ca4f37b308c228b920d94deb1dd9466"
+    },
+    {
+      "path": "linux-p2-native/ribbon/forge-800-Text-keyboard-group-focus.png",
+      "sha256": "1d4fcf317e90edccab789a783d97d6579c6bae6888d5ee16bf351f4f74dbb7ea"
+    },
+    {
+      "path": "linux-p2-native/ribbon/forge-800-Text-normal.png",
+      "sha256": "9c2469115d6778c4d8243e20ea85d9b5975734f3fd452797ea207412e8fe8d6f"
+    },
+    {
+      "path": "linux-p2-native/ribbon/forge-800-Text.png",
+      "sha256": "4fc4cc4d02e646af647f885361ba703228123c5a6f52e1eee23baa7e6f318eb0"
+    },
+    {
+      "path": "linux-p2-native/ribbon/forge-923-Alignment-active.png",
+      "sha256": "0c39b2080733d9e2bbcdeb0f77ad666d79dffa8014985253c8fed65438eb14af"
+    },
+    {
+      "path": "linux-p2-native/ribbon/forge-923-Alignment-focus.png",
+      "sha256": "deb1b029c3ced60e19b2896034acd8ad9259607a94caa5893ce40c4ae137aab1"
+    },
+    {
+      "path": "linux-p2-native/ribbon/forge-923-Alignment-normal.png",
+      "sha256": "0c39b2080733d9e2bbcdeb0f77ad666d79dffa8014985253c8fed65438eb14af"
+    },
+    {
+      "path": "linux-p2-native/ribbon/forge-923-Alignment.png",
+      "sha256": "8c723aa27139682b6e53d0f8d46d644cb775826d0a27243c3e3444829fc12181"
+    },
+    {
+      "path": "linux-p2-native/ribbon/forge-923-Data-active.png",
+      "sha256": "3c7a89ae7994292312cf2d051ea6abeb23d695a8bd4c82af93e3a1d1f3d5302a"
+    },
+    {
+      "path": "linux-p2-native/ribbon/forge-923-Data-focus.png",
+      "sha256": "b749d81422c43070cd7e03c56fea795f774f7b5f019241fb6a0d584474764905"
+    },
+    {
+      "path": "linux-p2-native/ribbon/forge-923-Data-keyboard-group-after-escape.png",
+      "sha256": "7279e7e1b2b1ccb3ba4e8d76f31d2ebe9c20ce411e95d5727e1e58f2038ddbc4"
+    },
+    {
+      "path": "linux-p2-native/ribbon/forge-923-Data-keyboard-group-focus.png",
+      "sha256": "392e38f22ba4093ee5dea7f4d50858f55c3b30565a72da58cdb842679c180940"
+    },
+    {
+      "path": "linux-p2-native/ribbon/forge-923-Data-normal.png",
+      "sha256": "3c7a89ae7994292312cf2d051ea6abeb23d695a8bd4c82af93e3a1d1f3d5302a"
+    },
+    {
+      "path": "linux-p2-native/ribbon/forge-923-Data.png",
+      "sha256": "f448f1f101537843558154a4ae0d73eeefa9794728067b4f3f9a2e724a1da3d5"
+    },
+    {
+      "path": "linux-p2-native/ribbon/forge-923-Delete-focus.png",
+      "sha256": "970770df56ab3611fcc991ade8c937d9383256ba9472b11719e1a543ad207266"
+    },
+    {
+      "path": "linux-p2-native/ribbon/forge-923-Delete-keyboard-group-after-escape.png",
+      "sha256": "faf9ee91e068feb793da1e426109581cb3e76d5c2b0bc1d4ce5a608d281dd753"
+    },
+    {
+      "path": "linux-p2-native/ribbon/forge-923-Delete-keyboard-group-focus.png",
+      "sha256": "9ba4a24eb8d07bdb52160c6841f8c987ad2ab36c293558dea37f103c466cb13d"
+    },
+    {
+      "path": "linux-p2-native/ribbon/forge-923-Delete-normal.png",
+      "sha256": "8a61c892dac68d0417a87e6da326431011b9a56b2d4a0c35151dd2a4acfcb04f"
+    },
+    {
+      "path": "linux-p2-native/ribbon/forge-923-Delete.png",
+      "sha256": "36327f9db186386180cee363621a2a4241aa00604fde45c1cff5e3b8a01f6a99"
+    },
+    {
+      "path": "linux-p2-native/ribbon/forge-923-Text-focus.png",
+      "sha256": "6cb27c7c299de8cf9b7d0b566d0a31b9854c0c220d75904dae087742fc829fcb"
+    },
+    {
+      "path": "linux-p2-native/ribbon/forge-923-Text-keyboard-group-after-escape.png",
+      "sha256": "65f1d9d0755b8b826004007e885d99020eaa64de49ef0da881079e8ad2fe0494"
+    },
+    {
+      "path": "linux-p2-native/ribbon/forge-923-Text-keyboard-group-focus.png",
+      "sha256": "93a31244db464886fd14edc07b4f223d38eced9047de3c9ac03da94d382cba5c"
+    },
+    {
+      "path": "linux-p2-native/ribbon/forge-923-Text-normal.png",
+      "sha256": "aaa675296b6bc7bffb5f100bcf19c6c32a4fd7ad19b70dbb2eda7b493758b707"
+    },
+    {
+      "path": "linux-p2-native/ribbon/forge-923-Text.png",
+      "sha256": "eb0150d3f6658ac0578346d09ccd53f6dc5be01a08761ed89b0988928c6c91bc"
+    },
+    {
+      "path": "linux-p2-native/ribbon/light-1600-Alignment-active.png",
+      "sha256": "9dc3404d3d48e523b87694c1250e99d654aed8d47b1d02b16803936f8b9d2d43"
+    },
+    {
+      "path": "linux-p2-native/ribbon/light-1600-Alignment-focus.png",
+      "sha256": "0771d2afd435b0095b7218c4121b7c6030897ce786610e14708a4c39cf2bd7b7"
+    },
+    {
+      "path": "linux-p2-native/ribbon/light-1600-Alignment-normal.png",
+      "sha256": "9dc3404d3d48e523b87694c1250e99d654aed8d47b1d02b16803936f8b9d2d43"
+    },
+    {
+      "path": "linux-p2-native/ribbon/light-1600-Alignment.png",
+      "sha256": "76adf3cf8ad4a4ea3d5bf1654ae0d7833569d16ccdc83f7f3458406a6be6c1cb"
+    },
+    {
+      "path": "linux-p2-native/ribbon/light-1600-Data-active.png",
+      "sha256": "bab5b16503622035ed4bf3ba0f5a8c8d29a7f01c42307f0bb321bc75ec38242d"
+    },
+    {
+      "path": "linux-p2-native/ribbon/light-1600-Data-focus.png",
+      "sha256": "5a346e0330ca62c4927beb0c3054be76101efa1e081d3b9dbab3a24c7c33bd85"
+    },
+    {
+      "path": "linux-p2-native/ribbon/light-1600-Data-normal.png",
+      "sha256": "bab5b16503622035ed4bf3ba0f5a8c8d29a7f01c42307f0bb321bc75ec38242d"
+    },
+    {
+      "path": "linux-p2-native/ribbon/light-1600-Data.png",
+      "sha256": "10fbd6238266f55adb1ba7ea911456f8b89e88e72887b617461f73e7118b3470"
+    },
+    {
+      "path": "linux-p2-native/ribbon/light-1600-Delete-focus.png",
+      "sha256": "c2f5ba50f64d96230bdf43264ae34e462d5fcd27b4ba8b7b1ea3613543cceb62"
+    },
+    {
+      "path": "linux-p2-native/ribbon/light-1600-Delete-normal.png",
+      "sha256": "a423149029c22d82bd70e65fa9df50b832008207902974a7374a0038f9a86e3b"
+    },
+    {
+      "path": "linux-p2-native/ribbon/light-1600-Delete.png",
+      "sha256": "0a5ddd954301a749587486505aa1aca9cba5283c413dd2fd7362eda14f22ed19"
+    },
+    {
+      "path": "linux-p2-native/ribbon/light-1600-Text-focus.png",
+      "sha256": "3160be467561ddd196d695483c2fde1160048496e662af0b0cecd1a4a8b24140"
+    },
+    {
+      "path": "linux-p2-native/ribbon/light-1600-Text-normal.png",
+      "sha256": "7367eb90ce690e11087b0a54bc7338f170dcdd2fb5ff66733d9dc52724d1c9d7"
+    },
+    {
+      "path": "linux-p2-native/ribbon/light-1600-Text.png",
+      "sha256": "ed2087ba03efaf6ace095f3144f93a311cb98f0b0aa92bf0ccf22ae03b8e326c"
+    },
+    {
+      "path": "linux-p2-native/ribbon/light-800-Alignment-active.png",
+      "sha256": "4c57215ee3d487c64f592e772b7242cb1bbb307f5d7cce5f341a0fc29dba36f3"
+    },
+    {
+      "path": "linux-p2-native/ribbon/light-800-Alignment-focus.png",
+      "sha256": "e1873a235d56f7389575fd910568c5ac625d7d417137fa1de57450e82ede278c"
+    },
+    {
+      "path": "linux-p2-native/ribbon/light-800-Alignment-normal.png",
+      "sha256": "4c57215ee3d487c64f592e772b7242cb1bbb307f5d7cce5f341a0fc29dba36f3"
+    },
+    {
+      "path": "linux-p2-native/ribbon/light-800-Alignment.png",
+      "sha256": "c9f0c1ef6fa0b76442ad46014db44fd87fd64777d8bc853ee05692c797323760"
+    },
+    {
+      "path": "linux-p2-native/ribbon/light-800-Data-active.png",
+      "sha256": "8521c508b13756b7509abe6ec7b82fbdea73bf7f3e0089cc88272a040d04cccf"
+    },
+    {
+      "path": "linux-p2-native/ribbon/light-800-Data-focus.png",
+      "sha256": "655b8a75d8c3a0aad9adb8a7cc8a30e0a25009b1bbc2a6a3aa38c3c5001b53f4"
+    },
+    {
+      "path": "linux-p2-native/ribbon/light-800-Data-keyboard-group-after-escape.png",
+      "sha256": "d4aade5324a40c886d96264e85bec13bf8c4856943ad0f9846e606f0fe2833a9"
+    },
+    {
+      "path": "linux-p2-native/ribbon/light-800-Data-keyboard-group-focus.png",
+      "sha256": "30e90218c3b724d743a589fc37bddd7ade9d6aca98717159eaa1034e16be21f1"
+    },
+    {
+      "path": "linux-p2-native/ribbon/light-800-Data-normal.png",
+      "sha256": "8521c508b13756b7509abe6ec7b82fbdea73bf7f3e0089cc88272a040d04cccf"
+    },
+    {
+      "path": "linux-p2-native/ribbon/light-800-Data.png",
+      "sha256": "414e8d660964c2a58e335800501c34df4424c71f08d3efcd8a2ffb9284bb313b"
+    },
+    {
+      "path": "linux-p2-native/ribbon/light-800-Delete-focus.png",
+      "sha256": "906cafc54cfebd35359c7c648d8ad960c3b5f42ed670ed68a78832413bf623e2"
+    },
+    {
+      "path": "linux-p2-native/ribbon/light-800-Delete-keyboard-group-after-escape.png",
+      "sha256": "e53f089f9c69ab8bd887e13763e36f12b1313333ae40cb99cca5928476182bce"
+    },
+    {
+      "path": "linux-p2-native/ribbon/light-800-Delete-keyboard-group-focus.png",
+      "sha256": "bb9a797ea87cb71b2994d9fc77f17385470c94994b1c63f37c7abee19a7a501a"
+    },
+    {
+      "path": "linux-p2-native/ribbon/light-800-Delete-normal.png",
+      "sha256": "3d8a89a488a79925d57ffc35c2dca9018b64c4ff8c2116244905dcef3dc5b723"
+    },
+    {
+      "path": "linux-p2-native/ribbon/light-800-Delete.png",
+      "sha256": "9e5ea3a0eb8c81c2b8339b4d3c76df4e7b1657ea16381a505ec4cb8ff254119c"
+    },
+    {
+      "path": "linux-p2-native/ribbon/light-800-Text-focus.png",
+      "sha256": "b6383f84577a5b1b0115002ef09f1a83743fcdaf59df336a0f7411235830e3a9"
+    },
+    {
+      "path": "linux-p2-native/ribbon/light-800-Text-keyboard-group-after-escape.png",
+      "sha256": "50ed146795aa5e3a898b29d40c248b211d2a9b4c52ededf9921dfc8bfe3f9a45"
+    },
+    {
+      "path": "linux-p2-native/ribbon/light-800-Text-keyboard-group-focus.png",
+      "sha256": "3150fe9bcb4ba531b203f752284c36208d8a14bf957dc714a6b3bf3e1423e362"
+    },
+    {
+      "path": "linux-p2-native/ribbon/light-800-Text-normal.png",
+      "sha256": "25e3a04e8410b8339422edb8bec2c35a6fbc1d40cccf6c4e62fcf41fc640c613"
+    },
+    {
+      "path": "linux-p2-native/ribbon/light-800-Text.png",
+      "sha256": "a778893cbf186a1b6bb1bf131279ab5cc57f69aad4b9ad1fae89ce7a5be6bedf"
+    },
+    {
+      "path": "linux-p2-native/ribbon/light-923-Alignment-active.png",
+      "sha256": "699f970682b989361f06aa6553509d0d6ca08177d35b14e72a8298a73dda9e15"
+    },
+    {
+      "path": "linux-p2-native/ribbon/light-923-Alignment-focus.png",
+      "sha256": "81e2c6cac27b18e6e1a970d3b686b301b53fb2bd7c35c0bc996a3b8951cef8db"
+    },
+    {
+      "path": "linux-p2-native/ribbon/light-923-Alignment-normal.png",
+      "sha256": "699f970682b989361f06aa6553509d0d6ca08177d35b14e72a8298a73dda9e15"
+    },
+    {
+      "path": "linux-p2-native/ribbon/light-923-Alignment.png",
+      "sha256": "637bd1d6a715fb3df7401af82f6b5f2a726aeed3316a86ec141301f6baaa9451"
+    },
+    {
+      "path": "linux-p2-native/ribbon/light-923-Data-active.png",
+      "sha256": "9edbc1e65880a167cf28d6294d8e2a6c1f57b29ff49302ae9ce03220a5e5cdd4"
+    },
+    {
+      "path": "linux-p2-native/ribbon/light-923-Data-focus.png",
+      "sha256": "8af7773b5411c65be392adc35d97bf99334743d9290dc387074ad1579edf0e68"
+    },
+    {
+      "path": "linux-p2-native/ribbon/light-923-Data-keyboard-group-after-escape.png",
+      "sha256": "3590bff141867e6c506a56e499160405911819d79f6b253d56cc2918dcbbcd8b"
+    },
+    {
+      "path": "linux-p2-native/ribbon/light-923-Data-keyboard-group-focus.png",
+      "sha256": "aa821afd6868487757f1abb1ba2dfda7ae210681741adcb469b3ad3ed9e5d48a"
+    },
+    {
+      "path": "linux-p2-native/ribbon/light-923-Data-normal.png",
+      "sha256": "9edbc1e65880a167cf28d6294d8e2a6c1f57b29ff49302ae9ce03220a5e5cdd4"
+    },
+    {
+      "path": "linux-p2-native/ribbon/light-923-Data.png",
+      "sha256": "bb2212a378b1aa7e24f69a78433899bdbe2c4b403a012c4cca4ed48a9cc25b67"
+    },
+    {
+      "path": "linux-p2-native/ribbon/light-923-Delete-focus.png",
+      "sha256": "bc0eee29f51008b3cc18ea0e6ac14f7c7d67894aaf0f27ef87b3cf53ec68300f"
+    },
+    {
+      "path": "linux-p2-native/ribbon/light-923-Delete-keyboard-group-after-escape.png",
+      "sha256": "3dba2b4e178309d0f554239ddd424b519e691e43e30534b86f72fe4bf4bbad02"
+    },
+    {
+      "path": "linux-p2-native/ribbon/light-923-Delete-keyboard-group-focus.png",
+      "sha256": "4a6a1048d4ef39ae2e213b6f8c3bb6efc7f4c8baec4a66efacef74911893401e"
+    },
+    {
+      "path": "linux-p2-native/ribbon/light-923-Delete-normal.png",
+      "sha256": "1300a9ae9ad2e6347c40b853f0530edbf9cd9b8c0a23f0b5045d5267fd946814"
+    },
+    {
+      "path": "linux-p2-native/ribbon/light-923-Delete.png",
+      "sha256": "5f909b4c5fa84ddafca29e5b9c3a82e9bc9c12b1edea730dee576fc2148c4372"
+    },
+    {
+      "path": "linux-p2-native/ribbon/light-923-Text-focus.png",
+      "sha256": "e109fe69f6ed96618d13c4cf8512b6e08b9e56660d46643bad1a92a01ce3b856"
+    },
+    {
+      "path": "linux-p2-native/ribbon/light-923-Text-keyboard-group-after-escape.png",
+      "sha256": "ee19bdf14e165074c8212d9be13eec146f5ec5f94937ae2a0fb09a71520cce89"
+    },
+    {
+      "path": "linux-p2-native/ribbon/light-923-Text-keyboard-group-focus.png",
+      "sha256": "32a796c3e542feddf80b367252697c5f3000c803a1bc316c847932caf5204771"
+    },
+    {
+      "path": "linux-p2-native/ribbon/light-923-Text-normal.png",
+      "sha256": "6d70bda3ffb07d09b9c89ccb17612eb5e7c37aa669f569dae4fd3bbcb842f6c0"
+    },
+    {
+      "path": "linux-p2-native/ribbon/report.json",
+      "sha256": "fe76383eba45c26f65909ad01651010bfbecd0c0f4bc4bbe6905683907df2688"
+    },
+    {
+      "path": "linux-p2-native/ribbon/light-923-Text.png",
+      "sha256": "1fd572d6889bf869d52b595bd0dcc7f1385e999520d63d86e506b1e1506154ad"
+    },
+    {
+      "path": "linux-p2-native/ribbon-control.docx",
+      "sha256": "ba26f890485dcee41cbfdf694969014ae7b9951b34cbbbc01bc820a15491b3f9"
+    },
+    {
+      "path": "linux-p2-xvfb.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "functionalCheckCount": 63,
+  "savedXMLAudits": [
+    {
+      "file": "preflight.docx",
+      "sha256": "664b32c23fe544025a2c8e4abff41928f9599441577b332d08601c5cca4e5970",
+      "rows": [
+        [
+          "Palpha",
+          "beta",
+          ""
+        ],
+        [
+          "",
+          "",
+          "omega"
+        ],
+        [
+          "delta",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "file": "find-table.docx",
+      "sha256": "0e7c25cc2375580b8fff194d1466178d47d282cfbdc84caecdcc5beefb70b4aa",
+      "rows": [
+        [
+          "LINUX420_FINAL alpha",
+          "",
+          "beta",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "omega"
+        ],
+        [
+          "delta",
+          "",
+          "",
+          ""
+        ]
+      ]
+    },
+    {
+      "file": "keyboard-command.docx",
+      "sha256": "d0b7cecfe392a6a2ffb35521d3c65a44e1f1461b00afb55d73a440d033dcec45",
+      "rows": [
+        [
+          "Kalpha",
+          "",
+          "beta",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "omega"
+        ],
+        [
+          "delta",
+          "",
+          "",
+          ""
+        ]
+      ]
+    }
+  ],
+  "scope": "Actual installed P2 Linux package acceptance of368/369 and vertical362 regression; no other platform/later package claim",
+  "limits": [
+    "Virtual X11/software graphics, not physical hardware or AppImage operation.",
+    "Full process quit uses WebDriver DELETE session; the application menu Quit command is not certified.",
+    "Original I3 failures, GTK diagnostic and 420 acceptance/failures are retained; this run operates the actual P2 package without DOM focus/style injection.",
+    "IME/readonly/disabled/native already-handled event variants are not synthesized; their source/unit coverage is not native UI coverage.",
+    "Native disabled Delete not reached; native IME/composition/already-handled/readonly-search state checks not claimed.",
+    "Four800px Text-trigger horizontal clipping observations retained;362 acceptance is vertical only.",
+    "Only this P2 DEB is covered. A later release DEB requires separate payload identity comparison or appropriate final controls.",
+    "No full-app or all-platform native pass; no green-build-only inference."
+  ],
+  "vertical362": {
+    "moduleStatus": "partial",
+    "nativePass": false,
+    "cases": 258,
+    "buttonMeasurements": 1284,
+    "groupCases": 24,
+    "keyboardEntries": 24,
+    "homeEnd": 36,
+    "phases": {
+      "normal": 24,
+      "keyboard-focus": 108,
+      "hover": 108,
+      "imported-active": 12,
+      "engine-disabled": 6
+    },
+    "contentClipped": 0,
+    "visibleLabelFailures": 0,
+    "iconFailures": 0,
+    "groupClippedY": 0,
+    "groupClippedX": [
+      {
+        "theme": "light",
+        "width": 800,
+        "group": "Text",
+        "phase": "keyboard-group-focus"
+      },
+      {
+        "theme": "light",
+        "width": 800,
+        "group": "Text",
+        "phase": "keyboard-group-after-escape"
+      },
+      {
+        "theme": "forge",
+        "width": 800,
+        "group": "Text",
+        "phase": "keyboard-group-focus"
+      },
+      {
+        "theme": "forge",
+        "width": 800,
+        "group": "Text",
+        "phase": "keyboard-group-after-escape"
+      }
+    ],
+    "unavailable": [
+      {
+        "theme": "light",
+        "width": 1600,
+        "group": "Delete",
+        "state": "disabled",
+        "reason": "Real imported table exposes enabled Delete commands; no supported Writer readonly mode was invoked"
+      },
+      {
+        "theme": "light",
+        "width": 923,
+        "group": "Delete",
+        "state": "disabled",
+        "reason": "Real imported table exposes enabled Delete commands; no supported Writer readonly mode was invoked"
+      },
+      {
+        "theme": "light",
+        "width": 800,
+        "group": "Delete",
+        "state": "disabled",
+        "reason": "Real imported table exposes enabled Delete commands; no supported Writer readonly mode was invoked"
+      },
+      {
+        "theme": "forge",
+        "width": 1600,
+        "group": "Delete",
+        "state": "disabled",
+        "reason": "Real imported table exposes enabled Delete commands; no supported Writer readonly mode was invoked"
+      },
+      {
+        "theme": "forge",
+        "width": 923,
+        "group": "Delete",
+        "state": "disabled",
+        "reason": "Real imported table exposes enabled Delete commands; no supported Writer readonly mode was invoked"
+      },
+      {
+        "theme": "forge",
+        "width": 800,
+        "group": "Delete",
+        "state": "disabled",
+        "reason": "Real imported table exposes enabled Delete commands; no supported Writer readonly mode was invoked"
+      }
+    ],
+    "remaining": "Six genuine disabled-Delete variants (two themes x three widths) unavailable: editable imported table exposes enabled Delete Row/Column/Table; no supported readonly UI reached. Outside table context its tab disappears. Fixture/UI-state reachability gap, not independently reproduced disabled rendering defect. No DOM-disabled/CSS injection.",
+    "activeCoverage": "Bottom and Repeat Header Rows imported active:12cases. Genuine engine-disabled Split Table:6cases. No imported-active gap."
+  },
+  "cleanup": {
+    "caller": {
+      "driverExited": true,
+      "ownedApplicationClosed": true,
+      "remainingApplicationPids": []
+    },
+    "module": [
+      {
+        "label": "release own input actions",
+        "status": "fulfilled"
+      },
+      {
+        "label": "restore original theme and tab",
+        "status": "fulfilled"
+      },
+      {
+        "label": "restore window rectangle",
+        "status": "fulfilled"
+      },
+      {
+        "label": "fixture remains byte-identical",
+        "status": "fulfilled"
+      }
+    ],
+    "localGuiOrCaptureStarted": false,
+    "localOwnedServersOrBrowsersRunning": false,
+    "mainTagPublicationTouched": false
+  },
+  "finalReleaseOrAppImageAcceptance": false,
+  "rootVisualReview": "No additional image review; owner observations retained separately in receipt."
+}

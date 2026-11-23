@@ -1,14 +1,14 @@
 {
   "schemaVersion": 3,
-  "asOfUTC": "2026-11-23T09:30:41.286390+00:00",
-  "status": "Active Monday release preparation and blocker resolution; NOT stable-release approved.",
+  "asOfUTC": "2026-11-23T10:23:46.144922+00:00",
+  "status": "P2 core Mac359 and Linux368/369 accepted within bounded native scopes; final seven-product package and standalone acceptance active; Windows release blocked by one test timeout. NOT stable-release approved.",
   "date": "2026-11-23",
   "proposedVersion": "2026.48.1",
   "intermediateWindowsSource": "3a0decac3d45234d4b4d487e431b21cff961ccca",
   "intermediateWindowsTree": "e46b8faed3ca6b468e71a4d0d77b6dc8ce259360",
   "versionOnlySource": "82e1b94f9edfcdde1913f7068a28d17156d117cd",
-  "lastJointlyTestedApplication": "420af640c10ab9ada6c66c844c0098caea87c493",
-  "lastJointlyTestedTree": "c1334c8f4d92914e9d2114d56e467ef11eab9646",
+  "lastJointlyTestedApplication": "dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b",
+  "lastJointlyTestedTree": "5a644e397ecc6af5452a49b6404edf953687d1b2",
   "branch": "codex/release-prep-2026-11-20",
   "PR": 367,
   "PRbase": "codex/integratie-2026-11-16",
@@ -26,20 +26,24 @@
   },
   "owners": {
     "WindowsRuntime372AndOfficeNative": "750b; product30f35dcf copied as3a0decac, own QA build and native preflight",
-    "MacBody359": "mac_native_release_blocker; active highest-priority renderer investigation",
-    "LinuxCurrent420368369": "writer_362; actual canonical DEB/native validation",
-    "LinuxStandaloneSixApps": "standalone_linux; separate QA-only source/host/package isolation",
+    "MacBody359": "mac_native_release_blocker; core complete, now remaining native361 Tab/Find/two-document isolation",
+    "LinuxCurrent420368369": "writer_362; P2 actual DEB native complete, now native STW",
+    "LinuxStandaloneSixApps": "standalone_linux; final six-app harness preserved, active native GNM first",
     "MacStandaloneSixAppsAndDownloads": "6f92; completed coverage audit, now QA-only Mac standalone cases",
-    "WindowsStandaloneSixApps": "8020; QA-only Windows host/app cases",
-    "VersionFreezePipelineIntegrationAndReadiness": "root"
+    "WindowsStandaloneSixApps": "8020; final6app harness preserved; nativeGNM/XLSB complete; active nativeUOS only",
+    "VersionFreezePipelineIntegrationAndReadiness": "root",
+    "LinuxNativeXLSB": "d410",
+    "STWVisualTriageAndBrowser": "9d3b; Windows operator750b only",
+    "NextFormatUOT": "e0d7; STC/UOS complete, UOT only active",
+    "FuturePresentation78": "0c73; schemeClr solid slide background, separate later intake;87 completed separately"
   },
   "MacCriticalPath": {
     "current420NativeBaselineRun": 45136241393,
     "result": "Body blank untouched/maximized for original361; savedEPUB control readable. Current420 confirmed, owned apps closed.",
     "browserRendererBoundaryRun": 45136610926,
     "nativeDiagnosticWorkerOffRun": 45137361883,
-    "hypothesis": "SDK skips worker replay for documents with image primitives; original text/table is eligible. Browser works untouched; Mac native worker presentation needs causal confirmation.",
-    "productCorrectionProven": false,
+    "hypothesis": "Confirmed native worker-presentation boundary: image-containing pages skip SDK worker replay. P2 selects existing DOM presenter only on Tauri/macOS; no underlying WebKit defect attribution.",
+    "productCorrectionProven": true,
     "browserRendererBoundaryStatus": "Cancelled while queued to prioritize native diagnostic; no pass/failure inferred.",
     "nativeDiagnosticWorkerOffStatus": "Passed causal observation: original alpha/beta/omega/delta readable untouched and after maximize with worker presentation disabled; image control remains readable. Diagnostic only, no product/native functional approval.",
     "diagnosticPackageArtifact": {
@@ -51,15 +55,30 @@
       "originalCommit": "5f6f5ae3871daaae2db6bc5ede80974c821fd683",
       "intakeCommit": "dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b",
       "scope": "Shared SDK presentation memo uses existing DOM canvas only on native Tauri/macOS; worker open/layout intact, browser/Windows/Linux presenter unchanged. Guarded source anchor fails closed on SDK drift. Office/Writer/Email share renderer.",
-      "nativeAcceptance": "Pending actual P2 Desktop macOS package; owner uses fetch-only QA, no duplicate Office build."
+      "nativeAcceptance": "PASS bounded body/table core on actual ordinary P2 Mac package; final signed Suite and standalone variants remain separate."
     },
-    "rootCausalAudit": "Mac359-causal/root-hash-audit.json"
+    "rootCausalAudit": "Mac359-causal/root-hash-audit.json",
+    "P2NativeCore": {
+      "run": 45151872444,
+      "qaSource": "f5eddfd2a95aa931f0646a97b151a8eca22abfb2",
+      "ownerProofCommit": "d3b0ece6ec4652e8a99f7fb8008e973e1658616d",
+      "artifact": 14806508110,
+      "archiveSha256": "82aa18ab0f85bff812cf808520ad4e49c86bd2cc2eb73ac4c123b1f33165ccfd",
+      "rootAudit": "P2-Mac-native/root-audit.json",
+      "result": "Untouched original body readable, native Q/CommandS/Undo control, both column insert/Undo/Redo, independent saved XML, normal full quit/new PID reopen PASS.",
+      "remaining": "Full361 Tab/Find/two-document controls active on same P2; final signed Suite/standalone acceptance not inferred.",
+      "preservedDriverFailures": [
+        45148679849,
+        45150062617,
+        45150982621
+      ]
+    }
   },
   "Windows372": {
     "officialRuntimeAndHelperRun": 45136505294,
     "result": "Old Expand-Archive route fails on runner PS5.1 loading Archive module from PowerShell7; compatible2argument framework extraction passes pinned lessmsi/MSI, offline and headless runtime checks.",
     "rootIntakeTests": 11,
-    "OfficePackageAndNativeAcceptance": "pending intermediate exact48.1 build, separate from final common candidate",
+    "OfficePackageAndNativeAcceptance": "W1 ordinary unsigned Office build/native accepted; actual P2 Windows STW/GNM native core routes pass with separate STW visual observation. Final signed Suite pending release package.",
     "intermediateOfficeBuildRun": 45138607445,
     "intermediateOfficeBuildStatus": "Passed ordinary unsigned Office installer build and package gates; root independently verified small source/tree/helper-blob and package receipts. No final signed-package acceptance.",
     "intermediateOfficeBuildRootAudit": "W1-Windows-build/root-audit.json",
@@ -80,7 +99,7 @@
     "canonical420DesktopRun": 44753496663,
     "packageArtifact": 14639121545,
     "packageSource": "420af640c10ab9ada6c66c844c0098caea87c493",
-    "nativeFixedInputAndRibbonAcceptance": "in progress; no I3-helper injection accepted as a fixed package",
+    "nativeFixedInputAndRibbonAcceptance": "Historical420 and currentP2 are retained separately; actual P2 DEB368/369 accepted in tested native scopes.",
     "nativeAttempts": [
       {
         "run": 45138542777,
@@ -106,17 +125,20 @@
       "zipSha256": "f0d12748714614f1a630ff3a18934219c957df856b5888b56be7f509c60b2835",
       "result": "Owner reports Find and Replace scopes PASS including Undo/both Redos/empty history/search/document isolation/final save and fresh-PID reopen. Root raw audit pending. Does not certify new P2/release package."
     },
-    "ribbonRemaining": "Real420 matrix reached99 content/9 keyboard-entry/15HomeEnd checks;1600+923 light ring4 and923 Delete Y checks valid.800 TableDesign center intercepted under collapse control; QA uses only actually visible hit-test area and native pointer, no programmatic focus/scroll/CSS. Full widths/themes/groups acceptance still pending.",
+    "ribbonRemaining": "Historical420 matrix retained; current P2 receipt records tested vertical scope PASS, six disabled-Delete variants unreachable and four horizontal Text-trigger observations. No blanket ribbon pass.",
     "completed420OwnerDelivery": {
       "proofCommit": "45ccd7840414c99610511a31d9f40061c01f40e7",
       "receiptSha256": "f1945183d64c06ea58b2f51052d46b4ee58fc852e68636329a922116f7fdc077",
       "result": "Find+Replace PASS;258ribbon+24collapsed+24keyboard+36HomeEnd plus keyboard-command-return/save/reopen PASS. Imported-active and actual disabledSplitTable exercised. DisabledDelete unavailable because engine keeps table commands enabled and context disappears outside table; no injected state or blanket full-ribbon pass. Four horizontal Text trigger observations at800 retained; vertical scope passes. Root raw audit pending; not P2 package claim."
     },
     "P2SuiteNativePreparation": {
-      "qaSource": "bfba2ebc57329553bfd5ea9762e7f067f3b109cf",
-      "branch": "codex/linux-native-p2-368-369-2026-11-23",
-      "protocolTests": 27,
-      "execution": "Pending separate canonical OfficeDEB input from shared runtime-prep; no second DesktopZIP download, no appbuild."
+      "run": 45148819548,
+      "qaSource": "b15892cd491b5bfef6b765f6f9af43d62873a0d5",
+      "ownerProofCommit": "6bb8d6fa",
+      "artifact": 14805173075,
+      "archiveSha256": "55a62c612872f94aa6ed1883d9b00174220a8d40f89e9f83389bf9005d2c9202",
+      "rootAudit": "P2-Linux-native/root-audit.json",
+      "result": "63 functional checks PASS,258 ribbon cases/24groups/24keyboard/36HomeEnd assessed; root verified official ZIP, all131payload hashes and3 saved DOCX XML oracles. Six disabled-Delete states unavailable; four horizontal observations retained. Full process exit via WebDriver session deletion, not menu Quit. No AppImage/finalrelease claim."
     },
     "P2CanonicalProducer": {
       "run": 45143305147,
@@ -147,8 +169,8 @@
     "suiteIsSeventhProduct": true,
     "expectedInstallerCountIncludingSuite": 28,
     "coverageAudit": "All six registered workspaces have standalone identities/products. Published v2026.46.2 download links checked; no new-version native approval inferred.",
-    "functionalMatrix": "Preparation active; final actual packages and clean hosts required without suite/profiles/resources.",
-    "finalPackageSource": null,
+    "functionalMatrix": "Final48.1 actual app cases not-run until own verified release artifacts. Independent OS starts; old host/oldapp preflights do not count.",
+    "finalPackageSource": "dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b",
     "noRealMailOrUserProfileMutation": true,
     "downloadAudit": "standalone-downloads/standalone-download-coverage-2026-11-23.md",
     "rootDownloadAudit": "standalone-downloads/root-audit.json",
@@ -157,10 +179,14 @@
       "result": "Native keyboard/focus/OS save dialog/file/full exit/new-PID reopen capability passed; not a standalone app acceptance."
     },
     "MacHarnessPreparation": {
-      "source": "51f8be84ddf6f3a19484cd76d8597b3021983d30",
-      "hostCapabilityRun": 45139637001,
-      "result": "16 local QA contract/oracle/archive/mail checks pass; native final app cases pending."
-    }
+      "source": "845c4fff",
+      "localChecks": 41,
+      "hostCapabilityRun": 45143067807,
+      "historicalMacChecks": 23,
+      "newNativeHelpersMacCompiled": false,
+      "result": "Fresh Mac15 host capabilities proven, new code compiles/checks before finalappstart; final sixDMGs pending."
+    },
+    "matrix": "P2-standalone-matrix.json"
   },
   "deferred366": "Explicitly deferred user-reported stale page count; no fix in this task.",
   "reuseRule": "Old evidence keeps exact source/tree/host/package scope; changed production/version inputs require matching new builds and applicable checks. Platforms start independently after own package identity/preflight, not on unrelated platform success.",
@@ -177,10 +203,10 @@
   },
   "nonpublishingPackageVerifierPreparation": {
     "branch": "codex/release-signing-preflight-2026-11-23",
-    "qaSourcePrefix": "0aa1be65",
+    "qaSourcePrefix": "d6538616",
     "target": "one final source/run with 28 actual installer hashes, 14 byte-bound reports, 14 OpenPGP package signatures and signed checksum manifest",
-    "checks": "six local rejection/metadata tests pass; rejects green unsigned Windows/macOS producer jobs and malformed/colliding archive identities",
-    "execution": "Not executed on final packages; no frozen request exists. Workflow has read-only repository permissions and no release/tag/publication operation."
+    "checks": "12 rejection/metadata tests PASS; independent reviewer750b PASS, including explicit per-platform producer attempt/job/window/after-signature binding and scoped GPG cleanup failure rejection.",
+    "execution": "No final request or final signing run yet; no keys imported by root audit, read-only workflow, no main/tag/publication operations."
   },
   "candidateP2": {
     "source": "dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b",
@@ -205,27 +231,43 @@
     "immutableBuildBranch": "codex/release-candidate-2026-11-23-p2",
     "sourceAudit": "P2-source-audit.json",
     "browserRootAudit": "P2-browser/root-audit.json",
-    "browserVerifiedScope": "All three OS and both routes independently audited:3archive digests,6receipts/summary pairs,24issue reports,54Office cases,6savedDOCX files;48 original payloads. CI asset directories absent from artifact, so no separate root asset-body rehash or untouched-native-paint claim."
+    "browserVerifiedScope": "All three OS and both routes independently audited:3archive digests,6receipts/summary pairs,24issue reports,54Office cases,6savedDOCX files;48 original payloads. CI asset directories absent from artifact, so no separate root asset-body rehash or untouched-native-paint claim.",
+    "desktopStatus": "All three OS SUCCESS; build success is separate from native acceptance.",
+    "otherRequiredWorkflows": {
+      "database": 45143305092,
+      "writerFormats": 45143305194,
+      "example": 45143305098,
+      "privateRuntimeFixture": 45143305168,
+      "spreadsheet": 45143305144,
+      "presentationODF": 45143305293,
+      "document": 45143304964,
+      "status": "All8workflow/14job successes now centrally audited from completed job logs: actual checkoutP2 or PRmergecb2587f48; bothfulltrees exactly5a644e39. SeeP2-ci-checkouts.json."
+    },
+    "checkoutAudit": "P2-ci-checkouts.json"
   },
   "parallelFormat30Work": {
     "authorized": "Explicit user request relayed23November through issues chat to run30 in parallel; new bounded tasks in existing idle chats, without reviving old stopped PRs.",
     "source": "dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b",
     "productionIntake": "Closed P2 remains unchanged; source fixtures/oracles/QA initially, new bugs/fixes require separate scoped registration and intake decision.",
     "owners": {
-      "01a1bf9c-8020-7953-84ff-ac467a399694": ".gnm / Gnumeric",
-      "01a1bf84-d410-7383-b369-f055b021c20c": "XLSB under35, save-as-XLSX/reopen",
-      "01a1bf84-e0d7-71f2-b6f4-7658c0cb40da": "one real STC Calc template",
-      "01a1bf84-0c73-7170-b0b9-6d54748fca7d": "one real STI Impress template",
-      "01a1bf9c-9d3b-7463-8a79-dfa9d88eee5c": "one real STW Writer template"
+      "01a1bf9c-8020-7953-84ff-ac467a399694": "GNM Linux converter/engine/browser +Windowsnative done436ee5b7; next nativeWindowsXLSB",
+      "01a1bf84-d410-7383-b369-f055b021c20c": "XLSB converter/engine donefb7e7b8a; active nativeLinuxXLSB",
+      "01a1bf84-e0d7-71f2-b6f4-7658c0cb40da": "STC a7962244 andUOS4f94d347 complete; activeUOTonly",
+      "01a1bf84-0c73-7170-b0b9-6d54748fca7d": "STI/#373 complete9471a4be;87completedfuturec605f512, new78future",
+      "01a1bf9c-9d3b-7463-8a79-dfa9d88eee5c": "STW canonicalruntime+engine+realbrowser donee74512d3; active field-overlap triage and native-result aggregation"
     },
     "resourceScope": "Own worktrees/QA/Linux CI; no extra Mac build, local GUI/capture, shared source edits, main/tag/publication. No full4GB release download per format.",
     "WindowsStandaloneOwnerSequence": "8020 preserves744d76b1 QA; only one active scope, completes bounded Gnumeric before Windows-six-app execution when final own packages arrive; real schedule conflict must be raised.",
     "sharedRuntimePreparation": {
-      "owner": "standalone_linux between completed host-prep and pending final6app intake",
-      "branch": "codex/qa-runtime-input-p2-2026-11-23",
-      "initialQaSource": "5e3c6631",
-      "initialWaitRun": 45145866638,
-      "result": "Initial wait-only attempt cancelled before download/apt. Sole canonical P2LinuxZIP download will produce runtime-only tar+full hash/mode/link manifest for five formatworkers and separate untouched OfficeDEB artifact for P2native owner. Six contract tests pass; actual artifact descriptors pending."
+      "producerRun": 45147346793,
+      "qaSource": "22a8577d215911976400adca4c541f2636212918",
+      "artifact": 14805600515,
+      "archiveSha256": "bac1a37b55deff80cabd4670c1bf65d76266285275c0552436dcc13fcdafa487",
+      "tarSha256": "f3308bea282aedc444a10a039ec2c4e3904915d4c6c0b5607b088108407fb2e3",
+      "GitDescriptorSha256": "1c0e508276b37fbd5b92e55bf113446d7e8522fc1d9e1817bb7722d5b5dd53c6",
+      "baseArtifactDescriptorSha256": "9497f67c9c9e4f30b11c85f32cf3d3254a3f857ad6d53a40ab2f9a01d0f3adb5",
+      "rootAudit": "P2-runtime-input/root-metadata-audit.json",
+      "result": "Runtime-only shared input delivered and consumed with15082entry/mode/link/launcher/ELF/source/parentDEB checks. Root independently hashed the305MB runtime ZIP and read smallmetadata; no runtime TAR extraction/execution by root."
     }
   },
   "completenessRecheck": {
@@ -233,5 +275,102 @@
     "olderProduct344OriginalE19AncestorOfP2": true,
     "olderProduct346HeadC195AncestorOfP2": true,
     "explanation": "Specific completed historical deliveries found while assigning idle format workers are retained despite old CLOSED-without-merge PR metadata. No old stopped experiments resumed or blindly cherry-picked. Separate proof-only SYLK retains historical scope."
-  }
+  },
+  "finalSevenProductBuild": {
+    "run": 45150438420,
+    "source": "dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b",
+    "tree": "5a644e397ecc6af5452a49b6404edf953687d1b2",
+    "version": "2026.48.1",
+    "publiceren": false,
+    "runAttempt": 1,
+    "startPolicy": "Started after P2 body presentation was established while bounded Mac HID driver correction/native acceptance used a separate runner; not conditional on other OS completion.",
+    "Windows": {
+      "job": 137610274798,
+      "status": "FAILURE before signing/build",
+      "failure": "Positive real ZIP PowerShell test exceeded default5000ms;17272ms measured; other3 negative ZIP tests pass, no byte assertion mismatch reported.",
+      "rawLogSha256": "78e00164c0945cdbffd3bd1c0cae2f75a10327e1b9244963f924644fd681965f",
+      "rerun": "One unchanged Windows-job retry planned after overall run finishes; attempted job-only rerun rejected403 because containing workflow still active. No retry executed yet; original failure preserved. Read-only bounded timing review assigned750b.",
+      "timingReview": "750b independently verified only Vitest default5s external-process budget failed; time is whole fixture/ZIP/PS/extract/read path, not proven PSstartup-only. Same P2Desktop4cases total1860ms. If one unchanged retry repeats, propose only positive real-process test30s and newexplicitpin; no globaltimeout/retry/skip/producthelper change.",
+      "skippedCoverage": "Release6skips vsDesktop3: common3 DB corpus skips; release extra3 spellingWASM-tests because units precede assetprebuild. SameP2Desktop spelling26/26PASS; release beforeBuild prebuild builds required WASM with failclosed non-dev gate. No claim release ran those3 nor missinginstallerresource inferred."
+    },
+    "macOS": {
+      "job": 137610274868,
+      "status": "in_progress signed/notarized seven-product build"
+    },
+    "Linux": {
+      "job": 137610274931,
+      "status": "in_progress seven-product build"
+    },
+    "finalPackageAcceptance": false,
+    "tagReleaseOrPublicationPerformed": false
+  },
+  "additionalNativeFormats": {
+    "GNM": {
+      "Windows": {
+        "run": 45151594168,
+        "proofCommit": "436ee5b79562d7c9ef0292d45665bd9976f7e848",
+        "status": "Owner reports actual native both aliases/RustIPC/import/edit/save/fullquit/newPID/4XML oraclesPASS; root raw audit pending."
+      },
+      "Linux": "standalone_linux actual native GNMinprogress; initial preflight/import observed, nofullpassyet",
+      "macOS": "6f92 pending own finalSpreadsheet DMG"
+    },
+    "STW": {
+      "Windows": {
+        "run": 45152204418,
+        "artifact": 14807501063,
+        "archiveSha256": "ce7616c7c1fbeaf4fd7c76e7466c3bdc22d8d16bdcda055f6553ea431ae7831d",
+        "status": "Actual native I/O/XML/style/placeholder/save/fullquit/newPID PASS; visual title/DOCVARIABLE overlap after append remains unresolved. No unconditional GUI pass."
+      },
+      "Linux": "writer_362 nativeSTW active; portal protocol9f321450 contractchecked, realnativecase pending",
+      "macOS": "6f92 pending ownWriterDMG"
+    },
+    "XLSB": {
+      "Windows": {
+        "run": 45154252404,
+        "proofCommit": "a31542eb9af5af9583c82d8ea42c24835be15f88",
+        "artifact": 14807757665,
+        "archiveSha256": "4dc73ee03e4d4557c0a8ac43b8bfe10accc20d413dfbae2c10dfef28e91f67d4",
+        "status": "Owner reports native filepicker/RustIPC/30formulas/editA15=42/XLSXsave/normalfullquit/newPIDreopen and3independentXML oraclesPASS; root raw audit pending."
+      },
+      "Linux": "d410 active",
+      "macOS": "6f92 pending ownSpreadsheetDMG"
+    },
+    "UOS": {
+      "Windows": "8020 newlyassigned sameordinaryP2Suite; realUOF1fixture/oracle4f94d347 only",
+      "otherPlatforms": "No new native UOS claims; CLI/engineproof retained, not universal formatcoverage"
+    }
+  },
+  "newObservedProblems": [
+    {
+      "scope": "STW title overlap after append/save/reopen",
+      "evidenceType": "Two owners independently viewed original Windows testartifact screenshots; no independently established cause yet.",
+      "triageOwner": "9d3b",
+      "WindowsOperator": "750b",
+      "status": "Independently reproduced on actual P2 browser with unmodified Windows-saved DOCX. Same fonts/styles/other19ZIPentries; replacing only Title-DOCVARIABLE by identical cached text removes overlap. Flattening is diagnostic, not fix. Exclusive bounded source/fix investigation9d3b; no P2intake yet.",
+      "issue": 374,
+      "proofCommit": "77f4cba0",
+      "browserRun": 45154167386,
+      "artifact": 14806409519,
+      "archiveSha256": "6abbe498f364cdf884dfffbf28b4be6ab40fb69949daafcba9b0c7eea70fb716"
+    }
+  ],
+  "research373": {
+    "status": "Closed as explained scoped research, not productfix",
+    "proofCommit": "9471a4be447c0176e050b3b36dc1662b770da0c5",
+    "decision": "Only authenticSTI fixture/pinnedruntime accepts exact predicted1/576inch master-unit quantization and zero additional engine drift. No generic tolerance or bit-exact-size claim; original3pass/1strictfail preserved."
+  },
+  "futureProductRounds": [
+    {
+      "issue": 87,
+      "productCommit": "d96aec716b15bc0a0072993b7772b21727f460fd",
+      "proofCommit": "c605f51255ae84ba2137c2744bb9cd43a3348fe1",
+      "tests": "Windows/Linux33+tsc+build; real normal/hostedbrowser open/edit/save/fresh/daychange PASS45153653733",
+      "remaining": "macOS frontend and nativepackageacceptance allOS; not P2/release intake"
+    },
+    {
+      "issue": 78,
+      "owner": "0c73",
+      "scope": "Solid slide background schemeClr theme color only; future isolated branch fromP2, not currentrelease"
+    }
+  ]
 }
