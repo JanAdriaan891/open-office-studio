@@ -1,7 +1,7 @@
 {
   "schemaVersion": 3,
-  "asOfUTC": "2026-11-23T12:34:41.878222+00:00",
-  "status": "P4 closed after the bounded Vitest runner correction; all necessary product fixes retained. Local full3657PASS/0FAIL/10explicitSKIP, exactP4SDK44/config9/TSC PASS. New same-source all-platform builds/browser underway. Native/standalone/signature acceptance pending; stable readinessNO.",
+  "asOfUTC": "2026-11-23T12:54:10.662139+00:00",
+  "status": "P5 closed with necessaryproductfixes plus two CIdependencyresolver commands. ExactP5SDK44/config9/syntaxPASS; newmatching builds/checks underway. Stable readinessNO pending actualnative/standalone/packages/signatures.",
   "date": "2026-11-23",
   "proposedVersion": "2026.48.1",
   "intermediateWindowsSource": "3a0decac3d45234d4b4d487e431b21cff961ccca",
@@ -18,7 +18,7 @@
   "newUserApprovalNeededForConcreteMainAndRelease": true,
   "FridayDeadlineAppliesToday": false,
   "deadlineToday": null,
-  "finalCombinedFreeze": "04fa6cd43b84e3f59fb9d5055bb2d00dde351a47 / tree 94fa38c20b51a73e4912964f37f0e1a659b0fb1b /2026.48.1; immutable P4. P2/P3 evidence retains original source and failures.",
+  "finalCombinedFreeze": "b696ab86bd1c128729a079b68c0082e6df3d36a5 / tree e30879fd772871e690847c061ef66e6b81808a05 /2026.48.1; immutableP5. EarlierP2/P3/P4 proofs retain ownsource/limits/failures.",
   "historicalHandoff": {
     "file": "historical-handoff-2026-11-20.json",
     "sourceCommit": "0dff40895e600e5716d6a72ba2791987d107825b",
@@ -34,7 +34,7 @@
     "VersionFreezePipelineIntegrationAndReadiness": "root",
     "LinuxNativeXLSB": "d410;377sourcefixdone, shortnative377retestpreparedawaitingnewpackage",
     "STWVisualTriageAndBrowser": "9d3b; Windows operator750b only",
-    "NextFormatUOT": "e0d7; WQ2QA completed strictFAIL/#381; no next scope auto-started",
+    "NextFormatUOT": "e0d7; ETsourcegap proof f51228f4done, ETTexclusiveQA only",
     "FuturePresentation78": "0c73;78/87future,375isolatedruntimewitness outsideP3"
   },
   "MacCriticalPath": {
@@ -319,7 +319,7 @@
     "owners": {
       "01a1bf9c-8020-7953-84ff-ac467a399694": "WindowsGNM/XLSB/UOS/STC/nativeSXCproofs retained;380futurechord complete; now reservedP4sixWindowsapps",
       "01a1bf84-d410-7383-b369-f055b021c20c": "XLSBnativeDEB+OpenFile complete;377productintegrated, exclusive shortP4nativehertest pendingownpackage",
-      "01a1bf84-e0d7-71f2-b6f4-7658c0cb40da": "STC/UOS/UOT/UOP/SDD/WB2/WQ2QA completed;381strictformulaimportbug registered; no next scope automatically",
+      "01a1bf84-e0d7-71f2-b6f4-7658c0cb40da": "ETsourcegapdone; ETTonlysourcequalification/QA onP2 outsideP5",
       "01a1bf84-0c73-7170-b0b9-6d54748fca7d": "STI373explained;87/78futurecomplete;375runtimewitness own bounded build ininitialization",
       "01a1bf9c-9d3b-7463-8a79-dfa9d88eee5c": "374productintegrated; independentP4nativeexportoracles, no secondGUI"
     },
@@ -380,6 +380,14 @@
       "issue": 381,
       "result": "Real native61cell/fourRPNVLOOKUP oracle: missing zero\u2192one-based indextranslation beforeengine; wrongformularesults reproduced after engine/recalculation/edit/UndoRedo/savefresh.57othercells correct. Separate importlimitation outsideP4; noHLOOKUP/cacheproblem bundled.",
       "rootIndependentAudit": "pending; bounded delivery coordinator-recorded, not rootGUI/nativeacceptance"
+    },
+    "ET": {
+      "proof": "f51228f4bdf4d40a6aad92ea5f611823b3c8c880",
+      "sourceGatePassed": false,
+      "sourceImportAcceptance": false,
+      "fullFormatAcceptance": false,
+      "run": 45176643338,
+      "result": "CandidateWPSBIFF8+ETExtData fromSayi attachment test lacks independentnativeETSaveAsprovenance; samepublicXLS Workbook/ExtDatabyteidentical. No renaming claimed, no runtimeconversion/engine/nativepass."
     }
   },
   "completenessRecheck": {
@@ -389,16 +397,16 @@
     "explanation": "Specific completed historical deliveries found while assigning idle format workers are retained despite old CLOSED-without-merge PR metadata. No old stopped experiments resumed or blindly cherry-picked. Separate proof-only SYLK retains historical scope."
   },
   "finalSevenProductBuild": {
-    "run": 45172070275,
-    "source": "04fa6cd43b84e3f59fb9d5055bb2d00dde351a47",
-    "tree": "94fa38c20b51a73e4912964f37f0e1a659b0fb1b",
+    "run": 45177730188,
+    "source": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+    "tree": "e30879fd772871e690847c061ef66e6b81808a05",
     "version": "2026.48.1",
     "publiceren": false,
     "attempt": 1,
     "jobs": {
-      "Windows": 137683944804,
-      "macOS": 137683944827,
-      "Linux": 137683944835
+      "Windows": 137703365803,
+      "macOS": 137703365843,
+      "Linux": 137703365848
     },
     "status": "in_progress",
     "finalNativeOrSigningAcceptance": false
@@ -589,8 +597,8 @@
       "checks": "4LinuxstdRust+9config/callsite checks,31existingVitests,TSC/i18nPASS; nativehelpernotexecuted byavailabilityprobe",
       "remaining": "FullRust/Tauritypewiring andrealnewDEBDepends/AppImageerror/YesCancel/save/focus/nativechecks onnewpoint. Cargo/lock/portal unchanged."
     },
-    "status": "CLOSED as P4; P3 import-runner correction explicitly recorded",
-    "closedApplicationCommit": "04fa6cd43b84e3f59fb9d5055bb2d00dde351a47"
+    "status": "CLOSED asP5; no lateenhancements",
+    "closedApplicationCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5"
   },
   "candidateP3": {
     "schemaVersion": 1,
@@ -903,7 +911,8 @@
     "browserHarness": "22b82fda992632976ca1b84a78f8335bad7ee14b",
     "publication": false,
     "mainWritesAllowed": false,
-    "stableReady": false
+    "stableReady": false,
+    "superseded": "Two CI DEB-install routes did not resolve correctly declared zenity; legacyfailedsource/run retained, P5fixes only these testcommands."
   },
   "P4BrowserAcceptance": {
     "source": "04fa6cd43b84e3f59fb9d5055bb2d00dde351a47",
@@ -920,11 +929,89 @@
     "audit": "P4-ci-checkouts.json",
     "completedJobsAudited": 15,
     "pendingRun": 45172076803,
-    "actualSourceTreesMatchP4": true
+    "actualSourceTreesMatchP4": true,
+    "supersededDesktopStatus": "Linuxfailedoldtestinstall; correctedexact-byteP4recheck45177760596 ownerreportsPASS; otherremainingP4Desktopjobs cancelled afterP5started. OriginalpartialCIaudit not relabelled allgreen."
   },
   "P4KernelRebuild": {
     "audit": "P4-source/kernel-rebuild-audit.json",
     "run": 45172076770,
     "builtEditAndLayoutByteIdenticalToCommittedP4": true
+  },
+  "historicalP4SevenProductBuild": {
+    "run": 45172070275,
+    "source": "04fa6cd43b84e3f59fb9d5055bb2d00dde351a47",
+    "tree": "94fa38c20b51a73e4912964f37f0e1a659b0fb1b",
+    "version": "2026.48.1",
+    "publiceren": false,
+    "attempt": 1,
+    "jobs": {
+      "Windows": 137683944804,
+      "macOS": 137683944827,
+      "Linux": 137683944835
+    },
+    "status": "cancelled before finalacceptance; noP4finalparentprep/nativego",
+    "finalNativeOrSigningAcceptance": false
+  },
+  "candidateP5": {
+    "schemaVersion": 1,
+    "asOfUTC": "2026-11-23T12:54:10.662139+00:00",
+    "source": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+    "tree": "e30879fd772871e690847c061ef66e6b81808a05",
+    "version": "2026.48.1",
+    "immutableBranch": "codex/release-candidate-2026-11-23-p5",
+    "intake": "closed",
+    "onlyExecutableChangesFromP4": [
+      "scripts/proef-native-linux-basis.mjs",
+      "scripts/proef-runtime-interface.mjs"
+    ],
+    "change": "Both CI DEB installers use apt-get install -y --no-install-recommends exactAbsolutePackagePath; checksum/report/installedELF and all native criteria preserved. No app/runtime/editor/Cargo/versionchanges.",
+    "reviewedOriginalCommits": [
+      "77cb9be47bc0aaff4a8cb91059514605893a110b",
+      "77fe314e87dc07b3912ba2c3b60ef388dac5974a"
+    ],
+    "rootIntakeCommits": [
+      "8827e94b",
+      "b696ab86"
+    ],
+    "localChecks": {
+      "nodeSyntaxTwoScripts": true,
+      "diffCheck": true,
+      "exactP5SDKPassed": 44,
+      "exactP5ConfigTestsPassed": 9,
+      "fullLocalVitestNotRepeated": "P4 full3657pass/0fail/10skips retained historically; two CI-only external install commands do not change tested runtime. New P5 project CI runs standard checks on exact newsource."
+    },
+    "P4DesktopFailure": {
+      "run": 45172076803,
+      "job": 137683860055,
+      "rawLogSha256": "6472417080231c6a63c3dd57dd20403c7fc0c006bd8ab79a26f09ff2aedb891e",
+      "reason": "Correctly declared zenity dependency not resolved by old dpkg testinstall; noappstarted.",
+      "packageSha256": "c666690b091d5a4548c7e6d3f3157f9b3c77cb10b534ba2b0d1cbf02b297b3a0"
+    },
+    "P4SameByteHarnessRecheck": {
+      "run": 45177760596,
+      "job": 137703334912,
+      "qa": "5fe310d3ae40bbd8c453f6944d571c21030762b3",
+      "status": "owner-reportedSUCCESS, independent evidence audit pending",
+      "artifact": 14819358469,
+      "archiveSha256": "44ba3d32e9b771c61f2f4b77d387707fa650880e6586f1e230454a9459a06890",
+      "limit": "Old P4exactDEB and corrected external testharness; not P5package/nativeacceptance."
+    },
+    "releaseRun": 45177730188,
+    "releaseAttempt": 1,
+    "releaseJobs": {
+      "Windows": 137703365803,
+      "macOS": 137703365843,
+      "Linux": 137703365848
+    },
+    "browserRun": null,
+    "browserStatus": "Await Mac-only read-only boundary-guard correction; P4originalfailure retained, no stale success relabelled.",
+    "publication": false,
+    "mainWritesAllowed": false,
+    "readyForStableRelease": false
+  },
+  "P5BrowserAcceptance": {
+    "run": null,
+    "status": "notstarted until minimalMac boundaryguard reviewed; sourceP5 remainsfrozen",
+    "applicationSource": "b696ab86bd1c128729a079b68c0082e6df3d36a5"
   }
 }
