@@ -1,0 +1,296 @@
+{
+  "schemaVersion": 1,
+  "application": "dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b",
+  "tree": "5a644e397ecc6af5452a49b6404edf953687d1b2",
+  "qaSource": "b306bf9ae3932fa2a888d1dd44268ff9e492e755",
+  "entries": [
+    {
+      "file": "P2-browser/Linux/hosted/356-report.json",
+      "bytes": 755,
+      "sha256": "86cc0b93ca0e4a9fa162ac4135cb44a3978b50266652fda30f9f5076805abf33",
+      "kind": "Original P2 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P2-browser/Linux/hosted/356-saved.docx",
+      "bytes": 7472,
+      "sha256": "d3baef97dbb010c60b19eb7ce4d294e4cf2d3d8c2b3fe037008af6d2bd923237",
+      "kind": "Original P2 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P2-browser/Linux/hosted/361-report.json",
+      "bytes": 94108,
+      "sha256": "62cf40cba03879f0dce0ceceb6a2506a381734670b7d5dc71c5ba250b6195375",
+      "kind": "Original P2 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P2-browser/Linux/hosted/362-report.json",
+      "bytes": 474381,
+      "sha256": "cdc5e51c61e428ed81d12516f6e662d5ac623649b9155453c8622ae70b77a428",
+      "kind": "Original P2 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P2-browser/Linux/hosted/363-report.json",
+      "bytes": 84635,
+      "sha256": "214c6e2ae579f320645e714a93c29d28ff33ac0e2eda7f60364ab44a87a971ce",
+      "kind": "Original P2 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P2-browser/Linux/hosted/build-receipt.json",
+      "bytes": 78655,
+      "sha256": "147e9b827f758dcb157e4d9ca4b45aadb6a34f062e3ffbc4af619137f4e19203",
+      "kind": "Original P2 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P2-browser/Linux/hosted/office-report.json",
+      "bytes": 1673,
+      "sha256": "699e7c6e9e09d4636a372a81aecee87cd802e154a128aedc74ab01aee2d666a4",
+      "kind": "Original P2 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P2-browser/Linux/hosted/summary.json",
+      "bytes": 1882,
+      "sha256": "096de8783202bafd6c7455692768e88667004b05871617c800d9a6316a289e01",
+      "kind": "Original P2 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P2-browser/Linux/normal/356-report.json",
+      "bytes": 748,
+      "sha256": "7056c7d2c8c02a74a94bf14d133df4a8b20051499be88fa689e8dcfb48a8c286",
+      "kind": "Original P2 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P2-browser/Linux/normal/356-saved.docx",
+      "bytes": 7473,
+      "sha256": "163201624b18fabd90e66298b7e051979285bfcaf02904e503ce4b3ccc0fd67b",
+      "kind": "Original P2 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P2-browser/Linux/normal/361-report.json",
+      "bytes": 94086,
+      "sha256": "92b5da40443fa01931eb5a70132397b3aa5d009b27e36de027bce4f02d7c690a",
+      "kind": "Original P2 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P2-browser/Linux/normal/362-report.json",
+      "bytes": 474359,
+      "sha256": "e393debe663dd0dd8cca0d45d92988a9b1def7be68e741d8750cbfde2433ab1f",
+      "kind": "Original P2 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P2-browser/Linux/normal/363-report.json",
+      "bytes": 84620,
+      "sha256": "208a03f20c208d35e476603c715783a4b41eaa297ef8d02048e2a7d58b8d7edb",
+      "kind": "Original P2 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P2-browser/Linux/normal/build-receipt.json",
+      "bytes": 78647,
+      "sha256": "41705d59ec47ad8d7a6302ef3ef243758cfdfc9285c449f0f2dea3e7c1846432",
+      "kind": "Original P2 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P2-browser/Linux/normal/office-report.json",
+      "bytes": 1666,
+      "sha256": "13e4a0b8e73b1ce5bb4c9c22b4d23c18a1b27221387f346cdc75d1e8f9c0b762",
+      "kind": "Original P2 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P2-browser/Linux/normal/summary.json",
+      "bytes": 1875,
+      "sha256": "11f0b82541cbe85ac140ee671e30010c65e012246f82ba719bdc78b1d77f415a",
+      "kind": "Original P2 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P2-browser/Windows/hosted/356-report.json",
+      "bytes": 755,
+      "sha256": "86cc0b93ca0e4a9fa162ac4135cb44a3978b50266652fda30f9f5076805abf33",
+      "kind": "Original P2 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P2-browser/Windows/hosted/356-saved.docx",
+      "bytes": 7472,
+      "sha256": "ea55f13567c0ca85f79fab09107c14c8477b87a2eb6371e55a5191de13e1e62d",
+      "kind": "Original P2 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P2-browser/Windows/hosted/361-report.json",
+      "bytes": 94101,
+      "sha256": "843969844e7b45b383ed3dc9073e2263885258fefc8160e18aacaacba17219d7",
+      "kind": "Original P2 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P2-browser/Windows/hosted/362-report.json",
+      "bytes": 482228,
+      "sha256": "8b37f40f157f6fb111e3ea6dc02ec1ea7716786360c317f5c6ee85e1ebcc8b2d",
+      "kind": "Original P2 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P2-browser/Windows/hosted/363-report.json",
+      "bytes": 84635,
+      "sha256": "6a6c9e916761eb9bc61c45a1b476a82cb4b02c15ba230138c5586f695bfc0a6b",
+      "kind": "Original P2 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P2-browser/Windows/hosted/build-receipt.json",
+      "bytes": 78655,
+      "sha256": "c2fa89b56cb48b75d1a868d8b822fbaa42f44a2036960dc88000aee1aab69c25",
+      "kind": "Original P2 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P2-browser/Windows/hosted/office-report.json",
+      "bytes": 1673,
+      "sha256": "aefa94874a6b3e9626012fe77d3863ec695bf3c69b506d06296ce7ca56d4fc14",
+      "kind": "Original P2 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P2-browser/Windows/hosted/summary.json",
+      "bytes": 1882,
+      "sha256": "370b69a27293c969a264157d3419b74f14c094a2330b1726cb1d333f22f1d04b",
+      "kind": "Original P2 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P2-browser/Windows/normal/356-report.json",
+      "bytes": 748,
+      "sha256": "7056c7d2c8c02a74a94bf14d133df4a8b20051499be88fa689e8dcfb48a8c286",
+      "kind": "Original P2 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P2-browser/Windows/normal/356-saved.docx",
+      "bytes": 7472,
+      "sha256": "2c19a553085506abd7f32555f9c641733ac4ca44c5e5e535aaf25c9a54bd84cb",
+      "kind": "Original P2 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P2-browser/Windows/normal/361-report.json",
+      "bytes": 94079,
+      "sha256": "f7d6b186217cb81f1fe39f2dfd58ba0269e4dcb33b6a34efcd04e51829bc4f9d",
+      "kind": "Original P2 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P2-browser/Windows/normal/362-report.json",
+      "bytes": 482206,
+      "sha256": "e44174e3f19355b043cc23a62d242afe16f85b4c6cffd2c25bd7ea85f89f760c",
+      "kind": "Original P2 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P2-browser/Windows/normal/363-report.json",
+      "bytes": 84620,
+      "sha256": "eaf03508c2e693467aedaa1c5c687d8b4080b71d403380feb02b2e8d3687d940",
+      "kind": "Original P2 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P2-browser/Windows/normal/build-receipt.json",
+      "bytes": 78647,
+      "sha256": "09bcc456788f29fe36a6469f4ded776cfccf8d45cd0d65312a4ba356eead4e95",
+      "kind": "Original P2 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P2-browser/Windows/normal/office-report.json",
+      "bytes": 1666,
+      "sha256": "8ddd6cdf02163d1d1e9079eb8704ed8e950af417eb6ab2bd5637ac322b2329db",
+      "kind": "Original P2 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P2-browser/Windows/normal/summary.json",
+      "bytes": 1875,
+      "sha256": "479d647fa539bc769b67ece3970c9eed75eff50e7bab2663f7f8944c2cc0853e",
+      "kind": "Original P2 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P2-browser/macOS/hosted/356-report.json",
+      "bytes": 755,
+      "sha256": "86cc0b93ca0e4a9fa162ac4135cb44a3978b50266652fda30f9f5076805abf33",
+      "kind": "Original P2 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P2-browser/macOS/hosted/356-saved.docx",
+      "bytes": 7473,
+      "sha256": "551c830cb3f47c0e35a4bb71b31f5e3d9de0c3824a61b62ef7d42c496fcc7995",
+      "kind": "Original P2 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P2-browser/macOS/hosted/361-report.json",
+      "bytes": 94126,
+      "sha256": "3405d852b1456dd9a8cbebe8de0e5b624bee80954bf401e9fa47c65819b43eed",
+      "kind": "Original P2 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P2-browser/macOS/hosted/362-report.json",
+      "bytes": 482246,
+      "sha256": "f117603bf7db690159951564fd862b5d847ea533e0b2656b51de6835b09f2c8e",
+      "kind": "Original P2 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P2-browser/macOS/hosted/363-report.json",
+      "bytes": 84636,
+      "sha256": "794093b7380de626c5387e784c133491ab78e9a64c0ec9b3b289de41c8967ccf",
+      "kind": "Original P2 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P2-browser/macOS/hosted/build-receipt.json",
+      "bytes": 78655,
+      "sha256": "d5a1029d653f2d04da4c33c2391ab27fb0aa1bc71559ec4de45464898f789442",
+      "kind": "Original P2 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P2-browser/macOS/hosted/office-report.json",
+      "bytes": 1674,
+      "sha256": "d81a61b39ae320e4a1bf13a97788167a577e6159728532a422304eac96391831",
+      "kind": "Original P2 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P2-browser/macOS/hosted/summary.json",
+      "bytes": 1883,
+      "sha256": "95cd3eb249fd8a3a549269ddf10615a7946db8e9339be9427671aa3b68ab8ab9",
+      "kind": "Original P2 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P2-browser/macOS/normal/356-report.json",
+      "bytes": 748,
+      "sha256": "7056c7d2c8c02a74a94bf14d133df4a8b20051499be88fa689e8dcfb48a8c286",
+      "kind": "Original P2 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P2-browser/macOS/normal/356-saved.docx",
+      "bytes": 7473,
+      "sha256": "73e0c44ecc2fb54404777c5933eccb50d9b35832363f39f7179d0ec34f31945a",
+      "kind": "Original P2 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P2-browser/macOS/normal/361-report.json",
+      "bytes": 94104,
+      "sha256": "36b5dbbe4b660974a7c82edab306c07e4e730faf9677d136d954adc50f43b9dd",
+      "kind": "Original P2 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P2-browser/macOS/normal/362-report.json",
+      "bytes": 482223,
+      "sha256": "89afd1cee825197307803e0d1426ed5ba6a35edc5f6480d38885381eeb4aa15f",
+      "kind": "Original P2 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P2-browser/macOS/normal/363-report.json",
+      "bytes": 84621,
+      "sha256": "84409a8370046f6d0fc7b4bbfc67985f2fc9eab2c08f2b985c52b9d14fa4b08f",
+      "kind": "Original P2 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P2-browser/macOS/normal/build-receipt.json",
+      "bytes": 78647,
+      "sha256": "4e1a218b093679c3612f34f6f8204a8c921f4f00e08c76a2852fdc5d0fbfe2b0",
+      "kind": "Original P2 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P2-browser/macOS/normal/office-report.json",
+      "bytes": 1667,
+      "sha256": "44d74d5d49e2aa39a80245b1aeb4b8399123cc266cffe5d8fd1589eeb001b8a8",
+      "kind": "Original P2 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P2-browser/macOS/normal/summary.json",
+      "bytes": 1876,
+      "sha256": "e4f2bcd04e62697eeadd1f4ed3a54b853a62da8a970ce2b8e0ff98d9d1719faf",
+      "kind": "Original P2 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    }
+  ]
+}

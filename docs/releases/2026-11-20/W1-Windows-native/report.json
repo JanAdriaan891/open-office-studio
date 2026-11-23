@@ -1,0 +1,345 @@
+{
+  "status": "passed",
+  "identity": {
+    "executeNative": true,
+    "applicationCommit": "3a0decac3d45234d4b4d487e431b21cff961ccca",
+    "applicationTree": "e46b8faed3ca6b468e71a4d0d77b6dc8ce259360",
+    "builderCommit": "d4c769ab5adbadf65c1e49f13f846787bbca777d",
+    "version": "2026.48.1",
+    "runId": 45138607445,
+    "artifactId": 14801908655,
+    "archiveSha256": "3c041dfdf83a81d0ea02b081aaff8264bd9f0714803b86d358e2cb6e9b3325c9",
+    "packageMember": "nsis/Open Office Studio_2026.48.1_x64-setup.exe",
+    "packageSha256": "2b21153d95971e68592ce07bd1623b197377af5971f01e166fedaf2aa8de852f",
+    "scope": "Intermediate Windows-only48.1 preflight on3a0; source/version/package frozen by integration and verified; no final release declaration",
+    "expectedPackagedExecutableSha256": "80093530b7cd83d38dc0949c232817ce4ca09a9c67872ff0b4391bebafff130e",
+    "expectedUnpatchedBuildExecutableSha256": "50977967afc9d70f735ddb4977956f14d7680076e869dbc8eeaeea8148ae1c3b",
+    "identityNote": "CLI2.12.3 NSIS bundle token differs from restored target/release binary; independent payload SHA plus exact one-token normalization is required, never a bypass"
+  },
+  "harnessCommit": "5afeb7b7a9616d500c5a41cc11b43a58e7839651",
+  "harnessSha256": "13c66ca638d8e0223662e5352ea348fb83a1dae262afffa943e95535ee081c7b",
+  "checks": [
+    {
+      "name": "frozen application, builder, archive and installer identities verified"
+    },
+    {
+      "name": "independent NSIS payload identity and exact Tauri bundle patch verified"
+    },
+    {
+      "name": "installed package opens exact 3x3 baseline",
+      "tables": [
+        {
+          "rows": 3,
+          "columns": 3,
+          "cells": [
+            "alpha",
+            "beta",
+            "",
+            "",
+            "",
+            "omega",
+            "delta",
+            "",
+            ""
+          ]
+        }
+      ],
+      "focus": {
+        "tag": "TEXTAREA",
+        "label": "Document input",
+        "className": "paged-editor__yrs-input paged-editor__hidden-pm ProseMirror ProseMirror-focused"
+      }
+    },
+    {
+      "name": "native keyboard edit",
+      "tables": [
+        {
+          "rows": 3,
+          "columns": 3,
+          "cells": [
+            "NATIVE_WINDOWS_372 alpha",
+            "beta",
+            "",
+            "",
+            "",
+            "omega",
+            "delta",
+            "",
+            ""
+          ]
+        }
+      ],
+      "focus": {
+        "tag": "TEXTAREA",
+        "label": "Document input",
+        "className": "paged-editor__yrs-input paged-editor__hidden-pm ProseMirror ProseMirror-focused"
+      }
+    },
+    {
+      "name": "native ordinary Undo",
+      "tables": [
+        {
+          "rows": 3,
+          "columns": 3,
+          "cells": [
+            "alpha",
+            "beta",
+            "",
+            "",
+            "",
+            "omega",
+            "delta",
+            "",
+            ""
+          ]
+        }
+      ],
+      "focus": {
+        "tag": "TEXTAREA",
+        "label": "Document input",
+        "className": "paged-editor__yrs-input paged-editor__hidden-pm ProseMirror ProseMirror-focused"
+      }
+    },
+    {
+      "name": "native ordinary Redo",
+      "tables": [
+        {
+          "rows": 3,
+          "columns": 3,
+          "cells": [
+            "NATIVE_WINDOWS_372 alpha",
+            "beta",
+            "",
+            "",
+            "",
+            "omega",
+            "delta",
+            "",
+            ""
+          ]
+        }
+      ],
+      "focus": {
+        "tag": "TEXTAREA",
+        "label": "Document input",
+        "className": "paged-editor__yrs-input paged-editor__hidden-pm ProseMirror ProseMirror-focused"
+      }
+    },
+    {
+      "name": "Find input owns Undo",
+      "tables": [
+        {
+          "rows": 3,
+          "columns": 3,
+          "cells": [
+            "NATIVE_WINDOWS_372 alpha",
+            "beta",
+            "",
+            "",
+            "",
+            "omega",
+            "delta",
+            "",
+            ""
+          ]
+        }
+      ],
+      "focus": {
+        "tag": "INPUT",
+        "label": "Find what",
+        "className": ""
+      }
+    },
+    {
+      "name": "Find close preserves document Undo",
+      "tables": [
+        {
+          "rows": 3,
+          "columns": 3,
+          "cells": [
+            "alpha",
+            "beta",
+            "",
+            "",
+            "",
+            "omega",
+            "delta",
+            "",
+            ""
+          ]
+        }
+      ],
+      "focus": {
+        "tag": "TEXTAREA",
+        "label": "Document input",
+        "className": "paged-editor__yrs-input paged-editor__hidden-pm ProseMirror ProseMirror-focused"
+      }
+    },
+    {
+      "name": "document Redo after pane close",
+      "tables": [
+        {
+          "rows": 3,
+          "columns": 3,
+          "cells": [
+            "NATIVE_WINDOWS_372 alpha",
+            "beta",
+            "",
+            "",
+            "",
+            "omega",
+            "delta",
+            "",
+            ""
+          ]
+        }
+      ],
+      "focus": {
+        "tag": "TEXTAREA",
+        "label": "Document input",
+        "className": "paged-editor__yrs-input paged-editor__hidden-pm ProseMirror ProseMirror-focused"
+      }
+    },
+    {
+      "name": "normal close exits first process",
+      "pid": 1244
+    },
+    {
+      "name": "full process reopen renders saved cells",
+      "tables": [
+        {
+          "rows": 3,
+          "columns": 3,
+          "cells": [
+            "NATIVE_WINDOWS_372 alpha",
+            "beta",
+            "",
+            "",
+            "",
+            "omega",
+            "delta",
+            "",
+            ""
+          ]
+        }
+      ],
+      "focus": {
+        "tag": "TEXTAREA",
+        "label": "Document input",
+        "className": "paged-editor__yrs-input paged-editor__hidden-pm ProseMirror ProseMirror-focused"
+      }
+    },
+    {
+      "name": "normal close exits reopened process",
+      "pid": 3592
+    }
+  ],
+  "errors": [],
+  "cleanup": {
+    "ownedAppsClosed": true,
+    "policyRestored": true,
+    "privateInstallRemoved": true
+  },
+  "platform": "Windows hosted runner / installed NSIS / actual WebView2 CDP keyboard and pointer",
+  "limits": [
+    "CDP input on an isolated native WebView2, not a physical user keyboard",
+    "Office Writer core and bundled-runtime detection only; not all module/release acceptance"
+  ],
+  "run": {
+    "id": 45138607445,
+    "head_sha": "d4c769ab5adbadf65c1e49f13f846787bbca777d",
+    "status": "completed",
+    "conclusion": "success"
+  },
+  "artifact": {
+    "id": 14801908655,
+    "name": "windows-office-372-3a0decac3d45234d4b4d487e431b21cff961ccca",
+    "digest": "sha256:3c041dfdf83a81d0ea02b081aaff8264bd9f0714803b86d358e2cb6e9b3325c9"
+  },
+  "archiveSha256": "3c041dfdf83a81d0ea02b081aaff8264bd9f0714803b86d358e2cb6e9b3325c9",
+  "packageSha256": "2b21153d95971e68592ce07bd1623b197377af5971f01e166fedaf2aa8de852f",
+  "applicationProvenance": {
+    "applicationCommit": "3a0decac3d45234d4b4d487e431b21cff961ccca",
+    "applicationTree": "e46b8faed3ca6b468e71a4d0d77b6dc8ce259360",
+    "version": "2026.48.1",
+    "builderCommit": "d4c769ab5adbadf65c1e49f13f846787bbca777d",
+    "runId": 45138607445,
+    "installer": {
+      "path": "nsis/Open Office Studio_2026.48.1_x64-setup.exe",
+      "sha256": "2b21153d95971e68592ce07bd1623b197377af5971f01e166fedaf2aa8de852f",
+      "size": 384477335
+    },
+    "executable": {
+      "sha256": "50977967afc9d70f735ddb4977956f14d7680076e869dbc8eeaeea8148ae1c3b"
+    },
+    "helperGitBlob": "ed64670b15c0cec716b7bfc761b8a808830a7a99",
+    "developmentBuild": true,
+    "signingRequired": false
+  },
+  "payloadExecutableSha256": "80093530b7cd83d38dc0949c232817ce4ca09a9c67872ff0b4391bebafff130e",
+  "bundlePatch": {
+    "originalBuildSha256": "50977967afc9d70f735ddb4977956f14d7680076e869dbc8eeaeea8148ae1c3b",
+    "payloadSha256": "80093530b7cd83d38dc0949c232817ce4ca09a9c67872ff0b4391bebafff130e",
+    "kind": "single NSS-to-UNK substitution in memory only",
+    "matchingOffset": 82919738,
+    "restoredSha256": "50977967afc9d70f735ddb4977956f14d7680076e869dbc8eeaeea8148ae1c3b",
+    "candidateMarkers": 1,
+    "source": "https://github.com/tauri-apps/tauri/blob/tauri-cli-v2.12.3/crates/tauri-bundler/src/bundle.rs",
+    "sourceGitBlob": "e6709eb590ac17925a50e5393215d020269c6f59"
+  },
+  "fixtureSha256": "82f8160874f49caef173323bae64bf258997ddbe09f4b7c128f9168b56fd5ca2",
+  "executableSha256": "80093530b7cd83d38dc0949c232817ce4ca09a9c67872ff0b4391bebafff130e",
+  "fileVersion": "2026.48.1",
+  "saved": {
+    "sha256": "b1314b013a2b90fcdf22f105900b01dda6436dbd36a72d7016d8ff1a0d94e1e9",
+    "cells": [
+      "NATIVE_WINDOWS_372 alpha",
+      "beta",
+      "",
+      "",
+      "",
+      "omega",
+      "delta",
+      "",
+      ""
+    ]
+  },
+  "processes": [
+    {
+      "pid": 1244,
+      "executable": "D:\\a\\open-office-studio\\open-office-studio\\.local\\windows-native-372\\installed\\open-office-studio.exe",
+      "stdout": "",
+      "stderr": "",
+      "runtimeStatus": {
+        "bron": "meegeleverd",
+        "gekozen": null,
+        "gevonden": true,
+        "pad": "\\\\?\\D:\\a\\open-office-studio\\open-office-studio\\.local\\windows-native-372\\installed\\kantoorruntime\\program\\soffice.com",
+        "profiel": "veilig",
+        "versie": "LibreOffice 26.8.2.2 9dea406ab7695df6325b11b0e19fdca8db4b7276"
+      },
+      "exit": {
+        "code": 0,
+        "signal": null
+      }
+    },
+    {
+      "pid": 3592,
+      "executable": "D:\\a\\open-office-studio\\open-office-studio\\.local\\windows-native-372\\installed\\open-office-studio.exe",
+      "stdout": "",
+      "stderr": "",
+      "runtimeStatus": {
+        "bron": "meegeleverd",
+        "gekozen": null,
+        "gevonden": true,
+        "pad": "\\\\?\\D:\\a\\open-office-studio\\open-office-studio\\.local\\windows-native-372\\installed\\kantoorruntime\\program\\soffice.com",
+        "profiel": "veilig",
+        "versie": "LibreOffice 26.8.2.2 9dea406ab7695df6325b11b0e19fdca8db4b7276"
+      },
+      "exit": {
+        "code": 0,
+        "signal": null
+      }
+    }
+  ]
+}

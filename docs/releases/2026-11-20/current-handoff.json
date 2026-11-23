@@ -1,6 +1,6 @@
 {
   "schemaVersion": 3,
-  "asOfUTC": "2026-11-23T08:44:21.812925+00:00",
+  "asOfUTC": "2026-11-23T09:30:41.286390+00:00",
   "status": "Active Monday release preparation and blocker resolution; NOT stable-release approved.",
   "date": "2026-11-23",
   "proposedVersion": "2026.48.1",
@@ -18,7 +18,7 @@
   "newUserApprovalNeededForConcreteMainAndRelease": true,
   "FridayDeadlineAppliesToday": false,
   "deadlineToday": null,
-  "finalCombinedFreeze": "Pending Windows intake plus evidence-based Mac correction; one final common source/version before full combination and standalone-package acceptance.",
+  "finalCombinedFreeze": "P2 intake closed: dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b / tree5a644e397ecc6af5452a49b6404edf953687d1b2 /2026.48.1 includes Windows372 and bounded Mac359 correction. Combination/package/native acceptance in progress; later discoveries and format30 proof work stay outside production intake unless explicitly reopened with a new point and matching checks.",
   "historicalHandoff": {
     "file": "historical-handoff-2026-11-20.json",
     "sourceCommit": "0dff40895e600e5716d6a72ba2791987d107825b",
@@ -41,7 +41,19 @@
     "hypothesis": "SDK skips worker replay for documents with image primitives; original text/table is eligible. Browser works untouched; Mac native worker presentation needs causal confirmation.",
     "productCorrectionProven": false,
     "browserRendererBoundaryStatus": "Cancelled while queued to prioritize native diagnostic; no pass/failure inferred.",
-    "nativeDiagnosticWorkerOffStatus": "Runner acquired 08:35 UTC; building separately identified diagnostic DMG. No product correction proven."
+    "nativeDiagnosticWorkerOffStatus": "Passed causal observation: original alpha/beta/omega/delta readable untouched and after maximize with worker presentation disabled; image control remains readable. Diagnostic only, no product/native functional approval.",
+    "diagnosticPackageArtifact": {
+      "id": 14803065522,
+      "archiveSha256": "8d7f0cc91b2103af2963146177fbe8c53b6344b499242bb3195f6bb3bd4385d5",
+      "scope": "New APP420-derived package with explicit diagnostic URL query, not canonical source420 package or final production correction."
+    },
+    "productCorrection": {
+      "originalCommit": "5f6f5ae3871daaae2db6bc5ede80974c821fd683",
+      "intakeCommit": "dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b",
+      "scope": "Shared SDK presentation memo uses existing DOM canvas only on native Tauri/macOS; worker open/layout intact, browser/Windows/Linux presenter unchanged. Guarded source anchor fails closed on SDK drift. Office/Writer/Email share renderer.",
+      "nativeAcceptance": "Pending actual P2 Desktop macOS package; owner uses fetch-only QA, no duplicate Office build."
+    },
+    "rootCausalAudit": "Mac359-causal/root-hash-audit.json"
   },
   "Windows372": {
     "officialRuntimeAndHelperRun": 45136505294,
@@ -49,7 +61,20 @@
     "rootIntakeTests": 11,
     "OfficePackageAndNativeAcceptance": "pending intermediate exact48.1 build, separate from final common candidate",
     "intermediateOfficeBuildRun": 45138607445,
-    "intermediateOfficeBuildStatus": "In progress: runtime preparation, pnpm/Python/Rust checks and Vite passed; installer build ongoing. Native acceptance pending."
+    "intermediateOfficeBuildStatus": "Passed ordinary unsigned Office installer build and package gates; root independently verified small source/tree/helper-blob and package receipts. No final signed-package acceptance.",
+    "intermediateOfficeBuildRootAudit": "W1-Windows-build/root-audit.json",
+    "nativeUITest": {
+      "run": 45142138608,
+      "result": "Stopped before app execution: installed NSIS payload differs from post-bundle target/release executable. Immutable installer/source/provenance valid; independently extracted installer PE identity and precise difference being investigated. No native pass or product failure inferred; owned installation cleaned."
+    },
+    "correctedNativeUITest": {
+      "run": 45142942295,
+      "qaSource": "5afeb7b7a9616d500c5a41cc11b43a58e7839651",
+      "result": "PASS12 real installed native WebView2 checks on the same immutable W1 installer. Root verified archive/report, checkout-CRLF-only harness identity, all9 saved DOCX cells, two original screenshots, two normal distinct-PID exits and cleanup. Pinned Tauri bundler token patch/restoration fully explained; independent NSIS-payload identity and exact one-token in-memory equivalence gate retained. No PE mutation, installer rebuild or product change. Not P2/final signed acceptance.",
+      "artifact": 14802533340,
+      "archiveSha256": "12f024732d82be0f439d553b930f1ee95e9f9a2ff7802b6744f5fadb52b56da3",
+      "rootAudit": "W1-Windows-native/root-audit.json"
+    }
   },
   "Linux": {
     "canonical420DesktopRun": 44753496663,
@@ -69,7 +94,40 @@
         "zipSha256": "eecd229049b0bb0880c4a2d279ee57127c9f8123f514c9dabc488f0b1043d5e4",
         "result": "34 positive native checks, then partial typed save marker; driver ownership/key acknowledgement being investigated. Overall not passed; no GTK-cause or product correction claimed."
       }
-    ]
+    ],
+    "nextNativeAttempt": {
+      "run": 45141968924,
+      "qaSource": "e6381d13b95fdd3a8b7e2f7a17772cee1e83ff6f",
+      "result": "In progress: real per-character XTest with readonly acknowledgement/ownership, explicit X display/auth metadata, independent Replace/ribbon outcomes; no product edits or softened assertions."
+    },
+    "inputAcceptanceOnActual420Package": {
+      "run": 45143046662,
+      "artifact": 14803855126,
+      "zipSha256": "f0d12748714614f1a630ff3a18934219c957df856b5888b56be7f509c60b2835",
+      "result": "Owner reports Find and Replace scopes PASS including Undo/both Redos/empty history/search/document isolation/final save and fresh-PID reopen. Root raw audit pending. Does not certify new P2/release package."
+    },
+    "ribbonRemaining": "Real420 matrix reached99 content/9 keyboard-entry/15HomeEnd checks;1600+923 light ring4 and923 Delete Y checks valid.800 TableDesign center intercepted under collapse control; QA uses only actually visible hit-test area and native pointer, no programmatic focus/scroll/CSS. Full widths/themes/groups acceptance still pending.",
+    "completed420OwnerDelivery": {
+      "proofCommit": "45ccd7840414c99610511a31d9f40061c01f40e7",
+      "receiptSha256": "f1945183d64c06ea58b2f51052d46b4ee58fc852e68636329a922116f7fdc077",
+      "result": "Find+Replace PASS;258ribbon+24collapsed+24keyboard+36HomeEnd plus keyboard-command-return/save/reopen PASS. Imported-active and actual disabledSplitTable exercised. DisabledDelete unavailable because engine keeps table commands enabled and context disappears outside table; no injected state or blanket full-ribbon pass. Four horizontal Text trigger observations at800 retained; vertical scope passes. Root raw audit pending; not P2 package claim."
+    },
+    "P2SuiteNativePreparation": {
+      "qaSource": "bfba2ebc57329553bfd5ea9762e7f067f3b109cf",
+      "branch": "codex/linux-native-p2-368-369-2026-11-23",
+      "protocolTests": 27,
+      "execution": "Pending separate canonical OfficeDEB input from shared runtime-prep; no second DesktopZIP download, no appbuild."
+    },
+    "P2CanonicalProducer": {
+      "run": 45143305147,
+      "job": 137586343061,
+      "result": "Linux SUCCESS independently of pending Mac/Windows",
+      "artifact": 14804062140,
+      "archiveSha256": "4704f7fdfe85a711a1c3f8a1da6114461bf17edde090d18f1665397ad23abbc6",
+      "bytes": 811809091,
+      "packageReportArtifact": 14804805305,
+      "packageReportArchiveSha256": "3dffb92f7b2cc418c154d48fc2574f155e912113ec0265fc870ffcba8d0b5576"
+    }
   },
   "standaloneRequirement": {
     "apps": [
@@ -116,5 +174,64 @@
     "qaSource": "1b6983357e017bc0cd915ec3cfe2dcc63e3d3882",
     "result": "Passed OpenPGP and timestamped Authenticode on inert synthetic payloads. Root verified both artifact digests and the downloaded executable signature; OpenPGP public-key-only verification ran on CI. Not final package/signature acceptance; no publication capability granted.",
     "rootAudit": "signing-capability/root-audit.json"
+  },
+  "nonpublishingPackageVerifierPreparation": {
+    "branch": "codex/release-signing-preflight-2026-11-23",
+    "qaSourcePrefix": "0aa1be65",
+    "target": "one final source/run with 28 actual installer hashes, 14 byte-bound reports, 14 OpenPGP package signatures and signed checksum manifest",
+    "checks": "six local rejection/metadata tests pass; rejects green unsigned Windows/macOS producer jobs and malformed/colliding archive identities",
+    "execution": "Not executed on final packages; no frozen request exists. Workflow has read-only repository permissions and no release/tag/publication operation."
+  },
+  "candidateP2": {
+    "source": "dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b",
+    "tree": "5a644e397ecc6af5452a49b6404edf953687d1b2",
+    "version": "2026.48.1",
+    "originalMacProductCommit": "5f6f5ae3871daaae2db6bc5ede80974c821fd683",
+    "rootIntakeTests": {
+      "passedAssertions": 25,
+      "failed": 0,
+      "scopes": {
+        "realSdkPresentationMemo": 12,
+        "officialWeekVersion": 9,
+        "realWindowsPowerShellZip": 4
+      },
+      "nonincrementalTypeScript": "PASS"
+    },
+    "desktopRun": 45143305147,
+    "MacProducerJob": 137586342524,
+    "browserRun": 45143624910,
+    "browserQaSource": "b306bf9ae3932fa2a888d1dd44268ff9e492e755",
+    "nativeAndSignedReleaseAccepted": false,
+    "immutableBuildBranch": "codex/release-candidate-2026-11-23-p2",
+    "sourceAudit": "P2-source-audit.json",
+    "browserRootAudit": "P2-browser/root-audit.json",
+    "browserVerifiedScope": "All three OS and both routes independently audited:3archive digests,6receipts/summary pairs,24issue reports,54Office cases,6savedDOCX files;48 original payloads. CI asset directories absent from artifact, so no separate root asset-body rehash or untouched-native-paint claim."
+  },
+  "parallelFormat30Work": {
+    "authorized": "Explicit user request relayed23November through issues chat to run30 in parallel; new bounded tasks in existing idle chats, without reviving old stopped PRs.",
+    "source": "dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b",
+    "productionIntake": "Closed P2 remains unchanged; source fixtures/oracles/QA initially, new bugs/fixes require separate scoped registration and intake decision.",
+    "owners": {
+      "01a1bf9c-8020-7953-84ff-ac467a399694": ".gnm / Gnumeric",
+      "01a1bf84-d410-7383-b369-f055b021c20c": "XLSB under35, save-as-XLSX/reopen",
+      "01a1bf84-e0d7-71f2-b6f4-7658c0cb40da": "one real STC Calc template",
+      "01a1bf84-0c73-7170-b0b9-6d54748fca7d": "one real STI Impress template",
+      "01a1bf9c-9d3b-7463-8a79-dfa9d88eee5c": "one real STW Writer template"
+    },
+    "resourceScope": "Own worktrees/QA/Linux CI; no extra Mac build, local GUI/capture, shared source edits, main/tag/publication. No full4GB release download per format.",
+    "WindowsStandaloneOwnerSequence": "8020 preserves744d76b1 QA; only one active scope, completes bounded Gnumeric before Windows-six-app execution when final own packages arrive; real schedule conflict must be raised.",
+    "sharedRuntimePreparation": {
+      "owner": "standalone_linux between completed host-prep and pending final6app intake",
+      "branch": "codex/qa-runtime-input-p2-2026-11-23",
+      "initialQaSource": "5e3c6631",
+      "initialWaitRun": 45145866638,
+      "result": "Initial wait-only attempt cancelled before download/apt. Sole canonical P2LinuxZIP download will produce runtime-only tar+full hash/mode/link manifest for five formatworkers and separate untouched OfficeDEB artifact for P2native owner. Six contract tests pass; actual artifact descriptors pending."
+    }
+  },
+  "completenessRecheck": {
+    "main93fccAncestorOfP2": true,
+    "olderProduct344OriginalE19AncestorOfP2": true,
+    "olderProduct346HeadC195AncestorOfP2": true,
+    "explanation": "Specific completed historical deliveries found while assigning idle format workers are retained despite old CLOSED-without-merge PR metadata. No old stopped experiments resumed or blindly cherry-picked. Separate proof-only SYLK retains historical scope."
   }
 }

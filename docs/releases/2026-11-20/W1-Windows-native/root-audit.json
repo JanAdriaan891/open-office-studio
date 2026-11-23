@@ -1,0 +1,66 @@
+{
+  "asOfUTC": "2026-11-23T09:17:46.257097+00:00",
+  "scope": "Root audit of intermediate W1 installed native WebView2 protocol and saved bytes, not final P2/signed release/standalone acceptance",
+  "run": 45142942295,
+  "artifact": 14802533340,
+  "zipSha256": "12f024732d82be0f439d553b930f1ee95e9f9a2ff7802b6744f5fadb52b56da3",
+  "source": {
+    "executeNative": true,
+    "applicationCommit": "3a0decac3d45234d4b4d487e431b21cff961ccca",
+    "applicationTree": "e46b8faed3ca6b468e71a4d0d77b6dc8ce259360",
+    "builderCommit": "d4c769ab5adbadf65c1e49f13f846787bbca777d",
+    "version": "2026.48.1",
+    "runId": 45138607445,
+    "artifactId": 14801908655,
+    "archiveSha256": "3c041dfdf83a81d0ea02b081aaff8264bd9f0714803b86d358e2cb6e9b3325c9",
+    "packageMember": "nsis/Open Office Studio_2026.48.1_x64-setup.exe",
+    "packageSha256": "2b21153d95971e68592ce07bd1623b197377af5971f01e166fedaf2aa8de852f",
+    "scope": "Intermediate Windows-only48.1 preflight on3a0; source/version/package frozen by integration and verified; no final release declaration",
+    "expectedPackagedExecutableSha256": "80093530b7cd83d38dc0949c232817ce4ca09a9c67872ff0b4391bebafff130e",
+    "expectedUnpatchedBuildExecutableSha256": "50977967afc9d70f735ddb4977956f14d7680076e869dbc8eeaeea8148ae1c3b",
+    "identityNote": "CLI2.12.3 NSIS bundle token differs from restored target/release binary; independent payload SHA plus exact one-token normalization is required, never a bypass"
+  },
+  "harnessSourceBinding": "Windows CRLF checkout only",
+  "checksVerified": 12,
+  "savedDOCXHashAndAllNineCellsVerified": true,
+  "cleanupAndTwoNormalDistinctPidExits": true,
+  "visualReview": "Root serially viewed original saved.png and reopened.png: NATIVE_WINDOWS_372 plus alpha/beta/omega/delta visible; saved XML independently matches all9tablecells. No new UI/app execution.",
+  "originalPrelaunchFailure": {
+    "run": 45142138608,
+    "artifact": 14801749105,
+    "zipSha256": "2f3127721a3467a37618b7ba00591d86520b7399034929d6aec916b6d42cdbc1",
+    "applicationStarted": false
+  },
+  "limits": [
+    "CDP input on an isolated native WebView2, not a physical user keyboard",
+    "Office Writer core and bundled-runtime detection only; not all module/release acceptance"
+  ],
+  "payloadIndex": [
+    {
+      "file": "report.json",
+      "sha256": "e413c4982df67494c24226c95d20f690b19151fab9bc9f16b579d3be52a5f270",
+      "bytes": 10125
+    },
+    {
+      "file": "saved.png",
+      "sha256": "3ae3ae9f4dd80ca42187dd2414d0497b5c654321287ea09be840f998f3234d42",
+      "bytes": 82666
+    },
+    {
+      "file": "reopened.png",
+      "sha256": "db6cc28696b1bb9f82193c818462cefc0138f7567333fff25ad0d535d03845b3",
+      "bytes": 71452
+    },
+    {
+      "file": "Writer native roundtrip.docx",
+      "sha256": "b1314b013a2b90fcdf22f105900b01dda6436dbd36a72d7016d8ff1a0d94e1e9",
+      "bytes": 36984
+    },
+    {
+      "file": "original-prelaunch-identity-failure.json",
+      "sha256": "72b17450b6ec74a24017a1c7c03046d381c11789efedf3f98e1d33e182ad67fc",
+      "bytes": 3343
+    }
+  ],
+  "finalP2OrSignedReleaseAccepted": false
+}

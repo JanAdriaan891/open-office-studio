@@ -1,0 +1,55 @@
+{
+  "scope": "Selected original diagnostic/baseline bytes; root verified all44 diagnostic artifact member hashes separately. This is causal presentation evidence, not native product acceptance.",
+  "entries": [
+    {
+      "file": "original-worker-baseline.png",
+      "bytes": 131708,
+      "sha256": "32450641f07c6ce4eedc563d3baea01d9521d768a311d1a84411b379cdbcbfab"
+    },
+    {
+      "file": "original-initial-ready.png",
+      "bytes": 135489,
+      "sha256": "484fe681bfef9fff0d5fef71b865197e2c6bd92f04065a88d37933df1b63b50b"
+    },
+    {
+      "file": "original-after-maximize.png",
+      "bytes": 81824,
+      "sha256": "82b52433c364ddbaaab9ef512dabbfbbd50a437c2ad3cdd5561e66e3569320c5"
+    },
+    {
+      "file": "control-initial-ready.png",
+      "bytes": 171629,
+      "sha256": "9906c59601ed71df9a97dc5bc8a508cb37ab5e784e3b9c63f218b0271946fdb3"
+    },
+    {
+      "file": "control-after-maximize.png",
+      "bytes": 131127,
+      "sha256": "b2f92cd6727b60b30e8c091a693ebbd6a96a11bafe4e2054ff992d83eb2aa6dc"
+    },
+    {
+      "file": "baseline-identity.json",
+      "bytes": 1164,
+      "sha256": "63f74e050caed18012f8fee3eb263203f680e5273fb348a2179426c5feb5973b"
+    },
+    {
+      "file": "identity.json",
+      "bytes": 1265,
+      "sha256": "b3d3ea353f21039b686c51c049f5bfc1d9e7601921b4a80ac59fc0897e3bed6d"
+    },
+    {
+      "file": "report.json",
+      "bytes": 19923,
+      "sha256": "2fbc997717381f8b2a462fa375001ed74a5e513d92524e31aa4939789976bda3"
+    },
+    {
+      "file": "tauri-diagnostic.json",
+      "bytes": 294,
+      "sha256": "3e8861a18ad9a08dd09dc8abd9992eb278e2bf2a8bf6be26ef16bde0828963d5"
+    },
+    {
+      "file": "root-hash-audit.json",
+      "bytes": 8836,
+      "sha256": "bc2e468140055cbf336e94b7337c01cc58bd7a59327d74638243ccb442c35c2e"
+    }
+  ]
+}

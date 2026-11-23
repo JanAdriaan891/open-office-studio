@@ -1,0 +1,55 @@
+{
+  "browserOnly": true,
+  "nativeApplicationStarted": false,
+  "platform": "darwin",
+  "route": "/",
+  "harnessCommit": "b306bf9ae3932fa2a888d1dd44268ff9e492e755",
+  "externalProbeSha256": "c8fc555ddd1990831fffaedf338e19cac10704e5f1ecd965f798a93852158c38",
+  "externalProbeGitBlobSha256": "c8fc555ddd1990831fffaedf338e19cac10704e5f1ecd965f798a93852158c38",
+  "issues": [
+    {
+      "issue": 361,
+      "passed": true,
+      "exitCode": 0,
+      "signal": null,
+      "output": ".local/writer-481-QA-normal-361",
+      "reportSha256": "36b5dbbe4b660974a7c82edab306c07e4e730faf9677d136d954adc50f43b9dd"
+    },
+    {
+      "issue": 362,
+      "passed": true,
+      "exitCode": 0,
+      "signal": null,
+      "output": ".local/writer-481-QA-normal-362",
+      "reportSha256": "89afd1cee825197307803e0d1426ed5ba6a35edc5f6480d38885381eeb4aa15f"
+    },
+    {
+      "issue": 363,
+      "passed": true,
+      "exitCode": 0,
+      "signal": null,
+      "output": ".local/writer-481-QA-normal-363",
+      "reportSha256": "84409a8370046f6d0fc7b4bbfc67985f2fc9eab2c08f2b985c52b9d14fa4b08f"
+    },
+    {
+      "issue": 356,
+      "passed": true,
+      "exitCode": 0,
+      "signal": null,
+      "output": ".local/writer-481-QA-normal-356",
+      "reportSha256": "7056c7d2c8c02a74a94bf14d133df4a8b20051499be88fa689e8dcfb48a8c286"
+    }
+  ],
+  "startedAt": "2026-11-23T09:15:41.390Z",
+  "source": "dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b",
+  "tree": "5a644e397ecc6af5452a49b6404edf953687d1b2",
+  "buildReceipt": ".local/dist-481-QA-normal.build.json",
+  "buildReceiptSha256": "4e1a218b093679c3612f34f6f8204a8c921f4f00e08c76a2852fdc5d0fbfe2b0",
+  "office": {
+    "path": ".local/writer-481-QA-normal-office/report.json",
+    "sha256": "44d74d5d49e2aa39a80245b1aeb4b8399123cc266cffe5d8fd1589eeb001b8a8",
+    "passed": true
+  },
+  "passed": true,
+  "finishedAt": "2026-11-23T09:16:52.919Z"
+}

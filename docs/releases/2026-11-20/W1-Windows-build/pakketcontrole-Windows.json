@@ -1,0 +1,19 @@
+{
+  "platform": "windows",
+  "programma": "open-office-studio",
+  "versie": "2026.48.1",
+  "pakketten": [
+    {
+      "naam": "Open Office Studio_2026.48.1_x64-setup.exe",
+      "bytes": 384477335,
+      "sha256": "2b21153d95971e68592ce07bd1623b197377af5971f01e166fedaf2aa8de852f",
+      "controles": [
+        "NSIS-archief leesbaar",
+        "programma en WebView2-loader x64",
+        "WebView2-bootstrapper aanwezig",
+        "installer- en programma-iconen bytegelijk aan goedgekeurde bron"
+      ]
+    }
+  ],
+  "installatie_en_native_bediening": "niet_gecontroleerd"
+}
