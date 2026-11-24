@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest";
-import { conceptOpslaanToets } from "./opstel-sneltoetsen";
+import { conceptOpslaanToets, toetsBuitenOpstelling } from "./opstel-sneltoetsen";
 
 function toets(deel: Partial<Parameters<typeof conceptOpslaanToets>[0]> = {}) {
   const event = {
@@ -81,4 +81,33 @@ describe("concept opslaan vanuit de modale opstelling", () => {
       expect(bewaren).not.toHaveBeenCalled();
     },
   );
+});
+
+describe("Ctrl+S terwijl de focus buiten het opstelvenster staat (#379)", () => {
+  const venster = {};
+  const doel = (binnen: string | null) => ({
+    closest: (selector: string) => (binnen && selector.includes(binnen) ? {} : null),
+  });
+
+  it("neemt body/achtergrond over zodat de toets niet stil verdwijnt", () => {
+    expect(toetsBuitenOpstelling(doel(null), venster)).toBe(true);
+    expect(toetsBuitenOpstelling(null, venster)).toBe(true);
+    const event = toets(),
+      bewaren = vi.fn();
+    if (toetsBuitenOpstelling(doel(null), venster))
+      conceptOpslaanToets(event, false, bewaren);
+    expect(bewaren).toHaveBeenCalledOnce();
+    expect(event.preventDefault).toHaveBeenCalledOnce();
+  });
+
+  it.each(["[role='dialog']", "[role='alertdialog']", "dialog", "[role='menu']"])(
+    "laat toetsen binnen %s aan dat venster (geen dubbele of vreemde opslag)",
+    (binnen) => {
+      expect(toetsBuitenOpstelling(doel(binnen), venster)).toBe(false);
+    },
+  );
+
+  it("doet niets zonder gekoppeld opstelvenster", () => {
+    expect(toetsBuitenOpstelling(doel(null), null)).toBe(false);
+  });
 });
