@@ -133,6 +133,7 @@ export function SneltoetsenOverzicht({
                     }),
                   })}
                 </small>}
+              {sectie.module === "rekenblad" && <small> · {t("shortcuts.excelConventions")}</small>}
             </h3>
             <table>
               <thead className="werkruimte-verborgen">

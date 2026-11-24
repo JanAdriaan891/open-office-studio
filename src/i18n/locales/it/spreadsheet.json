@@ -553,7 +553,12 @@
     "allowBlank": "Allow blank cells",
     "inCellDropdown": "In-cell dropdown",
     "showInputMessage": "Show input message",
-    "showErrorMessage": "Show error alert"
+    "showErrorMessage": "Show error alert",
+    "search": "Cerca nell’elenco",
+    "noMatches": "Nessuna scelta trovata",
+    "matches": "{{found}} di {{total}} scelte",
+    "moreMatches": "Prime {{shown}} di {{total}} scelte; digita per restringere",
+    "growSource": "Estendi l’origine fino a {{range}} (+{{added}})"
   },
   "protection": {
     "title": "Protection",
@@ -986,6 +991,189 @@
       "unsupportedPivot": "This pivot layout cannot be edited safely."
     }
   },
+  "dataTools": {
+    "group": "Strumenti dati",
+    "ok": "OK",
+    "range": "Intervallo: {{range}}",
+    "header": "I dati hanno intestazioni",
+    "selectAll": "Seleziona tutto",
+    "selectNone": "Deseleziona tutto",
+    "messages": {
+      "needRows": "L'intervallo non contiene righe di dati.",
+      "needColumns": "Scegli almeno una colonna."
+    },
+    "duplicates": {
+      "button": "Rimuovi duplicati",
+      "title": "Rimuovi duplicati",
+      "action": "Azione",
+      "actions": {
+        "verwijderen": "Rimuovi duplicati",
+        "markerenDubbel": "Evidenzia valori duplicati",
+        "markerenUniek": "Evidenzia valori univoci",
+        "filteren": "Mostra solo righe univoche (filtro)"
+      },
+      "run": {
+        "verwijderen": "Rimuovi",
+        "markerenDubbel": "Evidenzia",
+        "markerenUniek": "Evidenzia",
+        "filteren": "Filtra"
+      },
+      "columns": "Colonne da confrontare",
+      "none": "Nessun duplicato trovato. Righe univoche: {{rows}}.",
+      "result": {
+        "verwijderen_one": "{{number}} duplicato rimosso; righe univoche rimanenti: {{rows}}.",
+        "verwijderen_other": "{{number}} duplicati rimossi; righe univoche rimanenti: {{rows}}.",
+        "verwijderen_many": "{{number}} duplicati rimossi; righe univoche rimanenti: {{rows}}.",
+        "markerenDubbel_one": "{{number}} riga con valori duplicati evidenziata (su {{rows}}).",
+        "markerenDubbel_other": "{{number}} righe con valori duplicati evidenziate (su {{rows}}).",
+        "markerenDubbel_many": "{{number}} righe con valori duplicati evidenziate (su {{rows}}).",
+        "markerenUniek_one": "{{number}} riga univoca evidenziata (su {{rows}}).",
+        "markerenUniek_other": "{{number}} righe univoche evidenziate (su {{rows}}).",
+        "markerenUniek_many": "{{number}} righe univoche evidenziate (su {{rows}}).",
+        "filteren_one": "{{number}} riga duplicata nascosta; righe univoche visibili: {{rows}}. Mostra righe la rende di nuovo visibile.",
+        "filteren_other": "{{number}} righe duplicate nascoste; righe univoche visibili: {{rows}}. Mostra righe le rende di nuovo visibili.",
+        "filteren_many": "{{number}} righe duplicate nascoste; righe univoche visibili: {{rows}}. Mostra righe le rende di nuovo visibili."
+      }
+    },
+    "apply": "Applica",
+    "textToColumns": {
+      "button": "Testo in colonne",
+      "title": "Testo in colonne",
+      "source_one": "Origine: {{range}} ({{rows}} riga)",
+      "source_other": "Origine: {{range}} ({{rows}} righe)",
+      "source_many": "Origine: {{range}} ({{rows}} righe)",
+      "kind": "Dividi per",
+      "delimited": "Delimitatori",
+      "fixedWidth": "Larghezza fissa",
+      "space": "Spazio",
+      "mergeDelimiters": "Considera delimitatori consecutivi come uno solo",
+      "breaks": "Interruzioni di colonna",
+      "breaksHint": "Fai clic nell'anteprima per aggiungere o togliere un'interruzione di colonna, oppure digita le posizioni dei caratteri.",
+      "breakPositions": "Posizioni delle interruzioni di colonna",
+      "destination": "Cella di destinazione",
+      "preview": "Anteprima del risultato",
+      "dmy": "GMA",
+      "mdy": "MGA",
+      "ymd": "AMG",
+      "replace": "Sostituisci",
+      "messages": {
+        "oneColumn": "Seleziona celle in una sola colonna.",
+        "badDestination": "Indica una cella di destinazione valida, ad esempio B1.",
+        "allSkipped": "Tutte le colonne vengono saltate.",
+        "overwrite_one": "{{number}} cella piena verrà sovrascritta. Scegli Sostituisci per continuare.",
+        "overwrite_other": "{{number}} celle piene verranno sovrascritte. Scegli Sostituisci per continuare.",
+        "overwrite_many": "{{number}} celle piene verranno sovrascritte. Scegli Sostituisci per continuare."
+      }
+    },
+    "analysisGroup": "Analisi",
+    "goalSeek": {
+      "button": "Ricerca obiettivo",
+      "title": "Ricerca obiettivo",
+      "formulaCell": "Imposta la cella",
+      "target": "Al valore",
+      "variableCell": "Cambiando la cella",
+      "solve": "Risolvi",
+      "busy": "Ricerca in corso…",
+      "hint": "Il calcolo avviene in una copia; il foglio cambia solo con Applica.",
+      "found": "Soluzione trovata: {{cell}} = {{value}} (formula {{formula}} = {{result}}).",
+      "notFound": "Nessuna soluzione esatta trovata. La più vicina: {{cell}} = {{value}} dà {{result}}.",
+      "messages": {
+        "needFormula": "La cella da impostare deve contenere una formula.",
+        "needValue": "La cella da cambiare deve contenere un numero (non una formula o testo).",
+        "badFormulaCell": "Indica una cella valida, ad esempio B5.",
+        "badTarget": "Indica un numero come valore obiettivo.",
+        "badVariableCell": "Indica una cella da cambiare valida, ad esempio B1.",
+        "noNumber": "La formula non restituisce un numero; nessuna soluzione trovata."
+      }
+    },
+    "statistics": {
+      "button": "Statistica",
+      "title": "Statistica",
+      "run": "Esegui",
+      "analysis": "Analisi",
+      "analyses": {
+        "beschrijvend": "Statistica descrittiva",
+        "correlatie": "Correlazione",
+        "regressie": "Regressione lineare",
+        "histogram": "Istogramma (frequenza)",
+        "steekproef": "Campionamento"
+      },
+      "explain": {
+        "beschrijvend": "Media, mediana, moda, deviazione standard, varianza, minimo, massimo, intervallo, somma, conteggio, asimmetria e curtosi per variabile.",
+        "correlatie": "Coefficiente di correlazione (Pearson) tra ogni coppia di variabili.",
+        "regressie": "Pendenza, intercetta, R² e correlazione, con valori previsti e residui per osservazione.",
+        "histogram": "Numero di valori per classe e percentuale cumulativa. Senza intervallo delle classi si scelgono classi di uguale ampiezza.",
+        "steekproef": "Valori casuali senza reinserimento, oppure un valore ogni n."
+      },
+      "inputRange": "Intervallo di input",
+      "yRange": "Intervallo Y (dipendente)",
+      "xRange": "Intervallo X (indipendente)",
+      "binRange": "Intervallo classi (limiti superiori)",
+      "automatic": "Automatico",
+      "sampleSize": "Numero di valori",
+      "period": "Un valore ogni n",
+      "groupedBy": "Variabili per",
+      "columns": "Colonna",
+      "rows": "Riga",
+      "method": "Metodo",
+      "random": "Casuale",
+      "periodic": "Periodico",
+      "labelsRow": "Etichette nella prima riga",
+      "labelsColumn": "Etichette nella prima colonna",
+      "formulas": "Usa formule (si aggiornano con i dati)",
+      "chart": "Grafico a dispersione con linea di tendenza",
+      "chartHint": "L'inserimento di un grafico ricarica la cartella; i passaggi precedenti non si potranno più annullare.",
+      "output": "Output",
+      "newSheet": "Nuovo foglio",
+      "outputCell": "A partire dalla cella",
+      "sheetName": "Statistica {{number}}",
+      "trendline": "Linea di tendenza",
+      "column": "Colonna {{column}}",
+      "row": "Riga {{row}}",
+      "measures": {
+        "mean": "Media",
+        "median": "Mediana",
+        "mode": "Moda",
+        "stdev": "Deviazione standard",
+        "variance": "Varianza",
+        "min": "Minimo",
+        "max": "Massimo",
+        "range": "Intervallo",
+        "sum": "Somma",
+        "count": "Conteggio",
+        "skewness": "Asimmetria",
+        "kurtosis": "Curtosi"
+      },
+      "regression": {
+        "title": "Regressione",
+        "slope": "Pendenza",
+        "intercept": "Intercetta",
+        "r2": "R²",
+        "r": "Correlazione (r)",
+        "observations": "Osservazioni",
+        "predicted": "Y prevista",
+        "residual": "Residuo"
+      },
+      "histogram": {
+        "bin": "Classe (fino a)",
+        "frequency": "Frequenza",
+        "cumulative": "% cumulativa",
+        "more": "Altro"
+      },
+      "messages": {
+        "badRange": "Indica un intervallo valido, ad esempio A1:B20.",
+        "badDestination": "Indica una cella di output valida, ad esempio E1.",
+        "badSize": "Indica un numero intero positivo.",
+        "noNumbers": "L'intervallo non contiene numeri.",
+        "needTwoVariables": "La correlazione richiede almeno due variabili.",
+        "needX": "Indica un intervallo X.",
+        "oneVariable": "Scegli una sola colonna di dati per questa analisi.",
+        "sameLength": "Gli intervalli X e Y devono avere la stessa lunghezza.",
+        "noBins": "L'intervallo delle classi non contiene numeri.",
+        "emptySample": "Il campione è vuoto."
+      }
+    }
+  },
   "boundedGrid": {
     "group": "Griglia",
     "bounded": "Griglia limitata",
@@ -1008,5 +1196,47 @@
     "edgeBoth": "Bordo della griglia: la riga {{row}} e la colonna {{column}} sono le ultime.",
     "grown": "Griglia estesa a {{rows}} righe e {{columns}} colonne.",
     "fitted": "Griglia adattata al contenuto: {{rows}} righe e {{columns}} colonne."
+  },
+  "insertCount": {
+    "menuRows": "Inserisci righe…",
+    "menuColumns": "Inserisci colonne…",
+    "titleRows": "Inserisci righe",
+    "titleColumns": "Inserisci colonne",
+    "countRows": "Numero di righe",
+    "countColumns": "Numero di colonne",
+    "hint": "Un numero intero da 1 a {{max}}.",
+    "position": "Posizione",
+    "above": "Sopra la selezione",
+    "below": "Sotto la selezione",
+    "left": "A sinistra della selezione",
+    "right": "A destra della selezione",
+    "insert": "Inserisci"
+  },
+  "fillTo": {
+    "menu": "Riempi fino alla cella…",
+    "title": "Riempi fino alla cella",
+    "source": "Origine: {{range}}",
+    "target": "Fino alla cella, riga o colonna (inclusa)",
+    "hint": "Digita una cella (B500), un numero di riga (500) o una lettera di colonna (H).",
+    "invalid": "Non è una cella, riga o colonna valida.",
+    "inside": "Questa cella si trova nella selezione; non c’è nulla da riempire.",
+    "tooLarge": "Troppe celle in una volta (massimo {{max}}).",
+    "preview": {
+      "omlaag": "Riempie {{range}}: {{cells}} righe verso il basso.",
+      "omhoog": "Riempie {{range}}: {{cells}} righe verso l’alto.",
+      "rechts": "Riempie {{range}}: {{cells}} colonne verso destra.",
+      "links": "Riempie {{range}}: {{cells}} colonne verso sinistra."
+    },
+    "fill": "Riempi",
+    "handleHint": "clic destro: riempi fino alla cella…"
+  },
+  "formulaEditor": {
+    "menu": "Modifica formula in una finestra…",
+    "open": "Apri l’editor di formule",
+    "title": "Editor di formule – {{cell}}",
+    "label": "Contenuto della cella {{cell}} (Invio: nuova riga, Ctrl+Invio: conferma)",
+    "hint": "{{lines}} righe · {{characters}} caratteri · Invio: nuova riga · Ctrl+Invio: conferma",
+    "format": "Disponi su più righe",
+    "singleLine": "Su una riga"
   }
 }

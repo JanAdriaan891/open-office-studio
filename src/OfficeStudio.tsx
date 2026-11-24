@@ -39,6 +39,8 @@ import {
 } from "./export/bewaar";
 import { editorKoppeling } from "./export/koppeling";
 import { controleerPakket } from "./pakketcontrole";
+import { SjabloonGalerij } from "./sjablonen/SjabloonGalerij";
+import { alsDocument } from "./sjablonen/pakket";
 import { bereidOpenen } from "./import/openen";
 import { isSjabloon } from "./import/sjabloon";
 import { serialiseerIfcxBron } from "./ifcx/opslag";
@@ -812,6 +814,16 @@ export function OfficeStudio() {
       );
     });
 
+  /** Sjabloon (#27) als naamloos nieuw document, zonder werkbestand. */
+  const openSjabloon = (soort: Soort, bytes: Uint8Array) =>
+    bezigMet(async () => {
+      const document = alsDocument(bytes, soort);
+      controleerPakket(document, soort);
+      openDocument(soort, naamloos(tabs.toestandRef.current, soort), document, {
+        exportFormaat: leesInstellingen().opslagformaat[soort],
+      });
+    });
+
   const voorbeeld = (soort: Soort) =>
     bezigMet(async () => {
       const module = modules.find((module) => module.soort === soort)!;
@@ -1349,6 +1361,19 @@ export function OfficeStudio() {
                 open={kiesDocument}
                 nieuw={(soort) => void nieuw(soort)}
                 voorbeeld={(soort) => void voorbeeld(soort)}
+                galerij={
+                  <SjabloonGalerij
+                    bezig={bezig}
+                    open={(soort, _naam, bytes) => void openSjabloon(soort, bytes)}
+                    huidig={(() => {
+                      const serialiseer = vorigDocument?.gereed ? tabs.serialiseerder(vorigDocument.id) : null;
+                      return vorigDocument && serialiseer
+                        ? { naam: vorigDocument.naam, soort: vorigDocument.soort, bytes: serialiseer }
+                        : undefined;
+                    })()}
+                    meld={(tekst, toon = "info") => meld(tekst, null, toon === "fout" ? "fout" : "succes")}
+                  />
+                }
                 openNotities={() => tabs.openModule("notities")}
                 openDatabase={() => tabs.openModule("database")}
                 openEmail={() => tabs.openModule("email")}

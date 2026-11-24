@@ -545,7 +545,12 @@
     "allowBlank": "Allow blank cells",
     "inCellDropdown": "In-cell dropdown",
     "showInputMessage": "Show input message",
-    "showErrorMessage": "Show error alert"
+    "showErrorMessage": "Show error alert",
+    "search": "In der Auswahlliste suchen",
+    "noMatches": "Keine Einträge gefunden",
+    "matches": "{{found}} von {{total}} Einträgen",
+    "moreMatches": "Erste {{shown}} von {{total}} Einträgen; tippen Sie, um einzugrenzen",
+    "growSource": "Quelle erweitern bis {{range}} (+{{added}})"
   },
   "protection": {
     "title": "Protection",
@@ -978,6 +983,183 @@
       "unsupportedPivot": "This pivot layout cannot be edited safely."
     }
   },
+  "dataTools": {
+    "group": "Datentools",
+    "ok": "OK",
+    "range": "Bereich: {{range}}",
+    "header": "Daten haben Überschriften",
+    "selectAll": "Alle auswählen",
+    "selectNone": "Keine auswählen",
+    "messages": {
+      "needRows": "Der Bereich enthält keine Datenzeilen.",
+      "needColumns": "Wählen Sie mindestens eine Spalte."
+    },
+    "duplicates": {
+      "button": "Duplikate entfernen",
+      "title": "Duplikate entfernen",
+      "action": "Aktion",
+      "actions": {
+        "verwijderen": "Duplikate entfernen",
+        "markerenDubbel": "Doppelte Werte hervorheben",
+        "markerenUniek": "Eindeutige Werte hervorheben",
+        "filteren": "Nur eindeutige Zeilen anzeigen (Filter)"
+      },
+      "run": {
+        "verwijderen": "Entfernen",
+        "markerenDubbel": "Hervorheben",
+        "markerenUniek": "Hervorheben",
+        "filteren": "Filtern"
+      },
+      "columns": "Zu vergleichende Spalten",
+      "none": "Keine Duplikate gefunden. Eindeutige Zeilen: {{rows}}.",
+      "result": {
+        "verwijderen_one": "{{number}} Duplikat entfernt; verbleibende eindeutige Zeilen: {{rows}}.",
+        "verwijderen_other": "{{number}} Duplikate entfernt; verbleibende eindeutige Zeilen: {{rows}}.",
+        "markerenDubbel_one": "{{number}} Zeile mit doppelten Werten hervorgehoben (von {{rows}}).",
+        "markerenDubbel_other": "{{number}} Zeilen mit doppelten Werten hervorgehoben (von {{rows}}).",
+        "markerenUniek_one": "{{number}} eindeutige Zeile hervorgehoben (von {{rows}}).",
+        "markerenUniek_other": "{{number}} eindeutige Zeilen hervorgehoben (von {{rows}}).",
+        "filteren_one": "{{number}} doppelte Zeile ausgeblendet; sichtbare eindeutige Zeilen: {{rows}}. Mit „Zeilen einblenden“ wird sie wieder sichtbar.",
+        "filteren_other": "{{number}} doppelte Zeilen ausgeblendet; sichtbare eindeutige Zeilen: {{rows}}. Mit „Zeilen einblenden“ werden sie wieder sichtbar."
+      }
+    },
+    "apply": "Übernehmen",
+    "textToColumns": {
+      "button": "Text in Spalten",
+      "title": "Text in Spalten",
+      "source_one": "Quelle: {{range}} ({{rows}} Zeile)",
+      "source_other": "Quelle: {{range}} ({{rows}} Zeilen)",
+      "kind": "Trennen nach",
+      "delimited": "Trennzeichen",
+      "fixedWidth": "Feste Breite",
+      "space": "Leerzeichen",
+      "mergeDelimiters": "Aufeinanderfolgende Trennzeichen als eines behandeln",
+      "breaks": "Spaltenumbrüche",
+      "breaksHint": "Klicken Sie in die Vorschau, um einen Spaltenumbruch zu setzen oder zu entfernen, oder geben Sie die Zeichenpositionen ein.",
+      "breakPositions": "Zeichenpositionen der Spaltenumbrüche",
+      "destination": "Zielzelle",
+      "preview": "Vorschau des Ergebnisses",
+      "dmy": "TMJ",
+      "mdy": "MTJ",
+      "ymd": "JMT",
+      "replace": "Ersetzen",
+      "messages": {
+        "oneColumn": "Wählen Sie Zellen in einer einzigen Spalte aus.",
+        "badDestination": "Geben Sie eine gültige Zielzelle ein, zum Beispiel B1.",
+        "allSkipped": "Alle Spalten werden übersprungen.",
+        "overwrite_one": "{{number}} gefüllte Zelle wird überschrieben. Wählen Sie Ersetzen, um fortzufahren.",
+        "overwrite_other": "{{number}} gefüllte Zellen werden überschrieben. Wählen Sie Ersetzen, um fortzufahren."
+      }
+    },
+    "analysisGroup": "Analyse",
+    "goalSeek": {
+      "button": "Zielwertsuche",
+      "title": "Zielwertsuche",
+      "formulaCell": "Zielzelle",
+      "target": "Zielwert",
+      "variableCell": "Veränderbare Zelle",
+      "solve": "Lösen",
+      "busy": "Suche läuft…",
+      "hint": "Die Berechnung läuft in einer Kopie; das Blatt ändert sich erst bei Übernehmen.",
+      "found": "Lösung gefunden: {{cell}} = {{value}} (Formel {{formula}} = {{result}}).",
+      "notFound": "Keine exakte Lösung gefunden. Am nächsten: {{cell}} = {{value}} ergibt {{result}}.",
+      "messages": {
+        "needFormula": "Die Zielzelle muss eine Formel enthalten.",
+        "needValue": "Die veränderbare Zelle muss eine Zahl enthalten (keine Formel oder Text).",
+        "badFormulaCell": "Geben Sie eine gültige Zielzelle ein, zum Beispiel B5.",
+        "badTarget": "Geben Sie eine Zahl als Zielwert ein.",
+        "badVariableCell": "Geben Sie eine gültige veränderbare Zelle ein, zum Beispiel B1.",
+        "noNumber": "Die Formel liefert keine Zahl; es wurde keine Lösung gefunden."
+      }
+    },
+    "statistics": {
+      "button": "Statistik",
+      "title": "Statistik",
+      "run": "Ausführen",
+      "analysis": "Analyse",
+      "analyses": {
+        "beschrijvend": "Beschreibende Statistik",
+        "correlatie": "Korrelation",
+        "regressie": "Lineare Regression",
+        "histogram": "Histogramm (Häufigkeit)",
+        "steekproef": "Stichprobe"
+      },
+      "explain": {
+        "beschrijvend": "Mittelwert, Median, Modus, Standardabweichung, Varianz, Minimum, Maximum, Spannweite, Summe, Anzahl, Schiefe und Kurtosis je Variable.",
+        "correlatie": "Korrelationskoeffizient (Pearson) zwischen jedem Variablenpaar.",
+        "regressie": "Steigung, Achsenabschnitt, R² und Korrelation, mit vorhergesagten Werten und Residuen je Beobachtung.",
+        "histogram": "Anzahl der Werte je Klasse und der kumulierte Prozentsatz. Ohne Klassenbereich werden Klassen gleicher Breite gewählt.",
+        "steekproef": "Zufällige Werte ohne Zurücklegen oder jeder n-te Wert."
+      },
+      "inputRange": "Eingabebereich",
+      "yRange": "Y-Bereich (abhängig)",
+      "xRange": "X-Bereich (unabhängig)",
+      "binRange": "Klassenbereich (Obergrenzen)",
+      "automatic": "Automatisch",
+      "sampleSize": "Anzahl der Werte",
+      "period": "Jeder n-te Wert",
+      "groupedBy": "Variablen je",
+      "columns": "Spalte",
+      "rows": "Zeile",
+      "method": "Methode",
+      "random": "Zufällig",
+      "periodic": "Periodisch",
+      "labelsRow": "Beschriftungen in erster Zeile",
+      "labelsColumn": "Beschriftungen in erster Spalte",
+      "formulas": "Formeln verwenden (rechnen mit den Daten mit)",
+      "chart": "Punktdiagramm mit Trendlinie",
+      "chartHint": "Das Einfügen eines Diagramms lädt die Arbeitsmappe neu; frühere Schritte lassen sich danach nicht mehr rückgängig machen.",
+      "output": "Ausgabe",
+      "newSheet": "Neues Blatt",
+      "outputCell": "Ab Zelle",
+      "sheetName": "Statistik {{number}}",
+      "trendline": "Trendlinie",
+      "column": "Spalte {{column}}",
+      "row": "Zeile {{row}}",
+      "measures": {
+        "mean": "Mittelwert",
+        "median": "Median",
+        "mode": "Modus",
+        "stdev": "Standardabweichung",
+        "variance": "Varianz",
+        "min": "Minimum",
+        "max": "Maximum",
+        "range": "Spannweite",
+        "sum": "Summe",
+        "count": "Anzahl",
+        "skewness": "Schiefe",
+        "kurtosis": "Kurtosis"
+      },
+      "regression": {
+        "title": "Regression",
+        "slope": "Steigung",
+        "intercept": "Achsenabschnitt",
+        "r2": "R²",
+        "r": "Korrelation (r)",
+        "observations": "Beobachtungen",
+        "predicted": "Vorhergesagtes Y",
+        "residual": "Residuum"
+      },
+      "histogram": {
+        "bin": "Klasse (bis)",
+        "frequency": "Häufigkeit",
+        "cumulative": "Kumuliert %",
+        "more": "Mehr"
+      },
+      "messages": {
+        "badRange": "Geben Sie einen gültigen Bereich ein, zum Beispiel A1:B20.",
+        "badDestination": "Geben Sie eine gültige Ausgabezelle ein, zum Beispiel E1.",
+        "badSize": "Geben Sie eine positive ganze Zahl ein.",
+        "noNumbers": "Der Bereich enthält keine Zahlen.",
+        "needTwoVariables": "Für die Korrelation sind mindestens zwei Variablen nötig.",
+        "needX": "Geben Sie einen X-Bereich ein.",
+        "oneVariable": "Wählen Sie für diese Analyse eine einzelne Datenspalte.",
+        "sameLength": "X- und Y-Bereich müssen gleich lang sein.",
+        "noBins": "Der Klassenbereich enthält keine Zahlen.",
+        "emptySample": "Die Stichprobe ist leer."
+      }
+    }
+  },
   "boundedGrid": {
     "group": "Raster",
     "bounded": "Begrenztes Raster",
@@ -1000,5 +1182,47 @@
     "edgeBoth": "Rand des Rasters: Zeile {{row}} und Spalte {{column}} sind die letzten.",
     "grown": "Raster erweitert auf {{rows}} Zeilen und {{columns}} Spalten.",
     "fitted": "Raster an den Inhalt angepasst: {{rows}} Zeilen und {{columns}} Spalten."
+  },
+  "insertCount": {
+    "menuRows": "Zeilen einfügen…",
+    "menuColumns": "Spalten einfügen…",
+    "titleRows": "Zeilen einfügen",
+    "titleColumns": "Spalten einfügen",
+    "countRows": "Anzahl Zeilen",
+    "countColumns": "Anzahl Spalten",
+    "hint": "Eine ganze Zahl von 1 bis {{max}}.",
+    "position": "Position",
+    "above": "Oberhalb der Auswahl",
+    "below": "Unterhalb der Auswahl",
+    "left": "Links von der Auswahl",
+    "right": "Rechts von der Auswahl",
+    "insert": "Einfügen"
+  },
+  "fillTo": {
+    "menu": "Ausfüllen bis Zelle…",
+    "title": "Ausfüllen bis Zelle",
+    "source": "Quelle: {{range}}",
+    "target": "Bis einschließlich Zelle, Zeile oder Spalte",
+    "hint": "Geben Sie eine Zelle (B500), eine Zeilennummer (500) oder einen Spaltenbuchstaben (H) ein.",
+    "invalid": "Dies ist keine gültige Zelle, Zeile oder Spalte.",
+    "inside": "Diese Zelle liegt innerhalb der Auswahl; es gibt nichts auszufüllen.",
+    "tooLarge": "Zu viele Zellen auf einmal (höchstens {{max}}).",
+    "preview": {
+      "omlaag": "Füllt {{range}}: {{cells}} Zeilen nach unten.",
+      "omhoog": "Füllt {{range}}: {{cells}} Zeilen nach oben.",
+      "rechts": "Füllt {{range}}: {{cells}} Spalten nach rechts.",
+      "links": "Füllt {{range}}: {{cells}} Spalten nach links."
+    },
+    "fill": "Ausfüllen",
+    "handleHint": "Rechtsklick: Ausfüllen bis Zelle…"
+  },
+  "formulaEditor": {
+    "menu": "Formel im Fenster bearbeiten…",
+    "open": "Formeleditor öffnen",
+    "title": "Formeleditor – {{cell}}",
+    "label": "Inhalt der Zelle {{cell}} (Eingabe: neue Zeile, Strg+Eingabe: übernehmen)",
+    "hint": "{{lines}} Zeilen · {{characters}} Zeichen · Eingabe: neue Zeile · Strg+Eingabe: übernehmen",
+    "format": "Auf Zeilen verteilen",
+    "singleLine": "Einzeilig"
   }
 }

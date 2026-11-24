@@ -545,7 +545,12 @@
     "allowBlank": "Lege cellen toestaan",
     "inCellDropdown": "Keuzelijst in cel",
     "showInputMessage": "Invoerbericht tonen",
-    "showErrorMessage": "Foutmelding tonen"
+    "showErrorMessage": "Foutmelding tonen",
+    "search": "Zoeken in de keuzelijst",
+    "noMatches": "Geen keuzes gevonden",
+    "matches": "{{found}} van {{total}} keuzes",
+    "moreMatches": "Eerste {{shown}} van {{total}} keuzes; typ om te verfijnen",
+    "growSource": "Bron uitbreiden tot {{range}} (+{{added}})"
   },
   "protection": {
     "title": "Beveiliging",
@@ -978,6 +983,183 @@
       "unsupportedPivot": "Deze draaitabelindeling kan niet veilig worden bewerkt."
     }
   },
+  "dataTools": {
+    "group": "Gegevenshulpmiddelen",
+    "ok": "OK",
+    "range": "Bereik: {{range}}",
+    "header": "Gegevens hebben een kopregel",
+    "selectAll": "Alles selecteren",
+    "selectNone": "Niets selecteren",
+    "messages": {
+      "needRows": "Het bereik bevat geen gegevensrijen.",
+      "needColumns": "Kies minstens één kolom."
+    },
+    "duplicates": {
+      "button": "Duplicaten verwijderen",
+      "title": "Duplicaten verwijderen",
+      "action": "Bewerking",
+      "actions": {
+        "verwijderen": "Duplicaten verwijderen",
+        "markerenDubbel": "Dubbele waarden markeren",
+        "markerenUniek": "Unieke waarden markeren",
+        "filteren": "Alleen unieke rijen tonen (filter)"
+      },
+      "run": {
+        "verwijderen": "Verwijderen",
+        "markerenDubbel": "Markeren",
+        "markerenUniek": "Markeren",
+        "filteren": "Filteren"
+      },
+      "columns": "Kolommen om te vergelijken",
+      "none": "Geen duplicaten gevonden. Unieke rijen: {{rows}}.",
+      "result": {
+        "verwijderen_one": "{{number}} duplicaat verwijderd; unieke rijen over: {{rows}}.",
+        "verwijderen_other": "{{number}} duplicaten verwijderd; unieke rijen over: {{rows}}.",
+        "markerenDubbel_one": "{{number}} rij met dubbele waarden gemarkeerd (van {{rows}}).",
+        "markerenDubbel_other": "{{number}} rijen met dubbele waarden gemarkeerd (van {{rows}}).",
+        "markerenUniek_one": "{{number}} unieke rij gemarkeerd (van {{rows}}).",
+        "markerenUniek_other": "{{number}} unieke rijen gemarkeerd (van {{rows}}).",
+        "filteren_one": "{{number}} dubbele rij verborgen; zichtbare unieke rijen: {{rows}}. Rijen tonen maakt ze weer zichtbaar.",
+        "filteren_other": "{{number}} dubbele rijen verborgen; zichtbare unieke rijen: {{rows}}. Rijen tonen maakt ze weer zichtbaar."
+      }
+    },
+    "apply": "Toepassen",
+    "textToColumns": {
+      "button": "Tekst naar kolommen",
+      "title": "Tekst naar kolommen",
+      "source_one": "Bron: {{range}} ({{rows}} rij)",
+      "source_other": "Bron: {{range}} ({{rows}} rijen)",
+      "kind": "Splitsen op",
+      "delimited": "Scheidingstekens",
+      "fixedWidth": "Vaste breedte",
+      "space": "Spatie",
+      "mergeDelimiters": "Opeenvolgende scheidingstekens als één behandelen",
+      "breaks": "Kolomeinden",
+      "breaksHint": "Klik in het voorbeeld om een kolomeinde te plaatsen of weg te halen, of typ de tekenposities.",
+      "breakPositions": "Tekenposities van de kolomeinden",
+      "destination": "Doelcel",
+      "preview": "Voorbeeld van het resultaat",
+      "dmy": "DMJ",
+      "mdy": "MDJ",
+      "ymd": "JMD",
+      "replace": "Vervangen",
+      "messages": {
+        "oneColumn": "Selecteer cellen in één kolom.",
+        "badDestination": "Geef een geldige doelcel, bijvoorbeeld B1.",
+        "allSkipped": "Alle kolommen worden overgeslagen.",
+        "overwrite_one": "{{number}} gevulde cel wordt overschreven. Kies Vervangen om door te gaan.",
+        "overwrite_other": "{{number}} gevulde cellen worden overschreven. Kies Vervangen om door te gaan."
+      }
+    },
+    "analysisGroup": "Analyse",
+    "goalSeek": {
+      "button": "Doelzoeken",
+      "title": "Doelzoeken",
+      "formulaCell": "Formulecel",
+      "target": "Doelwaarde",
+      "variableCell": "Variabele cel",
+      "solve": "Oplossen",
+      "busy": "Bezig met zoeken…",
+      "hint": "De berekening gebeurt in een kopie; het blad verandert pas bij Toepassen.",
+      "found": "Oplossing gevonden: {{cell}} = {{value}} (formule {{formula}} = {{result}}).",
+      "notFound": "Geen exacte oplossing gevonden. Dichtstbij: {{cell}} = {{value}} geeft {{result}}.",
+      "messages": {
+        "needFormula": "De formulecel moet een formule bevatten.",
+        "needValue": "De variabele cel moet een getal bevatten (geen formule of tekst).",
+        "badFormulaCell": "Geef een geldige formulecel, bijvoorbeeld B5.",
+        "badTarget": "Geef een getal als doelwaarde.",
+        "badVariableCell": "Geef een geldige variabele cel, bijvoorbeeld B1.",
+        "noNumber": "De formule levert geen getal op; er is geen oplossing gevonden."
+      }
+    },
+    "statistics": {
+      "button": "Statistiek",
+      "title": "Statistiek",
+      "run": "Uitvoeren",
+      "analysis": "Analyse",
+      "analyses": {
+        "beschrijvend": "Beschrijvende statistiek",
+        "correlatie": "Correlatie",
+        "regressie": "Lineaire regressie",
+        "histogram": "Histogram (frequentie)",
+        "steekproef": "Steekproef"
+      },
+      "explain": {
+        "beschrijvend": "Gemiddelde, mediaan, modus, standaardafwijking, variantie, minimum, maximum, bereik, som, aantal, scheefheid en kurtosis per variabele.",
+        "correlatie": "Correlatiecoëfficiënt (Pearson) tussen elk paar variabelen.",
+        "regressie": "Helling, snijpunt, R² en correlatie, met voorspelde waarden en residuen per waarneming.",
+        "histogram": "Aantal waarden per klasse en het cumulatieve percentage. Zonder klassenbereik worden klassen van gelijke breedte gekozen.",
+        "steekproef": "Willekeurige waarden zonder teruglegging, of elke n-de waarde."
+      },
+      "inputRange": "Invoerbereik",
+      "yRange": "Y-bereik (afhankelijk)",
+      "xRange": "X-bereik (onafhankelijk)",
+      "binRange": "Klassenbereik (bovengrenzen)",
+      "automatic": "Automatisch",
+      "sampleSize": "Aantal waarden",
+      "period": "Elke n-de waarde",
+      "groupedBy": "Variabelen per",
+      "columns": "Kolom",
+      "rows": "Rij",
+      "method": "Methode",
+      "random": "Willekeurig",
+      "periodic": "Periodiek",
+      "labelsRow": "Namen in de eerste rij",
+      "labelsColumn": "Namen in de eerste kolom",
+      "formulas": "Formules gebruiken (rekent mee met de gegevens)",
+      "chart": "Spreidingsgrafiek met trendlijn",
+      "chartHint": "Een grafiek invoegen laadt het werkboek opnieuw; eerdere stappen zijn daarna niet meer ongedaan te maken.",
+      "output": "Uitvoer",
+      "newSheet": "Nieuw blad",
+      "outputCell": "Vanaf cel",
+      "sheetName": "Statistiek {{number}}",
+      "trendline": "Trendlijn",
+      "column": "Kolom {{column}}",
+      "row": "Rij {{row}}",
+      "measures": {
+        "mean": "Gemiddelde",
+        "median": "Mediaan",
+        "mode": "Modus",
+        "stdev": "Standaardafwijking",
+        "variance": "Variantie",
+        "min": "Minimum",
+        "max": "Maximum",
+        "range": "Bereik",
+        "sum": "Som",
+        "count": "Aantal",
+        "skewness": "Scheefheid",
+        "kurtosis": "Kurtosis"
+      },
+      "regression": {
+        "title": "Regressie",
+        "slope": "Helling",
+        "intercept": "Snijpunt",
+        "r2": "R²",
+        "r": "Correlatie (r)",
+        "observations": "Waarnemingen",
+        "predicted": "Voorspelde Y",
+        "residual": "Residu"
+      },
+      "histogram": {
+        "bin": "Klasse (t/m)",
+        "frequency": "Frequentie",
+        "cumulative": "Cumulatief %",
+        "more": "Meer"
+      },
+      "messages": {
+        "badRange": "Geef een geldig bereik, bijvoorbeeld A1:B20.",
+        "badDestination": "Geef een geldige uitvoercel, bijvoorbeeld E1.",
+        "badSize": "Geef een positief geheel getal.",
+        "noNumbers": "Het bereik bevat geen getallen.",
+        "needTwoVariables": "Voor correlatie zijn minstens twee variabelen nodig.",
+        "needX": "Geef een X-bereik.",
+        "oneVariable": "Kies voor deze analyse één kolom met gegevens.",
+        "sameLength": "Het X- en Y-bereik moeten even lang zijn.",
+        "noBins": "Het klassenbereik bevat geen getallen.",
+        "emptySample": "De steekproef is leeg."
+      }
+    }
+  },
   "boundedGrid": {
     "group": "Raster",
     "bounded": "Begrensd raster",
@@ -1000,5 +1182,47 @@
     "edgeBoth": "Rand van het raster: rij {{row}} en kolom {{column}} zijn de laatste.",
     "grown": "Raster uitgebreid tot {{rows}} rijen en {{columns}} kolommen.",
     "fitted": "Raster aangepast aan de inhoud: {{rows}} rijen en {{columns}} kolommen."
+  },
+  "insertCount": {
+    "menuRows": "Rijen invoegen…",
+    "menuColumns": "Kolommen invoegen…",
+    "titleRows": "Rijen invoegen",
+    "titleColumns": "Kolommen invoegen",
+    "countRows": "Aantal rijen",
+    "countColumns": "Aantal kolommen",
+    "hint": "Een heel getal van 1 tot {{max}}.",
+    "position": "Plaats",
+    "above": "Boven de selectie",
+    "below": "Onder de selectie",
+    "left": "Links van de selectie",
+    "right": "Rechts van de selectie",
+    "insert": "Invoegen"
+  },
+  "fillTo": {
+    "menu": "Doorvoeren tot cel…",
+    "title": "Doorvoeren tot cel",
+    "source": "Bron: {{range}}",
+    "target": "Tot en met cel, rij of kolom",
+    "hint": "Typ een cel (B500), een rijnummer (500) of een kolomletter (H).",
+    "invalid": "Dit is geen geldige cel, rij of kolom.",
+    "inside": "Deze cel ligt binnen de selectie; er valt niets door te voeren.",
+    "tooLarge": "Te veel cellen in één keer (maximaal {{max}}).",
+    "preview": {
+      "omlaag": "Vult {{range}}: {{cells}} rijen omlaag.",
+      "omhoog": "Vult {{range}}: {{cells}} rijen omhoog.",
+      "rechts": "Vult {{range}}: {{cells}} kolommen naar rechts.",
+      "links": "Vult {{range}}: {{cells}} kolommen naar links."
+    },
+    "fill": "Doorvoeren",
+    "handleHint": "rechtsklik: doorvoeren tot cel…"
+  },
+  "formulaEditor": {
+    "menu": "Formule bewerken in venster…",
+    "open": "Formulebewerker openen",
+    "title": "Formulebewerker – {{cell}}",
+    "label": "Inhoud van cel {{cell}} (Enter: nieuwe regel, Ctrl+Enter: vastleggen)",
+    "hint": "{{lines}} regels · {{characters}} tekens · Enter: nieuwe regel · Ctrl+Enter: vastleggen",
+    "format": "Op regels zetten",
+    "singleLine": "Op één regel"
   }
 }

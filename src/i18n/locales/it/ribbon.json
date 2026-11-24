@@ -324,7 +324,19 @@
       "fillRight": "Riempi a destra",
       "openFilterMenu": "Apri il menu del filtro (su una cella di intestazione con freccia)",
       "insertFunction": "Inserisci funzione",
-      "toggleReference": "Riferimento assoluto o relativo (durante la modifica di una formula)"
+      "toggleReference": "Riferimento assoluto o relativo (durante la modifica di una formula)",
+      "timeFormat": "Formato ora",
+      "fillSelection": "Riempi la selezione con l'immissione",
+      "newLineInCell": "Nuova riga nella cella",
+      "clearAndEdit": "Svuota la cella e modificala",
+      "hideRows": "Nascondi righe",
+      "showRows": "Mostra righe",
+      "showColumns": "Mostra colonne",
+      "dataEdge": "Vai al bordo dell'area dati",
+      "extendToDataEdge": "Estendi la selezione fino al bordo dell'area dati",
+      "lastUsedCell": "Vai all'ultima cella usata",
+      "extendToLastUsedCell": "Estendi la selezione fino all'ultima cella usata",
+      "insertAutoText": "Inserisci blocco predefinito (nome prima del cursore)"
     }
   },
   "spreadsheet": {

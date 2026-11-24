@@ -324,7 +324,19 @@
       "fillRight": "Naar rechts doorvoeren",
       "openFilterMenu": "Filtermenu openen (op een kopcel met filterpijl)",
       "insertFunction": "Functie invoegen",
-      "toggleReference": "Verwijzing absoluut of relatief (tijdens het bewerken van een formule)"
+      "toggleReference": "Verwijzing absoluut of relatief (tijdens het bewerken van een formule)",
+      "timeFormat": "Tijdnotatie",
+      "fillSelection": "Selectie vullen met de invoer",
+      "newLineInCell": "Nieuwe regel in de cel",
+      "clearAndEdit": "Cel leegmaken en bewerken",
+      "hideRows": "Rijen verbergen",
+      "showRows": "Rijen tonen",
+      "showColumns": "Kolommen tonen",
+      "dataEdge": "Naar de rand van het gegevensblok",
+      "extendToDataEdge": "Selectie uitbreiden tot de rand van het gegevensblok",
+      "lastUsedCell": "Naar de laatst gebruikte cel",
+      "extendToLastUsedCell": "Selectie uitbreiden tot de laatst gebruikte cel",
+      "insertAutoText": "Bouwsteen invoegen (naam vóór de cursor)"
     }
   },
   "spreadsheet": {

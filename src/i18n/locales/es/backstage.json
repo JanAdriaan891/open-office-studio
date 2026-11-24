@@ -490,5 +490,22 @@
     "commentsNone": "Do not print",
     "commentsAtEnd": "At the end of the sheet",
     "commentsDisplayed": "Visible notes as displayed on the sheet"
+  },
+  "templates": {
+    "title": "Plantillas",
+    "hint": "Una plantilla se abre como un documento nuevo sin título",
+    "all": "Todas",
+    "mine": "Mis plantillas",
+    "mineEmpty": "Aún no hay plantillas propias. Guarde el documento actual como plantilla o añada un archivo DOTX, XLTX o POTX.",
+    "saveCurrent": "Documento actual como plantilla",
+    "saveCurrentTitle": "Guardar el documento abierto en Mis plantillas (como {{format}})",
+    "add": "Añadir plantilla…",
+    "nameLabel": "Nombre de la plantilla",
+    "openTitle": "Documento nuevo basado en «{{name}}»",
+    "delete": "Eliminar «{{name}}»",
+    "saved": "Plantilla «{{name}}» guardada en Mis plantillas.",
+    "saveFailed": "No se pudo guardar la plantilla: {{error}}",
+    "openFailed": "No se pudo abrir la plantilla: {{error}}",
+    "unsupported": "{{name}} no es una plantilla compatible (DOTX, XLTX, POTX, DOCX, XLSX o PPTX de hasta 50 MB)."
   }
 }

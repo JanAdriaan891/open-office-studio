@@ -2037,5 +2037,106 @@
     "team": "Team",
     "groupEdit": "Select a part to edit its text and formatting. The group size scales all parts together.",
     "unsupported": "This object contains drawing features that cannot be safely edited here. They are preserved when saving."
+  },
+  "autoText": {
+    "buildingBlocks": "Blocs de construction",
+    "hint": "Tapez le nom et appuyez sur {{key}} pour insérer un bloc",
+    "general": "Général",
+    "empty": "Aucun bloc pour l’instant",
+    "emptyHelp": "Sélectionnez du texte et choisissez Insertion › Blocs de construction › Enregistrer la sélection.",
+    "saveSelection": "Enregistrer la sélection comme bloc…",
+    "manage": "Gérer les blocs…",
+    "saveTitle": "Nouveau bloc de construction",
+    "name": "Nom",
+    "category": "Catégorie",
+    "replace": "Remplacer",
+    "saveHint": "Plus tard, tapez le nom dans le document et appuyez sur {{key}} pour insérer ce texte avec sa mise en forme.",
+    "exists": "Un bloc portant ce nom existe déjà ; l’enregistrer le remplace.",
+    "skipped": "Les images, tableaux et autres objets de la sélection ne sont pas enregistrés ; seulement le texte mis en forme.",
+    "insert": "Insérer",
+    "import": "Importer…",
+    "export": "Exporter",
+    "imported": "Importés : {{number}}",
+    "fileName": "Blocs de construction",
+    "errors": {
+      "selectText": "Sélectionnez d’abord le texte à conserver comme bloc.",
+      "import": "Ce fichier ne contient pas de liste valide.",
+      "noMatch": "Aucun bloc nommé « {{name}} ».",
+      "typeName": "Tapez le nom d’un bloc puis appuyez sur F3."
+    }
+  },
+  "autoCorrect": {
+    "button": "Options de correction automatique",
+    "title": "Correction automatique",
+    "tabs": {
+      "replace": "Remplacer",
+      "exceptions": "Exceptions",
+      "options": "Options"
+    },
+    "language": "Langue",
+    "replace": "Remplacer",
+    "with": "Par",
+    "add": "Ajouter",
+    "reset": "Restaurer la liste par défaut de cette langue",
+    "noCapitalAfter": "Pas de majuscule après",
+    "noCapitalAfterHint": "Abréviations avec un point, comme fig. ou tél.",
+    "twoCapitals": "Autoriser DEux MAjuscules",
+    "twoCapitalsHint": "Mots qui doivent garder deux majuscules initiales.",
+    "removeItem": "Supprimer {{item}}",
+    "enabled": "Correction automatique pendant la frappe",
+    "whileTyping": "Pendant la frappe",
+    "options": {
+      "tweeHoofdletters": "Corriger DEux MAjuscules en début de mot",
+      "zinsbegin": "Majuscule en début de phrase",
+      "vervangen": "Remplacer le texte lors de la frappe (table de remplacement)",
+      "aanhalingstekens": "Guillemets typographiques selon la langue du document",
+      "streepjes": "Remplacer les tirets (– et —)",
+      "rangtelwoorden": "Ordinaux en exposant (1er, 2e)",
+      "urls": "Reconnaître les adresses web et e-mail"
+    },
+    "undoHint": "Ctrl+Z juste après une correction l’annule.",
+    "importedHint": "Liste importée ; choisissez OK pour la conserver.",
+    "fileName": "Correction automatique"
+  },
+  "navigator": {
+    "title": "Navigateur",
+    "search": "Rechercher dans le navigateur",
+    "headingTools": "Modifier les titres",
+    "expand": "Développer",
+    "collapse": "Réduire",
+    "dropAtEnd": "Déposer ici : à la fin",
+    "loading": "Chargement…",
+    "none": "Aucun",
+    "noMatches": "Aucun résultat",
+    "noHeadings": "Aucun titre. Appliquez un style de titre (Titre 1, Titre 2…) aux paragraphes pour les voir ici.",
+    "footnote": "Note {{n}} : {{text}}",
+    "page": "Page {{n}}",
+    "categories": {
+      "koppen": "Titres",
+      "tabellen": "Tableaux",
+      "afbeeldingen": "Images",
+      "bladwijzers": "Signets",
+      "opmerkingen": "Commentaires",
+      "voetnoten": "Notes de bas de page",
+      "secties": "Sections",
+      "koppelingen": "Liens hypertexte"
+    },
+    "menu": {
+      "chapterUp": "Monter le chapitre",
+      "chapterDown": "Descendre le chapitre",
+      "promoteChapter": "Hausser le chapitre",
+      "demoteChapter": "Abaisser le chapitre",
+      "promoteLevel": "Hausser ce titre uniquement",
+      "demoteLevel": "Abaisser ce titre uniquement",
+      "rename": "Renommer",
+      "deleteChapter": "Supprimer le chapitre",
+      "delete": "Supprimer",
+      "removeLink": "Supprimer le lien"
+    },
+    "errors": {
+      "notFound": "Cet élément n’est plus dans le document.",
+      "level": "Les titres vont du niveau 1 au niveau 9.",
+      "bookmarkExists": "Un signet nommé {{name}} existe déjà."
+    }
   }
 }

@@ -23,7 +23,7 @@ import { foutTekst } from "../fouten";
 import { grootteTekst, inhoudstype } from "../kantoor";
 import { Adresveld } from "./Adresveld";
 import { useVraag } from "./Dialoog";
-import { conceptOpslaanToets } from "./opstel-sneltoetsen";
+import { conceptOpslaanToets, toetsBuitenOpstelling } from "./opstel-sneltoetsen";
 
 export interface OpstelActies {
   /** Concept bewaren (Ctrl+S van de host). */
@@ -74,6 +74,7 @@ export function Opstelvenster({
   const [slepen, setSlepen] = useState(false);
   const [koppeling, setKoppeling] = useState<{ url: string; bereik: Range | null } | null>(null);
   const editor = useRef<HTMLDivElement>(null);
+  const venster = useRef<HTMLElement>(null);
   const bestandskiezer = useRef<HTMLInputElement>(null);
   const [vraagElement, vraag, vraagOpen] = useVraag();
   const recent = useRef({ gewijzigd, onOnverzonden });
@@ -156,6 +157,20 @@ export function Opstelvenster({
   useEffect(() => {
     registreer?.({ bewaren: () => void bewaarConcept() });
     return () => registreer?.(null);
+  });
+
+  // De geadverteerde Ctrl+S geldt voor de hele opstelling, ook als de focus het
+  // venster kwijt is (body/achtergrond). De host slaat modals over en bewaart
+  // het document erachter dus niet; zonder deze luisteraar gebeurde er dan niets.
+  useEffect(() => {
+    const toets = (e: KeyboardEvent) => {
+      if (vraagOpen) return;
+      const doel = e.target instanceof Element ? e.target : null;
+      if (toetsBuitenOpstelling(doel, venster.current))
+        conceptOpslaanToets(e, !!bezig, bewaarConcept);
+    };
+    document.addEventListener("keydown", toets);
+    return () => document.removeEventListener("keydown", toets);
   });
 
   async function verzend() {
@@ -283,6 +298,7 @@ export function Opstelvenster({
       <section
         className={`email-opstelvenster ${slepen ? "is-slepen" : ""}`}
         role="dialog"
+        ref={venster}
         aria-modal="true"
         aria-label={onderwerp ? t("compose.label", { subject: onderwerp }) : t("compose.newMessage")}
         inert={vraagOpen}

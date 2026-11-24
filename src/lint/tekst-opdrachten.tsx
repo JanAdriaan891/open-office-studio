@@ -27,6 +27,7 @@ import { metHeleAlinea } from "../tekst/stijlen/toepassen";
 import { tabelInvoegen } from "../tekst/tabel/opdrachten";
 import { leesKlembordTekst } from "../klembord";
 import { hoofdletterVervangingen } from "../tekst/bewerken/hoofdletters";
+import { bouwsteenViaNaam } from "../tekst/bouwstenen/Bouwstenen";
 import {
   selectieBegin,
   specialeTekens,
@@ -387,6 +388,11 @@ export function useTekstOpdrachten({
     {
       toets: "Ctrl+M",
       uitvoeren: () => voerUit("clearFormatting", null),
+      beschikbaar: kanBewerken,
+    },
+    {
+      toets: "F3",
+      uitvoeren: () => void bouwsteenViaNaam(api).catch(fout),
       beschikbaar: kanBewerken,
     },
     {

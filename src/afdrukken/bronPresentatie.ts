@@ -175,11 +175,17 @@ export async function presentatiePaginas(
   const paginas: AfdrukPagina[] = [];
   const bladwijzers: AfdrukDocument["bladwijzers"] = [];
   const diaTitel = (index: number) => {
-    const eerste = snapshot.slides[index]?.shapes
-      .flatMap((s) => s.textStories)
-      .flatMap((v) => v.paragraphs)
-      .map((p) => p.runs.map((r) => r.text).join(""))
-      .find((t) => t.trim());
+    // Voorkeur: de titelplaatshouder (title/ctrTitle), anders de eerste tekst op de dia.
+    const vormen = snapshot.slides[index]?.shapes ?? [];
+    const isTitel = (v: (typeof vormen)[number]) =>
+      /^(title|ctrTitle)$/.test(String((v.placeholder as { placeholderType?: unknown } | null)?.placeholderType ?? ""));
+    const tekstVan = (lijst: typeof vormen) =>
+      lijst
+        .flatMap((s) => s.textStories)
+        .flatMap((v) => v.paragraphs)
+        .map((p) => p.runs.map((r) => r.text).join(""))
+        .find((t) => t.trim());
+    const eerste = tekstVan(vormen.filter(isTitel)) ?? tekstVan(vormen);
     return eerste
       ? i18next.t("presentation:print.slideWithTitle", {
           number: index + 1,

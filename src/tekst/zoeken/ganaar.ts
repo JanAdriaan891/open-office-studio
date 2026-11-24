@@ -52,13 +52,13 @@ function naarPositie(ref: DocxEditorRef, positie: number | null | undefined) {
   return true;
 }
 
-function naarPlek(ref: DocxEditorRef, plek: { story: string; paraId: string; offset: number }, lengte = 0) {
+export function naarPlek(ref: DocxEditorRef, plek: { story: string; paraId: string; offset: number }, lengte = 0, focus = true) {
   const { sessie, weergave } = engine(ref);
   sessie.setSelection(plek, lengte ? { ...plek, offset: plek.offset + lengte } : undefined);
   weergave.syncYrsInputState(false, [plek.story]);
   const positie = weergave.yrsLocToDisplayPosition(plek);
   if (positie !== null) weergave.scrollToPosition(positie);
-  ref.focus();
+  if (focus) ref.focus();
 }
 
 /** Eerste tekstpositie op de fysieke pagina, ook bij een doorlopende alinea. */

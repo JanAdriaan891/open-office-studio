@@ -537,7 +537,12 @@
     "allowBlank": "Allow blank cells",
     "inCellDropdown": "In-cell dropdown",
     "showInputMessage": "Show input message",
-    "showErrorMessage": "Show error alert"
+    "showErrorMessage": "Show error alert",
+    "search": "在列表中搜索",
+    "noMatches": "未找到选项",
+    "matches": "{{total}} 个选项中的 {{found}} 个",
+    "moreMatches": "显示 {{total}} 个选项中的前 {{shown}} 个；输入以缩小范围",
+    "growSource": "将来源扩展到 {{range}}（+{{added}}）"
   },
   "protection": {
     "title": "Protection",
@@ -970,6 +975,177 @@
       "unsupportedPivot": "This pivot layout cannot be edited safely."
     }
   },
+  "dataTools": {
+    "group": "数据工具",
+    "ok": "确定",
+    "range": "区域：{{range}}",
+    "header": "数据包含标题",
+    "selectAll": "全选",
+    "selectNone": "取消全选",
+    "messages": {
+      "needRows": "该区域不包含数据行。",
+      "needColumns": "请至少选择一列。"
+    },
+    "duplicates": {
+      "button": "删除重复项",
+      "title": "删除重复项",
+      "action": "操作",
+      "actions": {
+        "verwijderen": "删除重复项",
+        "markerenDubbel": "突出显示重复值",
+        "markerenUniek": "突出显示唯一值",
+        "filteren": "仅显示唯一行（筛选）"
+      },
+      "run": {
+        "verwijderen": "删除",
+        "markerenDubbel": "突出显示",
+        "markerenUniek": "突出显示",
+        "filteren": "筛选"
+      },
+      "columns": "要比较的列",
+      "none": "未找到重复项。唯一行：{{rows}}。",
+      "result": {
+        "verwijderen_other": "已删除 {{number}} 个重复项；剩余唯一行：{{rows}}。",
+        "markerenDubbel_other": "已突出显示 {{number}} 行重复值（共 {{rows}} 行）。",
+        "markerenUniek_other": "已突出显示 {{number}} 行唯一值（共 {{rows}} 行）。",
+        "filteren_other": "已隐藏 {{number}} 行重复行；可见唯一行：{{rows}}。使用“显示行”可再次显示。"
+      }
+    },
+    "apply": "应用",
+    "textToColumns": {
+      "button": "分列",
+      "title": "文本分列",
+      "source_other": "源：{{range}}（{{rows}} 行）",
+      "kind": "分隔方式",
+      "delimited": "分隔符",
+      "fixedWidth": "固定宽度",
+      "space": "空格",
+      "mergeDelimiters": "连续分隔符视为单个处理",
+      "breaks": "分列线",
+      "breaksHint": "在预览中单击可添加或删除分列线，也可输入字符位置。",
+      "breakPositions": "分列线的字符位置",
+      "destination": "目标单元格",
+      "preview": "结果预览",
+      "dmy": "日月年",
+      "mdy": "月日年",
+      "ymd": "年月日",
+      "replace": "替换",
+      "messages": {
+        "oneColumn": "请选择同一列中的单元格。",
+        "badDestination": "请输入有效的目标单元格，例如 B1。",
+        "allSkipped": "所有列都被跳过。",
+        "overwrite_other": "将覆盖 {{number}} 个非空单元格。选择“替换”以继续。"
+      }
+    },
+    "analysisGroup": "分析",
+    "goalSeek": {
+      "button": "单变量求解",
+      "title": "单变量求解",
+      "formulaCell": "目标单元格",
+      "target": "目标值",
+      "variableCell": "可变单元格",
+      "solve": "求解",
+      "busy": "正在求解…",
+      "hint": "计算在副本中进行；只有选择“应用”后工作表才会更改。",
+      "found": "已找到解：{{cell}} = {{value}}（公式 {{formula}} = {{result}}）。",
+      "notFound": "未找到精确解。最接近：{{cell}} = {{value}}，结果为 {{result}}。",
+      "messages": {
+        "needFormula": "目标单元格必须包含公式。",
+        "needValue": "可变单元格必须包含数字（不能是公式或文本）。",
+        "badFormulaCell": "请输入有效的目标单元格，例如 B5。",
+        "badTarget": "请输入数字作为目标值。",
+        "badVariableCell": "请输入有效的可变单元格，例如 B1。",
+        "noNumber": "公式未返回数字；未找到解。"
+      }
+    },
+    "statistics": {
+      "button": "统计",
+      "title": "统计",
+      "run": "运行",
+      "analysis": "分析",
+      "analyses": {
+        "beschrijvend": "描述统计",
+        "correlatie": "相关系数",
+        "regressie": "线性回归",
+        "histogram": "直方图（频率）",
+        "steekproef": "抽样"
+      },
+      "explain": {
+        "beschrijvend": "每个变量的平均值、中位数、众数、标准差、方差、最小值、最大值、极差、求和、计数、偏度和峰度。",
+        "correlatie": "每对变量之间的相关系数（Pearson）。",
+        "regressie": "斜率、截距、R² 和相关系数，以及每个观测值的预测值和残差。",
+        "histogram": "每个分组的值个数和累积百分比。未指定分组区域时，自动选择等宽分组。",
+        "steekproef": "不放回的随机值，或每隔 n 个取一个值。"
+      },
+      "inputRange": "输入区域",
+      "yRange": "Y 值区域（因变量）",
+      "xRange": "X 值区域（自变量）",
+      "binRange": "分组区域（上限）",
+      "automatic": "自动",
+      "sampleSize": "值的个数",
+      "period": "每隔 n 个取一个",
+      "groupedBy": "变量分组方式",
+      "columns": "列",
+      "rows": "行",
+      "method": "方法",
+      "random": "随机",
+      "periodic": "周期",
+      "labelsRow": "首行为标志",
+      "labelsColumn": "首列为标志",
+      "formulas": "使用公式（随数据更新）",
+      "chart": "带趋势线的散点图",
+      "chartHint": "插入图表会重新加载工作簿；之后无法再撤消之前的步骤。",
+      "output": "输出",
+      "newSheet": "新工作表",
+      "outputCell": "起始单元格",
+      "sheetName": "统计 {{number}}",
+      "trendline": "趋势线",
+      "column": "列 {{column}}",
+      "row": "行 {{row}}",
+      "measures": {
+        "mean": "平均值",
+        "median": "中位数",
+        "mode": "众数",
+        "stdev": "标准差",
+        "variance": "方差",
+        "min": "最小值",
+        "max": "最大值",
+        "range": "极差",
+        "sum": "求和",
+        "count": "计数",
+        "skewness": "偏度",
+        "kurtosis": "峰度"
+      },
+      "regression": {
+        "title": "回归",
+        "slope": "斜率",
+        "intercept": "截距",
+        "r2": "R²",
+        "r": "相关系数 (r)",
+        "observations": "观测值",
+        "predicted": "预测 Y",
+        "residual": "残差"
+      },
+      "histogram": {
+        "bin": "分组（上限）",
+        "frequency": "频率",
+        "cumulative": "累积 %",
+        "more": "其他"
+      },
+      "messages": {
+        "badRange": "请输入有效区域，例如 A1:B20。",
+        "badDestination": "请输入有效的输出单元格，例如 E1。",
+        "badSize": "请输入正整数。",
+        "noNumbers": "该区域不包含数字。",
+        "needTwoVariables": "相关分析至少需要两个变量。",
+        "needX": "请输入 X 值区域。",
+        "oneVariable": "此分析请选择单列数据。",
+        "sameLength": "X 和 Y 区域的长度必须相同。",
+        "noBins": "分组区域不包含数字。",
+        "emptySample": "样本为空。"
+      }
+    }
+  },
   "boundedGrid": {
     "group": "网格",
     "bounded": "有界网格",
@@ -992,5 +1168,47 @@
     "edgeBoth": "网格边缘：第 {{row}} 行和 {{column}} 列是最后的行和列。",
     "grown": "网格已扩展到 {{rows}} 行、{{columns}} 列。",
     "fitted": "网格已适应内容：{{rows}} 行、{{columns}} 列。"
+  },
+  "insertCount": {
+    "menuRows": "插入多行…",
+    "menuColumns": "插入多列…",
+    "titleRows": "插入行",
+    "titleColumns": "插入列",
+    "countRows": "行数",
+    "countColumns": "列数",
+    "hint": "1 到 {{max}} 之间的整数。",
+    "position": "位置",
+    "above": "所选区域上方",
+    "below": "所选区域下方",
+    "left": "所选区域左侧",
+    "right": "所选区域右侧",
+    "insert": "插入"
+  },
+  "fillTo": {
+    "menu": "填充到单元格…",
+    "title": "填充到单元格",
+    "source": "源区域：{{range}}",
+    "target": "填充到（含）单元格、行或列",
+    "hint": "输入单元格（B500）、行号（500）或列字母（H）。",
+    "invalid": "这不是有效的单元格、行或列。",
+    "inside": "该单元格位于所选区域内，无需填充。",
+    "tooLarge": "一次填充的单元格过多（最多 {{max}}）。",
+    "preview": {
+      "omlaag": "填充 {{range}}：向下 {{cells}} 行。",
+      "omhoog": "填充 {{range}}：向上 {{cells}} 行。",
+      "rechts": "填充 {{range}}：向右 {{cells}} 列。",
+      "links": "填充 {{range}}：向左 {{cells}} 列。"
+    },
+    "fill": "填充",
+    "handleHint": "右键单击：填充到单元格…"
+  },
+  "formulaEditor": {
+    "menu": "在窗口中编辑公式…",
+    "open": "打开公式编辑器",
+    "title": "公式编辑器 – {{cell}}",
+    "label": "单元格 {{cell}} 的内容（Enter：换行，Ctrl+Enter：确认）",
+    "hint": "{{lines}} 行 · {{characters}} 个字符 · Enter：换行 · Ctrl+Enter：确认",
+    "format": "分行排版",
+    "singleLine": "合并为一行"
   }
 }

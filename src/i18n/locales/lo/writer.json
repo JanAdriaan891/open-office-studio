@@ -2009,5 +2009,106 @@
     "team": "Team",
     "groupEdit": "Select a part to edit its text and formatting. The group size scales all parts together.",
     "unsupported": "This object contains drawing features that cannot be safely edited here. They are preserved when saving."
+  },
+  "autoText": {
+    "buildingBlocks": "ບລັອກສຳເລັດຮູບ",
+    "hint": "ພິມຊື່ແລ້ວກົດ {{key}} ເພື່ອແຊກບລັອກສຳເລັດຮູບ",
+    "general": "ທົ່ວໄປ",
+    "empty": "ຍັງບໍ່ມີບລັອກສຳເລັດຮູບ",
+    "emptyHelp": "ເລືອກຂໍ້ຄວາມແລ້ວເລືອກ ແຊກ › ບລັອກສຳເລັດຮູບ › ບັນທຶກສ່ວນທີ່ເລືອກເປັນບລັອກສຳເລັດຮູບ.",
+    "saveSelection": "ບັນທຶກສ່ວນທີ່ເລືອກເປັນບລັອກສຳເລັດຮູບ…",
+    "manage": "ຈັດການບລັອກສຳເລັດຮູບ…",
+    "saveTitle": "ບລັອກສຳເລັດຮູບໃໝ່",
+    "name": "ຊື່",
+    "category": "ໝວດໝູ່",
+    "replace": "ແທນທີ່",
+    "saveHint": "ພາຍຫຼັງ, ພິມຊື່ໃນເອກະສານແລ້ວກົດ {{key}} ເພື່ອແຊກຂໍ້ຄວາມນີ້ພ້ອມການຈັດຮູບແບບ.",
+    "exists": "ມີບລັອກສຳເລັດຮູບຊື່ນີ້ຢູ່ແລ້ວ; ການບັນທຶກຈະແທນທີ່ມັນ.",
+    "skipped": "ຮູບພາບ, ຕາຕະລາງ ແລະ ວັດຖຸອື່ນໃນສ່ວນທີ່ເລືອກຈະບໍ່ຖືກບັນທຶກ; ສະເພາະຂໍ້ຄວາມທີ່ຈັດຮູບແບບເທົ່ານັ້ນ.",
+    "insert": "ແຊກ",
+    "import": "ນຳເຂົ້າ…",
+    "export": "ສົ່ງອອກ",
+    "imported": "ນຳເຂົ້າແລ້ວ: {{number}}",
+    "fileName": "ບລັອກສຳເລັດຮູບ",
+    "errors": {
+      "selectText": "ກະລຸນາເລືອກຂໍ້ຄວາມທີ່ທ່ານຕ້ອງການເກັບເປັນບລັອກສຳເລັດຮູບກ່ອນ.",
+      "import": "ໄຟລ໌ນີ້ບໍ່ມີລາຍການທີ່ຖືກຕ້ອງ.",
+      "noMatch": "ບໍ່ມີບລັອກສຳເລັດຮູບຊື່ “{{name}}”.",
+      "typeName": "ພິມຊື່ຂອງບລັອກສຳເລັດຮູບ, ແລ້ວກົດ F3."
+    }
+  },
+  "autoCorrect": {
+    "button": "ຕົວເລືອກການແກ້ໄຂອັດຕະໂນມັດ",
+    "title": "ການແກ້ໄຂອັດຕະໂນມັດ",
+    "tabs": {
+      "replace": "ແທນທີ່",
+      "exceptions": "ຂໍ້ຍົກເວັ້ນ",
+      "options": "ຕົວເລືອກ"
+    },
+    "language": "ພາສາ",
+    "replace": "ແທນທີ່",
+    "with": "ດ້ວຍ",
+    "add": "ເພີ່ມ",
+    "reset": "ກູ້ຄືນລາຍການເລີ່ມຕົ້ນສຳລັບພາສານີ້",
+    "noCapitalAfter": "ບໍ່ໃຊ້ຕົວພິມໃຫຍ່ຫຼັງຈາກ",
+    "noCapitalAfterHint": "ຕົວຫຍໍ້ທີ່ລົງທ້າຍດ້ວຍຈຸດ, ເຊັ່ນ fig. ຫຼື tel.",
+    "twoCapitals": "ອະນຸຍາດ ຕົວພິມໃຫຍ່ສອງຕົວທຳອິດ (TWo INitial)",
+    "twoCapitalsHint": "ຄຳທີ່ຄວນຮັກສາຕົວພິມໃຫຍ່ສອງຕົວທຳອິດ.",
+    "removeItem": "ລຶບ {{item}}",
+    "enabled": "ແກ້ໄຂອັດຕະໂນມັດຂະນະພິມ",
+    "whileTyping": "ຂະນະພິມ",
+    "options": {
+      "tweeHoofdletters": "ແກ້ໄຂ ຕົວພິມໃຫຍ່ສອງຕົວທຳອິດ (TWo INitial)",
+      "zinsbegin": "ໃຊ້ຕົວພິມໃຫຍ່ກັບຕົວອັກສອນທຳອິດຂອງປະໂຫຍກ",
+      "vervangen": "ແທນທີ່ຂໍ້ຄວາມຂະນະພິມ (ຕາຕະລາງການແທນທີ່)",
+      "aanhalingstekens": "ວົງຢືມອັດສະລິຍະຕາມພາສາຂອງເອກະສານ (“…” ຫຼື „…”)",
+      "streepjes": "ແທນທີ່ຂີດ (– ແລະ —)",
+      "rangtelwoorden": "ເລກລຳດັບເປັນຕົວຍົກ (1st, 2nd; 1e, 2e)",
+      "urls": "ຮັບຮູ້ທີ່ຢູ່ເວັບ ແລະ ອີເມວ"
+    },
+    "undoHint": "Ctrl+Z ທັນທີຫຼັງການແກ້ໄຂ ຈະຍົກເລີກມັນ.",
+    "importedHint": "ນຳເຂົ້າລາຍການແລ້ວ; ເລືອກ ຕົກລົງ ເພື່ອເກັບໄວ້.",
+    "fileName": "ການແກ້ໄຂອັດຕະໂນມັດ"
+  },
+  "navigator": {
+    "title": "ຕົວນຳທາງ",
+    "search": "ຄົ້ນຫາໃນຕົວນຳທາງ",
+    "headingTools": "ແກ້ໄຂຫົວຂໍ້",
+    "expand": "ຂະຫຍາຍ",
+    "collapse": "ຫຍໍ້",
+    "dropAtEnd": "ວາງທີ່ນີ້: ຍ້າຍໄປທ້າຍສຸດ",
+    "loading": "ກຳລັງໂຫຼດ…",
+    "none": "ບໍ່ມີ",
+    "noMatches": "ບໍ່ພົບຜົນ",
+    "noHeadings": "ບໍ່ມີຫົວຂໍ້. ກຳນົດຮູບແບບຫົວຂໍ້ (ຫົວຂໍ້ 1, ຫົວຂໍ້ 2 …) ໃຫ້ຫຍໍ້ໜ້າເພື່ອເບິ່ງທີ່ນີ້.",
+    "footnote": "ເຊີງອັດ {{n}}: {{text}}",
+    "page": "ໜ້າ {{n}}",
+    "categories": {
+      "koppen": "ຫົວຂໍ້",
+      "tabellen": "ຕາຕະລາງ",
+      "afbeeldingen": "ຮູບພາບ",
+      "bladwijzers": "ບຸກມາກ",
+      "opmerkingen": "ຄຳເຫັນ",
+      "voetnoten": "ເຊີງອັດ",
+      "secties": "ພາກສ່ວນ",
+      "koppelingen": "ໄຮເປີລິ້ງ"
+    },
+    "menu": {
+      "chapterUp": "ຍ້າຍບົດຂຶ້ນ",
+      "chapterDown": "ຍ້າຍບົດລົງ",
+      "promoteChapter": "ເລື່ອນລະດັບບົດຂຶ້ນ",
+      "demoteChapter": "ເລື່ອນລະດັບບົດລົງ",
+      "promoteLevel": "ເລື່ອນລະດັບຂຶ້ນສະເພາະຫົວຂໍ້ນີ້",
+      "demoteLevel": "ເລື່ອນລະດັບລົງສະເພາະຫົວຂໍ້ນີ້",
+      "rename": "ປ່ຽນຊື່",
+      "deleteChapter": "ລຶບບົດ",
+      "delete": "ລຶບ",
+      "removeLink": "ລຶບລິ້ງ"
+    },
+    "errors": {
+      "notFound": "ລາຍການນີ້ບໍ່ຢູ່ໃນເອກະສານແລ້ວ.",
+      "level": "ຫົວຂໍ້ມີລະດັບຕັ້ງແຕ່ 1 ຫາ 9.",
+      "bookmarkExists": "ມີບຸກມາກຊື່ {{name}} ຢູ່ແລ້ວ."
+    }
   }
 }

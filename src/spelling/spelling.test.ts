@@ -1,6 +1,7 @@
 import { existsSync, readFileSync } from "node:fs";
 import { beforeAll, describe, expect, it } from "vitest";
-import { autocorrectie, isZinsbegin } from "./autocorrectie";
+import { adresVan, autocorrectie, autocorrecties, isZinsbegin } from "./autocorrectie";
+import { LEGE_LIJST, exportTekst, herstelTaal, importTekst, verwijderVervanging, vervangingenVoor, zetVervanging } from "./autocorrectieLijst";
 import { Controleur, schoonSuggesties, volgHoofdletters } from "./controleur";
 import { DirecteMotor, type Motor } from "./motor";
 import { Spellbook } from "./spellbook";
@@ -227,6 +228,56 @@ describe("autocorrectie", () => {
     expect(pas("Het eigelijk ", { taal: "nl", uitzondering: (w) => w === "eigelijk" })).toBe("Het eigelijk ");
     expect(autocorrectie("auto's", 5, nl)).toBeNull();
     expect(pas("Het huis")).toBe("Het huis"); // geen scheidingsteken getypt
+  });
+});
+
+describe("autocorrectie: tabel, aanhalingstekens, streepjes, opmaak", () => {
+  const nl = { taal: "nl" as const };
+  const en = { taal: "en-GB" as const };
+  const pasAlle = (tekst: string, opties: Parameters<typeof autocorrecties>[2] = nl) => {
+    let uit = tekst;
+    for (const c of autocorrecties(tekst, tekst.length, opties)) uit = uit.slice(0, c.start) + c.nieuw + uit.slice(c.eind);
+    return uit;
+  };
+  it("vervangt tekenreeksen uit de tabel", () => {
+    expect(pasAlle("Tekst (c)")).toBe("Tekst ©");
+    expect(pasAlle("a --> ")).toBe("a → ");
+    expect(pasAlle("en ... ")).toBe("en … ");
+    expect(pasAlle("x (c) ", { taal: "nl", instellingen: { vervangen: false } })).toBe("x (c) ");
+    expect(pasAlle("Met mvg ", { taal: "nl", vervangingen: { mvg: "met vriendelijke groet" } })).toBe("Met met vriendelijke groet ");
+  });
+  it("zet aanhalingstekens per taal", () => {
+    expect(pasAlle('Hij zei "')).toBe("Hij zei „");
+    expect(pasAlle('Hij zei „ja"')).toBe("Hij zei „ja”");
+    expect(pasAlle('He said "', en)).toBe("He said “");
+    expect(pasAlle("auto'")).toBe("auto’");
+    expect(pasAlle('x "', { taal: "nl", instellingen: { aanhalingstekens: false } })).toBe('x "');
+  });
+  it("maakt streepjes", () => {
+    expect(pasAlle("Delft - Gouda ")).toBe("Delft – Gouda ");
+    expect(pasAlle("dit--dat ")).toBe("dit—dat ");
+  });
+  it("rangtelwoorden en URL's worden opmaak, de tekst blijft", () => {
+    const [r] = autocorrecties("de 2e ", 6, { taal: "nl", instellingen: { rangtelwoorden: true } });
+    expect(r).toMatchObject({ start: 4, eind: 5, opmaak: { soort: "superscript" } });
+    expect(autocorrecties("de 2e ", 6, nl)).toEqual([]);
+    const [u] = autocorrecties("zie www.open-aec.com. ", 22, nl);
+    expect(u).toMatchObject({ oud: "www.open-aec.com", opmaak: { soort: "koppeling", href: "https://www.open-aec.com" } });
+    expect(adresVan("info@open-aec.com")).toBe("mailto:info@open-aec.com");
+  });
+  it("kent eigen uitzonderingen", () => {
+    expect(pasAlle("Klaar. dat ", { taal: "nl", instellingen: { zinsbegin: false } })).toBe("Klaar. dat ");
+    expect(pasAlle("Zie afb. de ", { taal: "nl", geenZinsbegin: ["afb."] })).toBe("Zie afb. de ");
+    expect(pasAlle("een CEnter ", { taal: "nl", tweeHoofdlettersToegestaan: ["CEnter"] })).toBe("een CEnter ");
+  });
+  it("gebruikerslijst: toevoegen, weghalen, herstellen en import", () => {
+    let l = zetVervanging(LEGE_LIJST, "nl", "mvg", "Met vriendelijke groet");
+    expect(vervangingenVoor(l, "nl").mvg).toBe("Met vriendelijke groet");
+    l = verwijderVervanging(l, "nl", "(c)");
+    expect(vervangingenVoor(l, "nl")["(c)"]).toBeUndefined();
+    expect(importTekst(exportTekst(l)).verwijderd.nl).toEqual(["(c)"]);
+    expect(vervangingenVoor(herstelTaal(l, "nl"), "nl")["(c)"]).toBe("©");
+    expect(() => importTekst("{}")).toThrow();
   });
 });
 

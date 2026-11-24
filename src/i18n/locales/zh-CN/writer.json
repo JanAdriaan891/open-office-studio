@@ -2009,5 +2009,106 @@
     "team": "Team",
     "groupEdit": "Select a part to edit its text and formatting. The group size scales all parts together.",
     "unsupported": "This object contains drawing features that cannot be safely edited here. They are preserved when saving."
+  },
+  "autoText": {
+    "buildingBlocks": "构建基块",
+    "hint": "输入名称并按 {{key}} 插入构建基块",
+    "general": "常规",
+    "empty": "尚无构建基块",
+    "emptyHelp": "选择文本，然后选择“插入 › 构建基块 › 将所选内容另存为构建基块”。",
+    "saveSelection": "将所选内容另存为构建基块…",
+    "manage": "管理构建基块…",
+    "saveTitle": "新建构建基块",
+    "name": "名称",
+    "category": "类别",
+    "replace": "替换",
+    "saveHint": "之后在文档中输入名称并按 {{key}}，即可插入带格式的此文本。",
+    "exists": "已存在同名构建基块；保存将替换它。",
+    "skipped": "所选内容中的图片、表格和其他对象不会保存；仅保存带格式的文本。",
+    "insert": "插入",
+    "import": "导入…",
+    "export": "导出",
+    "imported": "已导入：{{number}}",
+    "fileName": "构建基块",
+    "errors": {
+      "selectText": "请先选择要保存为构建基块的文本。",
+      "import": "此文件不包含有效的列表。",
+      "noMatch": "没有名为“{{name}}”的构建基块。",
+      "typeName": "输入构建基块名称，然后按 F3。"
+    }
+  },
+  "autoCorrect": {
+    "button": "自动更正选项",
+    "title": "自动更正",
+    "tabs": {
+      "replace": "替换",
+      "exceptions": "例外",
+      "options": "选项"
+    },
+    "language": "语言",
+    "replace": "替换",
+    "with": "替换为",
+    "add": "添加",
+    "reset": "恢复此语言的默认列表",
+    "noCapitalAfter": "以下内容后不大写",
+    "noCapitalAfterHint": "以句点结尾的缩写，例如 fig. 或 tel.",
+    "twoCapitals": "允许前两个字母大写",
+    "twoCapitalsHint": "应保留前两个字母大写的单词。",
+    "removeItem": "删除 {{item}}",
+    "enabled": "键入时自动更正",
+    "whileTyping": "键入时",
+    "options": {
+      "tweeHoofdletters": "更正前两个字母连续大写",
+      "zinsbegin": "句首字母大写",
+      "vervangen": "键入时替换文本（替换表）",
+      "aanhalingstekens": "按文档语言使用智能引号",
+      "streepjes": "替换破折号（– 和 —）",
+      "rangtelwoorden": "序数词上标（1st、2nd）",
+      "urls": "识别网址和电子邮件地址"
+    },
+    "undoHint": "更正后立即按 Ctrl+Z 可撤销更正。",
+    "importedHint": "列表已导入；选择“确定”以保存。",
+    "fileName": "自动更正"
+  },
+  "navigator": {
+    "title": "导航器",
+    "search": "在导航器中搜索",
+    "headingTools": "编辑标题",
+    "expand": "展开",
+    "collapse": "折叠",
+    "dropAtEnd": "拖放到此处：移至末尾",
+    "loading": "正在加载…",
+    "none": "无",
+    "noMatches": "无匹配项",
+    "noHeadings": "没有标题。为段落应用标题样式（标题 1、标题 2…）即可在此显示。",
+    "footnote": "脚注 {{n}}：{{text}}",
+    "page": "第 {{n}} 页",
+    "categories": {
+      "koppen": "标题",
+      "tabellen": "表格",
+      "afbeeldingen": "图像",
+      "bladwijzers": "书签",
+      "opmerkingen": "批注",
+      "voetnoten": "脚注",
+      "secties": "节",
+      "koppelingen": "超链接"
+    },
+    "menu": {
+      "chapterUp": "章节上移",
+      "chapterDown": "章节下移",
+      "promoteChapter": "提升章节",
+      "demoteChapter": "降级章节",
+      "promoteLevel": "仅提升此标题",
+      "demoteLevel": "仅降级此标题",
+      "rename": "重命名",
+      "deleteChapter": "删除章节",
+      "delete": "删除",
+      "removeLink": "删除链接"
+    },
+    "errors": {
+      "notFound": "此项已不在文档中。",
+      "level": "标题级别为 1 到 9。",
+      "bookmarkExists": "已存在名为 {{name}} 的书签。"
+    }
   }
 }
