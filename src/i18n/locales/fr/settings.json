@@ -128,7 +128,16 @@
     "removeWord": "Retirer {{word}}",
     "remove": "Retirer",
     "keyboard": "Clavier",
-    "showShortcuts": "Afficher les raccourcis clavier · F1"
+    "showShortcuts": "Afficher les raccourcis clavier · F1",
+    "spreadsheet": "Tableur",
+    "gridDefault": "Grille par défaut",
+    "gridOptions": {
+      "onbeperkt": "Grille illimitée",
+      "begrensd": "Grille limitée (s’agrandit avec le contenu)"
+    },
+    "gridMarginRows": "Marge en lignes",
+    "gridMarginColumns": "Marge en colonnes",
+    "gridHelp": "S’applique aux classeurs sans choix propre ; modifiable par feuille dans Affichage ou la barre d’état. La grille limitée affiche la zone utilisée plus la marge. Le fichier XLSX ne change pas pour autant."
   },
   "email": {
     "privacy": "Confidentialité",

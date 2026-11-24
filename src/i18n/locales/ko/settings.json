@@ -119,7 +119,16 @@
     "removeWord": "{{word}} 제거",
     "remove": "제거",
     "keyboard": "키보드",
-    "showShortcuts": "바로 가기 키 보기 · F1"
+    "showShortcuts": "바로 가기 키 보기 · F1",
+    "spreadsheet": "Spreadsheet",
+    "gridDefault": "Default grid",
+    "gridOptions": {
+      "onbeperkt": "Unlimited grid",
+      "begrensd": "Bounded grid (grows with content)"
+    },
+    "gridMarginRows": "Margin in rows",
+    "gridMarginColumns": "Margin in columns",
+    "gridHelp": "Applies to workbooks without a choice of their own; switch per sheet on the View tab or in the status bar. The bounded grid shows the used area plus the margin. The XLSX file does not change because of it."
   },
   "email": {
     "privacy": "개인 정보",

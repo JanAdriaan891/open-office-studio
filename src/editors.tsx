@@ -38,6 +38,7 @@ import { intlLocale } from "./i18n/config";
 import { useHerladen } from "./grafieken/ui/herladen";
 import { laadFiltersUitBestand, maakRekenbladLaag } from "./lint/rekenblad-laag";
 import { werkboekBytes } from "./lint/rekenblad-filter";
+import { bereidRasterWeergave } from "./rekenblad/rasterWeergave";
 import { laadCelnotities, metCelnotitieAnkers } from "./rekenblad/celnotitieAnkers";
 import { werkEigenschappenBij } from "./tekst/info/opslaan";
 import { registreerVeldNaam, werkDocumentVeldenBij } from "./tekst/veldenDocument/opdrachten";
@@ -339,7 +340,10 @@ export default function OfficeEditor(props: EditorProps) {
         if (actief) setFontFaces(faces);
       }
       if (props.soort === "xlsx") await lt.registreerVervangers(info);
-      const melding = vervangingsMelding(info.vervangingen);
+      // Zonder systeemlijst (te trage schijfscan) is "niet op deze computer"
+      // niet vast te stellen: dan wel de vervangers, geen melding.
+      const melding =
+        info.systeemBekend === false ? null : vervangingsMelding(info.vervangingen);
       // Metrisch gelijke vervangers veranderen de opmaak niet: alleen ter
       // informatie. Een benadering kan regels laten verschuiven: blijft staan.
       const toon = info.vervangingen.some((v) => v.soort === "benadering")
@@ -373,6 +377,7 @@ export default function OfficeEditor(props: EditorProps) {
       bereidBladEigenschappen(api.handle, herladenRecent.current.bytes);
       bereidVoorwaardelijkeWeergave(api.handle);
       bereidGroepen(api.handle, herladenRecent.current.bytes);
+      bereidRasterWeergave(api, herladenRecent.current.bytes, recent.current.naam);
       setRekenbladApi(api);
       const stopWijziging = registreerWijziging(api.handle, () =>
         recent.current.gewijzigd(),
@@ -533,7 +538,7 @@ export default function OfficeEditor(props: EditorProps) {
                   />
                 }
               />
-              <RekenbladKoppen host={rekenbladHost} api={rekenbladApi} />
+              <RekenbladKoppen host={rekenbladHost} api={rekenbladApi} laag={rekenbladLaag} />
               {rekenbladSpelling.element}
             </div>
           </EditorZichtbaar.Provider>

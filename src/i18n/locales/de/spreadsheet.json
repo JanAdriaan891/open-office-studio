@@ -1154,5 +1154,28 @@
         "emptySample": "Die Stichprobe ist leer."
       }
     }
+  },
+  "boundedGrid": {
+    "group": "Raster",
+    "bounded": "Begrenztes Raster",
+    "unbounded": "Unbegrenztes Raster",
+    "boundedHint": "Zeigt nur den verwendeten Bereich plus einen Rand; das Raster wächst mit. Die Datei selbst ändert sich dadurch nicht.",
+    "statusBounded": "Begrenztes Raster: {{rows}} Zeilen × {{columns}} Spalten. Klicken für ein unbegrenztes Raster.",
+    "statusUnbounded": "Unbegrenztes Raster. Klicken für ein begrenztes Raster, das mitwächst.",
+    "fit": "Raster an Inhalt anpassen",
+    "fitHint": "Das Raster auf den Inhalt plus Rand verkleinern",
+    "addRow": "Zeile hinzufügen",
+    "addColumn": "Spalte hinzufügen",
+    "addRowHint": "Zeile hinzufügen · Umschalt+Klick: {{amount}} Zeilen · Ziehen: mehr Zeilen",
+    "addColumnHint": "Spalte hinzufügen · Umschalt+Klick: {{amount}} Spalten · Ziehen: mehr Spalten",
+    "row": "Zeile",
+    "column": "Spalte",
+    "addRows": "+{{amount}} Zeilen",
+    "addColumns": "+{{amount}} Spalten",
+    "edgeRow": "Rand des Rasters: Zeile {{row}} ist die letzte Zeile. Mit „Zeile hinzufügen“ wird das Raster erweitert.",
+    "edgeColumn": "Rand des Rasters: Spalte {{column}} ist die letzte Spalte. Mit „Spalte hinzufügen“ wird das Raster erweitert.",
+    "edgeBoth": "Rand des Rasters: Zeile {{row}} und Spalte {{column}} sind die letzten.",
+    "grown": "Raster erweitert auf {{rows}} Zeilen und {{columns}} Spalten.",
+    "fitted": "Raster an den Inhalt angepasst: {{rows}} Zeilen und {{columns}} Spalten."
   }
 }

@@ -213,6 +213,29 @@ export const ALLE_STIJLEN = [
   [true, true],
 ] as const;
 
+/**
+ * De uitkomst van `belofte`, of `anders` als die er na `ms` nog niet is. Het
+ * werk zelf loopt door; alleen wie erop wacht gaat verder (#370).
+ */
+export function binnenTijd<T>(belofte: Promise<T>, ms: number, anders: T): Promise<T> {
+  return new Promise<T>((klaar, mislukt) => {
+    const timer = setTimeout(() => klaar(anders), ms);
+    belofte.then(
+      (waarde) => {
+        clearTimeout(timer);
+        klaar(waarde);
+      },
+      (fout) => {
+        clearTimeout(timer);
+        mislukt(fout);
+      },
+    );
+  });
+}
+
+/** Zo lang mag het ophalen en laden van één CSS-lettertype het openen ophouden. */
+export const CSS_TIJDSLIMIET = 10_000;
+
 const cssGeregistreerd = new Map<string, Promise<boolean>>();
 
 /**
@@ -231,7 +254,7 @@ export function registreerCss(
   const sleutel = `${cssNaam.toLowerCase()}|${familie.toLowerCase()}|${stijlen.map(([v, c]) => `${+v}${+c}`).join("")}`;
   let bestaand = cssGeregistreerd.get(sleutel);
   if (bestaand) return bestaand;
-  bestaand = (async () => {
+  const werk = (async () => {
     const resultaten = await Promise.all(
       stijlen.map(async ([vet, cursief]) => {
         const extra = extraFace(familie, vet, cursief);
@@ -255,10 +278,18 @@ export function registreerCss(
       }),
     );
     return resultaten.some(Boolean);
-  })().catch(() => {
-    cssGeregistreerd.delete(sleutel);
-    return false;
-  });
+  })();
+  // Een lettertype dat niet laadt (FontFace.load zonder uitkomst) mag het
+  // openen niet eindeloos laten wachten; een latere poging begint opnieuw.
+  bestaand = binnenTijd<boolean | null>(werk, CSS_TIJDSLIMIET, null)
+    .then((gelukt) => {
+      if (gelukt === null) cssGeregistreerd.delete(sleutel);
+      return !!gelukt;
+    })
+    .catch(() => {
+      cssGeregistreerd.delete(sleutel);
+      return false;
+    });
   cssGeregistreerd.set(sleutel, bestaand);
   return bestaand;
 }

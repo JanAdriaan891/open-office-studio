@@ -126,7 +126,16 @@
     "removeWord": "删除 {{word}}",
     "remove": "删除",
     "keyboard": "键盘",
-    "showShortcuts": "查看键盘快捷键 · F1"
+    "showShortcuts": "查看键盘快捷键 · F1",
+    "spreadsheet": "电子表格",
+    "gridDefault": "默认网格",
+    "gridOptions": {
+      "onbeperkt": "无限网格",
+      "begrensd": "有界网格（随内容增长）"
+    },
+    "gridMarginRows": "边距（行）",
+    "gridMarginColumns": "边距（列）",
+    "gridHelp": "适用于没有自身设置的工作簿；可在“视图”或状态栏中按工作表切换。有界网格显示已使用区域及边距。XLSX 文件不会因此改变。"
   },
   "email": {
     "privacy": "隐私",

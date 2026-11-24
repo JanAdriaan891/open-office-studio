@@ -127,7 +127,16 @@
     "removeWord": "{{word}} verwijderen",
     "remove": "Verwijderen",
     "keyboard": "Toetsenbord",
-    "showShortcuts": "Sneltoetsen bekijken · F1"
+    "showShortcuts": "Sneltoetsen bekijken · F1",
+    "spreadsheet": "Rekenblad",
+    "gridDefault": "Standaardraster",
+    "gridOptions": {
+      "onbeperkt": "Onbeperkt raster",
+      "begrensd": "Begrensd raster (groeit mee)"
+    },
+    "gridMarginRows": "Marge in rijen",
+    "gridMarginColumns": "Marge in kolommen",
+    "gridHelp": "Geldt voor werkmappen zonder eigen keuze; per blad te wisselen via Beeld of de statusbalk. Het begrensde raster toont het gebruikte gebied plus de marge. Het XLSX-bestand verandert daardoor niet."
   },
   "email": {
     "privacy": "Privacy",

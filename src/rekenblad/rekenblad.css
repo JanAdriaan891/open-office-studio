@@ -313,3 +313,93 @@
 .rekenblad-formulefout p { margin: 6px 0 0; }
 
 .office-rekenblad-host [data-testid="xlsx-sheet-tabs"] [data-oos-tabkleur] { box-shadow: inset 0 -3px 0 var(--oos-tabkleur); }
+
+/* Begrensd raster (#371): buiten het gebruikte gebied geen cellen maar een
+   rustig vlak, met groeistroken langs de rechter- en onderrand. */
+.office .office-rekenblad-host[data-raster-begrensd] [data-testid="xlsx-scroll"] > div:first-child {
+  width: var(--raster-breedte, auto) !important;
+  height: var(--raster-hoogte, auto) !important;
+}
+.office .office-rekenblad-host[data-raster-begrensd] [data-testid="xlsx-scroll"] {
+  overflow-x: var(--raster-schuif-x, auto) !important;
+  overflow-y: var(--raster-schuif-y, auto) !important;
+}
+.office .rekenblad-rastergrens {
+  pointer-events: none;
+}
+.office .rekenblad-rastervlak {
+  position: absolute;
+  z-index: 3;
+  background: #f3f5f7;
+  pointer-events: none;
+}
+.office .rekenblad-groeistrook,
+.office .rekenblad-rasterpassend {
+  position: absolute;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0 solid #cfd6dc;
+  background: #e9edf1;
+  color: #5b6772;
+  font: 10px Inter, sans-serif;
+  white-space: nowrap;
+  cursor: pointer;
+  pointer-events: auto;
+  touch-action: none;
+  user-select: none;
+}
+.office .rekenblad-groeistrook.is-kolom {
+  flex-direction: column;
+  border-left-width: 1px;
+  cursor: e-resize;
+}
+.office .rekenblad-groeistrook.is-kolom > span {
+  writing-mode: vertical-rl;
+}
+.office .rekenblad-groeistrook.is-rij {
+  border-top-width: 1px;
+  cursor: s-resize;
+}
+.office .rekenblad-rasterpassend {
+  z-index: 5;
+  border-width: 1px 0 0 1px;
+}
+.office .rekenblad-groeistrook:hover,
+.office .rekenblad-rasterpassend:hover {
+  background: #dde9e2;
+  color: #2f6247;
+}
+.office .rekenblad-groeistrook:active {
+  background: #cfe2d7;
+}
+.office .rekenblad-groeistrook:focus-visible,
+.office .rekenblad-rasterpassend:focus-visible {
+  outline: 2px solid #bc6a15;
+  outline-offset: -2px;
+}
+.office .rekenblad-rastermelding {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+@media (forced-colors: active) {
+  .office .rekenblad-rastervlak {
+    background: Canvas;
+  }
+  .office .rekenblad-groeistrook,
+  .office .rekenblad-rasterpassend {
+    border-color: ButtonText;
+    background: ButtonFace;
+    color: ButtonText;
+  }
+}

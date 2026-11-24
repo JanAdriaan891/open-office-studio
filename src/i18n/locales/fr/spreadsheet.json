@@ -1168,5 +1168,28 @@
         "emptySample": "L'échantillon est vide."
       }
     }
+  },
+  "boundedGrid": {
+    "group": "Grille",
+    "bounded": "Grille limitée",
+    "unbounded": "Grille illimitée",
+    "boundedHint": "Affiche uniquement la zone utilisée plus une marge ; la grille s’agrandit avec le contenu. Le fichier lui-même ne change pas.",
+    "statusBounded": "Grille limitée : {{rows}} lignes × {{columns}} colonnes. Cliquez pour une grille illimitée.",
+    "statusUnbounded": "Grille illimitée. Cliquez pour une grille limitée qui s’agrandit avec le contenu.",
+    "fit": "Ajuster la grille au contenu",
+    "fitHint": "Réduire la grille au contenu plus la marge",
+    "addRow": "Ajouter une ligne",
+    "addColumn": "Ajouter une colonne",
+    "addRowHint": "Ajouter une ligne · Maj+clic : {{amount}} lignes · glisser : plus de lignes",
+    "addColumnHint": "Ajouter une colonne · Maj+clic : {{amount}} colonnes · glisser : plus de colonnes",
+    "row": "ligne",
+    "column": "colonne",
+    "addRows": "+{{amount}} lignes",
+    "addColumns": "+{{amount}} colonnes",
+    "edgeRow": "Bord de la grille : la ligne {{row}} est la dernière. Utilisez Ajouter une ligne pour agrandir la grille.",
+    "edgeColumn": "Bord de la grille : la colonne {{column}} est la dernière. Utilisez Ajouter une colonne pour agrandir la grille.",
+    "edgeBoth": "Bord de la grille : la ligne {{row}} et la colonne {{column}} sont les dernières.",
+    "grown": "Grille étendue à {{rows}} lignes et {{columns}} colonnes.",
+    "fitted": "Grille ajustée au contenu : {{rows}} lignes et {{columns}} colonnes."
   }
 }

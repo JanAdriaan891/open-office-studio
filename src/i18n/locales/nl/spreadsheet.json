@@ -1154,5 +1154,28 @@
         "emptySample": "De steekproef is leeg."
       }
     }
+  },
+  "boundedGrid": {
+    "group": "Raster",
+    "bounded": "Begrensd raster",
+    "unbounded": "Onbeperkt raster",
+    "boundedHint": "Toont alleen het gebruikte gebied plus een marge; het raster groeit mee. Het bestand verandert hierdoor niet.",
+    "statusBounded": "Begrensd raster: {{rows}} rijen × {{columns}} kolommen. Klik voor een onbeperkt raster.",
+    "statusUnbounded": "Onbeperkt raster. Klik voor een begrensd raster dat meegroeit.",
+    "fit": "Raster aanpassen aan inhoud",
+    "fitHint": "Het raster verkleinen tot de inhoud plus de marge",
+    "addRow": "Rij toevoegen",
+    "addColumn": "Kolom toevoegen",
+    "addRowHint": "Rij toevoegen · Shift+klik: {{amount}} rijen · slepen: meer rijen",
+    "addColumnHint": "Kolom toevoegen · Shift+klik: {{amount}} kolommen · slepen: meer kolommen",
+    "row": "rij",
+    "column": "kolom",
+    "addRows": "+{{amount}} rijen",
+    "addColumns": "+{{amount}} kolommen",
+    "edgeRow": "Rand van het raster: rij {{row}} is de laatste rij. Gebruik Rij toevoegen om het raster uit te breiden.",
+    "edgeColumn": "Rand van het raster: kolom {{column}} is de laatste kolom. Gebruik Kolom toevoegen om het raster uit te breiden.",
+    "edgeBoth": "Rand van het raster: rij {{row}} en kolom {{column}} zijn de laatste.",
+    "grown": "Raster uitgebreid tot {{rows}} rijen en {{columns}} kolommen.",
+    "fitted": "Raster aangepast aan de inhoud: {{rows}} rijen en {{columns}} kolommen."
   }
 }

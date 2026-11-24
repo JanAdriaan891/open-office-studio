@@ -142,6 +142,7 @@ import { valutaNotatie } from "../rekenblad/notatieOpdrachten";
 import { NamenBeheer } from "../rekenblad/NamenBeheer";
 import { ValidatieGroep } from "../rekenblad/ValidatieLint";
 import { BeveiligingGroep } from "../rekenblad/BeveiligingLint";
+import { RasterGroep } from "../rekenblad/RasterWeergaveUi";
 import { CelstijlGroep } from "../rekenblad/CelstijlUi";
 import { TabelGroep } from "../rekenblad/TabelUi";
 import { DraaitabelGroep } from "../rekenblad/DraaitabelUi";
@@ -1067,6 +1068,7 @@ export function RekenbladRibbon({
                     />
                   </div>
                 </Groep>
+                <RasterGroep />
                 {navigator}
                 <Groep naam={t("spreadsheet.groups.output")}>
                   <Actie

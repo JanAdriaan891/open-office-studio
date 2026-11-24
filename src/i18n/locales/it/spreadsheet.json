@@ -1168,5 +1168,28 @@
         "emptySample": "Il campione è vuoto."
       }
     }
+  },
+  "boundedGrid": {
+    "group": "Griglia",
+    "bounded": "Griglia limitata",
+    "unbounded": "Griglia illimitata",
+    "boundedHint": "Mostra solo l’area utilizzata più un margine; la griglia cresce con il contenuto. Il file in sé non cambia.",
+    "statusBounded": "Griglia limitata: {{rows}} righe × {{columns}} colonne. Fare clic per una griglia illimitata.",
+    "statusUnbounded": "Griglia illimitata. Fare clic per una griglia limitata che cresce con il contenuto.",
+    "fit": "Adatta la griglia al contenuto",
+    "fitHint": "Riduci la griglia al contenuto più il margine",
+    "addRow": "Aggiungi riga",
+    "addColumn": "Aggiungi colonna",
+    "addRowHint": "Aggiungi riga · Maiusc+clic: {{amount}} righe · trascina: più righe",
+    "addColumnHint": "Aggiungi colonna · Maiusc+clic: {{amount}} colonne · trascina: più colonne",
+    "row": "riga",
+    "column": "colonna",
+    "addRows": "+{{amount}} righe",
+    "addColumns": "+{{amount}} colonne",
+    "edgeRow": "Bordo della griglia: la riga {{row}} è l’ultima. Usare Aggiungi riga per estendere la griglia.",
+    "edgeColumn": "Bordo della griglia: la colonna {{column}} è l’ultima. Usare Aggiungi colonna per estendere la griglia.",
+    "edgeBoth": "Bordo della griglia: la riga {{row}} e la colonna {{column}} sono le ultime.",
+    "grown": "Griglia estesa a {{rows}} righe e {{columns}} colonne.",
+    "fitted": "Griglia adattata al contenuto: {{rows}} righe e {{columns}} colonne."
   }
 }
