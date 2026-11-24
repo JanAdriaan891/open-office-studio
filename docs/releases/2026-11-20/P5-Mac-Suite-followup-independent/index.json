@@ -1,0 +1,444 @@
+{
+  "files": [
+    {
+      "path": "audit-mac-suite-followup.py",
+      "bytes": 16110,
+      "sha256": "980610bacce2ba523f9b11488334f6acb5fd4cba22c20c521c892f20c946bfd3"
+    },
+    {
+      "path": "Find/actions-summary.json",
+      "bytes": 34627,
+      "sha256": "1225ec8d7c31cb0da8b9f6ed92633a61c6757449190651183d8d34e68d41347e"
+    },
+    {
+      "path": "Find/audit.json",
+      "bytes": 6103,
+      "sha256": "9cfdcf4f148a27cd30bb74efbd2706e567c76e9de4936f78c2f9135382bfba98"
+    },
+    {
+      "path": "Find/members.json",
+      "bytes": 25671,
+      "sha256": "ab9d3d03ebe606331581c4092775d07e6dbca4640f71a382169b74a22ddcf058"
+    },
+    {
+      "path": "Find/outputs/361-remaining-A.docx",
+      "bytes": 36736,
+      "sha256": "8c043da6af8c55f905d0db0f6ac29b951d39e0efe3844de224ce3239531a3c40"
+    },
+    {
+      "path": "Find/outputs/361-remaining-B.docx",
+      "bytes": 36722,
+      "sha256": "d375384a6ddc373542059f06e009e239a9099d40b6fc890da39d60e7b68727f1"
+    },
+    {
+      "path": "Find/outputs/A-cell-typed-saved.docx",
+      "bytes": 36721,
+      "sha256": "5753aed92ef565549233f4627b77eb84c7b7e7a61d5d7972096d8bd454580e85"
+    },
+    {
+      "path": "Find/outputs/A-host-preflight-restored-saved.docx",
+      "bytes": 36722,
+      "sha256": "99ea8f045a379e454476d4b229fec77b4db33d0279f71e7af630377974f31d88"
+    },
+    {
+      "path": "Find/outputs/A-isolated-final-saved.docx",
+      "bytes": 36736,
+      "sha256": "8c043da6af8c55f905d0db0f6ac29b951d39e0efe3844de224ce3239531a3c40"
+    },
+    {
+      "path": "Find/outputs/B-isolated-final-saved.docx",
+      "bytes": 36722,
+      "sha256": "d375384a6ddc373542059f06e009e239a9099d40b6fc890da39d60e7b68727f1"
+    },
+    {
+      "path": "Find/owner-audit.json",
+      "bytes": 4612,
+      "sha256": "670b339618fc99f53d2594b6b7d23d524875c3866f4da840d2373da971d62b65"
+    },
+    {
+      "path": "Find/proof.zip",
+      "bytes": 2641817,
+      "sha256": "af98581f0b0fbe6b5cc0b7aa5752415d071908b00df67a06d9ffafe04b676fe4"
+    },
+    {
+      "path": "Find/retained/mac361-remaining-input/actual-parent-source-witness.json",
+      "bytes": 820,
+      "sha256": "236085a316b40b2e5033316a3e3ed45f91cb9a27e83d518117160ba4aff4e7d5"
+    },
+    {
+      "path": "Find/retained/mac361-remaining-input/artifact-origin.json",
+      "bytes": 100889,
+      "sha256": "4ce9ca21e3786432f974c71e540d80eeec9af54d618cb08e7b8b27fdb65af7f4"
+    },
+    {
+      "path": "Find/retained/mac361-remaining-input/identity.json",
+      "bytes": 4369,
+      "sha256": "ad5b698a22cbb36ad8c349f7718261e7f0436989571bce6ba598aa90e2a980c1"
+    },
+    {
+      "path": "Find/retained/mac361-remaining-input/officialArtifact.json",
+      "bytes": 834,
+      "sha256": "93c22bcd54e3da934b04d3ee5f9fa467d371cbff1320130536d35e3f726c35e2"
+    },
+    {
+      "path": "Find/retained/mac361-remaining-input/officialMacJob.json",
+      "bytes": 12448,
+      "sha256": "e2c0114ba37ec58a62e8634b5e464d436b3ccd209215ee5a6c40ebe2591f2c5e"
+    },
+    {
+      "path": "Find/retained/mac361-remaining-input/officialRun.json",
+      "bytes": 15448,
+      "sha256": "6d48d56c44134d10c0cb329f1c9bf8c9df2c51bde7c6001cf9edc069020d21f6"
+    },
+    {
+      "path": "Find/retained/mac361-remaining-input/original-child-request.json",
+      "bytes": 5762,
+      "sha256": "a4b10ddaec17716ef7455ee50f45f68989c6d74c6513cdc31385eac3293b58f7"
+    },
+    {
+      "path": "Find/retained/mac361-remaining-input/preparer-job.log",
+      "bytes": 51615,
+      "sha256": "353108553d39e1a50ed280382cd927a09ba9a471d58b625e45f6156d29ab6c84"
+    },
+    {
+      "path": "Find/retained/mac361-remaining-input/producerCommitMetadata.json",
+      "bytes": 1401,
+      "sha256": "7041c3d3e5c61777ce41fc9647b2ed51aa24fa2c1b8032f5f1a27afcd2b523c2"
+    },
+    {
+      "path": "Find/retained/mac361-remaining-input/producerWorkflowMetadata.json",
+      "bytes": 37012,
+      "sha256": "8810c0e91dbc98df6b77db569680cd7dae8afce22c1fc9d0b034bc5e66caff59"
+    },
+    {
+      "path": "Find/retained/mac361-remaining-input/request.json",
+      "bytes": 4222,
+      "sha256": "14a26c2b7ede9122aaa44699de2d09464891ddd9fb6bd40a7b63a0761f766dde"
+    },
+    {
+      "path": "Find/retained/mac361-remaining-input/suite-support-descriptor.json",
+      "bytes": 5589,
+      "sha256": "d3de8d84f08ad02ba20ee8b757df2b30c2737e6c907d2f9ae2c5c08515cda02c"
+    },
+    {
+      "path": "Find/retained/mac361-remaining-input/supportDescriptorArtifact.json",
+      "bytes": 885,
+      "sha256": "d6b5afe7511f6f0505a4bbb7b3d4154faaf45dc23b8225740e767679653df581"
+    },
+    {
+      "path": "Find/retained/mac361-remaining-input/transfer-provenance.json",
+      "bytes": 3737,
+      "sha256": "389421c84b92183ef90958709ae72e66f6ca45bb64e4437ab868dbb04323c765"
+    },
+    {
+      "path": "Find/retained/mac361-remaining-input/transferArtifact.json",
+      "bytes": 838,
+      "sha256": "2946e97b3f9fc4cb4f931828c39f9be6fdc96c3c3acf802e66742ac21c5ade97"
+    },
+    {
+      "path": "Find/retained/mac361-remaining-input/transferPreparerJob.json",
+      "bytes": 5058,
+      "sha256": "1ece2e17e5003133626122c2b89998051e1f56ffa01c7885d85c82200d118f1b"
+    },
+    {
+      "path": "Find/retained/mac361-remaining-input/transferRun.json",
+      "bytes": 15495,
+      "sha256": "acf0e9c002cf7c61dfafa22273eae1262b1dc9d54e8ef4ee89c0854c1e4dfc50"
+    },
+    {
+      "path": "Find/retained/mac361-remaining-native/report.json",
+      "bytes": 81611,
+      "sha256": "4cf14719ef875863a66db2aa7ad55ea8748ea9afb7fd38d68319992369cf78dc"
+    },
+    {
+      "path": "Find/retained/mac361-remaining-native/signed-package-preflight/codesign-display.log",
+      "bytes": 1174,
+      "sha256": "8da859a419ca838484ee411ccaf5ebc2aa357205a3b4fee44b079830489afe90"
+    },
+    {
+      "path": "Find/retained/mac361-remaining-native/signed-package-preflight/codesign-verify.log",
+      "bytes": 48293,
+      "sha256": "4be30709262975474f2aa6b96a1084be86692d2e5196c4efa04781ffa2e98ce7"
+    },
+    {
+      "path": "Find/retained/mac361-remaining-native/signed-package-preflight/gatekeeper.log",
+      "bytes": 117,
+      "sha256": "ecb35e41d4410c71d73848fe951b211f0f25d854d5898960f121bc3dbbfb51e0"
+    },
+    {
+      "path": "Find/retained/mac361-remaining-native/signed-package-preflight/report.json",
+      "bytes": 2499,
+      "sha256": "cd138d3221a1cec0f02f4390917b0863884fa2d38affb9ae554325572599e7de"
+    },
+    {
+      "path": "Find/retained/mac361-remaining-native/signed-package-preflight/stapled-ticket.log",
+      "bytes": 117,
+      "sha256": "00412e3f828bed40ef1009c6197130a74b0394205e4528377ca83f69a6431a40"
+    },
+    {
+      "path": "Find/reviewed-images/A-isolated-final/original-display.png",
+      "bytes": 160000,
+      "sha256": "1d410ed21be6fa617b49e25c0cc244c27a2548678664b8bf3a28311a388d568a"
+    },
+    {
+      "path": "Find/reviewed-images/B-isolated-final/original-display.png",
+      "bytes": 159804,
+      "sha256": "fa0a05ea8f308db1cf1ea5395a7c70428bf5655ba7949e4ae08ee4b6cccfdc42"
+    },
+    {
+      "path": "Find/reviewed-images/Find-native-typed/original-display.png",
+      "bytes": 168179,
+      "sha256": "22535caf01379cc44b521dd997f1929a5bca26d2353b859ba7ea5a7c148f1c2d"
+    },
+    {
+      "path": "Find/reviewed-images/Find-native-Undo/original-display.png",
+      "bytes": 164116,
+      "sha256": "6554b77dd727ff3c6890f9de819a01ee016437c539be80326f306c1be130994a"
+    },
+    {
+      "path": "metadata/Find-artifact.json",
+      "bytes": 801,
+      "sha256": "30b18dadd65481de6ddceac8748e96c24473a99b4936233c4cd0752e2d04c12d"
+    },
+    {
+      "path": "metadata/Find-job.json",
+      "bytes": 3108,
+      "sha256": "056845fef55c8253b8222a482a6540f43b844869543054bb4192ad1d72118e37"
+    },
+    {
+      "path": "metadata/Find-run.json",
+      "bytes": 14198,
+      "sha256": "7221ff114e67967d9dd8b5070097dd1885975027a1a3285297a3469679731518"
+    },
+    {
+      "path": "metadata/Tab-artifact.json",
+      "bytes": 803,
+      "sha256": "8c00881db31d0bfe144d410384b021ba82ea159102b63536cd8de9bf68253043"
+    },
+    {
+      "path": "metadata/Tab-job.json",
+      "bytes": 3129,
+      "sha256": "8489ed8f3f765e95575e530d36f324aec9bb76b60157897d06fe48eb1a3cb7ff"
+    },
+    {
+      "path": "metadata/Tab-run.json",
+      "bytes": 14210,
+      "sha256": "8532fcb784f4f2d38f8b09338fbdaf8ad51238c4a3ff9debc5d05dc8d581ad72"
+    },
+    {
+      "path": "README.md",
+      "bytes": 384,
+      "sha256": "5ab68f3f3233faad082836fbe208f3699e2fa9cb852302b9cc63a67af9b94dcf"
+    },
+    {
+      "path": "source/mac-body-original-361.docx",
+      "bytes": 36694,
+      "sha256": "f0eddcec6a630776774e4c3baf834ff4f89e3970d86ce183bba9814494b3f4f1"
+    },
+    {
+      "path": "source/mac-native-361-remaining.py",
+      "bytes": 16996,
+      "sha256": "0b14d9e82d1fe446085b44c23046e8f39cd97bd13c5d5568b333a3ae9c3afc66"
+    },
+    {
+      "path": "source/mac-native-361-tab-oracle.py",
+      "bytes": 8242,
+      "sha256": "7ab76ea7f95127da7f4c929a0d26d8c6b0c93a8c113ec95feea254842447628e"
+    },
+    {
+      "path": "source/mac-native-current-session.py",
+      "bytes": 29333,
+      "sha256": "66af948271143bdbe93eb8c4acc57226317ad24a8ea10951a69d065708649714"
+    },
+    {
+      "path": "source/proef-writer-361-macos.py",
+      "bytes": 4980,
+      "sha256": "2cd86fa796ac65ec787ad9054bc896a54b3325d5eb2466bf018e11e4d29cfd0e"
+    },
+    {
+      "path": "source/writer-361-macos-ax.swift",
+      "bytes": 25900,
+      "sha256": "82813e7a2b9509cc1e9238a8eaaadf4b7e281d4535df13a86257f99f4bc06573"
+    },
+    {
+      "path": "summary.json",
+      "bytes": 1098,
+      "sha256": "3f905248b624ce734cd56001fe3152d1a4cf72e65ae4e9e38055cd21d2c32877"
+    },
+    {
+      "path": "Tab/actions-summary.json",
+      "bytes": 19632,
+      "sha256": "f09164f40a6dec4f59436eb3151e1c07d77134f5d5f622764cc694e4e032b633"
+    },
+    {
+      "path": "Tab/audit.json",
+      "bytes": 5308,
+      "sha256": "61de7c3ca792117850458d870d3e4cd33ca405dad52ba123e95ddebffe47783e"
+    },
+    {
+      "path": "Tab/members.json",
+      "bytes": 18239,
+      "sha256": "f2e2da242311217a3470d76d0f25daa7c2ff01adab2c0db3ece6b9dbec50f3a3"
+    },
+    {
+      "path": "Tab/outputs/361-remaining-A.docx",
+      "bytes": 36772,
+      "sha256": "05c254118293b51f4eafa77387bb03114448cb3a8cc8ff38031bec2a1177fdf4"
+    },
+    {
+      "path": "Tab/outputs/after-three-Tabs-newrow-CmdS.docx",
+      "bytes": 36770,
+      "sha256": "f5fcee100a0b2f0176edd17bd97b799ed24153d7e241f47ae720fd6e270ae827"
+    },
+    {
+      "path": "Tab/outputs/Redo-1-saved.docx",
+      "bytes": 36765,
+      "sha256": "0fc1bc9c9890f80c61556c42a0692f4caa69a868f3e0395dff21b14b40048b0c"
+    },
+    {
+      "path": "Tab/outputs/Redo-2-saved.docx",
+      "bytes": 36772,
+      "sha256": "05c254118293b51f4eafa77387bb03114448cb3a8cc8ff38031bec2a1177fdf4"
+    },
+    {
+      "path": "Tab/outputs/Undo-1-saved.docx",
+      "bytes": 36764,
+      "sha256": "f1f7b7bb33f10b224c38c6bdcf7adebbf830df34e407a95e471358e2f43fe800"
+    },
+    {
+      "path": "Tab/outputs/Undo-2-saved.docx",
+      "bytes": 36720,
+      "sha256": "256f920b0b832657bd0416115cf4fa28f18fc52207d31b6a611041376d06ef91"
+    },
+    {
+      "path": "Tab/owner-audit.json",
+      "bytes": 3632,
+      "sha256": "cbac7128415fa051128e48f73d0c4493ec204a99a8db3bf5a362fc19bee46e7a"
+    },
+    {
+      "path": "Tab/proof.zip",
+      "bytes": 1854207,
+      "sha256": "ec2b060060c0772a754622cdfe4aa247e698ef7761cdabaf71456ec64547cb34"
+    },
+    {
+      "path": "Tab/retained/mac361-tab-history-input/actual-parent-source-witness.json",
+      "bytes": 820,
+      "sha256": "236085a316b40b2e5033316a3e3ed45f91cb9a27e83d518117160ba4aff4e7d5"
+    },
+    {
+      "path": "Tab/retained/mac361-tab-history-input/artifact-origin.json",
+      "bytes": 100882,
+      "sha256": "c3c0da397b6a279d975d2c45a161f809619c56a1b2b0a19b5b89bc39c7888744"
+    },
+    {
+      "path": "Tab/retained/mac361-tab-history-input/identity.json",
+      "bytes": 4362,
+      "sha256": "f43919f0ca258071ca7d143c6b0b191290a8c9f107516e40fd251c36aae9a8cf"
+    },
+    {
+      "path": "Tab/retained/mac361-tab-history-input/officialArtifact.json",
+      "bytes": 834,
+      "sha256": "93c22bcd54e3da934b04d3ee5f9fa467d371cbff1320130536d35e3f726c35e2"
+    },
+    {
+      "path": "Tab/retained/mac361-tab-history-input/officialMacJob.json",
+      "bytes": 12448,
+      "sha256": "e2c0114ba37ec58a62e8634b5e464d436b3ccd209215ee5a6c40ebe2591f2c5e"
+    },
+    {
+      "path": "Tab/retained/mac361-tab-history-input/officialRun.json",
+      "bytes": 15448,
+      "sha256": "6d48d56c44134d10c0cb329f1c9bf8c9df2c51bde7c6001cf9edc069020d21f6"
+    },
+    {
+      "path": "Tab/retained/mac361-tab-history-input/original-child-request.json",
+      "bytes": 5762,
+      "sha256": "a4b10ddaec17716ef7455ee50f45f68989c6d74c6513cdc31385eac3293b58f7"
+    },
+    {
+      "path": "Tab/retained/mac361-tab-history-input/preparer-job.log",
+      "bytes": 51615,
+      "sha256": "353108553d39e1a50ed280382cd927a09ba9a471d58b625e45f6156d29ab6c84"
+    },
+    {
+      "path": "Tab/retained/mac361-tab-history-input/producerCommitMetadata.json",
+      "bytes": 1401,
+      "sha256": "7041c3d3e5c61777ce41fc9647b2ed51aa24fa2c1b8032f5f1a27afcd2b523c2"
+    },
+    {
+      "path": "Tab/retained/mac361-tab-history-input/producerWorkflowMetadata.json",
+      "bytes": 37012,
+      "sha256": "8810c0e91dbc98df6b77db569680cd7dae8afce22c1fc9d0b034bc5e66caff59"
+    },
+    {
+      "path": "Tab/retained/mac361-tab-history-input/request.json",
+      "bytes": 4213,
+      "sha256": "3779fee5c684ba3a817dc719df54b9336e823ca0ca0646f6ee96f5b2539d4f80"
+    },
+    {
+      "path": "Tab/retained/mac361-tab-history-input/suite-support-descriptor.json",
+      "bytes": 5589,
+      "sha256": "d3de8d84f08ad02ba20ee8b757df2b30c2737e6c907d2f9ae2c5c08515cda02c"
+    },
+    {
+      "path": "Tab/retained/mac361-tab-history-input/supportDescriptorArtifact.json",
+      "bytes": 885,
+      "sha256": "d6b5afe7511f6f0505a4bbb7b3d4154faaf45dc23b8225740e767679653df581"
+    },
+    {
+      "path": "Tab/retained/mac361-tab-history-input/transfer-provenance.json",
+      "bytes": 3737,
+      "sha256": "389421c84b92183ef90958709ae72e66f6ca45bb64e4437ab868dbb04323c765"
+    },
+    {
+      "path": "Tab/retained/mac361-tab-history-input/transferArtifact.json",
+      "bytes": 838,
+      "sha256": "2946e97b3f9fc4cb4f931828c39f9be6fdc96c3c3acf802e66742ac21c5ade97"
+    },
+    {
+      "path": "Tab/retained/mac361-tab-history-input/transferPreparerJob.json",
+      "bytes": 5058,
+      "sha256": "1ece2e17e5003133626122c2b89998051e1f56ffa01c7885d85c82200d118f1b"
+    },
+    {
+      "path": "Tab/retained/mac361-tab-history-input/transferRun.json",
+      "bytes": 15495,
+      "sha256": "acf0e9c002cf7c61dfafa22273eae1262b1dc9d54e8ef4ee89c0854c1e4dfc50"
+    },
+    {
+      "path": "Tab/retained/mac361-tab-history-native/report.json",
+      "bytes": 5039992,
+      "sha256": "6091f4c555d6d5293081370308e0a07bb3a1e852115159718ce8b8954328a79b"
+    },
+    {
+      "path": "Tab/retained/mac361-tab-history-native/signed-package-preflight/codesign-display.log",
+      "bytes": 1174,
+      "sha256": "7e3c52403bade40ea20e83ff10785c5b16360140aed8a21492a2d65e3fccbaf9"
+    },
+    {
+      "path": "Tab/retained/mac361-tab-history-native/signed-package-preflight/codesign-verify.log",
+      "bytes": 48293,
+      "sha256": "9eacf9f2eb662e784f50d6fe417d542a84fe1203f1f66b7546d9f366b2466393"
+    },
+    {
+      "path": "Tab/retained/mac361-tab-history-native/signed-package-preflight/gatekeeper.log",
+      "bytes": 117,
+      "sha256": "56ec5184466b4870cc055d5314386524e0d220e9539ebbf4ef6e278d85a48503"
+    },
+    {
+      "path": "Tab/retained/mac361-tab-history-native/signed-package-preflight/report.json",
+      "bytes": 2507,
+      "sha256": "4faf7a9fa0fa0a8b2b0068a8c0f818b6d11fb3f754684d8e02f142d84be86e48"
+    },
+    {
+      "path": "Tab/retained/mac361-tab-history-native/signed-package-preflight/stapled-ticket.log",
+      "bytes": 117,
+      "sha256": "b1401be9821bc0bd029f8e6f99021aa242ca7cbe3b37a920e099fe31b3b6106d"
+    },
+    {
+      "path": "Tab/reviewed-images/native361-Tab-save-oracle/after-save-original-display.png",
+      "bytes": 154108,
+      "sha256": "20c5eea9aad370becdb78068afa12424afe9f1cace54707ca4ed2e8c60394e83"
+    }
+  ]
+}

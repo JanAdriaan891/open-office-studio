@@ -1,0 +1,797 @@
+[
+  {
+    "member": "mac361-tab-history-native/action-001.json",
+    "action": "snapshot",
+    "status": "observed",
+    "pid": 2449,
+    "frontmostPid": 2449
+  },
+  {
+    "member": "mac361-tab-history-native/action-002.json",
+    "action": "snapshot",
+    "status": "observed",
+    "pid": 2449,
+    "frontmostPid": 2449,
+    "focusBefore": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    },
+    "focusAfter": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    }
+  },
+  {
+    "member": "mac361-tab-history-native/action-003.json",
+    "action": "raw-snapshot",
+    "status": "observed",
+    "pid": 2449,
+    "frontmostPid": 2449,
+    "focusBefore": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    },
+    "focusAfter": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    }
+  },
+  {
+    "member": "mac361-tab-history-native/action-004.json",
+    "action": "ax-press-label",
+    "status": "input-sent",
+    "pid": 2449,
+    "frontmostPid": 2449,
+    "focusBefore": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    },
+    "focusAfter": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    }
+  },
+  {
+    "member": "mac361-tab-history-native/action-005.json",
+    "action": "raw-snapshot",
+    "status": "observed",
+    "pid": 2449,
+    "frontmostPid": 2449,
+    "focusBefore": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    },
+    "focusAfter": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    }
+  },
+  {
+    "member": "mac361-tab-history-native/action-006.json",
+    "action": "raw-snapshot",
+    "status": "observed",
+    "pid": 2449,
+    "frontmostPid": 2449,
+    "focusBefore": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    },
+    "focusAfter": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    }
+  },
+  {
+    "member": "mac361-tab-history-native/action-007.json",
+    "action": "click-body-point",
+    "status": "input-sent",
+    "pid": 2449,
+    "frontmostPid": 2449,
+    "focusBefore": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    },
+    "focusAfter": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    }
+  },
+  {
+    "member": "mac361-tab-history-native/action-008.json",
+    "action": "snapshot",
+    "status": "observed",
+    "pid": 2449,
+    "frontmostPid": 2449,
+    "focusBefore": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    },
+    "focusAfter": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    }
+  },
+  {
+    "member": "mac361-tab-history-native/action-009.json",
+    "action": "type-test-character",
+    "status": "input-sent",
+    "pid": 2449,
+    "frontmostPid": 2449,
+    "focusBefore": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    },
+    "focusAfter": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    },
+    "testCharacter": "X"
+  },
+  {
+    "member": "mac361-tab-history-native/action-010.json",
+    "action": "snapshot",
+    "status": "observed",
+    "pid": 2449,
+    "frontmostPid": 2449,
+    "focusBefore": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    },
+    "focusAfter": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    }
+  },
+  {
+    "member": "mac361-tab-history-native/action-011.json",
+    "action": "chord",
+    "status": "input-sent",
+    "chord": "cmd-s",
+    "pid": 2449,
+    "frontmostPid": 2449,
+    "focusBefore": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    },
+    "focusAfter": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    }
+  },
+  {
+    "member": "mac361-tab-history-native/action-012.json",
+    "action": "chord",
+    "status": "input-sent",
+    "chord": "cmd-z",
+    "pid": 2449,
+    "frontmostPid": 2449,
+    "focusBefore": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    },
+    "focusAfter": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    }
+  },
+  {
+    "member": "mac361-tab-history-native/action-013.json",
+    "action": "snapshot",
+    "status": "observed",
+    "pid": 2449,
+    "frontmostPid": 2449,
+    "focusBefore": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    },
+    "focusAfter": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    }
+  },
+  {
+    "member": "mac361-tab-history-native/action-014.json",
+    "action": "chord",
+    "status": "input-sent",
+    "chord": "cmd-shift-z",
+    "pid": 2449,
+    "frontmostPid": 2449,
+    "focusBefore": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    },
+    "focusAfter": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    }
+  },
+  {
+    "member": "mac361-tab-history-native/action-015.json",
+    "action": "snapshot",
+    "status": "observed",
+    "pid": 2449,
+    "frontmostPid": 2449,
+    "focusBefore": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    },
+    "focusAfter": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    }
+  },
+  {
+    "member": "mac361-tab-history-native/action-016.json",
+    "action": "chord",
+    "status": "input-sent",
+    "chord": "cmd-z",
+    "pid": 2449,
+    "frontmostPid": 2449,
+    "focusBefore": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    },
+    "focusAfter": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    }
+  },
+  {
+    "member": "mac361-tab-history-native/action-017.json",
+    "action": "snapshot",
+    "status": "observed",
+    "pid": 2449,
+    "frontmostPid": 2449,
+    "focusBefore": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    },
+    "focusAfter": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    }
+  },
+  {
+    "member": "mac361-tab-history-native/action-018.json",
+    "action": "chord",
+    "status": "input-sent",
+    "chord": "cmd-s",
+    "pid": 2449,
+    "frontmostPid": 2449,
+    "focusBefore": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    },
+    "focusAfter": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    }
+  },
+  {
+    "member": "mac361-tab-history-native/action-019.json",
+    "action": "raw-snapshot",
+    "status": "observed",
+    "pid": 2449,
+    "frontmostPid": 2449,
+    "focusBefore": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    },
+    "focusAfter": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    }
+  },
+  {
+    "member": "mac361-tab-history-native/action-020.json",
+    "action": "click-body-point",
+    "status": "input-sent",
+    "pid": 2449,
+    "frontmostPid": 2449,
+    "focusBefore": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    },
+    "focusAfter": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    }
+  },
+  {
+    "member": "mac361-tab-history-native/action-021.json",
+    "action": "snapshot",
+    "status": "observed",
+    "pid": 2449,
+    "frontmostPid": 2449,
+    "focusBefore": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    },
+    "focusAfter": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    }
+  },
+  {
+    "member": "mac361-tab-history-native/action-022.json",
+    "action": "chord",
+    "status": "input-sent",
+    "chord": "tab",
+    "pid": 2449,
+    "frontmostPid": 2449,
+    "focusBefore": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    },
+    "focusAfter": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    },
+    "keyboardTransport": "CG HID key down/up; explicit Shift modifier when requested"
+  },
+  {
+    "member": "mac361-tab-history-native/action-023.json",
+    "action": "chord",
+    "status": "input-sent",
+    "chord": "tab",
+    "pid": 2449,
+    "frontmostPid": 2449,
+    "focusBefore": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    },
+    "focusAfter": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    },
+    "keyboardTransport": "CG HID key down/up; explicit Shift modifier when requested"
+  },
+  {
+    "member": "mac361-tab-history-native/action-024.json",
+    "action": "snapshot",
+    "status": "observed",
+    "pid": 2449,
+    "frontmostPid": 2449,
+    "focusBefore": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    },
+    "focusAfter": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    }
+  },
+  {
+    "member": "mac361-tab-history-native/action-025.json",
+    "action": "chord",
+    "status": "input-sent",
+    "chord": "tab",
+    "pid": 2449,
+    "frontmostPid": 2449,
+    "focusBefore": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    },
+    "focusAfter": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    },
+    "keyboardTransport": "CG HID key down/up; explicit Shift modifier when requested"
+  },
+  {
+    "member": "mac361-tab-history-native/action-026.json",
+    "action": "raw-snapshot",
+    "status": "observed",
+    "pid": 2449,
+    "frontmostPid": 2449,
+    "focusBefore": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    },
+    "focusAfter": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    }
+  },
+  {
+    "member": "mac361-tab-history-native/action-027.json",
+    "action": "type-test-text",
+    "status": "input-sent",
+    "pid": 2449,
+    "frontmostPid": 2449,
+    "focusBefore": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    },
+    "focusAfter": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    },
+    "testText": "newrow"
+  },
+  {
+    "member": "mac361-tab-history-native/action-028.json",
+    "action": "chord",
+    "status": "input-sent",
+    "chord": "cmd-s",
+    "pid": 2449,
+    "frontmostPid": 2449,
+    "focusBefore": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    },
+    "focusAfter": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    }
+  },
+  {
+    "member": "mac361-tab-history-native/action-029.json",
+    "action": "snapshot",
+    "status": "observed",
+    "pid": 2449,
+    "frontmostPid": 2449,
+    "focusBefore": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    },
+    "focusAfter": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    }
+  },
+  {
+    "member": "mac361-tab-history-native/action-030.json",
+    "action": "chord",
+    "status": "input-sent",
+    "chord": "cmd-z",
+    "pid": 2449,
+    "frontmostPid": 2449,
+    "focusBefore": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    },
+    "focusAfter": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    }
+  },
+  {
+    "member": "mac361-tab-history-native/action-031.json",
+    "action": "chord",
+    "status": "input-sent",
+    "chord": "cmd-s",
+    "pid": 2449,
+    "frontmostPid": 2449,
+    "focusBefore": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    },
+    "focusAfter": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    }
+  },
+  {
+    "member": "mac361-tab-history-native/action-032.json",
+    "action": "raw-snapshot",
+    "status": "observed",
+    "pid": 2449,
+    "frontmostPid": 2449,
+    "focusBefore": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    },
+    "focusAfter": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    }
+  },
+  {
+    "member": "mac361-tab-history-native/action-033.json",
+    "action": "snapshot",
+    "status": "observed",
+    "pid": 2449,
+    "frontmostPid": 2449,
+    "focusBefore": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    },
+    "focusAfter": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    }
+  },
+  {
+    "member": "mac361-tab-history-native/action-034.json",
+    "action": "chord",
+    "status": "input-sent",
+    "chord": "cmd-z",
+    "pid": 2449,
+    "frontmostPid": 2449,
+    "focusBefore": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    },
+    "focusAfter": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    }
+  },
+  {
+    "member": "mac361-tab-history-native/action-035.json",
+    "action": "chord",
+    "status": "input-sent",
+    "chord": "cmd-s",
+    "pid": 2449,
+    "frontmostPid": 2449,
+    "focusBefore": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    },
+    "focusAfter": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    }
+  },
+  {
+    "member": "mac361-tab-history-native/action-036.json",
+    "action": "raw-snapshot",
+    "status": "observed",
+    "pid": 2449,
+    "frontmostPid": 2449,
+    "focusBefore": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    },
+    "focusAfter": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    }
+  },
+  {
+    "member": "mac361-tab-history-native/action-037.json",
+    "action": "snapshot",
+    "status": "observed",
+    "pid": 2449,
+    "frontmostPid": 2449,
+    "focusBefore": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    },
+    "focusAfter": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    }
+  },
+  {
+    "member": "mac361-tab-history-native/action-038.json",
+    "action": "chord",
+    "status": "input-sent",
+    "chord": "cmd-shift-z",
+    "pid": 2449,
+    "frontmostPid": 2449,
+    "focusBefore": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    },
+    "focusAfter": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    }
+  },
+  {
+    "member": "mac361-tab-history-native/action-039.json",
+    "action": "chord",
+    "status": "input-sent",
+    "chord": "cmd-s",
+    "pid": 2449,
+    "frontmostPid": 2449,
+    "focusBefore": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    },
+    "focusAfter": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    }
+  },
+  {
+    "member": "mac361-tab-history-native/action-040.json",
+    "action": "raw-snapshot",
+    "status": "observed",
+    "pid": 2449,
+    "frontmostPid": 2449,
+    "focusBefore": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    },
+    "focusAfter": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    }
+  },
+  {
+    "member": "mac361-tab-history-native/action-041.json",
+    "action": "snapshot",
+    "status": "observed",
+    "pid": 2449,
+    "frontmostPid": 2449,
+    "focusBefore": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    },
+    "focusAfter": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    }
+  },
+  {
+    "member": "mac361-tab-history-native/action-042.json",
+    "action": "chord",
+    "status": "input-sent",
+    "chord": "cmd-shift-z",
+    "pid": 2449,
+    "frontmostPid": 2449,
+    "focusBefore": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    },
+    "focusAfter": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    }
+  },
+  {
+    "member": "mac361-tab-history-native/action-043.json",
+    "action": "chord",
+    "status": "input-sent",
+    "chord": "cmd-s",
+    "pid": 2449,
+    "frontmostPid": 2449,
+    "focusBefore": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    },
+    "focusAfter": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    }
+  },
+  {
+    "member": "mac361-tab-history-native/action-044.json",
+    "action": "raw-snapshot",
+    "status": "observed",
+    "pid": 2449,
+    "frontmostPid": 2449,
+    "focusBefore": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    },
+    "focusAfter": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    }
+  },
+  {
+    "member": "mac361-tab-history-native/action-045.json",
+    "action": "raw-snapshot",
+    "status": "observed",
+    "pid": 2449,
+    "frontmostPid": 2449,
+    "focusBefore": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    },
+    "focusAfter": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    }
+  },
+  {
+    "member": "mac361-tab-history-native/action-046.json",
+    "action": "chord",
+    "status": "input-sent",
+    "chord": "cmd-q",
+    "pid": 2449,
+    "frontmostPid": 2449,
+    "focusBefore": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    },
+    "focusAfter": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    }
+  }
+]

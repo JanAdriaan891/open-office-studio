@@ -1,6 +1,6 @@
 # Open Office Studio 2026.48.1 — reviewbaar P5-concept, niet vrijgegeven
 
-Gesloten kandidaat: `b696ab86bd1c128729a079b68c0082e6df3d36a5`, tree `e30879fd772871e690847c061ef66e6b81808a05`. [PR #367](https://github.com/OpenAEC-Foundation/open-office-studio/pull/367) blijft een concept naar de integratiebranch. Native pakketacceptatie, handtekeningen en uiteindelijke gereedheidsbeoordeling zijn nog open; er is geen toestemming voor main, releasetag of publicatie.
+Gesloten kandidaat: `b696ab86bd1c128729a079b68c0082e6df3d36a5`, tree `e30879fd772871e690847c061ef66e6b81808a05`. [PR #367](https://github.com/OpenAEC-Foundation/open-office-studio/pull/367) blijft een concept naar de integratiebranch. De definitieve pakketbytes, rapportbindingen en voorbereide handtekeningen/checksums zijn [gecontroleerd](P5-final-package-verification/README.md). Resterende native acceptatie, waaronder Mac, en de uiteindelijke gereedheidsbeoordeling zijn nog open; er is geen toestemming voor main, releasetag of publicatie.
 
 ## Opgenomen correcties
 
@@ -18,14 +18,14 @@ De private kantoorruntime en eerdere integratie waaronder [PR #349](https://gith
 
 ## Producten en downloads
 
-De suite en Writer, Spreadsheet, Presentation, Email, Notition en Database hebben ieder een eigen binary, applicatie-ID en geconfigureerde profielnamespace. Alle zes geregistreerde werkruimtes hebben zo een dedicated product. De bestaande architectuur levert Windows x64 EXE, macOS ARM64 DMG en Linux x64 DEB/AppImage: zeven producten, 28 pakketvormen. De [P5-downloadmatrix](P5-downloads-pending.md) en [machineleesbare verwachtingen](P5-downloads-pending.json) benoemen alle 28 rijen. Nieuwe links en hashes blijven pending totdat echte P5-bytes zijn gecontroleerd. Openbare 2026.46.2-links zijn historisch.
+De suite en Writer, Spreadsheet, Presentation, Email, Notition en Database hebben ieder een eigen binary, applicatie-ID en geconfigureerde profielnamespace. Alle zes geregistreerde werkruimtes hebben zo een dedicated product. De bestaande architectuur levert Windows x64 EXE, macOS ARM64 DMG en Linux x64 DEB/AppImage: zeven producten, 28 pakketvormen. De [P5-downloadmatrix](P5-downloads-pending.md) en [machineleesbare pakketbindingen](P5-downloads-pending.json) benoemen alle 28 werkelijke filenames, bytes, SHA256 en geselecteerde producerketens. Windows/Linux behouden originele run 45177730188/attempt1; macOS gebruikt succesvolle afzonderlijke producer 45195055147/attempt1 op workflowhead 2af94cdc, met de originele bronwitness naar dezelfde P5-appcheckout. Publieke URL's blijven null en publicDownloadsAvailable=false. Openbare 2026.46.2-links zijn historisch; deze kandidaat is niet vrijgegeven.
 
 Zelfstandige werking vereist een verse host zonder Suite-installatie, -bestanden, -profiel of -resources; alleen starten of een downloadbare installer volstaat niet. Notition-notities kunnen via .openaec-notities-back-up worden overgezet; mailaccounts moeten afzonderlijk worden ingesteld. Dedicated apps worden handmatig met hun eigen installer bijgewerkt. Ingebouwde PDF-, VBA/SQL- en vormfuncties zijn geen aanvullende zelfstandige apps.
 
 ## Bekende beperkingen en resterende acceptatie
 
 - [#366](https://github.com/OpenAEC-Foundation/open-office-studio/issues/366) (paginateller) blijft expliciet uitgesteld.
-- De bron/engine- en browserbewijzen behouden hun eigen scope. Historische P4-Windows/Linux-browserresultaten worden geen P5-nativepass; de gecorrigeerde Mac-QA en P5-matrix krijgen hun werkelijke nieuwe resultaten via de centrale overdracht.
+- De bron/engine- en browserbewijzen behouden hun eigen scope. Exacte P5-browserbewijzen voor Windows/Linux/macOS en beide routes zijn geaudit; zij worden geen nativepass. Nieuwe native resultaten en beperkingen worden uitsluitend via de centrale overdracht en zelfstandigheidsmatrix geaccepteerd.
 - [#375](https://github.com/OpenAEC-Foundation/open-office-studio/issues/375): in één echte UOF1/UOP-bron veranderen twee expliciete rechthoekvullingen al vóór de editor in dezelfde accentkleur. De runtimefix hoort bij een volgende ronde; geen volledige UOP-opmaakacceptatie.
 - [#381](https://github.com/OpenAEC-Foundation/open-office-studio/issues/381): bij één echte Quattro Pro DOS WQ2-bron ontbreken de nul- naar ééngebaseerde VLOOKUP-indexvertalingen al in converteruitvoer. Edit/save/heropenen van de verkeerde formule bewijst geen correcte bronimport.
 - De afgedekte SXC-bron heeft converterverschillen in drie vormbreedtes en onvoldoende typed radio-/TextBox-controlbehoud; P5 toont voor chord een placeholder. De afzonderlijke chord-renderfix [#380](https://github.com/OpenAEC-Foundation/open-office-studio/issues/380) zit niet in P5. Cel/save-succes is geen algemene vorm-/formulieracceptatie.
@@ -34,3 +34,9 @@ Zelfstandige werking vereist een verse host zonder Suite-installatie, -bestanden
 - Voor definitieve vrijgave zijn echte P5-pakketidentiteiten, toepasselijke signatures/notarisatie, normale installatie en native kernscenario's/save/nieuw-proces-heropenen nodig. Linux DEB en AppImage, alle zes zelfstandige apps en beide browserroutes blijven expliciet onderscheiden. De coördinator vult resultaten en concrete beperkingen in; niets wordt uit alleen een groene build of beschikbare download afgeleid.
 
 **Stabiele release gereed: NEE op dit auditmoment.** De [centrale overdracht](current-handoff.json) bepaalt de actuele stand; het [bron-/schema-audit](P5-downloads-source-audit.json) begrenst deze documentatiecontrole. De latere download-terugcontrole van gepubliceerde assets volgt alleen na afzonderlijk geautoriseerde publicatie; deze tekst publiceert niets.
+
+## Voorbereide assets en publicatievoorwaarde
+
+De [finale niet-publicerende pakketcontrole](P5-final-package-verification/README.md) bindt 28 installers, 14 rapporten, 14 Linux-signatures en 58 checksumregels aan de juiste P5-appbron. Samen met 2 publieke-sleutelbestanden en de checksumfile/signature zijn dit 60 voorbereide releaseassets. De oorspronkelijke Macfailure wordt niet herlabeld als groen; de geslaagde aparte Macproducer heeft zijn eigen run/job/attempt/bronwitness.
+
+De bestaande release.yml-publicatiestap vereist een eigen geslaagde bouwmatrix en leest alleen artifacts van de eigen run. Hij kan de aparte Macrun niet stilzwijgend aan de oude mislukte matrix lenen. Na afronding van de native acceptatie is eerst apart akkoord nodig voor een concreet gereviewd 60-assetpublicatieplan met beide producerketens, behoud van de geteste bytes en een expliciet goedgekeurd tagtarget. Geen nieuwe algemene herbouw, mainmerge, tag, releaseaanmaak of publicatie is hiermee geautoriseerd.

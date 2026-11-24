@@ -1,23 +1,23 @@
-# P5 download-/acceptatiefragment — uitsluitend bronverwachting, geen publieke beschikbaarheid
+# P5-pakketbindingen en voorbereide downloads — niet gepubliceerd
 
 Bron b696ab86bd1c128729a079b68c0082e6df3d36a5; tree e30879fd772871e690847c061ef66e6b81808a05; versie 2026.48.1.
-Alle cellen pending: exacte pakketbytes/hash/signature/native-acceptatie en publieke URL moeten afzonderlijk worden ingevuld. Namen hieronder zijn geen downloadlinks.
+Alle 28 pakketnamen, bytes, SHA256 en werkelijke producerketens zijn nu vastgelegd in [de JSON-matrix](P5-downloads-pending.json) en onafhankelijk gebonden aan [de finale pakketcontrole](P5-final-package-verification/README.md). De tabel hieronder toont uitsluitend bestandsnamen; publieke URL's blijven null en publicDownloadsAvailable=false. Native acceptatie blijft afzonderlijk in de [centrale zelfstandigheidsmatrix](P5-standalone-matrix.json).
 
-## Verwachte publieke bestandsnamen — alle 28 pending
+## Vastgelegde bestandsnamen — alle 28 nog niet gepubliceerd
 
 | App | Windows x64 EXE | macOS ARM64 DMG | Linux x64 DEB | Linux x64 AppImage |
 | --- | --- | --- | --- | --- |
-| Open Office Studio | `Open.Office.Studio_2026.48.1_x64-setup.exe` — pending | `Open.Office.Studio_2026.48.1_aarch64.dmg` — pending | `Open.Office.Studio_2026.48.1_amd64.deb` — pending | `Open.Office.Studio_2026.48.1_amd64.AppImage` — pending |
-| Open Writer Studio | `Open.Writer.Studio_2026.48.1_x64-setup.exe` — pending | `Open.Writer.Studio_2026.48.1_aarch64.dmg` — pending | `Open.Writer.Studio_2026.48.1_amd64.deb` — pending | `Open.Writer.Studio_2026.48.1_amd64.AppImage` — pending |
-| Open Spreadsheet Studio | `Open.Spreadsheet.Studio_2026.48.1_x64-setup.exe` — pending | `Open.Spreadsheet.Studio_2026.48.1_aarch64.dmg` — pending | `Open.Spreadsheet.Studio_2026.48.1_amd64.deb` — pending | `Open.Spreadsheet.Studio_2026.48.1_amd64.AppImage` — pending |
-| Open Presentation Studio | `Open.Presentation.Studio_2026.48.1_x64-setup.exe` — pending | `Open.Presentation.Studio_2026.48.1_aarch64.dmg` — pending | `Open.Presentation.Studio_2026.48.1_amd64.deb` — pending | `Open.Presentation.Studio_2026.48.1_amd64.AppImage` — pending |
-| Open Email Studio | `Open.Email.Studio_2026.48.1_x64-setup.exe` — pending | `Open.Email.Studio_2026.48.1_aarch64.dmg` — pending | `Open.Email.Studio_2026.48.1_amd64.deb` — pending | `Open.Email.Studio_2026.48.1_amd64.AppImage` — pending |
-| Open Notition Studio | `Open.Notition.Studio_2026.48.1_x64-setup.exe` — pending | `Open.Notition.Studio_2026.48.1_aarch64.dmg` — pending | `Open.Notition.Studio_2026.48.1_amd64.deb` — pending | `Open.Notition.Studio_2026.48.1_amd64.AppImage` — pending |
-| Open Database Studio | `Open.Database.Studio_2026.48.1_x64-setup.exe` — pending | `Open.Database.Studio_2026.48.1_aarch64.dmg` — pending | `Open.Database.Studio_2026.48.1_amd64.deb` — pending | `Open.Database.Studio_2026.48.1_amd64.AppImage` — pending |
+| Open Office Studio | `Open.Office.Studio_2026.48.1_x64-setup.exe` — niet gepubliceerd | `Open.Office.Studio_2026.48.1_aarch64.dmg` — niet gepubliceerd | `Open.Office.Studio_2026.48.1_amd64.deb` — niet gepubliceerd | `Open.Office.Studio_2026.48.1_amd64.AppImage` — niet gepubliceerd |
+| Open Writer Studio | `Open.Writer.Studio_2026.48.1_x64-setup.exe` — niet gepubliceerd | `Open.Writer.Studio_2026.48.1_aarch64.dmg` — niet gepubliceerd | `Open.Writer.Studio_2026.48.1_amd64.deb` — niet gepubliceerd | `Open.Writer.Studio_2026.48.1_amd64.AppImage` — niet gepubliceerd |
+| Open Spreadsheet Studio | `Open.Spreadsheet.Studio_2026.48.1_x64-setup.exe` — niet gepubliceerd | `Open.Spreadsheet.Studio_2026.48.1_aarch64.dmg` — niet gepubliceerd | `Open.Spreadsheet.Studio_2026.48.1_amd64.deb` — niet gepubliceerd | `Open.Spreadsheet.Studio_2026.48.1_amd64.AppImage` — niet gepubliceerd |
+| Open Presentation Studio | `Open.Presentation.Studio_2026.48.1_x64-setup.exe` — niet gepubliceerd | `Open.Presentation.Studio_2026.48.1_aarch64.dmg` — niet gepubliceerd | `Open.Presentation.Studio_2026.48.1_amd64.deb` — niet gepubliceerd | `Open.Presentation.Studio_2026.48.1_amd64.AppImage` — niet gepubliceerd |
+| Open Email Studio | `Open.Email.Studio_2026.48.1_x64-setup.exe` — niet gepubliceerd | `Open.Email.Studio_2026.48.1_aarch64.dmg` — niet gepubliceerd | `Open.Email.Studio_2026.48.1_amd64.deb` — niet gepubliceerd | `Open.Email.Studio_2026.48.1_amd64.AppImage` — niet gepubliceerd |
+| Open Notition Studio | `Open.Notition.Studio_2026.48.1_x64-setup.exe` — niet gepubliceerd | `Open.Notition.Studio_2026.48.1_aarch64.dmg` — niet gepubliceerd | `Open.Notition.Studio_2026.48.1_amd64.deb` — niet gepubliceerd | `Open.Notition.Studio_2026.48.1_amd64.AppImage` — niet gepubliceerd |
+| Open Database Studio | `Open.Database.Studio_2026.48.1_x64-setup.exe` — niet gepubliceerd | `Open.Database.Studio_2026.48.1_aarch64.dmg` — niet gepubliceerd | `Open.Database.Studio_2026.48.1_amd64.deb` — niet gepubliceerd | `Open.Database.Studio_2026.48.1_amd64.AppImage` — niet gepubliceerd |
 
 Interne artifactmembers behouden spaties; de latere publicatiecollector vervangt uitsluitend spaties door punten. JSON bewaart beide namen. Architectuur is Windows x64, macOS ARM64 en Linux x64; geen Intel-Mac/Windows-ARM/RPM-aanbod afgeleid.
 
-## Identiteiten en nog uit te voeren kernscenario’s
+## Identiteiten en afzonderlijk te accepteren kernscenario’s
 
 | App | Binary | Eigen ID / geconfigureerde profielnamespace | Kernscenario |
 | --- | --- | --- | --- |
@@ -41,4 +41,12 @@ Voor iedere rij: bron/run/job/attempt/gatetijd → officiële archive/member →
 
 Browser / en /office/ worden apart op P5/Windows/Linux/macOS beoordeeld; browserdekking wordt geen native zelfstandigheids- of OS-filepickerpass.
 
-Zie [JSON met 28 rijen](P5-downloads-pending.json), [bron-/schema-audit](P5-downloads-source-audit.json) en [actuele centrale overdracht](current-handoff.json). Deze tabel is een verwachtingenlijst; de centrale zelfstandigheidsmatrix blijft eigenaar van de echte acceptatieresultaten.
+Zie [JSON met 28 actuele pakketbindingen](P5-downloads-pending.json), de oorspronkelijke [bron-/schema-audit](P5-downloads-source-audit.json) en [actuele centrale overdracht](current-handoff.json). De centrale zelfstandigheidsmatrix blijft eigenaar van de echte native acceptatieresultaten; deze documentatie geeft geen nativepass.
+
+## Gecontroleerde ketens en latere publicatiestap
+
+Windows en Linux behouden producer 45177730188/attempt1 op appbronP5. macOS gebruikt de afzonderlijke producer 45195055147/attempt1/workflowhead 2af94cdcefa3e88e4980b631d16a88d7d7de5ae8; de werkelijke appbron blijft b696ab86/treee30879fd. De originele 820-byte bronwitness/SHA236085a316b40b2e5033316a3e3ed45f91cb9a27e83d518117160ba4aff4e7d5 bindt beide. De oorspronkelijke Macfailure blijft behouden.
+
+Er zijn 60 voorbereide releaseassets: 28 installers, 14 rapporten, 14 Linux-signatures, 2 publieke-sleutelbestanden, SHA256SUMS en diens signature. Het manifest heeft 58 regels omdat het zichzelf en de eigen signature niet opsomt. De onafhankelijke review controleert echte bewaarde bytes/rapporten/sums/fingerprint; 15 cryptografische verificaties zijn in een apart public-only GPG-home in CI uitgevoerd. Geen extra lokale GPG-verificatie wordt geclaimd.
+
+De bestaande release.yml-publisher vereist een eigen succesvolle bouwmatrix en haalt alleen artifacts uit diezelfde run. Hij kan de aparte Macrun niet aan de mislukte oorspronkelijke matrix lenen. Na resterende native acceptatie is **afzonderlijk gebruikersakkoord** nodig voor een gereviewd plan dat uitsluitend deze 60 bestaande assets met beide producerketens en een expliciet tagtarget verzamelt/publiceert. Een nieuwe algemene publiceren=true-build mag de geteste pakketbytes niet ongemerkt vervangen. Er is geen publisherwijziging of publicatietrigger uitgevoerd.

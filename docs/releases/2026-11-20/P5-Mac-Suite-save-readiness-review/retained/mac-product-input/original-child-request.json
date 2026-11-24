@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 1,
+  "scope": "macos-standalone-six",
+  "executionApproved": true,
+  "source": {
+    "commit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+    "tree": "e30879fd772871e690847c061ef66e6b81808a05",
+    "version": "2026.48.1"
+  },
+  "expiresAt": "2026-11-24T11:54:39Z",
+  "parentArtifact": {
+    "id": 14836145077,
+    "run": 45195055147,
+    "producerJobId": 137763371873,
+    "attempt": 1,
+    "name": "uitgave-macOS",
+    "sha256": "45a88b40325f516e91b0b4cb557b88fd2a81d62bde2e4be26dc87bd1b55ff015",
+    "bytes": 1972148013
+  },
+  "packages": {
+    "writer": {
+      "member": "dist-installers/writer/dmg/Open Writer Studio_2026.48.1_aarch64.dmg",
+      "sha256": null,
+      "hashBinding": "verified-parent-archive"
+    },
+    "spreadsheet": {
+      "member": "dist-installers/spreadsheet/dmg/Open Spreadsheet Studio_2026.48.1_aarch64.dmg",
+      "sha256": null,
+      "hashBinding": "verified-parent-archive"
+    },
+    "presentation": {
+      "member": "dist-installers/presentation/dmg/Open Presentation Studio_2026.48.1_aarch64.dmg",
+      "sha256": null,
+      "hashBinding": "verified-parent-archive"
+    },
+    "email": {
+      "member": "dist-installers/email/dmg/Open Email Studio_2026.48.1_aarch64.dmg",
+      "sha256": null,
+      "hashBinding": "verified-parent-archive"
+    },
+    "notition": {
+      "member": "dist-installers/notition/dmg/Open Notition Studio_2026.48.1_aarch64.dmg",
+      "sha256": null,
+      "hashBinding": "verified-parent-archive"
+    },
+    "database": {
+      "member": "dist-installers/database/dmg/Open Database Studio_2026.48.1_aarch64.dmg",
+      "sha256": null,
+      "hashBinding": "verified-parent-archive"
+    }
+  },
+  "harnessFiles": {
+    "scripts/standalone-macos/ax.swift": "3b35f623c4c0efd72e27c7dccd8d29e281624707f75e0c49372cc4039b48c859",
+    "scripts/standalone-macos/cases.py": "0ccb7508e4bce3860518508e251474816b2677e4c4e19d4156aa62f976c465f4",
+    "scripts/standalone-macos/contracts.py": "a63d8e1983221fee9939379d1b88d35c8dc3bca3622008806262f0743b851e9b",
+    "scripts/standalone-macos/fixtures.py": "2914c7f5718fe2cd5634cfbb9f1258eba58d769566ec00e557066836d1489b5a",
+    "scripts/standalone-macos/gnm_oracle.py": "7f47fe4fbd5fdc66a1c8179300d257dcef0e1ebae514d7271159c3469dfbb599",
+    "scripts/standalone-macos/mail_fixture_server.py": "9a86761229af2589780e61afa7fa92e16be314554addd638d8ca69e8a3366c6e",
+    "scripts/standalone-macos/native.py": "85d698ad4477a2257d14138ede9155061ee50184adf49633b2e2c6eb122b7f77",
+    "scripts/standalone-macos/ocr.swift": "c18c1ed874873ffb1bad620eb798172578aa8a2cb064b0be33f730c7e322685d",
+    "scripts/standalone-macos/oracles.py": "e08aa03b00a4e1670344296eaa45a6ac59da7198a038d89d2a1ab04a67b2ddbc",
+    "scripts/standalone-macos/prepare.py": "42bebaf577043c5912887a29ce51e5321a03ee524f5a1cd6d3f10da23b23e35c",
+    "scripts/standalone-macos/run.py": "d5fd4f879649bb0b9bcc1d60b713d07adcd45ae4fc7a4b6d7bd166aff8c1cd56",
+    "scripts/standalone-macos/sheet_formats.py": "6e04fa59f8407360b7621e9ec4a7a31934421dfdf75073e375f00aa8d88fc37c",
+    "scripts/standalone-macos/stw.py": "a34696241ca1752248c5f90a0759959e8ae69fdb745cdf3d1f5da070d695e6f7",
+    "scripts/standalone-macos/stw_oracle.py": "172b3ab9bf92cdb804fc68958c894e8468a31671af83a0ddee936f68221fe0ec",
+    "scripts/standalone-macos/suite_support_descriptor.py": "9570b2a46e86ecf6acd990323436969af6237c0d9a1fc76319fed835972bb240",
+    "scripts/standalone-macos/test_contracts.py": "bd22258570906386710a73a795614e42605177d5b9c2fd18eb9d897859523f13",
+    "scripts/standalone-macos/test_dual_producer.py": "fe2ebbd88c60ee418bef866f9d6b236a79e08e8afe04f0effaa11a78d14cd0a8",
+    "scripts/standalone-macos/test_format_gates.py": "7c8f7526cbea7f031b082ae2a0114dc7d47602f5f5517c0726fb31ac1d91e80f",
+    "scripts/standalone-macos/test_mail_fixture.py": "b3a8f8c26606518cebda517640888b772cf521adb08a70c2bcb34b6bf67293b9",
+    "scripts/standalone-macos/test_native_contracts.py": "a85f0a5d19f4fc1667693d2d443718ee5236c163f4844420a55403b7182a1b40",
+    "scripts/standalone-macos/test_prepare.py": "142cfee193f6715626882a21acfcd55a94e3f38a3892afb8a3ca632d0907ebd3",
+    "scripts/standalone-macos/test_selectors.py": "4b0cfd6b45cdf4d36bb324ba43b12607947a3453b7e0d127c8b0a0e3fd002c80",
+    "scripts/standalone-macos/test_suite_support.py": "7168dff9f392792750d6834fa11a439f6d1d4732b7c9f81a2cb0e7354959f9da",
+    "scripts/standalone-macos/test_vision.py": "0062ae589604c32a6f1b50d22e9569d6a6c4e6e9c712cc9dfc308456babfade5",
+    "scripts/standalone-macos/vision.py": "a227d5def1ba217bf6b8d6cce597171e66c0cf5a7f4673088b4b959d63b355ba",
+    "scripts/standalone-macos/xlsb_oracle.py": "e75c41fd23fa4285b13351b143c6d9d6a7120e58fc16107c1af14476b0f6dae7"
+  },
+  "additionalFormatCases": {
+    "writer": [
+      "stw"
+    ],
+    "spreadsheet": [
+      "gnm",
+      "gnumeric",
+      "xlsb"
+    ]
+  },
+  "preparationScope": "seven-product-split-six-app-only-hosts",
+  "supportingSuitePackage": {
+    "member": "dist-installers/office/dmg/Open Office Studio_2026.48.1_aarch64.dmg",
+    "sha256": null,
+    "hashBinding": "verified-parent-archive",
+    "purpose": "separate-suite-owner",
+    "executionApproved": false
+  },
+  "producerWorkflow": {
+    "commit": "2af94cdcefa3e88e4980b631d16a88d7d7de5ae8",
+    "tree": "94340e40228ddcb11aace00e4dd01f614a13273e",
+    "run": 45195055147,
+    "attempt": 1,
+    "job": 137763371873,
+    "branch": "codex/p5-macos-only-producer-20261123",
+    "path": ".github/workflows/release.yml",
+    "event": "workflow_dispatch",
+    "workflowSha256": "2ae3b7aa85bb4d4e394e71af43a93da45332e9b5f78fd7ed2151aca732726d62",
+    "checkoutWorkflowSha256": "620e90485493163b87163a8763ffbbfcc2f0af5f03251b592af577721c5a9c64",
+    "witnessMember": ".local/macos-only-producer-source.json"
+  }
+}

@@ -1,0 +1,426 @@
+{
+  "auditDate": "2026-11-24",
+  "scope": "Only late body-OCR42 failure; no377/default-policy audit, no new OCR/capture/native run, detector change, download, CI or fix",
+  "verdict": "Visible/data value42 confirmed in retained artifacts; strict body OCR gate remains FAILED/incomplete",
+  "source": {
+    "commit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+    "tree": "e30879fd772871e690847c061ef66e6b81808a05",
+    "version": "2026.48.1"
+  },
+  "qaCommit": "4c2d7637e61a39d851cccb39d296d13d520a9388",
+  "run": 45357794642,
+  "job": 138320456545,
+  "attempt": 1,
+  "jobConclusion": "failure",
+  "proofArtifact": {
+    "id": 14904041365,
+    "node_id": "MDg6QXJ0aWZhY3QxNDkwNDA0MTM2NQ==",
+    "name": "standalone-native-spreadsheet-xlsb-4c2d7637e61a39d851cccb39d296d13d520a9388",
+    "size_in_bytes": 6053555,
+    "url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/actions/artifacts/14904041365",
+    "archive_download_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/actions/artifacts/14904041365/zip",
+    "expired": false,
+    "digest": "sha256:fa28025fb854905a58643eb6f12b1a084e6569c418e6501d5fc964dd39981acd",
+    "created_at": "2026-11-24T08:50:39Z",
+    "updated_at": "2026-11-24T08:50:39Z",
+    "expires_at": "2027-02-22T08:37:50Z",
+    "workflow_run": {
+      "id": 45357794642,
+      "repository_id": 1427673882,
+      "head_repository_id": 1427673882,
+      "head_branch": "codex/standalone-macos-20261123",
+      "head_sha": "4c2d7637e61a39d851cccb39d296d13d520a9388"
+    }
+  },
+  "localOriginalArchive": "C:\\Users\\alper\\Desktop\\Documents\\ChatGPT\\code slaafjes\\work\\oos-standalone-macos-20261123-6f92\\.local\\native-45357794642-2026-11-24\\spreadsheet-xlsb\\artifact.zip",
+  "wholeArchiveDigestAnd238SafeCrcRawMembersVerified": true,
+  "rawFailureUnchanged": {
+    "type": "Unavailable",
+    "message": "Visible Writer body target unavailable; no input or paint primer sent: Unique readable original body word unavailable: 42"
+  },
+  "rawStatusUnchanged": "unavailable-or-incomplete",
+  "rawNativeAcceptedUnchanged": false,
+  "rawXlsbCaseStatusUnchanged": "running",
+  "storageAudit": {
+    "xlsxBytes": 6476,
+    "xlsxSha256": "0eb60817b210e6e9261764b32f97971d69e9d9ee911f3a012072c91632defdee",
+    "formulaCount": 30,
+    "A15": {
+      "formula": "40+2",
+      "cached": "42"
+    },
+    "other29": "1+2/cache3",
+    "sourceXlsbBytes": 7651,
+    "sourceXlsbSha256": "e06ae79ed345495eee0bf5e7fd7a32638af0b646c5819f7d83a4f6fb97a151a3"
+  },
+  "visualAndAxBoundary": {
+    "originalWindow": {
+      "kCGWindowAlpha": 1,
+      "kCGWindowBounds": {
+        "Height": 950,
+        "Width": 1440,
+        "X": 240,
+        "Y": 37
+      },
+      "kCGWindowIsOnscreen": true,
+      "kCGWindowLayer": 0,
+      "kCGWindowMemoryUsage": 2368,
+      "kCGWindowName": "edited-native.xlsx \u2014 Open Spreadsheet Studio (Spreadsheet)",
+      "kCGWindowNumber": 99,
+      "kCGWindowOwnerName": "Open Spreadsheet Studio",
+      "kCGWindowOwnerPID": 16315,
+      "kCGWindowSharingState": 1,
+      "kCGWindowStoreType": 1
+    },
+    "mainDisplay": {
+      "Height": 1080,
+      "Width": 1920,
+      "X": 0,
+      "Y": 0
+    },
+    "imageScale": {
+      "x": 1.0,
+      "y": 1.0
+    },
+    "pinnedMatcherBodyPointDomain": {
+      "leftExclusive": 240,
+      "rightExclusive": 1680,
+      "topExclusive": 272,
+      "bottomExclusive": 952
+    },
+    "selectedA15AXFrameGlobal": {
+      "height": 20,
+      "width": 64,
+      "x": 278,
+      "y": 537
+    },
+    "selectedA15AXFrameLocal": {
+      "x": 38,
+      "y": 500,
+      "width": 64,
+      "height": 20
+    },
+    "entireSelectedCellInsideBodyDomain": true,
+    "actualFocusedCell": {
+      "actions": [
+        "AXShowMenu",
+        "AXScrollToVisible"
+      ],
+      "actionsError": 0,
+      "AXDescription": "A15, 42, selected",
+      "AXEnabled": true,
+      "AXFocused": true,
+      "AXHelp": "",
+      "AXRole": "AXCell",
+      "AXRoleDescription": "cell",
+      "AXSelected": true,
+      "AXTitle": "A15, 42, selected",
+      "AXValue": "",
+      "frame": {
+        "height": 20,
+        "width": 64,
+        "x": 278,
+        "y": 537
+      }
+    },
+    "headerFormula": "=40+2",
+    "images": [
+      {
+        "file": "160-xlsb-reopened-visible-cell-0-original.png",
+        "sha256": "11977c61193487a078fcc2dedb7f52d905d39cc704d8461910a563ed8e2dc0e0",
+        "width": 1440,
+        "height": 950,
+        "humanReview": "Clearly visible selected body cell A15 contains42, name boxA15, formula bar=40+2; UI zoom100%.",
+        "storedWordObservationCount": 99,
+        "exact42TokenCountBeforeAnyMatcherFilter": 0,
+        "recognizedHeaderTargets": [
+          {
+            "confidence": 1,
+            "normalizedBottomLeft": {
+              "height": 0.015418501402202467,
+              "width": 0.018895347913106278,
+              "x": 0.031976744459144536,
+              "y": 0.7775330399376653
+            },
+            "text": "A15"
+          },
+          {
+            "confidence": 1,
+            "normalizedBottomLeft": {
+              "height": 0.013215859061793345,
+              "width": 0.02761627833048501,
+              "x": 0.10610465125626913,
+              "y": 0.7797356827157994
+            },
+            "text": "=40+2"
+          }
+        ],
+        "rawImageModified": false,
+        "ocrEditorInputSent": false
+      },
+      {
+        "file": "162-xlsb-reopened-visible-cell-1-original.png",
+        "sha256": "11977c61193487a078fcc2dedb7f52d905d39cc704d8461910a563ed8e2dc0e0",
+        "width": 1440,
+        "height": 950,
+        "humanReview": "Clearly visible selected body cell A15 contains42, name boxA15, formula bar=40+2; UI zoom100%.",
+        "storedWordObservationCount": 99,
+        "exact42TokenCountBeforeAnyMatcherFilter": 0,
+        "recognizedHeaderTargets": [
+          {
+            "confidence": 1,
+            "normalizedBottomLeft": {
+              "height": 0.015418501402202467,
+              "width": 0.018895347913106278,
+              "x": 0.031976744459144536,
+              "y": 0.7775330399376653
+            },
+            "text": "A15"
+          },
+          {
+            "confidence": 1,
+            "normalizedBottomLeft": {
+              "height": 0.013215859061793345,
+              "width": 0.02761627833048501,
+              "x": 0.10610465125626913,
+              "y": 0.7797356827157994
+            },
+            "text": "=40+2"
+          }
+        ],
+        "rawImageModified": false,
+        "ocrEditorInputSent": false
+      },
+      {
+        "file": "164-xlsb-reopened-visible-cell-2-original.png",
+        "sha256": "11977c61193487a078fcc2dedb7f52d905d39cc704d8461910a563ed8e2dc0e0",
+        "width": 1440,
+        "height": 950,
+        "humanReview": "Clearly visible selected body cell A15 contains42, name boxA15, formula bar=40+2; UI zoom100%.",
+        "storedWordObservationCount": 99,
+        "exact42TokenCountBeforeAnyMatcherFilter": 0,
+        "recognizedHeaderTargets": [
+          {
+            "confidence": 1,
+            "normalizedBottomLeft": {
+              "height": 0.015418501402202467,
+              "width": 0.018895347913106278,
+              "x": 0.031976744459144536,
+              "y": 0.7775330399376653
+            },
+            "text": "A15"
+          },
+          {
+            "confidence": 1,
+            "normalizedBottomLeft": {
+              "height": 0.013215859061793345,
+              "width": 0.02761627833048501,
+              "x": 0.10610465125626913,
+              "y": 0.7797356827157994
+            },
+            "text": "=40+2"
+          }
+        ],
+        "rawImageModified": false,
+        "ocrEditorInputSent": false
+      }
+    ],
+    "conclusion": "All three originals visibly show42 and AX agrees. None of the stored OCR word lists contains42 before exact-text/confidence/body-point filtering. This is not an observed crop exclusion or rejection of a retained low-confidence42. Why the OCR request/top-candidate/word-bounding-box emission omitted it cannot be recovered from these stored reports."
+  },
+  "lifecycle": {
+    "initialImportPid": 3165,
+    "nativePreflightReopenPid": 10639,
+    "editedOutputColdReopenPid": 16315,
+    "editedOutputReopenArgVerified": true,
+    "normalCmdQExitCodes": {
+      "3165": {
+        "pid": 3165,
+        "returncode": 0,
+        "normalCmdQ": true
+      },
+      "10639": {
+        "pid": 10639,
+        "returncode": 0,
+        "normalCmdQ": true
+      },
+      "16315": {
+        "pid": 16315,
+        "returncode": 0,
+        "normalCmdQ": true
+      }
+    },
+    "cleanupPassed": true,
+    "cleanupErrors": []
+  },
+  "unexecutedTail": "Native case stopped in writer_visible(42) before its reopenedOracle, final source-hash check, final case capture and success status. This offline file/visual audit does not complete that native gate.",
+  "limits": [
+    "No harmlessness or general product/rendering-bug conclusion: only exact retained images, AX state, word-list absence and saved data are established.",
+    "Stored OCR does not retain raw Vision alternative candidates or failed bounding-box lookups; underlying omission cause is undetermined.",
+    "No detector/confidence/body bounds or paint/input criteria changed; actual images were not cropped, resized or annotated.",
+    "377 save-policy is separately owned by D410 and was not reviewed here.",
+    "6f92 alone owns any actual pinned-output reopen/realZoom200/unchanged-OCR follow-up. No extra VM, implementation, matrix change, Git write or new work started by this auditor."
+  ],
+  "qaSourceHashes": {
+    "vision.py": "a227d5def1ba217bf6b8d6cce597171e66c0cf5a7f4673088b4b959d63b355ba",
+    "ocr.swift": "c18c1ed874873ffb1bad620eb798172578aa8a2cb064b0be33f730c7e322685d",
+    "sheet_formats.py": "4e0064ddeea8217a0eb02c8db09b7818f5e3f4d8762b8d8321327ee95e2a92b6",
+    "native.py": "85d698ad4477a2257d14138ede9155061ee50184adf49633b2e2c6eb122b7f77"
+  },
+  "files": [
+    {
+      "path": "160-xlsb-reopened-visible-cell-0-original.png",
+      "bytes": 131979,
+      "sha256": "11977c61193487a078fcc2dedb7f52d905d39cc704d8461910a563ed8e2dc0e0"
+    },
+    {
+      "path": "160-xlsb-reopened-visible-cell-0-original.ocr.json.gz",
+      "bytes": 3649,
+      "sha256": "d8637fd324559e50c55b6b18e216a66383b653823c62db53bfa2398de4d8e2e5"
+    },
+    {
+      "path": "160-xlsb-reopened-visible-cell-0-capture.json.gz",
+      "bytes": 188,
+      "sha256": "a9e60780895992adddc88b4f4250a1916d9f98bf46b3b33948af747a5c6ce524"
+    },
+    {
+      "path": "162-xlsb-reopened-visible-cell-1-original.png",
+      "bytes": 131979,
+      "sha256": "11977c61193487a078fcc2dedb7f52d905d39cc704d8461910a563ed8e2dc0e0"
+    },
+    {
+      "path": "162-xlsb-reopened-visible-cell-1-original.ocr.json.gz",
+      "bytes": 3649,
+      "sha256": "d8637fd324559e50c55b6b18e216a66383b653823c62db53bfa2398de4d8e2e5"
+    },
+    {
+      "path": "162-xlsb-reopened-visible-cell-1-capture.json.gz",
+      "bytes": 189,
+      "sha256": "163cfce7c805e5560034f7da5237bbd2a78c1b12c1887fda1e6de97251ea8167"
+    },
+    {
+      "path": "164-xlsb-reopened-visible-cell-2-original.png",
+      "bytes": 131979,
+      "sha256": "11977c61193487a078fcc2dedb7f52d905d39cc704d8461910a563ed8e2dc0e0"
+    },
+    {
+      "path": "164-xlsb-reopened-visible-cell-2-original.ocr.json.gz",
+      "bytes": 3649,
+      "sha256": "d8637fd324559e50c55b6b18e216a66383b653823c62db53bfa2398de4d8e2e5"
+    },
+    {
+      "path": "164-xlsb-reopened-visible-cell-2-capture.json.gz",
+      "bytes": 189,
+      "sha256": "5c87dfcac683af169bc33cc7210d8423acc4993a9dec40fd234ec3498632081e"
+    },
+    {
+      "path": "ax-158.json.gz",
+      "bytes": 30003,
+      "sha256": "aa929d07786ace3c9c4b7764a7e1f62a385a233d8b9f57ba52e28572542122fa"
+    },
+    {
+      "path": "ax-159.json.gz",
+      "bytes": 30494,
+      "sha256": "4b75f0388455f6c82a379617cf480af265810ab5d687b69c7750a6e972d84c88"
+    },
+    {
+      "path": "ax-160.json.gz",
+      "bytes": 30485,
+      "sha256": "405b205fc691df030551ee4f40edf587d56685412b232c61dc121d947d664920"
+    },
+    {
+      "path": "ax-161.json.gz",
+      "bytes": 30494,
+      "sha256": "4b75f0388455f6c82a379617cf480af265810ab5d687b69c7750a6e972d84c88"
+    },
+    {
+      "path": "ax-162.json.gz",
+      "bytes": 30485,
+      "sha256": "405b205fc691df030551ee4f40edf587d56685412b232c61dc121d947d664920"
+    },
+    {
+      "path": "ax-163.json.gz",
+      "bytes": 30494,
+      "sha256": "4b75f0388455f6c82a379617cf480af265810ab5d687b69c7750a6e972d84c88"
+    },
+    {
+      "path": "ax-164.json.gz",
+      "bytes": 30485,
+      "sha256": "405b205fc691df030551ee4f40edf587d56685412b232c61dc121d947d664920"
+    },
+    {
+      "path": "ax-165.json.gz",
+      "bytes": 30485,
+      "sha256": "405b205fc691df030551ee4f40edf587d56685412b232c61dc121d947d664920"
+    },
+    {
+      "path": "ax-166.json.gz",
+      "bytes": 30485,
+      "sha256": "405b205fc691df030551ee4f40edf587d56685412b232c61dc121d947d664920"
+    },
+    {
+      "path": "ax-167.json.gz",
+      "bytes": 30572,
+      "sha256": "718399ca3a10625414767c7325ae65004c448b981fd6a835cec1c516f3b29d02"
+    },
+    {
+      "path": "receipt.json.gz",
+      "bytes": 15738,
+      "sha256": "4ff7c58b0bfa0fe31a6f343c143a7e5d6fc16c9d46200e26e35b66db1eb4228a"
+    },
+    {
+      "path": "quit-3165.json.gz",
+      "bytes": 71,
+      "sha256": "6db85f4189ee713fcb7d35f246dfbe046f3c3c38a8e781280e5e8165dfe5a5b2"
+    },
+    {
+      "path": "quit-10639.json.gz",
+      "bytes": 72,
+      "sha256": "e7e6dc3cdc32cc8737b67edba4ec896fd8e9ccf4337dd3f7e9c4634cd9ab5cb9"
+    },
+    {
+      "path": "quit-16315.json.gz",
+      "bytes": 72,
+      "sha256": "67dfb9e7962e900504b73e4ddcd3ec2a412bebe73558f7ae4161d863109717d0"
+    },
+    {
+      "path": "owned-process-observations.json.gz",
+      "bytes": 575,
+      "sha256": "64941d61a6d5bcd53bf5b401192886bdbfa74df6bd5cd93701274f1b9fd56cea"
+    },
+    {
+      "path": "edited-native.xlsx",
+      "bytes": 6476,
+      "sha256": "0eb60817b210e6e9261764b32f97971d69e9d9ee911f3a012072c91632defdee"
+    },
+    {
+      "path": "member-manifest.json",
+      "bytes": 36683,
+      "sha256": "fc37d224363a3ca59be48771cbfb8246637764f0ba30118d09eeee0c128c01cc"
+    },
+    {
+      "path": "independent-xlsx-oracle.json",
+      "bytes": 2249,
+      "sha256": "f90e5e774f53bb5dd2290c62d878738ee19722040d20daafec38712e5991c187"
+    },
+    {
+      "path": "body-ocr-boundary.json",
+      "bytes": 5173,
+      "sha256": "a5e607293e5c581227e17b44812b837f189e7707e57f4fea85fdaf261bb88b11"
+    },
+    {
+      "path": "pinned-vision.py.txt",
+      "bytes": 2991,
+      "sha256": "a227d5def1ba217bf6b8d6cce597171e66c0cf5a7f4673088b4b959d63b355ba"
+    },
+    {
+      "path": "pinned-ocr.swift.txt",
+      "bytes": 2025,
+      "sha256": "c18c1ed874873ffb1bad620eb798172578aa8a2cb064b0be33f730c7e322685d"
+    },
+    {
+      "path": "official-metadata.json",
+      "bytes": 4424,
+      "sha256": "27057c874741834744d9843a60fdb8dfd81ac38470e2c4f1cbf0ff4a92d8b570"
+    }
+  ]
+}

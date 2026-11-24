@@ -1,0 +1,126 @@
+{
+  "verdict": "FAILED native save preflight; cause unresolved between input delivery/handler readiness and product save behavior. No374 execution or374 semantic failure.",
+  "nativeRun": 45355259350,
+  "attempt": 1,
+  "job": 138311374273,
+  "artifactId": 14902571239,
+  "qaCommit": "b052808d6fcfed34c7543176f0a827891b02a60d",
+  "applicationCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+  "proofBytes": 1381370,
+  "proofSHA256": "505cdc29339ee220ffb27c86ccff4ea9d177f4731720b368e13b87e2dd9d2308",
+  "all55MembersHashAndLocalBytesVerified": true,
+  "reportSHA256": "c68c412d47db8e37910429bb76bce34196e06b9bc1847ee4392b3fef378b5e63",
+  "sourceHashes": {
+    "scripts/writer-361-macos-ax.swift": "82813e7a2b9509cc1e9238a8eaaadf4b7e281d4535df13a86257f99f4bc06573",
+    "scripts/proef-writer-361-macos.py": "2cd86fa796ac65ec787ad9054bc896a54b3325d5eb2466bf018e11e4d29cfd0e",
+    "scripts/mac-native-current-session.py": "66af948271143bdbe93eb8c4acc57226317ad24a8ea10951a69d065708649714",
+    "scripts/mac-native-writer-preflight.py": "3e31a69f18459f43577832c66dcc032d6cd8c43824e59add75514aa7fdcc8839"
+  },
+  "applicationSourceHashes": {
+    "src/useTabSneltoetsen.ts": "dde71791c0983ad5269f1174eb3300afb100896059e05b251d3e0dd279aca9cb",
+    "src/OfficeStudio.tsx": "ff08de011fc90c0739b50546b22f215381da9c58a5e7c0f565525ff3740245aa",
+    "src/editors.tsx": "8c66552879c727d2d02d9da6f0609ca1f3a10ff94275ba7d802289b3b65f9bce",
+    "src/opslag.ts": "9f500b9b56a5bf4b233f0e9fcd8061758a2dfd3f710593b340460887262cfded",
+    "src/venstertitel.ts": "7487be5229fdf467f0d2af62db081c33820dd86afb81b2b641f80e6c3513e01c",
+    "src/werkbestand.ts": "292882613921d4a34a6877528973199f98a172b2157aee31882c1bf2b66cb4eb",
+    "src/import/bron.ts": "d6d83400f83fc5050c864a2308f4461cd6c28de4eba5d2ac6aebf988f1623335"
+  },
+  "transport": {
+    "Q": "CGEvent Unicode virtualKey0 flags[] down/up, postToPid2942",
+    "CmdS": "CGEvent virtualKey1 maskCommand down/up, postToPid2942",
+    "sameAPITarget": true,
+    "sameHIDQueueClaim": false,
+    "callerSequential": true,
+    "applicationDeliveryOrHandlerAck": false,
+    "explicitPostTypeDirtyWait": false,
+    "extraQOrCmdSRetry": false
+  },
+  "observationOrder": [
+    "action009 confirms focused Document input PID2942.",
+    "action010 window title sampled BEFORE Q was clean; Q postToPid down/up then focusAfter sampled.",
+    "action011 window title sampled BEFORE CmdS already has U+2022 dirty bullet; CmdS postToPid down/up then focusAfter sampled.",
+    "20s saved-XML polling fails; action012 still dirty; original failure screenshot visibly contains EERQSTE and Unsaved changes.",
+    "Retained private DOCX is exactly source bytes, noQ in independent document.xml."
+  ],
+  "timing": {
+    "actualInputTimestampsRetained": false,
+    "eventToHandlerProcessingLatencyKnown": false,
+    "zipMetadataOnly": [
+      {
+        "member": "mac-product-native/action-010.json",
+        "dateTime": [
+          2026,
+          11,
+          24,
+          8,
+          23,
+          52
+        ]
+      },
+      {
+        "member": "mac-product-native/action-011.json",
+        "dateTime": [
+          2026,
+          11,
+          24,
+          8,
+          23,
+          54
+        ]
+      },
+      {
+        "member": "mac-product-native/action-012.json",
+        "dateTime": [
+          2026,
+          11,
+          24,
+          8,
+          24,
+          16
+        ]
+      }
+    ],
+    "limits": "ZIP member times are coarse2-second file metadata, not monotonic input delivery or handler timings. No quantified rapid-input interval is established."
+  },
+  "applicationSourceReview": [
+    "Cmd/Ctrl+S maps to opslaan through window capture handler unless existing modal/defaultPrevented/uit guards apply.",
+    "Document opslaan has no general clean-document early return; plainDOCX uses registered serializer.",
+    "Serializer.bereidVoor calls flushPendingInput; DocumentOpslag awaits it before serialization/revision capture.",
+    "onDocumentChange marks modified; OS title bullet is derived from modified tab state.",
+    "No rawDOM keydown, save-handler entry, serialiser flush acknowledgement, native save IPC or error trace is retained here; those codepaths were not observed executing."
+  ],
+  "independentContent": {
+    "retainedDOCXSHA256": "c28b963a6094108cdf6cc412bca58302e731a7810ee81772831a0c621748e52d",
+    "exactSourceBytes": true,
+    "documentXMLHasNoQ": true,
+    "sourceText": "EPUB EERSTE HOOFDSTUKCafé & ideeën in de juiste leesvolgorde. Vette tekst en cursieve tekst.Eerste lijstpuntTweede lijstpuntEPUB TWEEDE HOOFDSTUKSlottekst blijft na de tabel staan.MateriaalAantalHout42"
+  },
+  "originalPNGReview": [
+    {
+      "member": "mac-product-native/field374-current-host-preflight/before-input/original-display.png",
+      "sha256": "fdab063807f35e8c12f94b3867f32e1369d4fbc6fe849cb9594d9297cfd1d235",
+      "originalViewedDirectly": true,
+      "observation": "Untouched356 control heading/body readable; clean title; noQ."
+    },
+    {
+      "member": "mac-product-native/failure-original-display.png",
+      "sha256": "81d15a23aad6150bd61542ac78ab827e8b1f8e0b6a23efbb179be3de52a762ae",
+      "originalViewedDirectly": true,
+      "observation": "Heading visibly contains EERQSTE; title dirty bullet and status Unsaved changes. Font-substitution warning remains."
+    }
+  ],
+  "cannotConclude": [
+    "Not proven that CmdS arrived before dirty: source and action011 show dirty sampled before posting CmdS.",
+    "Not proven harmless driver-readiness failure or a cross-transport reorder; both keyboard actions use postToPid.",
+    "Not proven product bug: event posting completion does not attest DOM/app handler delivery or successful save invocation.",
+    "A later readiness-guarded pass would validate only that sequence; it cannot erase this unexplained one-Q/one-CmdS failure.",
+    "No independent issue374 source/cache/field/layout conclusion: its case was never entered."
+  ],
+  "cleanup": {
+    "forcedTerminationRequired": true,
+    "ownedAppClosed": true,
+    "ownedAppContainerRemoved": true
+  },
+  "cleanupLimit": "Failure required owned process SIGTERM; app/container removed but no normalCmdQ/reopen acceptance.",
+  "scope": "Forensic existing-proof/source review only; no fix, criteria change, retry, CI, GUI, download or Git write."
+}

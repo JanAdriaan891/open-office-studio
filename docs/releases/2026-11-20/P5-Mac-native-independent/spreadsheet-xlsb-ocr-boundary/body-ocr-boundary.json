@@ -1,0 +1,174 @@
+{
+  "originalWindow": {
+    "kCGWindowAlpha": 1,
+    "kCGWindowBounds": {
+      "Height": 950,
+      "Width": 1440,
+      "X": 240,
+      "Y": 37
+    },
+    "kCGWindowIsOnscreen": true,
+    "kCGWindowLayer": 0,
+    "kCGWindowMemoryUsage": 2368,
+    "kCGWindowName": "edited-native.xlsx \u2014 Open Spreadsheet Studio (Spreadsheet)",
+    "kCGWindowNumber": 99,
+    "kCGWindowOwnerName": "Open Spreadsheet Studio",
+    "kCGWindowOwnerPID": 16315,
+    "kCGWindowSharingState": 1,
+    "kCGWindowStoreType": 1
+  },
+  "mainDisplay": {
+    "Height": 1080,
+    "Width": 1920,
+    "X": 0,
+    "Y": 0
+  },
+  "imageScale": {
+    "x": 1.0,
+    "y": 1.0
+  },
+  "pinnedMatcherBodyPointDomain": {
+    "leftExclusive": 240,
+    "rightExclusive": 1680,
+    "topExclusive": 272,
+    "bottomExclusive": 952
+  },
+  "selectedA15AXFrameGlobal": {
+    "height": 20,
+    "width": 64,
+    "x": 278,
+    "y": 537
+  },
+  "selectedA15AXFrameLocal": {
+    "x": 38,
+    "y": 500,
+    "width": 64,
+    "height": 20
+  },
+  "entireSelectedCellInsideBodyDomain": true,
+  "actualFocusedCell": {
+    "actions": [
+      "AXShowMenu",
+      "AXScrollToVisible"
+    ],
+    "actionsError": 0,
+    "AXDescription": "A15, 42, selected",
+    "AXEnabled": true,
+    "AXFocused": true,
+    "AXHelp": "",
+    "AXRole": "AXCell",
+    "AXRoleDescription": "cell",
+    "AXSelected": true,
+    "AXTitle": "A15, 42, selected",
+    "AXValue": "",
+    "frame": {
+      "height": 20,
+      "width": 64,
+      "x": 278,
+      "y": 537
+    }
+  },
+  "headerFormula": "=40+2",
+  "images": [
+    {
+      "file": "160-xlsb-reopened-visible-cell-0-original.png",
+      "sha256": "11977c61193487a078fcc2dedb7f52d905d39cc704d8461910a563ed8e2dc0e0",
+      "width": 1440,
+      "height": 950,
+      "humanReview": "Clearly visible selected body cell A15 contains42, name boxA15, formula bar=40+2; UI zoom100%.",
+      "storedWordObservationCount": 99,
+      "exact42TokenCountBeforeAnyMatcherFilter": 0,
+      "recognizedHeaderTargets": [
+        {
+          "confidence": 1,
+          "normalizedBottomLeft": {
+            "height": 0.015418501402202467,
+            "width": 0.018895347913106278,
+            "x": 0.031976744459144536,
+            "y": 0.7775330399376653
+          },
+          "text": "A15"
+        },
+        {
+          "confidence": 1,
+          "normalizedBottomLeft": {
+            "height": 0.013215859061793345,
+            "width": 0.02761627833048501,
+            "x": 0.10610465125626913,
+            "y": 0.7797356827157994
+          },
+          "text": "=40+2"
+        }
+      ],
+      "rawImageModified": false,
+      "ocrEditorInputSent": false
+    },
+    {
+      "file": "162-xlsb-reopened-visible-cell-1-original.png",
+      "sha256": "11977c61193487a078fcc2dedb7f52d905d39cc704d8461910a563ed8e2dc0e0",
+      "width": 1440,
+      "height": 950,
+      "humanReview": "Clearly visible selected body cell A15 contains42, name boxA15, formula bar=40+2; UI zoom100%.",
+      "storedWordObservationCount": 99,
+      "exact42TokenCountBeforeAnyMatcherFilter": 0,
+      "recognizedHeaderTargets": [
+        {
+          "confidence": 1,
+          "normalizedBottomLeft": {
+            "height": 0.015418501402202467,
+            "width": 0.018895347913106278,
+            "x": 0.031976744459144536,
+            "y": 0.7775330399376653
+          },
+          "text": "A15"
+        },
+        {
+          "confidence": 1,
+          "normalizedBottomLeft": {
+            "height": 0.013215859061793345,
+            "width": 0.02761627833048501,
+            "x": 0.10610465125626913,
+            "y": 0.7797356827157994
+          },
+          "text": "=40+2"
+        }
+      ],
+      "rawImageModified": false,
+      "ocrEditorInputSent": false
+    },
+    {
+      "file": "164-xlsb-reopened-visible-cell-2-original.png",
+      "sha256": "11977c61193487a078fcc2dedb7f52d905d39cc704d8461910a563ed8e2dc0e0",
+      "width": 1440,
+      "height": 950,
+      "humanReview": "Clearly visible selected body cell A15 contains42, name boxA15, formula bar=40+2; UI zoom100%.",
+      "storedWordObservationCount": 99,
+      "exact42TokenCountBeforeAnyMatcherFilter": 0,
+      "recognizedHeaderTargets": [
+        {
+          "confidence": 1,
+          "normalizedBottomLeft": {
+            "height": 0.015418501402202467,
+            "width": 0.018895347913106278,
+            "x": 0.031976744459144536,
+            "y": 0.7775330399376653
+          },
+          "text": "A15"
+        },
+        {
+          "confidence": 1,
+          "normalizedBottomLeft": {
+            "height": 0.013215859061793345,
+            "width": 0.02761627833048501,
+            "x": 0.10610465125626913,
+            "y": 0.7797356827157994
+          },
+          "text": "=40+2"
+        }
+      ],
+      "rawImageModified": false,
+      "ocrEditorInputSent": false
+    }
+  ],
+  "conclusion": "All three originals visibly show42 and AX agrees. None of the stored OCR word lists contains42 before exact-text/confidence/body-point filtering. This is not an observed crop exclusion or rejection of a retained low-confidence42. Why the OCR request/top-candidate/word-bounding-box emission omitted it cannot be recovered from these stored reports."
+}

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 3,
-  "asOfUTC": "2026-11-24T08:16:19.903881+00:00",
+  "asOfUTC": "2026-11-24T08:56:41.616801+00:00",
   "status": "RESUMED by explicit user instruction24November. Exact P5 app frozen; Mac native, targeted Windows and independent Linux/package audits running. Stable release readiness OPEN; no main/tag/publication authorized.",
   "date": "2026-11-24",
   "proposedVersion": "2026.48.1",
@@ -34,7 +34,7 @@
     "VersionFreezePipelineIntegrationAndReadiness": "root",
     "LinuxNativeXLSB": "d410;377sourcefixdone, shortnative377retestpreparedawaitingnewpackage",
     "STWVisualTriageAndBrowser": "9d3b; Windows operator750b only",
-    "NextFormatUOT": "e0d7: WRI7ba542fa complete; exclusive WPDWordPerfect6/lo-wpd-1 QA on P2 outsideP5, no new other variants.",
+    "NextFormatUOT": "e0d7: exclusive ABWlo-abw-1 QA onP2; HWPf9f9/LWP8ce4/WPD084/WRI7ba complete. 8020 independently owns nativeWindowsWRI onP5.",
     "FuturePresentation78": "0c73; 78/87 retained for future integration; 375 independent bounded source-build witness outside P5"
   },
   "MacCriticalPath": {
@@ -1268,9 +1268,10 @@
     "WindowsIssue377": "Short Spreadsheet-only follow-up planned with same approved child; not accepted yet.",
     "signatureEndAudit": "Independent final OpenPGP/checksum job not started; awaiting actual Mac package plus reviewed separate-producer adapter.",
     "stateAtStop": "Original six-job run finished: Writer/Spreadsheet scoped core PASS, other four initial driver FAIL/BLOCKED. Corrections/377 WIP unexecuted; both ready flags false.",
-    "stopCommit": "865952e5a680a0b3b892f328f505ca1cec78da4f",
+    "stopCommit": "Historical23November865952e5; superseded by currentowner3f27ae6d7c46429c60c141add4011aa27ebc980c",
     "SuiteStopCommit": "2dc4a0c49accc69ccadd170945b590dcc8d8c602",
-    "SuiteNative": "Run45196601365 overallFAIL retained; strict actual signed identities and12corechecksPASS, titleSaveAsfilemissing/WIPnotexecuted. No new job after stop."
+    "SuiteNative": "Run45196601365 overallFAIL retained; strict actual signed identities and12corechecksPASS, titleSaveAsfilemissing/WIPnotexecuted. No new job after stop.",
+    "stateAt24November": "Six bounded native standalone cores+short377+separate directcanvasPASS; all earlierfailuresretained; no productchange/parentdownload."
   },
   "deadline17CET": {
     "requested": true,
@@ -1454,6 +1455,15 @@
       "futureDocsCommits": "[skip ci]"
     },
     "WindowsTargetedSecondRun": 45353530654,
-    "WindowsTargetedSecondRunResult": "Database and377 jobs SUCCESS, awaiting owner raw/visual finalreview. PresentationFAIL before genuine keyboardfocus proof; owner and independent boundary reviewer investigating without product edits."
+    "WindowsTargetedSecondRunResult": "Database and377 jobs SUCCESS, awaiting owner raw/visual finalreview. PresentationFAIL before genuine keyboardfocus proof; owner and independent boundary reviewer investigating without product edits.",
+    "WindowsSixCores": "PASS bounded six dedicated apps; finalowner3f27ae6d includes separate directcanvasPPTX input/save/normalquit/newPID, no productdelta",
+    "Windows377": "PASS independent ebfc0c57 audit on45353530654/138305718627",
+    "MacEmail": "PASS independent6e7704d5 audit on45355392623/138313473395; exact1APPEND/MIME/body/coldreopen/cleanup",
+    "MacNotition": "PASS independent9733563f audit; one completed-edit originalimage, no second invented",
+    "MacDatabase": "PASS independent68ea79ac audit; SQLite read/query/export/reopen only",
+    "MacSuiteCore": "PASS independent61b72d0d; Find/Tab separateboundedpositiveaudits",
+    "MacSuiteSaveObservation": "UNRESOLVED: dirty was visible BEFORE legacyCmdS; oldpreflightfailedwithunchangedsourcebytes. Separate3conditiontransport/releaseflagdiagnostic45358252707 active, no harmlessQA classification",
+    "MacSpreadsheetFollowup": "45357794642:gnm/gnumericSUCCESS ownerreviewed, xlsb lateOCR42FAIL; short377independentaudit and minimalreopenvisualcompletion pending",
+    "MacSuite374": "45358252518 active exacttitlephrase/dismiss/nativekeys; no finalmarkerDOCXyet"
   }
 }

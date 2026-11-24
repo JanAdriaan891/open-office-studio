@@ -1,0 +1,20 @@
+{
+  "id": 14901001083,
+  "node_id": "MDg6QXJ0aWZhY3QxNDkwMTAwMTA4Mw==",
+  "name": "standalone-support-suite",
+  "size_in_bytes": 373225524,
+  "url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/actions/artifacts/14901001083",
+  "archive_download_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/actions/artifacts/14901001083/zip",
+  "expired": false,
+  "digest": "sha256:76ad8b48534cec1833954358e0c71195b6dc5e62ab30bbac094f37367b0d8650",
+  "created_at": "2026-11-24T07:56:44Z",
+  "updated_at": "2026-11-24T07:56:44Z",
+  "expires_at": "2027-02-22T07:55:02Z",
+  "workflow_run": {
+    "id": 45351696628,
+    "repository_id": 1427673882,
+    "head_repository_id": 1427673882,
+    "head_branch": "codex/standalone-macos-20261123",
+    "head_sha": "03477b0199daeb50ae7b20d552b111630c3271ce"
+  }
+}

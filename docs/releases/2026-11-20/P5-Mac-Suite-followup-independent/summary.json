@@ -1,0 +1,24 @@
+{
+  "applicationCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+  "qaCommit": "b052808d6fcfed34c7543176f0a827891b02a60d",
+  "separateVerdicts": [
+    {
+      "scope": "Tab history",
+      "verdict": "PASS bounded Tab/newrow/history criteria only"
+    },
+    {
+      "scope": "Find/two-document isolation",
+      "verdict": "PASS bounded Find and two-document isolation criteria only"
+    }
+  ],
+  "overall361AcceptanceClaimed": false,
+  "field374AcceptanceClaimed": false,
+  "earlierQCmdSFailureUnresolved": true,
+  "sourceHashes": {
+    "scripts/mac-native-current-session.py": "66af948271143bdbe93eb8c4acc57226317ad24a8ea10951a69d065708649714",
+    "scripts/proef-writer-361-macos.py": "2cd86fa796ac65ec787ad9054bc896a54b3325d5eb2466bf018e11e4d29cfd0e",
+    "scripts/writer-361-macos-ax.swift": "82813e7a2b9509cc1e9238a8eaaadf4b7e281d4535df13a86257f99f4bc06573",
+    "scripts/mac-native-361-tab-oracle.py": "7ab76ea7f95127da7f4c929a0d26d8c6b0c93a8c113ec95feea254842447628e",
+    "scripts/mac-native-361-remaining.py": "0b14d9e82d1fe446085b44c23046e8f39cd97bd13c5d5568b333a3ae9c3afc66"
+  }
+}

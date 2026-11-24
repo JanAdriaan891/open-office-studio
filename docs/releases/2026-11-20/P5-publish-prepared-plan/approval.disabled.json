@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "executionEnabled": false,
+  "writtenUserApproval": null,
+  "approvedPlanSha256": null,
+  "approvedApplicationCommit": null,
+  "approvedTag": null,
+  "approvedTagTarget": null,
+  "mainAncestorVerifiedAfterApproval": false,
+  "nativeAcceptanceFinal": false,
+  "publicationImplementationReviewed": false,
+  "integrationMergeAuthorized": false,
+  "mainMergeAuthorized": false,
+  "tagCreationAuthorized": false,
+  "draftReleaseCreationAuthorized": false,
+  "assetUploadAuthorized": false,
+  "publishAuthorized": false,
+  "meaning": "Disabled review template only. No workflow consumes this file. Filling it does not implement or trigger any action; root and user must review concrete later steps separately."
+}
