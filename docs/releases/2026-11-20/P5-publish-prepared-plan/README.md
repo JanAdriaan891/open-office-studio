@@ -1,5 +1,7 @@
 # Niet-uitvoerend plan voor 60 bestaande releaseassets
 
+Actuele aanvulling 24 november: de afgesproken beperkte native acceptatie en eindweging zijn [afgerond](../P5-native-completion-2026-11-24/README.md). Het plan en zijn disabled approvaltemplate hieronder blijven een bevroren voorstel van vóór die eindweging; hun `nativeAcceptanceFinal=false` is geen actuele afkeuring en geen toestemming. Een latere definitieve releasebody en uitvoering vereisen afzonderlijke review en gebruikersakkoord.
+
 **Uitsluitend reviewvoorbereiding. Geen werkende publisher, workflow, startmarker of toestemming.** `executionEnabled=false`, alle publicatie-/main-/tagapprovals zijn false of null. Een geslaagde offlinevalidator verandert dat niet.
 
 [plan.json](plan.json) benoemt alle 60 namen, bytes, SHA256 en oorspronkelijke artifactmembers. De 28 installers komen uit de werkelijk geverifieerde Windows/Linuxproducer 45177730188/attempt1 en de afzonderlijke Macproducer 45195055147/attempt1. Applicatie blijft exact P5 `b696ab86bd1c128729a079b68c0082e6df3d36a5`, tree `e30879fd772871e690847c061ef66e6b81808a05`, versie 2026.48.1; Macworkflowhead 2af blijft een afzonderlijke identiteit. De originele Macfailure in 45177730188 wordt behouden.

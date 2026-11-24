@@ -1,7 +1,7 @@
 {
   "schemaVersion": 3,
   "asOfUTC": "2026-11-24T08:56:41.616801+00:00",
-  "status": "RESUMED by explicit user instruction24November. Exact P5 app frozen; Mac native, targeted Windows and independent Linux/package audits running. Stable release readiness OPEN; no main/tag/publication authorized.",
+  "status": "READY for stable-release preparation within agreed bounded P5 acceptance, all planned platform/native/package audits completed. One old Mac save incident remains causally unexplained and is explicitly disclosed. No main/tag/release/publication authorized.",
   "date": "2026-11-24",
   "proposedVersion": "2026.48.1",
   "intermediateWindowsSource": "3a0decac3d45234d4b4d487e431b21cff961ccca",
@@ -257,7 +257,7 @@
   },
   "deferred366": "Explicitly deferred user-reported stale page count; no fix in this task.",
   "reuseRule": "Old evidence keeps exact source/tree/host/package scope; changed production/version inputs require matching new builds and applicable checks. Platforms start independently after own package identity/preflight, not on unrelated platform success.",
-  "readyForStableRelease": false,
+  "readyForStableRelease": true,
   "activeWorkMayResumeToday": true,
   "automaticPublication": false,
   "signingCapabilityPreflight": {
@@ -1395,16 +1395,12 @@
     "newFeaturesAllowed": false,
     "mainWritesAllowed": false,
     "publicationAllowed": false,
-    "report": "RESUMED-2026-11-24.md",
+    "report": "P5-native-completion-2026-11-24/completion.json",
     "MacNativeRun": 45351696628,
     "MacQA": "03477b0199daeb50ae7b20d552b111630c3271ce",
     "MacPrepJob": 138299734385,
-    "MacPrep": "SUCCESS whole parent/hash/source witness; actual native results pending",
-    "MacNativeHostsInProgress": [
-      138300391320,
-      138300391279,
-      138300391259
-    ],
+    "MacPrep": "SUCCESS full parent/hash/source witness; all assigned bounded native routes now completed",
+    "MacNativeHostsInProgress": [],
     "WindowsTargetedRun": 45352319983,
     "WindowsQA": "97710e2ba22d0939ef121fdebb18dec43ed2df9d",
     "WindowsScope": "Four missing app cores plus short377; child-only reuse, no parent download",
@@ -1413,7 +1409,7 @@
       "job": 138303038323,
       "qa": "f5363ce8cb0160190b3e4f75a305b8f72fbb239f",
       "proofGit": "9d8ab9fa0a979112d16faeaab7c24b64d570c6c3",
-      "status": "Owner bounded PASS actual chosen-path DOCX/save/normalquit/newPID; independent field/title image review in progress",
+      "status": "PASS owner9d8ab9fa plus independentc895437b on actual final DOCX and original images",
       "finalDocxSha256": "39cfd2c1e236c945f79d675b5973a10f37db60dc9bf6e08a00aa773cb6c57f77",
       "originalFailureRetained": true
     },
@@ -1421,13 +1417,15 @@
     "LinuxSuiteIndependentAudit": "Completed PASS bounded; full ribbon matrix PARTIAL, historical failures and limits preserved.",
     "PackageVerifierRun": 45352330223,
     "PackageVerifierQA": "618beafb98b060a0fdd6da13f59ada8841425abc",
-    "PackageVerifierSourceReview": "Root accepted exact separate Mac producer, frozen attempt endpoints and platform-specific private runtime gates;24 tests PASS. Actual archive/signature checks in progress.",
-    "stableReleaseReady": false,
+    "PackageVerifierSourceReview": "Completed actual archives/signatures plus independent raw-proof audit; no publication",
+    "stableReleaseReady": true,
     "MacSuite": {
       "run": 45352741879,
       "qa": "48e7de0f5c94a7bb8f5e723be6cfd6c383d8b2ae",
       "job": 138302964907,
-      "status": "queued after strict inputreview; no native acceptance yet"
+      "status": "PASS bounded core, Find/Tab and final exact374; no blanket renderer/full-format acceptance",
+      "field374Run": 45358252518,
+      "field374IndependentCommit": "0261063d08ea803dcd8be8e4a571a85163b61539"
     },
     "PackageVerifierStatus": "SUCCESS + independent bounded raw-proof audit;28 actual installers/14 reports/14 Linux signatures/58 sums/15 public-only CI verifies, cleanup confirmed; no publication/native acceptance.",
     "PackageVerifierArtifact": {
@@ -1455,15 +1453,34 @@
       "futureDocsCommits": "[skip ci]"
     },
     "WindowsTargetedSecondRun": 45353530654,
-    "WindowsTargetedSecondRunResult": "Database and377 jobs SUCCESS, awaiting owner raw/visual finalreview. PresentationFAIL before genuine keyboardfocus proof; owner and independent boundary reviewer investigating without product edits.",
-    "WindowsSixCores": "PASS bounded six dedicated apps; finalowner3f27ae6d includes separate directcanvasPPTX input/save/normalquit/newPID, no productdelta",
+    "WindowsTargetedSecondRunResult": "Database and377 PASS; later Presentation core and direct canvas PASS, original failures retained",
+    "WindowsSixCores": "PASS bounded6 + separate genuine direct-canvas supplement3f27ae6d",
     "Windows377": "PASS independent ebfc0c57 audit on45353530654/138305718627",
     "MacEmail": "PASS independent6e7704d5 audit on45355392623/138313473395; exact1APPEND/MIME/body/coldreopen/cleanup",
     "MacNotition": "PASS independent9733563f audit; one completed-edit originalimage, no second invented",
     "MacDatabase": "PASS independent68ea79ac audit; SQLite read/query/export/reopen only",
     "MacSuiteCore": "PASS independent61b72d0d; Find/Tab separateboundedpositiveaudits",
-    "MacSuiteSaveObservation": "UNRESOLVED: dirty was visible BEFORE legacyCmdS; oldpreflightfailedwithunchangedsourcebytes. Separate3conditiontransport/releaseflagdiagnostic45358252707 active, no harmlessQA classification",
-    "MacSpreadsheetFollowup": "45357794642:gnm/gnumericSUCCESS ownerreviewed, xlsb lateOCR42FAIL; short377independentaudit and minimalreopenvisualcompletion pending",
-    "MacSuite374": "45358252518 active exacttitlephrase/dismiss/nativekeys; no finalmarkerDOCXyet"
+    "MacSuiteSaveObservation": "Causally OPEN, acceptance gate SATISFIED by same-P5 strict positive save/reopen cases. Old45355259350 remains FAIL; six45358252707 diagnostics do not prove cause/fix. Independent gate363d0dcd adopted; intermittent product-save risk not excluded.",
+    "MacSpreadsheetFollowup": "ACCEPTED combined evidence: retained functional core, fresh GNM/Gnumeric routes, XLSB30-formula+377 and exact-output200% readback45361373078; old failed runs/timeoutcleanup retained",
+    "MacSuite374": "PASS independently0261063d; STW374 bounded route CLOSED; post-save Done-toast image remainsLIMITED",
+    "asOfUTC": "2026-11-24T09:22:59.760862+00:00",
+    "allPlannedBoundedChecksCompleted": true
+  },
+  "currentFinalAcceptance": {
+    "asOfUTC": "2026-11-24T09:22:59.760862+00:00",
+    "application": {
+      "commit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+      "tree": "e30879fd772871e690847c061ef66e6b81808a05",
+      "version": "2026.48.1"
+    },
+    "stableReleasePreparationReady": true,
+    "boundedScope": true,
+    "report": "P5-native-completion-2026-11-24/README.md",
+    "receipt": "P5-native-completion-2026-11-24/completion.json",
+    "saveGateReviewSha256": "363d0dcd03b95ffecd47dc015424bba449c69a2490c1328b9e39272d08554256",
+    "historicalSectionsAreNotCurrentStatus": true,
+    "mainMergeAllowed": false,
+    "publicationAllowed": false,
+    "rawFailuresNotRewritten": true
   }
 }
