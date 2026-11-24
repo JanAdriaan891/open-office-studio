@@ -658,6 +658,9 @@ export function TekstRibbon({
                     <DatumTijdKnop />
                   </div>
                   <VeldKnoppen />
+                </Groep>
+                {/* Eigen groep: de groep Tekst blijft zoals de lintproef (#362) hem vastlegt. */}
+                <Groep naam={t("writer:autoText.buildingBlocks")}>
                   <BouwsteenMenu uit={!opdrachten.bewerkbaar} />
                 </Groep>
               </>
