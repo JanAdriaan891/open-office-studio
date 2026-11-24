@@ -167,16 +167,27 @@ export function useVeldSpelling(opties: VeldSpellingOpties, actief: boolean): Re
       setVeld(null);
       return;
     }
+    // Niet tijdens het openen van het veld zelf: de focus komt vaak uit een effect van de editor, en een
+    // synchrone hertekening op dat moment kost bij snel typen de eerstvolgende toets. Kort uitgesteld inhaken.
+    let timer = 0;
     const erin = (e: FocusEvent) => {
-      if (past(e.target)) setVeld(e.target);
+      const doel = e.target;
+      if (!past(doel)) return;
+      window.clearTimeout(timer);
+      timer = window.setTimeout(() => {
+        if (document.activeElement === doel) setVeld(doel);
+      }, 250);
     };
     const eruit = (e: FocusEvent) => {
-      if (past(e.target)) setVeld((v) => (v === e.target ? null : v));
+      if (!past(e.target)) return;
+      window.clearTimeout(timer);
+      setVeld((v) => (v === e.target ? null : v));
     };
     document.addEventListener("focusin", erin, true);
     document.addEventListener("focusout", eruit, true);
     if (past(document.activeElement)) setVeld(document.activeElement);
     return () => {
+      window.clearTimeout(timer);
       document.removeEventListener("focusin", erin, true);
       document.removeEventListener("focusout", eruit, true);
     };
