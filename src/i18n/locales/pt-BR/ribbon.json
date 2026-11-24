@@ -324,7 +324,18 @@
       "fillRight": "Preencher à direita",
       "openFilterMenu": "Abrir o menu de filtro (em uma célula de cabeçalho com seta)",
       "insertFunction": "Inserir função",
-      "toggleReference": "Referência absoluta ou relativa (ao editar uma fórmula)"
+      "toggleReference": "Referência absoluta ou relativa (ao editar uma fórmula)",
+      "timeFormat": "Formato de hora",
+      "fillSelection": "Preencher a seleção com a entrada",
+      "newLineInCell": "Nova linha na célula",
+      "clearAndEdit": "Limpar a célula e editar",
+      "hideRows": "Ocultar linhas",
+      "showRows": "Reexibir linhas",
+      "showColumns": "Reexibir colunas",
+      "dataEdge": "Ir até a borda da região de dados",
+      "extendToDataEdge": "Estender a seleção até a borda da região de dados",
+      "lastUsedCell": "Ir até a última célula usada",
+      "extendToLastUsedCell": "Estender a seleção até a última célula usada"
     }
   },
   "spreadsheet": {

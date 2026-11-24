@@ -14,6 +14,7 @@
     "onlyIn": "in {{modules}}",
     "notIn": "non in {{modules}}",
     "footnote": "Su macOS usa ⌘ invece di Ctrl. Premi Alt o F10 per visualizzare i suggerimenti dei tasti nella barra multifunzione.",
-    "unavailable": "non ancora disponibile"
+    "unavailable": "non ancora disponibile",
+    "excelConventions": "come in Excel: Ctrl+Invio riempie la selezione, Alt+Invio è una nuova riga, Backspace cancella senza finestra di dialogo"
   }
 }

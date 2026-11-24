@@ -69,6 +69,8 @@ export interface Reeks {
   naamRef?: string;
   waardenRef?: string;
   trendlijnen?: Trendlijn[];
+  /** Spreiding: als lijn zonder markeringen tekenen (bijvoorbeeld een trendlijn uit de regressie). */
+  lijn?: boolean;
 }
 
 export interface GrafiekModel {

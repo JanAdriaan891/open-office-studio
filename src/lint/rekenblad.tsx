@@ -114,6 +114,14 @@ import {
 import { abonneerFilters, bladFilter, heeftCriteria } from "./rekenblad-filter";
 import { ReeksVenster, SorteerVenster } from "./rekenblad-vensters";
 import {
+  leegBewerken,
+  naarLaatsteCel,
+  selecteerHeel,
+  springNaarRand,
+  useExcelInvoertoetsen,
+} from "./rekenblad-toetsen";
+import { AnalyseGroep, GereedschapGroepen, GereedschapVenster, type GereedschapSoort } from "./rekenblad-gegevensgereedschap";
+import {
   Formulebalk,
   FunctieVenster,
   invoegplek,
@@ -139,7 +147,7 @@ import { TabelGroep } from "../rekenblad/TabelUi";
 import { DraaitabelGroep } from "../rekenblad/DraaitabelUi";
 import { useObjectenGroep } from "../rekenblad/ObjectenGroep";
 
-type Paneel = "zoeken" | "ganaar" | "hernoemen" | "sorteren" | "reeks" | "namen" | null;
+type Paneel = "zoeken" | "ganaar" | "hernoemen" | "sorteren" | "reeks" | "namen" | GereedschapSoort | null;
 
 function useStand(api: XlsxEditorApi | null) {
   const [, ververs] = useReducer((n: number) => n + 1, 0);
@@ -521,10 +529,11 @@ export function RekenbladRibbon({
   }));
   (
     [
+      // Zoals Excel: 2 = tijd, 6 = wetenschappelijk (LibreOffice wijkt hier af).
       ["1", "number"],
-      ["2", "scientific"],
+      ["2", "time"],
       ["5", "percent"],
-      ["6", "automatic"],
+      ["6", "scientific"],
     ] as const
   ).forEach(([cijfer, value]) =>
     sneltoetsen.push({
@@ -545,10 +554,24 @@ export function RekenbladRibbon({
       uitvoeren: () => uitvoeren(valutaNotatie),
     },
     {
+      toets: "Ctrl+Shift+~",
+      beschikbaar: geenTekst,
+      uitvoeren: opdracht("numberFormat", { value: "automatic" }),
+    },
+    {
       toets: "Alt+=",
       beschikbaar: geenTekst,
       uitvoeren: () => uitvoeren(autoSomInvoegen),
     },
+    // Excel-conventies (src/lint/rekenblad-toetsen.ts); Ctrl+Enter en Alt+Enter in de celinvoer staan daar.
+    { toets: "Backspace", beschikbaar: () => geenTekst() && !uit, uitvoeren: leegBewerken },
+    { toets: "Ctrl+Space", beschikbaar: geenTekst, uitvoeren: () => api && selecteerHeel(api, laag, "kolom") },
+    { toets: "Shift+Space", beschikbaar: geenTekst, uitvoeren: () => api && selecteerHeel(api, laag, "rij") },
+    { toets: "Ctrl+9", beschikbaar: () => geenTekst() && !uit, uitvoeren: () => uitvoeren((a) => rijenZichtbaarheid(a, true)) },
+    { toets: "Ctrl+Shift+9", beschikbaar: () => geenTekst() && !uit, uitvoeren: () => uitvoeren((a) => rijenZichtbaarheid(a, false)) },
+    { toets: "Ctrl+Shift+0", beschikbaar: () => geenTekst() && !uit, uitvoeren: () => uitvoeren((a) => kolommenZichtbaarheid(a, false)) },
+    { toets: "Ctrl+End", beschikbaar: geenTekst, uitvoeren: () => api && naarLaatsteCel(api, laag, false) },
+    { toets: "Ctrl+Shift+End", beschikbaar: geenTekst, uitvoeren: () => api && naarLaatsteCel(api, laag, true) },
     {
       toets: "Ctrl+;",
       uitvoeren: () => uitvoeren((a) => datumTijdInvoegen(a, false)),
@@ -614,7 +637,26 @@ export function RekenbladRibbon({
       uitvoeren: () => grafieken.invoegen(true),
     },
   );
+  (
+    [
+      ["Ctrl+ArrowUp", "omhoog"],
+      ["Ctrl+ArrowDown", "omlaag"],
+      ["Ctrl+ArrowLeft", "links"],
+      ["Ctrl+ArrowRight", "rechts"],
+      ["Ctrl+Shift+ArrowUp", "omhoog"],
+      ["Ctrl+Shift+ArrowDown", "omlaag"],
+      ["Ctrl+Shift+ArrowLeft", "links"],
+      ["Ctrl+Shift+ArrowRight", "rechts"],
+    ] as const
+  ).forEach(([toets, richting]) =>
+    sneltoetsen.push({
+      toets,
+      beschikbaar: geenTekst,
+      uitvoeren: () => uitvoeren((a) => springNaarRand(a, laag, richting, toets.includes("Shift"))),
+    }),
+  );
   useSneltoetsen(rekenbladHost, api ? sneltoetsen : [], "rekenblad");
+  useExcelInvoertoetsen(api, laag, fout);
   // Ctrl+Shift+L en het menu: het filter (#62) via het opdrachtenregister.
   const filterRef = useRef(() => uitvoeren(filterAanUit));
   filterRef.current = () => uitvoeren(filterAanUit);
@@ -984,6 +1026,8 @@ export function RekenbladRibbon({
                     doe={() => setPaneel("reeks")}
                   />
                 </Groep>
+                <GereedschapGroepen uit={uit} open={setPaneel} />
+                <AnalyseGroep uit={uit} open={setPaneel} />
                 {functies}
               </>
             ),
@@ -1082,6 +1126,9 @@ export function RekenbladRibbon({
       {api && paneel === "sorteren" && <SorteerVenster api={api} sluit={sluiten} />}
       {api && paneel === "reeks" && <ReeksVenster api={api} sluit={sluiten} />}
       {api && paneel === "namen" && <NamenBeheer api={api} sluiten={sluiten} />}
+      {api && paneel && !["zoeken", "ganaar", "hernoemen", "sorteren", "reeks", "namen"].includes(paneel) && (
+        <GereedschapVenster soort={paneel as GereedschapSoort} api={api} sluit={sluiten} />
+      )}
       {api && functiePlek && (
         <FunctieVenster
           api={api}

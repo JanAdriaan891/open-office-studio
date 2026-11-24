@@ -977,5 +977,182 @@
       "missingPivot": "This pivot table no longer exists.",
       "unsupportedPivot": "This pivot layout cannot be edited safely."
     }
+  },
+  "dataTools": {
+    "group": "Data Tools",
+    "ok": "OK",
+    "range": "Range: {{range}}",
+    "header": "My data has headers",
+    "selectAll": "Select all",
+    "selectNone": "Select none",
+    "messages": {
+      "needRows": "The range contains no data rows.",
+      "needColumns": "Choose at least one column."
+    },
+    "duplicates": {
+      "button": "Remove Duplicates",
+      "title": "Remove Duplicates",
+      "action": "Action",
+      "actions": {
+        "verwijderen": "Remove duplicates",
+        "markerenDubbel": "Highlight duplicate values",
+        "markerenUniek": "Highlight unique values",
+        "filteren": "Show unique rows only (filter)"
+      },
+      "run": {
+        "verwijderen": "Remove",
+        "markerenDubbel": "Highlight",
+        "markerenUniek": "Highlight",
+        "filteren": "Filter"
+      },
+      "columns": "Columns to compare",
+      "none": "No duplicate values found. Unique rows: {{rows}}.",
+      "result": {
+        "verwijderen_one": "{{number}} duplicate removed; unique rows remaining: {{rows}}.",
+        "verwijderen_other": "{{number}} duplicates removed; unique rows remaining: {{rows}}.",
+        "markerenDubbel_one": "{{number}} row with duplicate values highlighted (of {{rows}}).",
+        "markerenDubbel_other": "{{number}} rows with duplicate values highlighted (of {{rows}}).",
+        "markerenUniek_one": "{{number}} unique row highlighted (of {{rows}}).",
+        "markerenUniek_other": "{{number}} unique rows highlighted (of {{rows}}).",
+        "filteren_one": "{{number}} duplicate row hidden; visible unique rows: {{rows}}. Show Rows makes it visible again.",
+        "filteren_other": "{{number}} duplicate rows hidden; visible unique rows: {{rows}}. Show Rows makes them visible again."
+      }
+    },
+    "apply": "Apply",
+    "textToColumns": {
+      "button": "Text to Columns",
+      "title": "Text to Columns",
+      "source_one": "Source: {{range}} ({{rows}} row)",
+      "source_other": "Source: {{range}} ({{rows}} rows)",
+      "kind": "Split by",
+      "delimited": "Delimiters",
+      "fixedWidth": "Fixed width",
+      "space": "Space",
+      "mergeDelimiters": "Treat consecutive delimiters as one",
+      "breaks": "Column breaks",
+      "breaksHint": "Click in the preview to add or remove a column break, or type the character positions.",
+      "breakPositions": "Character positions of the column breaks",
+      "destination": "Destination cell",
+      "preview": "Preview of the result",
+      "dmy": "DMY",
+      "mdy": "MDY",
+      "ymd": "YMD",
+      "replace": "Replace",
+      "messages": {
+        "oneColumn": "Select cells in a single column.",
+        "badDestination": "Enter a valid destination cell, for example B1.",
+        "allSkipped": "All columns are skipped.",
+        "overwrite_one": "{{number}} filled cell will be overwritten. Choose Replace to continue.",
+        "overwrite_other": "{{number}} filled cells will be overwritten. Choose Replace to continue."
+      }
+    },
+    "analysisGroup": "Analysis",
+    "goalSeek": {
+      "button": "Goal Seek",
+      "title": "Goal Seek",
+      "formulaCell": "Set cell",
+      "target": "To value",
+      "variableCell": "By changing cell",
+      "solve": "Solve",
+      "busy": "Searching…",
+      "hint": "The calculation runs in a copy; the sheet only changes when you choose Apply.",
+      "found": "Solution found: {{cell}} = {{value}} (formula {{formula}} = {{result}}).",
+      "notFound": "No exact solution found. Closest: {{cell}} = {{value}} gives {{result}}.",
+      "messages": {
+        "needFormula": "The set cell must contain a formula.",
+        "needValue": "The changing cell must contain a number (not a formula or text).",
+        "badFormulaCell": "Enter a valid set cell, for example B5.",
+        "badTarget": "Enter a number as the target value.",
+        "badVariableCell": "Enter a valid changing cell, for example B1.",
+        "noNumber": "The formula does not return a number; no solution was found."
+      }
+    },
+    "statistics": {
+      "button": "Statistics",
+      "title": "Statistics",
+      "run": "Run",
+      "analysis": "Analysis",
+      "analyses": {
+        "beschrijvend": "Descriptive statistics",
+        "correlatie": "Correlation",
+        "regressie": "Linear regression",
+        "histogram": "Histogram (frequency)",
+        "steekproef": "Sampling"
+      },
+      "explain": {
+        "beschrijvend": "Mean, median, mode, standard deviation, variance, minimum, maximum, range, sum, count, skewness and kurtosis per variable.",
+        "correlatie": "Correlation coefficient (Pearson) between each pair of variables.",
+        "regressie": "Slope, intercept, R² and correlation, with predicted values and residuals per observation.",
+        "histogram": "Number of values per bin and the cumulative percentage. Without a bin range, bins of equal width are chosen.",
+        "steekproef": "Random values without replacement, or every nth value."
+      },
+      "inputRange": "Input range",
+      "yRange": "Y range (dependent)",
+      "xRange": "X range (independent)",
+      "binRange": "Bin range (upper limits)",
+      "automatic": "Automatic",
+      "sampleSize": "Number of values",
+      "period": "Every nth value",
+      "groupedBy": "Grouped by",
+      "columns": "Columns",
+      "rows": "Rows",
+      "method": "Method",
+      "random": "Random",
+      "periodic": "Periodic",
+      "labelsRow": "Labels in first row",
+      "labelsColumn": "Labels in first column",
+      "formulas": "Use formulas (update with the data)",
+      "chart": "Scatter chart with trendline",
+      "chartHint": "Inserting a chart reloads the workbook; earlier steps can no longer be undone afterwards.",
+      "output": "Output",
+      "newSheet": "New sheet",
+      "outputCell": "Starting at cell",
+      "sheetName": "Statistics {{number}}",
+      "trendline": "Trendline",
+      "column": "Column {{column}}",
+      "row": "Row {{row}}",
+      "measures": {
+        "mean": "Mean",
+        "median": "Median",
+        "mode": "Mode",
+        "stdev": "Standard deviation",
+        "variance": "Variance",
+        "min": "Minimum",
+        "max": "Maximum",
+        "range": "Range",
+        "sum": "Sum",
+        "count": "Count",
+        "skewness": "Skewness",
+        "kurtosis": "Kurtosis"
+      },
+      "regression": {
+        "title": "Regression",
+        "slope": "Slope",
+        "intercept": "Intercept",
+        "r2": "R²",
+        "r": "Correlation (r)",
+        "observations": "Observations",
+        "predicted": "Predicted Y",
+        "residual": "Residual"
+      },
+      "histogram": {
+        "bin": "Bin (up to)",
+        "frequency": "Frequency",
+        "cumulative": "Cumulative %",
+        "more": "More"
+      },
+      "messages": {
+        "badRange": "Enter a valid range, for example A1:B20.",
+        "badDestination": "Enter a valid output cell, for example E1.",
+        "badSize": "Enter a positive whole number.",
+        "noNumbers": "The range contains no numbers.",
+        "needTwoVariables": "Correlation needs at least two variables.",
+        "needX": "Enter an X range.",
+        "oneVariable": "Choose a single column of data for this analysis.",
+        "sameLength": "The X and Y ranges must have the same length.",
+        "noBins": "The bin range contains no numbers.",
+        "emptySample": "The sample is empty."
+      }
+    }
   }
 }

@@ -14,6 +14,7 @@
     "onlyIn": "en {{modules}}",
     "notIn": "no en {{modules}}",
     "footnote": "En macOS, use ⌘ en lugar de Ctrl. Presione Alt o F10 para ver las sugerencias de teclas en la cinta de opciones.",
-    "unavailable": "aún no disponible"
+    "unavailable": "aún no disponible",
+    "excelConventions": "como en Excel: Ctrl+Intro rellena la selección, Alt+Intro es una nueva línea, Retroceso borra sin cuadro de diálogo"
   }
 }

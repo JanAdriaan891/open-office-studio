@@ -969,5 +969,176 @@
       "missingPivot": "This pivot table no longer exists.",
       "unsupportedPivot": "This pivot layout cannot be edited safely."
     }
+  },
+  "dataTools": {
+    "group": "数据工具",
+    "ok": "确定",
+    "range": "区域：{{range}}",
+    "header": "数据包含标题",
+    "selectAll": "全选",
+    "selectNone": "取消全选",
+    "messages": {
+      "needRows": "该区域不包含数据行。",
+      "needColumns": "请至少选择一列。"
+    },
+    "duplicates": {
+      "button": "删除重复项",
+      "title": "删除重复项",
+      "action": "操作",
+      "actions": {
+        "verwijderen": "删除重复项",
+        "markerenDubbel": "突出显示重复值",
+        "markerenUniek": "突出显示唯一值",
+        "filteren": "仅显示唯一行（筛选）"
+      },
+      "run": {
+        "verwijderen": "删除",
+        "markerenDubbel": "突出显示",
+        "markerenUniek": "突出显示",
+        "filteren": "筛选"
+      },
+      "columns": "要比较的列",
+      "none": "未找到重复项。唯一行：{{rows}}。",
+      "result": {
+        "verwijderen_other": "已删除 {{number}} 个重复项；剩余唯一行：{{rows}}。",
+        "markerenDubbel_other": "已突出显示 {{number}} 行重复值（共 {{rows}} 行）。",
+        "markerenUniek_other": "已突出显示 {{number}} 行唯一值（共 {{rows}} 行）。",
+        "filteren_other": "已隐藏 {{number}} 行重复行；可见唯一行：{{rows}}。使用“显示行”可再次显示。"
+      }
+    },
+    "apply": "应用",
+    "textToColumns": {
+      "button": "分列",
+      "title": "文本分列",
+      "source_other": "源：{{range}}（{{rows}} 行）",
+      "kind": "分隔方式",
+      "delimited": "分隔符",
+      "fixedWidth": "固定宽度",
+      "space": "空格",
+      "mergeDelimiters": "连续分隔符视为单个处理",
+      "breaks": "分列线",
+      "breaksHint": "在预览中单击可添加或删除分列线，也可输入字符位置。",
+      "breakPositions": "分列线的字符位置",
+      "destination": "目标单元格",
+      "preview": "结果预览",
+      "dmy": "日月年",
+      "mdy": "月日年",
+      "ymd": "年月日",
+      "replace": "替换",
+      "messages": {
+        "oneColumn": "请选择同一列中的单元格。",
+        "badDestination": "请输入有效的目标单元格，例如 B1。",
+        "allSkipped": "所有列都被跳过。",
+        "overwrite_other": "将覆盖 {{number}} 个非空单元格。选择“替换”以继续。"
+      }
+    },
+    "analysisGroup": "分析",
+    "goalSeek": {
+      "button": "单变量求解",
+      "title": "单变量求解",
+      "formulaCell": "目标单元格",
+      "target": "目标值",
+      "variableCell": "可变单元格",
+      "solve": "求解",
+      "busy": "正在求解…",
+      "hint": "计算在副本中进行；只有选择“应用”后工作表才会更改。",
+      "found": "已找到解：{{cell}} = {{value}}（公式 {{formula}} = {{result}}）。",
+      "notFound": "未找到精确解。最接近：{{cell}} = {{value}}，结果为 {{result}}。",
+      "messages": {
+        "needFormula": "目标单元格必须包含公式。",
+        "needValue": "可变单元格必须包含数字（不能是公式或文本）。",
+        "badFormulaCell": "请输入有效的目标单元格，例如 B5。",
+        "badTarget": "请输入数字作为目标值。",
+        "badVariableCell": "请输入有效的可变单元格，例如 B1。",
+        "noNumber": "公式未返回数字；未找到解。"
+      }
+    },
+    "statistics": {
+      "button": "统计",
+      "title": "统计",
+      "run": "运行",
+      "analysis": "分析",
+      "analyses": {
+        "beschrijvend": "描述统计",
+        "correlatie": "相关系数",
+        "regressie": "线性回归",
+        "histogram": "直方图（频率）",
+        "steekproef": "抽样"
+      },
+      "explain": {
+        "beschrijvend": "每个变量的平均值、中位数、众数、标准差、方差、最小值、最大值、极差、求和、计数、偏度和峰度。",
+        "correlatie": "每对变量之间的相关系数（Pearson）。",
+        "regressie": "斜率、截距、R² 和相关系数，以及每个观测值的预测值和残差。",
+        "histogram": "每个分组的值个数和累积百分比。未指定分组区域时，自动选择等宽分组。",
+        "steekproef": "不放回的随机值，或每隔 n 个取一个值。"
+      },
+      "inputRange": "输入区域",
+      "yRange": "Y 值区域（因变量）",
+      "xRange": "X 值区域（自变量）",
+      "binRange": "分组区域（上限）",
+      "automatic": "自动",
+      "sampleSize": "值的个数",
+      "period": "每隔 n 个取一个",
+      "groupedBy": "变量分组方式",
+      "columns": "列",
+      "rows": "行",
+      "method": "方法",
+      "random": "随机",
+      "periodic": "周期",
+      "labelsRow": "首行为标志",
+      "labelsColumn": "首列为标志",
+      "formulas": "使用公式（随数据更新）",
+      "chart": "带趋势线的散点图",
+      "chartHint": "插入图表会重新加载工作簿；之后无法再撤消之前的步骤。",
+      "output": "输出",
+      "newSheet": "新工作表",
+      "outputCell": "起始单元格",
+      "sheetName": "统计 {{number}}",
+      "trendline": "趋势线",
+      "column": "列 {{column}}",
+      "row": "行 {{row}}",
+      "measures": {
+        "mean": "平均值",
+        "median": "中位数",
+        "mode": "众数",
+        "stdev": "标准差",
+        "variance": "方差",
+        "min": "最小值",
+        "max": "最大值",
+        "range": "极差",
+        "sum": "求和",
+        "count": "计数",
+        "skewness": "偏度",
+        "kurtosis": "峰度"
+      },
+      "regression": {
+        "title": "回归",
+        "slope": "斜率",
+        "intercept": "截距",
+        "r2": "R²",
+        "r": "相关系数 (r)",
+        "observations": "观测值",
+        "predicted": "预测 Y",
+        "residual": "残差"
+      },
+      "histogram": {
+        "bin": "分组（上限）",
+        "frequency": "频率",
+        "cumulative": "累积 %",
+        "more": "其他"
+      },
+      "messages": {
+        "badRange": "请输入有效区域，例如 A1:B20。",
+        "badDestination": "请输入有效的输出单元格，例如 E1。",
+        "badSize": "请输入正整数。",
+        "noNumbers": "该区域不包含数字。",
+        "needTwoVariables": "相关分析至少需要两个变量。",
+        "needX": "请输入 X 值区域。",
+        "oneVariable": "此分析请选择单列数据。",
+        "sameLength": "X 和 Y 区域的长度必须相同。",
+        "noBins": "分组区域不包含数字。",
+        "emptySample": "样本为空。"
+      }
+    }
   }
 }

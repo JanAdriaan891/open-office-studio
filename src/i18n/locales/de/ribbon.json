@@ -324,7 +324,18 @@
       "fillRight": "Nach rechts ausfüllen",
       "openFilterMenu": "Filtermenü öffnen (auf einer Kopfzelle mit Filterpfeil)",
       "insertFunction": "Funktion einfügen",
-      "toggleReference": "Bezug absolut oder relativ (beim Bearbeiten einer Formel)"
+      "toggleReference": "Bezug absolut oder relativ (beim Bearbeiten einer Formel)",
+      "timeFormat": "Uhrzeitformat",
+      "fillSelection": "Auswahl mit der Eingabe füllen",
+      "newLineInCell": "Neue Zeile in der Zelle",
+      "clearAndEdit": "Zelle leeren und bearbeiten",
+      "hideRows": "Zeilen ausblenden",
+      "showRows": "Zeilen einblenden",
+      "showColumns": "Spalten einblenden",
+      "dataEdge": "Zum Rand des Datenbereichs",
+      "extendToDataEdge": "Auswahl bis zum Rand des Datenbereichs erweitern",
+      "lastUsedCell": "Zur zuletzt verwendeten Zelle",
+      "extendToLastUsedCell": "Auswahl bis zur zuletzt verwendeten Zelle erweitern"
     }
   },
   "spreadsheet": {

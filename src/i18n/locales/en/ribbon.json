@@ -324,7 +324,18 @@
       "fillRight": "Fill right",
       "openFilterMenu": "Open filter menu (on a header cell with a filter arrow)",
       "insertFunction": "Insert function",
-      "toggleReference": "Toggle absolute/relative reference (while editing a formula)"
+      "toggleReference": "Toggle absolute/relative reference (while editing a formula)",
+      "timeFormat": "Time format",
+      "fillSelection": "Fill the selection with the entry",
+      "newLineInCell": "New line in the cell",
+      "clearAndEdit": "Clear the cell and edit",
+      "hideRows": "Hide rows",
+      "showRows": "Unhide rows",
+      "showColumns": "Unhide columns",
+      "dataEdge": "Move to the edge of the data region",
+      "extendToDataEdge": "Extend the selection to the edge of the data region",
+      "lastUsedCell": "Move to the last used cell",
+      "extendToLastUsedCell": "Extend the selection to the last used cell"
     }
   },
   "spreadsheet": {

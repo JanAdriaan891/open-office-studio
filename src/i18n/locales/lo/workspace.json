@@ -12,6 +12,7 @@
     "onlyIn": "ສະເພາະ {{modules}}",
     "notIn": "ບໍ່ນຳໃຊ້ກັບ {{modules}}",
     "footnote": "ໃນ macOS ໃຫ້ໃຊ້ ⌘ ແທນ Ctrl. ກົດ Alt ຫຼື F10 ເພື່ອສະແດງຄຳແນະນຳປຸ່ມກົດເທິງແຖບ Ribbon.",
-    "unavailable": "ຍັງບໍ່ພ້ອມໃຊ້ງານ"
+    "unavailable": "ຍັງບໍ່ພ້ອມໃຊ້ງານ",
+    "excelConventions": "ຄືກັບ Excel: Ctrl+Enter ຕື່ມສ່ວນທີ່ເລືອກ, Alt+Enter ແມ່ນແຖວໃໝ່, Backspace ລ້າງໂດຍບໍ່ມີກ່ອງໂຕ້ຕອບ"
   }
 }

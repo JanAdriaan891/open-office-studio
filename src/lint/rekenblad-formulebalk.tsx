@@ -50,6 +50,14 @@ import { FormuleKleuren } from "./rekenblad-formulekleuren";
 import { FormulefoutMelding } from "../rekenblad/FormulefoutMelding";
 import "./rekenblad-gereedschap.css";
 
+/** Gebeurtenis: open de uitgevouwen formulebalk met deze tekst (Alt+Enter in de celinvoer). */
+export const NIEUWE_REGEL = "openaec-rekenblad-nieuweregel";
+export interface NieuweRegel {
+  id: number;
+  tekst: string;
+  cursor: number;
+}
+
 const VELDEN = '[data-testid="xlsx-cell-editor"], [data-testid="xlsx-formula-input"], .rekenblad-formule-uitgebreid';
 type Veld = HTMLInputElement | HTMLTextAreaElement;
 const isVeld = (e: EventTarget | null): e is Veld =>
@@ -630,6 +638,16 @@ export function Formulebalk({
   const [uitgevouwen, setUitgevouwen] = useState(false);
   const selectie = useSelectie(laag);
   useFormuleBereik(api);
+  // Alt+Enter in de celinvoer (src/lint/rekenblad-toetsen.ts): verder typen op een nieuwe regel hier.
+  const [begin, setBegin] = useState<NieuweRegel | null>(null);
+  useEffect(() => {
+    const opNieuweRegel = (e: Event) => {
+      setBegin((e as CustomEvent<NieuweRegel>).detail);
+      setUitgevouwen(true);
+    };
+    window.addEventListener(NIEUWE_REGEL, opNieuweRegel);
+    return () => window.removeEventListener(NIEUWE_REGEL, opNieuweRegel);
+  }, []);
   return (
     <div className={`office-formulebalk${uitgevouwen ? " is-uitgevouwen" : ""}`}>
       {api && <Naamvak api={api} laag={laag} />}
@@ -646,7 +664,7 @@ export function Formulebalk({
       </button>
       <EditorToolbar.FormulaBar />
       {api && selectie?.cells && <FormulefoutMelding api={api} sheetId={selectie.sheetId} row={selectie.cells.focus.row} col={selectie.cells.focus.col} />}
-      {api && uitgevouwen && <UitgevouwenFormule api={api} laag={laag} />}
+      {api && uitgevouwen && <UitgevouwenFormule key={begin?.id ?? 0} api={api} laag={laag} begin={begin} />}
       {api && <FormuleKleuren api={api} />}
       <button
         type="button"
@@ -668,23 +686,44 @@ export function Formulebalk({
  * bij Enter of Tab via een bewerkingsbatch (één ongedaan-maakstap).
  * Alt+Enter of Shift+Enter geeft een nieuwe regel.
  */
-function UitgevouwenFormule({ api, laag }: { api: XlsxEditorApi; laag: RekenbladLaag | null | undefined }) {
+function UitgevouwenFormule({
+  api,
+  laag,
+  begin,
+}: {
+  api: XlsxEditorApi;
+  laag: RekenbladLaag | null | undefined;
+  begin?: NieuweRegel | null;
+}) {
   const { t } = useTranslation("spreadsheet");
   const fout = useContext(RibbonFout);
   const s = useSelectie(laag);
   const cel = s?.cells?.focus ?? null;
   const blad = s?.sheetIndex ?? api.handle.sheetInfo().activeSheet;
   const inhoud = useCallback(() => (cel ? api.handle.cell(blad, cel.row, cel.col).input : ""), [api, blad, cel?.row, cel?.col]);
-  const [tekst, setTekst] = useState(inhoud);
-  const [gewijzigd, setGewijzigd] = useState(false);
+  const [tekst, setTekst] = useState(() => begin?.tekst ?? inhoud());
+  const [gewijzigd, setGewijzigd] = useState(!!begin);
   const veld = useRef<HTMLTextAreaElement>(null);
+  useEffect(() => {
+    if (!begin || !veld.current) return;
+    veld.current.focus();
+    veld.current.setSelectionRange(begin.cursor, begin.cursor);
+  }, []);
   useEffect(() => {
     if (!gewijzigd) setTekst(inhoud());
     return api.handle.onUpdate(() => {
       if (!gewijzigd) setTekst(inhoud());
     });
   }, [inhoud, gewijzigd]);
-  useEffect(() => setGewijzigd(false), [cel?.row, cel?.col, blad]);
+  const eerste = useRef(true);
+  useEffect(() => {
+    // Niet bij het openen met Alt+Enter: die tekst is al gewijzigd.
+    if (eerste.current) {
+      eerste.current = false;
+      return;
+    }
+    setGewijzigd(false);
+  }, [cel?.row, cel?.col, blad]);
 
   const vastleggen = async (naar: "omlaag" | "rechts" | null) => {
     if (!cel) return;
@@ -696,6 +735,8 @@ function UitgevouwenFormule({ api, laag }: { api: XlsxEditorApi; laag: Rekenblad
           expectVersion: await api.version(),
           steps: [
             regionaleInvoer(target, [[tekst]]),
+            // Een regeleinde in de cel: tekstterugloop aan, zoals Excel na Alt+Enter.
+            ...(tekst.includes("\n") ? [{ op: "patchStyle" as const, target, patch: { textWrapping: "wrap" as const } }] : []),
           ],
         });
         if (!r.ok) throw new Melding(r.failure.message);
