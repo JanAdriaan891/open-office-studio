@@ -4,7 +4,7 @@
  * huidige document, toevoegen uit een bestand, verwijderen). Een sjabloon
  * opent altijd als naamloos nieuw document.
  */
-import { useEffect, useId, useRef, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import { FilePlus2, FileText, Presentation, Save, Sheet, Trash2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import type { Soort } from "../editors";
@@ -46,7 +46,6 @@ export function SjabloonGalerij(props: {
   const [eigen, setEigen] = useState<EigenSjabloon[]>([]);
   const [filter, setFilter] = useState<Filter>("alle");
   const [naamVoorBewaren, setNaamVoorBewaren] = useState<string | null>(null);
-  const bestand = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     laadCatalogus().then(setCatalogus, () => setCatalogus({ versie: 1, talen: ["en"], sjablonen: [] }));
@@ -79,6 +78,19 @@ export function SjabloonGalerij(props: {
     } catch (e) {
       props.meld(t("templates.saveFailed", { error: String(e) }), "fout");
     }
+  }
+
+  /**
+   * Bestandskiezer op aanvraag: geen blijvend tweede bestandsveld in het
+   * startscherm naast dat van "Bestaand bestand".
+   */
+  function kiesBestanden() {
+    const veld = document.createElement("input");
+    veld.type = "file";
+    veld.multiple = true;
+    veld.accept = [...SJABLOON_INVOER, "docx", "xlsx", "pptx"].map((e) => `.${e}`).join(",");
+    veld.onchange = () => void voegToe(veld.files);
+    veld.click();
   }
 
   async function voegToe(lijst: FileList | null) {
@@ -138,20 +150,9 @@ export function SjabloonGalerij(props: {
               <Save size={14} /> {t("templates.saveCurrent")}
             </button>
           )}
-          <button disabled={props.bezig} onClick={() => bestand.current?.click()}>
+          <button disabled={props.bezig} onClick={kiesBestanden}>
             <FilePlus2 size={14} /> {t("templates.add")}
           </button>
-          <input
-            ref={bestand}
-            type="file"
-            hidden
-            multiple
-            accept={[...SJABLOON_INVOER, "docx", "xlsx", "pptx"].map((e) => `.${e}`).join(",")}
-            onChange={(e) => {
-              void voegToe(e.target.files);
-              e.target.value = "";
-            }}
-          />
         </div>
       </div>
       {naamVoorBewaren !== null && props.huidig && (
