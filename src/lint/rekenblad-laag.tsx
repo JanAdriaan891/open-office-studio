@@ -23,6 +23,7 @@ import { RibbonFout } from "../Ribbon";
 import { abonneerFilters, bladFilter, laadFilters, leesAutoFilters } from "./rekenblad-filter";
 import { doelBereik, vul, vulTotEinde, type VulKeuze, type VulRichting } from "./rekenblad-gegevens";
 import { alleenLezen, bewerktTekst, Melding, rekenbladHost } from "./rekenblad-opdrachten";
+import { openVenster } from "../rekenblad/vensters";
 import { kolomLetters, type Bereik } from "./rekenblad-logica";
 import { FilterMenu } from "./rekenblad-filtermenu";
 import { CelnotitieLaag } from "../rekenblad/CelnotitieUi";
@@ -374,6 +375,8 @@ function Vulgreep({
   };
 
   const begin = (e: ReactPointerEvent<HTMLDivElement>) => {
+    // Rechtsklik opent "Doorvoeren tot cel…"; de selectie (de bron) blijft staan.
+    if (e.button === 2) e.stopPropagation();
     if (e.button !== 0) return;
     e.preventDefault();
     e.stopPropagation();
@@ -461,9 +464,19 @@ function Vulgreep({
           ref={greep}
           className="rekenblad-vulgreep"
           role="presentation"
-          title={t("data.fill.handle")}
+          title={`${t("data.fill.handle")} · ${t("fillTo.handleHint")}`}
           style={{ left: hoek.x + hoek.width - 4, top: hoek.y + hoek.height - 4 }}
           onPointerDown={begin}
+          onMouseDown={(e) => {
+            if (e.button === 2) e.stopPropagation();
+          }}
+          onContextMenu={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            setNa(null);
+            setMenu(false);
+            openVenster(rekenbladHost(), { soort: "doortrekken" });
+          }}
           onDoubleClick={(e) => {
             e.stopPropagation();
             void dubbel();

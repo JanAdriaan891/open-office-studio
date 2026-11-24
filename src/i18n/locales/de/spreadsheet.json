@@ -545,7 +545,12 @@
     "allowBlank": "Allow blank cells",
     "inCellDropdown": "In-cell dropdown",
     "showInputMessage": "Show input message",
-    "showErrorMessage": "Show error alert"
+    "showErrorMessage": "Show error alert",
+    "search": "In der Auswahlliste suchen",
+    "noMatches": "Keine Einträge gefunden",
+    "matches": "{{found}} von {{total}} Einträgen",
+    "moreMatches": "Erste {{shown}} von {{total}} Einträgen; tippen Sie, um einzugrenzen",
+    "growSource": "Quelle erweitern bis {{range}} (+{{added}})"
   },
   "protection": {
     "title": "Protection",
@@ -1000,5 +1005,47 @@
     "edgeBoth": "Rand des Rasters: Zeile {{row}} und Spalte {{column}} sind die letzten.",
     "grown": "Raster erweitert auf {{rows}} Zeilen und {{columns}} Spalten.",
     "fitted": "Raster an den Inhalt angepasst: {{rows}} Zeilen und {{columns}} Spalten."
+  },
+  "insertCount": {
+    "menuRows": "Zeilen einfügen…",
+    "menuColumns": "Spalten einfügen…",
+    "titleRows": "Zeilen einfügen",
+    "titleColumns": "Spalten einfügen",
+    "countRows": "Anzahl Zeilen",
+    "countColumns": "Anzahl Spalten",
+    "hint": "Eine ganze Zahl von 1 bis {{max}}.",
+    "position": "Position",
+    "above": "Oberhalb der Auswahl",
+    "below": "Unterhalb der Auswahl",
+    "left": "Links von der Auswahl",
+    "right": "Rechts von der Auswahl",
+    "insert": "Einfügen"
+  },
+  "fillTo": {
+    "menu": "Ausfüllen bis Zelle…",
+    "title": "Ausfüllen bis Zelle",
+    "source": "Quelle: {{range}}",
+    "target": "Bis einschließlich Zelle, Zeile oder Spalte",
+    "hint": "Geben Sie eine Zelle (B500), eine Zeilennummer (500) oder einen Spaltenbuchstaben (H) ein.",
+    "invalid": "Dies ist keine gültige Zelle, Zeile oder Spalte.",
+    "inside": "Diese Zelle liegt innerhalb der Auswahl; es gibt nichts auszufüllen.",
+    "tooLarge": "Zu viele Zellen auf einmal (höchstens {{max}}).",
+    "preview": {
+      "omlaag": "Füllt {{range}}: {{cells}} Zeilen nach unten.",
+      "omhoog": "Füllt {{range}}: {{cells}} Zeilen nach oben.",
+      "rechts": "Füllt {{range}}: {{cells}} Spalten nach rechts.",
+      "links": "Füllt {{range}}: {{cells}} Spalten nach links."
+    },
+    "fill": "Ausfüllen",
+    "handleHint": "Rechtsklick: Ausfüllen bis Zelle…"
+  },
+  "formulaEditor": {
+    "menu": "Formel im Fenster bearbeiten…",
+    "open": "Formeleditor öffnen",
+    "title": "Formeleditor – {{cell}}",
+    "label": "Inhalt der Zelle {{cell}} (Eingabe: neue Zeile, Strg+Eingabe: übernehmen)",
+    "hint": "{{lines}} Zeilen · {{characters}} Zeichen · Eingabe: neue Zeile · Strg+Eingabe: übernehmen",
+    "format": "Auf Zeilen verteilen",
+    "singleLine": "Einzeilig"
   }
 }

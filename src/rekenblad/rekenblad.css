@@ -403,3 +403,23 @@
     color: ButtonText;
   }
 }
+/* Grote formulebewerker (#376). */
+.rekenblad-formulebewerker {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 220px;
+  padding: 8px 10px;
+  border: 1px solid #d8dde4;
+  border-radius: 7px;
+  background: #fff;
+  color: #2c323c;
+  font: 13px/1.5 ui-monospace, "Cascadia Mono", Consolas, "DejaVu Sans Mono", monospace;
+  white-space: pre;
+  overflow: auto;
+  resize: vertical;
+  tab-size: 2;
+}
+.rekenblad-formulebewerker:focus-visible {
+  outline: 2px solid #bc6a15;
+  outline-offset: 1px;
+}

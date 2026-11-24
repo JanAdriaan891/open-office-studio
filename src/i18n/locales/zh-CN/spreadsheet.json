@@ -537,7 +537,12 @@
     "allowBlank": "Allow blank cells",
     "inCellDropdown": "In-cell dropdown",
     "showInputMessage": "Show input message",
-    "showErrorMessage": "Show error alert"
+    "showErrorMessage": "Show error alert",
+    "search": "在列表中搜索",
+    "noMatches": "未找到选项",
+    "matches": "{{total}} 个选项中的 {{found}} 个",
+    "moreMatches": "显示 {{total}} 个选项中的前 {{shown}} 个；输入以缩小范围",
+    "growSource": "将来源扩展到 {{range}}（+{{added}}）"
   },
   "protection": {
     "title": "Protection",
@@ -992,5 +997,47 @@
     "edgeBoth": "网格边缘：第 {{row}} 行和 {{column}} 列是最后的行和列。",
     "grown": "网格已扩展到 {{rows}} 行、{{columns}} 列。",
     "fitted": "网格已适应内容：{{rows}} 行、{{columns}} 列。"
+  },
+  "insertCount": {
+    "menuRows": "插入多行…",
+    "menuColumns": "插入多列…",
+    "titleRows": "插入行",
+    "titleColumns": "插入列",
+    "countRows": "行数",
+    "countColumns": "列数",
+    "hint": "1 到 {{max}} 之间的整数。",
+    "position": "位置",
+    "above": "所选区域上方",
+    "below": "所选区域下方",
+    "left": "所选区域左侧",
+    "right": "所选区域右侧",
+    "insert": "插入"
+  },
+  "fillTo": {
+    "menu": "填充到单元格…",
+    "title": "填充到单元格",
+    "source": "源区域：{{range}}",
+    "target": "填充到（含）单元格、行或列",
+    "hint": "输入单元格（B500）、行号（500）或列字母（H）。",
+    "invalid": "这不是有效的单元格、行或列。",
+    "inside": "该单元格位于所选区域内，无需填充。",
+    "tooLarge": "一次填充的单元格过多（最多 {{max}}）。",
+    "preview": {
+      "omlaag": "填充 {{range}}：向下 {{cells}} 行。",
+      "omhoog": "填充 {{range}}：向上 {{cells}} 行。",
+      "rechts": "填充 {{range}}：向右 {{cells}} 列。",
+      "links": "填充 {{range}}：向左 {{cells}} 列。"
+    },
+    "fill": "填充",
+    "handleHint": "右键单击：填充到单元格…"
+  },
+  "formulaEditor": {
+    "menu": "在窗口中编辑公式…",
+    "open": "打开公式编辑器",
+    "title": "公式编辑器 – {{cell}}",
+    "label": "单元格 {{cell}} 的内容（Enter：换行，Ctrl+Enter：确认）",
+    "hint": "{{lines}} 行 · {{characters}} 个字符 · Enter：换行 · Ctrl+Enter：确认",
+    "format": "分行排版",
+    "singleLine": "合并为一行"
   }
 }

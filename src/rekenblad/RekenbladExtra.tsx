@@ -9,6 +9,7 @@ import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 import type { XlsxEditorApi } from "@betteroffice/xlsx-react";
 import {
+  ArrowDownToDot,
   ArrowLeftRight,
   BetweenHorizontalStart,
   BetweenVerticalStart,
@@ -21,6 +22,8 @@ import {
   EyeOff,
   Hash,
   List,
+  ListPlus,
+  Maximize2,
   MoveHorizontal,
   MoveVertical,
   Palette,
@@ -70,6 +73,7 @@ import { DraaitabelVenster } from "./DraaitabelUi";
 import { DiscussieVenster } from "./DiscussieUi";
 import { ValidatieVenster } from "./ValidatieUi";
 import { BeveiligingVenster } from "./BeveiligingUi";
+import { DoortrekkenVenster, FormuleVenster, InvoegenVenster } from "./HulpVensters";
 
 const TABS = '[data-testid="xlsx-sheet-tabs"]';
 
@@ -288,6 +292,7 @@ export function RekenbladExtra() {
           klembordItems,
           [
             { naam: t("menu.insertColumns"), icoon: BetweenVerticalStart, uit, doe: () => uitvoeren((a) => kolommenInvoegen(a, false)) },
+            { naam: t("insertCount.menuColumns"), icoon: ListPlus, uit, doe: () => setVenster({ soort: "invoegenAantal", as: "kolom" }) },
             { naam: t("menu.deleteColumns"), icoon: Trash2, uit, doe: () => uitvoeren(kolommenVerwijderen) },
           ],
           [
@@ -303,6 +308,7 @@ export function RekenbladExtra() {
           klembordItems,
           [
             { naam: t("menu.insertRows"), icoon: BetweenHorizontalStart, uit, doe: () => uitvoeren((a) => rijenInvoegen(a, false)) },
+            { naam: t("insertCount.menuRows"), icoon: ListPlus, uit, doe: () => setVenster({ soort: "invoegenAantal", as: "rij" }) },
             { naam: t("menu.deleteRows"), icoon: Trash2, uit, doe: () => uitvoeren(rijenVerwijderen) },
           ],
           [
@@ -320,8 +326,14 @@ export function RekenbladExtra() {
           [
             { naam: t("menu.insertRowsAbove"), icoon: BetweenHorizontalStart, uit, doe: () => uitvoeren((a) => rijenInvoegen(a, false)) },
             { naam: t("menu.insertColumnsLeft"), icoon: BetweenVerticalStart, uit, doe: () => uitvoeren((a) => kolommenInvoegen(a, false)) },
+            { naam: t("insertCount.menuRows"), icoon: ListPlus, uit, doe: () => setVenster({ soort: "invoegenAantal", as: "rij" }) },
+            { naam: t("insertCount.menuColumns"), icoon: ListPlus, uit, doe: () => setVenster({ soort: "invoegenAantal", as: "kolom" }) },
             { naam: t("menu.deleteRows"), icoon: Trash2, uit, doe: () => uitvoeren(rijenVerwijderen) },
             { naam: t("menu.deleteColumns"), icoon: Trash2, uit, doe: () => uitvoeren(kolommenVerwijderen) },
+          ],
+          [
+            { naam: t("fillTo.menu"), icoon: ArrowDownToDot, uit, doe: () => setVenster({ soort: "doortrekken" }) },
+            { naam: t("formulaEditor.menu"), icoon: Maximize2, doe: () => setVenster({ soort: "formule" }) },
           ],
           [
             { naam: t("numberFormat.menu"), icoon: Hash, sneltoets: "Ctrl+1", uit, doe: () => setVenster({ soort: "getal" }) },
@@ -471,6 +483,9 @@ export function RekenbladExtra() {
       {venster?.soort === "bladVerwijderen" && <BladVerwijderen api={api} sluiten={sluiten} />}
       {venster?.soort === "bladVerplaatsen" && <BladVerplaatsen api={api} sluiten={sluiten} beginPositie={venster.positie} beginKopie={venster.kopie} />}
       {venster?.soort === "bladHernoemen" && <BladHernoemen api={api} sluiten={sluiten} />}
+      {venster?.soort === "invoegenAantal" && <InvoegenVenster api={api} as={venster.as} sluiten={sluiten} />}
+      {venster?.soort === "doortrekken" && <DoortrekkenVenster api={api} sluiten={sluiten} />}
+      {venster?.soort === "formule" && <FormuleVenster api={api} sluiten={sluiten} />}
     </>
   );
 }

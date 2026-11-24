@@ -20,12 +20,13 @@ import {
 } from "react";
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { ChevronDown, ChevronUp, Maximize2 } from "lucide-react";
 import { EditorToolbar, type XlsxEditorApi } from "@betteroffice/xlsx-react";
 import { Dialoog } from "../werkruimte/Dialoog";
 import "../werkruimte/werkruimte.css";
 import { RibbonFout } from "../Ribbon";
 import { regionaleInvoer } from "../rekenblad/regionaleInvoer";
+import { openVenster } from "../rekenblad/vensters";
 import { plaatsFormuleBereik, verwijzingsplek } from "../rekenblad/formuleVerwijzing";
 import { alleenLezen, benoemdeBereiken, gaNaar, Melding, rekenbladHost } from "./rekenblad-opdrachten";
 import { adres, ontleedVerwijzing, serieleDatum, type Cel } from "./rekenblad-logica";
@@ -648,6 +649,18 @@ export function Formulebalk({
       {api && selectie?.cells && <FormulefoutMelding api={api} sheetId={selectie.sheetId} row={selectie.cells.focus.row} col={selectie.cells.focus.col} />}
       {api && uitgevouwen && <UitgevouwenFormule api={api} laag={laag} />}
       {api && <FormuleKleuren api={api} />}
+      <button
+        type="button"
+        className="rekenblad-uitvouwen rekenblad-formulebewerker-knop"
+        disabled={!api}
+        aria-haspopup="dialog"
+        aria-label={t("formulaEditor.open")}
+        title={t("formulaEditor.open")}
+        onMouseDown={(e) => e.preventDefault()}
+        onClick={() => openVenster(rekenbladHost(), { soort: "formule" })}
+      >
+        <Maximize2 size={13} />
+      </button>
       <button
         type="button"
         className="rekenblad-uitvouwen"

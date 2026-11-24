@@ -545,7 +545,12 @@
     "allowBlank": "Allow blank cells",
     "inCellDropdown": "In-cell dropdown",
     "showInputMessage": "Show input message",
-    "showErrorMessage": "Show error alert"
+    "showErrorMessage": "Show error alert",
+    "search": "Search the list",
+    "noMatches": "No choices found",
+    "matches": "{{found}} of {{total}} choices",
+    "moreMatches": "First {{shown}} of {{total}} choices; type to narrow down",
+    "growSource": "Extend source to {{range}} (+{{added}})"
   },
   "protection": {
     "title": "Protection",
@@ -1000,5 +1005,47 @@
     "edgeBoth": "Edge of the grid: row {{row}} and column {{column}} are the last.",
     "grown": "Grid extended to {{rows}} rows and {{columns}} columns.",
     "fitted": "Grid fitted to content: {{rows}} rows and {{columns}} columns."
+  },
+  "insertCount": {
+    "menuRows": "Insert rows…",
+    "menuColumns": "Insert columns…",
+    "titleRows": "Insert rows",
+    "titleColumns": "Insert columns",
+    "countRows": "Number of rows",
+    "countColumns": "Number of columns",
+    "hint": "A whole number from 1 to {{max}}.",
+    "position": "Position",
+    "above": "Above the selection",
+    "below": "Below the selection",
+    "left": "Left of the selection",
+    "right": "Right of the selection",
+    "insert": "Insert"
+  },
+  "fillTo": {
+    "menu": "Fill to cell…",
+    "title": "Fill to cell",
+    "source": "Source: {{range}}",
+    "target": "Up to and including cell, row or column",
+    "hint": "Type a cell (B500), a row number (500) or a column letter (H).",
+    "invalid": "This is not a valid cell, row or column.",
+    "inside": "This cell lies inside the selection; there is nothing to fill.",
+    "tooLarge": "Too many cells at once (maximum {{max}}).",
+    "preview": {
+      "omlaag": "Fills {{range}}: {{cells}} rows down.",
+      "omhoog": "Fills {{range}}: {{cells}} rows up.",
+      "rechts": "Fills {{range}}: {{cells}} columns to the right.",
+      "links": "Fills {{range}}: {{cells}} columns to the left."
+    },
+    "fill": "Fill",
+    "handleHint": "right-click: fill to cell…"
+  },
+  "formulaEditor": {
+    "menu": "Edit formula in window…",
+    "open": "Open formula editor",
+    "title": "Formula editor – {{cell}}",
+    "label": "Contents of cell {{cell}} (Enter: new line, Ctrl+Enter: commit)",
+    "hint": "{{lines}} lines · {{characters}} characters · Enter: new line · Ctrl+Enter: commit",
+    "format": "Format on lines",
+    "singleLine": "Single line"
   }
 }
