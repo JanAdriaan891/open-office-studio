@@ -40,7 +40,7 @@ for (const studio of studios) {
 // meldt de app bij elke bevestiging een eis die de gebruiker niet kan vervullen.
 for (const studio of studios.filter(s => s.sleutel !== 'database')) {
   test(`${studio.sleutel}: Snap levert Zenity en zijn gegevensmap zelf mee`, async () => {
-    const recept = await readFile(`snap/recipes/open-${studio.sleutel}-studio.yaml`, 'utf8');
+    const recept = (await readFile(`snap/recipes/open-${studio.sleutel}-studio.yaml`, 'utf8')).replace(/\r\n/g, '\n');
     const pakketten = /^    stage-packages:\n((?:    - .+\n)+)/m.exec(recept)?.[1] ?? '';
     assert.match(pakketten, /^    - zenity$/m, 'stage-packages');
     assert.match(recept, /^layout:\n  \/usr\/share\/zenity:\n    bind: \$SNAP\/usr\/share\/zenity$/m, 'layout');
