@@ -6,7 +6,8 @@
  *
  * Vervangen binnen één alinea gaat via `applyEdits` (één ongedaan-maakstap,
  * ook als voorstel bij Wijzigingen bijhouden). Treffers over een
- * alineamarkering heen, een pagina-einde of ^p in de vervangtekst gaan via de
+ * alineamarkering heen, een pagina-einde, een inline-object (handmatig
+ * regeleinde, afbeelding) of ^p in de vervangtekst gaan via de
  * Yrs-sessie (`replaceRange`, `splitParagraph`), ook als één stap.
  */
 import type { DocxEditorRef } from "@betteroffice/docx-react";
@@ -294,6 +295,9 @@ export function gaNaar(ref: DocxEditorRef | null, index: ZoekIndex, r: Resultaat
 // ---------------------------------------------------------------------------
 // Vervangen
 
+/** Tekens in een treffer die geen gewone tekst zijn: alinea- of pagina-einde of een inline-object. */
+const BLOK_OF_OBJECT = new RegExp(`[${TEKEN.alinea}${TEKEN.paginaEinde}${TEKEN.regeleinde}${TEKEN.afbeelding}${TEKEN.object}]`);
+
 export interface Vervangen {
   aantal: number;
   route: "bewerkingen" | "sessie";
@@ -314,7 +318,11 @@ export async function vervang(
   if (!treffers.length) return { aantal: 0, route: "bewerkingen" };
   const teksten = treffers.map((t) => (t.groepen ? vervangTekst(sjabloon, t.groepen, opties) : sjabloon.replace(/\^p/g, "\n").replace(/\^t/g, "\t")));
   if (teksten.some((t) => /[\v\f]/.test(t))) throw new ZoekFout(i18next.t("writer:find.errors.breakInReplacement"));
-  const eenvoudig = treffers.every((t, i) => t.delen.length === 1 && !t.tekst.includes("\n") && !t.tekst.includes("\f") && !teksten[i].includes("\n"));
+  // `applyEdits` vervangt alleen tekst: een treffer met een inline-object
+  // (handmatig regeleinde, afbeelding of ander object) weigert het met
+  // ‘replacing or deleting inline atoms is not supported’ (#388). Zulke
+  // treffers gaan daarom net als alinea- en pagina-einden via de sessie.
+  const eenvoudig = treffers.every((t, i) => t.delen.length === 1 && !BLOK_OF_OBJECT.test(t.tekst) && !teksten[i].includes("\n"));
   const suggest = e.ref.commands.getState("editingMode").value === "suggesting" ? { author: auteur(), date: new Date().toISOString() } : undefined;
   if (eenvoudig) {
     const resultaat = await e.ref.applyEdits({
