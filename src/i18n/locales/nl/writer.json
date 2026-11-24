@@ -2083,5 +2083,46 @@
     "undoHint": "Ctrl+Z direct na een correctie zet die terug.",
     "importedHint": "Lijst geïmporteerd; kies OK om te bewaren.",
     "fileName": "AutoCorrectie"
+  },
+  "navigator": {
+    "title": "Navigator",
+    "search": "Zoeken in de navigator",
+    "headingTools": "Koppen bewerken",
+    "expand": "Uitklappen",
+    "collapse": "Inklappen",
+    "dropAtEnd": "Hier neerzetten: naar het eind",
+    "loading": "Bezig met laden…",
+    "none": "Geen",
+    "noMatches": "Niets gevonden",
+    "noHeadings": "Geen koppen. Geef alinea’s een kopstijl (Kop 1, Kop 2 …) om ze hier te zien.",
+    "footnote": "Voetnoot {{n}}: {{text}}",
+    "page": "Pagina {{n}}",
+    "categories": {
+      "koppen": "Koppen",
+      "tabellen": "Tabellen",
+      "afbeeldingen": "Afbeeldingen",
+      "bladwijzers": "Bladwijzers",
+      "opmerkingen": "Opmerkingen",
+      "voetnoten": "Voetnoten",
+      "secties": "Secties",
+      "koppelingen": "Hyperlinks"
+    },
+    "menu": {
+      "chapterUp": "Hoofdstuk omhoog",
+      "chapterDown": "Hoofdstuk omlaag",
+      "promoteChapter": "Hoofdstuk promoveren",
+      "demoteChapter": "Hoofdstuk degraderen",
+      "promoteLevel": "Alleen deze kop promoveren",
+      "demoteLevel": "Alleen deze kop degraderen",
+      "rename": "Hernoemen",
+      "deleteChapter": "Hoofdstuk verwijderen",
+      "delete": "Verwijderen",
+      "removeLink": "Koppeling verwijderen"
+    },
+    "errors": {
+      "notFound": "Dit onderdeel staat niet meer in het document.",
+      "level": "Koppen gaan van niveau 1 tot 9.",
+      "bookmarkExists": "Er is al een bladwijzer met de naam {{name}}."
+    }
   }
 }

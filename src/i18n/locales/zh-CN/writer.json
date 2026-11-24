@@ -2069,5 +2069,46 @@
     "undoHint": "更正后立即按 Ctrl+Z 可撤销更正。",
     "importedHint": "列表已导入；选择“确定”以保存。",
     "fileName": "自动更正"
+  },
+  "navigator": {
+    "title": "导航器",
+    "search": "在导航器中搜索",
+    "headingTools": "编辑标题",
+    "expand": "展开",
+    "collapse": "折叠",
+    "dropAtEnd": "拖放到此处：移至末尾",
+    "loading": "正在加载…",
+    "none": "无",
+    "noMatches": "无匹配项",
+    "noHeadings": "没有标题。为段落应用标题样式（标题 1、标题 2…）即可在此显示。",
+    "footnote": "脚注 {{n}}：{{text}}",
+    "page": "第 {{n}} 页",
+    "categories": {
+      "koppen": "标题",
+      "tabellen": "表格",
+      "afbeeldingen": "图像",
+      "bladwijzers": "书签",
+      "opmerkingen": "批注",
+      "voetnoten": "脚注",
+      "secties": "节",
+      "koppelingen": "超链接"
+    },
+    "menu": {
+      "chapterUp": "章节上移",
+      "chapterDown": "章节下移",
+      "promoteChapter": "提升章节",
+      "demoteChapter": "降级章节",
+      "promoteLevel": "仅提升此标题",
+      "demoteLevel": "仅降级此标题",
+      "rename": "重命名",
+      "deleteChapter": "删除章节",
+      "delete": "删除",
+      "removeLink": "删除链接"
+    },
+    "errors": {
+      "notFound": "此项已不在文档中。",
+      "level": "标题级别为 1 到 9。",
+      "bookmarkExists": "已存在名为 {{name}} 的书签。"
+    }
   }
 }

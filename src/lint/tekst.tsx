@@ -101,6 +101,8 @@ import { VergelijkingKnop } from "../tekst/vergelijking/VergelijkingKnop";
 import { ZoekKnoppen } from "../tekst/zoeken/ZoekPaneel";
 import { WordHost } from "../tekst/WordHost";
 import { AutoCorrectieKnop, BouwsteenHost, BouwsteenMenu } from "../tekst/bouwstenen/Bouwstenen";
+import { Navigator } from "../tekst/navigator/Navigator";
+import { usePaneelStaat } from "../tekst/zoeken/paneelstaat";
 import { Liniaal } from "../tekst/liniaal/Liniaal";
 import { WijzigingenGroepen } from "../tekst/wijzigingen/Wijzigingen";
 import { usePagina } from "../tekst/pagina/ui/usePagina";
@@ -395,6 +397,8 @@ export function TekstRibbon({
   });
   const opdrachten = useTekstOpdrachten({ wijzigLiniaal, wijzigNavigatie });
   const herlaad = useEditorApi().herlaad;
+  // Navigator (F5) en het zoekvenster delen de linkerkant; zoeken gaat voor.
+  const zoekpaneel = usePaneelStaat(useEditorApi().tekst).zoeken;
   const grafieken = useIngeslotenGrafieken("docx");
   const pagina = usePagina();
   const tabel = useDocxCommand("tableAction");
@@ -912,6 +916,7 @@ export function TekstRibbon({
       <TekstDialogen opdrachten={opdrachten} />
       <WordHost />
       <BouwsteenHost />
+      {navigatie && !zoekpaneel && <Navigator sluit={wijzigNavigatie} />}
       <Liniaal aan={liniaal} />
       <TekstStatus opdrachten={opdrachten} />
       <TekstInfo />

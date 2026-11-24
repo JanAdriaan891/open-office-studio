@@ -481,7 +481,8 @@ export default function OfficeEditor(props: EditorProps) {
               }
               // Eigen liniaal (src/tekst/liniaal) in plaats van die van de engine.
               showRuler={false}
-              showOutline={navigatie}
+              // Eigen Navigator (src/tekst/navigator) in plaats van de overzichtsbalk van de engine.
+              showOutline={false}
               showOutlineButton={false}
               colorMode={documentWeergave.thema === "forge" ? "dark" : "light"}
               i18n={engineTaal.tekst}

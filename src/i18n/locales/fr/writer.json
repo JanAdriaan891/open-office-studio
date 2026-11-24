@@ -2097,5 +2097,46 @@
     "undoHint": "Ctrl+Z juste après une correction l’annule.",
     "importedHint": "Liste importée ; choisissez OK pour la conserver.",
     "fileName": "Correction automatique"
+  },
+  "navigator": {
+    "title": "Navigateur",
+    "search": "Rechercher dans le navigateur",
+    "headingTools": "Modifier les titres",
+    "expand": "Développer",
+    "collapse": "Réduire",
+    "dropAtEnd": "Déposer ici : à la fin",
+    "loading": "Chargement…",
+    "none": "Aucun",
+    "noMatches": "Aucun résultat",
+    "noHeadings": "Aucun titre. Appliquez un style de titre (Titre 1, Titre 2…) aux paragraphes pour les voir ici.",
+    "footnote": "Note {{n}} : {{text}}",
+    "page": "Page {{n}}",
+    "categories": {
+      "koppen": "Titres",
+      "tabellen": "Tableaux",
+      "afbeeldingen": "Images",
+      "bladwijzers": "Signets",
+      "opmerkingen": "Commentaires",
+      "voetnoten": "Notes de bas de page",
+      "secties": "Sections",
+      "koppelingen": "Liens hypertexte"
+    },
+    "menu": {
+      "chapterUp": "Monter le chapitre",
+      "chapterDown": "Descendre le chapitre",
+      "promoteChapter": "Hausser le chapitre",
+      "demoteChapter": "Abaisser le chapitre",
+      "promoteLevel": "Hausser ce titre uniquement",
+      "demoteLevel": "Abaisser ce titre uniquement",
+      "rename": "Renommer",
+      "deleteChapter": "Supprimer le chapitre",
+      "delete": "Supprimer",
+      "removeLink": "Supprimer le lien"
+    },
+    "errors": {
+      "notFound": "Cet élément n’est plus dans le document.",
+      "level": "Les titres vont du niveau 1 au niveau 9.",
+      "bookmarkExists": "Un signet nommé {{name}} existe déjà."
+    }
   }
 }

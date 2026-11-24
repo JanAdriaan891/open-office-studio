@@ -2097,5 +2097,46 @@
     "undoHint": "Ctrl+Z logo após uma correção a desfaz.",
     "importedHint": "Lista importada; escolha OK para mantê-la.",
     "fileName": "AutoCorreção"
+  },
+  "navigator": {
+    "title": "Navegador",
+    "search": "Pesquisar no navegador",
+    "headingTools": "Editar títulos",
+    "expand": "Expandir",
+    "collapse": "Recolher",
+    "dropAtEnd": "Soltar aqui: no final",
+    "loading": "Carregando…",
+    "none": "Nenhum",
+    "noMatches": "Nenhum resultado",
+    "noHeadings": "Sem títulos. Aplique um estilo de título (Título 1, Título 2…) para vê-los aqui.",
+    "footnote": "Nota de rodapé {{n}}: {{text}}",
+    "page": "Página {{n}}",
+    "categories": {
+      "koppen": "Títulos",
+      "tabellen": "Tabelas",
+      "afbeeldingen": "Imagens",
+      "bladwijzers": "Indicadores",
+      "opmerkingen": "Comentários",
+      "voetnoten": "Notas de rodapé",
+      "secties": "Seções",
+      "koppelingen": "Hiperlinks"
+    },
+    "menu": {
+      "chapterUp": "Mover capítulo para cima",
+      "chapterDown": "Mover capítulo para baixo",
+      "promoteChapter": "Promover capítulo",
+      "demoteChapter": "Rebaixar capítulo",
+      "promoteLevel": "Promover apenas este título",
+      "demoteLevel": "Rebaixar apenas este título",
+      "rename": "Renomear",
+      "deleteChapter": "Excluir capítulo",
+      "delete": "Excluir",
+      "removeLink": "Remover link"
+    },
+    "errors": {
+      "notFound": "Este item não está mais no documento.",
+      "level": "Os títulos vão do nível 1 ao 9.",
+      "bookmarkExists": "Já existe um indicador chamado {{name}}."
+    }
   }
 }

@@ -2097,5 +2097,46 @@
     "undoHint": "Ctrl+Z subito dopo una correzione la annulla.",
     "importedHint": "Elenco importato; scegli OK per salvarlo.",
     "fileName": "Correzione automatica"
+  },
+  "navigator": {
+    "title": "Navigatore",
+    "search": "Cerca nel navigatore",
+    "headingTools": "Modifica titoli",
+    "expand": "Espandi",
+    "collapse": "Comprimi",
+    "dropAtEnd": "Rilascia qui: alla fine",
+    "loading": "Caricamento…",
+    "none": "Nessuno",
+    "noMatches": "Nessuna corrispondenza",
+    "noHeadings": "Nessun titolo. Applica uno stile titolo (Titolo 1, Titolo 2…) ai paragrafi per vederli qui.",
+    "footnote": "Nota a piè di pagina {{n}}: {{text}}",
+    "page": "Pagina {{n}}",
+    "categories": {
+      "koppen": "Titoli",
+      "tabellen": "Tabelle",
+      "afbeeldingen": "Immagini",
+      "bladwijzers": "Segnalibri",
+      "opmerkingen": "Commenti",
+      "voetnoten": "Note a piè di pagina",
+      "secties": "Sezioni",
+      "koppelingen": "Collegamenti ipertestuali"
+    },
+    "menu": {
+      "chapterUp": "Sposta capitolo su",
+      "chapterDown": "Sposta capitolo giù",
+      "promoteChapter": "Alza di livello capitolo",
+      "demoteChapter": "Abbassa di livello capitolo",
+      "promoteLevel": "Alza solo questo titolo",
+      "demoteLevel": "Abbassa solo questo titolo",
+      "rename": "Rinomina",
+      "deleteChapter": "Elimina capitolo",
+      "delete": "Elimina",
+      "removeLink": "Rimuovi collegamento"
+    },
+    "errors": {
+      "notFound": "Questo elemento non è più nel documento.",
+      "level": "I titoli vanno dal livello 1 al 9.",
+      "bookmarkExists": "Esiste già un segnalibro denominato {{name}}."
+    }
   }
 }

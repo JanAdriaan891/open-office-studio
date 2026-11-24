@@ -2083,5 +2083,46 @@
     "undoHint": "Ctrl+Z right after a correction undoes it.",
     "importedHint": "List imported; choose OK to keep it.",
     "fileName": "AutoCorrect"
+  },
+  "navigator": {
+    "title": "Navigator",
+    "search": "Search the navigator",
+    "headingTools": "Edit headings",
+    "expand": "Expand",
+    "collapse": "Collapse",
+    "dropAtEnd": "Drop here: move to the end",
+    "loading": "Loading…",
+    "none": "None",
+    "noMatches": "No matches",
+    "noHeadings": "No headings. Give paragraphs a heading style (Heading 1, Heading 2 …) to see them here.",
+    "footnote": "Footnote {{n}}: {{text}}",
+    "page": "Page {{n}}",
+    "categories": {
+      "koppen": "Headings",
+      "tabellen": "Tables",
+      "afbeeldingen": "Images",
+      "bladwijzers": "Bookmarks",
+      "opmerkingen": "Comments",
+      "voetnoten": "Footnotes",
+      "secties": "Sections",
+      "koppelingen": "Hyperlinks"
+    },
+    "menu": {
+      "chapterUp": "Move chapter up",
+      "chapterDown": "Move chapter down",
+      "promoteChapter": "Promote chapter",
+      "demoteChapter": "Demote chapter",
+      "promoteLevel": "Promote this heading only",
+      "demoteLevel": "Demote this heading only",
+      "rename": "Rename",
+      "deleteChapter": "Delete chapter",
+      "delete": "Delete",
+      "removeLink": "Remove link"
+    },
+    "errors": {
+      "notFound": "This item is no longer in the document.",
+      "level": "Headings range from level 1 to 9.",
+      "bookmarkExists": "A bookmark named {{name}} already exists."
+    }
   }
 }

@@ -2083,5 +2083,46 @@
     "undoHint": "Strg+Z direkt nach einer Korrektur macht sie rückgängig.",
     "importedHint": "Liste importiert; zum Übernehmen OK wählen.",
     "fileName": "AutoKorrektur"
+  },
+  "navigator": {
+    "title": "Navigator",
+    "search": "Im Navigator suchen",
+    "headingTools": "Überschriften bearbeiten",
+    "expand": "Erweitern",
+    "collapse": "Reduzieren",
+    "dropAtEnd": "Hier ablegen: ans Ende",
+    "loading": "Wird geladen…",
+    "none": "Keine",
+    "noMatches": "Keine Treffer",
+    "noHeadings": "Keine Überschriften. Weisen Sie Absätzen eine Überschriftenformatvorlage zu, um sie hier zu sehen.",
+    "footnote": "Fußnote {{n}}: {{text}}",
+    "page": "Seite {{n}}",
+    "categories": {
+      "koppen": "Überschriften",
+      "tabellen": "Tabellen",
+      "afbeeldingen": "Bilder",
+      "bladwijzers": "Textmarken",
+      "opmerkingen": "Kommentare",
+      "voetnoten": "Fußnoten",
+      "secties": "Abschnitte",
+      "koppelingen": "Hyperlinks"
+    },
+    "menu": {
+      "chapterUp": "Kapitel nach oben",
+      "chapterDown": "Kapitel nach unten",
+      "promoteChapter": "Kapitel heraufstufen",
+      "demoteChapter": "Kapitel herabstufen",
+      "promoteLevel": "Nur diese Überschrift heraufstufen",
+      "demoteLevel": "Nur diese Überschrift herabstufen",
+      "rename": "Umbenennen",
+      "deleteChapter": "Kapitel löschen",
+      "delete": "Löschen",
+      "removeLink": "Link entfernen"
+    },
+    "errors": {
+      "notFound": "Dieses Element ist nicht mehr im Dokument.",
+      "level": "Überschriften reichen von Ebene 1 bis 9.",
+      "bookmarkExists": "Es gibt bereits eine Textmarke namens {{name}}."
+    }
   }
 }

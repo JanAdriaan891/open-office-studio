@@ -2069,5 +2069,46 @@
     "undoHint": "Ctrl+Z ທັນທີຫຼັງການແກ້ໄຂ ຈະຍົກເລີກມັນ.",
     "importedHint": "ນຳເຂົ້າລາຍການແລ້ວ; ເລືອກ ຕົກລົງ ເພື່ອເກັບໄວ້.",
     "fileName": "ການແກ້ໄຂອັດຕະໂນມັດ"
+  },
+  "navigator": {
+    "title": "ຕົວນຳທາງ",
+    "search": "ຄົ້ນຫາໃນຕົວນຳທາງ",
+    "headingTools": "ແກ້ໄຂຫົວຂໍ້",
+    "expand": "ຂະຫຍາຍ",
+    "collapse": "ຫຍໍ້",
+    "dropAtEnd": "ວາງທີ່ນີ້: ຍ້າຍໄປທ້າຍສຸດ",
+    "loading": "ກຳລັງໂຫຼດ…",
+    "none": "ບໍ່ມີ",
+    "noMatches": "ບໍ່ພົບຜົນ",
+    "noHeadings": "ບໍ່ມີຫົວຂໍ້. ກຳນົດຮູບແບບຫົວຂໍ້ (ຫົວຂໍ້ 1, ຫົວຂໍ້ 2 …) ໃຫ້ຫຍໍ້ໜ້າເພື່ອເບິ່ງທີ່ນີ້.",
+    "footnote": "ເຊີງອັດ {{n}}: {{text}}",
+    "page": "ໜ້າ {{n}}",
+    "categories": {
+      "koppen": "ຫົວຂໍ້",
+      "tabellen": "ຕາຕະລາງ",
+      "afbeeldingen": "ຮູບພາບ",
+      "bladwijzers": "ບຸກມາກ",
+      "opmerkingen": "ຄຳເຫັນ",
+      "voetnoten": "ເຊີງອັດ",
+      "secties": "ພາກສ່ວນ",
+      "koppelingen": "ໄຮເປີລິ້ງ"
+    },
+    "menu": {
+      "chapterUp": "ຍ້າຍບົດຂຶ້ນ",
+      "chapterDown": "ຍ້າຍບົດລົງ",
+      "promoteChapter": "ເລື່ອນລະດັບບົດຂຶ້ນ",
+      "demoteChapter": "ເລື່ອນລະດັບບົດລົງ",
+      "promoteLevel": "ເລື່ອນລະດັບຂຶ້ນສະເພາະຫົວຂໍ້ນີ້",
+      "demoteLevel": "ເລື່ອນລະດັບລົງສະເພາະຫົວຂໍ້ນີ້",
+      "rename": "ປ່ຽນຊື່",
+      "deleteChapter": "ລຶບບົດ",
+      "delete": "ລຶບ",
+      "removeLink": "ລຶບລິ້ງ"
+    },
+    "errors": {
+      "notFound": "ລາຍການນີ້ບໍ່ຢູ່ໃນເອກະສານແລ້ວ.",
+      "level": "ຫົວຂໍ້ມີລະດັບຕັ້ງແຕ່ 1 ຫາ 9.",
+      "bookmarkExists": "ມີບຸກມາກຊື່ {{name}} ຢູ່ແລ້ວ."
+    }
   }
 }

@@ -2097,5 +2097,46 @@
     "undoHint": "Ctrl+Z justo después de una corrección la deshace.",
     "importedHint": "Lista importada; elija Aceptar para guardarla.",
     "fileName": "Autocorrección"
+  },
+  "navigator": {
+    "title": "Navegador",
+    "search": "Buscar en el navegador",
+    "headingTools": "Editar títulos",
+    "expand": "Expandir",
+    "collapse": "Contraer",
+    "dropAtEnd": "Soltar aquí: al final",
+    "loading": "Cargando…",
+    "none": "Ninguno",
+    "noMatches": "Sin coincidencias",
+    "noHeadings": "Sin títulos. Aplique un estilo de título (Título 1, Título 2…) para verlos aquí.",
+    "footnote": "Nota al pie {{n}}: {{text}}",
+    "page": "Página {{n}}",
+    "categories": {
+      "koppen": "Títulos",
+      "tabellen": "Tablas",
+      "afbeeldingen": "Imágenes",
+      "bladwijzers": "Marcadores",
+      "opmerkingen": "Comentarios",
+      "voetnoten": "Notas al pie",
+      "secties": "Secciones",
+      "koppelingen": "Hipervínculos"
+    },
+    "menu": {
+      "chapterUp": "Subir capítulo",
+      "chapterDown": "Bajar capítulo",
+      "promoteChapter": "Promover capítulo",
+      "demoteChapter": "Degradar capítulo",
+      "promoteLevel": "Promover solo este título",
+      "demoteLevel": "Degradar solo este título",
+      "rename": "Cambiar nombre",
+      "deleteChapter": "Eliminar capítulo",
+      "delete": "Eliminar",
+      "removeLink": "Quitar vínculo"
+    },
+    "errors": {
+      "notFound": "Este elemento ya no está en el documento.",
+      "level": "Los títulos van del nivel 1 al 9.",
+      "bookmarkExists": "Ya existe un marcador llamado {{name}}."
+    }
   }
 }
