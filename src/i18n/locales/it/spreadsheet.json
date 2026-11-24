@@ -553,7 +553,12 @@
     "allowBlank": "Allow blank cells",
     "inCellDropdown": "In-cell dropdown",
     "showInputMessage": "Show input message",
-    "showErrorMessage": "Show error alert"
+    "showErrorMessage": "Show error alert",
+    "search": "Cerca nell’elenco",
+    "noMatches": "Nessuna scelta trovata",
+    "matches": "{{found}} di {{total}} scelte",
+    "moreMatches": "Prime {{shown}} di {{total}} scelte; digita per restringere",
+    "growSource": "Estendi l’origine fino a {{range}} (+{{added}})"
   },
   "protection": {
     "title": "Protection",
@@ -1008,5 +1013,47 @@
     "edgeBoth": "Bordo della griglia: la riga {{row}} e la colonna {{column}} sono le ultime.",
     "grown": "Griglia estesa a {{rows}} righe e {{columns}} colonne.",
     "fitted": "Griglia adattata al contenuto: {{rows}} righe e {{columns}} colonne."
+  },
+  "insertCount": {
+    "menuRows": "Inserisci righe…",
+    "menuColumns": "Inserisci colonne…",
+    "titleRows": "Inserisci righe",
+    "titleColumns": "Inserisci colonne",
+    "countRows": "Numero di righe",
+    "countColumns": "Numero di colonne",
+    "hint": "Un numero intero da 1 a {{max}}.",
+    "position": "Posizione",
+    "above": "Sopra la selezione",
+    "below": "Sotto la selezione",
+    "left": "A sinistra della selezione",
+    "right": "A destra della selezione",
+    "insert": "Inserisci"
+  },
+  "fillTo": {
+    "menu": "Riempi fino alla cella…",
+    "title": "Riempi fino alla cella",
+    "source": "Origine: {{range}}",
+    "target": "Fino alla cella, riga o colonna (inclusa)",
+    "hint": "Digita una cella (B500), un numero di riga (500) o una lettera di colonna (H).",
+    "invalid": "Non è una cella, riga o colonna valida.",
+    "inside": "Questa cella si trova nella selezione; non c’è nulla da riempire.",
+    "tooLarge": "Troppe celle in una volta (massimo {{max}}).",
+    "preview": {
+      "omlaag": "Riempie {{range}}: {{cells}} righe verso il basso.",
+      "omhoog": "Riempie {{range}}: {{cells}} righe verso l’alto.",
+      "rechts": "Riempie {{range}}: {{cells}} colonne verso destra.",
+      "links": "Riempie {{range}}: {{cells}} colonne verso sinistra."
+    },
+    "fill": "Riempi",
+    "handleHint": "clic destro: riempi fino alla cella…"
+  },
+  "formulaEditor": {
+    "menu": "Modifica formula in una finestra…",
+    "open": "Apri l’editor di formule",
+    "title": "Editor di formule – {{cell}}",
+    "label": "Contenuto della cella {{cell}} (Invio: nuova riga, Ctrl+Invio: conferma)",
+    "hint": "{{lines}} righe · {{characters}} caratteri · Invio: nuova riga · Ctrl+Invio: conferma",
+    "format": "Disponi su più righe",
+    "singleLine": "Su una riga"
   }
 }

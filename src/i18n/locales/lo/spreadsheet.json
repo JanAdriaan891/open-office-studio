@@ -537,7 +537,12 @@
     "allowBlank": "Allow blank cells",
     "inCellDropdown": "In-cell dropdown",
     "showInputMessage": "Show input message",
-    "showErrorMessage": "Show error alert"
+    "showErrorMessage": "Show error alert",
+    "search": "ຄົ້ນຫາໃນລາຍການ",
+    "noMatches": "ບໍ່ພົບຕົວເລືອກ",
+    "matches": "{{found}} ຈາກ {{total}} ຕົວເລືອກ",
+    "moreMatches": "{{shown}} ຕົວເລືອກທຳອິດຈາກ {{total}}; ພິມເພື່ອຈຳກັດໃຫ້ແຄບລົງ",
+    "growSource": "ຂະຫຍາຍແຫຼ່ງທີ່ມາຮອດ {{range}} (+{{added}})"
   },
   "protection": {
     "title": "Protection",
@@ -992,5 +997,47 @@
     "edgeBoth": "ຂອບຕາຕະລາງ: ແຖວ {{row}} ແລະ ຖັນ {{column}} ແມ່ນສຸດທ້າຍ.",
     "grown": "ຂະຫຍາຍຕາຕະລາງເປັນ {{rows}} ແຖວ ແລະ {{columns}} ຖັນ.",
     "fitted": "ປັບຕາຕະລາງໃຫ້ພໍດີກັບເນື້ອຫາ: {{rows}} ແຖວ ແລະ {{columns}} ຖັນ."
+  },
+  "insertCount": {
+    "menuRows": "ແຊກແຖວ…",
+    "menuColumns": "ແຊກຖັນ…",
+    "titleRows": "ແຊກແຖວ",
+    "titleColumns": "ແຊກຖັນ",
+    "countRows": "ຈຳນວນແຖວ",
+    "countColumns": "ຈຳນວນຖັນ",
+    "hint": "ຈຳນວນເຕັມຕັ້ງແຕ່ 1 ຫາ {{max}}.",
+    "position": "ຕຳແໜ່ງ",
+    "above": "ຂ້າງເທິງສ່ວນທີ່ເລືອກ",
+    "below": "ຂ້າງລຸ່ມສ່ວນທີ່ເລືອກ",
+    "left": "ທາງຊ້າຍຂອງສ່ວນທີ່ເລືອກ",
+    "right": "ທາງຂວາຂອງສ່ວນທີ່ເລືອກ",
+    "insert": "ແຊກ"
+  },
+  "fillTo": {
+    "menu": "ຕື່ມຈົນຮອດເຊວ…",
+    "title": "ຕື່ມຈົນຮອດເຊວ",
+    "source": "ແຫຼ່ງທີ່ມາ: {{range}}",
+    "target": "ຈົນຮອດເຊວ, ແຖວ ຫຼື ຖັນ (ລວມທັງໝົດ)",
+    "hint": "ພິມເຊວ (B500), ເລກແຖວ (500) ຫຼື ຕົວອັກສອນຖັນ (H).",
+    "invalid": "ນີ້ບໍ່ແມ່ນເຊວ, ແຖວ ຫຼື ຖັນທີ່ຖືກຕ້ອງ.",
+    "inside": "ເຊວນີ້ຢູ່ໃນສ່ວນທີ່ເລືອກ; ບໍ່ມີຫຍັງໃຫ້ຕື່ມ.",
+    "tooLarge": "ເຊວຫຼາຍເກີນໄປໃນຄັ້ງດຽວ (ສູງສຸດ {{max}}).",
+    "preview": {
+      "omlaag": "ຕື່ມ {{range}}: {{cells}} ແຖວລົງລຸ່ມ.",
+      "omhoog": "ຕື່ມ {{range}}: {{cells}} ແຖວຂຶ້ນເທິງ.",
+      "rechts": "ຕື່ມ {{range}}: {{cells}} ຖັນໄປທາງຂວາ.",
+      "links": "ຕື່ມ {{range}}: {{cells}} ຖັນໄປທາງຊ້າຍ."
+    },
+    "fill": "ຕື່ມ",
+    "handleHint": "ຄລິກຂວາ: ຕື່ມຈົນຮອດເຊວ…"
+  },
+  "formulaEditor": {
+    "menu": "ແກ້ໄຂສູດໃນໜ້າຕ່າງ…",
+    "open": "ເປີດຕົວແກ້ໄຂສູດ",
+    "title": "ຕົວແກ້ໄຂສູດ – {{cell}}",
+    "label": "ເນື້ອໃນຂອງເຊວ {{cell}} (Enter: ແຖວໃໝ່, Ctrl+Enter: ຢືນຢັນ)",
+    "hint": "{{lines}} ແຖວ · {{characters}} ຕົວອັກສອນ · Enter: ແຖວໃໝ່ · Ctrl+Enter: ຢືນຢັນ",
+    "format": "ຈັດເປັນຫຼາຍແຖວ",
+    "singleLine": "ເປັນແຖວດຽວ"
   }
 }

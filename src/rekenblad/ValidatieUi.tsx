@@ -1,4 +1,4 @@
-import { useContext, useEffect, useMemo, useRef, useState } from "react";
+import { useContext, useEffect, useId, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import type {
   XlsxEditorApi,
@@ -8,8 +8,11 @@ import { openWorkbook, type WorkbookHandle } from "@betteroffice/xlsx";
 import { RibbonFout } from "../Ribbon";
 import { Paneel, tekstVan } from "../lint/rekenblad-dialogen";
 import { useEditorApi, meldWijziging } from "../lint/editorApi";
-import { alleenLezen, leesSelectie } from "../lint/rekenblad-opdrachten";
-import { adres, type Cel } from "../lint/rekenblad-logica";
+import { alleenLezen, leesSelectie, voerOpsUit } from "../lint/rekenblad-opdrachten";
+import { bladBeveiligd } from "./bladbeveiliging";
+import { bronGroei, filterKeuzes, groeiOp, type Brongroei } from "./keuzelijst";
+import { namenAlle } from "./validatieAnkers";
+import { adres, bereikA1, type Cel } from "../lint/rekenblad-logica";
 import { a1, bevat, gebied } from "./werkboekXml";
 import {
   leesValidaties,
@@ -77,7 +80,8 @@ export function ValidatieLaag({
   const { t } = useTranslation("spreadsheet");
   const meld = useContext(RibbonFout);
   const [, ververs] = useState(0),
-    [open, setOpen] = useState(false);
+    [open, setOpen] = useState(false),
+    [groeiversie, setGroeiversie] = useState(0);
   useEffect(() => {
     const l = () => ververs((n) => n + 1);
     luisteraars.add(l);
@@ -114,8 +118,32 @@ export function ValidatieLaag({
     } catch (f) {
       return { opties: [], fout: tekstVan(f) };
     }
-  }, [r, api, blad, geometry.layout.version]);
+  }, [r, api, blad, geometry.layout.version, groeiversie]);
   const waarden = lijst.opties;
+  // Nieuwe waarden direct onder (of rechts van) de bron: de bron kan meegroeien.
+  const groei = useMemo(() => {
+    if (!open || !r || r.type !== "list" || lijst.fout) return null;
+    if (alleenLezen(api) || bladBeveiligd(api.handle, blad)?.actief) return null;
+    try {
+      const g = bronGroei(api.handle, blad, r.formule1);
+      const index = (validaties(api.handle)[blad] ?? []).indexOf(r);
+      const op = g && groeiOp(namenAlle(api.handle), blad, index, r.formule1, g);
+      return g && op ? { ...g, op } : null;
+    } catch {
+      return null;
+    }
+  }, [open, r, r?.formule1, lijst, api, blad]);
+  async function breidUit() {
+    if (!groei || !r) return;
+    try {
+      await voerOpsUit(api, [groei.op]);
+      // De regel in het geheugen volgt de ankernaam; bij ongedaan maken leest de validatie opnieuw.
+      r.formule1 = groei.formule;
+      setGroeiversie((n) => n + 1);
+    } catch (f) {
+      meld(tekstVan(f));
+    }
+  }
   return (
     <>
       {(markeringen.get(api.handle)?.blad === blad
@@ -160,31 +188,25 @@ export function ValidatieLaag({
                 ▾
               </button>
               {open && (
-                <select
-                  aria-label={t("validation.dropdown")}
-                  size={Math.min(10, Math.max(2, waarden.length))}
-                  onChange={(e) => {
+                <Keuzelijst
+                  opties={waarden}
+                  groei={groei}
+                  kies={(o) => {
                     try {
-                      api.handle.editCell(
-                        blad,
-                        focus!.row,
-                        focus!.col,
-                        waarden.find((o) => o.tekst === e.target.value)!.invoer,
-                      );
+                      api.handle.editCell(blad, focus!.row, focus!.col, o.invoer);
                       meldWijziging(api.handle);
                       setOpen(false);
+                      api.focus();
                     } catch (f) {
                       meld(tekstVan(f));
                     }
                   }}
-                >
-                  <option disabled>{t("validation.choose")}</option>
-                  {waarden.map((v) => (
-                    <option key={v.tekst} value={v.tekst}>
-                      {v.tekst || t("validation.empty")}
-                    </option>
-                  ))}
-                </select>
+                  breidUit={() => void breidUit()}
+                  sluit={() => {
+                    setOpen(false);
+                    api.focus();
+                  }}
+                />
               )}
             </>
           )}
@@ -197,6 +219,114 @@ export function ValidatieLaag({
         </div>
       )}
     </>
+  );
+}
+
+/** Zoveel keuzes tekent de lijst hooguit tegelijk; verder zoeken verfijnt. */
+const MAX_ZICHTBAAR = 200;
+
+/**
+ * Doorzoekbare keuzelijst: typen filtert, pijltjes kiezen, Enter neemt over.
+ * Staan er nieuwe waarden direct na de bron, dan biedt de lijst aan de bron
+ * uit te breiden.
+ */
+function Keuzelijst({
+  opties,
+  groei,
+  kies,
+  breidUit,
+  sluit,
+}: {
+  opties: { tekst: string; invoer: string }[];
+  groei: Brongroei | null;
+  kies: (o: { tekst: string; invoer: string }) => void;
+  breidUit: () => void;
+  sluit: () => void;
+}) {
+  const { t } = useTranslation("spreadsheet");
+  const id = useId();
+  const [zoek, setZoek] = useState("");
+  const [actief, setActief] = useState(0);
+  const lijst = useRef<HTMLUListElement>(null);
+  const veld = useRef<HTMLInputElement>(null);
+  const passend = useMemo(() => filterKeuzes(opties, zoek), [opties, zoek]);
+  const zichtbaar = passend.slice(0, MAX_ZICHTBAAR);
+  const gekozen = Math.min(actief, zichtbaar.length - 1);
+  useEffect(() => veld.current?.focus(), []);
+  useEffect(() => {
+    lijst.current?.querySelector('[aria-selected="true"]')?.scrollIntoView({ block: "nearest" });
+  }, [gekozen, zoek]);
+  return (
+    <div className="validatie-keuzelijst">
+      <input
+        ref={veld}
+        type="text"
+        role="combobox"
+        aria-expanded="true"
+        aria-controls={id}
+        aria-autocomplete="list"
+        aria-activedescendant={gekozen >= 0 ? `${id}-${gekozen}` : undefined}
+        aria-label={t("validation.search")}
+        placeholder={t("validation.search")}
+        spellCheck={false}
+        value={zoek}
+        onChange={(e) => {
+          setZoek(e.target.value);
+          setActief(0);
+        }}
+        onKeyDown={(e) => {
+          e.stopPropagation();
+          if (e.nativeEvent.isComposing) return;
+          if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+            e.preventDefault();
+            if (!zichtbaar.length) return;
+            const stap = e.key === "ArrowDown" ? 1 : -1;
+            setActief((gekozen + stap + zichtbaar.length) % zichtbaar.length);
+          } else if (e.key === "Home" && e.ctrlKey) {
+            e.preventDefault();
+            setActief(0);
+          } else if (e.key === "End" && e.ctrlKey) {
+            e.preventDefault();
+            setActief(zichtbaar.length - 1);
+          } else if (e.key === "Enter") {
+            e.preventDefault();
+            if (zichtbaar[gekozen]) kies(zichtbaar[gekozen]);
+          } else if (e.key === "Escape") {
+            e.preventDefault();
+            sluit();
+          }
+        }}
+      />
+      <ul ref={lijst} id={id} role="listbox" aria-label={t("validation.dropdown")}>
+        {zichtbaar.map((o, i) => (
+          <li
+            key={o.tekst}
+            id={`${id}-${i}`}
+            role="option"
+            aria-selected={i === gekozen}
+            onMouseDown={(e) => e.preventDefault()}
+            onMouseEnter={() => setActief(i)}
+            onClick={() => kies(o)}
+          >
+            {o.tekst || t("validation.empty")}
+          </li>
+        ))}
+      </ul>
+      <p className="validatie-telling" role="status">
+        {!passend.length
+          ? t("validation.noMatches")
+          : passend.length > zichtbaar.length
+            ? t("validation.moreMatches", { shown: zichtbaar.length, total: passend.length })
+            : zoek.trim()
+              ? t("validation.matches", { found: passend.length, total: opties.length })
+              : ""}
+      </p>
+      {groei && (
+        <button type="button" className="validatie-groei" onMouseDown={(e) => e.preventDefault()} onClick={breidUit}>
+          {t("validation.growSource", { added: groei.aantal, range: bereikA1(groei.bereik) })}
+        </button>
+      )}
+    </div>
   );
 }
 

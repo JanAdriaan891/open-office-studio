@@ -553,7 +553,12 @@
     "allowBlank": "Allow blank cells",
     "inCellDropdown": "In-cell dropdown",
     "showInputMessage": "Show input message",
-    "showErrorMessage": "Show error alert"
+    "showErrorMessage": "Show error alert",
+    "search": "Pesquisar na lista",
+    "noMatches": "Nenhuma opção encontrada",
+    "matches": "{{found}} de {{total}} opções",
+    "moreMatches": "Primeiras {{shown}} de {{total}} opções; digite para refinar",
+    "growSource": "Estender a origem até {{range}} (+{{added}})"
   },
   "protection": {
     "title": "Protection",
@@ -1008,5 +1013,47 @@
     "edgeBoth": "Borda da grade: a linha {{row}} e a coluna {{column}} são as últimas.",
     "grown": "Grade ampliada para {{rows}} linhas e {{columns}} colunas.",
     "fitted": "Grade ajustada ao conteúdo: {{rows}} linhas e {{columns}} colunas."
+  },
+  "insertCount": {
+    "menuRows": "Inserir linhas…",
+    "menuColumns": "Inserir colunas…",
+    "titleRows": "Inserir linhas",
+    "titleColumns": "Inserir colunas",
+    "countRows": "Número de linhas",
+    "countColumns": "Número de colunas",
+    "hint": "Um número inteiro de 1 a {{max}}.",
+    "position": "Posição",
+    "above": "Acima da seleção",
+    "below": "Abaixo da seleção",
+    "left": "À esquerda da seleção",
+    "right": "À direita da seleção",
+    "insert": "Inserir"
+  },
+  "fillTo": {
+    "menu": "Preencher até a célula…",
+    "title": "Preencher até a célula",
+    "source": "Origem: {{range}}",
+    "target": "Até a célula, linha ou coluna (inclusive)",
+    "hint": "Digite uma célula (B500), um número de linha (500) ou uma letra de coluna (H).",
+    "invalid": "Esta não é uma célula, linha ou coluna válida.",
+    "inside": "Esta célula está dentro da seleção; não há nada a preencher.",
+    "tooLarge": "Células demais de uma vez (máximo {{max}}).",
+    "preview": {
+      "omlaag": "Preenche {{range}}: {{cells}} linhas para baixo.",
+      "omhoog": "Preenche {{range}}: {{cells}} linhas para cima.",
+      "rechts": "Preenche {{range}}: {{cells}} colunas para a direita.",
+      "links": "Preenche {{range}}: {{cells}} colunas para a esquerda."
+    },
+    "fill": "Preencher",
+    "handleHint": "clique direito: preencher até a célula…"
+  },
+  "formulaEditor": {
+    "menu": "Editar fórmula em uma janela…",
+    "open": "Abrir o editor de fórmulas",
+    "title": "Editor de fórmulas – {{cell}}",
+    "label": "Conteúdo da célula {{cell}} (Enter: nova linha, Ctrl+Enter: confirmar)",
+    "hint": "{{lines}} linhas · {{characters}} caracteres · Enter: nova linha · Ctrl+Enter: confirmar",
+    "format": "Distribuir em linhas",
+    "singleLine": "Em uma linha"
   }
 }

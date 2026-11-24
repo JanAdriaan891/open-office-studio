@@ -25,6 +25,9 @@ export type Venster =
   | { soort: "bladVerwijderen" }
   | { soort: "bladVerplaatsen"; positie?: number; kopie?: boolean }
   | { soort: "bladHernoemen" }
+  | { soort: "invoegenAantal"; as: "rij" | "kolom" }
+  | { soort: "doortrekken" }
+  | { soort: "formule" }
   | { soort: "menu"; menu: MenuSoort; x: number; y: number };
 
 type Luisteraar = (host: HTMLElement, venster: Venster) => void;

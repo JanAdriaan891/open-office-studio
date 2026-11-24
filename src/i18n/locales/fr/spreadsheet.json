@@ -553,7 +553,12 @@
     "allowBlank": "Allow blank cells",
     "inCellDropdown": "In-cell dropdown",
     "showInputMessage": "Show input message",
-    "showErrorMessage": "Show error alert"
+    "showErrorMessage": "Show error alert",
+    "search": "Rechercher dans la liste",
+    "noMatches": "Aucun choix trouvé",
+    "matches": "{{found}} choix sur {{total}}",
+    "moreMatches": "{{shown}} premiers choix sur {{total}} ; saisissez du texte pour affiner",
+    "growSource": "Étendre la source jusqu’à {{range}} (+{{added}})"
   },
   "protection": {
     "title": "Protection",
@@ -1008,5 +1013,47 @@
     "edgeBoth": "Bord de la grille : la ligne {{row}} et la colonne {{column}} sont les dernières.",
     "grown": "Grille étendue à {{rows}} lignes et {{columns}} colonnes.",
     "fitted": "Grille ajustée au contenu : {{rows}} lignes et {{columns}} colonnes."
+  },
+  "insertCount": {
+    "menuRows": "Insérer des lignes…",
+    "menuColumns": "Insérer des colonnes…",
+    "titleRows": "Insérer des lignes",
+    "titleColumns": "Insérer des colonnes",
+    "countRows": "Nombre de lignes",
+    "countColumns": "Nombre de colonnes",
+    "hint": "Un nombre entier de 1 à {{max}}.",
+    "position": "Position",
+    "above": "Au-dessus de la sélection",
+    "below": "En dessous de la sélection",
+    "left": "À gauche de la sélection",
+    "right": "À droite de la sélection",
+    "insert": "Insérer"
+  },
+  "fillTo": {
+    "menu": "Recopier jusqu’à la cellule…",
+    "title": "Recopier jusqu’à la cellule",
+    "source": "Source : {{range}}",
+    "target": "Jusqu’à la cellule, la ligne ou la colonne incluse",
+    "hint": "Saisissez une cellule (B500), un numéro de ligne (500) ou une lettre de colonne (H).",
+    "invalid": "Ce n’est pas une cellule, une ligne ou une colonne valide.",
+    "inside": "Cette cellule se trouve dans la sélection ; il n’y a rien à recopier.",
+    "tooLarge": "Trop de cellules à la fois (maximum {{max}}).",
+    "preview": {
+      "omlaag": "Remplit {{range}} : {{cells}} lignes vers le bas.",
+      "omhoog": "Remplit {{range}} : {{cells}} lignes vers le haut.",
+      "rechts": "Remplit {{range}} : {{cells}} colonnes vers la droite.",
+      "links": "Remplit {{range}} : {{cells}} colonnes vers la gauche."
+    },
+    "fill": "Recopier",
+    "handleHint": "clic droit : recopier jusqu’à la cellule…"
+  },
+  "formulaEditor": {
+    "menu": "Modifier la formule dans une fenêtre…",
+    "open": "Ouvrir l’éditeur de formules",
+    "title": "Éditeur de formules – {{cell}}",
+    "label": "Contenu de la cellule {{cell}} (Entrée : nouvelle ligne, Ctrl+Entrée : valider)",
+    "hint": "{{lines}} lignes · {{characters}} caractères · Entrée : nouvelle ligne · Ctrl+Entrée : valider",
+    "format": "Répartir sur plusieurs lignes",
+    "singleLine": "Sur une seule ligne"
   }
 }

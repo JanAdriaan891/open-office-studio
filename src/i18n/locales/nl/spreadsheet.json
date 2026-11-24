@@ -545,7 +545,12 @@
     "allowBlank": "Lege cellen toestaan",
     "inCellDropdown": "Keuzelijst in cel",
     "showInputMessage": "Invoerbericht tonen",
-    "showErrorMessage": "Foutmelding tonen"
+    "showErrorMessage": "Foutmelding tonen",
+    "search": "Zoeken in de keuzelijst",
+    "noMatches": "Geen keuzes gevonden",
+    "matches": "{{found}} van {{total}} keuzes",
+    "moreMatches": "Eerste {{shown}} van {{total}} keuzes; typ om te verfijnen",
+    "growSource": "Bron uitbreiden tot {{range}} (+{{added}})"
   },
   "protection": {
     "title": "Beveiliging",
@@ -1000,5 +1005,47 @@
     "edgeBoth": "Rand van het raster: rij {{row}} en kolom {{column}} zijn de laatste.",
     "grown": "Raster uitgebreid tot {{rows}} rijen en {{columns}} kolommen.",
     "fitted": "Raster aangepast aan de inhoud: {{rows}} rijen en {{columns}} kolommen."
+  },
+  "insertCount": {
+    "menuRows": "Rijen invoegen…",
+    "menuColumns": "Kolommen invoegen…",
+    "titleRows": "Rijen invoegen",
+    "titleColumns": "Kolommen invoegen",
+    "countRows": "Aantal rijen",
+    "countColumns": "Aantal kolommen",
+    "hint": "Een heel getal van 1 tot {{max}}.",
+    "position": "Plaats",
+    "above": "Boven de selectie",
+    "below": "Onder de selectie",
+    "left": "Links van de selectie",
+    "right": "Rechts van de selectie",
+    "insert": "Invoegen"
+  },
+  "fillTo": {
+    "menu": "Doorvoeren tot cel…",
+    "title": "Doorvoeren tot cel",
+    "source": "Bron: {{range}}",
+    "target": "Tot en met cel, rij of kolom",
+    "hint": "Typ een cel (B500), een rijnummer (500) of een kolomletter (H).",
+    "invalid": "Dit is geen geldige cel, rij of kolom.",
+    "inside": "Deze cel ligt binnen de selectie; er valt niets door te voeren.",
+    "tooLarge": "Te veel cellen in één keer (maximaal {{max}}).",
+    "preview": {
+      "omlaag": "Vult {{range}}: {{cells}} rijen omlaag.",
+      "omhoog": "Vult {{range}}: {{cells}} rijen omhoog.",
+      "rechts": "Vult {{range}}: {{cells}} kolommen naar rechts.",
+      "links": "Vult {{range}}: {{cells}} kolommen naar links."
+    },
+    "fill": "Doorvoeren",
+    "handleHint": "rechtsklik: doorvoeren tot cel…"
+  },
+  "formulaEditor": {
+    "menu": "Formule bewerken in venster…",
+    "open": "Formulebewerker openen",
+    "title": "Formulebewerker – {{cell}}",
+    "label": "Inhoud van cel {{cell}} (Enter: nieuwe regel, Ctrl+Enter: vastleggen)",
+    "hint": "{{lines}} regels · {{characters}} tekens · Enter: nieuwe regel · Ctrl+Enter: vastleggen",
+    "format": "Op regels zetten",
+    "singleLine": "Op één regel"
   }
 }
