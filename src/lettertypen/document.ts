@@ -7,7 +7,7 @@ import * as fonts from "@betteroffice/fonts";
 import type { PptxFontFace } from "@betteroffice/pptx";
 import { laadSysteemLettertypen, opSysteem, systeemLettertypeBytes } from "./systeem";
 import { lettertypenInDocument, vervangerVoor, type Vervanging } from "./vervanging";
-import { ALLE_STIJLEN as STIJLEN, extraFace, isExtraFamilie, laadExtraBytes, lettertypeBasis, registreerCss } from "./catalogus";
+import { ALLE_STIJLEN as STIJLEN, binnenTijd, extraFace, isExtraFamilie, laadExtraBytes, lettertypeBasis, registreerCss } from "./catalogus";
 
 const basis = lettertypeBasis;
 /** Komt mee met de app onder precies deze naam (meegeleverd of extra). */
@@ -18,12 +18,31 @@ export const gebundeldExact = (familie: string) =>
 export interface DocumentLettertypen {
   namen: string[];
   vervangingen: Vervanging[];
+  /**
+   * False als de lijst met systeemlettertypen niet op tijd binnen was: de
+   * vervangingen zijn dan een voorzichtige aanname en geen vaststelling.
+   */
+  systeemBekend?: boolean;
 }
 
-/** Lettertypen van het document en de vervangingen voor wat hier ontbreekt. */
-export async function documentLettertypen(bytes: Uint8Array): Promise<DocumentLettertypen> {
+/** Zo lang wacht het openen op de lijst met systeemlettertypen (desktop: schijfscan). */
+export const SYSTEEMLIJST_TIJDSLIMIET = 5_000;
+
+/**
+ * Lettertypen van het document en de vervangingen voor wat hier ontbreekt.
+ * Het wachten op de systeemlijst is begrensd (#370): komt die niet op tijd,
+ * dan gelden de meegeleverde vervangers, zodat het document toch juist meet.
+ */
+export async function documentLettertypen(
+  bytes: Uint8Array,
+  tijdslimiet = SYSTEEMLIJST_TIJDSLIMIET,
+): Promise<DocumentLettertypen> {
   const namen = lettertypenInDocument(bytes);
-  await laadSysteemLettertypen();
+  const systeemBekend = await binnenTijd(
+    laadSysteemLettertypen().then(() => true),
+    tijdslimiet,
+    false,
+  );
   const vervangingen = namen
     .map((naam) =>
       vervangerVoor(
@@ -33,7 +52,7 @@ export async function documentLettertypen(bytes: Uint8Array): Promise<DocumentLe
       ),
     )
     .filter((v): v is Vervanging => !!v);
-  return { namen, vervangingen };
+  return { namen, vervangingen, systeemBekend };
 }
 
 async function bundelBytes(familie: string, vet: boolean, cursief: boolean) {

@@ -320,7 +320,10 @@ export default function OfficeEditor(props: EditorProps) {
         if (actief) setFontFaces(faces);
       }
       if (props.soort === "xlsx") await lt.registreerVervangers(info);
-      const melding = vervangingsMelding(info.vervangingen);
+      // Zonder systeemlijst (te trage schijfscan) is "niet op deze computer"
+      // niet vast te stellen: dan wel de vervangers, geen melding.
+      const melding =
+        info.systeemBekend === false ? null : vervangingsMelding(info.vervangingen);
       // Metrisch gelijke vervangers veranderen de opmaak niet: alleen ter
       // informatie. Een benadering kan regels laten verschuiven: blijft staan.
       const toon = info.vervangingen.some((v) => v.soort === "benadering")
