@@ -1,0 +1,261 @@
+{
+  "productCommit": "85ac155f1e7dc2c7d2469fcebf647f6a7fe34823",
+  "parent": "dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b",
+  "testedApplication": "d1fd2c8e8b072f0cb2ca4f05661752b7a7c7f334",
+  "qaCommit": "ba927849",
+  "fiveProductFiles": [
+    {
+      "path": "patches/tekstengine-nootnummering.json",
+      "sha256": "13b7ec80f7f93612055dcaa41843b1ad7fb0853a1e4ca2e9cf352432322f3250",
+      "bytes": 3576,
+      "equalsActuallyTestedBlob": true
+    },
+    {
+      "path": "patches/tekstengine-nootnummering.patch",
+      "sha256": "4ab76ce09642d6e4a5c77a025f41ce1844f41b680ab35322068507d3d3e4bf9a",
+      "bytes": 67349,
+      "equalsActuallyTestedBlob": true
+    },
+    {
+      "path": "scripts/bouw-tekstkern.py",
+      "sha256": "e351cbf68f49f769165f54593f766963a3c4e257106ed80aeae41588aa640dc6",
+      "bytes": 7706,
+      "equalsActuallyTestedBlob": true
+    },
+    {
+      "path": "vendor/tekstengine/docx_edit_bg.wasm",
+      "sha256": "4364eb8065228c805d8fbefe7e58c29e392516b6e7cca419e191766881d324ce",
+      "bytes": 24560084,
+      "equalsActuallyTestedBlob": true
+    },
+    {
+      "path": "vendor/tekstengine/docx_layout_bg.wasm",
+      "sha256": "c5a59ce0d980cd7f85775aaf283bcac1c19fba976b47bbe08c0387e2ca7d2569",
+      "bytes": 4373099,
+      "equalsActuallyTestedBlob": true
+    }
+  ],
+  "patchAndBothWasmMetadataMatched": true,
+  "kernelArtifact": {
+    "id": 14810727151,
+    "node_id": "MDg6QXJ0aWZhY3QxNDgxMDcyNzE1MQ==",
+    "name": "tekstkern",
+    "size_in_bytes": 10099523,
+    "url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/actions/artifacts/14810727151",
+    "archive_download_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/actions/artifacts/14810727151/zip",
+    "expired": false,
+    "digest": "sha256:c119462959995c5f77ee866c6323a0aca243f6fbee7f19108ff1060913e5328b",
+    "created_at": "2026-11-23T11:04:26Z",
+    "updated_at": "2026-11-23T11:04:26Z",
+    "expires_at": "2027-02-21T10:57:21Z",
+    "workflow_run": {
+      "id": 45160737859,
+      "repository_id": 1427673882,
+      "head_repository_id": 1427673882,
+      "head_branch": "codex/writer-docvariable-layout-374-2026-11-23",
+      "head_sha": "31f49c175e956b356b46540d40ab1e1afd8a5061"
+    }
+  },
+  "kernelArchiveSha256": "c119462959995c5f77ee866c6323a0aca243f6fbee7f19108ff1060913e5328b",
+  "actualKernelZipMembersMatchGitBlobs": true,
+  "linuxFunctionalArtifact": {
+    "id": 14811746829,
+    "node_id": "MDg6QXJ0aWZhY3QxNDgxMTc0NjgyOQ==",
+    "name": "field374-linux-functional-proof",
+    "size_in_bytes": 499708,
+    "url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/actions/artifacts/14811746829",
+    "archive_download_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/actions/artifacts/14811746829/zip",
+    "expired": false,
+    "digest": "sha256:ac402c5e42c092a25c5d36768aa67686e35037c0433a7d324c9d45b086f89b43",
+    "created_at": "2026-11-23T11:12:59Z",
+    "updated_at": "2026-11-23T11:12:59Z",
+    "expires_at": "2027-02-21T11:10:18Z",
+    "workflow_run": {
+      "id": 45162716669,
+      "repository_id": 1427673882,
+      "head_repository_id": 1427673882,
+      "head_branch": "codex/writer-docvariable-layout-374-2026-11-23",
+      "head_sha": "d1fd2c8e8b072f0cb2ca4f05661752b7a7c7f334"
+    }
+  },
+  "linuxFunctionalPayloadHashes": [
+    {
+      "path": "sdk-proof/before-display.json",
+      "sha256": "b21b029956c60102c693a30a0b1c0924067edb47ace85a218874c1b76faa0f10",
+      "bytes": 75797
+    },
+    {
+      "path": "sdk-proof/reopened-oracle.json",
+      "sha256": "48f43bf964c2189c2d59b557929ef69b90b15aa919cce9482ea0f8f728d55152",
+      "bytes": 3413
+    },
+    {
+      "path": "sdk-proof/reopened-display.json",
+      "sha256": "002cd81741b8add7286cd01286f4cc7ccaf49171bad840768537ebcb16715616",
+      "bytes": 91097
+    },
+    {
+      "path": "sdk-proof/reopened.docx",
+      "sha256": "1497cd44bf66f755588d7d234ecd0c7126f4655c64c365ad23d51ed579ed3c12",
+      "bytes": 14797
+    },
+    {
+      "path": "sdk-proof/report.json",
+      "sha256": "a0553c414d34b62a4a6ba8c0008a2a93b66a8aa65b37b1a2f4096abf46980dda",
+      "bytes": 56071
+    },
+    {
+      "path": "sdk-proof/saved-oracle.json",
+      "sha256": "a27764748db5b751bda2b75ed0c54f408d55ec04a65d3d497cf8b373faea4586",
+      "bytes": 3413
+    },
+    {
+      "path": "sdk-proof/saved.docx",
+      "sha256": "b6e4cb6890e8e2348cb2c7c29ef9a5d407d3ced896c4e910e67dfa5865e22207",
+      "bytes": 14797
+    },
+    {
+      "path": "sdk-proof/source-oracle.json",
+      "sha256": "c9d10469bedf07e2a6645d7631419ffefd2595024859a39b299a83e3fc2a1882",
+      "bytes": 4668
+    },
+    {
+      "path": "browser-proof/after-edit-save-oracle.json",
+      "sha256": "ddda8bac7dba96ee172abd6e524cbd7a3216be8bbe0bc8cd2f9d1d9db032094f",
+      "bytes": 3413
+    },
+    {
+      "path": "browser-proof/after-edit-save.docx",
+      "sha256": "5cb2d1642eceff825bbd18555924da30430ff5cd716a434acee0cd7c704b304a",
+      "bytes": 14766
+    },
+    {
+      "path": "browser-proof/after-real-edit-paint.json",
+      "sha256": "994bbfbbd3d5276a3b52b8cdeee79a5c17e92f8dca26a37781cad0035256e2f6",
+      "bytes": 10077
+    },
+    {
+      "path": "browser-proof/after-real-edit.png",
+      "sha256": "d108cac0880792e17c19cf65f05302960b4080c113587e0d049c0f51dd77019d",
+      "bytes": 96144
+    },
+    {
+      "path": "browser-proof/build-receipt.json",
+      "sha256": "19fc85d9904764b0b349d85ad59dbf0c5c296fc368d8a07e1de865ab2914a8b9",
+      "bytes": 78651
+    },
+    {
+      "path": "browser-proof/fresh-context-reopen-paint.json",
+      "sha256": "65bcf783434fa9026328ff7053a1fa25d8dc3ec9c25261848192ed36827625ff",
+      "bytes": 10065
+    },
+    {
+      "path": "browser-proof/fresh-context-reopen.png",
+      "sha256": "9a9d8ccb2ac556ee78a80a5fef61d8b9292a94bb58f1284f06f869a522544c4a",
+      "bytes": 98295
+    },
+    {
+      "path": "browser-proof/reopened-save-oracle.json",
+      "sha256": "cb6481dda2befbab2cea16bfa1af69e3e912f38342780e8244e1b609b88d5724",
+      "bytes": 3413
+    },
+    {
+      "path": "browser-proof/reopened-save.docx",
+      "sha256": "676608bc1f1411bea81414cc29d5aa9b08b03d3d72c3a84752d7860a04ed02b1",
+      "bytes": 14767
+    },
+    {
+      "path": "browser-proof/report.json",
+      "sha256": "c9e5c7c6a047ec432320444500ec7e1d6111fa3348a5e1808397bc87b377236e",
+      "bytes": 14788
+    },
+    {
+      "path": "browser-proof/source-oracle.json",
+      "sha256": "c9d10469bedf07e2a6645d7631419ffefd2595024859a39b299a83e3fc2a1882",
+      "bytes": 4668
+    },
+    {
+      "path": "browser-proof/unchanged-windows-source-paint.json",
+      "sha256": "65bcf783434fa9026328ff7053a1fa25d8dc3ec9c25261848192ed36827625ff",
+      "bytes": 10065
+    },
+    {
+      "path": "browser-proof/unchanged-windows-source.png",
+      "sha256": "a1823a99efd76c42c7bb5bfee30922c83b519f3ffde94a61f98f976a186d4916",
+      "bytes": 99156
+    },
+    {
+      "path": "browser-proof/unmodified-control-paint.json",
+      "sha256": "8a792386c35c0b2d93569e1612650e7eaabd78a83fd9693f6ef53be4b0da368f",
+      "bytes": 785
+    },
+    {
+      "path": "browser-proof/unmodified-control.png",
+      "sha256": "52b374401abaa24b33151b9918410ccaecdea64fe385ba1a210849bddeb6e66c",
+      "bytes": 89635
+    },
+    {
+      "path": "browser-proof/windows-source-save-oracle.json",
+      "sha256": "886f319aa9bed3cb4e86421b5c4f443a2a67bcd2db3aa9367d9f2b3e8fb0793d",
+      "bytes": 3413
+    },
+    {
+      "path": "browser-proof/windows-source-save.docx",
+      "sha256": "c97f10b4915f17b7df4808f02acba18299333d3bf9f74a50c4c0d371e13c4ac9",
+      "bytes": 14764
+    },
+    {
+      "path": "font-probe/canvas.png",
+      "sha256": "a7adbe9e84f425b035463200b05d034e8a5064c5aa2e84bfc0679605316d35ce",
+      "bytes": 24088
+    },
+    {
+      "path": "font-probe/report.json",
+      "sha256": "9a0551278e1a20636a3196c2ff9adc287cb55a4a6d6a1b53be82b8ae1a4d2f52",
+      "bytes": 2685
+    }
+  ],
+  "rootWindowsSDK": {
+    "actualApplicationCommit": "85ac155f1e7dc2c7d2469fcebf647f6a7fe34823",
+    "passed": 44,
+    "failed": 0,
+    "nativeOrBrowserAcceptance": false,
+    "originalPrivateReportSha256": "b00d45ff08e741b735d3ccc9d4ea2d5805731421120a5d9ac630202108a666e0",
+    "publicCopy": "Only own Windows review checkout prefix replaced; public bytes have their own hash",
+    "publicReportSha256": "c576b270e90b3ee4556a31674195360869f3804fcd5fc2a45ecdc1caecf578fd"
+  },
+  "rootLinuxAfterFixImagesViewed": true,
+  "intakenOrNewCombinationFrozen": false,
+  "limits": "Independent source/binary/proof audit plus actual Windows SDK44. Final common source,3OS/tworoute browser and real finalnative packages remain pending.",
+  "rootAfterFixImageReview": {
+    "originalPaths": [
+      "browser-proof/unchanged-windows-source.png",
+      "browser-proof/fresh-context-reopen.png"
+    ],
+    "unchangedImageSha256": "a1823a99efd76c42c7bb5bfee30922c83b519f3ffde94a61f98f976a186d4916",
+    "readOnlyPixelComparison": {
+      "region": [
+        400,
+        400,
+        1050,
+        640
+      ],
+      "differences": 0,
+      "bothTextRowBands": [
+        [
+          454,
+          482
+        ],
+        [
+          513,
+          541
+        ],
+        [
+          573,
+          601
+        ]
+      ]
+    },
+    "observation": "Correct separate title/marker/date lines; bodytitle pixels identical afterfreshreopen. Initial rootvisual interpretation waswrong, not a reproducedcapture/productdefect. Originalbytes unchanged."
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "asOfUTC": "2026-11-23T12:54:10.662139+00:00",
+  "source": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+  "tree": "e30879fd772871e690847c061ef66e6b81808a05",
+  "version": "2026.48.1",
+  "immutableBranch": "codex/release-candidate-2026-11-23-p5",
+  "intake": "closed",
+  "onlyExecutableChangesFromP4": [
+    "scripts/proef-native-linux-basis.mjs",
+    "scripts/proef-runtime-interface.mjs"
+  ],
+  "change": "Both CI DEB installers use apt-get install -y --no-install-recommends exactAbsolutePackagePath; checksum/report/installedELF and all native criteria preserved. No app/runtime/editor/Cargo/versionchanges.",
+  "reviewedOriginalCommits": [
+    "77cb9be47bc0aaff4a8cb91059514605893a110b",
+    "77fe314e87dc07b3912ba2c3b60ef388dac5974a"
+  ],
+  "rootIntakeCommits": [
+    "8827e94b",
+    "b696ab86"
+  ],
+  "localChecks": {
+    "nodeSyntaxTwoScripts": true,
+    "diffCheck": true,
+    "exactP5SDKPassed": 44,
+    "exactP5ConfigTestsPassed": 9,
+    "fullLocalVitestNotRepeated": "P4 full3657pass/0fail/10skips retained historically; two CI-only external install commands do not change tested runtime. New P5 project CI runs standard checks on exact newsource."
+  },
+  "P4DesktopFailure": {
+    "run": 45172076803,
+    "job": 137683860055,
+    "rawLogSha256": "6472417080231c6a63c3dd57dd20403c7fc0c006bd8ab79a26f09ff2aedb891e",
+    "reason": "Correctly declared zenity dependency not resolved by old dpkg testinstall; noappstarted.",
+    "packageSha256": "c666690b091d5a4548c7e6d3f3157f9b3c77cb10b534ba2b0d1cbf02b297b3a0"
+  },
+  "P4SameByteHarnessRecheck": {
+    "run": 45177760596,
+    "job": 137703334912,
+    "qa": "5fe310d3ae40bbd8c453f6944d571c21030762b3",
+    "status": "owner-reportedSUCCESS, independent evidence audit pending",
+    "artifact": 14819358469,
+    "archiveSha256": "44ba3d32e9b771c61f2f4b77d387707fa650880e6586f1e230454a9459a06890",
+    "limit": "Old P4exactDEB and corrected external testharness; not P5package/nativeacceptance."
+  },
+  "releaseRun": 45177730188,
+  "releaseAttempt": 1,
+  "releaseJobs": {
+    "Windows": 137703365803,
+    "macOS": 137703365843,
+    "Linux": 137703365848
+  },
+  "browserRun": null,
+  "browserStatus": "Await Mac-only read-only boundary-guard correction; P4originalfailure retained, no stale success relabelled.",
+  "publication": false,
+  "mainWritesAllowed": false,
+  "readyForStableRelease": false
+}

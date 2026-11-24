@@ -1,0 +1,68 @@
+{
+  "source": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+  "tree": "e30879fd772871e690847c061ef66e6b81808a05",
+  "proofCommit": "83b7b33d4b3d3992570fe04f2f79ca327f9095a5",
+  "independentAuditOriginalSha256": "1cb85f92abc79506fcd883c9599d50f9ee167ccb9dfaf3216938917acec1f717",
+  "entries": [
+    {
+      "file": "appimage-reopened.png",
+      "bytes": 78881,
+      "sha256": "332988fd35e696d0a14598a46624ad3661d9827b0618e42bfea1e64fe45b6923"
+    },
+    {
+      "file": "appimage-report.json.gz",
+      "bytes": 87574,
+      "sha256": "629725da2de007e14d96e3a31b2359f778541028c1097456240ade61d12cb570"
+    },
+    {
+      "file": "appimage-saved.png",
+      "bytes": 79316,
+      "sha256": "8c3e20e6087db4c83942fe09b693c206ecba0f651663c75718bbc0059b08a56c"
+    },
+    {
+      "file": "appimage-synthetic-native-draft.eml",
+      "bytes": 805,
+      "sha256": "f05a6368d87043693f6e0edb34425f8d465fda83fe934a3e404cd98e5268313c"
+    },
+    {
+      "file": "deb-reopened.png",
+      "bytes": 79213,
+      "sha256": "ce7bdf64e0fd250c0ef7e1c8ec409ee7414246b3a7ebb33e712bf7775938311e"
+    },
+    {
+      "file": "deb-report.json.gz",
+      "bytes": 87346,
+      "sha256": "cc3c85e450a668015939b008b329bdbd332f540e1be6926ddb43fb56237f2b16"
+    },
+    {
+      "file": "deb-saved.png",
+      "bytes": 79316,
+      "sha256": "8c3e20e6087db4c83942fe09b693c206ecba0f651663c75718bbc0059b08a56c"
+    },
+    {
+      "file": "deb-synthetic-native-draft.eml",
+      "bytes": 805,
+      "sha256": "f015502631317a4485f698a2acec5016253fe269ebd03645a304a22ea881765c"
+    },
+    {
+      "file": "independent-audit.json",
+      "bytes": 5921,
+      "sha256": "1cb85f92abc79506fcd883c9599d50f9ee167ccb9dfaf3216938917acec1f717"
+    },
+    {
+      "file": "original-failed-appimage-report.json.gz",
+      "bytes": 86938,
+      "sha256": "c45a0bb2f4a3913d8b0f2715ee05df38f9db8a0a4820e1735098c5ef8ba9d871"
+    },
+    {
+      "file": "original-failed-deb-report.json.gz",
+      "bytes": 86767,
+      "sha256": "6c3d1f3eb7cb49b196321f211ffbc6738bcac6d210c1aef3644a49017432f233"
+    },
+    {
+      "file": "receipt.json",
+      "bytes": 7415,
+      "sha256": "5be51ba9298ee240cfbfc60cf0bd18ba07254846516d73a99bbf86f3d8c26a54"
+    }
+  ]
+}

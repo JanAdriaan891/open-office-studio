@@ -1,0 +1,35 @@
+{
+  "sha": "2af94cdcefa3e88e4980b631d16a88d7d7de5ae8",
+  "node_id": "C_kwDOVRiTGtoAKDJhZjk0Y2RjZWZhM2U4OGU0OTgwYjYzMWQxNmE4OGQ3ZDdkZTVhZTg",
+  "url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/git/commits/2af94cdcefa3e88e4980b631d16a88d7d7de5ae8",
+  "html_url": "https://github.com/OpenAEC-Foundation/open-office-studio/commit/2af94cdcefa3e88e4980b631d16a88d7d7de5ae8",
+  "author": {
+    "name": "jungle-diff",
+    "email": "alper@open-aec.com",
+    "date": "2026-11-23T14:28:29Z"
+  },
+  "committer": {
+    "name": "jungle-diff",
+    "email": "alper@open-aec.com",
+    "date": "2026-11-23T14:28:29Z"
+  },
+  "tree": {
+    "sha": "94340e40228ddcb11aace00e4dd01f614a13273e",
+    "url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/git/trees/94340e40228ddcb11aace00e4dd01f614a13273e"
+  },
+  "message": "ci(mac): require signing explicitly for build-only producer",
+  "parents": [
+    {
+      "sha": "ad8513c9edca505bf8cf315e3d762688414e128e",
+      "url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/git/commits/ad8513c9edca505bf8cf315e3d762688414e128e",
+      "html_url": "https://github.com/OpenAEC-Foundation/open-office-studio/commit/ad8513c9edca505bf8cf315e3d762688414e128e"
+    }
+  ],
+  "verification": {
+    "verified": false,
+    "reason": "unsigned",
+    "signature": null,
+    "payload": null,
+    "verified_at": null
+  }
+}

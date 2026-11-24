@@ -1,0 +1,245 @@
+{
+  "observedAt": "2026-11-24T09:31:48.503448+00:00",
+  "scope": "Read-only current main-route rehearsal/proposal only; explicit user approval has not been given",
+  "repository": "OpenAEC-Foundation/open-office-studio",
+  "primaryObservedHead": "f208f80e9aba573be2f7dcfc22c5e987e5c9ce41",
+  "appSource": {
+    "commit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+    "tree": "e30879fd772871e690847c061ef66e6b81808a05",
+    "version": "2026.48.1"
+  },
+  "remotePins": {
+    "main": "93fcc6194904f70fa12d0a3546c23dac9c673ee5",
+    "integration": "771fd66e0e4bd612dba4f7b6e34b517f39d52e86",
+    "p5": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+    "prep": "f208f80e9aba573be2f7dcfc22c5e987e5c9ce41"
+  },
+  "prs": [
+    {
+      "baseRefName": "codex/integratie-2026-11-16",
+      "baseRefOid": "771fd66e0e4bd612dba4f7b6e34b517f39d52e86",
+      "headRefName": "codex/release-prep-2026-11-20",
+      "headRefOid": "f208f80e9aba573be2f7dcfc22c5e987e5c9ce41",
+      "isDraft": true,
+      "mergeStateStatus": "CLEAN",
+      "mergeable": "MERGEABLE",
+      "number": 367,
+      "reviewDecision": "",
+      "state": "OPEN",
+      "statusCheckRollup": [],
+      "url": "https://github.com/OpenAEC-Foundation/open-office-studio/pull/367"
+    },
+    {
+      "baseRefName": "main",
+      "baseRefOid": "93fcc6194904f70fa12d0a3546c23dac9c673ee5",
+      "headRefName": "codex/integratie-2026-11-16",
+      "headRefOid": "771fd66e0e4bd612dba4f7b6e34b517f39d52e86",
+      "isDraft": true,
+      "mergeStateStatus": "CLEAN",
+      "mergeable": "MERGEABLE",
+      "number": 353,
+      "reviewDecision": "",
+      "state": "OPEN",
+      "statusCheckRollup": [],
+      "url": "https://github.com/OpenAEC-Foundation/open-office-studio/pull/353"
+    }
+  ],
+  "repositoryMergeMethods": {
+    "allow_merge_commit": true,
+    "allow_squash_merge": true,
+    "allow_rebase_merge": true,
+    "allow_auto_merge": false,
+    "delete_branch_on_merge": false
+  },
+  "branchPolicies": {
+    "main": {
+      "enabled": false,
+      "required_status_checks": {
+        "enforcement_level": "off",
+        "contexts": [],
+        "checks": []
+      }
+    },
+    "integration": {
+      "enabled": false,
+      "required_status_checks": {
+        "enforcement_level": "off",
+        "contexts": [],
+        "checks": []
+      }
+    },
+    "appliedRulesMain": [],
+    "appliedRulesIntegration": []
+  },
+  "gitRehearsal": {
+    "mainAncestorOfintegration": {
+      "exitCode": 0
+    },
+    "integrationAncestorOfp5": {
+      "exitCode": 0
+    },
+    "p5AncestorOfprep": {
+      "exitCode": 0
+    },
+    "p5ToPrep": {
+      "changedPaths": 1017,
+      "allUnderDocs": true,
+      "nulDelimitedPathListSha256": "99af2398b2e509d51fcd55e66c3c86cf16e5a98c6cc7e6d7532047cd82d024de",
+      "nonDocs": [],
+      "postP5CommitCount": 11
+    },
+    "integrationPlusPrepRehearsal": {
+      "exitCode": 0,
+      "resultTree": "e6a7f6c64804d7fbf5131822edd18772d81078df",
+      "equalPrepTree": true,
+      "scope": "Object-only merge-tree; no refs/index/working-tree mutation; main+prep equivalent final content because main\u2192integration\u2192P5\u2192prep ancestry."
+    },
+    "mainPlusPrepRehearsal": {
+      "exitCode": 0,
+      "resultTree": "e6a7f6c64804d7fbf5131822edd18772d81078df",
+      "equalPrepTree": true,
+      "scope": "Object-only merge-tree; no refs/index/working-tree mutation; main+prep equivalent final content because main\u2192integration\u2192P5\u2192prep ancestry."
+    }
+  },
+  "sourceProof": "Actual main\u2192integration\u2192P5\u2192prep ancestry plus1017docs-only changed paths betweenP5/prep proves no extra non-doc product tree delta at this snapshot. Main has no independent extra product commits beyond integration.",
+  "mergePlan": [
+    {
+      "step": 1,
+      "pr": 367,
+      "baseBefore": "771fd66e0e4bd612dba4f7b6e34b517f39d52e86",
+      "headBefore": "f208f80e9aba573be2f7dcfc22c5e987e5c9ce41",
+      "method": "merge commit only",
+      "mustRetainParents": [
+        "771fd66e0e4bd612dba4f7b6e34b517f39d52e86",
+        "f208f80e9aba573be2f7dcfc22c5e987e5c9ce41"
+      ],
+      "resultIntegrationMergeSha": "not yet created; capture actual API result after separately approved merge",
+      "expectedTree": "e6a7f6c64804d7fbf5131822edd18772d81078df"
+    },
+    {
+      "step": 2,
+      "pr": 353,
+      "baseBefore": "93fcc6194904f70fa12d0a3546c23dac9c673ee5",
+      "headBefore": "actual approved PR367 merge commit returned in step1",
+      "method": "merge commit only",
+      "mustRetainParents": [
+        "93fcc6194904f70fa12d0a3546c23dac9c673ee5",
+        "actual PR367 merge commit"
+      ],
+      "expectedTree": "e6a7f6c64804d7fbf5131822edd18772d81078df",
+      "mustVerifyOriginalP5AncestorOfActualMainAfter": "b696ab86bd1c128729a079b68c0082e6df3d36a5"
+    }
+  ],
+  "ancestryReason": "P5 is ancestor of prep. A two-parent PR367 merge retains prep, then a two-parent PR353 merge retains that integration merge. Therefore original P5 is ancestor of final main; after each real merge, verify actual parents/tree and final remote compare merge_base=P5. Squash or rebase is not an acceptable substitute.",
+  "finalPublisherHeadGuard": {
+    "required": true,
+    "currentCommandsPinnedOnlyToSnapshot": "f208f80e9aba573be2f7dcfc22c5e987e5c9ce41",
+    "publisherHeadNotYetReviewed": true,
+    "instruction": "Any new publisher/collector head changes the approved SHA/tree and invalidates executable snapshot commands. Root must first review its exact delta/targeted checks, verify app source remainsP5, repeat bounded metadata/merge-tree guards and record new head/tree before asking final user approval."
+  },
+  "checkReuse": {
+    "currentPrHeadCheckRollups": [
+      [],
+      []
+    ],
+    "currentPrReviewDecisions": [
+      "",
+      ""
+    ],
+    "cleanDoesNotProveTestsOrApproval": true,
+    "reuse": "Existing exactP5 app build/package/browser/native proof can be reused because current prep differs fromP5 only underdocs; retain scoped native limits. No blanket claim of head CI or automatic stable release.",
+    "publisherChanges": "New collector/uploader files need their own reviewed pin and relevant targeted validation; product changes would invalidate relevantP5 package/native evidence."
+  },
+  "tagProposal": {
+    "name": "v2026.48.1",
+    "exactTarget": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+    "forbiddenTargets": [
+      "2af94cdcefa3e88e4980b631d16a88d7d7de5ae8",
+      "f208f80e9aba573be2f7dcfc22c5e987e5c9ce41",
+      "future publisher/doc head"
+    ],
+    "availability": "Coordinator relayed separate read-only advisory observation tag404/release404; reused, not reread here. Final write-stage guard must check again.",
+    "payloadForSeparatelyApprovedPublisherOnly": {
+      "ref": "refs/tags/v2026.48.1",
+      "sha": "b696ab86bd1c128729a079b68c0082e6df3d36a5"
+    },
+    "existingTagPushSideEffect": "P5 .github/workflows/release.yml: push.tags v* triggers builds; publiceren job runs for github.ref_type==tag and gh release create --draft --prerelease. A conventional git tag push is therefore not a neutral tag step and is excluded from main-route execution. Publisher owner must explicitly control this workflow interaction.",
+    "workflowEvidence": {
+      "commit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+      "path": ".github/workflows/release.yml",
+      "sha256": "620e90485493163b87163a8763ffbbfcc2f0af5f03251b592af577721c5a9c64"
+    }
+  },
+  "requiredApprovals": [
+    "Explicit approval to mark ready and mergePR367 into integration with the final reviewed head/tree and merge-commit method.",
+    "Separate explicit approval for actual PR353 merge to main using the approved integration merge head and currentmain base; existing task is proposal only.",
+    "Separate explicit approval for tag creation on exactP5 and concrete publication/uploader/release-state/assets plan; main approval does not imply publication."
+  ],
+  "raceLimit": "GitHub PR merge API supports atomic expected-head sha, not an expected-base SHA. Check both base/head immediately before merge in a coordinated no-other-writes window; after each merge assert parents/tree. Unexpected base or head changes require stop/review; no automatic force push, rollback, rebase, squash, retag or publish.",
+  "writesPerformed": {
+    "refs": false,
+    "index": false,
+    "workingTreeOutsideOwnLocalFolder": false,
+    "prReadyOrMerge": false,
+    "tagOrRelease": false,
+    "fetchSharedRefs": false,
+    "allowedObjectOnlyMergeTreeRehearsals": 2
+  },
+  "files": [
+    {
+      "path": "branch-integration.json",
+      "bytes": 4731,
+      "sha256": "86c20b4349ee0dee3e609f5f21c26b58fd4df46753c07f338aa5cb7947243c7a"
+    },
+    {
+      "path": "branch-main.json",
+      "bytes": 6295,
+      "sha256": "e85b087cc718a488a5cadc0f8be404296509a68fab6bba3a755d72ec8bf2dfef"
+    },
+    {
+      "path": "branch-prep.json",
+      "bytes": 4757,
+      "sha256": "6fabad8fe06f1191655c7f449043de1bf26d9a906999124afe43277d524a1529"
+    },
+    {
+      "path": "git-rehearsal.json",
+      "bytes": 1330,
+      "sha256": "58f8e91ea998e8995b777c3550c7e04b15ec5491e0cbb7a4359d8b1ea531525f"
+    },
+    {
+      "path": "integration-rules.json",
+      "bytes": 3,
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    {
+      "path": "main-rules.json",
+      "bytes": 3,
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    {
+      "path": "pr353.json",
+      "bytes": 439,
+      "sha256": "8c6c88943347e9fbf0d4f44b505977c8d430d09c078ad835046529eee121f093"
+    },
+    {
+      "path": "pr367.json",
+      "bytes": 464,
+      "sha256": "fbc6080b1d2e1e900fbd17128a4390c73147a6b9c3ecee2d4864223ee2f786af"
+    },
+    {
+      "path": "repository-merge-settings.json",
+      "bytes": 8839,
+      "sha256": "eb36130ae73cd8428ca4bbd12dd7abf3e2204336695696dc0fd5ca16476f4535"
+    },
+    {
+      "path": "review.md",
+      "bytes": 10179,
+      "sha256": "98ba70fab36d3fe334e9418ec3eac67efe9a507b966da40cb733bf1daa1390a0"
+    }
+  ],
+  "finalObservedBranchHeads": {
+    "codex/integratie-2026-11-16": "771fd66e0e4bd612dba4f7b6e34b517f39d52e86",
+    "codex/release-prep-2026-11-20": "f208f80e9aba573be2f7dcfc22c5e987e5c9ce41"
+  },
+  "snapshotPinsStillMatchRemoteBranches": true
+}

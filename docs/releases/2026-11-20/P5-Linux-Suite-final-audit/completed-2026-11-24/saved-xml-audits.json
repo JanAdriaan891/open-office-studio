@@ -1,0 +1,172 @@
+[
+  {
+    "scope": "core",
+    "file": "preflight.docx",
+    "sha256": "130a6b0a47965dac50e0d8a1dfdcb7ed1e9c3d9fd56c81aea0bd71137f10cb46",
+    "rows": [
+      [
+        "Palpha",
+        "beta",
+        ""
+      ],
+      [
+        "",
+        "",
+        "omega"
+      ],
+      [
+        "delta",
+        "",
+        ""
+      ]
+    ],
+    "matchesNativeSaveReceiptAndIndependentXML": true
+  },
+  {
+    "scope": "core",
+    "file": "find-table.docx",
+    "sha256": "b98444b8f9c9a642247cc82a1b7c986887c22fd6d647f25a1f4abfecb461ce28",
+    "rows": [
+      [
+        "LINUX420_FINAL alpha",
+        "",
+        "beta",
+        ""
+      ],
+      [
+        "",
+        "",
+        "",
+        "omega"
+      ],
+      [
+        "delta",
+        "",
+        "",
+        ""
+      ]
+    ],
+    "matchesNativeSaveReceiptAndIndependentXML": true
+  },
+  {
+    "scope": "core",
+    "file": "other-table.docx",
+    "sha256": "c9d0e93a1232580bf6630129f4bb2c14971227aa94ab7dac2b059505fcfc94b3",
+    "rows": [
+      [
+        "alpha",
+        "",
+        "beta",
+        ""
+      ],
+      [
+        "",
+        "",
+        "",
+        "omega"
+      ],
+      [
+        "delta",
+        "",
+        "",
+        ""
+      ]
+    ],
+    "matchesNativeSaveReceiptAndIndependentXML": true
+  },
+  {
+    "scope": "core",
+    "file": "keyboard-command.docx",
+    "sha256": "7dea0501bb6555146e05c572290ffff014e8d9fdd110928c285b262ce2a48a63",
+    "rows": [
+      [
+        "Kalpha",
+        "",
+        "beta",
+        ""
+      ],
+      [
+        "",
+        "",
+        "",
+        "omega"
+      ],
+      [
+        "delta",
+        "",
+        "",
+        ""
+      ]
+    ],
+    "matchesNativeSaveReceiptAndIndependentXML": true
+  },
+  {
+    "scope": "appimage-missing",
+    "file": "preflight.docx",
+    "sha256": "795cc3069a65b89eb555ea96dda62bd553bc989496270fc5deb4b6613d9c8a39",
+    "rows": [
+      [
+        "Palpha",
+        "beta",
+        ""
+      ],
+      [
+        "",
+        "",
+        "omega"
+      ],
+      [
+        "delta",
+        "",
+        ""
+      ]
+    ],
+    "matchesNativeSaveReceiptAndIndependentXML": true
+  },
+  {
+    "scope": "deb-positive",
+    "file": "preflight.docx",
+    "sha256": "494a1b11c2a60da95a6a0918338d106c33486555102183fa76444ccd870ab62a",
+    "rows": [
+      [
+        "Palpha",
+        "beta",
+        ""
+      ],
+      [
+        "",
+        "",
+        "omega"
+      ],
+      [
+        "delta",
+        "",
+        ""
+      ]
+    ],
+    "matchesNativeSaveReceiptAndIndependentXML": true
+  },
+  {
+    "scope": "deb-missing",
+    "file": "preflight.docx",
+    "sha256": "7e8f83f9026f5713f7b542f6641dc7bed2f2acf23d35b1857e6cb7a7aaea8599",
+    "rows": [
+      [
+        "Palpha",
+        "beta",
+        ""
+      ],
+      [
+        "",
+        "",
+        "omega"
+      ],
+      [
+        "delta",
+        "",
+        ""
+      ]
+    ],
+    "matchesNativeSaveReceiptAndIndependentXML": true
+  }
+]

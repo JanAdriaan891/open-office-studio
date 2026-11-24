@@ -1,0 +1,347 @@
+{
+  "auditDate": "2026-11-24",
+  "auditor": "standalone_linux; independent existing Mac artifact audit only",
+  "functionalCoreVerdict": "PASS scoped local Notes import/edit/save-backup/persist/cold-reopen case",
+  "visualCoverageVerdict": "One completed edited/reopened PNG is available; no separate pre-quit edited/completed PNG. All five originals reviewed, roles preserved. No claim of two completed edited images.",
+  "source": {
+    "commit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+    "tree": "e30879fd772871e690847c061ef66e6b81808a05",
+    "version": "2026.48.1"
+  },
+  "executionQa": "03477b0199daeb50ae7b20d552b111630c3271ce",
+  "run": 45351696628,
+  "job": 138300391298,
+  "attempt": 1,
+  "officialProofArtifact": {
+    "id": 14900913932,
+    "node_id": "MDg6QXJ0aWZhY3QxNDkwMDkxMzkzMg==",
+    "name": "standalone-native-notition-03477b0199daeb50ae7b20d552b111630c3271ce",
+    "size_in_bytes": 998323,
+    "url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/actions/artifacts/14900913932",
+    "archive_download_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/actions/artifacts/14900913932/zip",
+    "expired": false,
+    "digest": "sha256:a1e3bb8b7745e1b53611090b8411741013204ca8cd2bcc936e31cf0532d912d3",
+    "created_at": "2026-11-24T08:15:26Z",
+    "updated_at": "2026-11-24T08:15:26Z",
+    "expires_at": "2027-02-22T07:55:02Z",
+    "workflow_run": {
+      "id": 45351696628,
+      "repository_id": 1427673882,
+      "head_repository_id": 1427673882,
+      "head_branch": "codex/standalone-macos-20261123",
+      "head_sha": "03477b0199daeb50ae7b20d552b111630c3271ce"
+    }
+  },
+  "wholeProofZipHashVerified": true,
+  "uniqueSafeCrcMembersMatchingExistingRaw": 114,
+  "producerSourceSplitVerified": true,
+  "producerWorkflow": {
+    "commit": "2af94cdcefa3e88e4980b631d16a88d7d7de5ae8",
+    "tree": "94340e40228ddcb11aace00e4dd01f614a13273e",
+    "run": 45195055147,
+    "attempt": 1,
+    "job": 137763371873,
+    "branch": "codex/p5-macos-only-producer-20261123",
+    "path": ".github/workflows/release.yml",
+    "event": "workflow_dispatch",
+    "workflowSha256": "2ae3b7aa85bb4d4e394e71af43a93da45332e9b5f78fd7ed2151aca732726d62",
+    "checkoutWorkflowSha256": "620e90485493163b87163a8763ffbbfcc2f0af5f03251b592af577721c5a9c64",
+    "witnessMember": ".local/macos-only-producer-source.json"
+  },
+  "sourceWitnessSha256": "236085a316b40b2e5033316a3e3ed45f91cb9a27e83d518117160ba4aff4e7d5",
+  "ownDmg": {
+    "filename": "Open Notition Studio_2026.48.1_aarch64.dmg",
+    "sha256": "88261673a7dbc3b15f6e0a54e89356d8911ab8fc4cb29035fee68e009a285346",
+    "bytes": 75126797
+  },
+  "bundleInfo": {
+    "CFBundleDevelopmentRegion": "en",
+    "CFBundleDisplayName": "Open Notition Studio",
+    "CFBundleExecutable": "open-notition-studio",
+    "CFBundleIdentifier": "org.openaec.notition-studio",
+    "CFBundleInfoDictionaryVersion": "6.0",
+    "CFBundleName": "Open Notition Studio",
+    "CFBundlePackageType": "APPL",
+    "CFBundleShortVersionString": "2026.48.1",
+    "CFBundleVersion": "2026.48.1",
+    "CSResourcesFileMapped": true,
+    "LSApplicationCategoryType": "public.app-category.productivity",
+    "LSMinimumSystemVersion": "10.13",
+    "CFBundleIconFile": "icon.icns",
+    "LSRequiresCarbon": true,
+    "NSHighResolutionCapable": true,
+    "NSHumanReadableCopyright": "\u00a9 2026 OpenAEC Foundation",
+    "CFBundleAllowMixedLocalizations": true,
+    "CFBundleLocalizations": [
+      "nl",
+      "en",
+      "de",
+      "fr",
+      "es",
+      "it",
+      "pt-BR",
+      "zh-Hans"
+    ]
+  },
+  "installedExecutableSha256": "285ce633934e26d4182c3a9e97ab7d7165873903d1359234482b6f26a649ec83",
+  "signatureScope": "Only retained codesign/spctl/stapler command exit0 and identity attestations; no new Apple OS cryptography or DMG mount/extraction in this audit.",
+  "codesignGatekeeperStapler": {
+    "signature": {
+      "argv": [
+        "/usr/bin/codesign",
+        "--verify",
+        "--deep",
+        "--strict",
+        "/Users/runner/work/open-office-studio/open-office-studio/receipts/notition/installed/Open Notition Studio.app"
+      ],
+      "code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    "signatureIdentity": {
+      "argv": [
+        "/usr/bin/codesign",
+        "-dv",
+        "--verbose=4",
+        "/Users/runner/work/open-office-studio/open-office-studio/receipts/notition/installed/Open Notition Studio.app"
+      ],
+      "code": 0,
+      "stdout": "",
+      "stderr": "Executable=/Users/runner/work/open-office-studio/open-office-studio/receipts/notition/installed/Open Notition Studio.app/Contents/MacOS/open-notition-studio\nIdentifier=org.openaec.notition-studio\nFormat=app bundle with Mach-O thin (arm64)\nCodeDirectory v=20500 size=173415 flags=0x10000(runtime) hashes=5412+3 location=embedded\nVersionPlatform=1\nVersionMin=720896\nVersionSDK=1705216\nHash type=sha256 size=32\nCandidateCDHash sha256=87d9c89a04afdede189007bd357811935259d789\nCandidateCDHashFull sha256=87d9c89a04afdede189007bd357811935259d789d8c8280058bf6bd5c66c40cf\nHash choices=sha256\nCMSDigest=87d9c89a04afdede189007bd357811935259d789d8c8280058bf6bd5c66c40cf\nCMSDigestType=2\nExecutable Segment base=0\nExecutable Segment limit=81018880\nExecutable Segment flags=0x1\nPage size=16384\nCDHash=87d9c89a04afdede189007bd357811935259d789\nSignature size=9063\nAuthority=Developer ID Application: Maarten Vroegindeweij (7KFV4QY98M)\nAuthority=Developer ID Certification Authority\nAuthority=Apple Root CA\nTimestamp=Nov 23, 2026 at 3:42:53\u202fPM\nNotarization Ticket=stapled\nInfo.plist entries=18\nTeamIdentifier=7KFV4QY98M\nRuntime Version=26.5.0\nSealed Resources version=2 rules=13 files=1\nInternal requirements count=1 size=188\n"
+    },
+    "gatekeeper": {
+      "argv": [
+        "/usr/sbin/spctl",
+        "--assess",
+        "--type",
+        "execute",
+        "--verbose=4",
+        "/Users/runner/work/open-office-studio/open-office-studio/receipts/notition/installed/Open Notition Studio.app"
+      ],
+      "code": 0,
+      "stdout": "",
+      "stderr": "/Users/runner/work/open-office-studio/open-office-studio/receipts/notition/installed/Open Notition Studio.app: accepted\nsource=Notarized Developer ID\n"
+    },
+    "notarizationStaple": {
+      "argv": [
+        "/usr/bin/xcrun",
+        "stapler",
+        "validate",
+        "/Users/runner/work/open-office-studio/open-office-studio/receipts/notition/installed/Open Notition Studio.app"
+      ],
+      "code": 0,
+      "stdout": "Processing: /Users/runner/work/open-office-studio/open-office-studio/receipts/notition/installed/Open Notition Studio.app\nThe validate action worked!\n",
+      "stderr": ""
+    }
+  },
+  "lifecycle": {
+    "firstPid": 2095,
+    "reopenPid": 4677,
+    "normalCmdQExitCodes": [
+      0,
+      0
+    ],
+    "freshSevenOwnProfileLocationsAbsent": true,
+    "noSuiteAppOrSuiteProfileOrSuiteExecutableFound": true,
+    "ownExecutableAndEmptyCwdVerified": true,
+    "PATH": "/usr/bin:/bin:/usr/sbin:/sbin",
+    "ownProfilesAndCopiedAppCleanupAttested": true,
+    "cleanupErrors": [],
+    "ownDmgDetachExitCode": 0,
+    "sampledOwnedProcessPids": [
+      2095,
+      4677
+    ]
+  },
+  "independentNotesJson": {
+    "format": "openaec-notities",
+    "version": 3,
+    "sourceBytes": 407,
+    "sourceSha256": "b6b7b40030e5be191b077145e310b595194e890ab1ce3002a71c55185fb09a96",
+    "sourceSeed": "STANDALONE_NOTITION_SEED",
+    "unchangedControl": "STANDALONE_UNCHANGED_CONTROL",
+    "backupBytes": 1933,
+    "backupSha256": "770f7b054a76ecee63256a2701d94efa47a2aee980d2417fe3af3e5a94db7d63",
+    "exportNotebookName": "Standalone QA",
+    "exportPageTitle": "Standalone edited page",
+    "markdownExact": "STANDALONE_NOTITION_SEED\nSTANDALONE_UNCHANGED_CONTROL\nSTANDALONE_NOTITION_EDIT",
+    "sourceUnchangedAgainstFixtureReceipt": true,
+    "reopenMethod": "Own local app profile; no reimport after normal quit; native AX/title/marker evidence plus final rendered/source PNG."
+  },
+  "visualReview": [
+    {
+      "file": "3-opened-untouched-0.png",
+      "role": "initial unmodified default notebook, visible healthy UI"
+    },
+    {
+      "file": "5-opened-0.png",
+      "role": "initial unmodified default notebook, visible healthy UI"
+    },
+    {
+      "file": "59-opened-untouched-0.png",
+      "role": "early reopened capture is white; not accepted as completed case"
+    },
+    {
+      "file": "61-opened-0.png",
+      "role": "early reopened capture is white; not accepted as completed case"
+    },
+    {
+      "file": "72-notes-reopened-0.png",
+      "role": "completed cold reopen visibly shows own notebook, edited title, seed, unchanged control and edit marker in source and rendered preview"
+    }
+  ],
+  "rawNativeAcceptedUnchanged": false,
+  "rawReviewPendingFlagsUnchanged": true,
+  "operatorFinalReviewOwner": "6f92",
+  "limits": [
+    "No second separate edited/completed pre-quit PNG is present in the exact artifact; parent/operator decide if additional evidence is required. No replacement capture or CI dispatched.",
+    "No exhaustive resource/execution trace: sampled PID/lsof observations do not certify complete dependency independence; Notition local core uses no conversion runtime (inventory empty).",
+    "No all-format/all-notebook or full backup-reimport matrix certification.",
+    "Codesign/Gatekeeper/stapler conclusions are retained command attestations only.",
+    "No new download, parent/installer build, app operation, product fix, matrix edit, Git staging/commit/push, tag or publication. Linux and Windows audits unchanged."
+  ],
+  "qaSourceHashes": {
+    "native.py": "85d698ad4477a2257d14138ede9155061ee50184adf49633b2e2c6eb122b7f77",
+    "cases.py": "0ccb7508e4bce3860518508e251474816b2677e4c4e19d4156aa62f976c465f4",
+    "prepare.py": "42bebaf577043c5912887a29ce51e5321a03ee524f5a1cd6d3f10da23b23e35c",
+    "oracles.py": "e08aa03b00a4e1670344296eaa45a6ac59da7198a038d89d2a1ab04a67b2ddbc",
+    "ax.swift": "3b35f623c4c0efd72e27c7dccd8d29e281624707f75e0c49372cc4039b48c859"
+  },
+  "files": [
+    {
+      "path": "proof.zip",
+      "bytes": 998323,
+      "sha256": "a1e3bb8b7745e1b53611090b8411741013204ca8cd2bcc936e31cf0532d912d3"
+    },
+    {
+      "path": "source-witness.json",
+      "bytes": 820,
+      "sha256": "236085a316b40b2e5033316a3e3ed45f91cb9a27e83d518117160ba4aff4e7d5"
+    },
+    {
+      "path": "receipt.json.gz",
+      "bytes": 12663,
+      "sha256": "b61f161c8baeeb3a8f1791f071880c446de7dedbb0eb8b2a2b36316d02de0cd0"
+    },
+    {
+      "path": "core-receipt.json.gz",
+      "bytes": 12648,
+      "sha256": "93185370f667a857ec525ac740933e38db0e2c5c6eafb878b44c764966277a40"
+    },
+    {
+      "path": "profile-preflight.json.gz",
+      "bytes": 221,
+      "sha256": "afaa7dde313aaf3e6816af81f0f53f60b6b13c93c46053870ad9ecedc1c83a41"
+    },
+    {
+      "path": "output-oracle.json.gz",
+      "bytes": 388,
+      "sha256": "c65ff97b7a88f1e825fb4a612cead28f9aee04bebcd9cb2614f7c944f9aca06a"
+    },
+    {
+      "path": "owned-process-observations.json.gz",
+      "bytes": 276,
+      "sha256": "dcc436031b5a2f51cc4d098b7d74ba269a8a68390b7f5f626ee2169f31d0243b"
+    },
+    {
+      "path": "mount.json.gz",
+      "bytes": 565,
+      "sha256": "a9e910988aac22aeb26ad97442035070cdc96b7ed918d122854950bc3fc0e548"
+    },
+    {
+      "path": "copy.json.gz",
+      "bytes": 171,
+      "sha256": "3e688aec67357155c902ebc1422d0c63295dc7623e25202987602bb06ef835fa"
+    },
+    {
+      "path": "detach.json.gz",
+      "bytes": 168,
+      "sha256": "06761d01b0fffdb0cd607f0255e1d9e7ab079e8330a45956dd7f8205f8a0c388"
+    },
+    {
+      "path": "quit-2095.json.gz",
+      "bytes": 71,
+      "sha256": "056bac9e2aa3543015c50da5903a3ee835a7f2a35de4ce008dcc4a39a48105fb"
+    },
+    {
+      "path": "quit-4677.json.gz",
+      "bytes": 71,
+      "sha256": "c782566fbce01f3048305101c809f1a3ed3d26fb23b1977930498c1e794dba31"
+    },
+    {
+      "path": "5-resources-opened.json.gz",
+      "bytes": 11249,
+      "sha256": "a6f2d0224db8f24592f763b73702ea76d3424d57d7185230cbd212447d072817"
+    },
+    {
+      "path": "72-resources-notes-reopened.json.gz",
+      "bytes": 11910,
+      "sha256": "28c5e8d78270725cbf4f0910e6c20ae9477de97b0e034a12b72ced5a37d52e8e"
+    },
+    {
+      "path": "actual-cwd-2095.json.gz",
+      "bytes": 172,
+      "sha256": "8b3b5fef587bbf66abecfe2fd903cf19c212583ab58783a55a9f6a8b2a9a89f1"
+    },
+    {
+      "path": "actual-cwd-4677.json.gz",
+      "bytes": 172,
+      "sha256": "0a5c96dfa59bc31f8861b2912ce392538499a6ebe27d626c3373b31279c1eeb2"
+    },
+    {
+      "path": "3-opened-untouched-0.png",
+      "bytes": 166181,
+      "sha256": "844d45051ea05b337612be47258fe958b67f8402cdea0c04feacd16edc2c9cd5"
+    },
+    {
+      "path": "5-opened-0.png",
+      "bytes": 166181,
+      "sha256": "844d45051ea05b337612be47258fe958b67f8402cdea0c04feacd16edc2c9cd5"
+    },
+    {
+      "path": "59-opened-untouched-0.png",
+      "bytes": 34996,
+      "sha256": "f4f8b823b669d92a01d01f4b7b2d51f22ad9dc99582ad3356cf0b61be58ddaa0"
+    },
+    {
+      "path": "61-opened-0.png",
+      "bytes": 34996,
+      "sha256": "f4f8b823b669d92a01d01f4b7b2d51f22ad9dc99582ad3356cf0b61be58ddaa0"
+    },
+    {
+      "path": "72-notes-reopened-0.png",
+      "bytes": 154134,
+      "sha256": "44bf08cbeb9632760779bc642e2d44ee57e828c13207a1d12511e2b322e70aba"
+    },
+    {
+      "path": "source.openaec-notities",
+      "bytes": 407,
+      "sha256": "b6b7b40030e5be191b077145e310b595194e890ab1ce3002a71c55185fb09a96"
+    },
+    {
+      "path": "notes-export.openaec-notities",
+      "bytes": 1933,
+      "sha256": "770f7b054a76ecee63256a2701d94efa47a2aee980d2417fe3af3e5a94db7d63"
+    },
+    {
+      "path": "producer-receipt.json.gz",
+      "bytes": 4621,
+      "sha256": "a84ae21cc939b66ab9d48620903ac7079fe47bd9f789ce2cc9c0fe6f05e006a5"
+    },
+    {
+      "path": "producer-receipt-artifact-metadata.json",
+      "bytes": 864,
+      "sha256": "4eff611c9cb52ad7913c0ea5dc7c05163126a08660dcb0d871c32980fe5264c9"
+    },
+    {
+      "path": "member-manifest.json",
+      "bytes": 17068,
+      "sha256": "0087fdf2006147f63fc170da2d6d192c724c137eaa626047e99da1fab3dbd493"
+    },
+    {
+      "path": "provenance.json",
+      "bytes": 9306,
+      "sha256": "0054cb9cee52693c340b89daf089615bc0e1b47f708ce7f4b604049d5fe945f8"
+    }
+  ]
+}

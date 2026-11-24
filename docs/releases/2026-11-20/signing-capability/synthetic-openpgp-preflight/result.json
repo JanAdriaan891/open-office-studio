@@ -1,0 +1,9 @@
+{
+  "kind": "synthetic signing capability only",
+  "nativeOrPackageAcceptance": false,
+  "publication": false,
+  "source": "1b6983357e017bc0cd915ec3cfe2dcc63e3d3882",
+  "run": "45140566799",
+  "expectedFingerprint": "13F6D414ADEE4ED4CD09AC60601D86C93C504D29",
+  "valid": true
+}

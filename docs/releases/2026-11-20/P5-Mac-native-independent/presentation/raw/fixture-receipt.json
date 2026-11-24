@@ -1,0 +1,47 @@
+{
+  "kind": "Synthetic fixtures only; not native acceptance",
+  "files": {
+    "writer": {
+      "path": "/Users/runner/work/open-office-studio/open-office-studio/receipts/presentation-documents/synthetic-inputs/writer.docx",
+      "bytes": 36631,
+      "sha256": "6bb6ffc0f7e08774d8206ca90d61e4cdfaeebdc492652a72e363e933c7cf2674",
+      "seed": "STANDALONE_WRITER_SEED",
+      "editMarker": "STANDALONE_WRITER_EDIT"
+    },
+    "spreadsheet": {
+      "path": "/Users/runner/work/open-office-studio/open-office-studio/receipts/presentation-documents/synthetic-inputs/spreadsheet.xlsx",
+      "bytes": 4896,
+      "sha256": "8a4f1a551da1d1f3c6a215e9650cbcf720ab763065b981f4ef22ce4091429e5a",
+      "seed": "STANDALONE_SPREADSHEET_SEED",
+      "editMarker": "STANDALONE_SPREADSHEET_EDIT"
+    },
+    "presentation": {
+      "path": "/Users/runner/work/open-office-studio/open-office-studio/receipts/presentation-documents/synthetic-inputs/presentation.pptx",
+      "bytes": 28262,
+      "sha256": "38bed239edae2d2556acb0d5b3d14f6f82fc2ce717f7190cdccf9b723ebf5af3",
+      "seed": "STANDALONE_PRESENTATION_SEED",
+      "editMarker": "STANDALONE_PRESENTATION_EDIT"
+    },
+    "email": {
+      "path": "/Users/runner/work/open-office-studio/open-office-studio/receipts/presentation-documents/synthetic-inputs/email.eml",
+      "bytes": 323,
+      "sha256": "666c6cc0745e38ee49edf0696c29c0959c6430fdd1e387aa14669056e2613b9c",
+      "seed": "STANDALONE_EMAIL_SEED",
+      "editMarker": "STANDALONE_EMAIL_EDIT"
+    },
+    "notition": {
+      "path": "/Users/runner/work/open-office-studio/open-office-studio/receipts/presentation-documents/synthetic-inputs/notition.openaec-notities",
+      "bytes": 407,
+      "sha256": "b6b7b40030e5be191b077145e310b595194e890ab1ce3002a71c55185fb09a96",
+      "seed": "STANDALONE_NOTITION_SEED",
+      "editMarker": "STANDALONE_NOTITION_EDIT"
+    },
+    "database": {
+      "path": "/Users/runner/work/open-office-studio/open-office-studio/receipts/presentation-documents/synthetic-inputs/database.sqlite",
+      "bytes": 8192,
+      "sha256": "b8c474f0ef6f6addce743b7870346eb2243c888dcee093371c3d6dcc93646732",
+      "seed": "STANDALONE_DATABASE_SEED",
+      "editMarker": "STANDALONE_DATABASE_EDIT"
+    }
+  }
+}

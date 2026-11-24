@@ -1,0 +1,53 @@
+{
+  "asOfUTC": "2026-11-23T08:54:18.736284+00:00",
+  "buildRun": 45138607445,
+  "builder": "d4c769ab5adbadf65c1e49f13f846787bbca777d",
+  "application": "3a0decac3d45234d4b4d487e431b21cff961ccca",
+  "tree": "e46b8faed3ca6b468e71a4d0d77b6dc8ce259360",
+  "version": "2026.48.1",
+  "proofArtifact": {
+    "id": 14801719325,
+    "sha256": "bf89f77c4da9473729e691b6a578ab6c9c9692725d98c329b09e7da2c68edbfa",
+    "actualArchiveBytesHashedByRoot": true
+  },
+  "installerArtifact": {
+    "id": 14801908655,
+    "sha256FromGitHubAPI": "sha256:3c041dfdf83a81d0ea02b081aaff8264bd9f0714803b86d358e2cb6e9b3325c9",
+    "actualArchiveBytesHashedByRoot": false,
+    "nativeTesterMustVerifyBeforeExecution": true
+  },
+  "reportedInstaller": {
+    "path": "nsis/Open Office Studio_2026.48.1_x64-setup.exe",
+    "sha256": "2b21153d95971e68592ce07bd1623b197377af5971f01e166fedaf2aa8de852f",
+    "size": 384477335
+  },
+  "reportedExecutable": {
+    "sha256": "50977967afc9d70f735ddb4977956f14d7680076e869dbc8eeaeea8148ae1c3b"
+  },
+  "payloadIndex": [
+    {
+      "file": "pakketcontrole-Windows.json",
+      "sha256": "3a55eef6f4389ee3b60d3377a107f33219fcf62f7680dada1bcf4952a9a037d0",
+      "bytes": 594
+    },
+    {
+      "file": "provenance.json",
+      "sha256": "771e548fc119d6152e1e8c149ff4e882945761a6636f9a05eadd4dfe47fdae5e",
+      "bytes": 659
+    },
+    {
+      "file": "source.json",
+      "sha256": "cc598cf2acb0884480c0482133169ec571cdd20335cb4b56e95303e66784f193",
+      "bytes": 247
+    },
+    {
+      "file": "receipt.json",
+      "sha256": "e39b23d64404b8891075cbb48863a686bcb3156a598a9b30826808d3b1a18600",
+      "bytes": 399
+    }
+  ],
+  "scope": "Unsigned intermediate Windows build and package-gate proof. Root checked source/tree/helper Git blob and small archived receipts; installer bytes are independently verified by the native owner, not redownloaded here.",
+  "nativeUITestRun": 45142138608,
+  "nativeAcceptance": "pending",
+  "finalSignedPackageAcceptance": false
+}

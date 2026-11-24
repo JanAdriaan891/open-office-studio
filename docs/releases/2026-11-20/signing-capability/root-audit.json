@@ -1,0 +1,79 @@
+{
+  "asOfUTC": "2026-11-23T08:44:04.063307+00:00",
+  "scope": "Signing capability on inert synthetic payloads only. No application installer or native functional acceptance, main write, tag, release or publication.",
+  "run": 45140566799,
+  "qaSource": "1b6983357e017bc0cd915ec3cfe2dcc63e3d3882",
+  "archives": [
+    {
+      "id": 14801717523,
+      "name": "synthetic-authenticode-preflight",
+      "zipSha256": "6c2e924b5e7abe2eeac7f4e830d9c4e65e7db5e3b088bb1827d37d087c3d5b2b"
+    },
+    {
+      "id": 14801129126,
+      "name": "synthetic-openpgp-preflight",
+      "zipSha256": "416056547c6f84e61727acf11ada1398c21f16382ddc133f5a1151f6014df801"
+    }
+  ],
+  "rootDownloadedAuthenticodeVerification": {
+    "subject": "CN=Impertio Studio B.V., O=Impertio Studio B.V., STREET=Burg de Raadtsingel 31, L=Dordrecht, S=Zuid-Holland, C=NL, PostalCode=3311 JG",
+    "timestampSubject": "CN=Microsoft Public RSA Time Stamping Authority, OU=nShield TSS ESN:7A00-05E0-D947, OU=Microsoft America Operations, O=Microsoft Corporation, L=Redmond, S=Washington, C=US",
+    "thumbprint": "6CA044A50E18DA34A53465F42D15F62BA48B9D85",
+    "status": "Valid"
+  },
+  "OpenPGP": "Runner signed and verified in a separate public-key-only homedir; root verified archived status primary fingerprint and actual payload hashes, not a second local cryptographic execution.",
+  "firstAttempt": {
+    "run": 45140372759,
+    "qaSource": "614236abeb9338accc9b7b6e7f2fdd280d4a5201",
+    "failedLogSha256": "90bb76a09f3d644472d89e656939c2c396ed1b50c019d3c4f4856e216cc787ef",
+    "failure": "Synthetic compiler relative path before signing; corrected to native absolute paths. No signing-service failure."
+  },
+  "finalPackageSignaturesAccepted": false,
+  "payloadIndex": [
+    {
+      "path": "synthetic-authenticode-preflight/result.json",
+      "sha256": "1bfd680fa0e57ce919a40730e83ad5855b593d792e0bf03dedd4b6401fb288fc",
+      "bytes": 809
+    },
+    {
+      "path": "synthetic-authenticode-preflight/synthetic-preflight.cs",
+      "sha256": "a3ba69ce942c0fa0809219c737a559d9750c302602356bbe553e2525a6c32497",
+      "bytes": 47
+    },
+    {
+      "path": "synthetic-authenticode-preflight/synthetic-preflight.exe",
+      "sha256": "bb81e5e65a4fd0787db4734be4cd8f067f5fd6fac073273065bdb1370603b77d",
+      "bytes": 19368
+    },
+    {
+      "path": "synthetic-openpgp-preflight/openaec-public-key.asc",
+      "sha256": "9e0f0eaae8a67175c60428b2391f3e75bf8f63fe14617fcf73bb2eaa65d5d07c",
+      "bytes": 831
+    },
+    {
+      "path": "synthetic-openpgp-preflight/result.json",
+      "sha256": "2f461ad8583d03b0fa202d0cb4fcdea6f33f67084da57f42205135b2b69112cb",
+      "bytes": 278
+    },
+    {
+      "path": "synthetic-openpgp-preflight/SHA256SUMS",
+      "sha256": "96ffef4412508bb5e4df5c0e483fceaf184357787a81c8935256726ca4155f91",
+      "bytes": 287
+    },
+    {
+      "path": "synthetic-openpgp-preflight/synthetic-receipt.txt",
+      "sha256": "238564e65cefaabc0593519ab7f1a2aaac0c2c3280c6481a81dbd051a28479d3",
+      "bytes": 85
+    },
+    {
+      "path": "synthetic-openpgp-preflight/synthetic-receipt.txt.asc",
+      "sha256": "1644e4686c3670a4525186bd1387789135104ce8926cd59ade9ef0032c9cd2ee",
+      "bytes": 228
+    },
+    {
+      "path": "synthetic-openpgp-preflight/verification-status.txt",
+      "sha256": "164ce8e1656004e433f6f7d34f7111b3ef0d1d9118140d5c312a2cfce3b26b49",
+      "bytes": 466
+    }
+  ]
+}

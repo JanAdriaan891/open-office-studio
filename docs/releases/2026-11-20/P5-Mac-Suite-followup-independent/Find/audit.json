@@ -1,0 +1,216 @@
+{
+  "verdict": "PASS bounded Find and two-document isolation criteria only",
+  "rawStatus": "native361-final-find-isolation-passed-tab-separate",
+  "rawNativePass": false,
+  "rawDiagnosticOnly": false,
+  "run": 45355259405,
+  "attempt": 1,
+  "job": 138311374732,
+  "artifact": 14901514577,
+  "artifactSHA256": "af98581f0b0fbe6b5cc0b7aa5752415d071908b00df67a06d9ffafe04b676fe4",
+  "artifactBytes": 2641817,
+  "reportSHA256": "4cf14719ef875863a66db2aa7ad55ea8748ea9afb7fd38d68319992369cf78dc",
+  "qaCommit": "b052808d6fcfed34c7543176f0a827891b02a60d",
+  "applicationCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+  "applicationTree": "e30879fd772871e690847c061ef66e6b81808a05",
+  "criteria": {
+    "ordinaryCellTypingSaveUndoRedo": true,
+    "findOwnUndoRedoNoDocumentSentinelChange": true,
+    "twoDocumentsIndependentHistory": true,
+    "finalSavedA3x4BOriginal3x3": true,
+    "rawNativePassFalseAndTabSeparatePreserved": true
+  },
+  "independentXML": {
+    "361-remaining-A.docx": {
+      "rows": [
+        [
+          "alpha",
+          "",
+          "beta",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "omega"
+        ],
+        [
+          "delta",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "text": "alphabetaomegadelta",
+      "sha256": "8c043da6af8c55f905d0db0f6ac29b951d39e0efe3844de224ce3239531a3c40"
+    },
+    "361-remaining-B.docx": {
+      "rows": [
+        [
+          "alpha",
+          "beta",
+          ""
+        ],
+        [
+          "",
+          "",
+          "omega"
+        ],
+        [
+          "delta",
+          "",
+          ""
+        ]
+      ],
+      "text": "alphabetaomegadelta",
+      "sha256": "d375384a6ddc373542059f06e009e239a9099d40b6fc890da39d60e7b68727f1"
+    },
+    "A-cell-typed-saved.docx": {
+      "rows": [
+        [
+          "alpXha",
+          "beta",
+          ""
+        ],
+        [
+          "",
+          "",
+          "omega"
+        ],
+        [
+          "delta",
+          "",
+          ""
+        ]
+      ],
+      "text": "alpXhabetaomegadelta",
+      "sha256": "5753aed92ef565549233f4627b77eb84c7b7e7a61d5d7972096d8bd454580e85"
+    },
+    "A-host-preflight-restored-saved.docx": {
+      "rows": [
+        [
+          "alpha",
+          "beta",
+          ""
+        ],
+        [
+          "",
+          "",
+          "omega"
+        ],
+        [
+          "delta",
+          "",
+          ""
+        ]
+      ],
+      "text": "alphabetaomegadelta",
+      "sha256": "99ea8f045a379e454476d4b229fec77b4db33d0279f71e7af630377974f31d88"
+    },
+    "A-isolated-final-saved.docx": {
+      "rows": [
+        [
+          "alpha",
+          "",
+          "beta",
+          ""
+        ],
+        [
+          "",
+          "",
+          "",
+          "omega"
+        ],
+        [
+          "delta",
+          "",
+          "",
+          ""
+        ]
+      ],
+      "text": "alphabetaomegadelta",
+      "sha256": "8c043da6af8c55f905d0db0f6ac29b951d39e0efe3844de224ce3239531a3c40"
+    },
+    "B-isolated-final-saved.docx": {
+      "rows": [
+        [
+          "alpha",
+          "beta",
+          ""
+        ],
+        [
+          "",
+          "",
+          "omega"
+        ],
+        [
+          "delta",
+          "",
+          ""
+        ]
+      ],
+      "text": "alphabetaomegadelta",
+      "sha256": "d375384a6ddc373542059f06e009e239a9099d40b6fc890da39d60e7b68727f1"
+    }
+  },
+  "originalPNGReview": [
+    {
+      "member": "mac361-remaining-native/native361-remaining/Find-native-typed/original-display.png",
+      "sha256": "22535caf01379cc44b521dd997f1929a5bca26d2353b859ba7ea5a7c148f1c2d",
+      "originalViewedDirectly": true,
+      "observation": "Find field visibly contains abc; original document words remain readable."
+    },
+    {
+      "member": "mac361-remaining-native/native361-remaining/Find-native-Undo/original-display.png",
+      "sha256": "6554b77dd727ff3c6890f9de819a01ee016437c539be80326f306c1be130994a",
+      "originalViewedDirectly": true,
+      "observation": "Find field visibly empty after native Undo, document words still present."
+    },
+    {
+      "member": "mac361-remaining-native/native361-remaining/A-isolated-final/original-display.png",
+      "sha256": "1d410ed21be6fa617b49e25c0cc244c27a2548678664b8bf3a28311a388d568a",
+      "originalViewedDirectly": true,
+      "observation": "A active with both document tabs visible and original words; Saved notification."
+    },
+    {
+      "member": "mac361-remaining-native/native361-remaining/B-isolated-final/original-display.png",
+      "sha256": "fa0a05ea8f308db1cf1ea5395a7c70428bf5655ba7949e4ae08ee4b6cccfdc42",
+      "originalViewedDirectly": true,
+      "observation": "B active with both document tabs visible and original words; Saved notification."
+    }
+  ],
+  "ownPID": 2521,
+  "nativeCmdQAndCleanOwnedContainer": true,
+  "newPIDReopenNewlyExecutedInThisScope": false,
+  "reusedCoreLifecycles": {
+    "control": [
+      4334,
+      5393
+    ],
+    "table": [
+      5961,
+      7589
+    ],
+    "auditSHA256": "61b72d0d2647a8e2e5e23832e1f0ad6b92bfe7235c3b74db604b1afe8ce7fbbd",
+    "reportSHA256": "ed6409f1f36a8a327056b2806279d405b9fa749ce0de3dda3e9784b60f7d3ccd"
+  },
+  "sourceAndPackageFoundationExactToAuditedCore": true,
+  "freshInstalledPlistAndExecutableBindingsVerified": true,
+  "signedAttestationLogsHashVerified": true,
+  "signatureCommandsActuallyReverifiedByAuditor": false,
+  "profileCreated": true,
+  "profileRemovalExplicitlyAttested": false,
+  "cleanup": {
+    "ownedAppClosed": true,
+    "ownedAppContainerRemoved": true
+  },
+  "limits": [
+    "No overall361/374/stable release acceptance.",
+    "Only relevant same-source core is reused; no cold-reopen was newly run here.",
+    "AX tree retains truncation and raw nativePass=false labels.",
+    "Font substitution/viewport/full fidelity/dependency closure are outside scope.",
+    "Earlier Q/CmdS preflight forensic failure remains unexplained and is not resolved by these independent positives.",
+    "Only six small API metadata requests were newly made; no ZIP/installer download, GUI, CI, fix or Git write."
+  ]
+}

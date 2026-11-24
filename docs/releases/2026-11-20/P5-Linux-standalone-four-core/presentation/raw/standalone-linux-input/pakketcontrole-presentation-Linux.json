@@ -1,0 +1,31 @@
+{
+  "platform": "linux",
+  "programma": "open-presentation-studio",
+  "versie": "2026.48.1",
+  "pakketten": [
+    {
+      "naam": "Open Presentation Studio_2026.48.1_amd64.deb",
+      "bytes": 383929578,
+      "sha256": "b1ea114547f035804549bed296df0e3a1f33ca582dedc50b573902dd66f6774e",
+      "controles": [
+        "DEB-versie en architectuur",
+        "runtime-afhankelijkheden opgegeven",
+        "ELF x64 en bibliotheken gevonden",
+        "snelkoppeling en pictogram aanwezig"
+      ]
+    },
+    {
+      "naam": "Open Presentation Studio_2026.48.1_amd64.AppImage",
+      "bytes": 429873656,
+      "sha256": "f9b72975725305243660bec067e0cde13d59d39e5eda2ecbacc6ada5fd54d934",
+      "controles": [
+        "AppImage type 2",
+        "SquashFS volledig uitgepakt",
+        "AppRun uitvoerbaar",
+        "ELF x64 en bibliotheken gevonden",
+        "snelkoppeling en pictogram aanwezig"
+      ]
+    }
+  ],
+  "installatie_en_native_bediening": "niet_gecontroleerd"
+}

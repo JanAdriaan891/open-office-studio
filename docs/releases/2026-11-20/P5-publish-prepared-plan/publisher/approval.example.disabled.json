@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "executionEnabled": false,
+  "repository": "OpenAEC-Foundation/open-office-studio",
+  "application": {
+    "commit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+    "tree": "e30879fd772871e690847c061ef66e6b81808a05",
+    "version": "2026.48.1"
+  },
+  "planSha256": "da0851d59c65ff54c4ec09e5b1dda712a337c71525ee5e517da5ac39a26d16f8",
+  "reviewedCodeSha256": "4b1f57af23ceedf7f61f5ae17b6c61d5c21991ed6184d106dc04a405e4de09cc",
+  "assetsSha256": "e03d14548216a82d63c5568202c095845159b59155f15804b63a47080a3496b2",
+  "releaseBodySha256": "d4045ac87d963a1e3adf9b7bd2817ee74a42c158847376f29fb808c23ec373b6",
+  "tag": "v2026.48.1",
+  "tagTarget": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+  "writtenApprovalReference": null,
+  "expiresAt": null,
+  "inputStateSha256": null,
+  "actionsContext": {
+    "workflowRef": "OpenAEC-Foundation/open-office-studio/.github/workflows/publish-prepared.yml@refs/heads/main",
+    "workflowCommit": null,
+    "expectedMainTree": null,
+    "runId": null,
+    "runAttempt": 1
+  },
+  "permissions": {
+    "collect": false,
+    "verifyCrypto": false,
+    "checkMainAncestry": false,
+    "createTag": false,
+    "createDraft": false,
+    "uploadAssets": false,
+    "readBack": false,
+    "publish": false
+  },
+  "meaning": "Disabled example only, not approval. Root must pin the final independently reviewed code/plan/body and actual main commit/tree, expiry, concrete written user approval and only the intended steps. No workflow consumes this example automatically."
+}

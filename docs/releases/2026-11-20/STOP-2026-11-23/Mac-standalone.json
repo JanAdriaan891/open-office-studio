@@ -1,0 +1,504 @@
+{
+  "recordedAt": "2026-11-23T14:53:40.294267+00:00",
+  "reason": "Explicit hard stop before 2026-11-23 16:00 Europe/Amsterdam; all unused conditional execution permissions revoked; resume only after new user instruction",
+  "branch": "codex/standalone-macos-20261123",
+  "qaCommit": "b4c42b78a9936c6aeb154ee2a4c7fb7bdba1c022",
+  "gitStatus": "",
+  "patchCommits": [
+    "223dda0f961dd5926714cbb76b52a09f8c368b9e",
+    "b4c42b78a9936c6aeb154ee2a4c7fb7bdba1c022"
+  ],
+  "source": {
+    "commit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+    "tree": "e30879fd772871e690847c061ef66e6b81808a05",
+    "version": "2026.48.1"
+  },
+  "producerWorkflow": {
+    "commit": "2af94cdcefa3e88e4980b631d16a88d7d7de5ae8",
+    "tree": "94340e40228ddcb11aace00e4dd01f614a13273e",
+    "run": 45195055147,
+    "attempt": 1,
+    "job": 137763371873,
+    "branch": "codex/p5-macos-only-producer-20261123",
+    "path": ".github/workflows/release.yml",
+    "event": "workflow_dispatch",
+    "workflowSha256": "2ae3b7aa85bb4d4e394e71af43a93da45332e9b5f78fd7ed2151aca732726d62",
+    "checkoutWorkflowSha256": "620e90485493163b87163a8763ffbbfcc2f0af5f03251b592af577721c5a9c64",
+    "witnessMember": ".local/macos-only-producer-source.json"
+  },
+  "parentArtifact": {
+    "id": null,
+    "run": 45195055147,
+    "producerJobId": 137763371873,
+    "attempt": 1,
+    "name": "uitgave-macOS",
+    "sha256": null
+  },
+  "executionApproved": false,
+  "approvalRevoked": true,
+  "expiresAt": null,
+  "sourceWitness": null,
+  "results": {
+    "localContractTests": "PASS 88; synthetic contract/oracle tests, not native acceptance",
+    "bothGitApiSourceTreesAndWorkflowHashes": "PASS",
+    "githubWorkflowParsing": "PASS; own non-marker run45197358253 correctly skipped",
+    "currentNativePreflight": "OPEN; current 88-test/Swift/HID/privacy preflight not run",
+    "finalP5SixNativeApps": "OPEN; not run; no verified parent or child bytes",
+    "finalP5STW_GNM_GNUMERIC_XLSB_377_379": "OPEN; not run",
+    "historicalP2": "Retained unchanged; only four ordinary core functional evidence routes complete, not P5 acceptance",
+    "oldP5MacProducer": "FAIL 45177730188/a1/job137703365843 DMG EBUSY; original evidence retained; no Mac artifact",
+    "oldMacAttempt2": "NOT CREATED; GitHub rerun HTTP403 workflow already running; not silently substituted"
+  },
+  "externalProducer": {
+    "runUrl": "https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/45195055147",
+    "jobUrl": "https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/45195055147/job/137763371873",
+    "lastLocalObservation": {
+      "observedAt": "2026-11-23T14:53:01.568624+00:00",
+      "job": {
+        "id": 137763371873,
+        "run_id": 45195055147,
+        "workflow_name": "Build and sign P5 macOS only \u2014 no publication",
+        "head_branch": "codex/p5-macos-only-producer-20261123",
+        "run_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/actions/runs/45195055147",
+        "run_attempt": 1,
+        "node_id": "CR_kwDOVRiTGs8AAAAgE1Y7YQ",
+        "head_sha": "2af94cdcefa3e88e4980b631d16a88d7d7de5ae8",
+        "url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/actions/jobs/137763371873",
+        "html_url": "https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/45195055147/job/137763371873",
+        "status": "in_progress",
+        "conclusion": null,
+        "created_at": "2026-11-23T14:31:27Z",
+        "started_at": "2026-11-23T14:31:29Z",
+        "completed_at": null,
+        "name": "Bouwen \u2013 macOS",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-11-23T14:31:29Z",
+            "completed_at": "2026-11-23T14:31:32Z"
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-11-23T14:31:32Z",
+            "completed_at": "2026-11-23T14:31:37Z"
+          },
+          {
+            "name": "Exacte P5-appbron en afzonderlijke producerhead bewijzen",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-11-23T14:31:37Z",
+            "completed_at": "2026-11-23T14:31:38Z"
+          },
+          {
+            "name": "Ondertekening beschikbaar",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4,
+            "started_at": "2026-11-23T14:31:38Z",
+            "completed_at": "2026-11-23T14:31:38Z"
+          },
+          {
+            "name": "Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5,
+            "started_at": "2026-11-23T14:31:38Z",
+            "completed_at": "2026-11-23T14:31:39Z"
+          },
+          {
+            "name": "Run pnpm/action-setup@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6,
+            "started_at": "2026-11-23T14:31:39Z",
+            "completed_at": "2026-11-23T14:31:48Z"
+          },
+          {
+            "name": "Run dtolnay/rust-toolchain@stable",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7,
+            "started_at": "2026-11-23T14:31:48Z",
+            "completed_at": "2026-11-23T14:31:51Z"
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8,
+            "started_at": "2026-11-23T14:31:51Z",
+            "completed_at": "2026-11-23T14:31:51Z"
+          },
+          {
+            "name": "Updater-artefacten (alleen met geheim en publieke sleutel)",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9,
+            "started_at": "2026-11-23T14:31:51Z",
+            "completed_at": "2026-11-23T14:31:51Z"
+          },
+          {
+            "name": "Linux-bouwafhankelijkheden",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 10,
+            "started_at": "2026-11-23T14:31:51Z",
+            "completed_at": "2026-11-23T14:31:51Z"
+          },
+          {
+            "name": "Run pnpm install --frozen-lockfile",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11,
+            "started_at": "2026-11-23T14:31:51Z",
+            "completed_at": "2026-11-23T14:31:55Z"
+          },
+          {
+            "name": "Cache van de vastgepinde kantoorruntime",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 12,
+            "started_at": "2026-11-23T14:31:55Z",
+            "completed_at": "2026-11-23T14:31:55Z"
+          },
+          {
+            "name": "Lettertypencache",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 13,
+            "started_at": "2026-11-23T14:31:55Z",
+            "completed_at": "2026-11-23T14:31:55Z"
+          },
+          {
+            "name": "Run node scripts/haal-lettertypen.mjs",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 14,
+            "started_at": "2026-11-23T14:31:55Z",
+            "completed_at": "2026-11-23T14:31:56Z"
+          },
+          {
+            "name": "Woordenboekencache",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 15,
+            "started_at": "2026-11-23T14:31:56Z",
+            "completed_at": "2026-11-23T14:31:56Z"
+          },
+          {
+            "name": "Run node scripts/haal-woordenboeken.mjs",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 16,
+            "started_at": "2026-11-23T14:31:56Z",
+            "completed_at": "2026-11-23T14:31:56Z"
+          },
+          {
+            "name": "Run pnpm versie:check",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 17,
+            "started_at": "2026-11-23T14:31:56Z",
+            "completed_at": "2026-11-23T14:31:56Z"
+          },
+          {
+            "name": "Vastgelegde versleutelde proefbestanden ophalen",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 18,
+            "started_at": "2026-11-23T14:31:56Z",
+            "completed_at": "2026-11-23T14:31:57Z"
+          },
+          {
+            "name": "Run pnpm test",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 19,
+            "started_at": "2026-11-23T14:31:57Z",
+            "completed_at": "2026-11-23T14:34:05Z"
+          },
+          {
+            "name": "Run python -m unittest discover -s tests -v",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 20,
+            "started_at": "2026-11-23T14:34:05Z",
+            "completed_at": "2026-11-23T14:34:06Z"
+          },
+          {
+            "name": "Run node scripts/test-kantoor-engines.mjs",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 21,
+            "started_at": "2026-11-23T14:34:06Z",
+            "completed_at": "2026-11-23T14:34:06Z"
+          },
+          {
+            "name": "Run pnpm test:opdrachten",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 22,
+            "started_at": "2026-11-23T14:34:06Z",
+            "completed_at": "2026-11-23T14:34:11Z"
+          },
+          {
+            "name": "Windows-loader voorbereiden",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 23,
+            "started_at": "2026-11-23T14:34:11Z",
+            "completed_at": "2026-11-23T14:34:11Z"
+          },
+          {
+            "name": "Run cargo test --manifest-path src-tauri/Cargo.toml --locked",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 24,
+            "started_at": "2026-11-23T14:34:11Z",
+            "completed_at": "2026-11-23T14:35:11Z"
+          },
+          {
+            "name": "Run cargo test --manifest-path apps/database-studio/src-tauri/Cargo.toml --locked",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 25,
+            "started_at": "2026-11-23T14:35:11Z",
+            "completed_at": "2026-11-23T14:35:43Z"
+          },
+          {
+            "name": ".NET 8 voor de signeerclient",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 26,
+            "started_at": "2026-11-23T14:35:43Z",
+            "completed_at": "2026-11-23T14:35:43Z"
+          },
+          {
+            "name": "Authenticode voorbereiden",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 27,
+            "started_at": "2026-11-23T14:35:43Z",
+            "completed_at": "2026-11-23T14:35:43Z"
+          },
+          {
+            "name": "App Store Connect-sleutel klaarzetten",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 28,
+            "started_at": "2026-11-23T14:35:43Z",
+            "completed_at": "2026-11-23T14:35:43Z"
+          },
+          {
+            "name": "Pakket bouwen (onondertekend)",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 29,
+            "started_at": "2026-11-23T14:35:43Z",
+            "completed_at": "2026-11-23T14:35:43Z"
+          },
+          {
+            "name": "Pakket bouwen (Windows, ondertekend)",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 30,
+            "started_at": "2026-11-23T14:35:43Z",
+            "completed_at": "2026-11-23T14:35:43Z"
+          },
+          {
+            "name": "Pakket bouwen (macOS, ondertekend en genotariseerd)",
+            "status": "in_progress",
+            "conclusion": null,
+            "number": 31,
+            "started_at": "2026-11-23T14:35:43Z",
+            "completed_at": null
+          },
+          {
+            "name": "Authenticode controleren (installer, programma en uninstaller)",
+            "status": "pending",
+            "conclusion": null,
+            "number": 32,
+            "started_at": null,
+            "completed_at": null
+          },
+          {
+            "name": "Handtekening en notarisatie controleren (macOS)",
+            "status": "pending",
+            "conclusion": null,
+            "number": 33,
+            "started_at": null,
+            "completed_at": null
+          },
+          {
+            "name": "Linux-installers werkelijk uitpakken en controleren",
+            "status": "pending",
+            "conclusion": null,
+            "number": 34,
+            "started_at": null,
+            "completed_at": null
+          },
+          {
+            "name": "Windows-installer werkelijk uitpakken en controleren",
+            "status": "pending",
+            "conclusion": null,
+            "number": 35,
+            "started_at": null,
+            "completed_at": null
+          },
+          {
+            "name": "Meet- en inhoudscontrole voor de meegeleverde runtime",
+            "status": "pending",
+            "conclusion": null,
+            "number": 36,
+            "started_at": null,
+            "completed_at": null
+          },
+          {
+            "name": "Standaardinstaller controleren met uitsluitend de private runtime",
+            "status": "pending",
+            "conclusion": null,
+            "number": 37,
+            "started_at": null,
+            "completed_at": null
+          },
+          {
+            "name": "Linux native WebKit-interface en private installer controleren",
+            "status": "pending",
+            "conclusion": null,
+            "number": 38,
+            "started_at": null,
+            "completed_at": null
+          },
+          {
+            "name": "Runtimebewijs bewaren",
+            "status": "pending",
+            "conclusion": null,
+            "number": 39,
+            "started_at": null,
+            "completed_at": null
+          },
+          {
+            "name": "Run actions/upload-artifact@v4",
+            "status": "pending",
+            "conclusion": null,
+            "number": 40,
+            "started_at": null,
+            "completed_at": null
+          },
+          {
+            "name": "Post Woordenboekencache",
+            "status": "pending",
+            "conclusion": null,
+            "number": 74,
+            "started_at": null,
+            "completed_at": null
+          },
+          {
+            "name": "Post Lettertypencache",
+            "status": "pending",
+            "conclusion": null,
+            "number": 75,
+            "started_at": null,
+            "completed_at": null
+          },
+          {
+            "name": "Post Cache van de vastgepinde kantoorruntime",
+            "status": "pending",
+            "conclusion": null,
+            "number": 76,
+            "started_at": null,
+            "completed_at": null
+          },
+          {
+            "name": "Post Run actions/setup-python@v5",
+            "status": "pending",
+            "conclusion": null,
+            "number": 77,
+            "started_at": null,
+            "completed_at": null
+          },
+          {
+            "name": "Post Run pnpm/action-setup@v4",
+            "status": "pending",
+            "conclusion": null,
+            "number": 78,
+            "started_at": null,
+            "completed_at": null
+          },
+          {
+            "name": "Post Run actions/setup-node@v4",
+            "status": "pending",
+            "conclusion": null,
+            "number": 79,
+            "started_at": null,
+            "completed_at": null
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "pending",
+            "conclusion": null,
+            "number": 80,
+            "started_at": null,
+            "completed_at": null
+          }
+        ],
+        "check_run_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/check-runs/137763371873",
+        "labels": [
+          "macos-latest"
+        ],
+        "runner_id": 1000129876,
+        "runner_name": "GitHub Actions 1000129876",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions"
+      }
+    },
+    "notRequeriedAtShutdown": true,
+    "mayFinishExternally": true,
+    "autoPrepOrNativeAuthorized": false
+  },
+  "localCleanup": {
+    "ownedWatcherSession": 87283,
+    "stopMethod": "Ctrl-C through write_stdin",
+    "confirmedExecExitCode": 1,
+    "ownedLocalGuiCaptureOrServerStarted": false,
+    "sharedOrUserProcessesTouched": false,
+    "furtherJobsDispatched": false
+  },
+  "nextDay": [
+    "New explicit user instruction required before resuming.",
+    "Read current official job gates and unique artifact metadata; no presumed success from last observed in_progress.",
+    "If source/job/attempt still match, verify original ZIP once remotely and mandatory sourceWitness before 7 split.",
+    "Record actual parent ID/digest/size and witness raw SHA/base64; send separate Suite support without Suite on six app hosts.",
+    "Fresh current preflight, then six core native cases and separately STW/GNM/gnumeric/XLSB/377/379; preserve original failures and all acceptance guards."
+  ],
+  "localEvidence": [
+    {
+      "path": "C:\\Users\\alper\\Desktop\\Documents\\ChatGPT\\code slaafjes\\work\\oos-standalone-macos-20261123-6f92\\.local\\mac-producer-watch-45195055147-2026-11-23.json",
+      "sha256": "b947216d0f95e1bfd2d6d268134414f95889491ae0f890b18f81fff1cc82b66e",
+      "bytes": 12785
+    },
+    {
+      "path": "C:\\Users\\alper\\Desktop\\Documents\\ChatGPT\\code slaafjes\\work\\oos-standalone-macos-20261123-6f92\\.local\\mac-p5-separate-producer-intake-2026-11-23.json",
+      "sha256": "10a052212eeaa1859b27324737ce6f619ec2e0397f84943f62ee8acd2f91434d",
+      "bytes": 14092
+    },
+    {
+      "path": "C:\\Users\\alper\\Desktop\\Documents\\ChatGPT\\code slaafjes\\work\\oos-standalone-macos-20261123-6f92\\.local\\standalone-macos-p5-request-template-2026-11-23.json",
+      "sha256": "78c8bb9f3992daf5dc4c313ee30a54f7d2ddc28e12cec713f086afa13166ac97",
+      "bytes": 5696
+    },
+    {
+      "path": "C:\\Users\\alper\\Desktop\\Documents\\ChatGPT\\code slaafjes\\work\\oos-standalone-macos-20261123-6f92\\.local\\mac-p5-artifact-directory-2026-11-23.py",
+      "sha256": "485cc463b5bcf712881698329d2bfd636b0bbaab5d4f652a030ce01babf9ab09",
+      "bytes": 6079
+    }
+  ],
+  "mainTagPublicationChanged": false
+}

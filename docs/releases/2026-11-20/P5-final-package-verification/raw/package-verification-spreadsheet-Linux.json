@@ -1,0 +1,31 @@
+{
+  "platform": "linux",
+  "programma": "open-spreadsheet-studio",
+  "versie": "2026.48.1",
+  "pakketten": [
+    {
+      "naam": "Open Spreadsheet Studio_2026.48.1_amd64.deb",
+      "bytes": 383910260,
+      "sha256": "2975d44e7c0a6456aa0bd66c151a83b26ee9b2bd13a775a3c19db051fc15cd11",
+      "controles": [
+        "DEB-versie en architectuur",
+        "runtime-afhankelijkheden opgegeven",
+        "ELF x64 en bibliotheken gevonden",
+        "snelkoppeling en pictogram aanwezig"
+      ]
+    },
+    {
+      "naam": "Open Spreadsheet Studio_2026.48.1_amd64.AppImage",
+      "bytes": 429849080,
+      "sha256": "950bb92b52af3977dd7f163670418acb72fc6230e20184c1a77a0bc23e2bc59d",
+      "controles": [
+        "AppImage type 2",
+        "SquashFS volledig uitgepakt",
+        "AppRun uitvoerbaar",
+        "ELF x64 en bibliotheken gevonden",
+        "snelkoppeling en pictogram aanwezig"
+      ]
+    }
+  ],
+  "installatie_en_native_bediening": "niet_gecontroleerd"
+}

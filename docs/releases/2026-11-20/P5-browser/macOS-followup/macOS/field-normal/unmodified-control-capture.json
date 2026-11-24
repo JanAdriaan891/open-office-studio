@@ -1,0 +1,35 @@
+{
+  "status": "stable-original-PNG-captured",
+  "doubleAnimationFramesPerSample": true,
+  "extraInterSampleDelayMs": 0,
+  "requiredConsecutive": 3,
+  "requiredStableMs": 200,
+  "samples": [
+    {
+      "at": "2026-11-23T13:26:44.180Z",
+      "pngSha256": "98e5fa4ff942719a822cf1cd59ec31112e8cb7179e035860eee30d1ca4a3ff2d",
+      "completePaintUnchangedDuringCapture": true,
+      "consecutive": 1,
+      "stableForMs": 0,
+      "paintSignature": "[\"worker0\",1,1,[1]]"
+    },
+    {
+      "at": "2026-11-23T13:26:44.298Z",
+      "pngSha256": "98e5fa4ff942719a822cf1cd59ec31112e8cb7179e035860eee30d1ca4a3ff2d",
+      "completePaintUnchangedDuringCapture": true,
+      "consecutive": 2,
+      "stableForMs": 118,
+      "paintSignature": "[\"worker0\",1,1,[1]]"
+    },
+    {
+      "at": "2026-11-23T13:26:44.381Z",
+      "pngSha256": "98e5fa4ff942719a822cf1cd59ec31112e8cb7179e035860eee30d1ca4a3ff2d",
+      "completePaintUnchangedDuringCapture": true,
+      "consecutive": 3,
+      "stableForMs": 201,
+      "paintSignature": "[\"worker0\",1,1,[1]]"
+    }
+  ],
+  "acceptedPngSha256": "98e5fa4ff942719a822cf1cd59ec31112e8cb7179e035860eee30d1ca4a3ff2d",
+  "markerReview": "Review the original PNG; worker glyph records and pixel stability alone do not establish visible marker text."
+}

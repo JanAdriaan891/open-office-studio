@@ -1,0 +1,30 @@
+{
+  "submittedUTC": "2026-11-23T14:31:06.849868+00:00",
+  "returncode": 0,
+  "stdout": "https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/45195055147\n",
+  "stderr": "",
+  "review": {
+    "reviewUTC": "2026-11-23T14:31:04.632702+00:00",
+    "applicationSource": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+    "applicationTree": "e30879fd772871e690847c061ef66e6b81808a05",
+    "version": "2026.48.1",
+    "producerCommit": "2af94cdcefa3e88e4980b631d16a88d7d7de5ae8",
+    "producerBranch": "codex/p5-macos-only-producer-20261123",
+    "producerWorkflow": ".github/workflows/release.yml",
+    "producerWorkflowSha256": "2ae3b7aa85bb4d4e394e71af43a93da45332e9b5f78fd7ed2151aca732726d62",
+    "parsedYAML": true,
+    "all38OriginalBuildStepsAndVersionGateUnchanged": true,
+    "twoAppCheckoutsExactlyP5": true,
+    "matrixOnlyMac": true,
+    "signingExplicitlyRequired": true,
+    "publisherRemoved": true,
+    "noPushOrTagTrigger": true,
+    "publiceren": false,
+    "mainWritesAllowed": false,
+    "publicationAllowed": false,
+    "previousSelectedMacRetryAccepted": false,
+    "choice": "One independent Mac-only producer; do not also rerun old Mac job. Original Windows/Linux attempt1 builds and artifacts remain untouched.",
+    "knownCost": "Same complete signed/notarized seven-product Mac build and native acceptance remain necessary; no 17:00 readiness guarantee."
+  },
+  "actualRunConfirmed": false
+}

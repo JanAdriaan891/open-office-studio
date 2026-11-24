@@ -1,0 +1,341 @@
+{
+  "total_count": 2,
+  "jobs": [
+    {
+      "id": 137756565446,
+      "run_id": 45193170006,
+      "workflow_name": "Coordinator-pinned Linux Suite native acceptance",
+      "head_branch": "codex/linux-suite-final-acceptance-2026-11-23",
+      "run_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/actions/runs/45193170006",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOVRiTGs8AAAAgEu5fxg",
+      "head_sha": "55a651186c35bde2937a1a8c529c4c2c984d0085",
+      "url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/actions/jobs/137756565446",
+      "html_url": "https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/45193170006/job/137756565446",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-11-23T14:20:37Z",
+      "started_at": "2026-11-23T14:20:39Z",
+      "completed_at": "2026-11-23T14:20:57Z",
+      "name": "protocol",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-11-23T14:20:39Z",
+          "completed_at": "2026-11-23T14:20:41Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-11-23T14:20:41Z",
+          "completed_at": "2026-11-23T14:20:46Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-11-23T14:20:46Z",
+          "completed_at": "2026-11-23T14:20:49Z"
+        },
+        {
+          "name": "Run pnpm/action-setup@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-11-23T14:20:49Z",
+          "completed_at": "2026-11-23T14:20:50Z"
+        },
+        {
+          "name": "Run pnpm install --frozen-lockfile --ignore-scripts",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-11-23T14:20:50Z",
+          "completed_at": "2026-11-23T14:20:53Z"
+        },
+        {
+          "name": "Bounded request, input and syntax contracts only",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-11-23T14:20:53Z",
+          "completed_at": "2026-11-23T14:20:53Z"
+        },
+        {
+          "name": "Shared immutable field XML oracle, no app operation",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-11-23T14:20:53Z",
+          "completed_at": "2026-11-23T14:20:53Z"
+        },
+        {
+          "name": "Run node --input-type=module <<'JS'",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-11-23T14:20:53Z",
+          "completed_at": "2026-11-23T14:20:53Z"
+        },
+        {
+          "name": "Post Run pnpm/action-setup@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-11-23T14:20:53Z",
+          "completed_at": "2026-11-23T14:20:54Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-11-23T14:20:54Z",
+          "completed_at": "2026-11-23T14:20:54Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-11-23T14:20:54Z",
+          "completed_at": "2026-11-23T14:20:54Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-11-23T14:20:54Z",
+          "completed_at": "2026-11-23T14:20:54Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/check-runs/137756565446",
+      "labels": [
+        "ubuntu-22.04"
+      ],
+      "runner_id": 1000129859,
+      "runner_name": "GitHub Actions 1000129859",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    },
+    {
+      "id": 137756775739,
+      "run_id": 45193170006,
+      "workflow_name": "Coordinator-pinned Linux Suite native acceptance",
+      "head_branch": "codex/linux-suite-final-acceptance-2026-11-23",
+      "run_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/actions/runs/45193170006",
+      "run_attempt": 1,
+      "node_id": "CR_kwDOVRiTGs8AAAAgEvGVOw",
+      "head_sha": "55a651186c35bde2937a1a8c529c4c2c984d0085",
+      "url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/actions/jobs/137756775739",
+      "html_url": "https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/45193170006/job/137756775739",
+      "status": "completed",
+      "conclusion": "success",
+      "created_at": "2026-11-23T14:20:57Z",
+      "started_at": "2026-11-23T14:20:59Z",
+      "completed_at": "2026-11-23T14:24:55Z",
+      "name": "native (appimage)",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1,
+          "started_at": "2026-11-23T14:20:59Z",
+          "completed_at": "2026-11-23T14:21:01Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2,
+          "started_at": "2026-11-23T14:21:01Z",
+          "completed_at": "2026-11-23T14:21:05Z"
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3,
+          "started_at": "2026-11-23T14:21:05Z",
+          "completed_at": "2026-11-23T14:21:10Z"
+        },
+        {
+          "name": "Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4,
+          "started_at": "2026-11-23T14:21:10Z",
+          "completed_at": "2026-11-23T14:21:12Z"
+        },
+        {
+          "name": "Run pnpm/action-setup@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5,
+          "started_at": "2026-11-23T14:21:12Z",
+          "completed_at": "2026-11-23T14:21:13Z"
+        },
+        {
+          "name": "Run dtolnay/rust-toolchain@stable",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6,
+          "started_at": "2026-11-23T14:21:13Z",
+          "completed_at": "2026-11-23T14:21:17Z"
+        },
+        {
+          "name": "Own Linux test host libraries; Zenity is not a hidden test tool",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 7,
+          "started_at": "2026-11-23T14:21:17Z",
+          "completed_at": "2026-11-23T14:22:26Z"
+        },
+        {
+          "name": "Existing package dependency checks use repository Vitest",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 8,
+          "started_at": "2026-11-23T14:22:26Z",
+          "completed_at": "2026-11-23T14:22:28Z"
+        },
+        {
+          "name": "Official job/attempt, transfer, package and own installed/extracted ELF gates",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 9,
+          "started_at": "2026-11-23T14:22:28Z",
+          "completed_at": "2026-11-23T14:22:46Z"
+        },
+        {
+          "name": "Actual DEB core368/369 and vertical362",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 10,
+          "started_at": "2026-11-23T14:22:46Z",
+          "completed_at": "2026-11-23T14:22:46Z"
+        },
+        {
+          "name": "Reuse already completed identical source DEB ELF and core probe proof",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 11,
+          "started_at": "2026-11-23T14:22:46Z",
+          "completed_at": "2026-11-23T14:22:46Z"
+        },
+        {
+          "name": "Actual DEB native retained field374 and short native edit",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 12,
+          "started_at": "2026-11-23T14:22:46Z",
+          "completed_at": "2026-11-23T14:22:46Z"
+        },
+        {
+          "name": "Actual DEB declared-runtime Cancel/Overwrite and own child-PATH missing-helper",
+          "status": "completed",
+          "conclusion": "skipped",
+          "number": 13,
+          "started_at": "2026-11-23T14:22:46Z",
+          "completed_at": "2026-11-23T14:22:46Z"
+        },
+        {
+          "name": "Actual AppImage own preflight and real missing-helper feedback",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 14,
+          "started_at": "2026-11-23T14:22:46Z",
+          "completed_at": "2026-11-23T14:24:02Z"
+        },
+        {
+          "name": "Install the documented external AppImage confirmation requirement",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 15,
+          "started_at": "2026-11-23T14:24:02Z",
+          "completed_at": "2026-11-23T14:24:07Z"
+        },
+        {
+          "name": "Same original AppImage actual Cancel/Overwrite/save/normal quit/new PID reopen",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 16,
+          "started_at": "2026-11-23T14:24:07Z",
+          "completed_at": "2026-11-23T14:24:51Z"
+        },
+        {
+          "name": "Keep automated, unavailable state and human visual acceptance separate",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 17,
+          "started_at": "2026-11-23T14:24:51Z",
+          "completed_at": "2026-11-23T14:24:51Z"
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 18,
+          "started_at": "2026-11-23T14:24:51Z",
+          "completed_at": "2026-11-23T14:24:52Z"
+        },
+        {
+          "name": "Post Run pnpm/action-setup@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 33,
+          "started_at": "2026-11-23T14:24:52Z",
+          "completed_at": "2026-11-23T14:24:52Z"
+        },
+        {
+          "name": "Post Run actions/setup-node@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 34,
+          "started_at": "2026-11-23T14:24:52Z",
+          "completed_at": "2026-11-23T14:24:53Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 35,
+          "started_at": "2026-11-23T14:24:53Z",
+          "completed_at": "2026-11-23T14:24:53Z"
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 36,
+          "started_at": "2026-11-23T14:24:53Z",
+          "completed_at": "2026-11-23T14:24:53Z"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 37,
+          "started_at": "2026-11-23T14:24:53Z",
+          "completed_at": "2026-11-23T14:24:53Z"
+        }
+      ],
+      "check_run_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/check-runs/137756775739",
+      "labels": [
+        "ubuntu-22.04"
+      ],
+      "runner_id": 1000129861,
+      "runner_name": "GitHub Actions 1000129861",
+      "runner_group_id": 0,
+      "runner_group_name": "GitHub Actions"
+    }
+  ]
+}

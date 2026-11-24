@@ -1,0 +1,78 @@
+{
+  "asOfUTC": "2026-11-23T13:30:51.287181+00:00",
+  "run": 45179944903,
+  "applicationCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+  "applicationTree": "e30879fd772871e690847c061ef66e6b81808a05",
+  "harnessCommit": "7be704895534c3095f697292af07dc10d2e5860b",
+  "platformsAndRoutes": [
+    {
+      "platform": "Linux",
+      "route": "/",
+      "producerJob": 137710842379,
+      "artifactId": 14822025134,
+      "archiveSha256": "f6efb1bb04654d40d443e9aed13eb889a846407db526d677837e8785e85be170",
+      "assetEntriesInReceipt": 727,
+      "issuesPassed": [
+        361,
+        362,
+        363,
+        356
+      ],
+      "OfficeCasesPassed": 9,
+      "savedDOCXIndependentlyChecked": true
+    },
+    {
+      "platform": "Linux",
+      "route": "/office/",
+      "producerJob": 137710842379,
+      "artifactId": 14822025134,
+      "archiveSha256": "f6efb1bb04654d40d443e9aed13eb889a846407db526d677837e8785e85be170",
+      "assetEntriesInReceipt": 727,
+      "issuesPassed": [
+        361,
+        362,
+        363,
+        356
+      ],
+      "OfficeCasesPassed": 9,
+      "savedDOCXIndependentlyChecked": true
+    },
+    {
+      "platform": "Windows",
+      "route": "/",
+      "producerJob": 137710841837,
+      "artifactId": 14822105792,
+      "archiveSha256": "faa16b7862573c04e852ab277b138a614f6113976dbcc715e050cb302f57bc67",
+      "assetEntriesInReceipt": 727,
+      "issuesPassed": [
+        361,
+        362,
+        363,
+        356
+      ],
+      "OfficeCasesPassed": 9,
+      "savedDOCXIndependentlyChecked": true
+    },
+    {
+      "platform": "Windows",
+      "route": "/office/",
+      "producerJob": 137710841837,
+      "artifactId": 14822105792,
+      "archiveSha256": "faa16b7862573c04e852ab277b138a614f6113976dbcc715e050cb302f57bc67",
+      "assetEntriesInReceipt": 727,
+      "issuesPassed": [
+        361,
+        362,
+        363,
+        356
+      ],
+      "OfficeCasesPassed": 9,
+      "savedDOCXIndependentlyChecked": true
+    }
+  ],
+  "allFourAssignedRoutesPassed": true,
+  "nativePackageAcceptance": false,
+  "CIAssetByteRehashByRoot": false,
+  "assetLimit": "Actual archived receipt/report bytes and saved DOCX content independently checked. CI asset directories are absent from archives; root does not claim a separate full asset-byte hash.",
+  "initialPaintLimit": "Browser probes perform document actions before acceptance captures; not untouched native-first-paint certification."
+}

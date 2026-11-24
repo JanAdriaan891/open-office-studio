@@ -1,0 +1,12 @@
+{
+  "argv": [
+    "/usr/sbin/screencapture",
+    "-x",
+    "-l",
+    "46",
+    "/Users/runner/work/open-office-studio/open-office-studio/receipts/presentation/94-runtime-exported-0.png"
+  ],
+  "code": 0,
+  "stdout": "",
+  "stderr": ""
+}

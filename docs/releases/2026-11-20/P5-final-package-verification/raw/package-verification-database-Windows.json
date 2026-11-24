@@ -1,0 +1,18 @@
+{
+  "platform": "windows",
+  "programma": "open-database-studio",
+  "versie": "2026.48.1",
+  "pakketten": [
+    {
+      "naam": "Open Database Studio_2026.48.1_x64-setup.exe",
+      "bytes": 41078608,
+      "sha256": "42fb7d23811d53b8ac44638887e42dd150a56b3d01603f3e5185b5a3ecf40130",
+      "controles": [
+        "NSIS-archief leesbaar",
+        "programma en WebView2-loader x64",
+        "WebView2-bootstrapper aanwezig"
+      ]
+    }
+  ],
+  "installatie_en_native_bediening": "niet_gecontroleerd"
+}

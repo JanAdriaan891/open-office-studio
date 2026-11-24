@@ -1,0 +1,137 @@
+{
+  "source": "dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b",
+  "run": 45151872444,
+  "artifact": 14806508110,
+  "archiveSha256": "82aa18ab0f85bff812cf808520ad4e49c86bd2cc2eb73ac4c123b1f33165ccfd",
+  "allArchivePayloadHashesVerified": 168,
+  "ownerProofGitCommit": "d3b0ece6ec4652e8a99f7fb8008e973e1658616d",
+  "copied": [
+    {
+      "path": "artifact-origin.json",
+      "sha256": "f09c2cfa15158df8b84f05e86c3399bff22b16b1a476f1c63f06547a271bbde8",
+      "bytes": 902
+    },
+    {
+      "path": "identity.json",
+      "sha256": "3bae103b44c7e3ee4a87df1a680b3c66f89c8f2767d89883dbef60b5a8acb847",
+      "bytes": 1525
+    },
+    {
+      "path": "owner-audit.json",
+      "sha256": "68621be8a0458f3d15f4978cbc21eb394cb1a5f5abbc1794e8bcd1a3df43dce7",
+      "bytes": 7106
+    },
+    {
+      "path": "report.json",
+      "sha256": "c08c08d7ce41e265839168883cdf8eabdafedc5ded99bd9f3cf58d050393e1ed",
+      "bytes": 82909
+    },
+    {
+      "path": "zip-audit.json",
+      "sha256": "409b4180f7a054612f999242758e3ebeefa116e197be752c3c9dce3096f4e7ed",
+      "bytes": 21871
+    },
+    {
+      "path": "native-control-preflight/native-preflight-private-copy.docx",
+      "sha256": "df47cfa984af7defc466877ccdc17431163c7fa0fbe3c43e4e7095d70c0d1b26",
+      "bytes": 7480
+    },
+    {
+      "path": "native-original-acceptance/native-original-private-copy.docx",
+      "sha256": "0bc1651a67dcadf6b12fadb91508d2ea28506d3edbb2f2eb4138143578d24683",
+      "bytes": 36734
+    },
+    {
+      "path": "package-origin/artifact-origin.json",
+      "sha256": "d6d3226cea700581a0c475d3a41351e21a05e4922495c79639994bddc3a04d87",
+      "bytes": 17071
+    },
+    {
+      "path": "package-origin/identity.json",
+      "sha256": "63b0b1c33ba4e405cb559ae396e9f831eb7658aed51a55ef6a5ceb851af27981",
+      "bytes": 1373
+    },
+    {
+      "path": "package-origin/request.json",
+      "sha256": "3cea8a4527c21d2b9fef938d2385ce59248d85446f7dba8374f265e9bc50c607",
+      "bytes": 1076
+    },
+    {
+      "path": "saved-epub356-control/after-maximize.png",
+      "sha256": "fd9aebcfe6dc00b4badef3d438458c97fdbd084ad3013b80dec84a8bfc69e6d5",
+      "bytes": 131302
+    },
+    {
+      "path": "saved-epub356-control/initial-ready.png",
+      "sha256": "0992d7e911a703e7b8a37cf54eb79f871d4ffe30331c0bf2845afd4335f4c5ea",
+      "bytes": 171863
+    },
+    {
+      "path": "table-original361/after-maximize.png",
+      "sha256": "6415b16ec3693905f6dfd05b0a205df065f0209b073bafa17413ee963bf005cb",
+      "bytes": 82023
+    },
+    {
+      "path": "table-original361/initial-ready.png",
+      "sha256": "d8ff2f0768e59d237d0ade453eacdc93ca5221b43599b6a0787f8bcb6247272c",
+      "bytes": 135723
+    },
+    {
+      "path": "native-control-preflight/before-input/original-display.png",
+      "sha256": "3da4dc4e1f5506d82a1fe09422705314d55e11a21704751d63571486ec630073",
+      "bytes": 187031
+    },
+    {
+      "path": "native-control-preflight/before-input/target-receipt.json",
+      "sha256": "4c5ad9ce5603afb18744f70b678e26713ec5dcb9be82e65bebc573dfa5879ea7",
+      "bytes": 2861
+    },
+    {
+      "path": "native-control-preflight/reopened-before-input/original-display.png",
+      "sha256": "343ee5f9fbcfd977d7be518ac39ccc8c164dd44457d441157d047682b805d3a4",
+      "bytes": 186981
+    },
+    {
+      "path": "native-control-preflight/reopened-before-input/target-receipt.json",
+      "sha256": "f00ae944d5078232a8f7c4ec8c98eadb19780f8cabdd62f02cac6e104c35c497",
+      "bytes": 2896
+    },
+    {
+      "path": "native-original-acceptance/original-before-input/original-display.png",
+      "sha256": "e202aa91e36ab458115aefa09b0c6f9767a5dc050d39f5d3a66a08dd3a3f81f4",
+      "bytes": 138247
+    },
+    {
+      "path": "native-original-acceptance/original-before-input/target-receipt.json",
+      "sha256": "759b219868614142d8d9e8ea2d6b1e22eca394e9acd70392a6e274198ef80237",
+      "bytes": 4136
+    },
+    {
+      "path": "native-original-acceptance/original-before-persistent-insert/target-receipt.json",
+      "sha256": "2e99284a71402301b6ec44bd9e335a78d1363f570c5b63383aae70237657ab57",
+      "bytes": 4190
+    },
+    {
+      "path": "native-original-acceptance/reopened-original-before-input/original-display.png",
+      "sha256": "e225b944334d104542308bdc2ed442f4651c2c94fe59d72ab1db9392422a93ec",
+      "bytes": 138298
+    },
+    {
+      "path": "native-original-acceptance/reopened-original-before-input/target-receipt.json",
+      "sha256": "f98935b72314f138e7f990dfe016ab59bdb04bb8a75c60df952fd6d7b34ae06e",
+      "bytes": 4152
+    }
+  ],
+  "savedTableXMLMatchesOwnerOracle": true,
+  "rootViewedOriginalImages": [
+    "table-original361/initial-ready.png",
+    "native-original-acceptance/reopened-original-before-input/original-display.png"
+  ],
+  "rootVisualObservation": "Original alpha/beta/omega/delta readable before first input and after saved-table cold reopen.",
+  "scope": "Mac359 body and bounded361 original-table Undo/Redo/save/fullquit/freshPIDreopen core; NOT full361 Tab/Find/two-document acceptance",
+  "cleanup": {
+    "ownedAppClosed": true,
+    "ownedAppContainerRemoved": true
+  },
+  "finalSignedSuiteOrStandaloneAcceptance": false
+}

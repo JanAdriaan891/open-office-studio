@@ -1,0 +1,200 @@
+{
+  "schemaVersion": 1,
+  "application": "04fa6cd43b84e3f59fb9d5055bb2d00dde351a47",
+  "tree": "94fa38c20b51a73e4912964f37f0e1a659b0fb1b",
+  "qaSource": "22b82fda992632976ca1b84a78f8335bad7ee14b",
+  "entries": [
+    {
+      "file": "P4-browser/Linux/hosted/356-report.json",
+      "bytes": 755,
+      "sha256": "ebd40d8285d5ea522c8b9f6cf8f986e274f6e107de566462b57677160b28e56f",
+      "kind": "Original P4 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P4-browser/Linux/hosted/356-saved.docx",
+      "bytes": 7473,
+      "sha256": "516737dc7cdd5d69fc064d669dfedb39cd2e00f8b3983084978d04b96e047a07",
+      "kind": "Original P4 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P4-browser/Linux/hosted/361-report.json",
+      "bytes": 94108,
+      "sha256": "9c3691e490a5be5062711e28dd5b99c234819cb47ed7b4408abf05b9449050b1",
+      "kind": "Original P4 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P4-browser/Linux/hosted/362-report.json",
+      "bytes": 474381,
+      "sha256": "113e470095e56c866ab351ebd7f65a763782f8c3aedfef045d7c18aa1b35f507",
+      "kind": "Original P4 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P4-browser/Linux/hosted/363-report.json",
+      "bytes": 84635,
+      "sha256": "6d3275c39d044564b2a1fb7797c1188bffa175f417f539a0767935dc67ae843b",
+      "kind": "Original P4 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P4-browser/Linux/hosted/build-receipt.json",
+      "bytes": 78655,
+      "sha256": "6a56d446340b1c5a8167cd05b43830b81155e89b7829023521e8a42c485dc2e8",
+      "kind": "Original P4 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P4-browser/Linux/hosted/office-report.json",
+      "bytes": 1673,
+      "sha256": "43e5b435eacfcd33a89fc5b66be0ceb3ba753e823f41fe3a920e04f77dae609d",
+      "kind": "Original P4 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P4-browser/Linux/hosted/summary.json",
+      "bytes": 1882,
+      "sha256": "72e7d603df71aae7e07313f2ccff569b80f664eef9ae40263cabb69fabbfbf66",
+      "kind": "Original P4 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P4-browser/Linux/normal/356-report.json",
+      "bytes": 748,
+      "sha256": "d363a5e14a594d18edbdb4f639a7a280f0773f3eaca89867fcce4f8cd24c1c12",
+      "kind": "Original P4 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P4-browser/Linux/normal/356-saved.docx",
+      "bytes": 7472,
+      "sha256": "bb042d074ede9f337fda77ba16a3f2377551024d4cf39e2b47b0c86de0bc65a4",
+      "kind": "Original P4 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P4-browser/Linux/normal/361-report.json",
+      "bytes": 94086,
+      "sha256": "5d677dc0cb7d74559f59f61552fe81dffca2e0f6674393a954912e8293b84865",
+      "kind": "Original P4 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P4-browser/Linux/normal/362-report.json",
+      "bytes": 474360,
+      "sha256": "3ebe92f54dab1b3e48d2729c8f7cd8877c0418e8932421b98cbeb9c95f6ab2c1",
+      "kind": "Original P4 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P4-browser/Linux/normal/363-report.json",
+      "bytes": 84620,
+      "sha256": "2826262b6159d014cfd57ce78601f80df257cf4f4f049cb14886ae991912812c",
+      "kind": "Original P4 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P4-browser/Linux/normal/build-receipt.json",
+      "bytes": 78647,
+      "sha256": "cbc6803f48af252f9c77d48b116fc0578927dd3478efb51becb5b23d23f1320e",
+      "kind": "Original P4 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P4-browser/Linux/normal/office-report.json",
+      "bytes": 1666,
+      "sha256": "e7983f0581c442db8212ab3607ada51910275743011308b00e5c9b393a9add77",
+      "kind": "Original P4 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P4-browser/Linux/normal/summary.json",
+      "bytes": 1875,
+      "sha256": "6f2e052a1454ffe2c55ff0465158629bdb7bc5b693a9d03ee1d32b3a407f39f9",
+      "kind": "Original P4 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P4-browser/Windows/hosted/356-report.json",
+      "bytes": 755,
+      "sha256": "ebd40d8285d5ea522c8b9f6cf8f986e274f6e107de566462b57677160b28e56f",
+      "kind": "Original P4 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P4-browser/Windows/hosted/356-saved.docx",
+      "bytes": 7472,
+      "sha256": "561c4d7ec5c73d0a01ea247b97d97e9f22af2d3e85ba126621ef8003b7387619",
+      "kind": "Original P4 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P4-browser/Windows/hosted/361-report.json",
+      "bytes": 94101,
+      "sha256": "180f26e05092e456e838c249b7a9f13f4b6693edbbe70f52a6d6e435b755580a",
+      "kind": "Original P4 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P4-browser/Windows/hosted/362-report.json",
+      "bytes": 482235,
+      "sha256": "cc5e9728904ed467cfaba2a1f5e79c50aa55688d7b980dbc9825870f52b81f6e",
+      "kind": "Original P4 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P4-browser/Windows/hosted/363-report.json",
+      "bytes": 84635,
+      "sha256": "400f0757194b4816156a745a66020d3c9d679e7ebabd69dd9246fd1aa044665c",
+      "kind": "Original P4 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P4-browser/Windows/hosted/build-receipt.json",
+      "bytes": 78655,
+      "sha256": "b4cb1ef8e862d710b6318408dd867c72f22c6642ac2ec3a0391a010f2ad20c82",
+      "kind": "Original P4 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P4-browser/Windows/hosted/office-report.json",
+      "bytes": 1673,
+      "sha256": "7a6d52e469796c6c365834eedaa0d4c247c78df3124d68e91ed9e764b113540d",
+      "kind": "Original P4 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P4-browser/Windows/hosted/summary.json",
+      "bytes": 1882,
+      "sha256": "ea2297f766bb51ff02a9607dae77a08e72c12d025b22dc8d482b4cf08c083775",
+      "kind": "Original P4 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P4-browser/Windows/normal/356-report.json",
+      "bytes": 748,
+      "sha256": "d363a5e14a594d18edbdb4f639a7a280f0773f3eaca89867fcce4f8cd24c1c12",
+      "kind": "Original P4 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P4-browser/Windows/normal/356-saved.docx",
+      "bytes": 7472,
+      "sha256": "8631ef53f4c8cddfc01b6adc164411acc1ca7c543aca60a34fca7f6c26fe1371",
+      "kind": "Original P4 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P4-browser/Windows/normal/361-report.json",
+      "bytes": 94079,
+      "sha256": "11d9875c1d713a5188e736109928f2ae8508182c2c3356e3bcda75a9a0e58369",
+      "kind": "Original P4 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P4-browser/Windows/normal/362-report.json",
+      "bytes": 482207,
+      "sha256": "3da41ec1cdfca6535c806039d394097791bddd0db27ca7ac4bac610bd5f3fd1e",
+      "kind": "Original P4 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P4-browser/Windows/normal/363-report.json",
+      "bytes": 84620,
+      "sha256": "4e08fa4998a0fb1d7476a8976f9979719a64205d8bc147c05ec481135f1431bc",
+      "kind": "Original P4 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P4-browser/Windows/normal/build-receipt.json",
+      "bytes": 78647,
+      "sha256": "7ef65fbcdfd399bb9d7e20eceed55497205836020a758fc5bd9e7456488cc080",
+      "kind": "Original P4 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P4-browser/Windows/normal/office-report.json",
+      "bytes": 1666,
+      "sha256": "23cffd051d267fb7214466edf9f4f8959c89500653f644fc935e0b9dc7e6f4bb",
+      "kind": "Original P4 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P4-browser/Windows/normal/summary.json",
+      "bytes": 1875,
+      "sha256": "fbec10f574de0d3816bc57968fcf2a93818d2683d8ed5f35862b95e30aaadefc",
+      "kind": "Original P4 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    }
+  ]
+}

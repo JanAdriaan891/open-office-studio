@@ -1,0 +1,11 @@
+{
+  "run": 45361373078,
+  "attempt": 1,
+  "job": 138332599919,
+  "qaCommit": "749c80e4fa41b036c71f72685f132428609fc488",
+  "jobConclusion": "success",
+  "artifactId": 14905680506,
+  "artifactBytes": 2346736,
+  "artifactSha256": "6b8ea5d2d683a6c6d2ddd3e0ba6bde2d8543bd13aa21ba28455f365c8c0150cb",
+  "origin": "Exact coordinator pin plus existing operator reader official-digest attestation; no fresh API/download in this audit."
+}

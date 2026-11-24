@@ -1,0 +1,43 @@
+{
+  "source": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+  "tree": "e30879fd772871e690847c061ef66e6b81808a05",
+  "harness": "6bff15bf7a4b529e389460b6c0ffa397cfaa1e9a",
+  "run": 45183129618,
+  "rows": [
+    {
+      "platform": "macOS",
+      "scope": "field-sdk",
+      "source": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+      "status": "passed",
+      "sdkChecks": 44,
+      "paintObservations": null,
+      "savedDocumentsIndependentlyAudited": 2,
+      "originalPNGVisualReview": "not applicable: SDK content checks",
+      "nativeAcceptance": false
+    },
+    {
+      "platform": "macOS",
+      "scope": "field-normal",
+      "source": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+      "status": "passed",
+      "sdkChecks": null,
+      "paintObservations": 4,
+      "savedDocumentsIndependentlyAudited": 3,
+      "originalPNGVisualReview": "reused exact Git evidence8a53e729: reused-original-png-review.json; original PNG SHA matches",
+      "nativeAcceptance": false
+    },
+    {
+      "platform": "macOS",
+      "scope": "field-hosted",
+      "source": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+      "status": "passed",
+      "sdkChecks": null,
+      "paintObservations": 4,
+      "savedDocumentsIndependentlyAudited": 3,
+      "originalPNGVisualReview": "reused exact Git evidence8a53e729: reused-original-png-review.json; original PNG SHA matches",
+      "nativeAcceptance": false
+    }
+  ],
+  "allAssignedPlatformsPassed": true,
+  "nativeAcceptance": false
+}

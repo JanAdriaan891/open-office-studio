@@ -1,0 +1,16 @@
+{
+  "app": {
+    "windows": [
+      {
+        "label": "main",
+        "title": "Open Office Studio",
+        "decorations": false,
+        "width": 1440,
+        "height": 950,
+        "minWidth": 800,
+        "minHeight": 600,
+        "url": "index.html?offscreenReplay=0"
+      }
+    ]
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "platform": "linux",
+  "programma": "open-writer-studio",
+  "versie": "2026.48.1",
+  "pakketten": [
+    {
+      "naam": "Open Writer Studio_2026.48.1_amd64.deb",
+      "bytes": 383844254,
+      "sha256": "16728e64e28fa43543fdc19332867aebf310a4bfa7a7ab4b337f102bafae5dbd",
+      "controles": [
+        "DEB-versie en architectuur",
+        "runtime-afhankelijkheden opgegeven",
+        "ELF x64 en bibliotheken gevonden",
+        "snelkoppeling en pictogram aanwezig"
+      ]
+    },
+    {
+      "naam": "Open Writer Studio_2026.48.1_amd64.AppImage",
+      "bytes": 429861368,
+      "sha256": "bd800d149bea0a23ea0175fc9b81b9cb7ab381c9baa313f0b4e26a0a34efc5d9",
+      "controles": [
+        "AppImage type 2",
+        "SquashFS volledig uitgepakt",
+        "AppRun uitvoerbaar",
+        "ELF x64 en bibliotheken gevonden",
+        "snelkoppeling en pictogram aanwezig"
+      ]
+    }
+  ],
+  "installatie_en_native_bediening": "niet_gecontroleerd"
+}

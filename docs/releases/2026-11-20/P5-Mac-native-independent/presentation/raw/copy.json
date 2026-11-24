@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "/usr/bin/ditto",
+    "/Users/runner/work/open-office-studio/open-office-studio/receipts/presentation/readonly-mount/Open Presentation Studio.app",
+    "/Users/runner/work/open-office-studio/open-office-studio/receipts/presentation/installed/Open Presentation Studio.app"
+  ],
+  "code": 0,
+  "stdout": "",
+  "stderr": ""
+}

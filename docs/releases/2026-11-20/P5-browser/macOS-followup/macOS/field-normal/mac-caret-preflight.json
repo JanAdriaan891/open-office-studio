@@ -1,0 +1,85 @@
+{
+  "method": "Actual Meta+Home then End; read-only DOM caret versus current-WASM projection of original atomic model end",
+  "helperSha256": "5c3a9228c44e265d20bbd0633f61bbaa496728bde163a75c1f50130bca20b72d",
+  "sourcePaintSha256": "4d0dab9d12b8a747a2be2fb6a14e7abde05f0cffdf127379cc3c7390a78ca0fb",
+  "projectionOracle": {
+    "kind": "Read-only immutable-display geometry evidence; no keyboard or native acceptance pass",
+    "inputSha256": "b21b029956c60102c693a30a0b1c0924067edb47ace85a218874c1b76faa0f10",
+    "wasmSha256": "c5a59ce0d980cd7f85775aaf283bcac1c19fba976b47bbe08c0387e2ca7d2569",
+    "field": {
+      "kind": "text",
+      "text": "Report Title",
+      "x": 225.76,
+      "baselineY": 136.021,
+      "width": 364.479,
+      "font": "400 42.667px Thorndale, sans-serif",
+      "color": "#000000",
+      "letterSpacing": 5.333,
+      "allCaps": true,
+      "docStart": 1,
+      "docEnd": 2,
+      "blockKey": "body:p0",
+      "fragmentDocStart": 0,
+      "fragmentDocEnd": 3,
+      "fromLine": 0,
+      "toLine": 1,
+      "lineIndex": 0,
+      "field": {
+        "category": "OTHER",
+        "type": "DOCVARIABLE",
+        "instruction": "DOCVARIABLE Report"
+      },
+      "logicalOrder": 0,
+      "bidiLevel": 0,
+      "lang": "en-US"
+    },
+    "forwardAtFieldEnd": [],
+    "backwardFullAtomicField": [
+      {
+        "pageIndex": 0,
+        "x": 225.76,
+        "y": 93.35399999999998,
+        "width": 30.373249999999985,
+        "height": 53.33375000000001
+      }
+    ],
+    "semanticFieldEnd": 2,
+    "fullPaintAdvanceEnd": 590.239,
+    "queriedCaretEdge": 256.13325,
+    "sourceFormulaFirstCollapsedStop": 256.13325
+  },
+  "fontBinding": {
+    "packageFontSha256": "76d04c18ea243f426b7de1f3ad208e927008f961dc5945e5aad352d0dfde8ee8",
+    "canvasFont": "42.667px Thorndale, sans-serif"
+  },
+  "canvasTransform": {
+    "a": 1,
+    "b": 0,
+    "c": 0,
+    "d": 1,
+    "e": 0,
+    "f": 0
+  },
+  "ready": true,
+  "focused": true,
+  "expectedInkRight": 888.2505395507812,
+  "expectedBaseline": 458.625,
+  "expectedProjectedModelEnd": 557.13325,
+  "projectionToleranceCssPx": 0.25,
+  "carets": [
+    {
+      "x": 557.125,
+      "y": 415.953125,
+      "width": 2,
+      "height": 53.328125
+    }
+  ],
+  "atEnd": {
+    "x": 557.125,
+    "y": 415.953125,
+    "width": 2,
+    "height": 53.328125
+  },
+  "fullInkEdgeMatched": false,
+  "scope": "Driver preflight only; no model or selection setter, no document mutation"
+}

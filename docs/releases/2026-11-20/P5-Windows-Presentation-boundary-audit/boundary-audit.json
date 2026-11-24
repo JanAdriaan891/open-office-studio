@@ -1,0 +1,146 @@
+{
+  "status": "FAILED canvas editable-focus guard; functional typing/save/reopen not reached. Root cause remains unproved.",
+  "run": 45353530654,
+  "job": 138305718571,
+  "attempt": 1,
+  "qaCommit": "07343ca93ee7f95575f2dbffe6cc87d69ca91358",
+  "applicationCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+  "applicationTree": "e30879fd772871e690847c061ef66e6b81808a05",
+  "artifact": 14901826518,
+  "archiveBytes": 195419,
+  "archiveSHA256": "6b6d82efd7133cfc1a129fe905aee48fa1000b569885a09e803120df08c3724a",
+  "all18MembersByteCompared": true,
+  "members": [
+    {
+      "member": "p4-native-presentation/1-Close-2.json",
+      "bytes": 348,
+      "sha256": "b8a342dd317136d75b60e4174f188d123e721334aaa5f76bd8bb61883ec2bc44"
+    },
+    {
+      "member": "p4-native-presentation/1-Focus-0.json",
+      "bytes": 348,
+      "sha256": "20610686693210313cb983793fdf7c6a49bd1a08627182f1634e9cb44cb8a0e8"
+    },
+    {
+      "member": "p4-native-presentation/baseline.json",
+      "bytes": 157,
+      "sha256": "1ce6b0df48a2f9997d8bfdc798fa13f02ddff51e4a0d0572176e244d6f796c65"
+    },
+    {
+      "member": "p4-native-presentation/failure.png",
+      "bytes": 66134,
+      "sha256": "8f8dba8eaa565ba6b08e4a03e29f9799f6eff9e7ee9f9a54ee55f844bbb94eb2"
+    },
+    {
+      "member": "p4-native-presentation/fixtures/manifest.json",
+      "bytes": 1084,
+      "sha256": "dcb8a71a5b9b0a0f36065b9dccb501a8b5df6bddfd70f11d614df6736ae7ed7a"
+    },
+    {
+      "member": "p4-native-presentation/fixtures/Standalone23.docx",
+      "bytes": 36568,
+      "sha256": "d9086d4aa437d814620135a6dffb06ff940a9dbf5c34a6589d537d9112c41f74"
+    },
+    {
+      "member": "p4-native-presentation/fixtures/Standalone23.pptx",
+      "bytes": 28245,
+      "sha256": "ef220706f4ac866df87eb848f24a1250732fdecefe4bd34b579f83e1836c7ce9"
+    },
+    {
+      "member": "p4-native-presentation/fixtures/Standalone23.sqlite",
+      "bytes": 8192,
+      "sha256": "506d230347f4895adf45967e536dd3b0b4997374ce5c7e7f74e5ef99d985530e"
+    },
+    {
+      "member": "p4-native-presentation/fixtures/Standalone23.xlsx",
+      "bytes": 4766,
+      "sha256": "0f3ba70a70215b2814959b2b70e651a63f4b497c66b7eedbf9fb2ead2f2ee544"
+    },
+    {
+      "member": "p4-native-presentation/initial-ready.png",
+      "bytes": 65065,
+      "sha256": "1d92779e501f65f129945f83a561c4574830788292886eaa03db1446ad078b70"
+    },
+    {
+      "member": "p4-native-presentation/initial.stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "p4-native-presentation/initial.stdout.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "member": "p4-native-presentation/profile-cleanup.json",
+      "bytes": 263,
+      "sha256": "d81a9a2e968a0204b1447af1ad7cc9b08c305d4634919c69f3c09c7ecb702d12"
+    },
+    {
+      "member": "p4-native-presentation/report.json",
+      "bytes": 9051,
+      "sha256": "0b89187a9a53918703d06abdda42bac3c9f8c590684132d8a73fc6fb1055c013"
+    },
+    {
+      "member": "p4-native-presentation/webview-policy-before.json",
+      "bytes": 337,
+      "sha256": "bc1196e58ecf8f23c4b672a91a2a13b59b438fd49a45ec31aff994d7fd5a7bd3"
+    },
+    {
+      "member": "standalone-windows-package/package.json",
+      "bytes": 1667,
+      "sha256": "8cd02ffe9db774a8feee070f7ee3ac91f661e42dc69d3f9bea3efd5e2e62982f"
+    },
+    {
+      "member": "standalone-windows-package/canonical-package-report.json",
+      "bytes": 606,
+      "sha256": "3936185739408b9a0890251e233f73f9c0ee2802cc4fad74c658d47c47dd712f"
+    },
+    {
+      "member": "standalone-windows-package/consumer-binding.json",
+      "bytes": 1460,
+      "sha256": "3d1e61800dca30d620b30757eb62f9fdfbacbdc39f624416917ce38bb0473a78"
+    }
+  ],
+  "sourceCasesSha256": "244d6d327d92b2375ddc4d57a5723c2a724d4be58d1aed890da9d809640b8297",
+  "sourceNativeSha256": "31884fc4f7294e36bbda11663b1146c5cfcb522da8c0b6cc587f2d2fb1fe6ab8",
+  "reportSha256": "0b89187a9a53918703d06abdda42bac3c9f8c590684132d8a73fc6fb1055c013",
+  "originalFailurePngSha256": "8f8dba8eaa565ba6b08e4a03e29f9799f6eff9e7ee9f9a54ee55f844bbb94eb2",
+  "confirmedBeforeTimeout": [
+    "App process1488/own WebView and exact source input tab were opened; native OS Focus step reports foregroundPid1488.",
+    "The PPTX canvas wait, bounds assertion and source-derived hit point guards completed.",
+    "The awaited Playwright canvas.dblclick request completed; its next hit-point record exists. This establishes dispatched double-click request, not actual DOM text focus.",
+    "The 20-second activeElement eligibility predicate did not return true."
+  ],
+  "notReached": [
+    "No actualSlideEditor DOM dump record.",
+    "No qa.checkFocus(presentation-text) assertion or corresponding record.",
+    "No page.keyboard.type(STANDALONE23 PRESENTATION EDIT).",
+    "No following Escape, New Slide click, thumbnail/two-slide checks, saveOffice, saved output oracle or new-PID reopen."
+  ],
+  "screenshotReview": {
+    "originalViewedDirectly": true,
+    "observation": "The original image shows the unchanged title text, dashed title text-box outline and visible caret-like vertical mark inside the title; it remains one slide. These pixels do not establish document.activeElement or keyboard eligibility.",
+    "fullCanvasEditAcceptance": false
+  },
+  "missingEvidence": [
+    "No raw DOM/activeElement dump was captured because the predicate timed out before its record.",
+    "No text-input event was sent after that guard, so the proof cannot establish that Presentation ignored typed text."
+  ],
+  "cannotConclude": [
+    "Exact product-versus-driver/selector/focus cause.",
+    "Whether the visible caret corresponds to an eligible activeElement, another focus host or a different editing state.",
+    "That no editable control exists, or that canvas typing/save is functionally broken.",
+    "That the successful Mac Outline route proves Windows canvas behavior."
+  ],
+  "cleanup": {
+    "residualOwnedWebviews": [],
+    "policyRestored": true,
+    "ownedInstallUninstalled": true,
+    "ownedAppExited": true,
+    "ownedNativeProfilesDisposed": true,
+    "ownedTemporaryProfileDisposed": true
+  },
+  "cleanupClaim": "Failure cleanup Close/WM_CLOSE and disposal only, not functional normal-save/fullquit/reopen acceptance.",
+  "scopeLimit": "Boundary/source-order audit only; no SDK focus cause analysis or patch; no new run, download, GUI or Git write."
+}

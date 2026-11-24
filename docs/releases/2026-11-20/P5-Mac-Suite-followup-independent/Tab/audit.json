@@ -1,0 +1,218 @@
+{
+  "verdict": "PASS bounded Tab/newrow/history criteria only",
+  "rawStatus": "tab-history-oracle-observed",
+  "rawNativePass": false,
+  "rawDiagnosticOnly": true,
+  "run": 45355259315,
+  "attempt": 1,
+  "job": 138311374083,
+  "artifact": 14901559361,
+  "artifactSHA256": "ec2b060060c0772a754622cdfe4aa247e698ef7761cdabaf71456ec64547cb34",
+  "artifactBytes": 1854207,
+  "reportSHA256": "6091f4c555d6d5293081370308e0a07bb3a1e852115159718ce8b8954328a79b",
+  "qaCommit": "b052808d6fcfed34c7543176f0a827891b02a60d",
+  "applicationCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+  "applicationTree": "e30879fd772871e690847c061ef66e6b81808a05",
+  "criteria": {
+    "exactThreeTabsAndNewrow4x3": true,
+    "Undo1EmptyFourthRow": true,
+    "Undo2Original3x3": true,
+    "Redo1EmptyFourthRow": true,
+    "Redo2Newrow4x3": true,
+    "rawObservedNativePassFalsePreserved": true
+  },
+  "independentXML": {
+    "361-remaining-A.docx": {
+      "rows": [
+        [
+          "alpha",
+          "beta",
+          ""
+        ],
+        [
+          "",
+          "",
+          "omega"
+        ],
+        [
+          "delta",
+          "",
+          ""
+        ],
+        [
+          "newrow",
+          "",
+          ""
+        ]
+      ],
+      "text": "alphabetaomegadeltanewrow",
+      "sha256": "05c254118293b51f4eafa77387bb03114448cb3a8cc8ff38031bec2a1177fdf4"
+    },
+    "after-three-Tabs-newrow-CmdS.docx": {
+      "rows": [
+        [
+          "alpha",
+          "beta",
+          ""
+        ],
+        [
+          "",
+          "",
+          "omega"
+        ],
+        [
+          "delta",
+          "",
+          ""
+        ],
+        [
+          "newrow",
+          "",
+          ""
+        ]
+      ],
+      "text": "alphabetaomegadeltanewrow",
+      "sha256": "f5fcee100a0b2f0176edd17bd97b799ed24153d7e241f47ae720fd6e270ae827"
+    },
+    "Undo-1-saved.docx": {
+      "rows": [
+        [
+          "alpha",
+          "beta",
+          ""
+        ],
+        [
+          "",
+          "",
+          "omega"
+        ],
+        [
+          "delta",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          ""
+        ]
+      ],
+      "text": "alphabetaomegadelta",
+      "sha256": "f1f7b7bb33f10b224c38c6bdcf7adebbf830df34e407a95e471358e2f43fe800"
+    },
+    "Undo-2-saved.docx": {
+      "rows": [
+        [
+          "alpha",
+          "beta",
+          ""
+        ],
+        [
+          "",
+          "",
+          "omega"
+        ],
+        [
+          "delta",
+          "",
+          ""
+        ]
+      ],
+      "text": "alphabetaomegadelta",
+      "sha256": "256f920b0b832657bd0416115cf4fa28f18fc52207d31b6a611041376d06ef91"
+    },
+    "Redo-1-saved.docx": {
+      "rows": [
+        [
+          "alpha",
+          "beta",
+          ""
+        ],
+        [
+          "",
+          "",
+          "omega"
+        ],
+        [
+          "delta",
+          "",
+          ""
+        ],
+        [
+          "",
+          "",
+          ""
+        ]
+      ],
+      "text": "alphabetaomegadelta",
+      "sha256": "0fc1bc9c9890f80c61556c42a0692f4caa69a868f3e0395dff21b14b40048b0c"
+    },
+    "Redo-2-saved.docx": {
+      "rows": [
+        [
+          "alpha",
+          "beta",
+          ""
+        ],
+        [
+          "",
+          "",
+          "omega"
+        ],
+        [
+          "delta",
+          "",
+          ""
+        ],
+        [
+          "newrow",
+          "",
+          ""
+        ]
+      ],
+      "text": "alphabetaomegadeltanewrow",
+      "sha256": "05c254118293b51f4eafa77387bb03114448cb3a8cc8ff38031bec2a1177fdf4"
+    }
+  },
+  "originalPNGReview": [
+    {
+      "member": "mac361-tab-history-native/native361-Tab-save-oracle/after-save-original-display.png",
+      "sha256": "20c5eea9aad370becdb78068afa12424afe9f1cace54707ca4ed2e8c60394e83",
+      "originalViewedDirectly": true,
+      "observation": "Visible alpha/beta/omega/delta and newrow in fourth row; clean title and Saved notification. No complete typography claim."
+    }
+  ],
+  "ownPID": 2449,
+  "nativeCmdQAndCleanOwnedContainer": true,
+  "newPIDReopenNewlyExecutedInThisScope": false,
+  "reusedCoreLifecycles": {
+    "control": [
+      4334,
+      5393
+    ],
+    "table": [
+      5961,
+      7589
+    ],
+    "auditSHA256": "61b72d0d2647a8e2e5e23832e1f0ad6b92bfe7235c3b74db604b1afe8ce7fbbd",
+    "reportSHA256": "ed6409f1f36a8a327056b2806279d405b9fa749ce0de3dda3e9784b60f7d3ccd"
+  },
+  "sourceAndPackageFoundationExactToAuditedCore": true,
+  "freshInstalledPlistAndExecutableBindingsVerified": true,
+  "signedAttestationLogsHashVerified": true,
+  "signatureCommandsActuallyReverifiedByAuditor": false,
+  "profileCreated": true,
+  "profileRemovalExplicitlyAttested": false,
+  "cleanup": {
+    "ownedAppClosed": true,
+    "ownedAppContainerRemoved": true
+  },
+  "limits": [
+    "No overall361/374/stable release acceptance.",
+    "Only relevant same-source core is reused; no cold-reopen was newly run here.",
+    "AX tree retains truncation and raw nativePass=false labels.",
+    "Font substitution/viewport/full fidelity/dependency closure are outside scope.",
+    "Earlier Q/CmdS preflight forensic failure remains unexplained and is not resolved by these independent positives.",
+    "Only six small API metadata requests were newly made; no ZIP/installer download, GUI, CI, fix or Git write."
+  ]
+}

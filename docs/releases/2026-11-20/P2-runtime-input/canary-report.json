@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "scope": "runtime-only headless version and synthetic TXT-to-FODT canary; no Office GUI or format-matrix acceptance",
+  "versionOutput": "LibreOffice 26.8.2.2 9dea406ab7695df6325b11b0e19fdca8db4b7276",
+  "stdout": "convert /home/runner/work/_temp/p2-runtime-only-_o0_5008/consumer/canary/canary.txt as a Writer document -> /home/runner/work/_temp/p2-runtime-only-_o0_5008/consumer/canary/canary.fodt using filter : OpenDocument Text Flat XML",
+  "marker": "P2_PRIVATE_RUNTIME_ONLY_CANARY_2026_48_1",
+  "outputSha256": "f324792307fa149b8e6e19898542039f10b084fdc85a379178ec004b4004f5c9",
+  "execveTraceSha256": "71aeb1f26ab2dcde7a66d5e3052f2058bb4e81f748ce3de5bd6df3161000f628",
+  "hostLibreOffice": "absent",
+  "environment": {
+    "HOME": "/home/runner/work/_temp/p2-runtime-only-_o0_5008/consumer/canary-home",
+    "XDG_CONFIG_HOME": "/home/runner/work/_temp/p2-runtime-only-_o0_5008/consumer/canary-home/config",
+    "XDG_DATA_HOME": "/home/runner/work/_temp/p2-runtime-only-_o0_5008/consumer/canary-home/data",
+    "PATH": "/usr/bin:/bin",
+    "LANG": "C.UTF-8",
+    "SAL_USE_VCLPLUGIN": "svp"
+  },
+  "os": "PRETTY_NAME=\"Ubuntu 22.04.5 LTS\"\nNAME=\"Ubuntu\"\nVERSION_ID=\"22.04\"\nVERSION=\"22.04.5 LTS (Jammy Jellyfish)\"\nVERSION_CODENAME=jammy\nID=ubuntu\nID_LIKE=debian\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nUBUNTU_CODENAME=jammy\n",
+  "kernel": "Linux 6.8.0-1070-azure x86_64"
+}

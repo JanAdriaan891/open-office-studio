@@ -1,0 +1,70 @@
+{
+  "source": "dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b",
+  "tree": "5a644e397ecc6af5452a49b6404edf953687d1b2",
+  "version": "2026.48.1",
+  "run": 45150438420,
+  "attempt": 1,
+  "selectedJob": {
+    "id": 137610274931,
+    "name": "Bouwen \u2013 Linux",
+    "head_sha": "dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b",
+    "run_attempt": 1,
+    "conclusion": "success",
+    "started_at": "2026-11-23T09:49:22Z",
+    "completed_at": "2026-11-23T10:46:05Z"
+  },
+  "requiredGates": [
+    {
+      "name": "Pakket bouwen (onondertekend)",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 28,
+      "started_at": "2026-11-23T09:58:20Z",
+      "completed_at": "2026-11-23T10:38:39Z"
+    },
+    {
+      "name": "Linux-installers werkelijk uitpakken en controleren",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 33,
+      "started_at": "2026-11-23T10:38:39Z",
+      "completed_at": "2026-11-23T10:40:03Z"
+    },
+    {
+      "name": "Linux native WebKit-interface en private installer controleren",
+      "status": "completed",
+      "conclusion": "success",
+      "number": 37,
+      "started_at": "2026-11-23T10:40:08Z",
+      "completed_at": "2026-11-23T10:43:41Z"
+    }
+  ],
+  "artifact": {
+    "id": 14808939009,
+    "node_id": "MDg6QXJ0aWZhY3QxNDgwODkzOTAwOQ==",
+    "name": "uitgave-Linux",
+    "size_in_bytes": 4444678701,
+    "url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/actions/artifacts/14808939009",
+    "archive_download_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/actions/artifacts/14808939009/zip",
+    "expired": false,
+    "digest": "sha256:904a128efa87e73b6fb58072c208c348a043f86553d614c5d39fb9de83ea3f09",
+    "created_at": "2026-11-23T10:45:59Z",
+    "updated_at": "2026-11-23T10:45:59Z",
+    "expires_at": "2027-02-21T09:49:10Z",
+    "workflow_run": {
+      "id": 45150438420,
+      "repository_id": 1427673882,
+      "head_repository_id": 1427673882,
+      "head_branch": "codex/release-candidate-2026-11-23-p2",
+      "head_sha": "dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b"
+    }
+  },
+  "actualCheckoutWitness": [
+    "2026-11-23T09:49:31.1644174Z [command]/usr/bin/git log -1 --format=%H",
+    "2026-11-23T09:49:31.1666550Z dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b"
+  ],
+  "rawLogSha256": "a7666145185054970d20a33b18150b8b43427ac3c0e861c157c17830a3dc33fb",
+  "rawLogBytes": 1238108,
+  "rootInstallerArchiveBodyDownloadedOrHashed": false,
+  "scope": "Independent official metadata, selected attempt/job/source/time and actual checkout audit. Standalone owner separately hashes full parent once before selective12-package preparation. Root has independently hashed the small runtime proof archive, not this4.44GB installer parent."
+}

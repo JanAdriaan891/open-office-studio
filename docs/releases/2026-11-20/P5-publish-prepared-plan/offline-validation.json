@@ -1,0 +1,13 @@
+{
+  "status": "PASS offline review-only integrity checks",
+  "assetCount": 60,
+  "installerCount": 28,
+  "preparedOtherAssetCount": 32,
+  "sha256sumEntryCount": 58,
+  "directedTestsPassed": 7,
+  "testsScope": "Local actual-evidence positive case and bounded negative controls; no CI or publishing action",
+  "networkPerformed": false,
+  "privateKeyOrGPGUsed": false,
+  "tagMainReleaseWrite": false,
+  "nativeOrAncestryApprovalProven": false
+}

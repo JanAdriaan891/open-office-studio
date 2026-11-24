@@ -1,0 +1,745 @@
+{
+  "application": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+  "tree": "e30879fd772871e690847c061ef66e6b81808a05",
+  "qa": "7be704895534c3095f697292af07dc10d2e5860b",
+  "rows": [
+    {
+      "platform": "Linux",
+      "route": "normal",
+      "issue": 356,
+      "rawReportSha256": "3cfe77c06b6c9b6976f77acbb87d9a893fd19f1938309ac7855898df2fc0e0a8",
+      "sourceChecks": [],
+      "cleanupVerified": true
+    },
+    {
+      "platform": "Linux",
+      "route": "normal",
+      "issue": 361,
+      "rawReportSha256": "de73a3c8f7a552b552e39ea392f4c590a016ca3247fcb590919bb45db5789a9d",
+      "sourceChecks": [
+        {
+          "path": "src/lint/gedeeld.tsx",
+          "gitCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+          "gitBlobLFsha256": "832565e47a27970cbe7762cb0a52e7324be63cdfcdb9f2388073efaee1929a86",
+          "checkoutCRLFsha256": "5c188145332c115185cedd10418c6276a85650926686d3c91598b43a96598c78",
+          "reportedSha256": "832565e47a27970cbe7762cb0a52e7324be63cdfcdb9f2388073efaee1929a86",
+          "matchesGitLF": true,
+          "matchesCheckoutCRLF": false,
+          "normalizationAppliedToEvidence": false
+        },
+        {
+          "path": "src/lint/tekst-kolomfocus.ts",
+          "gitCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+          "gitBlobLFsha256": "2f75f897b6756f0a13fab941233e6661e3f5dade26fcdb78b5f2a5ff5fb9cd88",
+          "checkoutCRLFsha256": "e1c81707f15e9dffbc94ac9e88e4b91f6bfdbd4a6a09ca6fa03870ec4602d33b",
+          "reportedSha256": "2f75f897b6756f0a13fab941233e6661e3f5dade26fcdb78b5f2a5ff5fb9cd88",
+          "matchesGitLF": true,
+          "matchesCheckoutCRLF": false,
+          "normalizationAppliedToEvidence": false
+        },
+        {
+          "path": "scripts/proef-writer-kolom-undo.mjs",
+          "gitCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+          "gitBlobLFsha256": "5a31205e75ad80ea48cc4179059745164fc2407872bb2697d277155c4be39d15",
+          "checkoutCRLFsha256": "3a33f89ce73102970ff344ecbaced6e044d4c0ff49d573ea3d049a9f05611914",
+          "reportedSha256": "5a31205e75ad80ea48cc4179059745164fc2407872bb2697d277155c4be39d15",
+          "matchesGitLF": true,
+          "matchesCheckoutCRLF": false,
+          "normalizationAppliedToEvidence": false
+        }
+      ],
+      "cleanupVerified": true
+    },
+    {
+      "platform": "Linux",
+      "route": "normal",
+      "issue": 362,
+      "rawReportSha256": "909151f59030f66b0e42341a9b339091c0b4dee4c9af829221200476e381d190",
+      "sourceChecks": [
+        {
+          "path": "src/lint/tekst.tsx",
+          "gitCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+          "gitBlobLFsha256": "3e04e86bb12d0ee47b1b55163c644bf5141cd1206dd8247a4c842a45f144a14b",
+          "checkoutCRLFsha256": "94aaf7122c797eb608f8003d6b117aa05595c099845213f31db4dcedc9ef60c4",
+          "reportedSha256": "3e04e86bb12d0ee47b1b55163c644bf5141cd1206dd8247a4c842a45f144a14b",
+          "matchesGitLF": true,
+          "matchesCheckoutCRLF": false,
+          "normalizationAppliedToEvidence": false
+        },
+        {
+          "path": "src/stijl/openaec-office.css",
+          "gitCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+          "gitBlobLFsha256": "2c728ab6a1b976f673d1eb98159e9fe596aaaf6e6a09c3dafe34826d3c61cc42",
+          "checkoutCRLFsha256": "3e2a2ed02c594494cf0fc448ee48e7760206ac77ca521a8a6b11ae2725831681",
+          "reportedSha256": "2c728ab6a1b976f673d1eb98159e9fe596aaaf6e6a09c3dafe34826d3c61cc42",
+          "matchesGitLF": true,
+          "matchesCheckoutCRLF": false,
+          "normalizationAppliedToEvidence": false
+        },
+        {
+          "path": "scripts/proef-writer-linthoogte.mjs",
+          "gitCommit": "7be704895534c3095f697292af07dc10d2e5860b",
+          "gitBlobLFsha256": "c8fc555ddd1990831fffaedf338e19cac10704e5f1ecd965f798a93852158c38",
+          "checkoutCRLFsha256": "c1ffe0ea7fcf11035246aa2b4a7b2c755f42593471dfb9329c7a11c6c183ce15",
+          "reportedSha256": "c8fc555ddd1990831fffaedf338e19cac10704e5f1ecd965f798a93852158c38",
+          "matchesGitLF": true,
+          "matchesCheckoutCRLF": false,
+          "normalizationAppliedToEvidence": false
+        }
+      ],
+      "cleanupVerified": true
+    },
+    {
+      "platform": "Linux",
+      "route": "normal",
+      "issue": 363,
+      "rawReportSha256": "7be30c971dd6d6ad212bbf155c57a94863158136d631ed250d7e42c65b369790",
+      "sourceChecks": [],
+      "cleanupVerified": true
+    },
+    {
+      "platform": "Linux",
+      "route": "normal",
+      "scope": "Office9",
+      "sourceChecks": [
+        {
+          "path": "src/OfficeStudio.tsx",
+          "gitCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+          "gitBlobLFsha256": "ff08de011fc90c0739b50546b22f215381da9c58a5e7c0f565525ff3740245aa",
+          "checkoutCRLFsha256": "c75130c55be4ce94ce98e48a49deb2150c554e3f91d51da9927943c6149066a9",
+          "reportedSha256": "ff08de011fc90c0739b50546b22f215381da9c58a5e7c0f565525ff3740245aa",
+          "matchesGitLF": true,
+          "matchesCheckoutCRLF": false,
+          "normalizationAppliedToEvidence": false
+        },
+        {
+          "path": "src/TabBalk.tsx",
+          "gitCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+          "gitBlobLFsha256": "4b0dd0ea33801207dd0b688461a47175e3354dcf85b706cb2a05ce2cee1fa4c0",
+          "checkoutCRLFsha256": "ce01ac4e8ab22b0232696cdc6cdd483e56ed83796384f5b87c3f7f4df00ebeb8",
+          "reportedSha256": "4b0dd0ea33801207dd0b688461a47175e3354dcf85b706cb2a05ce2cee1fa4c0",
+          "matchesGitLF": true,
+          "matchesCheckoutCRLF": false,
+          "normalizationAppliedToEvidence": false
+        },
+        {
+          "path": "src/export/koppeling.ts",
+          "gitCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+          "gitBlobLFsha256": "590d6faad8017cd982629b2b63207b833ed0d219c9e7c489e2b2e59f7a724ae6",
+          "checkoutCRLFsha256": "483524678891a212e616b40e5b7aae9d54a128cf83149292aae6e2ce853610ec",
+          "reportedSha256": "590d6faad8017cd982629b2b63207b833ed0d219c9e7c489e2b2e59f7a724ae6",
+          "matchesGitLF": true,
+          "matchesCheckoutCRLF": false,
+          "normalizationAppliedToEvidence": false
+        },
+        {
+          "path": "src/export/editorKoppeling.ts",
+          "gitCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+          "gitBlobLFsha256": "8125f620ab52642e416a60ff1a06660a6ae87cb22cea79361dcab3d73470486c",
+          "checkoutCRLFsha256": "edfd7b0b86abd5360d5fcf7c6f2a5e872d63bc71ee190ce3e0d3d92e1132838a",
+          "reportedSha256": "8125f620ab52642e416a60ff1a06660a6ae87cb22cea79361dcab3d73470486c",
+          "matchesGitLF": true,
+          "matchesCheckoutCRLF": false,
+          "normalizationAppliedToEvidence": false
+        }
+      ]
+    },
+    {
+      "platform": "Linux",
+      "route": "normal",
+      "scope": "field374-harness",
+      "sourceChecks": [
+        {
+          "path": "qa/field374/browser.mjs",
+          "gitCommit": "7be704895534c3095f697292af07dc10d2e5860b",
+          "gitBlobLFsha256": "3ad5f492f4334fec4c47e0dc42b9ca77625826e5acb72c630076a3c41d77574a",
+          "checkoutCRLFsha256": "d27b3c848adfe02ddb60c1c53feb5cd7d82bcb439eae08d3765c80966f1ca370",
+          "reportedSha256": "3ad5f492f4334fec4c47e0dc42b9ca77625826e5acb72c630076a3c41d77574a",
+          "matchesGitLF": true,
+          "matchesCheckoutCRLF": false,
+          "normalizationAppliedToEvidence": false
+        },
+        {
+          "path": "qa/field374/contract.mjs",
+          "gitCommit": "7be704895534c3095f697292af07dc10d2e5860b",
+          "gitBlobLFsha256": "c1dcf1696188b851b794e6120533c58f2774fb092e84c70072a84db456fcf35e",
+          "checkoutCRLFsha256": "136ebfecfffb497181a9c97e1e881e67bd7753119797632f259dc1839f3f54ef",
+          "reportedSha256": "c1dcf1696188b851b794e6120533c58f2774fb092e84c70072a84db456fcf35e",
+          "matchesGitLF": true,
+          "matchesCheckoutCRLF": false,
+          "normalizationAppliedToEvidence": false
+        },
+        {
+          "path": "qa/field374/capture.mjs",
+          "gitCommit": "7be704895534c3095f697292af07dc10d2e5860b",
+          "gitBlobLFsha256": "6573821292505f5987c48b3cc01dedbe3c96e75bd5541b0342e50a5cca2ed423",
+          "checkoutCRLFsha256": "d17cd49e63dae6ff93660b4b59b291851f1749b3db17067178b70473272f2f83",
+          "reportedSha256": "6573821292505f5987c48b3cc01dedbe3c96e75bd5541b0342e50a5cca2ed423",
+          "matchesGitLF": true,
+          "matchesCheckoutCRLF": false,
+          "normalizationAppliedToEvidence": false
+        }
+      ]
+    },
+    {
+      "platform": "Linux",
+      "route": "hosted",
+      "issue": 356,
+      "rawReportSha256": "ed7084704e51e2f8a5c9e0bc0c23c45b367dede20c0e281e0c46dc972b730dac",
+      "sourceChecks": [],
+      "cleanupVerified": true
+    },
+    {
+      "platform": "Linux",
+      "route": "hosted",
+      "issue": 361,
+      "rawReportSha256": "48f1f903a1fb12b74ff9f62eacef0c4d07753d99068f1fa95860be6809db4332",
+      "sourceChecks": [
+        {
+          "path": "src/lint/gedeeld.tsx",
+          "gitCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+          "gitBlobLFsha256": "832565e47a27970cbe7762cb0a52e7324be63cdfcdb9f2388073efaee1929a86",
+          "checkoutCRLFsha256": "5c188145332c115185cedd10418c6276a85650926686d3c91598b43a96598c78",
+          "reportedSha256": "832565e47a27970cbe7762cb0a52e7324be63cdfcdb9f2388073efaee1929a86",
+          "matchesGitLF": true,
+          "matchesCheckoutCRLF": false,
+          "normalizationAppliedToEvidence": false
+        },
+        {
+          "path": "src/lint/tekst-kolomfocus.ts",
+          "gitCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+          "gitBlobLFsha256": "2f75f897b6756f0a13fab941233e6661e3f5dade26fcdb78b5f2a5ff5fb9cd88",
+          "checkoutCRLFsha256": "e1c81707f15e9dffbc94ac9e88e4b91f6bfdbd4a6a09ca6fa03870ec4602d33b",
+          "reportedSha256": "2f75f897b6756f0a13fab941233e6661e3f5dade26fcdb78b5f2a5ff5fb9cd88",
+          "matchesGitLF": true,
+          "matchesCheckoutCRLF": false,
+          "normalizationAppliedToEvidence": false
+        },
+        {
+          "path": "scripts/proef-writer-kolom-undo.mjs",
+          "gitCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+          "gitBlobLFsha256": "5a31205e75ad80ea48cc4179059745164fc2407872bb2697d277155c4be39d15",
+          "checkoutCRLFsha256": "3a33f89ce73102970ff344ecbaced6e044d4c0ff49d573ea3d049a9f05611914",
+          "reportedSha256": "5a31205e75ad80ea48cc4179059745164fc2407872bb2697d277155c4be39d15",
+          "matchesGitLF": true,
+          "matchesCheckoutCRLF": false,
+          "normalizationAppliedToEvidence": false
+        }
+      ],
+      "cleanupVerified": true
+    },
+    {
+      "platform": "Linux",
+      "route": "hosted",
+      "issue": 362,
+      "rawReportSha256": "d5d73d4a40ac5ed0b97c1738fa78487d03049f616b02e40e7cf78a8e029e4509",
+      "sourceChecks": [
+        {
+          "path": "src/lint/tekst.tsx",
+          "gitCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+          "gitBlobLFsha256": "3e04e86bb12d0ee47b1b55163c644bf5141cd1206dd8247a4c842a45f144a14b",
+          "checkoutCRLFsha256": "94aaf7122c797eb608f8003d6b117aa05595c099845213f31db4dcedc9ef60c4",
+          "reportedSha256": "3e04e86bb12d0ee47b1b55163c644bf5141cd1206dd8247a4c842a45f144a14b",
+          "matchesGitLF": true,
+          "matchesCheckoutCRLF": false,
+          "normalizationAppliedToEvidence": false
+        },
+        {
+          "path": "src/stijl/openaec-office.css",
+          "gitCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+          "gitBlobLFsha256": "2c728ab6a1b976f673d1eb98159e9fe596aaaf6e6a09c3dafe34826d3c61cc42",
+          "checkoutCRLFsha256": "3e2a2ed02c594494cf0fc448ee48e7760206ac77ca521a8a6b11ae2725831681",
+          "reportedSha256": "2c728ab6a1b976f673d1eb98159e9fe596aaaf6e6a09c3dafe34826d3c61cc42",
+          "matchesGitLF": true,
+          "matchesCheckoutCRLF": false,
+          "normalizationAppliedToEvidence": false
+        },
+        {
+          "path": "scripts/proef-writer-linthoogte.mjs",
+          "gitCommit": "7be704895534c3095f697292af07dc10d2e5860b",
+          "gitBlobLFsha256": "c8fc555ddd1990831fffaedf338e19cac10704e5f1ecd965f798a93852158c38",
+          "checkoutCRLFsha256": "c1ffe0ea7fcf11035246aa2b4a7b2c755f42593471dfb9329c7a11c6c183ce15",
+          "reportedSha256": "c8fc555ddd1990831fffaedf338e19cac10704e5f1ecd965f798a93852158c38",
+          "matchesGitLF": true,
+          "matchesCheckoutCRLF": false,
+          "normalizationAppliedToEvidence": false
+        }
+      ],
+      "cleanupVerified": true
+    },
+    {
+      "platform": "Linux",
+      "route": "hosted",
+      "issue": 363,
+      "rawReportSha256": "5baada35df819f9298d9c88c3d8d494a9ce128cdec3ab1f9ec5b19abc0172f06",
+      "sourceChecks": [],
+      "cleanupVerified": true
+    },
+    {
+      "platform": "Linux",
+      "route": "hosted",
+      "scope": "Office9",
+      "sourceChecks": [
+        {
+          "path": "src/OfficeStudio.tsx",
+          "gitCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+          "gitBlobLFsha256": "ff08de011fc90c0739b50546b22f215381da9c58a5e7c0f565525ff3740245aa",
+          "checkoutCRLFsha256": "c75130c55be4ce94ce98e48a49deb2150c554e3f91d51da9927943c6149066a9",
+          "reportedSha256": "ff08de011fc90c0739b50546b22f215381da9c58a5e7c0f565525ff3740245aa",
+          "matchesGitLF": true,
+          "matchesCheckoutCRLF": false,
+          "normalizationAppliedToEvidence": false
+        },
+        {
+          "path": "src/TabBalk.tsx",
+          "gitCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+          "gitBlobLFsha256": "4b0dd0ea33801207dd0b688461a47175e3354dcf85b706cb2a05ce2cee1fa4c0",
+          "checkoutCRLFsha256": "ce01ac4e8ab22b0232696cdc6cdd483e56ed83796384f5b87c3f7f4df00ebeb8",
+          "reportedSha256": "4b0dd0ea33801207dd0b688461a47175e3354dcf85b706cb2a05ce2cee1fa4c0",
+          "matchesGitLF": true,
+          "matchesCheckoutCRLF": false,
+          "normalizationAppliedToEvidence": false
+        },
+        {
+          "path": "src/export/koppeling.ts",
+          "gitCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+          "gitBlobLFsha256": "590d6faad8017cd982629b2b63207b833ed0d219c9e7c489e2b2e59f7a724ae6",
+          "checkoutCRLFsha256": "483524678891a212e616b40e5b7aae9d54a128cf83149292aae6e2ce853610ec",
+          "reportedSha256": "590d6faad8017cd982629b2b63207b833ed0d219c9e7c489e2b2e59f7a724ae6",
+          "matchesGitLF": true,
+          "matchesCheckoutCRLF": false,
+          "normalizationAppliedToEvidence": false
+        },
+        {
+          "path": "src/export/editorKoppeling.ts",
+          "gitCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+          "gitBlobLFsha256": "8125f620ab52642e416a60ff1a06660a6ae87cb22cea79361dcab3d73470486c",
+          "checkoutCRLFsha256": "edfd7b0b86abd5360d5fcf7c6f2a5e872d63bc71ee190ce3e0d3d92e1132838a",
+          "reportedSha256": "8125f620ab52642e416a60ff1a06660a6ae87cb22cea79361dcab3d73470486c",
+          "matchesGitLF": true,
+          "matchesCheckoutCRLF": false,
+          "normalizationAppliedToEvidence": false
+        }
+      ]
+    },
+    {
+      "platform": "Linux",
+      "route": "hosted",
+      "scope": "field374-harness",
+      "sourceChecks": [
+        {
+          "path": "qa/field374/browser.mjs",
+          "gitCommit": "7be704895534c3095f697292af07dc10d2e5860b",
+          "gitBlobLFsha256": "3ad5f492f4334fec4c47e0dc42b9ca77625826e5acb72c630076a3c41d77574a",
+          "checkoutCRLFsha256": "d27b3c848adfe02ddb60c1c53feb5cd7d82bcb439eae08d3765c80966f1ca370",
+          "reportedSha256": "3ad5f492f4334fec4c47e0dc42b9ca77625826e5acb72c630076a3c41d77574a",
+          "matchesGitLF": true,
+          "matchesCheckoutCRLF": false,
+          "normalizationAppliedToEvidence": false
+        },
+        {
+          "path": "qa/field374/contract.mjs",
+          "gitCommit": "7be704895534c3095f697292af07dc10d2e5860b",
+          "gitBlobLFsha256": "c1dcf1696188b851b794e6120533c58f2774fb092e84c70072a84db456fcf35e",
+          "checkoutCRLFsha256": "136ebfecfffb497181a9c97e1e881e67bd7753119797632f259dc1839f3f54ef",
+          "reportedSha256": "c1dcf1696188b851b794e6120533c58f2774fb092e84c70072a84db456fcf35e",
+          "matchesGitLF": true,
+          "matchesCheckoutCRLF": false,
+          "normalizationAppliedToEvidence": false
+        },
+        {
+          "path": "qa/field374/capture.mjs",
+          "gitCommit": "7be704895534c3095f697292af07dc10d2e5860b",
+          "gitBlobLFsha256": "6573821292505f5987c48b3cc01dedbe3c96e75bd5541b0342e50a5cca2ed423",
+          "checkoutCRLFsha256": "d17cd49e63dae6ff93660b4b59b291851f1749b3db17067178b70473272f2f83",
+          "reportedSha256": "6573821292505f5987c48b3cc01dedbe3c96e75bd5541b0342e50a5cca2ed423",
+          "matchesGitLF": true,
+          "matchesCheckoutCRLF": false,
+          "normalizationAppliedToEvidence": false
+        }
+      ]
+    },
+    {
+      "platform": "Windows",
+      "route": "normal",
+      "issue": 356,
+      "rawReportSha256": "3cfe77c06b6c9b6976f77acbb87d9a893fd19f1938309ac7855898df2fc0e0a8",
+      "sourceChecks": [],
+      "cleanupVerified": true
+    },
+    {
+      "platform": "Windows",
+      "route": "normal",
+      "issue": 361,
+      "rawReportSha256": "1587f7d339b5c6195d573bec50852565200eab385599aa1d7b58ef717488b93b",
+      "sourceChecks": [
+        {
+          "path": "src/lint/gedeeld.tsx",
+          "gitCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+          "gitBlobLFsha256": "832565e47a27970cbe7762cb0a52e7324be63cdfcdb9f2388073efaee1929a86",
+          "checkoutCRLFsha256": "5c188145332c115185cedd10418c6276a85650926686d3c91598b43a96598c78",
+          "reportedSha256": "5c188145332c115185cedd10418c6276a85650926686d3c91598b43a96598c78",
+          "matchesGitLF": false,
+          "matchesCheckoutCRLF": true,
+          "normalizationAppliedToEvidence": false
+        },
+        {
+          "path": "src/lint/tekst-kolomfocus.ts",
+          "gitCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+          "gitBlobLFsha256": "2f75f897b6756f0a13fab941233e6661e3f5dade26fcdb78b5f2a5ff5fb9cd88",
+          "checkoutCRLFsha256": "e1c81707f15e9dffbc94ac9e88e4b91f6bfdbd4a6a09ca6fa03870ec4602d33b",
+          "reportedSha256": "e1c81707f15e9dffbc94ac9e88e4b91f6bfdbd4a6a09ca6fa03870ec4602d33b",
+          "matchesGitLF": false,
+          "matchesCheckoutCRLF": true,
+          "normalizationAppliedToEvidence": false
+        },
+        {
+          "path": "scripts/proef-writer-kolom-undo.mjs",
+          "gitCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+          "gitBlobLFsha256": "5a31205e75ad80ea48cc4179059745164fc2407872bb2697d277155c4be39d15",
+          "checkoutCRLFsha256": "3a33f89ce73102970ff344ecbaced6e044d4c0ff49d573ea3d049a9f05611914",
+          "reportedSha256": "3a33f89ce73102970ff344ecbaced6e044d4c0ff49d573ea3d049a9f05611914",
+          "matchesGitLF": false,
+          "matchesCheckoutCRLF": true,
+          "normalizationAppliedToEvidence": false
+        }
+      ],
+      "cleanupVerified": true
+    },
+    {
+      "platform": "Windows",
+      "route": "normal",
+      "issue": 362,
+      "rawReportSha256": "bedcb0a004150725347e09b4b4a116ba1b53a339e30fa4b142751861414dd8fc",
+      "sourceChecks": [
+        {
+          "path": "src/lint/tekst.tsx",
+          "gitCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+          "gitBlobLFsha256": "3e04e86bb12d0ee47b1b55163c644bf5141cd1206dd8247a4c842a45f144a14b",
+          "checkoutCRLFsha256": "94aaf7122c797eb608f8003d6b117aa05595c099845213f31db4dcedc9ef60c4",
+          "reportedSha256": "94aaf7122c797eb608f8003d6b117aa05595c099845213f31db4dcedc9ef60c4",
+          "matchesGitLF": false,
+          "matchesCheckoutCRLF": true,
+          "normalizationAppliedToEvidence": false
+        },
+        {
+          "path": "src/stijl/openaec-office.css",
+          "gitCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+          "gitBlobLFsha256": "2c728ab6a1b976f673d1eb98159e9fe596aaaf6e6a09c3dafe34826d3c61cc42",
+          "checkoutCRLFsha256": "3e2a2ed02c594494cf0fc448ee48e7760206ac77ca521a8a6b11ae2725831681",
+          "reportedSha256": "3e2a2ed02c594494cf0fc448ee48e7760206ac77ca521a8a6b11ae2725831681",
+          "matchesGitLF": false,
+          "matchesCheckoutCRLF": true,
+          "normalizationAppliedToEvidence": false
+        },
+        {
+          "path": "scripts/proef-writer-linthoogte.mjs",
+          "gitCommit": "7be704895534c3095f697292af07dc10d2e5860b",
+          "gitBlobLFsha256": "c8fc555ddd1990831fffaedf338e19cac10704e5f1ecd965f798a93852158c38",
+          "checkoutCRLFsha256": "c1ffe0ea7fcf11035246aa2b4a7b2c755f42593471dfb9329c7a11c6c183ce15",
+          "reportedSha256": "c1ffe0ea7fcf11035246aa2b4a7b2c755f42593471dfb9329c7a11c6c183ce15",
+          "matchesGitLF": false,
+          "matchesCheckoutCRLF": true,
+          "normalizationAppliedToEvidence": false
+        }
+      ],
+      "cleanupVerified": true
+    },
+    {
+      "platform": "Windows",
+      "route": "normal",
+      "issue": 363,
+      "rawReportSha256": "14616db0e25392a1225342c17f7711fa8fdcf5bed145fa76e7819926f1668bdb",
+      "sourceChecks": [],
+      "cleanupVerified": true
+    },
+    {
+      "platform": "Windows",
+      "route": "normal",
+      "scope": "Office9",
+      "sourceChecks": [
+        {
+          "path": "src/OfficeStudio.tsx",
+          "gitCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+          "gitBlobLFsha256": "ff08de011fc90c0739b50546b22f215381da9c58a5e7c0f565525ff3740245aa",
+          "checkoutCRLFsha256": "c75130c55be4ce94ce98e48a49deb2150c554e3f91d51da9927943c6149066a9",
+          "reportedSha256": "c75130c55be4ce94ce98e48a49deb2150c554e3f91d51da9927943c6149066a9",
+          "matchesGitLF": false,
+          "matchesCheckoutCRLF": true,
+          "normalizationAppliedToEvidence": false
+        },
+        {
+          "path": "src/TabBalk.tsx",
+          "gitCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+          "gitBlobLFsha256": "4b0dd0ea33801207dd0b688461a47175e3354dcf85b706cb2a05ce2cee1fa4c0",
+          "checkoutCRLFsha256": "ce01ac4e8ab22b0232696cdc6cdd483e56ed83796384f5b87c3f7f4df00ebeb8",
+          "reportedSha256": "ce01ac4e8ab22b0232696cdc6cdd483e56ed83796384f5b87c3f7f4df00ebeb8",
+          "matchesGitLF": false,
+          "matchesCheckoutCRLF": true,
+          "normalizationAppliedToEvidence": false
+        },
+        {
+          "path": "src/export/koppeling.ts",
+          "gitCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+          "gitBlobLFsha256": "590d6faad8017cd982629b2b63207b833ed0d219c9e7c489e2b2e59f7a724ae6",
+          "checkoutCRLFsha256": "483524678891a212e616b40e5b7aae9d54a128cf83149292aae6e2ce853610ec",
+          "reportedSha256": "483524678891a212e616b40e5b7aae9d54a128cf83149292aae6e2ce853610ec",
+          "matchesGitLF": false,
+          "matchesCheckoutCRLF": true,
+          "normalizationAppliedToEvidence": false
+        },
+        {
+          "path": "src/export/editorKoppeling.ts",
+          "gitCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+          "gitBlobLFsha256": "8125f620ab52642e416a60ff1a06660a6ae87cb22cea79361dcab3d73470486c",
+          "checkoutCRLFsha256": "edfd7b0b86abd5360d5fcf7c6f2a5e872d63bc71ee190ce3e0d3d92e1132838a",
+          "reportedSha256": "edfd7b0b86abd5360d5fcf7c6f2a5e872d63bc71ee190ce3e0d3d92e1132838a",
+          "matchesGitLF": false,
+          "matchesCheckoutCRLF": true,
+          "normalizationAppliedToEvidence": false
+        }
+      ]
+    },
+    {
+      "platform": "Windows",
+      "route": "normal",
+      "scope": "field374-harness",
+      "sourceChecks": [
+        {
+          "path": "qa/field374/browser.mjs",
+          "gitCommit": "7be704895534c3095f697292af07dc10d2e5860b",
+          "gitBlobLFsha256": "3ad5f492f4334fec4c47e0dc42b9ca77625826e5acb72c630076a3c41d77574a",
+          "checkoutCRLFsha256": "d27b3c848adfe02ddb60c1c53feb5cd7d82bcb439eae08d3765c80966f1ca370",
+          "reportedSha256": "d27b3c848adfe02ddb60c1c53feb5cd7d82bcb439eae08d3765c80966f1ca370",
+          "matchesGitLF": false,
+          "matchesCheckoutCRLF": true,
+          "normalizationAppliedToEvidence": false
+        },
+        {
+          "path": "qa/field374/contract.mjs",
+          "gitCommit": "7be704895534c3095f697292af07dc10d2e5860b",
+          "gitBlobLFsha256": "c1dcf1696188b851b794e6120533c58f2774fb092e84c70072a84db456fcf35e",
+          "checkoutCRLFsha256": "136ebfecfffb497181a9c97e1e881e67bd7753119797632f259dc1839f3f54ef",
+          "reportedSha256": "136ebfecfffb497181a9c97e1e881e67bd7753119797632f259dc1839f3f54ef",
+          "matchesGitLF": false,
+          "matchesCheckoutCRLF": true,
+          "normalizationAppliedToEvidence": false
+        },
+        {
+          "path": "qa/field374/capture.mjs",
+          "gitCommit": "7be704895534c3095f697292af07dc10d2e5860b",
+          "gitBlobLFsha256": "6573821292505f5987c48b3cc01dedbe3c96e75bd5541b0342e50a5cca2ed423",
+          "checkoutCRLFsha256": "d17cd49e63dae6ff93660b4b59b291851f1749b3db17067178b70473272f2f83",
+          "reportedSha256": "d17cd49e63dae6ff93660b4b59b291851f1749b3db17067178b70473272f2f83",
+          "matchesGitLF": false,
+          "matchesCheckoutCRLF": true,
+          "normalizationAppliedToEvidence": false
+        }
+      ]
+    },
+    {
+      "platform": "Windows",
+      "route": "hosted",
+      "issue": 356,
+      "rawReportSha256": "ed7084704e51e2f8a5c9e0bc0c23c45b367dede20c0e281e0c46dc972b730dac",
+      "sourceChecks": [],
+      "cleanupVerified": true
+    },
+    {
+      "platform": "Windows",
+      "route": "hosted",
+      "issue": 361,
+      "rawReportSha256": "7251ec9069f6224d0708e23b807c070322ff492720fc66f958116604aaafcc3a",
+      "sourceChecks": [
+        {
+          "path": "src/lint/gedeeld.tsx",
+          "gitCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+          "gitBlobLFsha256": "832565e47a27970cbe7762cb0a52e7324be63cdfcdb9f2388073efaee1929a86",
+          "checkoutCRLFsha256": "5c188145332c115185cedd10418c6276a85650926686d3c91598b43a96598c78",
+          "reportedSha256": "5c188145332c115185cedd10418c6276a85650926686d3c91598b43a96598c78",
+          "matchesGitLF": false,
+          "matchesCheckoutCRLF": true,
+          "normalizationAppliedToEvidence": false
+        },
+        {
+          "path": "src/lint/tekst-kolomfocus.ts",
+          "gitCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+          "gitBlobLFsha256": "2f75f897b6756f0a13fab941233e6661e3f5dade26fcdb78b5f2a5ff5fb9cd88",
+          "checkoutCRLFsha256": "e1c81707f15e9dffbc94ac9e88e4b91f6bfdbd4a6a09ca6fa03870ec4602d33b",
+          "reportedSha256": "e1c81707f15e9dffbc94ac9e88e4b91f6bfdbd4a6a09ca6fa03870ec4602d33b",
+          "matchesGitLF": false,
+          "matchesCheckoutCRLF": true,
+          "normalizationAppliedToEvidence": false
+        },
+        {
+          "path": "scripts/proef-writer-kolom-undo.mjs",
+          "gitCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+          "gitBlobLFsha256": "5a31205e75ad80ea48cc4179059745164fc2407872bb2697d277155c4be39d15",
+          "checkoutCRLFsha256": "3a33f89ce73102970ff344ecbaced6e044d4c0ff49d573ea3d049a9f05611914",
+          "reportedSha256": "3a33f89ce73102970ff344ecbaced6e044d4c0ff49d573ea3d049a9f05611914",
+          "matchesGitLF": false,
+          "matchesCheckoutCRLF": true,
+          "normalizationAppliedToEvidence": false
+        }
+      ],
+      "cleanupVerified": true
+    },
+    {
+      "platform": "Windows",
+      "route": "hosted",
+      "issue": 362,
+      "rawReportSha256": "ae0fa95bb0789fa233917ed3746c5f337a31881e867bc5dea8edb22f96eb292b",
+      "sourceChecks": [
+        {
+          "path": "src/lint/tekst.tsx",
+          "gitCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+          "gitBlobLFsha256": "3e04e86bb12d0ee47b1b55163c644bf5141cd1206dd8247a4c842a45f144a14b",
+          "checkoutCRLFsha256": "94aaf7122c797eb608f8003d6b117aa05595c099845213f31db4dcedc9ef60c4",
+          "reportedSha256": "94aaf7122c797eb608f8003d6b117aa05595c099845213f31db4dcedc9ef60c4",
+          "matchesGitLF": false,
+          "matchesCheckoutCRLF": true,
+          "normalizationAppliedToEvidence": false
+        },
+        {
+          "path": "src/stijl/openaec-office.css",
+          "gitCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+          "gitBlobLFsha256": "2c728ab6a1b976f673d1eb98159e9fe596aaaf6e6a09c3dafe34826d3c61cc42",
+          "checkoutCRLFsha256": "3e2a2ed02c594494cf0fc448ee48e7760206ac77ca521a8a6b11ae2725831681",
+          "reportedSha256": "3e2a2ed02c594494cf0fc448ee48e7760206ac77ca521a8a6b11ae2725831681",
+          "matchesGitLF": false,
+          "matchesCheckoutCRLF": true,
+          "normalizationAppliedToEvidence": false
+        },
+        {
+          "path": "scripts/proef-writer-linthoogte.mjs",
+          "gitCommit": "7be704895534c3095f697292af07dc10d2e5860b",
+          "gitBlobLFsha256": "c8fc555ddd1990831fffaedf338e19cac10704e5f1ecd965f798a93852158c38",
+          "checkoutCRLFsha256": "c1ffe0ea7fcf11035246aa2b4a7b2c755f42593471dfb9329c7a11c6c183ce15",
+          "reportedSha256": "c1ffe0ea7fcf11035246aa2b4a7b2c755f42593471dfb9329c7a11c6c183ce15",
+          "matchesGitLF": false,
+          "matchesCheckoutCRLF": true,
+          "normalizationAppliedToEvidence": false
+        }
+      ],
+      "cleanupVerified": true
+    },
+    {
+      "platform": "Windows",
+      "route": "hosted",
+      "issue": 363,
+      "rawReportSha256": "4ffa99b0a972c888dc609444a1000c198042e1003a3a621d887e89da0404927d",
+      "sourceChecks": [],
+      "cleanupVerified": true
+    },
+    {
+      "platform": "Windows",
+      "route": "hosted",
+      "scope": "Office9",
+      "sourceChecks": [
+        {
+          "path": "src/OfficeStudio.tsx",
+          "gitCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+          "gitBlobLFsha256": "ff08de011fc90c0739b50546b22f215381da9c58a5e7c0f565525ff3740245aa",
+          "checkoutCRLFsha256": "c75130c55be4ce94ce98e48a49deb2150c554e3f91d51da9927943c6149066a9",
+          "reportedSha256": "c75130c55be4ce94ce98e48a49deb2150c554e3f91d51da9927943c6149066a9",
+          "matchesGitLF": false,
+          "matchesCheckoutCRLF": true,
+          "normalizationAppliedToEvidence": false
+        },
+        {
+          "path": "src/TabBalk.tsx",
+          "gitCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+          "gitBlobLFsha256": "4b0dd0ea33801207dd0b688461a47175e3354dcf85b706cb2a05ce2cee1fa4c0",
+          "checkoutCRLFsha256": "ce01ac4e8ab22b0232696cdc6cdd483e56ed83796384f5b87c3f7f4df00ebeb8",
+          "reportedSha256": "ce01ac4e8ab22b0232696cdc6cdd483e56ed83796384f5b87c3f7f4df00ebeb8",
+          "matchesGitLF": false,
+          "matchesCheckoutCRLF": true,
+          "normalizationAppliedToEvidence": false
+        },
+        {
+          "path": "src/export/koppeling.ts",
+          "gitCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+          "gitBlobLFsha256": "590d6faad8017cd982629b2b63207b833ed0d219c9e7c489e2b2e59f7a724ae6",
+          "checkoutCRLFsha256": "483524678891a212e616b40e5b7aae9d54a128cf83149292aae6e2ce853610ec",
+          "reportedSha256": "483524678891a212e616b40e5b7aae9d54a128cf83149292aae6e2ce853610ec",
+          "matchesGitLF": false,
+          "matchesCheckoutCRLF": true,
+          "normalizationAppliedToEvidence": false
+        },
+        {
+          "path": "src/export/editorKoppeling.ts",
+          "gitCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+          "gitBlobLFsha256": "8125f620ab52642e416a60ff1a06660a6ae87cb22cea79361dcab3d73470486c",
+          "checkoutCRLFsha256": "edfd7b0b86abd5360d5fcf7c6f2a5e872d63bc71ee190ce3e0d3d92e1132838a",
+          "reportedSha256": "edfd7b0b86abd5360d5fcf7c6f2a5e872d63bc71ee190ce3e0d3d92e1132838a",
+          "matchesGitLF": false,
+          "matchesCheckoutCRLF": true,
+          "normalizationAppliedToEvidence": false
+        }
+      ]
+    },
+    {
+      "platform": "Windows",
+      "route": "hosted",
+      "scope": "field374-harness",
+      "sourceChecks": [
+        {
+          "path": "qa/field374/browser.mjs",
+          "gitCommit": "7be704895534c3095f697292af07dc10d2e5860b",
+          "gitBlobLFsha256": "3ad5f492f4334fec4c47e0dc42b9ca77625826e5acb72c630076a3c41d77574a",
+          "checkoutCRLFsha256": "d27b3c848adfe02ddb60c1c53feb5cd7d82bcb439eae08d3765c80966f1ca370",
+          "reportedSha256": "d27b3c848adfe02ddb60c1c53feb5cd7d82bcb439eae08d3765c80966f1ca370",
+          "matchesGitLF": false,
+          "matchesCheckoutCRLF": true,
+          "normalizationAppliedToEvidence": false
+        },
+        {
+          "path": "qa/field374/contract.mjs",
+          "gitCommit": "7be704895534c3095f697292af07dc10d2e5860b",
+          "gitBlobLFsha256": "c1dcf1696188b851b794e6120533c58f2774fb092e84c70072a84db456fcf35e",
+          "checkoutCRLFsha256": "136ebfecfffb497181a9c97e1e881e67bd7753119797632f259dc1839f3f54ef",
+          "reportedSha256": "136ebfecfffb497181a9c97e1e881e67bd7753119797632f259dc1839f3f54ef",
+          "matchesGitLF": false,
+          "matchesCheckoutCRLF": true,
+          "normalizationAppliedToEvidence": false
+        },
+        {
+          "path": "qa/field374/capture.mjs",
+          "gitCommit": "7be704895534c3095f697292af07dc10d2e5860b",
+          "gitBlobLFsha256": "6573821292505f5987c48b3cc01dedbe3c96e75bd5541b0342e50a5cca2ed423",
+          "checkoutCRLFsha256": "d17cd49e63dae6ff93660b4b59b291851f1749b3db17067178b70473272f2f83",
+          "reportedSha256": "d17cd49e63dae6ff93660b4b59b291851f1749b3db17067178b70473272f2f83",
+          "matchesGitLF": false,
+          "matchesCheckoutCRLF": true,
+          "normalizationAppliedToEvidence": false
+        }
+      ]
+    }
+  ],
+  "sharedOracleBinding": [
+    {
+      "file": "audit-docx.mjs",
+      "referenceCommit": "3169b09020184e3a98a4d5364ad77b15f38ac063",
+      "canonicalGitSha256": "3077f3c86c63109c69b67300abd2b796c5131a2aaa63b955a5da4393e7d2b768",
+      "localUsedSha256": "3077f3c86c63109c69b67300abd2b796c5131a2aaa63b955a5da4393e7d2b768",
+      "matchesGitLF": true,
+      "matchesCheckoutCRLF": false
+    },
+    {
+      "file": "contract.mjs",
+      "referenceCommit": "3169b09020184e3a98a4d5364ad77b15f38ac063",
+      "canonicalGitSha256": "c1dcf1696188b851b794e6120533c58f2774fb092e84c70072a84db456fcf35e",
+      "localUsedSha256": "c1dcf1696188b851b794e6120533c58f2774fb092e84c70072a84db456fcf35e",
+      "matchesGitLF": true,
+      "matchesCheckoutCRLF": false
+    },
+    {
+      "file": "oracle.py",
+      "referenceCommit": "3169b09020184e3a98a4d5364ad77b15f38ac063",
+      "canonicalGitSha256": "172b3ab9bf92cdb804fc68958c894e8468a31671af83a0ddee936f68221fe0ec",
+      "localUsedSha256": "172b3ab9bf92cdb804fc68958c894e8468a31671af83a0ddee936f68221fe0ec",
+      "matchesGitLF": true,
+      "matchesCheckoutCRLF": false
+    }
+  ]
+}

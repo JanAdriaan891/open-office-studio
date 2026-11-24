@@ -1,0 +1,19 @@
+{
+  "platform": "windows",
+  "programma": "open-notition-studio",
+  "versie": "2026.48.1",
+  "pakketten": [
+    {
+      "naam": "Open Notition Studio_2026.48.1_x64-setup.exe",
+      "bytes": 73570344,
+      "sha256": "01a200d652c22e8bb59f37cba28bfa9694e121ba6cd7e98c9ba5a0c3b20f74b1",
+      "controles": [
+        "NSIS-archief leesbaar",
+        "programma en WebView2-loader x64",
+        "WebView2-bootstrapper aanwezig",
+        "installer- en programma-iconen bytegelijk aan goedgekeurde bron"
+      ]
+    }
+  ],
+  "installatie_en_native_bediening": "niet_gecontroleerd"
+}

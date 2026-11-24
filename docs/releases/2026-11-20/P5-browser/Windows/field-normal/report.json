@@ -1,0 +1,503 @@
+{
+  "applicationCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+  "route": "/",
+  "platform": "win32",
+  "harnessSha256": "d27b3c848adfe02ddb60c1c53feb5cd7d82bcb439eae08d3765c80966f1ca370",
+  "contractSha256": "136ebfecfffb497181a9c97e1e881e67bd7753119797632f259dc1839f3f54ef",
+  "captureSha256": "d17cd49e63dae6ff93660b4b59b291851f1749b3db17067178b70473272f2f83",
+  "visualReview": "Original PNG marker/layout review is required separately from worker geometry and stable capture.",
+  "status": "passed",
+  "cases": [
+    {
+      "name": "unchanged-windows-source",
+      "paintedTitleObserved": true,
+      "fullExpectedTextPainted": true,
+      "overlappingGlyphRuns": 0,
+      "marker": " -- STW30 EDIT 2026-11-23",
+      "stableOriginalPngSha256": "ef603aa7520ae8abffb2b7abeaab597cd663a5949527298692bdeb6ae50b78ae",
+      "originalPngMarkerReviewRequired": true
+    },
+    {
+      "name": "windows-source-save",
+      "saveAudit": {
+        "passed": true,
+        "fileSha256": "5c9037726decfd8df2a6de196642a3acf8a78daf83c27dc19b0c4512ca427f38",
+        "sourceSha256": "5a5b633ee371836a48c7496fc35ae261f35025d7edb3ec74439c5f58b369f1e2",
+        "matched": [
+          {
+            "sourceIndex": 0,
+            "docxIndex": 0,
+            "text": "Report Title -- STW30 EDIT 2026-11-23",
+            "properties": {
+              "sizePt": 32,
+              "bold": false,
+              "alignment": "center",
+              "caps": true,
+              "smallCaps": false
+            },
+            "placeholders": [],
+            "cachedTextExact": true
+          },
+          {
+            "sourceIndex": 1,
+            "docxIndex": 1,
+            "text": "Report Subheading",
+            "properties": {
+              "sizePt": 24,
+              "bold": false,
+              "alignment": "center",
+              "caps": false,
+              "smallCaps": true
+            },
+            "placeholders": [],
+            "cachedTextExact": true
+          },
+          {
+            "sourceIndex": 2,
+            "docxIndex": 2,
+            "text": "Table of Contents",
+            "properties": {
+              "sizePt": 14,
+              "bold": true,
+              "alignment": "center",
+              "caps": true,
+              "smallCaps": false
+            },
+            "placeholders": [],
+            "cachedTextExact": true
+          },
+          {
+            "sourceIndex": 3,
+            "docxIndex": 3,
+            "text": "<This is the heading of the first section> 1",
+            "properties": {
+              "sizePt": 11,
+              "bold": true,
+              "alignment": "left",
+              "caps": true,
+              "smallCaps": false
+            },
+            "placeholders": [],
+            "cachedTextExact": true
+          },
+          {
+            "sourceIndex": 4,
+            "docxIndex": 4,
+            "text": "Illustration Index",
+            "properties": {
+              "sizePt": 14,
+              "bold": true,
+              "alignment": "center",
+              "caps": true,
+              "smallCaps": false
+            },
+            "placeholders": [],
+            "cachedTextExact": true
+          },
+          {
+            "sourceIndex": 5,
+            "docxIndex": 5,
+            "text": "Index of Tables",
+            "properties": {
+              "sizePt": 14,
+              "bold": true,
+              "alignment": "center",
+              "caps": true,
+              "smallCaps": false
+            },
+            "placeholders": [],
+            "cachedTextExact": true
+          },
+          {
+            "sourceIndex": 6,
+            "docxIndex": 6,
+            "text": "This is the heading of the first section",
+            "properties": {
+              "sizePt": 14,
+              "bold": true,
+              "alignment": "center",
+              "caps": true,
+              "smallCaps": false
+            },
+            "placeholders": [
+              {
+                "type": "text",
+                "prompt": "This is the heading of the first section",
+                "description": "Click placeholder and overwrite"
+              }
+            ],
+            "cachedTextExact": true
+          },
+          {
+            "sourceIndex": 7,
+            "docxIndex": 7,
+            "text": "Start your text here",
+            "properties": {
+              "sizePt": 11,
+              "bold": false,
+              "alignment": "justify",
+              "caps": false,
+              "smallCaps": false
+            },
+            "placeholders": [
+              {
+                "type": "text",
+                "prompt": "Start your text here",
+                "description": "Click placeholder and overwrite"
+              }
+            ],
+            "cachedTextExact": true
+          }
+        ],
+        "marker": " -- STW30 EDIT 2026-11-23",
+        "tableCount": 0,
+        "actualNonemptyParagraphs": 8,
+        "scope": [
+          "No non-empty table in source; no table-fidelity proof",
+          "No font substitution, page layout or complete TOC/index-field fidelity claim",
+          "Numeric TOC cache is diagnostic; stable source-derived index text is required"
+        ],
+        "originalTitleFieldAndCachedTextRetained": true,
+        "titleStyle": {
+          "trackingTwips": 80,
+          "sizePt": 32,
+          "allCaps": true
+        }
+      }
+    },
+    {
+      "name": "unmodified-control",
+      "paintedTitleObserved": true,
+      "fullExpectedTextPainted": true,
+      "overlappingGlyphRuns": 0,
+      "marker": "",
+      "stableOriginalPngSha256": "cf6e61e348dcc87d3416f38132ca2f0f2dabc112f42e4eea6f0a818d0f40b742",
+      "originalPngMarkerReviewRequired": true
+    },
+    {
+      "name": "after-real-edit",
+      "paintedTitleObserved": true,
+      "fullExpectedTextPainted": true,
+      "overlappingGlyphRuns": 0,
+      "marker": " -- STW30 EDIT 2026-11-23",
+      "stableOriginalPngSha256": "9827e63c505bf08836be268d5975cd0d476aaf5be0293b8e01c369a6e1ed2efe",
+      "originalPngMarkerReviewRequired": true
+    },
+    {
+      "name": "after-edit-save",
+      "saveAudit": {
+        "passed": true,
+        "fileSha256": "5a15c0a06a06475d398a1fe62e4a5c75fd7c032cb9bd997db3e938c3e6328ae9",
+        "sourceSha256": "5a5b633ee371836a48c7496fc35ae261f35025d7edb3ec74439c5f58b369f1e2",
+        "matched": [
+          {
+            "sourceIndex": 0,
+            "docxIndex": 0,
+            "text": "Report Title -- STW30 EDIT 2026-11-23",
+            "properties": {
+              "sizePt": 32,
+              "bold": false,
+              "alignment": "center",
+              "caps": true,
+              "smallCaps": false
+            },
+            "placeholders": [],
+            "cachedTextExact": true
+          },
+          {
+            "sourceIndex": 1,
+            "docxIndex": 1,
+            "text": "Report Subheading",
+            "properties": {
+              "sizePt": 24,
+              "bold": false,
+              "alignment": "center",
+              "caps": false,
+              "smallCaps": true
+            },
+            "placeholders": [],
+            "cachedTextExact": true
+          },
+          {
+            "sourceIndex": 2,
+            "docxIndex": 2,
+            "text": "Table of Contents",
+            "properties": {
+              "sizePt": 14,
+              "bold": true,
+              "alignment": "center",
+              "caps": true,
+              "smallCaps": false
+            },
+            "placeholders": [],
+            "cachedTextExact": true
+          },
+          {
+            "sourceIndex": 3,
+            "docxIndex": 3,
+            "text": "<This is the heading of the first section> 1",
+            "properties": {
+              "sizePt": 11,
+              "bold": true,
+              "alignment": "left",
+              "caps": true,
+              "smallCaps": false
+            },
+            "placeholders": [],
+            "cachedTextExact": true
+          },
+          {
+            "sourceIndex": 4,
+            "docxIndex": 4,
+            "text": "Illustration Index",
+            "properties": {
+              "sizePt": 14,
+              "bold": true,
+              "alignment": "center",
+              "caps": true,
+              "smallCaps": false
+            },
+            "placeholders": [],
+            "cachedTextExact": true
+          },
+          {
+            "sourceIndex": 5,
+            "docxIndex": 5,
+            "text": "Index of Tables",
+            "properties": {
+              "sizePt": 14,
+              "bold": true,
+              "alignment": "center",
+              "caps": true,
+              "smallCaps": false
+            },
+            "placeholders": [],
+            "cachedTextExact": true
+          },
+          {
+            "sourceIndex": 6,
+            "docxIndex": 6,
+            "text": "This is the heading of the first section",
+            "properties": {
+              "sizePt": 14,
+              "bold": true,
+              "alignment": "center",
+              "caps": true,
+              "smallCaps": false
+            },
+            "placeholders": [
+              {
+                "type": "text",
+                "prompt": "This is the heading of the first section",
+                "description": "Click placeholder and overwrite"
+              }
+            ],
+            "cachedTextExact": true
+          },
+          {
+            "sourceIndex": 7,
+            "docxIndex": 7,
+            "text": "Start your text here",
+            "properties": {
+              "sizePt": 11,
+              "bold": false,
+              "alignment": "justify",
+              "caps": false,
+              "smallCaps": false
+            },
+            "placeholders": [
+              {
+                "type": "text",
+                "prompt": "Start your text here",
+                "description": "Click placeholder and overwrite"
+              }
+            ],
+            "cachedTextExact": true
+          }
+        ],
+        "marker": " -- STW30 EDIT 2026-11-23",
+        "tableCount": 0,
+        "actualNonemptyParagraphs": 8,
+        "scope": [
+          "No non-empty table in source; no table-fidelity proof",
+          "No font substitution, page layout or complete TOC/index-field fidelity claim",
+          "Numeric TOC cache is diagnostic; stable source-derived index text is required"
+        ],
+        "originalTitleFieldAndCachedTextRetained": true,
+        "titleStyle": {
+          "trackingTwips": 80,
+          "sizePt": 32,
+          "allCaps": true
+        }
+      }
+    },
+    {
+      "name": "fresh-context-reopen",
+      "paintedTitleObserved": true,
+      "fullExpectedTextPainted": true,
+      "overlappingGlyphRuns": 0,
+      "marker": " -- STW30 EDIT 2026-11-23",
+      "stableOriginalPngSha256": "600cf527ca8634dbe34ca92c1c1bf46e7bf43d5b6b3c889ff3a1655aecbc2bd6",
+      "originalPngMarkerReviewRequired": true
+    },
+    {
+      "name": "reopened-save",
+      "saveAudit": {
+        "passed": true,
+        "fileSha256": "9d558a2ccf2f07bb2bd85be7b7c9ef6a1a924e6647ce1d302791d8bbcff84ffe",
+        "sourceSha256": "5a5b633ee371836a48c7496fc35ae261f35025d7edb3ec74439c5f58b369f1e2",
+        "matched": [
+          {
+            "sourceIndex": 0,
+            "docxIndex": 0,
+            "text": "Report Title -- STW30 EDIT 2026-11-23",
+            "properties": {
+              "sizePt": 32,
+              "bold": false,
+              "alignment": "center",
+              "caps": true,
+              "smallCaps": false
+            },
+            "placeholders": [],
+            "cachedTextExact": true
+          },
+          {
+            "sourceIndex": 1,
+            "docxIndex": 1,
+            "text": "Report Subheading",
+            "properties": {
+              "sizePt": 24,
+              "bold": false,
+              "alignment": "center",
+              "caps": false,
+              "smallCaps": true
+            },
+            "placeholders": [],
+            "cachedTextExact": true
+          },
+          {
+            "sourceIndex": 2,
+            "docxIndex": 2,
+            "text": "Table of Contents",
+            "properties": {
+              "sizePt": 14,
+              "bold": true,
+              "alignment": "center",
+              "caps": true,
+              "smallCaps": false
+            },
+            "placeholders": [],
+            "cachedTextExact": true
+          },
+          {
+            "sourceIndex": 3,
+            "docxIndex": 3,
+            "text": "<This is the heading of the first section> 1",
+            "properties": {
+              "sizePt": 11,
+              "bold": true,
+              "alignment": "left",
+              "caps": true,
+              "smallCaps": false
+            },
+            "placeholders": [],
+            "cachedTextExact": true
+          },
+          {
+            "sourceIndex": 4,
+            "docxIndex": 4,
+            "text": "Illustration Index",
+            "properties": {
+              "sizePt": 14,
+              "bold": true,
+              "alignment": "center",
+              "caps": true,
+              "smallCaps": false
+            },
+            "placeholders": [],
+            "cachedTextExact": true
+          },
+          {
+            "sourceIndex": 5,
+            "docxIndex": 5,
+            "text": "Index of Tables",
+            "properties": {
+              "sizePt": 14,
+              "bold": true,
+              "alignment": "center",
+              "caps": true,
+              "smallCaps": false
+            },
+            "placeholders": [],
+            "cachedTextExact": true
+          },
+          {
+            "sourceIndex": 6,
+            "docxIndex": 6,
+            "text": "This is the heading of the first section",
+            "properties": {
+              "sizePt": 14,
+              "bold": true,
+              "alignment": "center",
+              "caps": true,
+              "smallCaps": false
+            },
+            "placeholders": [
+              {
+                "type": "text",
+                "prompt": "This is the heading of the first section",
+                "description": "Click placeholder and overwrite"
+              }
+            ],
+            "cachedTextExact": true
+          },
+          {
+            "sourceIndex": 7,
+            "docxIndex": 7,
+            "text": "Start your text here",
+            "properties": {
+              "sizePt": 11,
+              "bold": false,
+              "alignment": "justify",
+              "caps": false,
+              "smallCaps": false
+            },
+            "placeholders": [
+              {
+                "type": "text",
+                "prompt": "Start your text here",
+                "description": "Click placeholder and overwrite"
+              }
+            ],
+            "cachedTextExact": true
+          }
+        ],
+        "marker": " -- STW30 EDIT 2026-11-23",
+        "tableCount": 0,
+        "actualNonemptyParagraphs": 8,
+        "scope": [
+          "No non-empty table in source; no table-fidelity proof",
+          "No font substitution, page layout or complete TOC/index-field fidelity claim",
+          "Numeric TOC cache is diagnostic; stable source-derived index text is required"
+        ],
+        "originalTitleFieldAndCachedTextRetained": true,
+        "titleStyle": {
+          "trackingTwips": 80,
+          "sizePt": 32,
+          "allCaps": true
+        }
+      }
+    }
+  ],
+  "errors": [],
+  "externalRequests": [],
+  "applicationTree": "e30879fd772871e690847c061ef66e6b81808a05",
+  "browser": "151.0.7922.34",
+  "cleanup": {
+    "contextsClosed": true,
+    "browserClosed": true,
+    "serverClosed": true,
+    "errors": [],
+    "localNativeGuiStarted": false
+  }
+}

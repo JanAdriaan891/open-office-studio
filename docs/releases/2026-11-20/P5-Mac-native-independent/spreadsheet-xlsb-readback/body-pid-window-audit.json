@@ -1,0 +1,50 @@
+[
+  {
+    "pid": 2471,
+    "windowId": 32,
+    "originalImageSha256": "95d1430fdf02945f26b41a31faf75d3f5d0f9b2aaca9d837f065c711c3682002",
+    "originalImageSize": [
+      1440,
+      950
+    ],
+    "visibleUiZoomPercent": 200,
+    "axRealZoomLabel": "Zoom 200%, back to 100%",
+    "focusedCell": "A15, 42, selected",
+    "formulaBar": "=40+2",
+    "exactBodyOcr42TokenCount": 1,
+    "confidence": 1,
+    "derivedBodyPoint": {
+      "x": 389.65116315697674,
+      "y": 300.6563875954479
+    },
+    "insideUnchangedBodyDomain": true,
+    "nativeOriginalCaptureWindowVerified": true,
+    "imageModified": false,
+    "ocrEditorInputSent": false,
+    "humanReviewed": "Original whole-window image visibly shows selected A15=42 and actual UI200%."
+  },
+  {
+    "pid": 6783,
+    "windowId": 50,
+    "originalImageSha256": "95d1430fdf02945f26b41a31faf75d3f5d0f9b2aaca9d837f065c711c3682002",
+    "originalImageSize": [
+      1440,
+      950
+    ],
+    "visibleUiZoomPercent": 200,
+    "axRealZoomLabel": "Zoom 200%, back to 100%",
+    "focusedCell": "A15, 42, selected",
+    "formulaBar": "=40+2",
+    "exactBodyOcr42TokenCount": 1,
+    "confidence": 1,
+    "derivedBodyPoint": {
+      "x": 389.65116315697674,
+      "y": 300.6563875954479
+    },
+    "insideUnchangedBodyDomain": true,
+    "nativeOriginalCaptureWindowVerified": true,
+    "imageModified": false,
+    "ocrEditorInputSent": false,
+    "humanReviewed": "Original whole-window image visibly shows selected A15=42 and actual UI200%."
+  }
+]

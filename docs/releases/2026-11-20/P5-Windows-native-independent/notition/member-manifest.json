@@ -1,0 +1,157 @@
+[
+  {
+    "path": "p4-native-notition/1-Close-4.json",
+    "bytes": 311,
+    "sha256": "9a8269da93ba548ffaa23e877117a855b100922035fad704b497e9729e3f0ad1"
+  },
+  {
+    "path": "p4-native-notition/1-Focus-0.json",
+    "bytes": 311,
+    "sha256": "895d2f447164ad603b0584cf6edcdd79684aca0f47520ab18858d1d4ffe79572"
+  },
+  {
+    "path": "p4-native-notition/1-Focus-1.json",
+    "bytes": 311,
+    "sha256": "23edbb56a0c4738564fe26303489eb7721bdd4791b79746839a901a1aa1cea48"
+  },
+  {
+    "path": "p4-native-notition/1-SaveDialog-3.json",
+    "bytes": 1141,
+    "sha256": "ecf6a7d374ee0b6eee00615e5aadc9a66e9f5d9c016361ef1f7ab735a6171fca"
+  },
+  {
+    "path": "p4-native-notition/2-Close-7.json",
+    "bytes": 303,
+    "sha256": "34fbf0c2e891046fce327a54f587a8f03c05771b74d6d7fa848b5349be3895c8"
+  },
+  {
+    "path": "p4-native-notition/2-Focus-5.json",
+    "bytes": 303,
+    "sha256": "75785382842603895f9236c6638a9df44507b75ab650bd8503ed7b9f38f51d3e"
+  },
+  {
+    "path": "p4-native-notition/2-SaveDialog-6.json",
+    "bytes": 1135,
+    "sha256": "c152808da55dd8a4144cd541b0aa73a9429a8232fc851ffb713f8702f2fb2bf4"
+  },
+  {
+    "path": "p4-native-notition/baseline.json",
+    "bytes": 157,
+    "sha256": "815255860a87822e61624e65b183e3a8a4ffbb67e2378bff019c7334e2eaba70"
+  },
+  {
+    "path": "p4-native-notition/fixtures/manifest.json",
+    "bytes": 1068,
+    "sha256": "18d0047ccab6b49c6ab8f03593250c099edcf8805dc81a0b0c4901a1249a48da"
+  },
+  {
+    "path": "p4-native-notition/fixtures/Standalone23.docx",
+    "bytes": 36568,
+    "sha256": "d9086d4aa437d814620135a6dffb06ff940a9dbf5c34a6589d537d9112c41f74"
+  },
+  {
+    "path": "p4-native-notition/fixtures/Standalone23.pptx",
+    "bytes": 28245,
+    "sha256": "ef220706f4ac866df87eb848f24a1250732fdecefe4bd34b579f83e1836c7ce9"
+  },
+  {
+    "path": "p4-native-notition/fixtures/Standalone23.sqlite",
+    "bytes": 8192,
+    "sha256": "506d230347f4895adf45967e536dd3b0b4997374ce5c7e7f74e5ef99d985530e"
+  },
+  {
+    "path": "p4-native-notition/fixtures/Standalone23.xlsx",
+    "bytes": 4766,
+    "sha256": "0f3ba70a70215b2814959b2b70e651a63f4b497c66b7eedbf9fb2ead2f2ee544"
+  },
+  {
+    "path": "p4-native-notition/initial-completed.png",
+    "bytes": 83401,
+    "sha256": "fecf007f3b7a944d33996f5d41fa30ad5b4187fe92c96f5e738c2d3954d7d7a7"
+  },
+  {
+    "path": "p4-native-notition/initial-ready.png",
+    "bytes": 102894,
+    "sha256": "4af42b4b58c0ddfd4cf3472e648ec25e42c48df8c0a6904294862eec1e69016b"
+  },
+  {
+    "path": "p4-native-notition/initial.openaec-notities",
+    "bytes": 2081,
+    "sha256": "c48dd1bcd2fc8da76bf2b043b4cdd5a66b3575fbc2cb878fd49b52f7dd9b972a"
+  },
+  {
+    "path": "p4-native-notition/initial.openaec-notities.oracle.json",
+    "bytes": 178,
+    "sha256": "77aaedf04abd048b7719ba2745dd8dcfcb09cc0d5517bc19eafbffb9ea421733"
+  },
+  {
+    "path": "p4-native-notition/initial.stderr.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "p4-native-notition/initial.stdout.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "p4-native-notition/profile-cleanup.json",
+    "bytes": 173,
+    "sha256": "c364cb22f2f7b180126e62c24267b10b2b4331f7fecd8ee504bdd8aa24da7ec8"
+  },
+  {
+    "path": "p4-native-notition/reopened-completed.png",
+    "bytes": 83507,
+    "sha256": "188a3ec763086e1c4bb88ccf56faf13231e6fa3c7a5cb7d8616babfa528ae366"
+  },
+  {
+    "path": "p4-native-notition/reopened-ready.png",
+    "bytes": 102894,
+    "sha256": "4af42b4b58c0ddfd4cf3472e648ec25e42c48df8c0a6904294862eec1e69016b"
+  },
+  {
+    "path": "p4-native-notition/reopened.openaec-notities",
+    "bytes": 2081,
+    "sha256": "c48dd1bcd2fc8da76bf2b043b4cdd5a66b3575fbc2cb878fd49b52f7dd9b972a"
+  },
+  {
+    "path": "p4-native-notition/reopened.openaec-notities.oracle.json",
+    "bytes": 178,
+    "sha256": "77aaedf04abd048b7719ba2745dd8dcfcb09cc0d5517bc19eafbffb9ea421733"
+  },
+  {
+    "path": "p4-native-notition/reopened.stderr.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "p4-native-notition/reopened.stdout.txt",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "p4-native-notition/report.json",
+    "bytes": 11673,
+    "sha256": "3349426915541dfc7016739bef66826fa6a39ea15d352a3e76afc6273d7d7052"
+  },
+  {
+    "path": "p4-native-notition/webview-policy-before.json",
+    "bytes": 337,
+    "sha256": "95e41d3c45af38813c3f816fb9a46eee3b70b5eed17a5372e25e13950c612ec2"
+  },
+  {
+    "path": "standalone-windows-package/package.json",
+    "bytes": 1630,
+    "sha256": "7ed14d06e99862893079f7785774ccc64551ce57eb5cc7ff62f35195eedb8b08"
+  },
+  {
+    "path": "standalone-windows-package/canonical-package-report.json",
+    "bytes": 597,
+    "sha256": "80fc09817a2d0245a852c761d9005a64600a92b02a6298250c9e2d32572f17f2"
+  },
+  {
+    "path": "standalone-windows-package/consumer-binding.json",
+    "bytes": 1451,
+    "sha256": "079d6ae2be1ad9bde2bbbcd921bb6450252c7a439e7dbd8bcfec5447b0e56332"
+  }
+]

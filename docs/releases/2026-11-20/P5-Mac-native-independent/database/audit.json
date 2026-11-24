@@ -1,0 +1,439 @@
+{
+  "auditDate": "2026-11-24",
+  "auditor": "standalone_linux, independent existing-artifact audit only",
+  "verdict": "PASS scoped supported SQLite working-copy open/read/query/export/cold-reopen core; no record-write or general CRUD claim",
+  "source": {
+    "commit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+    "tree": "e30879fd772871e690847c061ef66e6b81808a05",
+    "version": "2026.48.1"
+  },
+  "executionQaCommit": "03477b0199daeb50ae7b20d552b111630c3271ce",
+  "executionRun": 45351696628,
+  "executionJob": 138300391257,
+  "executionAttempt": 1,
+  "jobConclusion": "success",
+  "proofArtifact": {
+    "id": 14900779409,
+    "node_id": "MDg6QXJ0aWZhY3QxNDkwMDc3OTQwOQ==",
+    "name": "standalone-native-database-03477b0199daeb50ae7b20d552b111630c3271ce",
+    "size_in_bytes": 2093483,
+    "url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/actions/artifacts/14900779409",
+    "archive_download_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/actions/artifacts/14900779409/zip",
+    "expired": false,
+    "digest": "sha256:85da1a10721086f42d6b12b1cc7b9bc927737558e9eb37e607cee7cfa675d341",
+    "created_at": "2026-11-24T08:17:39Z",
+    "updated_at": "2026-11-24T08:17:39Z",
+    "expires_at": "2027-02-22T07:55:02Z",
+    "workflow_run": {
+      "id": 45351696628,
+      "repository_id": 1427673882,
+      "head_repository_id": 1427673882,
+      "head_branch": "codex/standalone-macos-20261123",
+      "head_sha": "03477b0199daeb50ae7b20d552b111630c3271ce"
+    }
+  },
+  "wholeZipHashMatchesRetainedOfficialDigest": true,
+  "uniqueSafeCrcMembersMatchingExistingRaw": 137,
+  "ownerReviewOriginalSha256": "259daf982a851a3e5ab892045ffb01ab08b9909f0d6d67b561d912608bf09c45",
+  "ownerReviewMatchesExpectedPin": true,
+  "sourceWitnessSha256": "236085a316b40b2e5033316a3e3ed45f91cb9a27e83d518117160ba4aff4e7d5",
+  "producerWorkflow": {
+    "commit": "2af94cdcefa3e88e4980b631d16a88d7d7de5ae8",
+    "tree": "94340e40228ddcb11aace00e4dd01f614a13273e",
+    "run": 45195055147,
+    "attempt": 1,
+    "job": 137763371873,
+    "branch": "codex/p5-macos-only-producer-20261123",
+    "path": ".github/workflows/release.yml",
+    "event": "workflow_dispatch",
+    "workflowSha256": "2ae3b7aa85bb4d4e394e71af43a93da45332e9b5f78fd7ed2151aca732726d62",
+    "checkoutWorkflowSha256": "620e90485493163b87163a8763ffbbfcc2f0af5f03251b592af577721c5a9c64",
+    "witnessMember": ".local/macos-only-producer-source.json"
+  },
+  "ownDmg": {
+    "filename": "Open Database Studio_2026.48.1_aarch64.dmg",
+    "sha256": "a3ad897b5345f8f8faf96f8e11dda33a25f912ffba8d4acb28b719edd9a0e016",
+    "bytes": 39962398
+  },
+  "bundleInfo": {
+    "CFBundleDevelopmentRegion": "en",
+    "CFBundleDisplayName": "Open Database Studio",
+    "CFBundleExecutable": "open-database-studio",
+    "CFBundleIdentifier": "org.openaec.database-studio",
+    "CFBundleInfoDictionaryVersion": "6.0",
+    "CFBundleName": "Open Database Studio",
+    "CFBundlePackageType": "APPL",
+    "CFBundleShortVersionString": "2026.48.1",
+    "CFBundleVersion": "2026.48.1",
+    "CSResourcesFileMapped": true,
+    "LSApplicationCategoryType": "public.app-category.productivity",
+    "LSMinimumSystemVersion": "10.13",
+    "CFBundleIconFile": "icon.icns",
+    "LSRequiresCarbon": true,
+    "NSHighResolutionCapable": true,
+    "NSHumanReadableCopyright": "\u00a9 2026 OpenAEC Foundation",
+    "CFBundleAllowMixedLocalizations": true,
+    "CFBundleLocalizations": [
+      "nl",
+      "en",
+      "de",
+      "fr",
+      "es",
+      "it",
+      "pt-BR",
+      "zh-Hans"
+    ]
+  },
+  "installedExecutableSha256": "3340813df0720935e9b143a051f58ca105da026a1d520b577dda0d2905895c62",
+  "nativeSignatureAttestations": {
+    "signature": {
+      "argv": [
+        "/usr/bin/codesign",
+        "--verify",
+        "--deep",
+        "--strict",
+        "/Users/runner/work/open-office-studio/open-office-studio/receipts/database/installed/Open Database Studio.app"
+      ],
+      "code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    "signatureIdentity": {
+      "argv": [
+        "/usr/bin/codesign",
+        "-dv",
+        "--verbose=4",
+        "/Users/runner/work/open-office-studio/open-office-studio/receipts/database/installed/Open Database Studio.app"
+      ],
+      "code": 0,
+      "stdout": "",
+      "stderr": "Executable=/Users/runner/work/open-office-studio/open-office-studio/receipts/database/installed/Open Database Studio.app/Contents/MacOS/open-database-studio\nIdentifier=org.openaec.database-studio\nFormat=app bundle with Mach-O thin (arm64)\nCodeDirectory v=20500 size=92391 flags=0x10000(runtime) hashes=2880+3 location=embedded\nVersionPlatform=1\nVersionMin=720896\nVersionSDK=1705216\nHash type=sha256 size=32\nCandidateCDHash sha256=a973f5de7e3cb43936fc588a7a8103afb7e1be19\nCandidateCDHashFull sha256=a973f5de7e3cb43936fc588a7a8103afb7e1be196475bd3a02381396ea1ce524\nHash choices=sha256\nCMSDigest=a973f5de7e3cb43936fc588a7a8103afb7e1be196475bd3a02381396ea1ce524\nCMSDigestType=2\nExecutable Segment base=0\nExecutable Segment limit=43384832\nExecutable Segment flags=0x1\nPage size=16384\nCDHash=a973f5de7e3cb43936fc588a7a8103afb7e1be19\nSignature size=9063\nAuthority=Developer ID Application: Maarten Vroegindeweij (7KFV4QY98M)\nAuthority=Developer ID Certification Authority\nAuthority=Apple Root CA\nTimestamp=Nov 23, 2026 at 2:55:54\u202fPM\nNotarization Ticket=stapled\nInfo.plist entries=18\nTeamIdentifier=7KFV4QY98M\nRuntime Version=26.5.0\nSealed Resources version=2 rules=13 files=1\nInternal requirements count=1 size=188\n"
+    },
+    "gatekeeper": {
+      "argv": [
+        "/usr/sbin/spctl",
+        "--assess",
+        "--type",
+        "execute",
+        "--verbose=4",
+        "/Users/runner/work/open-office-studio/open-office-studio/receipts/database/installed/Open Database Studio.app"
+      ],
+      "code": 0,
+      "stdout": "",
+      "stderr": "/Users/runner/work/open-office-studio/open-office-studio/receipts/database/installed/Open Database Studio.app: accepted\nsource=Notarized Developer ID\n"
+    },
+    "notarizationStaple": {
+      "argv": [
+        "/usr/bin/xcrun",
+        "stapler",
+        "validate",
+        "/Users/runner/work/open-office-studio/open-office-studio/receipts/database/installed/Open Database Studio.app"
+      ],
+      "code": 0,
+      "stdout": "Processing: /Users/runner/work/open-office-studio/open-office-studio/receipts/database/installed/Open Database Studio.app\nThe validate action worked!\n",
+      "stderr": ""
+    }
+  },
+  "signatureScope": "Retained codesign/Gatekeeper/stapler command attestations only, tied to exact installed executable and DMG provenance; no fresh Apple OS cryptographic verification or DMG extraction.",
+  "nativeRoute": {
+    "supportedInput": "Synthetic SQLite file through real native Open panel; supported external-file confirmation and working-copy route",
+    "table": "standalone_data",
+    "rows": 3,
+    "query": "SELECT SUM(amount) AS qa_total FROM standalone_data;",
+    "result": 60,
+    "export": "Native working-copy Save/export through OS Save panel",
+    "coldReopen": "Exported SQLite opened by new native process through OS Open panel, then SELECT SUM(amount) again",
+    "firstPid": 1628,
+    "reopenPid": 3420,
+    "normalCmdQExitCodes": [
+      0,
+      0
+    ],
+    "recordUpdateInsertDeleteTested": false,
+    "sourceBytes": 8192,
+    "sourceSha256": "b8c474f0ef6f6addce743b7870346eb2243c888dcee093371c3d6dcc93646732",
+    "sourceUnchangedAgainstFixtureReceipt": true,
+    "exportBytes": 53248,
+    "exportSha256": "d8e2f0935eb5f3ea8957fd35d7dfb937a6e0655b9b67f69c2dfafa339943fcca"
+  },
+  "independentSqliteResult": [
+    {
+      "kind": "source",
+      "readOnlyUriMode": "mode=ro&immutable=1",
+      "fileSha256BeforeAndAfter": "b8c474f0ef6f6addce743b7870346eb2243c888dcee093371c3d6dcc93646732",
+      "bytes": 8192,
+      "integrity": [
+        [
+          "ok"
+        ]
+      ],
+      "schema": [
+        [
+          "table",
+          "standalone_data",
+          "CREATE TABLE standalone_data(id INTEGER PRIMARY KEY, label TEXT NOT NULL, amount INTEGER NOT NULL)"
+        ]
+      ],
+      "rows": [
+        [
+          1,
+          "STANDALONE_DATABASE_SEED",
+          10,
+          "integer"
+        ],
+        [
+          2,
+          "beta",
+          20,
+          "integer"
+        ],
+        [
+          3,
+          "STANDALONE_UNCHANGED_CONTROL",
+          30,
+          "integer"
+        ]
+      ],
+      "sumAmount": 60,
+      "fileBytesUnchangedByAudit": true
+    },
+    {
+      "kind": "export",
+      "readOnlyUriMode": "mode=ro&immutable=1",
+      "fileSha256BeforeAndAfter": "d8e2f0935eb5f3ea8957fd35d7dfb937a6e0655b9b67f69c2dfafa339943fcca",
+      "bytes": 53248,
+      "integrity": [
+        [
+          "ok"
+        ]
+      ],
+      "schema": [
+        [
+          "table",
+          "_openaec_bijlagen",
+          "CREATE TABLE _openaec_bijlagen (tabel TEXT NOT NULL, rij INTEGER NOT NULL, veld TEXT NOT NULL, naam TEXT, type TEXT, data BLOB)"
+        ],
+        [
+          "table",
+          "_openaec_meta",
+          "CREATE TABLE _openaec_meta (sleutel TEXT PRIMARY KEY, waarde TEXT)"
+        ],
+        [
+          "table",
+          "_openaec_modules",
+          "CREATE TABLE _openaec_modules (naam TEXT PRIMARY KEY COLLATE NOCASE, soort TEXT NOT NULL CHECK (soort IN ('module', 'klasse', 'formulier')), bron TEXT NOT NULL, herkomst TEXT NOT NULL CHECK (herkomst IN ('access', 'werkkopie')), gewijzigd TEXT)"
+        ],
+        [
+          "table",
+          "_openaec_ontwerpen",
+          "CREATE TABLE _openaec_ontwerpen (soort TEXT NOT NULL CHECK (soort IN ('formulier', 'rapport')), naam TEXT NOT NULL COLLATE NOCASE, bron TEXT NOT NULL, definitie TEXT NOT NULL, PRIMARY KEY (soort, naam))"
+        ],
+        [
+          "table",
+          "_openaec_querys",
+          "CREATE TABLE _openaec_querys (naam TEXT PRIMARY KEY COLLATE NOCASE, sql TEXT NOT NULL, soort TEXT NOT NULL)"
+        ],
+        [
+          "table",
+          "_openaec_relaties",
+          "CREATE TABLE _openaec_relaties (naam TEXT PRIMARY KEY, tabel TEXT NOT NULL, velden TEXT NOT NULL, naarTabel TEXT NOT NULL, naarVelden TEXT NOT NULL, integriteit INTEGER NOT NULL, toegangIntegriteit INTEGER NOT NULL, trapsBijwerken INTEGER NOT NULL, trapsVerwijderen INTEGER NOT NULL)"
+        ],
+        [
+          "table",
+          "standalone_data",
+          "CREATE TABLE standalone_data(id INTEGER PRIMARY KEY, label TEXT NOT NULL, amount INTEGER NOT NULL)"
+        ]
+      ],
+      "rows": [
+        [
+          1,
+          "STANDALONE_DATABASE_SEED",
+          10,
+          "integer"
+        ],
+        [
+          2,
+          "beta",
+          20,
+          "integer"
+        ],
+        [
+          3,
+          "STANDALONE_UNCHANGED_CONTROL",
+          30,
+          "integer"
+        ]
+      ],
+      "sumAmount": 60,
+      "fileBytesUnchangedByAudit": true
+    }
+  ],
+  "ownProfileAndIsolation": {
+    "sevenOwnLocationsAbsentBeforeRun": true,
+    "suiteAppProfileAndExecutableAbsenceVerifiedByPinnedNativeHarness": true,
+    "emptyOwnCwdAndSystemPath": true,
+    "ownCopiedAppAndOwnProfileNamespace": true
+  },
+  "cleanup": {
+    "passed": true,
+    "errors": [],
+    "ownDmgDetachCommandExit": 0,
+    "ownProfilesCopiedAppAndWatcherCleanup": "Retained native cleanupPassed and exact QA cleanup implementation; sampled process evidence is not exhaustive resource closure"
+  },
+  "originalCompletedPngReview": [
+    {
+      "path": "22-database-table-0.png",
+      "sha256": "dbe05a632f432bc02c4b6d813ea45bbcd340a6752fe1ed5819b4535744b7a999",
+      "observation": "Native table shows the three synthetic integer amounts10/20/30 and seed/control labels."
+    },
+    {
+      "path": "85-database-reopened-0.png",
+      "sha256": "1383dbba4ad1dbba4f172ea1d71e2fb441a6439653f3f4ef801696fe9578490f",
+      "observation": "New process uses database-export.sqlite and shows actual SELECT SUM(amount) AS qa_total result60."
+    }
+  ],
+  "rawNativeAcceptedUnchanged": false,
+  "rawStatusUnchanged": "functional-evidence-collected-review-pending",
+  "operatorFinalReviewOwner": "6f92",
+  "limits": [
+    "Only supported SQLite working-copy read/query/export/reopen was exercised. No MDB/ACCDB acceptance, data-record edit/write mode, INSERT/UPDATE/DELETE or general CRUD certification.",
+    "Export adds app metadata tables while preserving the original three data rows; that is not proof of user record editing.",
+    "Existing build/native source and signature attestations reviewed only; no new download, CI, GUI, OS crypto or product fix.",
+    "Sampled process/lsof observations and an empty converter inventory do not establish exhaustive dependency independence.",
+    "No stable-release approval or root matrix/handoff edit; all previous evidence unchanged; no automatic next task."
+  ],
+  "qaSourceHashes": {
+    "native.py": "85d698ad4477a2257d14138ede9155061ee50184adf49633b2e2c6eb122b7f77",
+    "cases.py": "0ccb7508e4bce3860518508e251474816b2677e4c4e19d4156aa62f976c465f4",
+    "prepare.py": "42bebaf577043c5912887a29ce51e5321a03ee524f5a1cd6d3f10da23b23e35c",
+    "oracles.py": "e08aa03b00a4e1670344296eaa45a6ac59da7198a038d89d2a1ab04a67b2ddbc",
+    "ax.swift": "3b35f623c4c0efd72e27c7dccd8d29e281624707f75e0c49372cc4039b48c859"
+  },
+  "files": [
+    {
+      "path": "proof.zip",
+      "bytes": 2093483,
+      "sha256": "85da1a10721086f42d6b12b1cc7b9bc927737558e9eb37e607cee7cfa675d341"
+    },
+    {
+      "path": "source-witness.json",
+      "bytes": 820,
+      "sha256": "236085a316b40b2e5033316a3e3ed45f91cb9a27e83d518117160ba4aff4e7d5"
+    },
+    {
+      "path": "owner-review.json.gz",
+      "bytes": 2972,
+      "sha256": "87ab4604244dd69556fdabd0933662d407fb23d55c04c293956e61a5de6a4abe"
+    },
+    {
+      "path": "receipt.json.gz",
+      "bytes": 12205,
+      "sha256": "bbe5a73528f941171d88c5ec1700c00787d038d8af09412db49cafc755bb460e"
+    },
+    {
+      "path": "core-receipt.json.gz",
+      "bytes": 12192,
+      "sha256": "c1ec81de492f2e3e4c30b736a46ae0b508732dfa67c97adf84a832dd71f3eb4d"
+    },
+    {
+      "path": "output-oracle.json.gz",
+      "bytes": 283,
+      "sha256": "d06324eb3b93b77ffa9420c8d70796a8f463d6c8832658b6689d58c7de2ec0cd"
+    },
+    {
+      "path": "reopened-oracle.json.gz",
+      "bytes": 283,
+      "sha256": "d06324eb3b93b77ffa9420c8d70796a8f463d6c8832658b6689d58c7de2ec0cd"
+    },
+    {
+      "path": "profile-preflight.json.gz",
+      "bytes": 222,
+      "sha256": "c21b985c9ac0d04b1e3ce4163caec680251a2d445e51d98b4216f08f1ce24cec"
+    },
+    {
+      "path": "owned-process-observations.json.gz",
+      "bytes": 276,
+      "sha256": "bf10cb94d446c9cadacaa06a50b27bd092cffefcd77df2bbd56b4b315c42e932"
+    },
+    {
+      "path": "mount.json.gz",
+      "bytes": 568,
+      "sha256": "7e231a35469ad53ae55f8c64fed37a3ce45f4b3d07b998cc951b901445e321d4"
+    },
+    {
+      "path": "copy.json.gz",
+      "bytes": 171,
+      "sha256": "eb5753ae65ceb51bfa60cb865cd61cbd6575f7fc005458d1a058fde06e1f08ff"
+    },
+    {
+      "path": "detach.json.gz",
+      "bytes": 169,
+      "sha256": "fdaf73a012d03d2c2bc0fbb71ac78382b78721e440e93ba93c1440fcd4fc6b50"
+    },
+    {
+      "path": "quit-1628.json.gz",
+      "bytes": 71,
+      "sha256": "5474b125122088852a5e2d1023565c21b3d296437839a123297c38a15b3aa5b2"
+    },
+    {
+      "path": "quit-3420.json.gz",
+      "bytes": 70,
+      "sha256": "5c70150f8a071a1ebc8ea42218abe87bf5440b9b628cf0d8f4164342567276e7"
+    },
+    {
+      "path": "actual-cwd-1628.json.gz",
+      "bytes": 173,
+      "sha256": "916b1bc22f777096a699002281de3b5de28249eccfc929d772c45b19b78e7cf7"
+    },
+    {
+      "path": "actual-cwd-3420.json.gz",
+      "bytes": 172,
+      "sha256": "fc0f0e298a9f204ada0600f164082ba3031c73f1612a83701805121422771570"
+    },
+    {
+      "path": "22-database-table-0.png",
+      "bytes": 248123,
+      "sha256": "dbe05a632f432bc02c4b6d813ea45bbcd340a6752fe1ed5819b4535744b7a999"
+    },
+    {
+      "path": "85-database-reopened-0.png",
+      "bytes": 232394,
+      "sha256": "1383dbba4ad1dbba4f172ea1d71e2fb441a6439653f3f4ef801696fe9578490f"
+    },
+    {
+      "path": "source.sqlite",
+      "bytes": 8192,
+      "sha256": "b8c474f0ef6f6addce743b7870346eb2243c888dcee093371c3d6dcc93646732"
+    },
+    {
+      "path": "database-export.sqlite",
+      "bytes": 53248,
+      "sha256": "d8e2f0935eb5f3ea8957fd35d7dfb937a6e0655b9b67f69c2dfafa339943fcca"
+    },
+    {
+      "path": "member-manifest.json",
+      "bytes": 20547,
+      "sha256": "5a10b96b035fc8b871446f4dd3c7cfd9c69db923a061649878cd267ede1bdd05"
+    },
+    {
+      "path": "producer-receipt.json.gz",
+      "bytes": 4621,
+      "sha256": "a84ae21cc939b66ab9d48620903ac7079fe47bd9f789ce2cc9c0fe6f05e006a5"
+    },
+    {
+      "path": "producer-receipt-artifact-metadata.json",
+      "bytes": 864,
+      "sha256": "4eff611c9cb52ad7913c0ea5dc7c05163126a08660dcb0d871c32980fe5264c9"
+    },
+    {
+      "path": "independent-sqlite-oracle.json",
+      "bytes": 3047,
+      "sha256": "50edf706a840daf1a7bee3a5198416b29330cc6ac1709f336f69135a63245b49"
+    },
+    {
+      "path": "provenance.json",
+      "bytes": 9170,
+      "sha256": "388182af6a7833515eb5e19571c92b3dcd65db7bce9c0f7ba228339e58de0c25"
+    }
+  ]
+}

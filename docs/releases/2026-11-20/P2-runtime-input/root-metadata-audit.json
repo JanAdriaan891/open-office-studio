@@ -1,0 +1,34 @@
+{
+  "scope": "Root hashed one existing runtime-only archive and published only selected metadata/helper bytes; no runtime execution or second Desktop installer download",
+  "run": 45147346793,
+  "artifact": 14805600515,
+  "archiveSha256": "bac1a37b55deff80cabd4670c1bf65d76266285275c0552436dcc13fcdafa487",
+  "payloads": [
+    {
+      "file": "entry-manifest.json",
+      "sha256": "79204b36527a7fed0f073b5290df26a86c6a610ba4f78ddf36883507b28da029",
+      "bytes": 5875665,
+      "artifactMember": "entry-manifest.json"
+    },
+    {
+      "file": "canary-report.json",
+      "sha256": "ddae8e1fc725287ee3d127300bdc9b6c47f2d158dec8cd7c3b68e0d4b17527f8",
+      "bytes": 1600,
+      "artifactMember": "canary-report.json"
+    },
+    {
+      "file": "p2-runtime-consumer.py",
+      "sha256": "5e17b69dc328e9491692b5e3a497f16977618afea08d259bbaf46063864874ca",
+      "bytes": 3758,
+      "artifactMember": "p2-runtime-consumer.py"
+    },
+    {
+      "file": "runtime-input-descriptor.json",
+      "sha256": "1c0e508276b37fbd5b92e55bf113446d7e8522fc1d9e1817bb7722d5b5dd53c6",
+      "bytes": 6099,
+      "sourceGit": "e1f1b84b94fdfa9932f8f33804da9b00c5cf6594"
+    }
+  ],
+  "runtimeTarRetainedInPrivateArchiveOnly": true,
+  "nativeAndStandaloneAcceptance": false
+}

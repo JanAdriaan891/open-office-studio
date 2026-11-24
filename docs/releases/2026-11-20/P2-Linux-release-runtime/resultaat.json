@@ -1,0 +1,133 @@
+{
+  "codePoint": "dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b",
+  "harnessPoint": "dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b",
+  "interfaceOnly": false,
+  "platform": "linux",
+  "arch": "x64",
+  "results": [
+    {
+      "status": "passed",
+      "scope": "native-ui-and-converter-proof",
+      "package": "Open Office Studio_2026.48.1_amd64.AppImage",
+      "packageBytes": 429857272,
+      "packageSha256": "cbc0e02077f04fdd21640e31a45b683b79c95089679f5b2284944edf4203baa9",
+      "source": "private-installer-payload",
+      "native": true,
+      "macrosDisabled": true,
+      "independentContent": true,
+      "legacyFixtures": 32,
+      "nativeInterface": {
+        "status": "passed",
+        "packagedApp": true,
+        "defaultBundledStatus": true,
+        "odtLoadedInWriter": true,
+        "saveAsShowsBundledRuntime": true,
+        "interaction": "enabled-save-as-native-pointer",
+        "entryPoint": "appimage-runtime",
+        "originalUnchanged": true
+      },
+      "performance": {
+        "platform": "posix",
+        "program": "/tmp/oos-bundle-probe-WLT4xm/payload/usr/libexec/Open Office Studio/kantoorruntime/program/soffice",
+        "profileSha256": "847721a36ebe27c89fa08ca5fc12f228ae11c8429be77940f80dc82b7ed89e40",
+        "runtimeFiles": 13982,
+        "runtimeFileBytes": 730727046,
+        "method": "New isolated profile per call; process-tree RSS sampled every 50 ms (shared pages may be counted more than once). Initialization includes first-profile setup, not a cold OS/disk boot. Conversion includes process startup. Unchanged 45-second limit.",
+        "cases": [
+          {
+            "name": "init-new-profile-1",
+            "ms": 210,
+            "peakSampledTreeRssBytes": 78606336,
+            "exitCode": 0,
+            "timedOut": false
+          },
+          {
+            "name": "init-new-profile-2",
+            "ms": 210,
+            "peakSampledTreeRssBytes": 79949824,
+            "exitCode": 0,
+            "timedOut": false
+          },
+          {
+            "name": "writer-to-odt",
+            "ms": 950,
+            "peakSampledTreeRssBytes": 253247488,
+            "exitCode": 0,
+            "timedOut": false,
+            "outputBytes": 24439
+          },
+          {
+            "name": "writer-to-pdf",
+            "ms": 735,
+            "peakSampledTreeRssBytes": 218525696,
+            "exitCode": 0,
+            "timedOut": false,
+            "outputBytes": 54385
+          }
+        ]
+      }
+    },
+    {
+      "status": "passed",
+      "scope": "native-ui-and-converter-proof",
+      "package": "Open Office Studio_2026.48.1_amd64.deb",
+      "packageBytes": 383814214,
+      "packageSha256": "5bda24b3af77ce453aaa1bec202258beb1a438814461e8a05cae22ef3fd2ce01",
+      "source": "private-installer-payload",
+      "native": true,
+      "macrosDisabled": true,
+      "independentContent": true,
+      "legacyFixtures": 32,
+      "nativeInterface": {
+        "status": "passed",
+        "packagedApp": true,
+        "defaultBundledStatus": true,
+        "odtLoadedInWriter": true,
+        "saveAsShowsBundledRuntime": true,
+        "interaction": "enabled-save-as-native-pointer",
+        "entryPoint": "installed-app",
+        "originalUnchanged": true
+      },
+      "performance": {
+        "platform": "posix",
+        "program": "/tmp/oos-bundle-probe-GXukSn/payload/usr/libexec/Open Office Studio/kantoorruntime/program/soffice",
+        "profileSha256": "847721a36ebe27c89fa08ca5fc12f228ae11c8429be77940f80dc82b7ed89e40",
+        "runtimeFiles": 13982,
+        "runtimeFileBytes": 730727046,
+        "method": "New isolated profile per call; process-tree RSS sampled every 50 ms (shared pages may be counted more than once). Initialization includes first-profile setup, not a cold OS/disk boot. Conversion includes process startup. Unchanged 45-second limit.",
+        "cases": [
+          {
+            "name": "init-new-profile-1",
+            "ms": 214,
+            "peakSampledTreeRssBytes": 74674176,
+            "exitCode": 0,
+            "timedOut": false
+          },
+          {
+            "name": "init-new-profile-2",
+            "ms": 211,
+            "peakSampledTreeRssBytes": 78905344,
+            "exitCode": 0,
+            "timedOut": false
+          },
+          {
+            "name": "writer-to-odt",
+            "ms": 947,
+            "peakSampledTreeRssBytes": 253419520,
+            "exitCode": 0,
+            "timedOut": false,
+            "outputBytes": 24439
+          },
+          {
+            "name": "writer-to-pdf",
+            "ms": 736,
+            "peakSampledTreeRssBytes": 218771456,
+            "exitCode": 0,
+            "timedOut": false,
+            "outputBytes": 54385
+          }
+        ]
+      }
+    }
+  ]
+}

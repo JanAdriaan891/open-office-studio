@@ -1,0 +1,361 @@
+{
+  "scope": "Publisher real API compatibility only; existing metadata replay and fully mocked request recording; no live writes/download/CI/key import",
+  "codeSha256AtStart": {
+    "core.py": "25adcf42a0c5a7c41163a379be6661d0ae099016de99c4143fb982e5f02da527",
+    "gh_backend.py": "73631e23df5c7e553920aa7d4293182c1c12dcfdc74abdd1866ba4324faad6dd"
+  },
+  "checks": [
+    {
+      "name": "Original producer attempts/jobs/artifacts/gate names and final verifier gate replay",
+      "result": "PASS"
+    },
+    {
+      "name": "Tag/draft/publish JSON payload and release pagination/404 recording",
+      "result": "PASS",
+      "makeLatestTypes": "false/true strings; draft/prerelease booleans preserved"
+    },
+    {
+      "name": "Binary artifact/release-asset downloads send octet-stream and preserve raw stdout",
+      "result": "PASS mocked recording only"
+    },
+    {
+      "name": "Real urllib Request construction, fixed upload URL, raw file stream, explicit Content-Length and HTTP201 response shape",
+      "result": "PASS mocked opener; no network"
+    }
+  ],
+  "findings": [],
+  "requests": [
+    {
+      "kind": "json",
+      "route": "repos/OpenAEC-Foundation/open-office-studio/git/refs",
+      "method": "POST",
+      "json": {
+        "ref": "refs/tags/v2026.48.1",
+        "sha": "b696ab86bd1c128729a079b68c0082e6df3d36a5"
+      },
+      "inputFromStdin": true
+    },
+    {
+      "kind": "json",
+      "route": "repos/OpenAEC-Foundation/open-office-studio/releases",
+      "method": "POST",
+      "json": {
+        "tag_name": "v2026.48.1",
+        "target_commitish": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+        "name": "Open Office Studio2026.48.1",
+        "body": "Synthetic request recording only",
+        "draft": true,
+        "prerelease": false,
+        "make_latest": "false"
+      },
+      "inputFromStdin": true
+    },
+    {
+      "kind": "json",
+      "route": "repos/OpenAEC-Foundation/open-office-studio/releases/100",
+      "method": "PATCH",
+      "json": {
+        "draft": false,
+        "prerelease": false,
+        "make_latest": "true"
+      },
+      "inputFromStdin": true
+    },
+    {
+      "kind": "json",
+      "route": "repos/OpenAEC-Foundation/open-office-studio/git/ref/tags/v2026.48.1",
+      "method": "GET",
+      "json": null,
+      "inputFromStdin": false
+    },
+    {
+      "kind": "json",
+      "route": "repos/OpenAEC-Foundation/open-office-studio/releases?per_page=100&page=1",
+      "method": "GET",
+      "json": null,
+      "inputFromStdin": false
+    },
+    {
+      "kind": "json",
+      "route": "repos/OpenAEC-Foundation/open-office-studio/releases?per_page=100&page=2",
+      "method": "GET",
+      "json": null,
+      "inputFromStdin": false
+    },
+    {
+      "kind": "binary-download",
+      "route": "repos/OpenAEC-Foundation/open-office-studio/actions/artifacts/14828525724/zip",
+      "headers": [
+        "Accept: application/octet-stream"
+      ],
+      "bodyWrittenUnchanged": true
+    },
+    {
+      "kind": "binary-download",
+      "route": "repos/OpenAEC-Foundation/open-office-studio/releases/assets/123",
+      "headers": [
+        "Accept: application/octet-stream"
+      ],
+      "bodyWrittenUnchanged": true
+    },
+    {
+      "kind": "upload",
+      "url": "https://uploads.github.com/repos/OpenAEC-Foundation/open-office-studio/releases/100/assets?name=Open.Database.Studio_2026.48.1_aarch64.dmg",
+      "method": "POST",
+      "contentLength": "29157",
+      "contentType": "application/octet-stream",
+      "payloadSha256": "25adcf42a0c5a7c41163a379be6661d0ae099016de99c4143fb982e5f02da527",
+      "rawBinaryStream": true,
+      "expectedHttpStatus": 201
+    }
+  ],
+  "metadataRequestPaths": [
+    "actions/runs/45195055147/attempts/1",
+    "actions/runs/45195055147/attempts/1/jobs?per_page=100",
+    "actions/runs/45195055147/artifacts?per_page=100",
+    "actions/artifacts/14836145077",
+    "actions/runs/45177730188/attempts/1",
+    "actions/runs/45177730188/attempts/1/jobs?per_page=100",
+    "actions/runs/45177730188/artifacts?per_page=100",
+    "actions/artifacts/14828525724",
+    "actions/runs/45177730188/attempts/1",
+    "actions/runs/45177730188/artifacts?per_page=100",
+    "actions/artifacts/14824745492",
+    "actions/runs/45352330223/attempts/1",
+    "actions/runs/45352330223/attempts/1/jobs?per_page=100",
+    "actions/artifacts/14900089777"
+  ],
+  "realJobStepNames": {
+    "137703365803": [
+      "Set up job",
+      "Run actions/checkout@v4",
+      "Ondertekening beschikbaar",
+      "Run actions/setup-node@v4",
+      "Run pnpm/action-setup@v4",
+      "Run dtolnay/rust-toolchain@stable",
+      "Run actions/setup-python@v5",
+      "Updater-artefacten (alleen met geheim en publieke sleutel)",
+      "Linux-bouwafhankelijkheden",
+      "Run pnpm install --frozen-lockfile",
+      "Cache van de vastgepinde kantoorruntime",
+      "Lettertypencache",
+      "Run node scripts/haal-lettertypen.mjs",
+      "Woordenboekencache",
+      "Run node scripts/haal-woordenboeken.mjs",
+      "Run pnpm versie:check",
+      "Vastgelegde versleutelde proefbestanden ophalen",
+      "Run pnpm test",
+      "Run python -m unittest discover -s tests -v",
+      "Run node scripts/test-kantoor-engines.mjs",
+      "Run pnpm test:opdrachten",
+      "Windows-loader voorbereiden",
+      "Run cargo test --manifest-path src-tauri/Cargo.toml --locked",
+      "Run cargo test --manifest-path apps/database-studio/src-tauri/Cargo.toml --locked",
+      ".NET 8 voor de signeerclient",
+      "Authenticode voorbereiden",
+      "App Store Connect-sleutel klaarzetten",
+      "Pakket bouwen (onondertekend)",
+      "Pakket bouwen (Windows, ondertekend)",
+      "Pakket bouwen (macOS, ondertekend en genotariseerd)",
+      "Authenticode controleren (installer, programma en uninstaller)",
+      "Handtekening en notarisatie controleren (macOS)",
+      "Linux-installers werkelijk uitpakken en controleren",
+      "Windows-installer werkelijk uitpakken en controleren",
+      "Meet- en inhoudscontrole voor de meegeleverde runtime",
+      "Standaardinstaller controleren met uitsluitend de private runtime",
+      "Linux native WebKit-interface en private installer controleren",
+      "Runtimebewijs bewaren",
+      "Run actions/upload-artifact@v4",
+      "Post .NET 8 voor de signeerclient",
+      "Post Woordenboekencache",
+      "Post Lettertypencache",
+      "Post Cache van de vastgepinde kantoorruntime",
+      "Post Run actions/setup-python@v5",
+      "Post Run pnpm/action-setup@v4",
+      "Post Run actions/setup-node@v4",
+      "Post Run actions/checkout@v4",
+      "Complete job"
+    ],
+    "137703365848": [
+      "Set up job",
+      "Run actions/checkout@v4",
+      "Ondertekening beschikbaar",
+      "Run actions/setup-node@v4",
+      "Run pnpm/action-setup@v4",
+      "Run dtolnay/rust-toolchain@stable",
+      "Run actions/setup-python@v5",
+      "Updater-artefacten (alleen met geheim en publieke sleutel)",
+      "Linux-bouwafhankelijkheden",
+      "Run pnpm install --frozen-lockfile",
+      "Cache van de vastgepinde kantoorruntime",
+      "Lettertypencache",
+      "Run node scripts/haal-lettertypen.mjs",
+      "Woordenboekencache",
+      "Run node scripts/haal-woordenboeken.mjs",
+      "Run pnpm versie:check",
+      "Vastgelegde versleutelde proefbestanden ophalen",
+      "Run pnpm test",
+      "Run python -m unittest discover -s tests -v",
+      "Run node scripts/test-kantoor-engines.mjs",
+      "Run pnpm test:opdrachten",
+      "Windows-loader voorbereiden",
+      "Run cargo test --manifest-path src-tauri/Cargo.toml --locked",
+      "Run cargo test --manifest-path apps/database-studio/src-tauri/Cargo.toml --locked",
+      ".NET 8 voor de signeerclient",
+      "Authenticode voorbereiden",
+      "App Store Connect-sleutel klaarzetten",
+      "Pakket bouwen (onondertekend)",
+      "Pakket bouwen (Windows, ondertekend)",
+      "Pakket bouwen (macOS, ondertekend en genotariseerd)",
+      "Authenticode controleren (installer, programma en uninstaller)",
+      "Handtekening en notarisatie controleren (macOS)",
+      "Linux-installers werkelijk uitpakken en controleren",
+      "Windows-installer werkelijk uitpakken en controleren",
+      "Meet- en inhoudscontrole voor de meegeleverde runtime",
+      "Standaardinstaller controleren met uitsluitend de private runtime",
+      "Linux native WebKit-interface en private installer controleren",
+      "Runtimebewijs bewaren",
+      "Run actions/upload-artifact@v4",
+      "Post Woordenboekencache",
+      "Post Lettertypencache",
+      "Post Cache van de vastgepinde kantoorruntime",
+      "Post Run actions/setup-python@v5",
+      "Post Run pnpm/action-setup@v4",
+      "Post Run actions/setup-node@v4",
+      "Post Run actions/checkout@v4",
+      "Complete job"
+    ],
+    "137763371873": [
+      "Set up job",
+      "Run actions/checkout@v4",
+      "Exacte P5-appbron en afzonderlijke producerhead bewijzen",
+      "Ondertekening beschikbaar",
+      "Run actions/setup-node@v4",
+      "Run pnpm/action-setup@v4",
+      "Run dtolnay/rust-toolchain@stable",
+      "Run actions/setup-python@v5",
+      "Updater-artefacten (alleen met geheim en publieke sleutel)",
+      "Linux-bouwafhankelijkheden",
+      "Run pnpm install --frozen-lockfile",
+      "Cache van de vastgepinde kantoorruntime",
+      "Lettertypencache",
+      "Run node scripts/haal-lettertypen.mjs",
+      "Woordenboekencache",
+      "Run node scripts/haal-woordenboeken.mjs",
+      "Run pnpm versie:check",
+      "Vastgelegde versleutelde proefbestanden ophalen",
+      "Run pnpm test",
+      "Run python -m unittest discover -s tests -v",
+      "Run node scripts/test-kantoor-engines.mjs",
+      "Run pnpm test:opdrachten",
+      "Windows-loader voorbereiden",
+      "Run cargo test --manifest-path src-tauri/Cargo.toml --locked",
+      "Run cargo test --manifest-path apps/database-studio/src-tauri/Cargo.toml --locked",
+      ".NET 8 voor de signeerclient",
+      "Authenticode voorbereiden",
+      "App Store Connect-sleutel klaarzetten",
+      "Pakket bouwen (onondertekend)",
+      "Pakket bouwen (Windows, ondertekend)",
+      "Pakket bouwen (macOS, ondertekend en genotariseerd)",
+      "Authenticode controleren (installer, programma en uninstaller)",
+      "Handtekening en notarisatie controleren (macOS)",
+      "Linux-installers werkelijk uitpakken en controleren",
+      "Windows-installer werkelijk uitpakken en controleren",
+      "Meet- en inhoudscontrole voor de meegeleverde runtime",
+      "Standaardinstaller controleren met uitsluitend de private runtime",
+      "Linux native WebKit-interface en private installer controleren",
+      "Runtimebewijs bewaren",
+      "Run actions/upload-artifact@v4",
+      "Post Woordenboekencache",
+      "Post Lettertypencache",
+      "Post Cache van de vastgepinde kantoorruntime",
+      "Post Run actions/setup-python@v5",
+      "Post Run pnpm/action-setup@v4",
+      "Post Run actions/setup-node@v4",
+      "Post Run actions/checkout@v4",
+      "Complete job"
+    ],
+    "138301610586": [
+      "Set up job",
+      "Run actions/checkout@v4",
+      "Read explicit frozen candidate request",
+      "Run actions/checkout@v4",
+      "Verify rejection gates before fetching installer bytes",
+      "Hash actual packages, check reports and sign Linux bytes",
+      "Run actions/upload-artifact@v4",
+      "Post Run actions/checkout@v4",
+      "Post Run actions/checkout@v4",
+      "Complete job"
+    ]
+  },
+  "storedMetadataFiles": [
+    "C:\\Users\\alper\\Desktop\\Documents\\ChatGPT\\code slaafjes\\work\\oos-standalone-windows-p4-2026-11-23\\.local\\p5-original-official-input\\0.json",
+    "C:\\Users\\alper\\Desktop\\Documents\\ChatGPT\\code slaafjes\\work\\oos-standalone-windows-p4-2026-11-23\\.local\\p5-original-official-input\\1.json",
+    "C:\\Users\\alper\\Desktop\\Documents\\ChatGPT\\code slaafjes\\work\\oos-standalone-windows-p4-2026-11-23\\.local\\p5-original-official-input\\3.json",
+    "docs/releases/2026-11-20/P5-Mac-native-independent/notition/producer-receipt.json.gz",
+    "docs/releases/2026-11-20/P5-final-package-verification/official-metadata.json",
+    "docs/releases/2026-11-20/P5-package-intake/Linux-official-artifact.json",
+    "docs/releases/2026-11-20/P5-package-intake/Windows-official-artifact.json"
+  ],
+  "assetNameCompatibility": {
+    "count": 60,
+    "allAsciiSafeNames": true,
+    "largestAssetBytes": 429873656,
+    "sixtyFitsSingle100AssetPage": true
+  },
+  "codeSha256AtEnd": {
+    "core.py": "25adcf42a0c5a7c41163a379be6661d0ae099016de99c4143fb982e5f02da527",
+    "gh_backend.py": "73631e23df5c7e553920aa7d4293182c1c12dcfdc74abdd1866ba4324faad6dd"
+  },
+  "codeStableDuringChecks": true,
+  "officialDocs": {
+    "releases": "https://docs.github.com/en/rest/releases/releases?apiVersion=2022-11-28",
+    "assets": "https://docs.github.com/en/rest/releases/assets?apiVersion=2022-11-28",
+    "refs": "https://docs.github.com/en/rest/git/refs?apiVersion=2022-11-28",
+    "ghApi": "https://cli.github.com/manual/gh_api"
+  },
+  "finalOriginReplay": {
+    "result": "PASS",
+    "coreSha256": "a623be0e09ed418441ea748792263635c7e3715e5f4235834af16e3619a70a67",
+    "ghBackendSha256": "73631e23df5c7e553920aa7d4293182c1c12dcfdc74abdd1866ba4324faad6dd",
+    "note": "Current source after concurrent main-commit/tree guard correction. Original metadata, not fixture gate strings."
+  },
+  "originalApiPageSizes": {
+    "p5Jobs": 5,
+    "p5Artifacts": 4,
+    "macArtifacts": 2,
+    "proofJobRowsRetained": 1,
+    "macJobRowsRetained": 1,
+    "note": "Mac/proof job list envelope synthesized from exact retained original API job rows. No new API calls."
+  },
+  "retainedMetadataSha256": {
+    "C:\\Users\\alper\\Desktop\\Documents\\ChatGPT\\code slaafjes\\work\\oos-standalone-windows-p4-2026-11-23\\.local\\p5-original-official-input\\0.json": "34e0c92ae1c1fd59d1c93b6308cc7d56403437fc4dc5a435ff6854a5be94115b",
+    "C:\\Users\\alper\\Desktop\\Documents\\ChatGPT\\code slaafjes\\work\\oos-standalone-windows-p4-2026-11-23\\.local\\p5-original-official-input\\1.json": "afe7c20c044799f3b0af36ee84eedf8e5a52c2ca16af44a089160a4e598498b3",
+    "C:\\Users\\alper\\Desktop\\Documents\\ChatGPT\\code slaafjes\\work\\oos-standalone-windows-p4-2026-11-23\\.local\\p5-original-official-input\\3.json": "b9566651a543b950499a9f57bbbeae2250d0defa43967728ec097a56ecdf8862",
+    "docs/releases/2026-11-20/P5-Mac-native-independent/notition/producer-receipt.json.gz": "a84ae21cc939b66ab9d48620903ac7079fe47bd9f789ce2cc9c0fe6f05e006a5",
+    "docs/releases/2026-11-20/P5-final-package-verification/official-metadata.json": "38c701f7f754f85103602fb8171eb8d648719262226cd017989e7153a0fc8653",
+    "docs/releases/2026-11-20/P5-package-intake/Linux-official-artifact.json": "0320e1db86c4e77fd1e45357ec60f55c01b0465f2ea3bbda6df807f9ad8088f7",
+    "docs/releases/2026-11-20/P5-package-intake/Windows-official-artifact.json": "7bdefab764d99d13ae85732740847e60ba697ab594f29460ab2a90705784f519"
+  },
+  "permissionsCompatibility": {
+    "workflowDeclared": {
+      "contents": "write",
+      "actions": "read"
+    },
+    "operations": "Actions attempt/jobs/artifacts require Actions read; reference/releases/assets mutations require Contents write; binary draft readback uses same authenticated job token.",
+    "conditionalWorkflowWrite": "Official create/update release docs require Workflows write when resolved target adds/modifies .github/workflows relative to default branch. GITHUB_TOKEN cannot gain it. Retained f208 main-route source has no .github/workflows delta from P5; proposed publisher adds a new workflow to main, so P5 target omits that new file. No concrete incompatible add/modify delta found; final main source pin still belongs to root final-head review.",
+    "tokenLimitation": "Permission declarations/API documentation and mocked recording are not a live mutation authorization test."
+  },
+  "mainGuardApiCompatibility": {
+    "currentSource": "branches/main.commit.sha; git/commits/{main}.tree.sha; compare/{P5}...{main}.merge_base_commit.sha/status; git/commits/{P5}.tree.sha are correct REST field paths.",
+    "knownFindingsExcluded": "Compare-route, disk, redirects and state/order already reviewed by other owner; not duplicated."
+  },
+  "verdict": "PASS bounded API contract compatibility; no new blocking incompatibility found",
+  "limitations": [
+    "No live collect/download, tag, draft, upload, readback, publish, CI or key import executed.",
+    "Actual source attempts/jobs/artifacts/gate names were replayed from retained official metadata. Mutation responses and upload/download transport were request-recorded with mocks.",
+    "Approval of main merge/tag/publication is still absent; this report grants none.",
+    "Initial request recording source hashes are preserved; final source replay hash separately recorded. Concurrent core guard edit does not change recorded tag/draft/upload/publish backend requests.",
+    "Final publisher Git/main/code hash and permissions/environment restrictions must be reviewed/pinned by coordinator before any separately authorized execution."
+  ]
+}

@@ -1,0 +1,511 @@
+[
+  {
+    "scope": "core",
+    "sessions": [
+      {
+        "phase": "preflight",
+        "document": "preflight.docx",
+        "pid": 5087,
+        "executableSha256": "ee4ed6255cd99a354fa9bccd8c0e990e6f30fd9f1e71f0448e464af3f5d53cb9",
+        "xid": "4194307",
+        "nativeFocusChecks": 15,
+        "parentDriverActualAppAndTransientEnvironmentMatch": true,
+        "graphics": {
+          "GDK_BACKEND": "x11",
+          "extraGraphicsValues": "Not independently recorded in original core session; runtime reports software mode; no body-paint certification."
+        }
+      },
+      {
+        "phase": "preflight",
+        "document": "preflight.docx",
+        "pid": 5410,
+        "executableSha256": "ee4ed6255cd99a354fa9bccd8c0e990e6f30fd9f1e71f0448e464af3f5d53cb9",
+        "xid": "4194307",
+        "nativeFocusChecks": 4,
+        "parentDriverActualAppAndTransientEnvironmentMatch": true,
+        "graphics": {
+          "GDK_BACKEND": "x11",
+          "extraGraphicsValues": "Not independently recorded in original core session; runtime reports software mode; no body-paint certification."
+        }
+      },
+      {
+        "phase": "368-Find-what",
+        "document": "find-table.docx",
+        "pid": 5558,
+        "executableSha256": "ee4ed6255cd99a354fa9bccd8c0e990e6f30fd9f1e71f0448e464af3f5d53cb9",
+        "xid": "4194307",
+        "nativeFocusChecks": 99,
+        "parentDriverActualAppAndTransientEnvironmentMatch": true,
+        "graphics": {
+          "GDK_BACKEND": "x11",
+          "extraGraphicsValues": "Not independently recorded in original core session; runtime reports software mode; no body-paint certification."
+        }
+      },
+      {
+        "phase": "368-Find-what",
+        "document": "find-table.docx",
+        "pid": 5967,
+        "executableSha256": "ee4ed6255cd99a354fa9bccd8c0e990e6f30fd9f1e71f0448e464af3f5d53cb9",
+        "xid": "4194307",
+        "nativeFocusChecks": 4,
+        "parentDriverActualAppAndTransientEnvironmentMatch": true,
+        "graphics": {
+          "GDK_BACKEND": "x11",
+          "extraGraphicsValues": "Not independently recorded in original core session; runtime reports software mode; no body-paint certification."
+        }
+      },
+      {
+        "phase": "368-Replace-with",
+        "document": "replace-table.docx",
+        "pid": 6118,
+        "executableSha256": "ee4ed6255cd99a354fa9bccd8c0e990e6f30fd9f1e71f0448e464af3f5d53cb9",
+        "xid": "4194307",
+        "nativeFocusChecks": 45,
+        "parentDriverActualAppAndTransientEnvironmentMatch": true,
+        "graphics": {
+          "GDK_BACKEND": "x11",
+          "extraGraphicsValues": "Not independently recorded in original core session; runtime reports software mode; no body-paint certification."
+        }
+      },
+      {
+        "phase": "369-keyboard-command",
+        "document": "keyboard-command.docx",
+        "pid": 6378,
+        "executableSha256": "ee4ed6255cd99a354fa9bccd8c0e990e6f30fd9f1e71f0448e464af3f5d53cb9",
+        "xid": "4194307",
+        "nativeFocusChecks": 22,
+        "parentDriverActualAppAndTransientEnvironmentMatch": true,
+        "graphics": {
+          "GDK_BACKEND": "x11",
+          "extraGraphicsValues": "Not independently recorded in original core session; runtime reports software mode; no body-paint certification."
+        }
+      },
+      {
+        "phase": "369-keyboard-command",
+        "document": "keyboard-command.docx",
+        "pid": 6573,
+        "executableSha256": "ee4ed6255cd99a354fa9bccd8c0e990e6f30fd9f1e71f0448e464af3f5d53cb9",
+        "xid": "4194307",
+        "nativeFocusChecks": 4,
+        "parentDriverActualAppAndTransientEnvironmentMatch": true,
+        "graphics": {
+          "GDK_BACKEND": "x11",
+          "extraGraphicsValues": "Not independently recorded in original core session; runtime reports software mode; no body-paint certification."
+        }
+      },
+      {
+        "phase": "369-ribbon",
+        "document": "ribbon-control.docx",
+        "pid": 6719,
+        "executableSha256": "ee4ed6255cd99a354fa9bccd8c0e990e6f30fd9f1e71f0448e464af3f5d53cb9",
+        "xid": "4194307",
+        "nativeFocusChecks": 217,
+        "parentDriverActualAppAndTransientEnvironmentMatch": true,
+        "graphics": {
+          "GDK_BACKEND": "x11",
+          "extraGraphicsValues": "Not independently recorded in original core session; runtime reports software mode; no body-paint certification."
+        }
+      }
+    ],
+    "normalNativeAltF4Checks": 6,
+    "independentScopeWebDriverCleanupNotNativeCloseClaim": 2,
+    "actualProcessAndDriverEnvironment355Passed": true,
+    "cleanup": {
+      "children": [
+        {
+          "label": "owned window manager",
+          "pid": 5080,
+          "closed": true
+        }
+      ],
+      "driverExited": true,
+      "ownedApplicationClosed": true,
+      "remainingApplicationPids": []
+    },
+    "originalReportStatus": "passed tested native scopes; wider ribbon state matrix partial"
+  },
+  {
+    "scope": "appimage-missing",
+    "sessions": [
+      {
+        "phase": "preflight",
+        "document": "preflight.docx",
+        "pid": 4816,
+        "executableSha256": "24bf634c06847e6a4a94a5ac245cac93af3e76a9e911f06e2d89f1621b4a94fd",
+        "xid": "6291459",
+        "nativeFocusChecks": 19,
+        "parentDriverActualAppAndTransientEnvironmentMatch": true,
+        "graphics": {
+          "GDK_BACKEND": "x11",
+          "LIBGL_ALWAYS_SOFTWARE": "1",
+          "WEBKIT_DISABLE_DMABUF_RENDERER": "1"
+        }
+      },
+      {
+        "phase": "preflight",
+        "document": "preflight.docx",
+        "pid": 4983,
+        "executableSha256": "24bf634c06847e6a4a94a5ac245cac93af3e76a9e911f06e2d89f1621b4a94fd",
+        "xid": "6291459",
+        "nativeFocusChecks": 8,
+        "parentDriverActualAppAndTransientEnvironmentMatch": true,
+        "graphics": {
+          "GDK_BACKEND": "x11",
+          "LIBGL_ALWAYS_SOFTWARE": "1",
+          "WEBKIT_DISABLE_DMABUF_RENDERER": "1"
+        }
+      },
+      {
+        "phase": "378-missing-runtime",
+        "document": "confirm_missing.docx",
+        "pid": 5110,
+        "executableSha256": "24bf634c06847e6a4a94a5ac245cac93af3e76a9e911f06e2d89f1621b4a94fd",
+        "xid": "6291459",
+        "nativeFocusChecks": 15,
+        "parentDriverActualAppAndTransientEnvironmentMatch": true,
+        "graphics": {
+          "GDK_BACKEND": "x11",
+          "LIBGL_ALWAYS_SOFTWARE": "1",
+          "WEBKIT_DISABLE_DMABUF_RENDERER": "1"
+        }
+      }
+    ],
+    "normalNativeAltF4Checks": 2,
+    "independentScopeWebDriverCleanupNotNativeCloseClaim": 0,
+    "actualProcessAndDriverEnvironment355Passed": true,
+    "cleanup": {
+      "registeredPortalPeers": [
+        {
+          "name": "org.freedesktop.impl.portal.desktop.gtk",
+          "uniqueName": ":1.8",
+          "pid": 4704,
+          "executable": "/usr/libexec/xdg-desktop-portal-gtk",
+          "sha256": "a69aa09fa21ed197e8888c70516b6cec615f89ca4ba970ec89de2f76281f618a",
+          "startTime": "18780",
+          "busId": "2c0dad005f2313adc58f81866b044c36",
+          "closed": true
+        },
+        {
+          "name": "org.freedesktop.portal.Desktop",
+          "uniqueName": ":1.2",
+          "pid": 4705,
+          "executable": "/usr/libexec/xdg-desktop-portal",
+          "sha256": "26e41a5bd57b2531fef867f315e54eaefebe93f85bd94c6edd45e78a378484b2",
+          "startTime": "18782",
+          "busId": "2c0dad005f2313adc58f81866b044c36",
+          "closed": true
+        }
+      ],
+      "children": [
+        {
+          "label": "owned portal broker",
+          "pid": 4705,
+          "closed": true
+        },
+        {
+          "label": "owned GTK portal",
+          "pid": 4704,
+          "closed": true
+        },
+        {
+          "label": "owned window manager",
+          "pid": 4703,
+          "closed": true
+        }
+      ],
+      "driverExited": true,
+      "remainingOwnedResources": [],
+      "ownedApplicationClosed": true,
+      "remainingApplicationPids": []
+    },
+    "originalReportStatus": "passed bounded native confirm378-missing"
+  },
+  {
+    "scope": "appimage-positive",
+    "sessions": [
+      {
+        "phase": "378-present-runtime",
+        "document": "confirm_present.docx",
+        "pid": 5560,
+        "executableSha256": "24bf634c06847e6a4a94a5ac245cac93af3e76a9e911f06e2d89f1621b4a94fd",
+        "xid": "6291459",
+        "nativeFocusChecks": 7,
+        "parentDriverActualAppAndTransientEnvironmentMatch": true,
+        "graphics": {
+          "GDK_BACKEND": "x11",
+          "LIBGL_ALWAYS_SOFTWARE": "1",
+          "WEBKIT_DISABLE_DMABUF_RENDERER": "1"
+        }
+      },
+      {
+        "phase": "378-present-runtime",
+        "document": "confirm_present.docx",
+        "pid": 5800,
+        "executableSha256": "24bf634c06847e6a4a94a5ac245cac93af3e76a9e911f06e2d89f1621b4a94fd",
+        "xid": "6291459",
+        "nativeFocusChecks": 8,
+        "parentDriverActualAppAndTransientEnvironmentMatch": true,
+        "graphics": {
+          "GDK_BACKEND": "x11",
+          "LIBGL_ALWAYS_SOFTWARE": "1",
+          "WEBKIT_DISABLE_DMABUF_RENDERER": "1"
+        }
+      }
+    ],
+    "normalNativeAltF4Checks": 2,
+    "independentScopeWebDriverCleanupNotNativeCloseClaim": 0,
+    "actualProcessAndDriverEnvironment355Passed": true,
+    "cleanup": {
+      "registeredPortalPeers": [
+        {
+          "name": "org.freedesktop.impl.portal.desktop.gtk",
+          "uniqueName": ":1.7",
+          "pid": 5463,
+          "executable": "/usr/libexec/xdg-desktop-portal-gtk",
+          "sha256": "a69aa09fa21ed197e8888c70516b6cec615f89ca4ba970ec89de2f76281f618a",
+          "startTime": "26768",
+          "busId": "2287d3b11222d6a1b0826e2a6b044c87",
+          "closed": true
+        },
+        {
+          "name": "org.freedesktop.portal.Desktop",
+          "uniqueName": ":1.1",
+          "pid": 5464,
+          "executable": "/usr/libexec/xdg-desktop-portal",
+          "sha256": "26e41a5bd57b2531fef867f315e54eaefebe93f85bd94c6edd45e78a378484b2",
+          "startTime": "26770",
+          "busId": "2287d3b11222d6a1b0826e2a6b044c87",
+          "closed": true
+        }
+      ],
+      "children": [
+        {
+          "label": "owned portal broker",
+          "pid": 5464,
+          "closed": true
+        },
+        {
+          "label": "owned GTK portal",
+          "pid": 5463,
+          "closed": true
+        },
+        {
+          "label": "owned window manager",
+          "pid": 5462,
+          "closed": true
+        }
+      ],
+      "driverExited": true,
+      "remainingOwnedResources": [],
+      "ownedApplicationClosed": true,
+      "remainingApplicationPids": []
+    },
+    "originalReportStatus": "passed bounded native confirm378-present"
+  },
+  {
+    "scope": "deb-positive",
+    "sessions": [
+      {
+        "phase": "preflight",
+        "document": "preflight.docx",
+        "pid": 23510,
+        "executableSha256": "ee4ed6255cd99a354fa9bccd8c0e990e6f30fd9f1e71f0448e464af3f5d53cb9",
+        "xid": "6291459",
+        "nativeFocusChecks": 19,
+        "parentDriverActualAppAndTransientEnvironmentMatch": true,
+        "graphics": {
+          "GDK_BACKEND": "x11",
+          "LIBGL_ALWAYS_SOFTWARE": "1",
+          "WEBKIT_DISABLE_DMABUF_RENDERER": "1"
+        }
+      },
+      {
+        "phase": "preflight",
+        "document": "preflight.docx",
+        "pid": 23661,
+        "executableSha256": "ee4ed6255cd99a354fa9bccd8c0e990e6f30fd9f1e71f0448e464af3f5d53cb9",
+        "xid": "6291459",
+        "nativeFocusChecks": 8,
+        "parentDriverActualAppAndTransientEnvironmentMatch": true,
+        "graphics": {
+          "GDK_BACKEND": "x11",
+          "LIBGL_ALWAYS_SOFTWARE": "1",
+          "WEBKIT_DISABLE_DMABUF_RENDERER": "1"
+        }
+      },
+      {
+        "phase": "378-present-runtime",
+        "document": "confirm_present.docx",
+        "pid": 23777,
+        "executableSha256": "ee4ed6255cd99a354fa9bccd8c0e990e6f30fd9f1e71f0448e464af3f5d53cb9",
+        "xid": "6291459",
+        "nativeFocusChecks": 7,
+        "parentDriverActualAppAndTransientEnvironmentMatch": true,
+        "graphics": {
+          "GDK_BACKEND": "x11",
+          "LIBGL_ALWAYS_SOFTWARE": "1",
+          "WEBKIT_DISABLE_DMABUF_RENDERER": "1"
+        }
+      },
+      {
+        "phase": "378-present-runtime",
+        "document": "confirm_present.docx",
+        "pid": 24005,
+        "executableSha256": "ee4ed6255cd99a354fa9bccd8c0e990e6f30fd9f1e71f0448e464af3f5d53cb9",
+        "xid": "6291459",
+        "nativeFocusChecks": 8,
+        "parentDriverActualAppAndTransientEnvironmentMatch": true,
+        "graphics": {
+          "GDK_BACKEND": "x11",
+          "LIBGL_ALWAYS_SOFTWARE": "1",
+          "WEBKIT_DISABLE_DMABUF_RENDERER": "1"
+        }
+      }
+    ],
+    "normalNativeAltF4Checks": 4,
+    "independentScopeWebDriverCleanupNotNativeCloseClaim": 0,
+    "actualProcessAndDriverEnvironment355Passed": true,
+    "cleanup": {
+      "registeredPortalPeers": [
+        {
+          "name": "org.freedesktop.impl.portal.desktop.gtk",
+          "uniqueName": ":1.7",
+          "pid": 23415,
+          "executable": "/usr/libexec/xdg-desktop-portal-gtk",
+          "sha256": "a69aa09fa21ed197e8888c70516b6cec615f89ca4ba970ec89de2f76281f618a",
+          "startTime": "98667",
+          "busId": "ac4d05078923193b42902c7d6b044e75",
+          "closed": true
+        },
+        {
+          "name": "org.freedesktop.portal.Desktop",
+          "uniqueName": ":1.1",
+          "pid": 23416,
+          "executable": "/usr/libexec/xdg-desktop-portal",
+          "sha256": "26e41a5bd57b2531fef867f315e54eaefebe93f85bd94c6edd45e78a378484b2",
+          "startTime": "98668",
+          "busId": "ac4d05078923193b42902c7d6b044e75",
+          "closed": true
+        }
+      ],
+      "children": [
+        {
+          "label": "owned portal broker",
+          "pid": 23416,
+          "closed": true
+        },
+        {
+          "label": "owned GTK portal",
+          "pid": 23415,
+          "closed": true
+        },
+        {
+          "label": "owned window manager",
+          "pid": 23414,
+          "closed": true
+        }
+      ],
+      "driverExited": true,
+      "remainingOwnedResources": [],
+      "ownedApplicationClosed": true,
+      "remainingApplicationPids": []
+    },
+    "originalReportStatus": "failed"
+  },
+  {
+    "scope": "deb-missing",
+    "sessions": [
+      {
+        "phase": "preflight",
+        "document": "preflight.docx",
+        "pid": 5342,
+        "executableSha256": "ee4ed6255cd99a354fa9bccd8c0e990e6f30fd9f1e71f0448e464af3f5d53cb9",
+        "xid": "4194307",
+        "nativeFocusChecks": 19,
+        "parentDriverActualAppAndTransientEnvironmentMatch": true,
+        "graphics": {
+          "GDK_BACKEND": "x11",
+          "LIBGL_ALWAYS_SOFTWARE": "1",
+          "WEBKIT_DISABLE_DMABUF_RENDERER": "1"
+        }
+      },
+      {
+        "phase": "preflight",
+        "document": "preflight.docx",
+        "pid": 5497,
+        "executableSha256": "ee4ed6255cd99a354fa9bccd8c0e990e6f30fd9f1e71f0448e464af3f5d53cb9",
+        "xid": "4194307",
+        "nativeFocusChecks": 8,
+        "parentDriverActualAppAndTransientEnvironmentMatch": true,
+        "graphics": {
+          "GDK_BACKEND": "x11",
+          "LIBGL_ALWAYS_SOFTWARE": "1",
+          "WEBKIT_DISABLE_DMABUF_RENDERER": "1"
+        }
+      },
+      {
+        "phase": "378-missing-runtime",
+        "document": "confirm_missing.docx",
+        "pid": 5622,
+        "executableSha256": "ee4ed6255cd99a354fa9bccd8c0e990e6f30fd9f1e71f0448e464af3f5d53cb9",
+        "xid": "4194307",
+        "nativeFocusChecks": 15,
+        "parentDriverActualAppAndTransientEnvironmentMatch": true,
+        "graphics": {
+          "GDK_BACKEND": "x11",
+          "LIBGL_ALWAYS_SOFTWARE": "1",
+          "WEBKIT_DISABLE_DMABUF_RENDERER": "1"
+        }
+      }
+    ],
+    "normalNativeAltF4Checks": 2,
+    "independentScopeWebDriverCleanupNotNativeCloseClaim": 0,
+    "actualProcessAndDriverEnvironment355Passed": true,
+    "cleanup": {
+      "registeredPortalPeers": [
+        {
+          "name": "org.freedesktop.impl.portal.desktop.gtk",
+          "uniqueName": ":1.18",
+          "pid": 5243,
+          "executable": "/usr/libexec/xdg-desktop-portal-gtk",
+          "sha256": "a69aa09fa21ed197e8888c70516b6cec615f89ca4ba970ec89de2f76281f618a",
+          "startTime": "113517",
+          "busId": "2c6f95d528f033a2f6ebe02a6b045120",
+          "closed": true
+        },
+        {
+          "name": "org.freedesktop.portal.Desktop",
+          "uniqueName": ":1.2",
+          "pid": 5217,
+          "executable": "/usr/libexec/xdg-desktop-portal",
+          "sha256": "26e41a5bd57b2531fef867f315e54eaefebe93f85bd94c6edd45e78a378484b2",
+          "startTime": "113499",
+          "busId": "2c6f95d528f033a2f6ebe02a6b045120",
+          "closed": true
+        }
+      ],
+      "children": [
+        {
+          "label": "owned portal broker",
+          "pid": 5217,
+          "closed": true
+        },
+        {
+          "label": "owned GTK portal",
+          "pid": 5216,
+          "closed": true
+        },
+        {
+          "label": "owned window manager",
+          "pid": 5215,
+          "closed": true
+        }
+      ],
+      "driverExited": true,
+      "remainingOwnedResources": [],
+      "ownedApplicationClosed": true,
+      "remainingApplicationPids": []
+    },
+    "originalReportStatus": "passed bounded native confirm378-missing"
+  }
+]

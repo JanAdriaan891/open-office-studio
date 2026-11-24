@@ -1,0 +1,53 @@
+{
+  "source": "worker0",
+  "title": {
+    "context": 1,
+    "frame": 1,
+    "seq": 1,
+    "text": "REPORT TITLE",
+    "x": 225.76,
+    "y": 230.625,
+    "font": "42.667px Thorndale, sans-serif",
+    "tracking": "5.333px",
+    "width": 369.01068115234375,
+    "inkLeft": 229.50941396713256,
+    "inkRight": 587.2505395507812,
+    "transform": {
+      "a": 1,
+      "b": 0,
+      "c": 0,
+      "d": 1,
+      "e": 0,
+      "f": 0
+    },
+    "canvasWidth": 816,
+    "canvasHeight": 1056
+  },
+  "frame": [
+    {
+      "context": 1,
+      "frame": 1,
+      "seq": 1,
+      "text": "REPORT TITLE",
+      "x": 225.76,
+      "y": 230.625,
+      "font": "42.667px Thorndale, sans-serif",
+      "tracking": "5.333px",
+      "width": 369.01068115234375,
+      "inkLeft": 229.50941396713256,
+      "inkRight": 587.2505395507812,
+      "transform": {
+        "a": 1,
+        "b": 0,
+        "c": 0,
+        "d": 1,
+        "e": 0,
+        "f": 0
+      },
+      "canvasWidth": 816,
+      "canvasHeight": 1056
+    }
+  ],
+  "neighbors": [],
+  "overlapping": []
+}

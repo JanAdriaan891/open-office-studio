@@ -1,0 +1,180 @@
+{
+  "schemaVersion": 1,
+  "applicationCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+  "applicationTree": "e30879fd772871e690847c061ef66e6b81808a05",
+  "version": "2026.48.1",
+  "harnessCommit": "07343ca93ee7f95575f2dbffe6cc87d69ca91358",
+  "package": {
+    "applicationCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+    "applicationTree": "e30879fd772871e690847c061ef66e6b81808a05",
+    "version": "2026.48.1",
+    "artifactRun": 45177730188,
+    "platformJobId": 137703365803,
+    "sourceAttempt": 1,
+    "artifactId": 14828525724,
+    "archiveSha256": "24816ccb20360bbfc976abf38810988dfe4b27a3305c80d5b80b711719587e0d",
+    "archiveBytes": 2037941610,
+    "preparerRun": 45195780472,
+    "preparerHarness": "f88a805beb152d42a22806d135d9af1c912aedcb",
+    "application": {
+      "key": "presentation",
+      "title": "Open Presentation Studio",
+      "identifier": "org.openaec.presentation-studio",
+      "executable": "open-presentation-studio.exe",
+      "packagePath": "dist-installers/presentation/nsis/Open Presentation Studio_2026.48.1_x64-setup.exe",
+      "sha256": "bfcd8259fbe929c53bd1ef86a8884d70c838239dc1d98f4fa28c7764fecc1f93",
+      "bytes": 384562216,
+      "signature": "valid",
+      "timestampRequired": true,
+      "payloadExecutable": {
+        "member": "open-presentation-studio.exe",
+        "bytes": 88119200,
+        "sha256": "4bffb7fb2ef7c51ded5ac9b69095589081d06760c7ee89215386158d2b575ca5",
+        "pe": "x64",
+        "derivation": "Independent7-Zip stdout from official whole-ZIP/report-bound NSIS before install"
+      }
+    },
+    "installer": "Open Presentation Studio_2026.48.1_x64-setup.exe",
+    "canonicalPackageReport": {
+      "parentMember": ".local/pakketcontrole-presentation-Windows.json",
+      "sha256": "3936185739408b9a0890251e233f73f9c0ee2802cc4fad74c658d47c47dd712f",
+      "bytes": 606
+    },
+    "boundary": "Only this unchanged product NSIS, own canonical report and receipt. Six standalone hosts never receive suite bytes."
+  },
+  "scope": "Actual isolated standalone Windows native app; never a browser demo",
+  "status": "failed",
+  "steps": [
+    {
+      "windowHandle": 131422,
+      "sessionId": 2,
+      "executable": "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\oos-standalone23-XN887R\\installed\\open-presentation-studio.exe",
+      "status": "passed",
+      "ownedPid": 1488,
+      "action": "Focus",
+      "title": "Standalone23.pptx — Open Presentation Studio (Presentation)",
+      "foregroundPid": 1488
+    },
+    {
+      "phase": "initial",
+      "nativePresentationHitPoint": {
+        "x": 0.3750000307578765,
+        "y": 0.41782407407407407
+      },
+      "source": "Unchanged original PPTX title/layout XML"
+    },
+    {
+      "status": "passed",
+      "wmClosePosted": true,
+      "ownedPid": 1488,
+      "action": "Close",
+      "title": "Standalone23.pptx — Open Presentation Studio (Presentation)",
+      "executable": "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\oos-standalone23-XN887R\\installed\\open-presentation-studio.exe",
+      "sessionId": 2,
+      "windowHandle": 131422
+    }
+  ],
+  "phases": [
+    {
+      "phase": "initial",
+      "pid": 1488,
+      "input": "D:\\a\\open-office-studio\\open-office-studio\\.local\\p4-native-presentation\\fixtures\\Standalone23.pptx",
+      "started": "2026-11-24T08:11:04.170Z",
+      "status": "running",
+      "pageUrl": "http://tauri.localhost/",
+      "pageErrors": [],
+      "expectedInputTabVisible": "Standalone23.pptx",
+      "exactInputTabActivated": true,
+      "nativeMetadata": {
+        "identifier": "org.openaec.presentation-studio",
+        "version": "2026.48.1",
+        "name": "Open Presentation Studio"
+      },
+      "ownWebviewProfile": {
+        "path": "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\oos-standalone23-XN887R\\webview-profile",
+        "createdByNativeWebview": true,
+        "entries": [
+          "EBWebView"
+        ]
+      },
+      "process": {
+        "parent": 8624,
+        "path": "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\oos-standalone23-XN887R\\installed\\open-presentation-studio.exe",
+        "pid": 1488,
+        "commandLine": "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\oos-standalone23-XN887R\\installed\\open-presentation-studio.exe D:\\a\\open-office-studio\\open-office-studio\\.local\\p4-native-presentation\\fixtures\\Standalone23.pptx",
+        "windowHandle": 131422
+      },
+      "installCanonicalPath": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\oos-standalone23-XN887R\\installed",
+      "executableCanonicalPath": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\oos-standalone23-XN887R\\installed\\open-presentation-studio.exe",
+      "runtime": {
+        "bron": "meegeleverd",
+        "gekozen": null,
+        "gevonden": true,
+        "pad": "\\\\?\\C:\\Users\\runneradmin\\AppData\\Local\\Temp\\oos-standalone23-XN887R\\installed\\kantoorruntime\\program\\soffice.com",
+        "profiel": "veilig",
+        "versie": "LibreOffice 26.8.2.2 9dea406ab7695df6325b11b0e19fdca8db4b7276"
+      },
+      "runtimeCanonicalPath": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\oos-standalone23-XN887R\\installed\\kantoorruntime\\program\\soffice.com",
+      "runtimeOwnInstallRelative": "kantoorruntime\\program\\soffice.com",
+      "runtimeExecutable": {
+        "signature": "Valid",
+        "timestampSigner": "CN=Certum Timestamp 2026, O=Asseco Data Systems S.A., C=PL",
+        "fileVersion": "26.8.2.2",
+        "productVersion": "26.8.2.2",
+        "sha256": "4f133aba4d8db66122ec34bc17eeaa8b274cfa5ded03feb384953f6ae357d4cf",
+        "productName": "LibreOffice",
+        "bytes": 523096,
+        "signer": "CN=The Document Foundation, O=The Document Foundation, L=Berlin, S=Berlin, C=DE",
+        "path": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\oos-standalone23-XN887R\\installed\\kantoorruntime\\program\\soffice.com"
+      }
+    }
+  ],
+  "cleanup": {
+    "residualOwnedWebviews": [],
+    "policyRestored": true,
+    "ownedInstallUninstalled": true,
+    "ownedAppExited": true,
+    "ownedNativeProfilesDisposed": true,
+    "ownedTemporaryProfileDisposed": true
+  },
+  "limitations": [],
+  "visualAcceptance": "Requires separate review of actual completed native screenshots",
+  "baseline": {
+    "suitePaths": [],
+    "interactive": true,
+    "session": 2,
+    "webview2": [],
+    "os": "Microsoft Windows NT 10.0.26100.0",
+    "apps": [],
+    "profiles": []
+  },
+  "installer": {
+    "timestampSigner": "CN=Microsoft Public RSA Time Stamping Authority, OU=nShield TSS ESN:7800-05E0-D947, OU=Microsoft America Operations, O=Microsoft Corporation, L=Redmond, S=Washington, C=US",
+    "productVersion": "2026.48.1",
+    "fileVersion": "2026.48.1",
+    "bytes": 384562216,
+    "signature": "Valid",
+    "productName": "Open Presentation Studio",
+    "signer": "CN=Impertio Studio B.V., O=Impertio Studio B.V., STREET=Burg de Raadtsingel 31, L=Dordrecht, S=Zuid-Holland, C=NL, PostalCode=3311 JG",
+    "sha256": "bfcd8259fbe929c53bd1ef86a8884d70c838239dc1d98f4fa28c7764fecc1f93",
+    "path": "D:\\a\\open-office-studio\\open-office-studio\\.local\\standalone-windows-package\\Open Presentation Studio_2026.48.1_x64-setup.exe"
+  },
+  "executable": {
+    "signer": "CN=Impertio Studio B.V., O=Impertio Studio B.V., STREET=Burg de Raadtsingel 31, L=Dordrecht, S=Zuid-Holland, C=NL, PostalCode=3311 JG",
+    "bytes": 88119200,
+    "path": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\oos-standalone23-XN887R\\installed\\open-presentation-studio.exe",
+    "productName": "Open Presentation Studio",
+    "productVersion": "2026.48.1",
+    "fileVersion": "2026.48.1",
+    "timestampSigner": "CN=Microsoft Public RSA Time Stamping Authority, OU=nShield TSS ESN:A500-05E0-D947, OU=Microsoft America Operations, O=Microsoft Corporation, L=Redmond, S=Washington, C=US",
+    "signature": "Valid",
+    "sha256": "4bffb7fb2ef7c51ded5ac9b69095589081d06760c7ee89215386158d2b575ca5"
+  },
+  "payloadEqualsInstalled": true,
+  "originalInput": {
+    "path": "D:\\a\\open-office-studio\\open-office-studio\\.local\\p4-native-presentation\\fixtures\\Standalone23.pptx",
+    "sha256": "ef220706f4ac866df87eb848f24a1250732fdecefe4bd34b579f83e1836c7ce9"
+  },
+  "error": "page.waitForFunction: Timeout 20000ms exceeded.\n    at officeCase (D:\\a\\open-office-studio\\open-office-studio\\scripts\\standalone-windows-p4\\cases.mjs:42:18)\n    at async file:///D:/a/open-office-studio/open-office-studio/scripts/standalone-windows-p4/native.mjs:205:10",
+  "failureVisibleText": "Standalone23.pptx — Open Presentation Studio (Presentation)\nFile\nHome\nInsert\nSlide\nShape Format\nArrange\nView\nSlide Show\nUndo\nRedo\nEDIT\nNew Slide\nLayout 1\nSLIDES\nArial\nFONT\nPARAGRAPH\nSelect\nText Box\nShape\nDRAWING\nSlide Show\nPRESENT\nFind and replace\nFIND\nStart\nStandalone23.pptx\n1\nNotes — slide 1\nDiscard draft\nApply notes\nSize\n10\n12\n14\n16\n18\n20\n24\n28\n32\n36\n48\nColour\nNo list\n\n\n\n\nCtrl+S also saves draft notes. Apply reloads the presentation and starts a new slide undo history.\nLocal\nSlide 1 of 1\n63%\nReady\nCtrl+S"
+}

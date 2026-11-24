@@ -1,0 +1,41 @@
+{
+  "files": [
+    {
+      "path": "approval.disabled.json",
+      "bytes": 752,
+      "sha256": "ba1fa2b599367132d21736fc487725cad225d8860e4700df6d1c305902c77a32"
+    },
+    {
+      "path": "offline-validation.json",
+      "bytes": 456,
+      "sha256": "1cc3b081c82a01f35f555fcbb36c369c601474c658e21bcaa52cf418e65d4bb4"
+    },
+    {
+      "path": "plan.json",
+      "bytes": 40710,
+      "sha256": "a57542ab5fcc71155c88585f48b3670829d518617049d6b05dc4c59c4e4c5573"
+    },
+    {
+      "path": "README.md",
+      "bytes": 4653,
+      "sha256": "f834534e12845fb6a21f7e393ca59a19f8c8d82abec2372a946598527aea9378"
+    },
+    {
+      "path": "release-body.review.md",
+      "bytes": 1871,
+      "sha256": "3d937ec6316da75ab20edc0574716b36ae6afc934f112569283e89cb5716401f"
+    },
+    {
+      "path": "test_validate_plan.py",
+      "bytes": 2421,
+      "sha256": "a6fe8c844628fe0687784d404ab0d936dd42a3c647de69cd53b20ee2f66ac9f9"
+    },
+    {
+      "path": "validate_plan.py",
+      "bytes": 8154,
+      "sha256": "071f8f0d08d06eb98b075a2347e836bccf48301c18caa6ffc1f73d9a24cc1138"
+    }
+  ],
+  "executionEnabled": false,
+  "publicationAuthorized": false
+}

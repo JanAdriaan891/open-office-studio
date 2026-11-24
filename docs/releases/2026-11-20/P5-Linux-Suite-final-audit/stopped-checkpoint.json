@@ -1,0 +1,180 @@
+{
+  "status": "STOPPED AT EXPLICIT USER DEADLINE \u2014 INCOMPLETE INDEPENDENT AUDIT",
+  "stopInstruction": "Root relayed hard stop at 16:00 CET on 2026-11-23. No new test/investigation/download/CI; tomorrow only on a new instruction.",
+  "independentAcceptance": false,
+  "fullNativeAcceptance": false,
+  "application": {
+    "commit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+    "tree": "e30879fd772871e690847c061ef66e6b81808a05",
+    "version": "2026.48.1"
+  },
+  "ownerFinalCommit": "0810c25bc0532e12ab44e87635668faa33ef4ca5",
+  "ownerFinalReceiptExpectedSha256": "267ecaa97893e6dbbe8aa8df7b9ff826e78f317cf2fbfdc5cfeb02586a80a3b6",
+  "ownerFinalReceiptActualPreservedSha256": "267ecaa97893e6dbbe8aa8df7b9ff826e78f317cf2fbfdc5cfeb02586a80a3b6",
+  "reachedBeforeStop": [
+    "Read final owner receipt, checkpoint, DEB positive summary and selected raw core/378 reports.",
+    "Observed reported source/package/ELF/descriptors/environment/session/cleanup details, without completing a fail-closed independent comparison.",
+    "Directly viewed 14 original 378/preflight images serially; preserved exact originals and findings.",
+    "Read existing #374 independent review structure from owner9d3b; no repeated DOCX audit or title image review."
+  ],
+  "unfinished": [
+    "Independent complete ZIP hashes, safe-member inventories and raw-to-archive bindings.",
+    "Exact Git source/probe/descriptor applicability and all cached official run/job/step bindings.",
+    "Core64/ribbon258-content/24-group metrics and saved-DOCX XML independent comparison.",
+    "378 Cancel/Overwrite credential-bound Zenity/cancel-target hashes and saved-XML checks.",
+    "DEB/AppImage missing-helper negative target hash/error and actual process graphics/profile/environment checks.",
+    "Full normal-close/new-PID/owned-resource cleanup receipt audit.",
+    "Exact Git658512c9 #374 six-DOCX/seven-PNG reuse binding.",
+    "Final independent scope verdict and full evidence handoff."
+  ],
+  "imageObservations": [
+    {
+      "file": "viewed-original-images/appimage-missing/preflight-saved.png",
+      "originalDirectlyViewedBeforeStop": true,
+      "finding": "Visible Palpha preflight table",
+      "scope": "Observation only; complete package/session/hash/lifecycle audit remains unfinished."
+    },
+    {
+      "file": "viewed-original-images/appimage-missing/preflight-reopened.png",
+      "originalDirectlyViewedBeforeStop": true,
+      "finding": "Visible Palpha preflight table",
+      "scope": "Observation only; complete package/session/hash/lifecycle audit remains unfinished."
+    },
+    {
+      "file": "viewed-original-images/appimage-missing/missing-helper-error.png",
+      "originalDirectlyViewedBeforeStop": true,
+      "finding": "Visible missing-Zenity error and retained dirty Qalpha/body",
+      "scope": "Observation only; complete package/session/hash/lifecycle audit remains unfinished."
+    },
+    {
+      "file": "viewed-original-images/appimage-positive/confirmation-1.png",
+      "originalDirectlyViewedBeforeStop": true,
+      "finding": "Visible native confirmation options",
+      "scope": "Observation only; complete package/session/hash/lifecycle audit remains unfinished."
+    },
+    {
+      "file": "viewed-original-images/appimage-positive/after-native-cancel.png",
+      "originalDirectlyViewedBeforeStop": true,
+      "finding": "Visible Qalpha table after cancel/overwrite/new-PID reopen; cancel/overwrite notifications recorded",
+      "scope": "Observation only; complete package/session/hash/lifecycle audit remains unfinished."
+    },
+    {
+      "file": "viewed-original-images/appimage-positive/after-native-overwrite.png",
+      "originalDirectlyViewedBeforeStop": true,
+      "finding": "Visible Qalpha table after cancel/overwrite/new-PID reopen; cancel/overwrite notifications recorded",
+      "scope": "Observation only; complete package/session/hash/lifecycle audit remains unfinished."
+    },
+    {
+      "file": "viewed-original-images/appimage-positive/positive-new-pid-reopen.png",
+      "originalDirectlyViewedBeforeStop": true,
+      "finding": "Visible Qalpha table after cancel/overwrite/new-PID reopen; cancel/overwrite notifications recorded",
+      "scope": "Observation only; complete package/session/hash/lifecycle audit remains unfinished."
+    },
+    {
+      "file": "viewed-original-images/deb-positive/preflight-saved.png",
+      "originalDirectlyViewedBeforeStop": true,
+      "finding": "Visible Palpha preflight table",
+      "scope": "Observation only; complete package/session/hash/lifecycle audit remains unfinished."
+    },
+    {
+      "file": "viewed-original-images/deb-positive/preflight-reopened.png",
+      "originalDirectlyViewedBeforeStop": true,
+      "finding": "Visible Palpha preflight table",
+      "scope": "Observation only; complete package/session/hash/lifecycle audit remains unfinished."
+    },
+    {
+      "file": "viewed-original-images/deb-positive/after-native-cancel.png",
+      "originalDirectlyViewedBeforeStop": true,
+      "finding": "Visible Qalpha table after cancel/overwrite/new-PID reopen; cancel/overwrite notifications recorded",
+      "scope": "Observation only; complete package/session/hash/lifecycle audit remains unfinished."
+    },
+    {
+      "file": "viewed-original-images/deb-positive/after-native-overwrite.png",
+      "originalDirectlyViewedBeforeStop": true,
+      "finding": "Visible Qalpha table after cancel/overwrite/new-PID reopen; cancel/overwrite notifications recorded",
+      "scope": "Observation only; complete package/session/hash/lifecycle audit remains unfinished."
+    },
+    {
+      "file": "viewed-original-images/deb-positive/positive-new-pid-reopen.png",
+      "originalDirectlyViewedBeforeStop": true,
+      "finding": "Visible Qalpha table after cancel/overwrite/new-PID reopen; cancel/overwrite notifications recorded",
+      "scope": "Observation only; complete package/session/hash/lifecycle audit remains unfinished."
+    },
+    {
+      "file": "viewed-original-images/deb-missing/preflight-saved.png",
+      "originalDirectlyViewedBeforeStop": true,
+      "finding": "Visible Palpha preflight table",
+      "scope": "Observation only; complete package/session/hash/lifecycle audit remains unfinished."
+    },
+    {
+      "file": "viewed-original-images/deb-missing/preflight-reopened.png",
+      "originalDirectlyViewedBeforeStop": true,
+      "finding": "Visible Palpha preflight table",
+      "scope": "Observation only; complete package/session/hash/lifecycle audit remains unfinished."
+    }
+  ],
+  "externalLocalArchiveReferences": [
+    {
+      "scope": "core",
+      "localZIP": "C:\\Users\\alper\\Desktop\\Documents\\ChatGPT\\code slaafjes\\work\\oos-linux-suite-final-acceptance-2026-11-23\\.local\\final-native-proof\\45189806911\\deb\\14825596587.zip",
+      "officialArtifactId": 14825596587,
+      "officialDigest": "sha256:e9cd1b780be2b164288a71a1d23e77190ffae1c24e37208c99e8b3746e44d0f9",
+      "officialBytes": 6918061,
+      "hashOrigin": "Cached official metadata only; independent full ZIP/member validation had not been completed before stop.",
+      "newDownloadPerformedByAuditor": false
+    },
+    {
+      "scope": "appimage-missing",
+      "localZIP": "C:\\Users\\alper\\Desktop\\Documents\\ChatGPT\\code slaafjes\\work\\oos-linux-suite-final-acceptance-2026-11-23\\.local\\final-native-proof\\45193170006\\appimage\\14826753707.zip",
+      "officialArtifactId": 14826753707,
+      "officialDigest": "sha256:1d229975a6f2c3863261bc84efe52abaf11b3cc8443a2deaa5a38b4574deddae",
+      "officialBytes": 2257615,
+      "hashOrigin": "Cached official metadata only; independent full ZIP/member validation had not been completed before stop.",
+      "newDownloadPerformedByAuditor": false
+    },
+    {
+      "scope": "appimage-positive",
+      "localZIP": "C:\\Users\\alper\\Desktop\\Documents\\ChatGPT\\code slaafjes\\work\\oos-linux-suite-final-acceptance-2026-11-23\\.local\\final-native-proof\\45193170006\\appimage\\14826753707.zip",
+      "officialArtifactId": 14826753707,
+      "officialDigest": "sha256:1d229975a6f2c3863261bc84efe52abaf11b3cc8443a2deaa5a38b4574deddae",
+      "officialBytes": 2257615,
+      "hashOrigin": "Cached official metadata only; independent full ZIP/member validation had not been completed before stop.",
+      "newDownloadPerformedByAuditor": false
+    },
+    {
+      "scope": "deb-positive",
+      "localZIP": "C:\\Users\\alper\\Desktop\\Documents\\ChatGPT\\code slaafjes\\work\\oos-linux-suite-final-acceptance-2026-11-23\\.local\\final-native-proof\\45193639082\\deb\\14827731026.zip",
+      "officialArtifactId": 14827731026,
+      "officialDigest": "sha256:336d4c6e693f6e74595dc980276a89357e574e37b32b9314276e078640eb751e",
+      "officialBytes": 14256701,
+      "hashOrigin": "Cached official metadata only; independent full ZIP/member validation had not been completed before stop.",
+      "newDownloadPerformedByAuditor": false
+    },
+    {
+      "scope": "deb-missing",
+      "localZIP": "C:\\Users\\alper\\Desktop\\Documents\\ChatGPT\\code slaafjes\\work\\oos-linux-suite-final-acceptance-2026-11-23\\.local\\final-native-proof\\45196900595\\deb\\14830235258.zip",
+      "officialArtifactId": 14830235258,
+      "officialDigest": "sha256:1ff5ec2fb1f91245f778408e5a52b57b00f5f25890a383e9e2e6f654fea74160",
+      "officialBytes": 1126751,
+      "hashOrigin": "Cached official metadata only; independent full ZIP/member validation had not been completed before stop.",
+      "newDownloadPerformedByAuditor": false
+    }
+  ],
+  "limits": [
+    "Six genuine disabled-Delete states remain unavailable; full ribbon nativePass remains false.",
+    "Original core black/blank body images certify no document-body paint.",
+    "Partial/failed historical jobs must not be relabelled as successful jobs.",
+    "No GPG, physical FUSE, full typography, complete native matrix or release-readiness claim."
+  ],
+  "activities": {
+    "nativeUIStarted": false,
+    "captureSessionStarted": false,
+    "newCIRun": false,
+    "newDownload": false,
+    "productEdit": false,
+    "gitOperations": false,
+    "localWatchOrHelperStarted": false,
+    "pendingOwnedProcesses": []
+  },
+  "resume": "Do not resume automatically. A new user instruction is required."
+}

@@ -1,0 +1,190 @@
+{
+  "status": "stopped-incomplete",
+  "entries": [
+    {
+      "file": "cached-metadata/45189806911-jobs.json",
+      "bytes": 19015,
+      "sha256": "053295eec809551b054f49ddac2b9d0b62befb70149fe3142fade656817539d3"
+    },
+    {
+      "file": "cached-metadata/45189806911-run.json",
+      "bytes": 15509,
+      "sha256": "e2e4d09490b7e7453f5fe448ce21a63ed571992f459373e17fd778b18d7f216c"
+    },
+    {
+      "file": "cached-metadata/45193170006-jobs.json",
+      "bytes": 12027,
+      "sha256": "0f12585ecf5cb1dbdf15614873cd780feb835b641313852e4713d8423fb3d4d7"
+    },
+    {
+      "file": "cached-metadata/45193170006-run.json",
+      "bytes": 15511,
+      "sha256": "63b0b5b8b708c76c3f09a5a88731fcd78f0ea049a49cd501c607607dadb12a61"
+    },
+    {
+      "file": "cached-metadata/45193639082-jobs.json",
+      "bytes": 12022,
+      "sha256": "76da0741eebc9e8eb17594bd13d9fcdce8c9132808d62dfbf20d6e13611edd28"
+    },
+    {
+      "file": "cached-metadata/45193639082-run.json",
+      "bytes": 15509,
+      "sha256": "b7acccd4615836bb1672857ac29771131ba7df3644d5247c5fa063ec91ea1e0e"
+    },
+    {
+      "file": "cached-metadata/45196900595-jobs.json",
+      "bytes": 11982,
+      "sha256": "25565d67c7217f21e251e3a65d7ed4764261432ecc9d1d049c57edec3c5fb70a"
+    },
+    {
+      "file": "cached-metadata/45196900595-run.json",
+      "bytes": 15517,
+      "sha256": "75de76237016367be101f35284b8d837b9e3ed0a5bf72124ad5de19ed01d203d"
+    },
+    {
+      "file": "cached-metadata/appimage-missing-artifact.json",
+      "bytes": 894,
+      "sha256": "ecd67f538ad1548d7570515cfb4a5a8dec450aaa7548ed8522d1f8a657222595"
+    },
+    {
+      "file": "cached-metadata/appimage-positive-artifact.json",
+      "bytes": 894,
+      "sha256": "ecd67f538ad1548d7570515cfb4a5a8dec450aaa7548ed8522d1f8a657222595"
+    },
+    {
+      "file": "cached-metadata/core-artifact.json",
+      "bytes": 889,
+      "sha256": "15ca5b43b6bc5817c412c95e0f965517fa59693602c1728572941b948f1674eb"
+    },
+    {
+      "file": "cached-metadata/deb-missing-artifact.json",
+      "bytes": 889,
+      "sha256": "676fe6476e6aa66ee62e180befb7f751ba4ac655ec90a2b7a9664eb32c60bf8e"
+    },
+    {
+      "file": "cached-metadata/deb-positive-artifact.json",
+      "bytes": 890,
+      "sha256": "c44299384d40467251cb9fc06bf7f963eeae767e4e49965528110f9db6cb5613"
+    },
+    {
+      "file": "owner-receipts/checkpoint.json",
+      "bytes": 11895,
+      "sha256": "8038be5fbcd0e520774a52ef5a296f7708008fa03ce1267b1dae926f16c3914e"
+    },
+    {
+      "file": "owner-receipts/deb374-and-positive.json",
+      "bytes": 12908,
+      "sha256": "edf409cfdff80d1ed7c074478bed0906199f5113ecb4ecef55262b69df26328a"
+    },
+    {
+      "file": "owner-receipts/final-receipt.json",
+      "bytes": 9447,
+      "sha256": "267ecaa97893e6dbbe8aa8df7b9ff826e78f317cf2fbfdc5cfeb02586a80a3b6"
+    },
+    {
+      "file": "raw-reports/appimage-missing.json",
+      "bytes": 92966,
+      "sha256": "3b49180e60c8453ade13f09d510c9db897b4b49955d83008fc8767bd25831b64"
+    },
+    {
+      "file": "raw-reports/appimage-positive.json",
+      "bytes": 80907,
+      "sha256": "e006ee8bc2ce882d9b0c1b25521a06a57e106828e24e534fa4e45747ae69ae95"
+    },
+    {
+      "file": "raw-reports/core.json",
+      "bytes": 523950,
+      "sha256": "ad4c12c29af287b93f33a76015ffbb785a6cb92134da136193baed7bcf95ed41"
+    },
+    {
+      "file": "raw-reports/deb-missing.json",
+      "bytes": 89444,
+      "sha256": "926dde765c14283467f921bddcfc8bab5573581298935047b8697e5ef1dd6c4d"
+    },
+    {
+      "file": "raw-reports/deb-positive.json",
+      "bytes": 124655,
+      "sha256": "47e7320fab8d496727c47257e37190556086dc9fe6ed9f240c43cef2f2e966c6"
+    },
+    {
+      "file": "README.md",
+      "bytes": 1014,
+      "sha256": "0e882f9b27875000eaa7d92748ad2390857242c3673eb6fce6acf8a237071d43"
+    },
+    {
+      "file": "stopped-checkpoint.json",
+      "bytes": 10422,
+      "sha256": "4323f4d1680e87f1634f250520f248c69c48ce906ef41f3ac450b51ff910bd3b"
+    },
+    {
+      "file": "viewed-original-images/appimage-missing/missing-helper-error.png",
+      "bytes": 92453,
+      "sha256": "31df59473555c7db23774b435b5dd6e99c0e32358d4bf56c10da26ea41a6a856"
+    },
+    {
+      "file": "viewed-original-images/appimage-missing/preflight-reopened.png",
+      "bytes": 80027,
+      "sha256": "7bc0afe6ffbe2c0d770c771c086d4cafba34372ba3a3182c7724a2a07b183624"
+    },
+    {
+      "file": "viewed-original-images/appimage-missing/preflight-saved.png",
+      "bytes": 94972,
+      "sha256": "9b2a6ca663da553c22e151503e5b7e88269f49a6a1eb1a2fa44c56c87af63d3c"
+    },
+    {
+      "file": "viewed-original-images/appimage-positive/after-native-cancel.png",
+      "bytes": 86057,
+      "sha256": "d8e560c3806134d3e4fa3b07a414953a6b40b55b5269f74d9d97d65eb6d0347d"
+    },
+    {
+      "file": "viewed-original-images/appimage-positive/after-native-overwrite.png",
+      "bytes": 100493,
+      "sha256": "7ad3dd4c95c8164181bf6aabe6e9b9af787b2f6a8034f1787320b2e0d8eff992"
+    },
+    {
+      "file": "viewed-original-images/appimage-positive/confirmation-1.png",
+      "bytes": 9886,
+      "sha256": "e70d6b424bf3d5d2ec6c7fe61052b62edb61c64be66756e4be592fed844202cd"
+    },
+    {
+      "file": "viewed-original-images/appimage-positive/positive-new-pid-reopen.png",
+      "bytes": 80894,
+      "sha256": "7192cedced726b947efef9ac15a6f5ee657c096eb7e2f5db9628402fb6f3f940"
+    },
+    {
+      "file": "viewed-original-images/deb-missing/preflight-reopened.png",
+      "bytes": 80002,
+      "sha256": "ae0637af2bec09418c5feac2e91faf5096f51bb9962c7210c70f1703b4fb0120"
+    },
+    {
+      "file": "viewed-original-images/deb-missing/preflight-saved.png",
+      "bytes": 94851,
+      "sha256": "82b3aa871341e476a8c115ad088490cbcad2891297e4796525eb2f67bf984152"
+    },
+    {
+      "file": "viewed-original-images/deb-positive/after-native-cancel.png",
+      "bytes": 85918,
+      "sha256": "9c9ca83d30bf729b5f72bbd1e426b4dfbaa5255dadacff7518f2341c8193f238"
+    },
+    {
+      "file": "viewed-original-images/deb-positive/after-native-overwrite.png",
+      "bytes": 96070,
+      "sha256": "c59597c5a6bcbd9fc8672a421513a2b72fa3add07ffecf9761dffb5dc1d5d362"
+    },
+    {
+      "file": "viewed-original-images/deb-positive/positive-new-pid-reopen.png",
+      "bytes": 80879,
+      "sha256": "dde222a8b2e64d287fa5ab392af72b5e153fd91c13308d40acc9243b8e6f435f"
+    },
+    {
+      "file": "viewed-original-images/deb-positive/preflight-reopened.png",
+      "bytes": 80027,
+      "sha256": "c1ebd30335cfd84ccba5c4bdddb3650f6be1ccea10562ccd1edf64a5e39170cc"
+    },
+    {
+      "file": "viewed-original-images/deb-positive/preflight-saved.png",
+      "bytes": 94636,
+      "sha256": "94c7480529d8e0e55f4c7afdf77fe0c9a121bb38c53e1b5804db4d12373c2875"
+    }
+  ]
+}
