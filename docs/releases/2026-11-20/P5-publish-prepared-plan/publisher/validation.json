@@ -1,0 +1,20 @@
+{
+  "status": "Prepared proposal; no live execution",
+  "testsPassed": 21,
+  "testCommand": "python -B publisher/test_publisher.py",
+  "offlineCheckCommand": "python -B publisher/publish_prepared.py check --plan plan.final-review.json --body release-body.final-review.md",
+  "planSha256": "da0851d59c65ff54c4ec09e5b1dda712a337c71525ee5e517da5ac39a26d16f8",
+  "reviewedCodeSha256": "4b1f57af23ceedf7f61f5ae17b6c61d5c21991ed6184d106dc04a405e4de09cc",
+  "releaseBodySha256": "d4045ac87d963a1e3adf9b7bd2817ee74a42c158847376f29fb808c23ec373b6",
+  "assetsSha256": "e03d14548216a82d63c5568202c095845159b59155f15804b63a47080a3496b2",
+  "networkPerformed": false,
+  "GPGOrPrivateKeyUsed": false,
+  "APIWriteOrPublication": false,
+  "rootCommitRequired": true,
+  "measuredManifestPeakModelBytesIncluding1GBReserve": {
+    "Windows": 5075419330,
+    "Linux": 11942448856,
+    "macOS": 11450336349
+  },
+  "actualDiskAvailabilityRequiredAtEveryStep": true
+}

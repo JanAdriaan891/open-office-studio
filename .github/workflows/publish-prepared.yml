@@ -1,0 +1,114 @@
+name: Publish prepared verified assets without rebuilding
+on:
+  workflow_dispatch:
+    inputs:
+      stage:
+        description: Offline check, draft/readback, existing-draft publication, or explicitly approved full sequence
+        type: choice
+        options: [check, draft, publish, release]
+        default: check
+      execute:
+        description: Execute only the steps specifically authorized in approval_json
+        type: boolean
+        default: false
+      approval_json:
+        description: Reviewed explicit user approval, exact plan/code/body/main-tree pins and step permissions; empty means no execution
+        type: string
+        default: ''
+      prior_state_base64:
+        description: Existing draft state.json exact bytes as base64, pinned by approval inputStateSha256; publish stage only
+        type: string
+        default: ''
+permissions:
+  contents: read
+concurrency:
+  group: publish-prepared-v2026.48.1
+  cancel-in-progress: false
+jobs:
+  check:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4, reviewed exact revision
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Offline manifest integrity and request shape
+        env:
+          REQUEST_EXECUTE: ${{ inputs.execute }}
+          REQUEST_STAGE: ${{ inputs.stage }}
+        run: |
+          python3 -B - <<'PY'
+          import os
+          if os.environ['REQUEST_EXECUTE'] == 'true':
+              assert os.environ['GITHUB_REF'] == 'refs/heads/main', 'Execution requires the separately approved main workflow'
+              assert os.environ['REQUEST_STAGE'] != 'check', 'Select a specific approved execution stage'
+          PY
+          python3 -B docs/releases/2026-11-20/P5-publish-prepared-plan/publisher/publish_prepared.py check --plan docs/releases/2026-11-20/P5-publish-prepared-plan/plan.final-review.json
+  execute:
+    needs: check
+    if: ${{ inputs.execute && inputs.stage != 'check' && github.ref == 'refs/heads/main' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    permissions:
+      contents: write
+      actions: read
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GITHUB_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 1
+          persist-credentials: false
+      - name: Execute the approved non-rebuilding sequence
+        env:
+          APPROVAL_JSON: ${{ inputs.approval_json }}
+          PRIOR_STATE_BASE64: ${{ inputs.prior_state_base64 }}
+          REQUEST_STAGE: ${{ inputs.stage }}
+        run: |
+          python3 -B - <<'PY'
+          import base64, hashlib, json, os, pathlib, subprocess, sys
+          def unique(pairs):
+              value = {}
+              for key, item in pairs:
+                  if key in value:
+                      raise ValueError('Duplicate JSON approval/state key')
+                  value[key] = item
+              return value
+          base = pathlib.Path(os.environ['RUNNER_TEMP']).resolve() / 'prepared-release'
+          base.mkdir(exist_ok=False)
+          raw = os.environ['APPROVAL_JSON'].encode('utf-8')
+          approval = json.loads(raw, object_pairs_hook=unique)
+          if not isinstance(approval, dict):
+              raise ValueError('Explicit structured approval required')
+          approval_path = base / 'approval.json'
+          approval_path.write_bytes(raw)
+          prior = os.environ['PRIOR_STATE_BASE64']
+          stage = os.environ['REQUEST_STAGE']
+          if stage == 'publish':
+              state = base64.b64decode(prior, validate=True)
+              if not state or len(state) > 524288:
+                  raise ValueError('Bounded original state bytes required')
+              if hashlib.sha256(state).hexdigest() != approval.get('inputStateSha256'):
+                  raise ValueError('Original state SHA256 differs from approval')
+              json.loads(state, object_pairs_hook=unique)
+              (base / 'state.json').write_bytes(state)
+          elif prior:
+              raise ValueError('Prior state is allowed only for existing-draft publication')
+          common = ['--plan', 'docs/releases/2026-11-20/P5-publish-prepared-plan/plan.final-review.json', '--approval', str(approval_path), '--work-dir', str(base), '--body', 'docs/releases/2026-11-20/P5-publish-prepared-plan/release-body.final-review.md']
+          commands = {'draft': ['collect', 'stage-draft', 'verify-remote'], 'release': ['collect', 'stage-draft', 'verify-remote', 'publish'], 'publish': ['publish']}
+          for command in commands[stage]:
+              subprocess.run([sys.executable, '-B', 'docs/releases/2026-11-20/P5-publish-prepared-plan/publisher/publish_prepared.py', command, *common], check=True)
+          PY
+      - name: Preserve state only, never installer caches or credentials
+        if: ${{ always() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4, reviewed exact revision
+        with:
+          name: prepared-release-state-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/prepared-release/state.json
+          if-no-files-found: warn
+          retention-days: 30

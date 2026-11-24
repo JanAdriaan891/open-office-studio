@@ -21,6 +21,12 @@ class DisabledPlanIntegrity(unittest.TestCase):
     def test_real60_asset_disabled_plan(self):
         self.assertEqual(validate(self.plan,self.approval)['checksumRows'],58)
 
+    def test_final_body_proposal_keeps_original60_assets_and_disabled_execution(self):
+        final=json.loads((HERE/'plan.final-review.json').read_bytes())
+        self.assertEqual(final['assets'],self.plan['assets'])
+        self.assertEqual(final['producerChains'],self.plan['producerChains'])
+        self.assertEqual(validate(final,self.approval)['assets'],60)
+
     def test_duplicate_or_extra_name_rejected(self):
         self.rejects(lambda p:p['assets'].__setitem__(1,copy.deepcopy(p['assets'][0])))
         self.rejects(lambda p:p['assets'].append(copy.deepcopy(p['assets'][0])))

@@ -1482,5 +1482,31 @@
     "mainMergeAllowed": false,
     "publicationAllowed": false,
     "rawFailuresNotRewritten": true
+  },
+  "publicationPreparation20261124": {
+    "asOfUTC": "2026-11-24T09:50:45.934006+00:00",
+    "status": "Concrete collector/uploader/workflow and releasebody independently reviewed; execution approval absent",
+    "plan": "P5-publish-prepared-plan/EXECUTION-REVIEW-2026-11-24.md",
+    "manifest": "P5-publish-prepared-plan/plan.final-review.json",
+    "planSha256": "da0851d59c65ff54c4ec09e5b1dda712a337c71525ee5e517da5ac39a26d16f8",
+    "codeSha256": "4b1f57af23ceedf7f61f5ae17b6c61d5c21991ed6184d106dc04a405e4de09cc",
+    "workflowSha256": "f11e0daa4990d8e31b08367097188b3adc667906a3417544f18c5612677a6fef",
+    "bodySha256": "d4045ac87d963a1e3adf9b7bd2817ee74a42c158847376f29fb808c23ec373b6",
+    "reviewReceipt": "P5-publish-prepared-plan/final-review-receipt.json",
+    "tests": "21publisher +8manifest +7actual-inline-workflowguard tests PASS; additional API/GPG mocks and source metadata replay PASS",
+    "onlyExtraNonEvidenceInput": ".github/workflows/publish-prepared.yml; no app/runtime/compiler input modified",
+    "mergeRoute": "PR367 mergecommit into integration771fd66e, then PR353 mergecommit into main93fcc619; re-pin exact final reviewed head/tree and actual verified merge parents",
+    "tag": "v2026.48.1",
+    "tagTarget": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+    "tagActor": "Only dedicated reviewed Actions GITHUB_TOKEN job; no PAT/local v-tag push triggering original rebuild",
+    "executionEnabled": false,
+    "mainMergeAuthorized": false,
+    "tagAuthorized": false,
+    "draftOrUploadAuthorized": false,
+    "publishAuthorized": false,
+    "liveCollectorApiGpgAndPublicationTested": false,
+    "assetPayloadsUnchanged": 60,
+    "sourceApprovalEnvelope": "Final exact head/tree and proposed permissions will be recorded outside the commit after final source pin, no self-referential commit hash",
+    "risk": "Old automated Mac save cause remains unknown; intermittent product-save problem not excluded. Bounded native gate accepted with this disclosure."
   }
 }

@@ -43,7 +43,7 @@ def original_evidence():
 
 def validate(plan, approval):
     raw, receipt = original_evidence()
-    require(plan['kind'] == 'Review-only prepared60-asset publication plan; no publisher implementation', 'Review-only plan required')
+    require(plan['kind'] in ('Review-only prepared60-asset publication plan; no publisher implementation', 'Review-only prepared60-asset publication plan; publisher proposal disabled'), 'Disabled review-only plan required')
     require(all(plan[key] is False for key in ('executionEnabled', 'publicationAuthorized', 'publicationPerformed', 'nativeAcceptanceFinal', 'publicDownloadsAvailable', 'existingReleasePublisherCompatible', 'releaseBodyFinal')), 'Plan must remain disabled and unapproved')
     require(plan['application'] == {'commit':APP, 'tree':TREE, 'version':'2026.48.1'}, 'Application source differs')
     require(plan['proposedTag'] == 'v2026.48.1' and plan['proposedTestedTagTarget'] == APP and plan['approvedTagTarget'] is None, 'Tag proposal is not an approval')
