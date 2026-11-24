@@ -1,0 +1,607 @@
+{
+  "app": "presentation",
+  "nativeAccepted": false,
+  "observations": [],
+  "diagnosticRoot": "/Users/runner/work/open-office-studio/open-office-studio/receipts/presentation",
+  "documentOutputRoot": "/Users/runner/work/open-office-studio/open-office-studio/receipts/presentation-documents",
+  "source": {
+    "commit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+    "tree": "e30879fd772871e690847c061ef66e6b81808a05",
+    "version": "2026.48.1"
+  },
+  "provenance": {
+    "schemaVersion": 1,
+    "app": "presentation",
+    "source": {
+      "commit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+      "tree": "e30879fd772871e690847c061ef66e6b81808a05",
+      "version": "2026.48.1"
+    },
+    "parentArtifact": {
+      "id": 14836145077,
+      "run": 45195055147,
+      "producerJobId": 137763371873,
+      "attempt": 1,
+      "name": "uitgave-macOS",
+      "sha256": "45a88b40325f516e91b0b4cb557b88fd2a81d62bde2e4be26dc87bd1b55ff015",
+      "bytes": 1972148013
+    },
+    "member": "dist-installers/presentation/dmg/Open Presentation Studio_2026.48.1_aarch64.dmg",
+    "package": {
+      "filename": "Open Presentation Studio_2026.48.1_aarch64.dmg",
+      "sha256": "544b088148dc9f0ef8bd250427fc2c70883fd28424861bfba50fd66d3664e71f",
+      "bytes": 373169095
+    },
+    "memberSHA256DerivedFromVerifiedParent": true,
+    "nativeAccepted": false,
+    "producerWorkflow": {
+      "commit": "2af94cdcefa3e88e4980b631d16a88d7d7de5ae8",
+      "tree": "94340e40228ddcb11aace00e4dd01f614a13273e",
+      "run": 45195055147,
+      "attempt": 1,
+      "job": 137763371873,
+      "branch": "codex/p5-macos-only-producer-20261123",
+      "path": ".github/workflows/release.yml",
+      "event": "workflow_dispatch",
+      "workflowSha256": "2ae3b7aa85bb4d4e394e71af43a93da45332e9b5f78fd7ed2151aca732726d62",
+      "checkoutWorkflowSha256": "620e90485493163b87163a8763ffbbfcc2f0af5f03251b592af577721c5a9c64",
+      "witnessMember": ".local/macos-only-producer-source.json"
+    },
+    "sourceWitness": {
+      "member": ".local/macos-only-producer-source.json",
+      "bytes": 820,
+      "sha256": "236085a316b40b2e5033316a3e3ed45f91cb9a27e83d518117160ba4aff4e7d5",
+      "rawBase64": "ewogICJhcHBIZWFkIjogImI2OTZhYjg2YmQxYzEyODcyOWEwNzliNjhjMDA4MmU2ZGYzZDM2YTUiLAogICJhcHBUcmVlIjogImUzMDg3OWZkNzcyODcxZTY5MDg0N2MwNjFlZjY2ZTZiODE4MDhhMDUiLAogICJhcHBWZXJzaW9uIjogIjIwMjYuNDguMSIsCiAgInByb2R1Y2VySGVhZCI6ICIyYWY5NGNkY2VmYTNlODhlNDk4MGI2MzFkMTZhODhkN2Q3ZGU1YWU4IiwKICAicHJvZHVjZXJXb3JrZmxvd0hlYWQiOiAiMmFmOTRjZGNlZmEzZTg4ZTQ5ODBiNjMxZDE2YTg4ZDdkN2RlNWFlOCIsCiAgInByb2R1Y2VyUmVmIjogInJlZnMvaGVhZHMvY29kZXgvcDUtbWFjb3Mtb25seS1wcm9kdWNlci0yMDI2MTEyMyIsCiAgInByb2R1Y2VyV29ya2Zsb3dSZWYiOiAiT3BlbkFFQy1Gb3VuZGF0aW9uL29wZW4tb2ZmaWNlLXN0dWRpby8uZ2l0aHViL3dvcmtmbG93cy9yZWxlYXNlLnltbEByZWZzL2hlYWRzL2NvZGV4L3A1LW1hY29zLW9ubHktcHJvZHVjZXItMjAyNjExMjMiLAogICJldmVudCI6ICJ3b3JrZmxvd19kaXNwYXRjaCIsCiAgInJ1bklkIjogIjQ1MTk1MDU1MTQ3IiwKICAiYXR0ZW1wdCI6ICIxIiwKICAiam9iIjogImJvdXdlbiIsCiAgImNoZWNrb3V0V29ya2Zsb3dTaGEyNTYiOiAiNjIwZTkwNDg1NDkzMTYzYjg3MTYzYTg3NjNmZmJiZmNjMmYwYWY1ZjAzMjUxYjU5MmFmNTc3NzIxYzVhOWM2NCIsCiAgInB1YmxpY2VyZW4iOiAiZmFsc2UiLAogICJuYXRpdmVBY2NlcHRlZCI6IGZhbHNlLAogICJzY29wZSI6ICJCdWlsZC1vbmx5IHByb2R1Y2VyL3NvdXJjZSBiaW5kaW5nOyBubyBuYXRpdmUgb3BlcmF0aW9uIG9yIHB1YmxpY2F0aW9uIgp9Cg==",
+      "value": {
+        "appHead": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+        "appTree": "e30879fd772871e690847c061ef66e6b81808a05",
+        "appVersion": "2026.48.1",
+        "producerHead": "2af94cdcefa3e88e4980b631d16a88d7d7de5ae8",
+        "producerWorkflowHead": "2af94cdcefa3e88e4980b631d16a88d7d7de5ae8",
+        "producerRef": "refs/heads/codex/p5-macos-only-producer-20261123",
+        "producerWorkflowRef": "OpenAEC-Foundation/open-office-studio/.github/workflows/release.yml@refs/heads/codex/p5-macos-only-producer-20261123",
+        "event": "workflow_dispatch",
+        "runId": "45195055147",
+        "attempt": "1",
+        "job": "bouwen",
+        "checkoutWorkflowSha256": "620e90485493163b87163a8763ffbbfcc2f0af5f03251b592af577721c5a9c64",
+        "publiceren": "false",
+        "nativeAccepted": false,
+        "scope": "Build-only producer/source binding; no native operation or publication"
+      }
+    }
+  },
+  "capabilities": {
+    "applicationLaunched": false,
+    "availableDisplayModes": [
+      {
+        "height": 600,
+        "pixelHeight": 600,
+        "pixelWidth": 800,
+        "width": 800
+      },
+      {
+        "height": 540,
+        "pixelHeight": 540,
+        "pixelWidth": 960,
+        "width": 960
+      },
+      {
+        "height": 576,
+        "pixelHeight": 576,
+        "pixelWidth": 1024,
+        "width": 1024
+      },
+      {
+        "height": 768,
+        "pixelHeight": 768,
+        "pixelWidth": 1024,
+        "width": 1024
+      },
+      {
+        "height": 720,
+        "pixelHeight": 720,
+        "pixelWidth": 1280,
+        "width": 1280
+      },
+      {
+        "height": 960,
+        "pixelHeight": 960,
+        "pixelWidth": 1280,
+        "width": 1280
+      },
+      {
+        "height": 756,
+        "pixelHeight": 756,
+        "pixelWidth": 1344,
+        "width": 1344
+      },
+      {
+        "height": 1008,
+        "pixelHeight": 1008,
+        "pixelWidth": 1344,
+        "width": 1344
+      },
+      {
+        "height": 900,
+        "pixelHeight": 900,
+        "pixelWidth": 1600,
+        "width": 1600
+      },
+      {
+        "height": 1200,
+        "pixelHeight": 1200,
+        "pixelWidth": 1600,
+        "width": 1600
+      },
+      {
+        "height": 1080,
+        "pixelHeight": 1080,
+        "pixelWidth": 1920,
+        "width": 1920
+      },
+      {
+        "height": 480,
+        "pixelHeight": 480,
+        "pixelWidth": 640,
+        "width": 640
+      }
+    ],
+    "eventPostingAuthorized": true,
+    "guiSession": {
+      "CGSSessionUniqueSessionUUID": "B52A399C-542C-45C5-A7CA-99855D40A36F",
+      "kCGSessionLoginDoneKey": true,
+      "kCGSessionLongUserNameKey": "Anka",
+      "kCGSSessionAuditIDKey": 100002,
+      "kCGSSessionGroupIDKey": 20,
+      "kCGSSessionLoginwindowSafeLogin": false,
+      "kCGSSessionOnConsoleKey": true,
+      "kCGSSessionSystemSafeBoot": false,
+      "kCGSSessionUserIDKey": 501,
+      "kCGSSessionUserNameKey": "runner",
+      "kSCSecuritySessionID": 100002
+    },
+    "mainDisplayBefore": {
+      "Height": 768,
+      "Width": 1024,
+      "X": 0,
+      "Y": 0
+    },
+    "screenCaptureAuthorized": true,
+    "status": "observed",
+    "trusted": true
+  },
+  "visualReviewPassed": false,
+  "resourceObservationsReviewed": false,
+  "resourceIndependencePassed": false,
+  "limitations": [
+    "Original native screenshots require visual review.",
+    "Sampled process/files and runtime inventory do not establish complete converter/resource independence."
+  ],
+  "additionalCases": {},
+  "suiteAbsence": {
+    "searchedRoots": [
+      "/Applications",
+      "/Users/runner/Applications",
+      "/Users/runner/work/open-office-studio/open-office-studio"
+    ],
+    "processes": {
+      "argv": [
+        "/bin/ps",
+        "-axo",
+        "pid=,comm="
+      ],
+      "code": 0,
+      "stdout": "    1 /sbin/launchd\n   86 /usr/libexec/logd\n   87 /usr/libexec/smd\n   88 /usr/libexec/UserEventAgent\n   89 /usr/libexec/wifiFirmwareLoader\n   90 /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/FSEvents.framework/Versions/A/Support/fseventsd\n   91 /System/Library/PrivateFrameworks/MediaRemote.framework/Support/mediaremoted\n   93 /usr/sbin/systemstats\n   95 /System/Library/PrivateFrameworks/MobileAccessoryUpdater.framework/Support/accessoryupdaterd\n   96 /usr/libexec/uarpassetmanagerd\n   97 /usr/libexec/configd\n   98 endpointsecurityd\n   99 /System/Library/CoreServices/powerd.bundle/powerd\n  100 /usr/libexec/IOMFB_bics_daemon\n  102 /usr/libexec/amfid\n  104 /usr/libexec/remoted\n  106 /usr/libexec/keybagd\n  107 /System/Library/PrivateFrameworks/MobileSoftwareUpdate.framework/Support/softwareupdated\n  108 /System/Library/PrivateFrameworks/CoreSpeech.framework/corespeechd_system\n  114 /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/Metadata.framework/Versions/A/Support/mds\n  115 /System/Library/CoreServices/iconservicesd\n  116 /usr/libexec/kernelmanagerd\n  117 /usr/libexec/diskarbitrationd\n  120 /usr/libexec/coreduetd\n  121 /usr/sbin/syslogd\n  123 /usr/libexec/thermalmonitord\n  124 /System/Library/PrivateFrameworks/CoreDuetContext.framework/Resources/contextstored\n  125 /usr/libexec/xprotectd\n  126 /usr/libexec/opendirectoryd\n  127 /System/Library/CoreServices/launchservicesd\n  128 /usr/libexec/timed\n  129 /System/Library/PrivateFrameworks/MobileDevice.framework/Versions/A/Resources/usbmuxd\n  130 /usr/sbin/securityd\n  132 /usr/libexec/locationd\n  133 /usr/libexec/nesessionmanager\n  134 autofsd\n  135 /usr/libexec/dasd\n  136 /usr/libexec/corerepaird\n  138 /usr/sbin/distnoted\n  139 /System/Library/PrivateFrameworks/AppleCredentialManager.framework/AppleCredentialManagerDaemon\n  140 /usr/libexec/dirhelper\n  141 /System/Library/CoreServices/logind\n  142 /System/Library/PrivateFrameworks/GenerationalStorage.framework/Versions/A/Support/revisiond\n  143 /usr/sbin/KernelEventAgent\n  145 /usr/libexec/usermanagerd\n  147 /usr/sbin/bluetoothd\n  148 /usr/sbin/notifyd\n  149 /usr/libexec/sandboxd\n  150 /usr/libexec/corebrightnessd\n  151 /usr/libexec/AirPlayXPCHelper\n  152 /System/Library/Frameworks/CoreMediaIO.framework/Versions/A/Resources/com.apple.cmio.registerassistantservice\n  153 aslmanager\n  154 /System/Library/PrivateFrameworks/TCC.framework/Support/tccd\n  155 /usr/sbin/cfprefsd\n  156 /usr/libexec/fskitd\n  157 /System/Library/CoreServices/loginwindow.app/Contents/MacOS/loginwindow\n  158 /usr/libexec/powerexperienced\n  159 /System/Library/PrivateFrameworks/CoreAnalytics.framework/Support/analyticsd\n  160 /System/Library/CoreServices/coreservicesd\n  161 /usr/libexec/runningboardd\n  162 /usr/libexec/securityd_system\n  163 /System/Library/PrivateFrameworks/SkyLight.framework/Resources/WindowServer\n  164 /usr/libexec/trustd\n  165 /usr/libexec/lsd\n  166 /usr/libexec/containermanagerd_system\n  167 /usr/libexec/PowerUIAgent\n  171 /usr/libexec/airportd\n  176 /usr/sbin/coreaudiod\n  188 /System/Library/PrivateFrameworks/SystemStatusServer.framework/Support/systemstatusd\n  190 /usr/libexec/eligibilityd\n  191 /usr/libexec/hidd\n  192 /usr/sbin/distnoted\n  194 /usr/libexec/secinitd\n  195 /System/Library/Frameworks/Security.framework/Versions/A/XPCServices/authd.xpc/Contents/MacOS/authd\n  196 /usr/sbin/distnoted\n  197 /usr/libexec/findmydeviced\n  206 /System/Library/Frameworks/NetFS.framework/Versions/A/XPCServices/PlugInLibraryService.xpc/Contents/MacOS/PlugInLibraryService\n  212 /usr/sbin/distnoted\n  216 /System/Library/PrivateFrameworks/BiomeStreams.framework/Support/biomed\n  217 /usr/libexec/nehelper\n  218 /usr/libexec/symptomsd\n  220 /usr/sbin/mDNSResponder\n  221 /usr/libexec/mobileassetd\n  222 /usr/libexec/colorsync.displayservices\n  224 /System/Library/Frameworks/ColorSync.framework/Versions/A/XPCServices/com.apple.ColorSyncXPCAgent.xpc/Contents/MacOS/com.apple.ColorSyncXPCAgent\n  225 /usr/libexec/colorsyncd\n  227 /usr/libexec/trustdFileHelper\n  229 /usr/sbin/mDNSResponderHelper\n  231 /usr/sbin/WirelessRadioManagerd\n  232 /usr/libexec/syspolicyd\n  234 /System/Library/Frameworks/Security.framework/Versions/A/XPCServices/com.apple.CodeSigningHelper.xpc/Contents/MacOS/com.apple.CodeSigningHelper\n  235 /usr/libexec/findmybeaconingd\n  236 /System/Library/CoreServices/appleeventsd\n  238 /System/Library/Frameworks/CoreAudio.framework/Versions/A/XPCServices/com.apple.audio.DriverHelper.xpc/Contents/MacOS/com.apple.audio.DriverHelper\n  239 Core Audio Driver (NullAudio.driver)\n  240 /usr/libexec/audiomxd\n  242 /System/Library/Frameworks/AudioToolbox.framework/AudioComponentRegistrar\n  243 /System/Library/PrivateFrameworks/MobileAssetDaemon.framework/Versions/A/XPCServices/com.apple.MobileAsset.DownloadService.Builtin.xpc/Contents/MacOS/com.apple.MobileAsset.DownloadService.Builtin\n  244 /usr/libexec/nsurlsessiond\n  245 /System/Library/Frameworks/AudioToolbox.framework/XPCServices/com.apple.audio.SandboxHelper.xpc/Contents/MacOS/com.apple.audio.SandboxHelper\n  246 /System/Library/PrivateFrameworks/CloudKitDaemon.framework/Support/cloudd\n  247 Core Audio Driver (ParrotAudioPlugin.driver)\n  248 /usr/libexec/audioclocksyncd\n  249 /System/Library/PrivateFrameworks/SystemAdministration.framework/XPCServices/writeconfig.xpc/Contents/MacOS/writeconfig\n  250 /usr/libexec/storagekitd\n  251 /System/Library/DriverExtensions/com.apple.DriverKit-IOUserDockChannelSerial.dext/com.apple.DriverKit-IOUserDockChannelSerial\n  252 /usr/sbin/distnoted\n  254 /System/Library/Frameworks/SystemExtensions.framework/Versions/A/Helpers/sysextd\n  255 /System/Library/DriverExtensions/com.apple.AppleUserHIDDrivers.dext/com.apple.AppleUserHIDDrivers\n  257 /usr/libexec/mobileactivationd\n  259 /usr/libexec/triald_system\n  262 /usr/libexec/bootinstalld\n  264 /System/Library/CoreServices/osanalyticshelper\n  265 /System/Library/CoreServices/Software Update.app/Contents/Resources/suhelperd\n  267 /usr/libexec/com.apple.cmio.videodriverkithostextension.systemextension/Contents/MacOS/com.apple.cmio.videodriverkithostextension\n  270 /usr/sbin/distnoted\n  272 /System/Library/PrivateFrameworks/BackgroundTaskManagement.framework/Resources/backgroundtaskmanagementd\n  274 /usr/libexec/countryd\n  276 /System/Library/PrivateFrameworks/GeoServices.framework/Versions/A/XPCServices/com.apple.geod.xpc/Contents/MacOS/com.apple.geod\n  277 /usr/sbin/distnoted\n  286 /usr/libexec/secinitd\n  287 /usr/sbin/cfprefsd\n  288 /usr/libexec/trustd\n  292 /Library/Application Support/Veertu/Anka/addons/addonsd\n  295 /System/Library/Frameworks/CoreMediaIO.framework/Versions/A/Resources/UVCAssistant.systemextension/Contents/MacOS/UVCAssistant\n  297 /usr/libexec/containermanagerd\n  298 /System/Library/CoreServices/Software Update.app/Contents/Resources/softwareupdated\n  299 /usr/libexec/rtcreportingd\n  302 /usr/libexec/searchpartyd\n  303 /usr/sbin/distnoted\n  304 /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/Metadata.framework/Versions/A/Support/mds_stores\n  307 /System/Library/CoreServices/liquiddetectiond.app/liquiddetectiond\n  316 /System/Library/CryptoTokenKit/com.apple.ifdreader.slotd/Contents/MacOS/com.apple.ifdreader\n  320 /System/Library/PrivateFrameworks/ModelCatalogRuntime.framework/Versions/A/modelcatalogd\n  322 /usr/libexec/apfsd\n  323 /System/Library/Frameworks/GSS.framework/Helpers/GSSCred\n  324 /System/Library/CoreServices/TimeMachine/backupd-helper\n  325 /usr/libexec/ApplicationFirewall/socketfilterfw\n  326 /System/Library/PrivateFrameworks/MobileSoftwareUpdate.framework/Versions/A/XPCServices/com.apple.MobileSoftwareUpdate.CleanupPreparePathService.xpc/Contents/MacOS/com.apple.MobileSoftwareUpdate.CleanupPreparePathService\n  328 /usr/libexec/cryptexd\n  329 /usr/sbin/netbiosd\n  330 /usr/libexec/AppleQEMUGuestAgent\n  336 /System/Library/Frameworks/LocalAuthentication.framework/Support/coreauthd\n  337 /usr/sbin/distnoted\n  338 /usr/sbin/cfprefsd\n  339 /usr/libexec/biometrickitd\n  340 /usr/libexec/applekeystored\n  341 /usr/libexec/rpcsvchost\n  342 /usr/libexec/secd\n  346 /usr/libexec/UserEventAgent\n  347 /usr/libexec/gamecontrollerd\n  348 /usr/libexec/seld\n  349 /usr/libexec/uarpd\n  351 /System/Library/CoreServices/CoreServicesUIAgent.app/Contents/MacOS/CoreServicesUIAgent\n  352 /usr/sbin/universalaccessd\n  353 /System/Library/CoreServices/WindowManager.app/Contents/MacOS/WindowManager\n  354 /usr/libexec/containermanagerd\n  355 /usr/libexec/pboard\n  357 /System/Library/PrivateFrameworks/BiomeStreams.framework/Support/BiomeAgent\n  358 /usr/libexec/lsd\n  359 /System/Library/CoreServices/Dock.app/Contents/MacOS/Dock\n  360 /System/Library/CoreServices/talagentd\n  361 /System/Library/CoreServices/ControlCenter.app/Contents/MacOS/ControlCenter\n  362 /System/Library/CoreServices/SystemUIServer.app/Contents/MacOS/SystemUIServer\n  363 /usr/libexec/linkd\n  364 /System/Library/CoreServices/Finder.app/Contents/MacOS/Finder\n  367 /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/CarbonCore.framework/Versions/A/XPCServices/csnameddatad.xpc/Contents/MacOS/csnameddatad\n  368 /usr/libexec/dmd\n  369 /System/Library/Frameworks/QuickLookThumbnailing.framework/Support/com.apple.quicklook.ThumbnailsAgent\n  370 /System/Library/Frameworks/QuickLookUI.framework/Versions/A/XPCServices/QuickLookUIService.xpc/Contents/MacOS/QuickLookUIService\n  371 /System/Library/CoreServices/WallpaperAgent.app/Contents/MacOS/WallpaperAgent\n  372 /System/Library/PrivateFrameworks/CloudKitDaemon.framework/Support/cloudd\n  373 /usr/libexec/secinitd\n  374 automountd\n  375 /System/Library/PrivateFrameworks/FileProvider.framework/Support/fileproviderd\n  376 /System/Library/CoreServices/sharedfilelistd\n  377 /usr/libexec/pkd\n  378 /System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/HIServices.framework/Versions/A/XPCServices/com.apple.hiservices-xpcservice.xpc/Contents/MacOS/com.apple.hiservices-xpcservice\n  379 /usr/sbin/distnoted\n  380 /usr/sbin/filecoordinationd\n  381 /System/Library/PrivateFrameworks/VoiceShortcuts.framework/Versions/A/Support/siriactionsd\n  382 /System/Library/PrivateFrameworks/AMPDevices.framework/Versions/A/Support/AMPDeviceDiscoveryAgent\n  383 /usr/libexec/trustd\n  384 /System/Library/CoreServices/CoreLocationAgent.app/Contents/MacOS/CoreLocationAgent\n  385 /System/Library/PrivateFrameworks/TCC.framework/Support/tccd\n  386 /System/Library/PrivateFrameworks/SocialLayer.framework/sociallayerd.app/Contents/MacOS/sociallayerd\n  387 /System/Library/PrivateFrameworks/CoreSuggestions.framework/Versions/A/Support/suggestd\n  388 /System/Library/PrivateFrameworks/CalendarDaemon.framework/Support/calaccessd\n  389 /System/Library/Frameworks/ApplicationServices.framework/Frameworks/ATS.framework/Support/fontd\n  390 /usr/libexec/rapportd\n  391 /System/Library/PrivateFrameworks/TelephonyUtilities.framework/callservicesd\n  392 /System/Library/CoreServices/iconservicesagent\n  393 /System/Library/PrivateFrameworks/iCloudDriveCore.framework/Versions/A/Support/bird\n  394 /usr/libexec/ContinuityCaptureAgent\n  396 /System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/ATS.framework/Versions/A/Support/fontworker\n  397 /usr/libexec/intelligentroutingd\n  398 /System/Library/CoreServices/audioaccessoryd\n  399 /System/Library/PrivateFrameworks/MobileTimer.framework/Executables/mobiletimerd\n  400 /usr/libexec/replayd\n  401 /System/Library/PrivateFrameworks/UserNotificationsCore.framework/Support/usernotificationsd\n  402 /System/Library/Frameworks/AudioToolbox.framework/AudioComponentRegistrar\n  403 /System/Library/PrivateFrameworks/ChronoCore.framework/Support/chronod\n  404 /System/Library/PrivateFrameworks/ViewBridge.framework/Versions/A/XPCServices/ViewBridgeAuxiliary.xpc/Contents/MacOS/ViewBridgeAuxiliary\n  405 /System/Library/PrivateFrameworks/DoNotDisturbServer.framework/Support/donotdisturbd\n  406 /System/Library/PrivateFrameworks/CommunicationTrust.framework/Support/communicationtrustd\n  407 /usr/libexec/wallpaperexportd\n  408 /System/Library/Frameworks/ExtensionFoundation.framework/Versions/A/XPCServices/extensionkitservice.xpc/Contents/MacOS/extensionkitservice\n  409 /System/Library/Frameworks/Accounts.framework/Versions/A/Support/accountsd\n  410 /System/Library/Frameworks/CoreTelephony.framework/Support/CommCenter\n  411 /usr/libexec/findmylocateagent\n  412 /System/Library/PrivateFrameworks/CacheDelete.framework/deleted\n  413 /System/Library/PrivateFrameworks/AmbientDisplay.framework/Versions/A/XPCServices/com.apple.AmbientDisplayAgent.xpc/Contents/MacOS/com.apple.AmbientDisplayAgent\n  414 /System/Library/PrivateFrameworks/IMCore.framework/imagent.app/Contents/MacOS/imagent\n  415 /usr/libexec/nsurlsessiond\n  416 /usr/libexec/wifip2pd\n  417 /System/Library/PrivateFrameworks/IDS.framework/identityservicesd.app/Contents/MacOS/identityservicesd\n  418 /System/Library/CoreServices/AccessibilityUIServer.app/Contents/MacOS/AccessibilityUIServer\n  419 /System/Library/Frameworks/ManagedSettings.framework/Versions/A/ManagedSettingsAgent\n  420 /System/Library/Frameworks/ColorSync.framework/Versions/A/XPCServices/com.apple.ColorSyncXPCAgent.xpc/Contents/MacOS/com.apple.ColorSyncXPCAgent\n  421 /usr/libexec/nearbyd\n  422 /usr/sbin/systemsoundserverd\n  423 /System/Library/CoreServices/UIKitSystem.app/Contents/MacOS/UIKitSystem\n  424 /System/Library/ExtensionKit/Extensions/WallpaperAerialsExtension.appex/Contents/MacOS/WallpaperAerialsExtension\n  425 /usr/sbin/usernoted\n  427 /System/Library/PrivateFrameworks/SyncedDefaults.framework/Support/syncdefaultsd\n  428 /System/Library/Frameworks/CryptoTokenKit.framework/ctkahp.bundle/Contents/MacOS/ctkahp\n  429 /System/Library/PrivateFrameworks/SoftwareUpdate.framework/Resources/SoftwareUpdateNotificationManager.app/Contents/MacOS/SoftwareUpdateNotificationManager\n  430 /System/Library/PrivateFrameworks/FindMyMac.framework/Resources/FindMyMacd\n  431 /System/Library/PrivateFrameworks/IntlPreferences.framework/Support/localizationswitcherd\n  432 /System/Library/PrivateFrameworks/HearingCore.framework/heard\n  433 /System/Library/PrivateFrameworks/CoreSpeech.framework/corespeechd\n  434 /usr/libexec/routined\n  435 /System/Library/PrivateFrameworks/AXAssetLoader.framework/Support/axassetsd\n  436 /System/Library/PrivateFrameworks/CoreDuetContext.framework/Resources/ContextStoreAgent\n  439 /System/Library/Frameworks/InputMethodKit.framework/Resources/imklaunchagent\n  440 /Library/Application Support/Veertu/Anka/addons/ankarund\n  442 /Library/Application Support/Veertu/Anka/addons/ankacpd\n  443 /System/Library/Image Capture/Support/icdd\n  444 /System/Library/CoreServices/appplaceholdersyncd\n  445 /Library/Application Support/Veertu/Anka/addons/copypaste\n  447 /System/Library/PrivateFrameworks/AskPermission.framework/Versions/A/Resources/askpermissiond\n  449 /usr/libexec/sharingd\n  450 /usr/libexec/mobilerepaird\n  451 /System/Library/CoreServices/AirPlayUIAgent.app/Contents/MacOS/AirPlayUIAgent\n  452 /usr/libexec/knowledge-agent\n  453 /System/Library/CoreServices/diagnostics_agent\n  455 /System/Library/CoreServices/TextInputMenuAgent.app/Contents/MacOS/TextInputMenuAgent\n  456 /usr/libexec/remindd\n  457 /System/Library/PrivateFrameworks/AppleMediaServices.framework/Resources/amsaccountsd\n  458 /System/Library/PrivateFrameworks/UserActivity.framework/Agents/useractivityd\n  459 /System/Library/CoreServices/Dock.app/Contents/XPCServices/com.apple.dock.extra.xpc/Contents/MacOS/com.apple.dock.extra\n  460 /System/Library/PrivateFrameworks/ReplicatorCore.framework/Support/replicatord\n  462 /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/Metadata.framework/Versions/A/Support/corespotlightd\n  464 /System/Library/PrivateFrameworks/CommunicationsFilter.framework/CMFSyncAgent\n  465 /usr/libexec/rosetta/oahd\n  466 /System/Library/Frameworks/CryptoTokenKit.framework/ctkd\n  467 /usr/libexec/transparencyd\n  468 /System/Library/ExtensionKit/Extensions/WallpaperImageExtension.appex/Contents/MacOS/WallpaperImageExtension\n  469 /Library/Apple/System/Library/PrivateFrameworks/DeviceInterface.framework/Support/deviceinterfaced\n  470 /System/Library/PrivateFrameworks/SessionCore.framework/Support/liveactivitiesd\n  471 /System/Library/PrivateFrameworks/PowerLog.framework/Versions/A/XPCServices/PerfPowerTelemetryClientRegistrationService.xpc/Contents/MacOS/PerfPowerTelemetryClientRegistrationService\n  472 /usr/libexec/milod\n  473 /System/Library/CoreServices/TextInputSwitcher.app/Contents/MacOS/TextInputSwitcher\n  474 /usr/sbin/spindump\n  475 /System/Library/CoreServices/pbs\n  476 /System/Library/CoreServices/Spotlight.app/Contents/MacOS/Spotlight\n  477 /usr/libexec/kernelmanager_helper\n  478 /System/Library/Frameworks/ExtensionFoundation.framework/Versions/A/XPCServices/extensionkitservice.xpc/Contents/MacOS/extensionkitservice\n  479 /System/Library/Frameworks/LocalAuthentication.framework/Support/coreauthd\n  480 /System/Library/Frameworks/CryptoTokenKit.framework/ctkd\n  481 /System/Library/PrivateFrameworks/CallHistory.framework/Support/CallHistoryPluginHelper\n  483 /System/Library/Frameworks/CryptoTokenKit.framework/ctkahp.bundle/Contents/MacOS/ctkahp\n  485 /System/Library/PrivateFrameworks/EcosystemAnalytics.framework/Support/ecosystemanalyticsd\n  486 /System/Applications/Weather.app/Contents/PlugIns/WeatherWidget.appex/Contents/MacOS/WeatherWidget\n  487 /usr/libexec/spindump_agent\n  488 /System/Library/PrivateFrameworks/StatusKit.framework/StatusKitAgent\n  489 /System/Library/PrivateFrameworks/GeoServices.framework/Versions/A/XPCServices/com.apple.geod.xpc/Contents/MacOS/com.apple.geod\n  490 /System/Library/PrivateFrameworks/IMDPersistence.framework/XPCServices/IMDPersistenceAgent.xpc/Contents/MacOS/IMDPersistenceAgent\n  491 /System/Library/PrivateFrameworks/CoreParsec.framework/parsecd\n  492 /System/Library/PrivateFrameworks/TextInputUIMacHelper.framework/Versions/A/XPCServices/CursorUIViewService.xpc/Contents/MacOS/CursorUIViewService\n  493 /usr/libexec/duetexpertd\n  495 /usr/libexec/spotlightknowledged.updater\n  496 /System/Library/PrivateFrameworks/ContinuousDialogManagerService.framework/assistant_cdmd\n  497 /System/Library/PrivateFrameworks/ScreenTimeCore.framework/Versions/A/ScreenTimeAgent\n  498 /usr/libexec/neagent\n  499 /System/Library/PrivateFrameworks/FamilyCircle.framework/Versions/A/Resources/familycircled\n  500 /System/Library/PrivateFrameworks/AppSSO.framework/Support/AppSSOAgent.app/Contents/MacOS/AppSSOAgent\n  501 /System/Library/PrivateFrameworks/HomeKitDaemon.framework/Support/homed\n  502 /System/Library/PrivateFrameworks/CoreFollowUp.framework/Versions/A/Support/followupd\n  503 /usr/libexec/frauddefensed\n  504 /System/Library/Frameworks/Metal.framework/Versions/A/XPCServices/MTLCompilerService.xpc/Contents/MacOS/MTLCompilerService\n  506 /System/Library/Frameworks/Metal.framework/Versions/A/XPCServices/MTLCompilerService.xpc/Contents/MacOS/MTLCompilerService\n  509 /System/Library/CoreServices/APFSUserAgent\n  510 /System/Library/PrivateFrameworks/AppSSO.framework/Support/AppSSODaemon\n  512 /System/Library/Frameworks/Contacts.framework/Support/contactsd\n  514 /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/Metadata.framework/Versions/A/Support/mdbulkimport\n  515 /System/Library/PrivateFrameworks/TelephonyUtilities.framework/XPCServices/com.apple.FaceTime.FTConversationService.xpc/Contents/MacOS/com.apple.FaceTime.FTConversationService\n  516 /usr/libexec/appleaccountd\n  517 /System/Library/CoreServices/ReportCrash\n  519 /usr/libexec/triald\n  520 /System/Library/PrivateFrameworks/AuthKit.framework/Versions/A/Support/akd\n  521 /System/Library/PrivateFrameworks/SiriTTSService.framework/sirittsd\n  522 /System/Library/PrivateFrameworks/CoreCDP.framework/Versions/A/Resources/cdpd\n  523 /System/Library/PrivateFrameworks/PhotoLibraryServices.framework/Versions/A/Support/photolibraryd\n  524 /System/Library/CoreServices/ScopedBookmarkAgent\n  525 /System/Library/PrivateFrameworks/CoreADI.framework/adid\n  526 /System/Library/Frameworks/NetFS.framework/Versions/A/XPCServices/PlugInLibraryService.xpc/Contents/MacOS/PlugInLibraryService\n  527 /System/Library/PrivateFrameworks/iTunesCloud.framework/Support/itunescloudd\n  528 /System/Library/PrivateFrameworks/login.framework/Versions/A/XPCServices/LoginUserService.xpc/Contents/MacOS/LoginUserService\n  529 /System/Library/Frameworks/Speech.framework/Versions/A/XPCServices/localspeechrecognition.xpc/Contents/MacOS/localspeechrecognition\n  530 /System/Library/PrivateFrameworks/CacheDelete.framework/deleted_helper\n  531 /System/Library/PrivateFrameworks/AppleVirtualPlatform.framework/Versions/A/XPCServices/AppleVirtualPlatformIdentityService.xpc/Contents/MacOS/com.apple.Virtualization.AppleVirtualPlatformIdentity\n  532 /System/Library/PrivateFrameworks/MediaRemote.framework/Support/mediaremoteagent\n  533 /usr/libexec/avconferenced\n  534 /System/Library/PrivateFrameworks/AppleVirtualPlatform.framework/Versions/A/XPCServices/AppleVirtualPlatformIdentityService.xpc/Contents/MacOS/com.apple.Virtualization.AppleVirtualPlatformIdentity\n  535 /System/Library/PrivateFrameworks/MediaAnalysis.framework/Versions/A/mediaanalysisd\n  536 /System/Library/PrivateFrameworks/PhotoAnalysis.framework/Versions/A/Support/photoanalysisd\n  537 /usr/libexec/networkserviceproxy\n  538 /System/Library/PrivateFrameworks/CoreParsec.framework/parsec-fbf\n  539 /System/Library/Frameworks/Speech.framework/Versions/A/XPCServices/localspeechrecognition.xpc/Contents/MacOS/localspeechrecognition\n  540 /usr/libexec/searchpartyuseragent\n  541 /System/Library/PrivateFrameworks/Categories.framework/Versions/A/XPCServices/CategoriesService.xpc/Contents/MacOS/CategoriesService\n  542 /System/Library/PrivateFrameworks/ContactsDonation.framework/Versions/A/Support/contactsdonationagent\n  543 /System/Library/Frameworks/AudioToolbox.framework/XPCServices/AudioConverterHardenedService.xpc/Contents/MacOS/AudioConverterHardenedService\n  544 /System/Library/Frameworks/AudioToolbox.framework/XPCServices/AudioConverterService.xpc/Contents/MacOS/AudioConverterService\n  545 /System/Library/Frameworks/AudioToolbox.framework/XPCServices/com.apple.audio.SandboxHelper.xpc/Contents/MacOS/com.apple.audio.SandboxHelper\n  546 /System/Library/Frameworks/AudioToolbox.framework/XPCServices/com.apple.audio.SandboxHelper.xpc/Contents/MacOS/com.apple.audio.SandboxHelper\n  547 /System/Library/Frameworks/AudioToolbox.framework/XPCServices/com.apple.audio.SandboxHelper.xpc/Contents/MacOS/com.apple.audio.SandboxHelper\n  548 /System/Library/PrivateFrameworks/ContextKit.framework/Versions/A/XPCServices/ContextService.xpc/Contents/MacOS/ContextService\n  550 /System/Library/CoreServices/IOUIAgent.app/Contents/MacOS/IOUIAgent\n  551 /System/Applications/Photos.app/Contents/PlugIns/PhotosReliveWidget.appex/Contents/MacOS/PhotosReliveWidget\n  554 /System/Library/PrivateFrameworks/CloudSubscriptionFeatures.framework/FeatureAccessAgent\n  555 /System/Applications/Calendar.app/Contents/PlugIns/CalendarWidgetExtension.appex/Contents/MacOS/CalendarWidgetExtension\n  556 /System/Library/Frameworks/Metal.framework/Versions/A/XPCServices/MTLCompilerService.xpc/Contents/MacOS/MTLCompilerService\n  557 /System/Library/PrivateFrameworks/AppleVirtualPlatform.framework/Versions/A/XPCServices/AppleVirtualPlatformIdentityService.xpc/Contents/MacOS/com.apple.Virtualization.AppleVirtualPlatformIdentity\n  558 /System/Library/PrivateFrameworks/IASUtilities.framework/Versions/A/Resources/installerauthagent\n  559 /System/Library/CoreServices/ControlCenter.app/Contents/PlugIns/DisplayControls.appex/Contents/MacOS/DisplayControls\n  560 /usr/libexec/NRDUpdated\n  561 /System/Applications/Utilities/Screenshot.app/Contents/PlugIns/ScreenshotControls.appex/Contents/MacOS/ScreenshotControls\n  563 /System/Library/AssetsV2/com_apple_MobileAsset_RecoveryOSUpdateBrain/28f9b40aedc0bda53bdc29e31682c998de89e5cb.asset/AssetData/com.apple.NRD.UpdateBrainService.xpc/Contents/MacOS/com.apple.NRD.UpdateBrainService\n  565 /System/Library/PrivateFrameworks/CoreThreadCommissionerService.framework/CoreThreadCommissionerServiced\n  566 /System/Library/PrivateFrameworks/AssistantServices.framework/Versions/A/Support/assistantd\n  569 /usr/libexec/logd_helper\n  570 /usr/libexec/siriknowledged\n  577 /System/Library/PrivateFrameworks/CascadeSets.framework/Versions/A/XPCServices/SetStoreUpdateService.xpc/Contents/MacOS/SetStoreUpdateService\n  578 /System/Library/CoreServices/WindowManager.app/Contents/PlugIns/WindowManagerControlsExtension.appex/Contents/MacOS/WindowManagerControlsExtension\n  579 /System/Applications/Clock.app/Contents/PlugIns/WorldClockWidget.appex/Contents/MacOS/WorldClockWidget\n  580 /System/Applications/News.app/Contents/PlugIns/NewsTag.appex/Contents/MacOS/NewsTag\n  582 /System/Library/PrivateFrameworks/AppStoreDaemon.framework/Support/appstoreagent\n  583 /System/Library/Frameworks/AudioToolbox.framework/XPCServices/com.apple.audio.SandboxHelper.xpc/Contents/MacOS/com.apple.audio.SandboxHelper\n  584 /System/Library/Frameworks/AudioToolbox.framework/XPCServices/com.apple.audio.SandboxHelper.xpc/Contents/MacOS/com.apple.audio.SandboxHelper\n  585 /System/Applications/Stocks.app/Contents/PlugIns/StocksWidget.appex/Contents/MacOS/StocksWidget\n  586 /System/Library/PrivateFrameworks/MobileTimer.framework/PlugIns/MobileTimerIntents.appex/Contents/MacOS/MobileTimerIntents\n  587 /usr/libexec/AssetCache/AssetCache\n  589 /System/Library/PrivateFrameworks/AssetCacheServicesExtensions.framework/XPCServices/AssetCacheTetheratorService.xpc/Contents/MacOS/AssetCacheTetheratorService\n  590 /System/Library/CoreServices/Batteries.app/Contents/PlugIns/BatteriesAvocadoWidgetExtension.appex/Contents/MacOS/BatteriesAvocadoWidgetExtension\n  591 /System/Applications/VoiceMemos.app/Contents/PlugIns/RecordWidgetExtension.appex/Contents/MacOS/RecordWidgetExtension\n  592 /System/Applications/News.app/Contents/PlugIns/NewsTodayIntents.appex/Contents/MacOS/NewsTodayIntents\n  593 /System/Applications/Podcasts.app/Contents/PlugIns/PodcastsWidget.appex/Contents/MacOS/PodcastsWidget\n  594 /System/Applications/FindMy.app/Contents/PlugIns/FindMyWidgetItems.appex/Contents/MacOS/FindMyWidgetItems\n  597 /System/Library/PrivateFrameworks/PackageKit.framework/Resources/system_installd\n  598 /System/Library/PrivateFrameworks/GeoServices.framework/geodMachServiceBridge\n  599 /System/Applications/Home.app/Contents/PlugIns/HomeEnergyWidgetsExtension.appex/Contents/MacOS/HomeEnergyWidgetsExtension\n  600 /System/Applications/FindMy.app/Contents/PlugIns/FindMyWidgetPeople.appex/Contents/MacOS/FindMyWidgetPeople\n  601 /System/Applications/Home.app/Contents/PlugIns/HomeWidget.appex/Contents/MacOS/HomeWidget\n  602 /System/Applications/News.app/Contents/PlugIns/NewsToday2.appex/Contents/MacOS/NewsToday2\n  604 /System/Applications/Journal.app/Contents/PlugIns/JournalWidgetsSecure.appex/Contents/MacOS/JournalWidgetsSecure\n  605 /System/Library/PrivateFrameworks/CommerceKit.framework/Versions/A/Resources/commerce\n  606 /System/Library/CoreServices/Screen Time.app/Contents/PlugIns/ScreenTimeWidgetExtension.appex/Contents/MacOS/ScreenTimeWidgetExtension\n  607 /System/Applications/Journal.app/Contents/PlugIns/JournalWidgets.appex/Contents/MacOS/JournalWidgets\n  608 /System/Library/CoreServices/Screen Time.app/Contents/PlugIns/ScreenTimeWidgetIntentsExtension.appex/Contents/MacOS/ScreenTimeWidgetIntentsExtension\n  609 /System/Applications/VoiceMemos.app/Contents/PlugIns/VoiceMemosSettingsWidgetExtension.appex/Contents/MacOS/VoiceMemosSettingsWidgetExtension\n  610 /System/Library/PrivateFrameworks/AssetCacheServices.framework/Versions/A/XPCServices/AssetCacheLocatorService.xpc/Contents/MacOS/AssetCacheLocatorService\n  611 /System/Library/PrivateFrameworks/PackageKit.framework/Resources/installd\n  613 /usr/sbin/distnoted\n  614 /usr/libexec/ospredictiond\n  618 /System/Library/PrivateFrameworks/TrialServer.framework/Versions/A/XPCServices/TrialArchivingService.xpc/Contents/MacOS/TrialArchivingService\n  619 /System/Library/PrivateFrameworks/CoreSymbolication.framework/coresymbolicationd\n  622 /usr/libexec/assessmentagent\n  624 /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/Metadata.framework/Versions/A/Support/mdbulkimport\n  700 /usr/sbin/distnoted\n  701 /System/Applications/Weather.app/Contents/PlugIns/WeatherIntents.appex/Contents/MacOS/WeatherIntents\n  706 /usr/libexec/bluetoothuserd\n  708 /System/Library/PrivateFrameworks/UARPAssetManager.framework/XPCServices/UARPAssetManagerServiceMobileAsset.xpc/Contents/MacOS/UARPAssetManagerServiceMobileAsset\n  709 /System/Library/PrivateFrameworks/GenerativeExperiencesRuntime.framework/Versions/A/generativeexperiencesd\n  710 /System/Library/Frameworks/FinanceKit.framework/financed\n  711 /System/Library/Frameworks/AudioToolbox.framework/XPCServices/com.apple.audio.SandboxHelper.xpc/Contents/MacOS/com.apple.audio.SandboxHelper\n  712 /System/Library/PrivateFrameworks/CloudTelemetry.framework/Versions/A/XPCServices/CloudTelemetryService.xpc/Contents/MacOS/CloudTelemetryService\n  713 /System/iOSSupport/System/Library/ExtensionKit/Extensions/KonaSynthesizer.appex/Contents/MacOS/KonaSynthesizer\n  714 /System/Library/PrivateFrameworks/CloudTelemetry.framework/Versions/A/XPCServices/CloudTelemetryService.xpc/Contents/MacOS/CloudTelemetryService\n  715 /System/Library/PrivateFrameworks/InstallCoordination.framework/Support/installcoordinationd\n  716 /System/iOSSupport/System/Library/ExtensionKit/Extensions/SiriAUSP.appex/Contents/MacOS/SiriAUSP\n  717 /System/Library/PrivateFrameworks/TextToSpeechVoiceBankingSupport.framework/Support/voicebankingd\n  718 /System/Library/PrivateFrameworks/MacinTalk.framework/PlugIns/WardaSynthesizer.appex/Contents/MacOS/WardaSynthesizer\n  719 /System/Library/PrivateFrameworks/MobileAccessoryUpdater.framework/XPCServices/UARPUpdaterServiceDisplay.xpc/Contents/MacOS/UARPUpdaterServiceDisplay\n  720 /System/Library/PrivateFrameworks/MobileAccessoryUpdater.framework/XPCServices/UARPUpdaterServiceLegacyAudio.xpc/Contents/MacOS/UARPUpdaterServiceLegacyAudio\n  721 /System/Library/PrivateFrameworks/MobileAccessoryUpdater.framework/XPCServices/UARPUpdaterServiceUSBPD.xpc/Contents/MacOS/UARPUpdaterServiceUSBPD\n  722 /System/Library/PrivateFrameworks/MobileAccessoryUpdater.framework/XPCServices/UARPUpdaterServiceHID.xpc/Contents/MacOS/UARPUpdaterServiceHID\n  723 /System/Library/PrivateFrameworks/MobileAccessoryUpdater.framework/XPCServices/UARPUpdaterServiceAFU.xpc/Contents/MacOS/UARPUpdaterServiceAFU\n  724 /System/Library/PrivateFrameworks/MacinTalk.framework/PlugIns/MacinTalkAUSP.appex/Contents/MacOS/MacinTalkAUSP\n  725 /System/Library/PrivateFrameworks/MobileInstallation.framework/XPCServices/com.apple.MobileInstallationHelperService.xpc/Contents/MacOS/com.apple.MobileInstallationHelperService\n  726 /usr/sbin/distnoted\n  727 /System/Library/PrivateFrameworks/AppleMediaServicesUI.framework/amsengagementd\n  728 /usr/libexec/promotedcontentd\n  729 /System/Library/PrivateFrameworks/AppStoreDaemon.framework/Versions/A/XPCServices/com.apple.AppStoreDaemon.StorePrivilegedODRService.xpc/Contents/MacOS/com.apple.AppStoreDaemon.StorePrivilegedODRService\n  730 /System/iOSSupport/System/Library/ExtensionKit/Extensions/MauiAUSP.appex/Contents/MacOS/MauiAUSP\n  731 /usr/libexec/fairplaydeviceidentityd\n  733 /System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/HIServices.framework/Versions/A/XPCServices/com.apple.hiservices-xpcservice.xpc/Contents/MacOS/com.apple.hiservices-xpcservice\n  769 /usr/sbin/distnoted\n  779 /System/Library/PrivateFrameworks/CloudServices.framework/Helpers/com.apple.sbd\n  782 /System/Library/Frameworks/AudioToolbox.framework/XPCServices/com.apple.audio.SandboxHelper.xpc/Contents/MacOS/com.apple.audio.SandboxHelper\n  783 /System/Library/Frameworks/AudioToolbox.framework/XPCServices/com.apple.audio.SandboxHelper.xpc/Contents/MacOS/com.apple.audio.SandboxHelper\n  784 /System/Library/Frameworks/AudioToolbox.framework/XPCServices/com.apple.audio.SandboxHelper.xpc/Contents/MacOS/com.apple.audio.SandboxHelper\n  785 /System/Library/Frameworks/AudioToolbox.framework/XPCServices/com.apple.audio.SandboxHelper.xpc/Contents/MacOS/com.apple.audio.SandboxHelper\n  786 /System/Library/Frameworks/AudioToolbox.framework/XPCServices/com.apple.audio.SandboxHelper.xpc/Contents/MacOS/com.apple.audio.SandboxHelper\n  787 /System/Library/Frameworks/AudioToolbox.framework/XPCServices/AUCrashHandlerService.xpc/Contents/MacOS/AUCrashHandlerService\n  795 /usr/libexec/inputanalyticsd\n  806 /usr/libexec/trustd\n  812 /System/Library/PrivateFrameworks/Ecosystem.framework/Support/ecosystemd\n  820 /usr/sbin/distnoted\n  864 /Library/Apple/System/Library/CoreServices/XProtect.app/Contents/XPCServices/XProtectPluginService.xpc/Contents/MacOS/XProtectPluginService\n  865 /System/Library/PrivateFrameworks/IMTransferServices.framework/IMTransferAgent.app/Contents/MacOS/IMTransferAgent\n  866 /System/Library/CoreServices/WiFiAgent.app/Contents/MacOS/WiFiAgent\n  867 /System/Library/PrivateFrameworks/WiFiPolicy.framework/XPCServices/WiFiCloudAssetsXPCService.xpc/Contents/MacOS/WiFiCloudAssetsXPCService\n  868 /Library/Apple/System/Library/CoreServices/XProtect.app/Contents/XPCServices/XProtectPluginService.xpc/Contents/MacOS/XProtectPluginService\n  896 /usr/libexec/gamepolicyd\n  900 /System/Library/PrivateFrameworks/LockdownMode.framework/Versions/A/XPCServices/lockdownmoded\n  901 /System/Library/PrivateFrameworks/EmailDaemon.framework/Versions/A/maild\n  902 /System/Library/CoreServices/CrashReporterSupportHelper\n  940 /usr/libexec/modelmanagerd\n  969 /bin/bash\n  971 /System/Library/PrivateFrameworks/BackgroundTaskManagement.framework/Support/BackgroundTaskManagementAgent.app/Contents/MacOS/BackgroundTaskManagementAgent\n  980 /opt/hca/hosted-compute-agent\n  982 sudo\n  984 /var/folders/q2/p1t6rgxj5fj32g1dc7dmd49r0000gn/T/provjobd3832419485\n  987 /usr/libexec/gamecontrolleragentd\n  988 /usr/libexec/tailspind\n  990 /usr/libexec/GamePolicyAgent\n  991 /System/Library/Frameworks/NetFS.framework/Versions/A/XPCServices/PlugInLibraryService.xpc/Contents/MacOS/PlugInLibraryService\n  992 /System/Library/PrivateFrameworks/NewDeviceOutreach.framework/ndoagent\n  993 /System/Library/PrivateFrameworks/JetCore.framework/Support/jetpackassetd\n  994 /System/Library/PrivateFrameworks/SiriInference.framework/Versions/A/siriinferenced\n  995 /usr/libexec/diagnosticextensionsd\n  996 /System/Library/PrivateFrameworks/UsageTracking.framework/Versions/A/UsageTrackingAgent\n  998 /System/Library/PrivateFrameworks/StocksKit.framework/XPCServices/StocksKitService.xpc/Contents/MacOS/StocksKitService\n  999 /usr/libexec/nfcd\n 1001 /usr/libexec/sysmond\n 1002 /System/Library/Frameworks/ExtensionFoundation.framework/Versions/A/XPCServices/extensionkitservice.xpc/Contents/MacOS/extensionkitservice\n 1003 /System/Library/PrivateFrameworks/ModelCatalogRuntime.framework/Versions/A/ModelCatalogAgent\n 1004 /usr/libexec/assetsubscriptiond\n 1005 /usr/sbin/systemstats\n 1006 /System/Applications/Calendar.app/Contents/Extensions/CalendarIntentsExtension.appex/Contents/MacOS/CalendarIntentsExtension\n 1008 /System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app/Contents/Extensions/SafariLinkExtension.appex/Contents/MacOS/SafariLinkExtension\n 1009 /System/Applications/Messages.app/Contents/Extensions/MessagesActionExtension.appex/Contents/MacOS/MessagesActionExtension\n 1014 /System/Library/ExtensionKit/Extensions/HostInferenceProviderService.appex/Contents/MacOS/HostInferenceProviderService\n 1015 /usr/sbin/distnoted\n 1056 /System/Library/PrivateFrameworks/SiriSuggestionsSupport.framework/Versions/A/XPCServices/SiriSuggestionsBookkeepingService.xpc/Contents/MacOS/SiriSuggestionsBookkeepingService\n 1058 /System/Library/PrivateFrameworks/CoreAnalytics.framework/Support/analyticsagent\n 1059 /System/Library/PrivateFrameworks/iCloudNotification.framework/iCloudNotificationAgent\n 1060 /System/Library/PrivateFrameworks/HomeKitEvents.framework/Support/homeeventsd\n 1061 /usr/libexec/adprivacyd\n 1063 /System/Library/PrivateFrameworks/WorkflowKit.framework/XPCServices/ShortcutsViewService.xpc/Contents/MacOS/ShortcutsViewService\n 1074 /Users/runner/actions-runner/cached/bin/Runner.Listener\n 1133 /Users/runner/actions-runner/cached/bin/Runner.Worker\n 1146 /System/Library/PrivateFrameworks/WeatherDaemon.framework/weatherd\n 1149 /System/Library/PrivateFrameworks/MobileAccessoryUpdater.framework/Support/fudHelperAgent\n 1621 /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/Metadata.framework/Versions/A/Support/mdworker_shared\n 1645 /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/Metadata.framework/Versions/A/Support/mdworker_shared\n 1690 /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/Metadata.framework/Versions/A/Support/mdworker_shared\n 1727 /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/Metadata.framework/Versions/A/Support/mdworker_shared\n 1739 /bin/bash\n 1741 /Library/Frameworks/Python.framework/Versions/3.12/Resources/Python.app/Contents/MacOS/Python\n 1948 /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/Metadata.framework/Versions/A/Support/mdworker_shared\n 1959 /System/Library/PrivateFrameworks/OnDeviceStorage.framework/Support/amsondevicestoraged\n 1960 /System/Library/PrivateFrameworks/StreamingZip.framework/Versions/A/XPCServices/com.apple.StreamingUnzipService.privileged.xpc/Contents/MacOS/com.apple.StreamingUnzipService.privileged\n 1961 /System/Library/PrivateFrameworks/CloudTelemetry.framework/Versions/A/XPCServices/CloudTelemetryService.xpc/Contents/MacOS/CloudTelemetryService\n 1962 /System/Library/Frameworks/ManagedAppDistribution.framework/Support/managedappdistributiond\n 1963 /System/Library/PrivateFrameworks/UIFoundation.framework/Versions/A/XPCServices/nsattributedstringagent.xpc/Contents/MacOS/nsattributedstringagent\n 1964 /System/iOSSupport/System/Library/PrivateFrameworks/HomeEnergyDaemon.framework/Support/homeenergyd\n 1965 /System/Library/Frameworks/ApplicationServices.framework/Versions/A/Frameworks/HIServices.framework/Versions/A/XPCServices/com.apple.hiservices-xpcservice.xpc/Contents/MacOS/com.apple.hiservices-xpcservice\n 1966 /usr/sbin/cfprefsd\n 1971 /System/Library/Frameworks/MediaAccessibility.framework/Versions/A/XPCServices/com.apple.accessibility.mediaaccessibilityd.xpc/Contents/MacOS/com.apple.accessibility.mediaaccessibilityd\n 1976 /System/Library/PrivateFrameworks/UIFoundation.framework/Versions/A/XPCServices/nsattributedstringagent.xpc/Contents/MacOS/nsattributedstringagent\n 1977 /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/Metadata.framework/Versions/A/Support/mdworker_shared\n 1978 /System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.Networking.xpc/Contents/MacOS/com.apple.WebKit.Networking\n 1980 /System/Library/Frameworks/MediaAccessibility.framework/Versions/A/XPCServices/com.apple.accessibility.mediaaccessibilityd.xpc/Contents/MacOS/com.apple.accessibility.mediaaccessibilityd\n 1981 /System/Library/Frameworks/WebKit.framework/Versions/A/XPCServices/com.apple.WebKit.WebContent.xpc/Contents/MacOS/com.apple.WebKit.WebContent\n 1986 /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/Metadata.framework/Versions/A/Support/mdworker_shared\n 1994 /System/Library/PrivateFrameworks/Install.framework/Frameworks/DistributionKit.framework/Versions/A/XPCServices/DistributionHelper.xpc/Contents/MacOS/DistributionHelper\n 1999 /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/Metadata.framework/Versions/A/Support/mdworker_shared\n 2002 /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/Metadata.framework/Versions/A/Support/mdworker_shared\n 2003 /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/Metadata.framework/Versions/A/Support/mdworker_shared\n 2092 /System/Library/Frameworks/ManagedAppDistribution.framework/Support/managedappdistributionagent\n 2214 /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/Metadata.framework/Versions/A/Support/mdworker_shared\n 2220 /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/Metadata.framework/Versions/A/Support/mdworker_shared\n 2223 /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/Metadata.framework/Versions/A/Support/mdworker_shared\n 2226 /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/Metadata.framework/Versions/A/Support/mdworker_shared\n 2227 /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/Metadata.framework/Versions/A/Support/mdworker_shared\n 2228 /System/Library/Frameworks/CoreServices.framework/Versions/A/Frameworks/Metadata.framework/Versions/A/Support/mdworker_shared\n 2237 /System/Library/PrivateFrameworks/DeviceCheckInternal.framework/devicecheckd\n 2238 /System/Library/PrivateFrameworks/RemoteManagement.framework/remotemanagementd\n 2359 /System/Library/PrivateFrameworks/CloudTelemetry.framework/Versions/A/XPCServices/CloudTelemetryService.xpc/Contents/MacOS/CloudTelemetryService\n 2362 /bin/ps\n",
+      "stderr": ""
+    },
+    "found": []
+  },
+  "suiteAbsent": true,
+  "identityVerified": true,
+  "bundleInfo": {
+    "CFBundleDevelopmentRegion": "en",
+    "CFBundleDisplayName": "Open Presentation Studio",
+    "CFBundleExecutable": "open-presentation-studio",
+    "CFBundleIdentifier": "org.openaec.presentation-studio",
+    "CFBundleInfoDictionaryVersion": "6.0",
+    "CFBundleName": "Open Presentation Studio",
+    "CFBundlePackageType": "APPL",
+    "CFBundleShortVersionString": "2026.48.1",
+    "CFBundleVersion": "2026.48.1",
+    "CSResourcesFileMapped": true,
+    "LSApplicationCategoryType": "public.app-category.productivity",
+    "LSMinimumSystemVersion": "11.0",
+    "CFBundleDocumentTypes": [
+      {
+        "CFBundleTypeExtensions": [
+          "pptx",
+          "pptm",
+          "potx",
+          "potm",
+          "ppsx",
+          "pps",
+          "ppt",
+          "pot",
+          "odp",
+          "otp"
+        ],
+        "CFBundleTypeName": "OpenAEC.open-presentation-studio.Document",
+        "CFBundleTypeRole": "Editor",
+        "LSHandlerRank": "Default"
+      },
+      {
+        "CFBundleTypeExtensions": [
+          "ifcx"
+        ],
+        "CFBundleTypeName": "OpenAEC.open-presentation-studio.Document",
+        "CFBundleTypeRole": "Editor",
+        "LSHandlerRank": "Default"
+      }
+    ],
+    "CFBundleIconFile": "icon.icns",
+    "LSRequiresCarbon": true,
+    "NSHighResolutionCapable": true,
+    "NSHumanReadableCopyright": "© 2026 OpenAEC Foundation",
+    "CFBundleAllowMixedLocalizations": true,
+    "CFBundleLocalizations": [
+      "nl",
+      "en",
+      "de",
+      "fr",
+      "es",
+      "it",
+      "pt-BR",
+      "zh-Hans"
+    ]
+  },
+  "executableSHA256": "607354ff5323d570c697a3e0bd005ce379c2f96f07f3ec8aa15bf15adcf0a240",
+  "signature": {
+    "argv": [
+      "/usr/bin/codesign",
+      "--verify",
+      "--deep",
+      "--strict",
+      "/Users/runner/work/open-office-studio/open-office-studio/receipts/presentation/installed/Open Presentation Studio.app"
+    ],
+    "code": 0,
+    "stdout": "",
+    "stderr": ""
+  },
+  "signatureIdentity": {
+    "argv": [
+      "/usr/bin/codesign",
+      "-dv",
+      "--verbose=4",
+      "/Users/runner/work/open-office-studio/open-office-studio/receipts/presentation/installed/Open Presentation Studio.app"
+    ],
+    "code": 0,
+    "stdout": "",
+    "stderr": "Executable=/Users/runner/work/open-office-studio/open-office-studio/receipts/presentation/installed/Open Presentation Studio.app/Contents/MacOS/open-presentation-studio\nIdentifier=org.openaec.presentation-studio\nFormat=app bundle with Mach-O thin (arm64)\nCodeDirectory v=20500 size=173419 flags=0x10000(runtime) hashes=5412+3 location=embedded\nVersionPlatform=1\nVersionMin=720896\nVersionSDK=1705216\nHash type=sha256 size=32\nCandidateCDHash sha256=1a1a20660aac0da3939d06dffe21c950f6bfc447\nCandidateCDHashFull sha256=1a1a20660aac0da3939d06dffe21c950f6bfc447122ea86ed7f9297b4544f111\nHash choices=sha256\nCMSDigest=1a1a20660aac0da3939d06dffe21c950f6bfc447122ea86ed7f9297b4544f111\nCMSDigestType=2\nExecutable Segment base=0\nExecutable Segment limit=81018880\nExecutable Segment flags=0x1\nPage size=16384\nCDHash=1a1a20660aac0da3939d06dffe21c950f6bfc447\nSignature size=9063\nAuthority=Developer ID Application: Maarten Vroegindeweij (7KFV4QY98M)\nAuthority=Developer ID Certification Authority\nAuthority=Apple Root CA\nTimestamp=Nov 23, 2026 at 3:21:24 PM\nNotarization Ticket=stapled\nInfo.plist entries=19\nTeamIdentifier=7KFV4QY98M\nRuntime Version=26.5.0\nSealed Resources version=2 rules=13 files=5\nInternal requirements count=1 size=192\n"
+  },
+  "gatekeeper": {
+    "argv": [
+      "/usr/sbin/spctl",
+      "--assess",
+      "--type",
+      "execute",
+      "--verbose=4",
+      "/Users/runner/work/open-office-studio/open-office-studio/receipts/presentation/installed/Open Presentation Studio.app"
+    ],
+    "code": 0,
+    "stdout": "",
+    "stderr": "/Users/runner/work/open-office-studio/open-office-studio/receipts/presentation/installed/Open Presentation Studio.app: accepted\nsource=Notarized Developer ID\n"
+  },
+  "notarizationStaple": {
+    "argv": [
+      "/usr/bin/xcrun",
+      "stapler",
+      "validate",
+      "/Users/runner/work/open-office-studio/open-office-studio/receipts/presentation/installed/Open Presentation Studio.app"
+    ],
+    "code": 0,
+    "stdout": "Processing: /Users/runner/work/open-office-studio/open-office-studio/receipts/presentation/installed/Open Presentation Studio.app\nThe validate action worked!\n",
+    "stderr": ""
+  },
+  "installedSignatureGatesVerified": true,
+  "freshProfileVerified": true,
+  "hostDisplayPreparation": {
+    "applicationLaunched": false,
+    "availableDisplayModes": [
+      {
+        "height": 600,
+        "pixelHeight": 600,
+        "pixelWidth": 800,
+        "width": 800
+      },
+      {
+        "height": 540,
+        "pixelHeight": 540,
+        "pixelWidth": 960,
+        "width": 960
+      },
+      {
+        "height": 576,
+        "pixelHeight": 576,
+        "pixelWidth": 1024,
+        "width": 1024
+      },
+      {
+        "height": 768,
+        "pixelHeight": 768,
+        "pixelWidth": 1024,
+        "width": 1024
+      },
+      {
+        "height": 720,
+        "pixelHeight": 720,
+        "pixelWidth": 1280,
+        "width": 1280
+      },
+      {
+        "height": 960,
+        "pixelHeight": 960,
+        "pixelWidth": 1280,
+        "width": 1280
+      },
+      {
+        "height": 756,
+        "pixelHeight": 756,
+        "pixelWidth": 1344,
+        "width": 1344
+      },
+      {
+        "height": 1008,
+        "pixelHeight": 1008,
+        "pixelWidth": 1344,
+        "width": 1344
+      },
+      {
+        "height": 900,
+        "pixelHeight": 900,
+        "pixelWidth": 1600,
+        "width": 1600
+      },
+      {
+        "height": 1200,
+        "pixelHeight": 1200,
+        "pixelWidth": 1600,
+        "width": 1600
+      },
+      {
+        "height": 1080,
+        "pixelHeight": 1080,
+        "pixelWidth": 1920,
+        "width": 1920
+      },
+      {
+        "height": 480,
+        "pixelHeight": 480,
+        "pixelWidth": 640,
+        "width": 640
+      }
+    ],
+    "displayConfigurationBeginError": 0,
+    "displayConfigurationError": 0,
+    "displayConfigurationScope": "forSession on disposable CI host",
+    "displayModeConfigurationError": 0,
+    "eventPostingAuthorized": true,
+    "guiSession": {
+      "CGSSessionUniqueSessionUUID": "B52A399C-542C-45C5-A7CA-99855D40A36F",
+      "kCGSessionLoginDoneKey": true,
+      "kCGSessionLongUserNameKey": "Anka",
+      "kCGSSessionAuditIDKey": 100002,
+      "kCGSSessionGroupIDKey": 20,
+      "kCGSSessionLoginwindowSafeLogin": false,
+      "kCGSSessionOnConsoleKey": true,
+      "kCGSSessionSystemSafeBoot": false,
+      "kCGSSessionUserIDKey": 501,
+      "kCGSSessionUserNameKey": "runner",
+      "kSCSecuritySessionID": 100002
+    },
+    "mainDisplayAfter": {
+      "Height": 1080,
+      "Width": 1920,
+      "X": 0,
+      "Y": 0
+    },
+    "mainDisplayBefore": {
+      "Height": 768,
+      "Width": 1024,
+      "X": 0,
+      "Y": 0
+    },
+    "scope": "Disposable host display before application launch; no app/model/window-size/privacy setters",
+    "screenCaptureAuthorized": true,
+    "selectedDisplayMode": {
+      "height": 1080,
+      "pixelHeight": 1080,
+      "pixelWidth": 1920,
+      "width": 1920
+    },
+    "status": "observed",
+    "trusted": true,
+    "afterHelperExitMainDisplay": {
+      "Height": 1080,
+      "Width": 1920,
+      "X": 0,
+      "Y": 0
+    },
+    "configurationPersistedAfterHelperExit": true
+  },
+  "launches": [
+    {
+      "pid": 3433,
+      "argv": [
+        "/Users/runner/work/open-office-studio/open-office-studio/receipts/presentation/installed/Open Presentation Studio.app/Contents/MacOS/open-presentation-studio",
+        "/Users/runner/work/open-office-studio/open-office-studio/receipts/presentation-documents/synthetic-inputs/presentation.pptx"
+      ],
+      "cwd": "/Users/runner/work/open-office-studio/open-office-studio/receipts/presentation/empty-cwd",
+      "environment": {
+        "HOME": "/Users/runner",
+        "USER": "runner",
+        "LOGNAME": "runner",
+        "TMPDIR": "/var/folders/q2/p1t6rgxj5fj32g1dc7dmd49r0000gn/T/",
+        "LANG": "en_US.UTF-8",
+        "LC_CTYPE": "en_US.UTF-8",
+        "__CF_USER_TEXT_ENCODING": "0x1F5:0x0:0x0",
+        "PATH": "/usr/bin:/bin:/usr/sbin:/sbin"
+      },
+      "environmentSHA256": "8feb41360a79af69a36dbc563e00ca29dcac3b4e64aa189f0080aaa741064725"
+    },
+    {
+      "pid": 4091,
+      "argv": [
+        "/Users/runner/work/open-office-studio/open-office-studio/receipts/presentation/installed/Open Presentation Studio.app/Contents/MacOS/open-presentation-studio",
+        "/Users/runner/work/open-office-studio/open-office-studio/receipts/presentation-documents/synthetic-inputs/presentation.pptx"
+      ],
+      "cwd": "/Users/runner/work/open-office-studio/open-office-studio/receipts/presentation/empty-cwd",
+      "environment": {
+        "HOME": "/Users/runner",
+        "USER": "runner",
+        "LOGNAME": "runner",
+        "TMPDIR": "/var/folders/q2/p1t6rgxj5fj32g1dc7dmd49r0000gn/T/",
+        "LANG": "en_US.UTF-8",
+        "LC_CTYPE": "en_US.UTF-8",
+        "__CF_USER_TEXT_ENCODING": "0x1F5:0x0:0x0",
+        "PATH": "/usr/bin:/bin:/usr/sbin:/sbin"
+      },
+      "environmentSHA256": "8feb41360a79af69a36dbc563e00ca29dcac3b4e64aa189f0080aaa741064725"
+    }
+  ],
+  "ownCwdEnvironmentVerified": true,
+  "viewportPreflights": [
+    {
+      "pid": 3433,
+      "before": [
+        {
+          "kCGWindowAlpha": 1,
+          "kCGWindowBounds": {
+            "Height": 950,
+            "Width": 1440,
+            "X": 240,
+            "Y": 37
+          },
+          "kCGWindowIsOnscreen": true,
+          "kCGWindowLayer": 0,
+          "kCGWindowMemoryUsage": 2368,
+          "kCGWindowName": "Open Presentation Studio",
+          "kCGWindowNumber": 29,
+          "kCGWindowOwnerName": "Open Presentation Studio",
+          "kCGWindowOwnerPID": 3433,
+          "kCGWindowSharingState": 1,
+          "kCGWindowStoreType": 1
+        }
+      ],
+      "mainDisplay": {
+        "Height": 1080,
+        "Width": 1920,
+        "X": 0,
+        "Y": 0
+      },
+      "nativeMaximizeActionsSent": 0,
+      "scope": "Own disposable native viewport only; not a paint repair or body input",
+      "fitted": true
+    },
+    {
+      "pid": 4091,
+      "before": [
+        {
+          "kCGWindowAlpha": 1,
+          "kCGWindowBounds": {
+            "Height": 950,
+            "Width": 1440,
+            "X": 240,
+            "Y": 37
+          },
+          "kCGWindowIsOnscreen": true,
+          "kCGWindowLayer": 0,
+          "kCGWindowMemoryUsage": 2368,
+          "kCGWindowName": "Open Presentation Studio",
+          "kCGWindowNumber": 46,
+          "kCGWindowOwnerName": "Open Presentation Studio",
+          "kCGWindowOwnerPID": 4091,
+          "kCGWindowSharingState": 1,
+          "kCGWindowStoreType": 1
+        }
+      ],
+      "mainDisplay": {
+        "Height": 1080,
+        "Width": 1920,
+        "X": 0,
+        "Y": 0
+      },
+      "nativeMaximizeActionsSent": 0,
+      "scope": "Own disposable native viewport only; not a paint repair or body input",
+      "fitted": true
+    }
+  ],
+  "nativeFocusVerified": true,
+  "nativeSaveVerified": true,
+  "outputOraclePassed": true,
+  "fullQuitVerified": true,
+  "newPidReopenVerified": true,
+  "nativeFileDialogs": [
+    {
+      "requestedPath": "/Users/runner/work/open-office-studio/open-office-studio/receipts/presentation-documents/standalone-runtime-presentation.odp",
+      "button": {
+        "actions": [
+          "AXPress"
+        ],
+        "actionsError": 0,
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXIdentifier": "OKButton",
+        "AXRole": "AXButton",
+        "AXRoleDescription": "button",
+        "AXTitle": "Save",
+        "frame": {
+          "height": 26,
+          "width": 76,
+          "x": 1050,
+          "y": 572
+        }
+      },
+      "nativeModalWindow": {
+        "actions": [
+          "AXRaise"
+        ],
+        "actionsError": 0,
+        "AXDescription": "save",
+        "AXFocused": false,
+        "AXIdentifier": "save-panel",
+        "AXRole": "AXSheet",
+        "AXRoleDescription": "sheet",
+        "frame": {
+          "height": 210,
+          "width": 370,
+          "x": 775,
+          "y": 407
+        }
+      },
+      "focused": {
+        "actions": [
+          "AXShowMenu",
+          "AXConfirm"
+        ],
+        "actionsError": 0,
+        "AXEnabled": true,
+        "AXFocused": true,
+        "AXIdentifier": "saveAsNameTextField",
+        "AXRole": "AXTextField",
+        "AXRoleDescription": "text field",
+        "AXValue": "standalone-runtime-presentation.odp",
+        "frame": {
+          "height": 26,
+          "width": 232,
+          "x": 874,
+          "y": 454
+        }
+      },
+      "confirmation": "one native HID Return"
+    }
+  ],
+  "ownConverterChildObserved": true,
+  "functionalCaseCompleted": true,
+  "status": "functional-evidence-collected-review-pending"
+}

@@ -1,0 +1,8 @@
+{
+  "app": "presentation",
+  "path": "/Users/runner/work/open-office-studio/open-office-studio/receipts/presentation-documents/synthetic-inputs/presentation.pptx",
+  "method": "Independent stdlib file parsing; no editor/model API",
+  "text": "STANDALONE_PRESENTATION_SEED STANDALONE_PRESENTATION_EDIT\nSTANDALONE_UNCHANGED_CONTROL",
+  "passed": true,
+  "nativeAcceptance": false
+}

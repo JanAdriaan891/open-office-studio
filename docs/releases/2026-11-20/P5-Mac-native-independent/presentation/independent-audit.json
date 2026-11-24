@@ -1,0 +1,1045 @@
+{
+  "status": "PASS bounded Mac standalone Presentation core and own-runtime ODP export",
+  "recordedAtUTC": "2026-11-24T08:11:15.381082+00:00",
+  "application": {
+    "commit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+    "tree": "e30879fd772871e690847c061ef66e6b81808a05",
+    "version": "2026.48.1"
+  },
+  "producerWorkflowCommit": "2af94cdcefa3e88e4980b631d16a88d7d7de5ae8",
+  "qaCommit": "03477b0199daeb50ae7b20d552b111630c3271ce",
+  "run": 45351696628,
+  "job": 138300391259,
+  "attempt": 1,
+  "proofArtifact": 14900827581,
+  "proofZIP": {
+    "localPath": "\\\\?\\C:\\Users\\alper\\Desktop\\Documents\\ChatGPT\\code slaafjes\\work\\oos-standalone-macos-20261123-6f92\\.local\\native-45351696628-2026-11-24\\presentation\\artifact.zip",
+    "bytes": 1477915,
+    "sha256": "4acbe1656695456bae403da6a64925b9e830aa19823e9206414a2a03e7eb03e3",
+    "allRawMembersByteVerified": true,
+    "members": [
+      {
+        "member": "presentation/24-edited-0.png",
+        "bytes": 135751,
+        "sha256": "96a1d1b06f838b9aa952218eb154d32298c9d7de1556062b7a829670bdd0fbe9"
+      },
+      {
+        "member": "presentation/24-resources-edited.json",
+        "bytes": 74688,
+        "sha256": "89a6a0de81539517816003db0acf868bbefa91d8b397e0a5f7a755f921fa4906"
+      },
+      {
+        "member": "presentation/24-screenshot-0.json",
+        "bytes": 227,
+        "sha256": "520b54514de7d3375c844864dcb0dc2d4acc705f56c4fa31f32a3365fd3b3368"
+      },
+      {
+        "member": "presentation/26-resources-saved.json",
+        "bytes": 74922,
+        "sha256": "14af060d64fbb80c8a2be6770600613caef84dd788330b92094c36c40cf024c7"
+      },
+      {
+        "member": "presentation/26-saved-0.png",
+        "bytes": 149870,
+        "sha256": "49eeb528ed82cc045020c26dc88b536803a27fc439406a3a1fd514e1099e1a56"
+      },
+      {
+        "member": "presentation/26-screenshot-0.json",
+        "bytes": 226,
+        "sha256": "4468e0c19ea3e73d9a7a3c98a89ea93f518f1e9840b6ba16b0511eecac355e2d"
+      },
+      {
+        "member": "presentation/3-opened-untouched-0.png",
+        "bytes": 34996,
+        "sha256": "f4f8b823b669d92a01d01f4b7b2d51f22ad9dc99582ad3356cf0b61be58ddaa0"
+      },
+      {
+        "member": "presentation/3-resources-opened-untouched.json",
+        "bytes": 71246,
+        "sha256": "cb858f57d72d52d5f12503b1233b7dfbc7253968d0ef9693e8e0411faa5a23ac"
+      },
+      {
+        "member": "presentation/3-screenshot-0.json",
+        "bytes": 236,
+        "sha256": "70c78a48439c2bc47d8102b075b825830253d60f657845cc407927bd363061df"
+      },
+      {
+        "member": "presentation/31-opened-untouched-0.png",
+        "bytes": 34996,
+        "sha256": "f4f8b823b669d92a01d01f4b7b2d51f22ad9dc99582ad3356cf0b61be58ddaa0"
+      },
+      {
+        "member": "presentation/31-resources-opened-untouched.json",
+        "bytes": 72382,
+        "sha256": "55dbfa3239d6de63cfa3cc43f8d884e313c6a55c5cf4122b82c2deabdc29f8b6"
+      },
+      {
+        "member": "presentation/31-screenshot-0.json",
+        "bytes": 237,
+        "sha256": "214c1fa081643ef0a4193d0e1ac30efbd963db6d69621aef7cb6b762d7a3c7ec"
+      },
+      {
+        "member": "presentation/33-opened-0.png",
+        "bytes": 53386,
+        "sha256": "6299e8347a037197d8fce4a6e502de6e01b3a07c6b934b80bd7b3cbe9f69d6a4"
+      },
+      {
+        "member": "presentation/33-resources-opened.json",
+        "bytes": 74502,
+        "sha256": "d3640eed51c2b5e40c10ea7027f6d22e2941e9fc328f2e325571baa5f359cd19"
+      },
+      {
+        "member": "presentation/33-screenshot-0.json",
+        "bytes": 227,
+        "sha256": "2d2cbc022f57d6eeec26d2d79338bb0f88fde5d1001d348516328bc272bf94d4"
+      },
+      {
+        "member": "presentation/45-reopened-0.png",
+        "bytes": 116467,
+        "sha256": "e5ad7ef913a7cff03e24f9dada2e6216ad2c182c2392639f1d9ed913e1efa655"
+      },
+      {
+        "member": "presentation/45-resources-reopened.json",
+        "bytes": 74722,
+        "sha256": "9b32757c0273d14377d3f17fd28ecf68112a8d639d707d0c150c2fc7d1507d88"
+      },
+      {
+        "member": "presentation/45-screenshot-0.json",
+        "bytes": 229,
+        "sha256": "d768fdd89cb70800cf4cf590ce21ed9eb566bd232f55acff9fbdd394431fe3d0"
+      },
+      {
+        "member": "presentation/5-opened-0.png",
+        "bytes": 53386,
+        "sha256": "6299e8347a037197d8fce4a6e502de6e01b3a07c6b934b80bd7b3cbe9f69d6a4"
+      },
+      {
+        "member": "presentation/5-resources-opened.json",
+        "bytes": 72159,
+        "sha256": "306bd3cf0704661202f16441fb6a3c24b082e4e16cb19fc92f5f413f1e4840fb"
+      },
+      {
+        "member": "presentation/5-screenshot-0.json",
+        "bytes": 226,
+        "sha256": "1209a5bda51f34a46b411e856c691b83c984c7188d64c5191108703e6d5c6a23"
+      },
+      {
+        "member": "presentation/62-resources-save-as-odp-choice.json",
+        "bytes": 75840,
+        "sha256": "7915c57a58a084382a6e64ed44c88f23a56c03af8f8d5b0d9b22dd7a697b3721"
+      },
+      {
+        "member": "presentation/62-save-as-odp-choice-0.png",
+        "bytes": 284089,
+        "sha256": "06c7cd516427796d52f71ab4051a976d94f0efc48cd91e411886c97ee45b30b3"
+      },
+      {
+        "member": "presentation/62-screenshot-0.json",
+        "bytes": 239,
+        "sha256": "31401a1f8469eb7ec6425cdbaada143a2a6703d4968df077283758f843e9595b"
+      },
+      {
+        "member": "presentation/94-resources-runtime-exported.json",
+        "bytes": 78246,
+        "sha256": "c21bd99e2045897b45079fa5d429b731b9095038e8506625c6f27aaf57446288"
+      },
+      {
+        "member": "presentation/94-runtime-exported-0.png",
+        "bytes": 160421,
+        "sha256": "dac5050a34c8e7b81ac4434256f9aface93790f9697851ea20f907ff1f8a8350"
+      },
+      {
+        "member": "presentation/94-screenshot-0.json",
+        "bytes": 237,
+        "sha256": "a7caad69ef5d88a5c534010dacbd4cfdbb042289a3a6658046f3ae10149dcc19"
+      },
+      {
+        "member": "presentation/actual-cwd-3433.json",
+        "bytes": 254,
+        "sha256": "1a674f5a80b1e3a62b981c9afc13d024808810b1d2b84cc8c898f254c9749003"
+      },
+      {
+        "member": "presentation/actual-cwd-4091.json",
+        "bytes": 254,
+        "sha256": "dee6e4161dcc05ff6230c75036597af4273b45129345ca021811184eb8d676ce"
+      },
+      {
+        "member": "presentation/app-0.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "member": "presentation/app-28.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "member": "presentation/ax-1.json",
+        "bytes": 155,
+        "sha256": "4b9cf485322caf39b541931b3d08990e7a542908f183649dae4e5b841cc131b0"
+      },
+      {
+        "member": "presentation/ax-10.json",
+        "bytes": 22643,
+        "sha256": "166703cd36b8e15287bf3ea7db2458c2d9005bf8f8af04f7aba7a3a00c51856a"
+      },
+      {
+        "member": "presentation/ax-11.json",
+        "bytes": 22643,
+        "sha256": "166703cd36b8e15287bf3ea7db2458c2d9005bf8f8af04f7aba7a3a00c51856a"
+      },
+      {
+        "member": "presentation/ax-12.json",
+        "bytes": 22643,
+        "sha256": "166703cd36b8e15287bf3ea7db2458c2d9005bf8f8af04f7aba7a3a00c51856a"
+      },
+      {
+        "member": "presentation/ax-13.json",
+        "bytes": 84118,
+        "sha256": "e01e167c1c0acf316bc4febd29a0e03b4ca3bfc1e16befd0a4d24bf08f03a836"
+      },
+      {
+        "member": "presentation/ax-14.json",
+        "bytes": 84809,
+        "sha256": "4e73eefef41fa17af253c2ed7db80dda783cdba832d45d7c26ee26bb17e6748a"
+      },
+      {
+        "member": "presentation/ax-15.json",
+        "bytes": 74936,
+        "sha256": "b3404b3332f3c27e5f2c2be7dffe47bd7fa88469e9bd27e1e7266b2cb7522cd5"
+      },
+      {
+        "member": "presentation/ax-16.json",
+        "bytes": 75909,
+        "sha256": "e903ff8114b33a638b2ce9089bd5deaf251f342da2b012977075330c90f43388"
+      },
+      {
+        "member": "presentation/ax-17.json",
+        "bytes": 67331,
+        "sha256": "2244d49f967978346c3c3c6ae537a3eb3109d12fbb9d7d6a8919bae9ab2c50b7"
+      },
+      {
+        "member": "presentation/ax-18.json",
+        "bytes": 68344,
+        "sha256": "1c691075dca942133bf9d816bfd9d9592f9c87b68a8b57d28f47fcf61e58047b"
+      },
+      {
+        "member": "presentation/ax-19.json",
+        "bytes": 62984,
+        "sha256": "3a8263077e608ef4bf2b91dbd97abd51a7ded82b851f76eec56460a064be7945"
+      },
+      {
+        "member": "presentation/ax-2.json",
+        "bytes": 1733,
+        "sha256": "ebb5a2ca357f19ef90a72a5dbd84f070a1d13e9fa72b4c55fa1f4bd53b3503c8"
+      },
+      {
+        "member": "presentation/ax-20.json",
+        "bytes": 63115,
+        "sha256": "91673963c8d63631344a8e1e0b517dd3436b3d0980d5a1e7cb90604e4f565f7c"
+      },
+      {
+        "member": "presentation/ax-21.json",
+        "bytes": 63114,
+        "sha256": "7916b227392dbfd2da10050e924f829afb6d546961e4252950581b88d0fa62f6"
+      },
+      {
+        "member": "presentation/ax-22.json",
+        "bytes": 63173,
+        "sha256": "2fe8792cc3a2ac3f29c16069cca43499378a4d6568d8ebd2024de7a16740efa1"
+      },
+      {
+        "member": "presentation/ax-23.json",
+        "bytes": 64144,
+        "sha256": "4a10b19bd5dd8dc59201c9fadbcacac14f20f37724c09edf77aaaa299e90e175"
+      },
+      {
+        "member": "presentation/ax-24.json",
+        "bytes": 70674,
+        "sha256": "e7ef57c2db0429dd72e015ce002efebea024a997757d7c3d4320923a25dd45d6"
+      },
+      {
+        "member": "presentation/ax-25.json",
+        "bytes": 70805,
+        "sha256": "4c9416c2ba5ced6a26b6382c45c9e0eb9551f06d02e265f5b831af145321f621"
+      },
+      {
+        "member": "presentation/ax-26.json",
+        "bytes": 74954,
+        "sha256": "ffdf1dc0d208988c9533364275e023f828f1cc03c458241936c22510b6893e56"
+      },
+      {
+        "member": "presentation/ax-27.json",
+        "bytes": 74954,
+        "sha256": "ffdf1dc0d208988c9533364275e023f828f1cc03c458241936c22510b6893e56"
+      },
+      {
+        "member": "presentation/ax-28.json",
+        "bytes": 75085,
+        "sha256": "1a4e8ae426a20c19facd4f657f2fdabce95c8692975d52e4de7150e26eb64f6b"
+      },
+      {
+        "member": "presentation/ax-29.json",
+        "bytes": 155,
+        "sha256": "4b9cf485322caf39b541931b3d08990e7a542908f183649dae4e5b841cc131b0"
+      },
+      {
+        "member": "presentation/ax-3.json",
+        "bytes": 2222,
+        "sha256": "f57276f0dad8ff66c069b8c2515a3861a238f6ad3a5cb88b8e13bac3dbaad3a0"
+      },
+      {
+        "member": "presentation/ax-30.json",
+        "bytes": 2222,
+        "sha256": "88546708a8e82803c9d3079e501743a8d21010626956f2f85445fe95a2e81cfb"
+      },
+      {
+        "member": "presentation/ax-31.json",
+        "bytes": 2222,
+        "sha256": "88546708a8e82803c9d3079e501743a8d21010626956f2f85445fe95a2e81cfb"
+      },
+      {
+        "member": "presentation/ax-32.json",
+        "bytes": 2222,
+        "sha256": "88546708a8e82803c9d3079e501743a8d21010626956f2f85445fe95a2e81cfb"
+      },
+      {
+        "member": "presentation/ax-33.json",
+        "bytes": 20615,
+        "sha256": "a73c718901cf6287fc2fbde311e79fd4c2413d9907fd895b69dbbdaa312ad013"
+      },
+      {
+        "member": "presentation/ax-34.json",
+        "bytes": 22643,
+        "sha256": "d76e3ba94d475ad36d793aa5d4142bbe7b384964bd05f12f76f7c751b612d7a0"
+      },
+      {
+        "member": "presentation/ax-35.json",
+        "bytes": 22643,
+        "sha256": "d76e3ba94d475ad36d793aa5d4142bbe7b384964bd05f12f76f7c751b612d7a0"
+      },
+      {
+        "member": "presentation/ax-36.json",
+        "bytes": 22643,
+        "sha256": "d76e3ba94d475ad36d793aa5d4142bbe7b384964bd05f12f76f7c751b612d7a0"
+      },
+      {
+        "member": "presentation/ax-37.json",
+        "bytes": 22643,
+        "sha256": "d76e3ba94d475ad36d793aa5d4142bbe7b384964bd05f12f76f7c751b612d7a0"
+      },
+      {
+        "member": "presentation/ax-38.json",
+        "bytes": 22643,
+        "sha256": "d76e3ba94d475ad36d793aa5d4142bbe7b384964bd05f12f76f7c751b612d7a0"
+      },
+      {
+        "member": "presentation/ax-39.json",
+        "bytes": 25166,
+        "sha256": "77944d7970098129c6fcc7facc052c2ba7fd3a5bffdae9bda902d0d2f32d6c98"
+      },
+      {
+        "member": "presentation/ax-4.json",
+        "bytes": 22569,
+        "sha256": "91dd2485cae8eb8e70666ef137c2a210dbf608f3e21e6b026f93362f9690b721"
+      },
+      {
+        "member": "presentation/ax-40.json",
+        "bytes": 84118,
+        "sha256": "a5405a7a00f85723e79e720be57edf455325dc1aadfd41a7a66b564c3dbe93b0"
+      },
+      {
+        "member": "presentation/ax-41.json",
+        "bytes": 84809,
+        "sha256": "5e03a83425814bf9e35d4bb88e489adbc9566f9dd1c80a2548925a87eed383ed"
+      },
+      {
+        "member": "presentation/ax-42.json",
+        "bytes": 74936,
+        "sha256": "51609ab2624bb90e85a19f403a18efbcff6bc9c2ca0d3e7503a5535c6de20604"
+      },
+      {
+        "member": "presentation/ax-43.json",
+        "bytes": 75913,
+        "sha256": "b38a9291177e37036efb86df3604d5c48f336883533140975ae018b6bf1fca24"
+      },
+      {
+        "member": "presentation/ax-44.json",
+        "bytes": 67389,
+        "sha256": "b2c95b69b49892d40c034e835666b94778eb97a5d710f8d17ebcdfe9ebd9341b"
+      },
+      {
+        "member": "presentation/ax-45.json",
+        "bytes": 67389,
+        "sha256": "b2c95b69b49892d40c034e835666b94778eb97a5d710f8d17ebcdfe9ebd9341b"
+      },
+      {
+        "member": "presentation/ax-46.json",
+        "bytes": 67389,
+        "sha256": "b2c95b69b49892d40c034e835666b94778eb97a5d710f8d17ebcdfe9ebd9341b"
+      },
+      {
+        "member": "presentation/ax-48.json",
+        "bytes": 70647,
+        "sha256": "08bc17e5090e9086768409775945290ae1726d27908725a7d3d0d9bf80d20204"
+      },
+      {
+        "member": "presentation/ax-49.json",
+        "bytes": 95938,
+        "sha256": "9b752cbd984d60a60de95e1b5c18467de73e79f086f201f16757d1f4102c13a2"
+      },
+      {
+        "member": "presentation/ax-5.json",
+        "bytes": 22643,
+        "sha256": "166703cd36b8e15287bf3ea7db2458c2d9005bf8f8af04f7aba7a3a00c51856a"
+      },
+      {
+        "member": "presentation/ax-47.json",
+        "bytes": 68362,
+        "sha256": "fc43fbf6492cd561bea4f4d978453750d849b17a56417507394b8db1648701eb"
+      },
+      {
+        "member": "presentation/ax-50.json",
+        "bytes": 95938,
+        "sha256": "9b752cbd984d60a60de95e1b5c18467de73e79f086f201f16757d1f4102c13a2"
+      },
+      {
+        "member": "presentation/ax-51.json",
+        "bytes": 96619,
+        "sha256": "d4644f9ec87ea19195d6d806ee6d4d042a264ba1a743653b367e99d4fc84bacf"
+      },
+      {
+        "member": "presentation/ax-52.json",
+        "bytes": 96619,
+        "sha256": "d4644f9ec87ea19195d6d806ee6d4d042a264ba1a743653b367e99d4fc84bacf"
+      },
+      {
+        "member": "presentation/ax-53.json",
+        "bytes": 96619,
+        "sha256": "d4644f9ec87ea19195d6d806ee6d4d042a264ba1a743653b367e99d4fc84bacf"
+      },
+      {
+        "member": "presentation/ax-54.json",
+        "bytes": 97411,
+        "sha256": "cd5fc791116c17ce10dbac0fae3e2e285d1d12d23d5e7b0cdf9066c55d3d8d0d"
+      },
+      {
+        "member": "presentation/ax-55.json",
+        "bytes": 94844,
+        "sha256": "769802fb58257c99be03e2ff24c2e991f123eb35f27ad09a8afbf33a082618e9"
+      },
+      {
+        "member": "presentation/ax-56.json",
+        "bytes": 94844,
+        "sha256": "769802fb58257c99be03e2ff24c2e991f123eb35f27ad09a8afbf33a082618e9"
+      },
+      {
+        "member": "presentation/ax-57.json",
+        "bytes": 94844,
+        "sha256": "769802fb58257c99be03e2ff24c2e991f123eb35f27ad09a8afbf33a082618e9"
+      },
+      {
+        "member": "presentation/ax-58.json",
+        "bytes": 95802,
+        "sha256": "0fa43b958dd890ace1042b59429b887bcf217136004b53d2caad4fd5ab11fe59"
+      },
+      {
+        "member": "presentation/ax-59.json",
+        "bytes": 94804,
+        "sha256": "dabd125986e17f26ed71eecd07d5394c15a8a1c585dffa3b504633cca9f83e8e"
+      },
+      {
+        "member": "presentation/ax-6.json",
+        "bytes": 22643,
+        "sha256": "166703cd36b8e15287bf3ea7db2458c2d9005bf8f8af04f7aba7a3a00c51856a"
+      },
+      {
+        "member": "presentation/ax-60.json",
+        "bytes": 94935,
+        "sha256": "408d72090a03d3b71aef3e2629cb2c6fc6df11e159b5b51a45ae2cce8b616abc"
+      },
+      {
+        "member": "presentation/ax-61.json",
+        "bytes": 94934,
+        "sha256": "531d34096dca60eaf4c44f6697bcbdced6436f73e7454a968937d1a2a4af92a9"
+      },
+      {
+        "member": "presentation/ax-62.json",
+        "bytes": 94842,
+        "sha256": "5c7465a594b292e87d1a35ad79666454def0efa815a910c10630f9312866fb20"
+      },
+      {
+        "member": "presentation/ax-63.json",
+        "bytes": 94842,
+        "sha256": "5c7465a594b292e87d1a35ad79666454def0efa815a910c10630f9312866fb20"
+      },
+      {
+        "member": "presentation/ax-64.json",
+        "bytes": 94842,
+        "sha256": "5c7465a594b292e87d1a35ad79666454def0efa815a910c10630f9312866fb20"
+      },
+      {
+        "member": "presentation/ax-65.json",
+        "bytes": 94842,
+        "sha256": "5c7465a594b292e87d1a35ad79666454def0efa815a910c10630f9312866fb20"
+      },
+      {
+        "member": "presentation/ax-66.json",
+        "bytes": 95527,
+        "sha256": "e484cd5a21aad7ddb3ee8732e29fd02f42640f1fdbb7a3e27deab21dce3e02a5"
+      },
+      {
+        "member": "presentation/ax-67.json",
+        "bytes": 70525,
+        "sha256": "d0795cd3695e478f96444adbaa32523f7e8910ca40f6c4ad985fb75d8334f430"
+      },
+      {
+        "member": "presentation/ax-68.json",
+        "bytes": 70525,
+        "sha256": "d0795cd3695e478f96444adbaa32523f7e8910ca40f6c4ad985fb75d8334f430"
+      },
+      {
+        "member": "presentation/ax-69.json",
+        "bytes": 70525,
+        "sha256": "d0795cd3695e478f96444adbaa32523f7e8910ca40f6c4ad985fb75d8334f430"
+      },
+      {
+        "member": "presentation/ax-7.json",
+        "bytes": 22643,
+        "sha256": "166703cd36b8e15287bf3ea7db2458c2d9005bf8f8af04f7aba7a3a00c51856a"
+      },
+      {
+        "member": "presentation/ax-70.json",
+        "bytes": 70525,
+        "sha256": "d0795cd3695e478f96444adbaa32523f7e8910ca40f6c4ad985fb75d8334f430"
+      },
+      {
+        "member": "presentation/ax-71.json",
+        "bytes": 70525,
+        "sha256": "d0795cd3695e478f96444adbaa32523f7e8910ca40f6c4ad985fb75d8334f430"
+      },
+      {
+        "member": "presentation/ax-72.json",
+        "bytes": 70525,
+        "sha256": "d0795cd3695e478f96444adbaa32523f7e8910ca40f6c4ad985fb75d8334f430"
+      },
+      {
+        "member": "presentation/ax-73.json",
+        "bytes": 70525,
+        "sha256": "d0795cd3695e478f96444adbaa32523f7e8910ca40f6c4ad985fb75d8334f430"
+      },
+      {
+        "member": "presentation/ax-74.json",
+        "bytes": 70525,
+        "sha256": "d0795cd3695e478f96444adbaa32523f7e8910ca40f6c4ad985fb75d8334f430"
+      },
+      {
+        "member": "presentation/ax-75.json",
+        "bytes": 70525,
+        "sha256": "d0795cd3695e478f96444adbaa32523f7e8910ca40f6c4ad985fb75d8334f430"
+      },
+      {
+        "member": "presentation/ax-76.json",
+        "bytes": 70525,
+        "sha256": "d0795cd3695e478f96444adbaa32523f7e8910ca40f6c4ad985fb75d8334f430"
+      },
+      {
+        "member": "presentation/ax-77.json",
+        "bytes": 70525,
+        "sha256": "d0795cd3695e478f96444adbaa32523f7e8910ca40f6c4ad985fb75d8334f430"
+      },
+      {
+        "member": "presentation/ax-78.json",
+        "bytes": 70525,
+        "sha256": "d0795cd3695e478f96444adbaa32523f7e8910ca40f6c4ad985fb75d8334f430"
+      },
+      {
+        "member": "presentation/ax-79.json",
+        "bytes": 70372,
+        "sha256": "622036eaddec7d828d7f5cb3a6655968f7efaf4d0da8a439caa88549891d0813"
+      },
+      {
+        "member": "presentation/ax-8.json",
+        "bytes": 22643,
+        "sha256": "166703cd36b8e15287bf3ea7db2458c2d9005bf8f8af04f7aba7a3a00c51856a"
+      },
+      {
+        "member": "presentation/ax-80.json",
+        "bytes": 76894,
+        "sha256": "0fe500e2f8c2167789878dc849fa85a37cd0b184a659d2c83a680bc4208de20c"
+      },
+      {
+        "member": "presentation/ax-81.json",
+        "bytes": 77025,
+        "sha256": "b0f6d2eb99f0c98370fc6e68907b590b044cff27fa4ce2b169206fabd53a554e"
+      },
+      {
+        "member": "presentation/ax-82.json",
+        "bytes": 80669,
+        "sha256": "43bbe767405430d0d3ccfa680186eec602f896f30f6bfbe9edccf1b9191b58cd"
+      },
+      {
+        "member": "presentation/ax-83.json",
+        "bytes": 80669,
+        "sha256": "43bbe767405430d0d3ccfa680186eec602f896f30f6bfbe9edccf1b9191b58cd"
+      },
+      {
+        "member": "presentation/ax-84.json",
+        "bytes": 80800,
+        "sha256": "8417704a18ba73c5ee5bb12fb7896ddc10d9bc39201ec0ba6b2b620e7c32198f"
+      },
+      {
+        "member": "presentation/ax-85.json",
+        "bytes": 80799,
+        "sha256": "fc39d18a5716c68cad3e413cf6de34fdbc78c88b2369711f9087ed718d296cc6"
+      },
+      {
+        "member": "presentation/ax-86.json",
+        "bytes": 86922,
+        "sha256": "1ea8d3722ff6a422b9260c0a22353acf190dbbab2cd1a38ebe86970abf9d05c5"
+      },
+      {
+        "member": "presentation/ax-87.json",
+        "bytes": 76907,
+        "sha256": "af2706fe49d3e1857a5222fd701a6c512d699d4e1e3cd00b988e8eefae8c59a8"
+      },
+      {
+        "member": "presentation/ax-88.json",
+        "bytes": 77808,
+        "sha256": "5958b5c7e349ce8afed9d4b05a0680232cddd1bbde1f43785021c74375f1d100"
+      },
+      {
+        "member": "presentation/ax-9.json",
+        "bytes": 22643,
+        "sha256": "166703cd36b8e15287bf3ea7db2458c2d9005bf8f8af04f7aba7a3a00c51856a"
+      },
+      {
+        "member": "presentation/ax-90.json",
+        "bytes": 77038,
+        "sha256": "c2f8585ce825c52f352367e6434dca3f10af6d9b5dc846ae6306abaf03d62f9f"
+      },
+      {
+        "member": "presentation/ax-91.json",
+        "bytes": 77037,
+        "sha256": "7d95e058dbe64c248c3210489165b462bcfd914cbf6cbb85005874c129ca6e14"
+      },
+      {
+        "member": "presentation/ax-89.json",
+        "bytes": 76907,
+        "sha256": "af2706fe49d3e1857a5222fd701a6c512d699d4e1e3cd00b988e8eefae8c59a8"
+      },
+      {
+        "member": "presentation/ax-92.json",
+        "bytes": 76915,
+        "sha256": "ed82a2ff1bf7cdec94f4cbdfc1be66bbc94db9d9b9eb11f0824551f4edc74cb0"
+      },
+      {
+        "member": "presentation/ax-93.json",
+        "bytes": 77046,
+        "sha256": "8d22d84b2e29f7d9cd6c00ff7caf4539469f7a661d08e78b7aceaa3120faa858"
+      },
+      {
+        "member": "presentation/ax-94.json",
+        "bytes": 75040,
+        "sha256": "f35d29ff34d4bee6a2d22275487286ade8c75ac3dbbb2f75660f45406581db6e"
+      },
+      {
+        "member": "presentation/ax-95.json",
+        "bytes": 75040,
+        "sha256": "f35d29ff34d4bee6a2d22275487286ade8c75ac3dbbb2f75660f45406581db6e"
+      },
+      {
+        "member": "presentation/ax-96.json",
+        "bytes": 75171,
+        "sha256": "b2b5d54ac0ed27a2d79b292f1df172055064b208d95ceb896dd990e651de7311"
+      },
+      {
+        "member": "presentation/copy.json",
+        "bytes": 341,
+        "sha256": "37300aac5c9d6aee6daa75f413df02875a5a8427e128c1ddf1868dc7d4b1cbd7"
+      },
+      {
+        "member": "presentation/core-receipt.json",
+        "bytes": 61888,
+        "sha256": "02183c1a2be0cb8aea59e11100d0981c79990ff4a03fd1f52f0871677e11febe"
+      },
+      {
+        "member": "presentation/detach.json",
+        "bytes": 223,
+        "sha256": "40139cc29937d49ff08a78409c3ac6b25d213a4f633b5c60038a8084f1530291"
+      },
+      {
+        "member": "presentation/host-display-after-helper-exit.json",
+        "bytes": 1719,
+        "sha256": "8c0b1c9086395d5cf3cd01fec1ad28b46ebb4ebcfdd5447f3d76d113ab5b4fae"
+      },
+      {
+        "member": "presentation/host-display-command.json",
+        "bytes": 2173,
+        "sha256": "7b6d414cc9158c85973fcf52a2db3ee0913c4ff550e8db85287077788b7a1878"
+      },
+      {
+        "member": "presentation/mount.json",
+        "bytes": 1474,
+        "sha256": "3780d25b5e3f1f5a1b58841cbe4d4349e4e0caeda630bf6b454745fb74774abe"
+      },
+      {
+        "member": "presentation/output-oracle.json",
+        "bytes": 381,
+        "sha256": "2a59047b271df21b35ba7bdef86cd6360aa8f0be3a6b5e6a59d1cc84950b3786"
+      },
+      {
+        "member": "presentation/owned-process-observations.json",
+        "bytes": 2317,
+        "sha256": "b75d5e0c135c7d984546709e8a8ed40ad7c404fce630aa1f1d0bdc504d7458c2"
+      },
+      {
+        "member": "presentation/private-runtime-inventory.json",
+        "bytes": 936,
+        "sha256": "5a09a9e5a099c32d57e4d351d066e4fe655efda0dd44556502da33d106d316cb"
+      },
+      {
+        "member": "presentation/profile-preflight.json",
+        "bytes": 686,
+        "sha256": "da60f8d6bd3942bc0cf8cdcf3ea85a2cbec5f9670c8f6ddf63e921655b56192f"
+      },
+      {
+        "member": "presentation/quit-3433.json",
+        "bytes": 59,
+        "sha256": "2df888bffe6c2af41eb91a5bdf72b206cd634d243a4f307226a3f9fa30f70800"
+      },
+      {
+        "member": "presentation/quit-4091.json",
+        "bytes": 59,
+        "sha256": "6502af0738fb39439c27dc3b59494239fa0d41723839187d136be1342d5f4664"
+      },
+      {
+        "member": "presentation/reopened-oracle.json",
+        "bytes": 381,
+        "sha256": "2a59047b271df21b35ba7bdef86cd6360aa8f0be3a6b5e6a59d1cc84950b3786"
+      },
+      {
+        "member": "presentation/receipt.json",
+        "bytes": 61936,
+        "sha256": "5709f00fba00b8857e89a1935921b1229964820c956a8d0d656c77ab4268c466"
+      },
+      {
+        "member": "presentation/runtime-export-oracle.json",
+        "bytes": 350,
+        "sha256": "146ba9a0063cd3387af552bae3f3ebbf3cb7737332868dede4ed444bf0608531"
+      },
+      {
+        "member": "presentation-documents/standalone-runtime-presentation.odp",
+        "bytes": 23795,
+        "sha256": "aa3812b3e3f93c0a67913466f1baebf1d5dbd1f62c399875e624863157e4eba1"
+      },
+      {
+        "member": "presentation-documents/synthetic-inputs/database.sqlite",
+        "bytes": 8192,
+        "sha256": "b8c474f0ef6f6addce743b7870346eb2243c888dcee093371c3d6dcc93646732"
+      },
+      {
+        "member": "presentation-documents/synthetic-inputs/email.eml",
+        "bytes": 323,
+        "sha256": "666c6cc0745e38ee49edf0696c29c0959c6430fdd1e387aa14669056e2613b9c"
+      },
+      {
+        "member": "presentation-documents/synthetic-inputs/fixture-receipt.json",
+        "bytes": 2237,
+        "sha256": "bc0961cc4ab4fc98d0261993275e1ccc29bc6be5cbfab13ba4618b29205fabe0"
+      },
+      {
+        "member": "presentation-documents/synthetic-inputs/notition.openaec-notities",
+        "bytes": 407,
+        "sha256": "b6b7b40030e5be191b077145e310b595194e890ab1ce3002a71c55185fb09a96"
+      },
+      {
+        "member": "presentation-documents/synthetic-inputs/presentation.pptx",
+        "bytes": 28317,
+        "sha256": "cb151ddd57d3c14566ed0df1a8899ee336f0ef2dbcc7c25d7e98c26196b10dd7"
+      },
+      {
+        "member": "presentation-documents/synthetic-inputs/spreadsheet.xlsx",
+        "bytes": 4896,
+        "sha256": "8a4f1a551da1d1f3c6a215e9650cbcf720ab763065b981f4ef22ce4091429e5a"
+      },
+      {
+        "member": "presentation-documents/synthetic-inputs/writer.docx",
+        "bytes": 36631,
+        "sha256": "6bb6ffc0f7e08774d8206ca90d61e4cdfaeebdc492652a72e363e933c7cf2674"
+      }
+    ]
+  },
+  "packageProvenance": {
+    "schemaVersion": 1,
+    "app": "presentation",
+    "source": {
+      "commit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+      "tree": "e30879fd772871e690847c061ef66e6b81808a05",
+      "version": "2026.48.1"
+    },
+    "parentArtifact": {
+      "id": 14836145077,
+      "run": 45195055147,
+      "producerJobId": 137763371873,
+      "attempt": 1,
+      "name": "uitgave-macOS",
+      "sha256": "45a88b40325f516e91b0b4cb557b88fd2a81d62bde2e4be26dc87bd1b55ff015",
+      "bytes": 1972148013
+    },
+    "member": "dist-installers/presentation/dmg/Open Presentation Studio_2026.48.1_aarch64.dmg",
+    "package": {
+      "filename": "Open Presentation Studio_2026.48.1_aarch64.dmg",
+      "sha256": "544b088148dc9f0ef8bd250427fc2c70883fd28424861bfba50fd66d3664e71f",
+      "bytes": 373169095
+    },
+    "memberSHA256DerivedFromVerifiedParent": true,
+    "nativeAccepted": false,
+    "producerWorkflow": {
+      "commit": "2af94cdcefa3e88e4980b631d16a88d7d7de5ae8",
+      "tree": "94340e40228ddcb11aace00e4dd01f614a13273e",
+      "run": 45195055147,
+      "attempt": 1,
+      "job": 137763371873,
+      "branch": "codex/p5-macos-only-producer-20261123",
+      "path": ".github/workflows/release.yml",
+      "event": "workflow_dispatch",
+      "workflowSha256": "2ae3b7aa85bb4d4e394e71af43a93da45332e9b5f78fd7ed2151aca732726d62",
+      "checkoutWorkflowSha256": "620e90485493163b87163a8763ffbbfcc2f0af5f03251b592af577721c5a9c64",
+      "witnessMember": ".local/macos-only-producer-source.json"
+    },
+    "sourceWitness": {
+      "member": ".local/macos-only-producer-source.json",
+      "bytes": 820,
+      "sha256": "236085a316b40b2e5033316a3e3ed45f91cb9a27e83d518117160ba4aff4e7d5",
+      "rawBase64": "ewogICJhcHBIZWFkIjogImI2OTZhYjg2YmQxYzEyODcyOWEwNzliNjhjMDA4MmU2ZGYzZDM2YTUiLAogICJhcHBUcmVlIjogImUzMDg3OWZkNzcyODcxZTY5MDg0N2MwNjFlZjY2ZTZiODE4MDhhMDUiLAogICJhcHBWZXJzaW9uIjogIjIwMjYuNDguMSIsCiAgInByb2R1Y2VySGVhZCI6ICIyYWY5NGNkY2VmYTNlODhlNDk4MGI2MzFkMTZhODhkN2Q3ZGU1YWU4IiwKICAicHJvZHVjZXJXb3JrZmxvd0hlYWQiOiAiMmFmOTRjZGNlZmEzZTg4ZTQ5ODBiNjMxZDE2YTg4ZDdkN2RlNWFlOCIsCiAgInByb2R1Y2VyUmVmIjogInJlZnMvaGVhZHMvY29kZXgvcDUtbWFjb3Mtb25seS1wcm9kdWNlci0yMDI2MTEyMyIsCiAgInByb2R1Y2VyV29ya2Zsb3dSZWYiOiAiT3BlbkFFQy1Gb3VuZGF0aW9uL29wZW4tb2ZmaWNlLXN0dWRpby8uZ2l0aHViL3dvcmtmbG93cy9yZWxlYXNlLnltbEByZWZzL2hlYWRzL2NvZGV4L3A1LW1hY29zLW9ubHktcHJvZHVjZXItMjAyNjExMjMiLAogICJldmVudCI6ICJ3b3JrZmxvd19kaXNwYXRjaCIsCiAgInJ1bklkIjogIjQ1MTk1MDU1MTQ3IiwKICAiYXR0ZW1wdCI6ICIxIiwKICAiam9iIjogImJvdXdlbiIsCiAgImNoZWNrb3V0V29ya2Zsb3dTaGEyNTYiOiAiNjIwZTkwNDg1NDkzMTYzYjg3MTYzYTg3NjNmZmJiZmNjMmYwYWY1ZjAzMjUxYjU5MmFmNTc3NzIxYzVhOWM2NCIsCiAgInB1YmxpY2VyZW4iOiAiZmFsc2UiLAogICJuYXRpdmVBY2NlcHRlZCI6IGZhbHNlLAogICJzY29wZSI6ICJCdWlsZC1vbmx5IHByb2R1Y2VyL3NvdXJjZSBiaW5kaW5nOyBubyBuYXRpdmUgb3BlcmF0aW9uIG9yIHB1YmxpY2F0aW9uIgp9Cg==",
+      "value": {
+        "appHead": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+        "appTree": "e30879fd772871e690847c061ef66e6b81808a05",
+        "appVersion": "2026.48.1",
+        "producerHead": "2af94cdcefa3e88e4980b631d16a88d7d7de5ae8",
+        "producerWorkflowHead": "2af94cdcefa3e88e4980b631d16a88d7d7de5ae8",
+        "producerRef": "refs/heads/codex/p5-macos-only-producer-20261123",
+        "producerWorkflowRef": "OpenAEC-Foundation/open-office-studio/.github/workflows/release.yml@refs/heads/codex/p5-macos-only-producer-20261123",
+        "event": "workflow_dispatch",
+        "runId": "45195055147",
+        "attempt": "1",
+        "job": "bouwen",
+        "checkoutWorkflowSha256": "620e90485493163b87163a8763ffbbfcc2f0af5f03251b592af577721c5a9c64",
+        "publiceren": "false",
+        "nativeAccepted": false,
+        "scope": "Build-only producer/source binding; no native operation or publication"
+      }
+    }
+  },
+  "ownBundleIdentity": {
+    "CFBundleDevelopmentRegion": "en",
+    "CFBundleDisplayName": "Open Presentation Studio",
+    "CFBundleExecutable": "open-presentation-studio",
+    "CFBundleIdentifier": "org.openaec.presentation-studio",
+    "CFBundleInfoDictionaryVersion": "6.0",
+    "CFBundleName": "Open Presentation Studio",
+    "CFBundlePackageType": "APPL",
+    "CFBundleShortVersionString": "2026.48.1",
+    "CFBundleVersion": "2026.48.1",
+    "CSResourcesFileMapped": true,
+    "LSApplicationCategoryType": "public.app-category.productivity",
+    "LSMinimumSystemVersion": "11.0",
+    "CFBundleDocumentTypes": [
+      {
+        "CFBundleTypeExtensions": [
+          "pptx",
+          "pptm",
+          "potx",
+          "potm",
+          "ppsx",
+          "pps",
+          "ppt",
+          "pot",
+          "odp",
+          "otp"
+        ],
+        "CFBundleTypeName": "OpenAEC.open-presentation-studio.Document",
+        "CFBundleTypeRole": "Editor",
+        "LSHandlerRank": "Default"
+      },
+      {
+        "CFBundleTypeExtensions": [
+          "ifcx"
+        ],
+        "CFBundleTypeName": "OpenAEC.open-presentation-studio.Document",
+        "CFBundleTypeRole": "Editor",
+        "LSHandlerRank": "Default"
+      }
+    ],
+    "CFBundleIconFile": "icon.icns",
+    "LSRequiresCarbon": true,
+    "NSHighResolutionCapable": true,
+    "NSHumanReadableCopyright": "\u00a9 2026 OpenAEC Foundation",
+    "CFBundleAllowMixedLocalizations": true,
+    "CFBundleLocalizations": [
+      "nl",
+      "en",
+      "de",
+      "fr",
+      "es",
+      "it",
+      "pt-BR",
+      "zh-Hans"
+    ]
+  },
+  "executableAttestedSHA256": "607354ff5323d570c697a3e0bd005ce379c2f96f07f3ec8aa15bf15adcf0a240",
+  "signatures": {
+    "attestationsChecked": true,
+    "independentCryptographicVerificationByAuditor": false,
+    "recordedCodesignGatekeeperStaplerCodes": [
+      0,
+      0,
+      0
+    ]
+  },
+  "freshProfileAndNoSuiteReceiptsChecked": true,
+  "launches": [
+    {
+      "pid": 3433,
+      "argv": [
+        "/Users/runner/work/open-office-studio/open-office-studio/receipts/presentation/installed/Open Presentation Studio.app/Contents/MacOS/open-presentation-studio",
+        "/Users/runner/work/open-office-studio/open-office-studio/receipts/presentation-documents/synthetic-inputs/presentation.pptx"
+      ],
+      "cwd": "/Users/runner/work/open-office-studio/open-office-studio/receipts/presentation/empty-cwd",
+      "environment": {
+        "HOME": "/Users/runner",
+        "USER": "runner",
+        "LOGNAME": "runner",
+        "TMPDIR": "/var/folders/q2/p1t6rgxj5fj32g1dc7dmd49r0000gn/T/",
+        "LANG": "en_US.UTF-8",
+        "LC_CTYPE": "en_US.UTF-8",
+        "__CF_USER_TEXT_ENCODING": "0x1F5:0x0:0x0",
+        "PATH": "/usr/bin:/bin:/usr/sbin:/sbin"
+      },
+      "environmentSHA256": "8feb41360a79af69a36dbc563e00ca29dcac3b4e64aa189f0080aaa741064725"
+    },
+    {
+      "pid": 4091,
+      "argv": [
+        "/Users/runner/work/open-office-studio/open-office-studio/receipts/presentation/installed/Open Presentation Studio.app/Contents/MacOS/open-presentation-studio",
+        "/Users/runner/work/open-office-studio/open-office-studio/receipts/presentation-documents/synthetic-inputs/presentation.pptx"
+      ],
+      "cwd": "/Users/runner/work/open-office-studio/open-office-studio/receipts/presentation/empty-cwd",
+      "environment": {
+        "HOME": "/Users/runner",
+        "USER": "runner",
+        "LOGNAME": "runner",
+        "TMPDIR": "/var/folders/q2/p1t6rgxj5fj32g1dc7dmd49r0000gn/T/",
+        "LANG": "en_US.UTF-8",
+        "LC_CTYPE": "en_US.UTF-8",
+        "__CF_USER_TEXT_ENCODING": "0x1F5:0x0:0x0",
+        "PATH": "/usr/bin:/bin:/usr/sbin:/sbin"
+      },
+      "environmentSHA256": "8feb41360a79af69a36dbc563e00ca29dcac3b4e64aa189f0080aaa741064725"
+    }
+  ],
+  "typedFocusReceipts": [
+    {
+      "file": "ax-21.json",
+      "pid": 3433,
+      "focusedRole": "AXTextArea",
+      "focusedTitle": "Slide 1, paragraph 1",
+      "focusedPreInputValue": "STANDALONE_PRESENTATION_SEED",
+      "transport": "Native HID unicode, verified focused owned text control and frontmost PID"
+    },
+    {
+      "file": "ax-61.json",
+      "pid": 4091,
+      "focusedRole": "AXTextField",
+      "focusedTitle": "File name .odp",
+      "focusedPreInputValue": "presentation",
+      "transport": "Native HID unicode, verified focused owned text control and frontmost PID"
+    },
+    {
+      "file": "ax-85.json",
+      "pid": 4091,
+      "focusedRole": "AXTextField",
+      "focusedTitle": null,
+      "focusedPreInputValue": "",
+      "transport": "Native HID unicode, verified focused owned text control and frontmost PID"
+    },
+    {
+      "file": "ax-91.json",
+      "pid": 4091,
+      "focusedRole": "AXTextField",
+      "focusedTitle": null,
+      "focusedPreInputValue": "standalone-runtime-presentation",
+      "transport": "Native HID unicode, verified focused owned text control and frontmost PID"
+    }
+  ],
+  "nativeSaveAndColdReopen": {
+    "pids": [
+      3433,
+      4091
+    ],
+    "normalCmdQExitCodes": [
+      0,
+      0
+    ]
+  },
+  "independentSavedFiles": {
+    "pptx": {
+      "sha256": "cb151ddd57d3c14566ed0df1a8899ee336f0ef2dbcc7c25d7e98c26196b10dd7",
+      "slides": 1,
+      "text": [
+        "STANDALONE_PRESENTATION_SEED STANDALONE_PRESENTATION_EDIT",
+        "STANDALONE_UNCHANGED_CONTROL"
+      ]
+    },
+    "odp": {
+      "sha256": "aa3812b3e3f93c0a67913466f1baebf1d5dbd1f62c399875e624863157e4eba1",
+      "pages": 1,
+      "paragraphs": [
+        "STANDALONE_PRESENTATION_SEED STANDALONE_PRESENTATION_EDIT",
+        "STANDALONE_UNCHANGED_CONTROL"
+      ]
+    }
+  },
+  "ownConverterObserved": [
+    {
+      "pid": 4475,
+      "ppid": 4091,
+      "executable": "/Users/runner/work/open-office-studio/open-office-studio/receipts/presentation/installed/Open Presentation Studio.app/Contents/Helpers/LibreOffice.app/Contents/MacOS/soffice",
+      "resolvedInsideOwnApp": true,
+      "arguments": "/Users/runner/work/open-office-studio/open-office-studio/receipts/presentation/installed/Open Presentation Studio.app/Contents/Helpers/LibreOffice.app/Contents/MacOS/soffice -env:UserInstallation=file:///var/folders/q2/p1t6rgxj5fj32g1dc7dmd49r0000gn/T/.tmpYUihy8/profiel/ --headless --version"
+    },
+    {
+      "pid": 4879,
+      "ppid": 4091,
+      "executable": "/Users/runner/work/open-office-studio/open-office-studio/receipts/presentation/installed/Open Presentation Studio.app/Contents/Helpers/LibreOffice.app/Contents/MacOS/soffice",
+      "resolvedInsideOwnApp": true,
+      "arguments": "/Users/runner/work/open-office-studio/open-office-studio/receipts/presentation/installed/Open Presentation Studio.app/Contents/Helpers/LibreOffice.app/Contents/MacOS/soffice -env:UserInstallation=file:///var/folders/q2/p1t6rgxj5fj32g1dc7dmd49r0000gn/T/.tmpCJdi4k/profiel/ --headless --nologo --nodefault --norestore --nolockcheck --convert-to odp:impress8 --outdir /var/folders/q2/p1t6rgxj5fj32g1dc7dmd49r0000gn/T/.tmpCJdi4k/uit /var/folders/q2/p1t6rgxj5fj32g1dc7dmd49r0000gn/T/.tmpCJdi4k/invoer.pptx"
+    }
+  ],
+  "originalPNGIndependentReview": [
+    {
+      "file": "45-reopened-0.png",
+      "sha256": "e5ad7ef913a7cff03e24f9dada2e6216ad2c182c2392639f1d9ed913e1efa655",
+      "originalDirectlyViewedIndependently": true,
+      "finding": "Cold reopened Outline contains full seed/edit and unchanged control."
+    },
+    {
+      "file": "94-runtime-exported-0.png",
+      "sha256": "dac5050a34c8e7b81ac4434256f9aface93790f9697851ea20f907ff1f8a8350",
+      "originalDirectlyViewedIndependently": true,
+      "finding": "Post-export canvas shows seed/edit and unchanged control; control wraps across lines, no full-layout fidelity inferred."
+    }
+  ],
+  "rawNativeAcceptedFlagUnchanged": false,
+  "cleanupPassed": true,
+  "limits": [
+    "One synthetic Presentation core route only.",
+    "No startup latency/immediate-paint acceptance.",
+    "No full layout/font/fidelity or complete dependency-closure claim; font substitution and control wrapping visible.",
+    "Signatures assessed through retained native command attestations; auditor did not run cryptographic verification on actual app/DMG.",
+    "DMG/parent digest provenance checked through native/preparer attestations and official metadata; no installer/parent download or independent rehash by auditor.",
+    "No other app, full native matrix, stable-release, Git/main/tag/publication claim."
+  ],
+  "newNativeOperationCIOrArtifactDownload": false
+}

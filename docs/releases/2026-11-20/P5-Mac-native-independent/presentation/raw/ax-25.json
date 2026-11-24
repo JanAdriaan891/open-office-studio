@@ -1,0 +1,3112 @@
+{
+  "action": "key",
+  "activationAttempted": false,
+  "bounded": false,
+  "bundleIdentifier": "org.openaec.presentation-studio",
+  "bundleURL": "/Users/runner/work/open-office-studio/open-office-studio/receipts/presentation/installed/Open Presentation Studio.app",
+  "duplicateNativeReferencesSkipped": 0,
+  "eventPostingAuthorized": true,
+  "executableURL": "/Users/runner/work/open-office-studio/open-office-studio/receipts/presentation/installed/Open Presentation Studio.app/Contents/MacOS/open-presentation-studio",
+  "focused": {
+    "actions": [
+      "AXShowMenu",
+      "AXScrollToVisible"
+    ],
+    "actionsError": 0,
+    "AXDescription": "presentation.pptx • — Open Presentation Studio (Presentation)",
+    "AXEnabled": true,
+    "AXFocused": false,
+    "AXHelp": "",
+    "AXRole": "AXWebArea",
+    "AXRoleDescription": "HTML content",
+    "AXSelected": false,
+    "AXTitle": "",
+    "AXValue": "",
+    "frame": {
+      "height": 950,
+      "width": 1440,
+      "x": 240,
+      "y": 37
+    }
+  },
+  "frontmost": true,
+  "keyboardTransport": "Native HID with verified actual frontmost PID; key-up clears modifier flags",
+  "mainDisplay": {
+    "Height": 1080,
+    "Width": 1920,
+    "X": 0,
+    "Y": 0
+  },
+  "ownedScreenWindows": [
+    {
+      "kCGWindowAlpha": 1,
+      "kCGWindowBounds": {
+        "Height": 950,
+        "Width": 1440,
+        "X": 240,
+        "Y": 37
+      },
+      "kCGWindowIsOnscreen": true,
+      "kCGWindowLayer": 0,
+      "kCGWindowMemoryUsage": 2368,
+      "kCGWindowName": "presentation.pptx • — Open Presentation Studio (Presentation)",
+      "kCGWindowNumber": 29,
+      "kCGWindowOwnerName": "Open Presentation Studio",
+      "kCGWindowOwnerPID": 3433,
+      "kCGWindowSharingState": 1,
+      "kCGWindowStoreType": 1
+    }
+  ],
+  "pid": 3433,
+  "rawNodes": [
+    {
+      "attributes": {
+        "actions": [
+          "AXRaise"
+        ],
+        "actionsError": 0,
+        "AXFocused": false,
+        "AXModal": false,
+        "AXRole": "AXWindow",
+        "AXRoleDescription": "standard window",
+        "AXSubrole": "AXStandardWindow",
+        "AXTitle": "presentation.pptx • — Open Presentation Studio (Presentation)",
+        "frame": {
+          "height": 950,
+          "width": 1440,
+          "x": 240,
+          "y": 37
+        }
+      },
+      "depth": 0,
+      "index": 0,
+      "parent": -1
+    },
+    {
+      "attributes": {
+        "actions": [],
+        "actionsError": 0,
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXRole": "AXGroup",
+        "AXRoleDescription": "group",
+        "frame": {
+          "height": 950,
+          "width": 1440,
+          "x": 240,
+          "y": 37
+        }
+      },
+      "depth": 1,
+      "index": 1,
+      "parent": 0
+    },
+    {
+      "attributes": {
+        "actions": [],
+        "actionsError": 0,
+        "AXFocused": false,
+        "AXRole": "AXGroup",
+        "AXRoleDescription": "group",
+        "frame": {
+          "height": 950,
+          "width": 1440,
+          "x": 240,
+          "y": 37
+        }
+      },
+      "depth": 2,
+      "index": 2,
+      "parent": 1
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXScrollArea",
+        "AXRoleDescription": "scroll area",
+        "AXSelected": false,
+        "AXTitle": "",
+        "AXValue": "",
+        "frame": {
+          "height": 950,
+          "width": 1440,
+          "x": 240,
+          "y": 37
+        }
+      },
+      "depth": 3,
+      "index": 3,
+      "parent": 2
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "presentation.pptx • — Open Presentation Studio (Presentation)",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXWebArea",
+        "AXRoleDescription": "HTML content",
+        "AXSelected": false,
+        "AXTitle": "",
+        "AXValue": "",
+        "frame": {
+          "height": 950,
+          "width": 1440,
+          "x": 240,
+          "y": 37
+        }
+      },
+      "depth": 4,
+      "index": 4,
+      "parent": 3
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXGroup",
+        "AXRoleDescription": "banner",
+        "AXSelected": false,
+        "AXSubrole": "AXLandmarkBanner",
+        "AXTitle": "",
+        "AXValue": "",
+        "frame": {
+          "height": 32,
+          "width": 1440,
+          "x": 240,
+          "y": 37
+        }
+      },
+      "depth": 5,
+      "index": 5,
+      "parent": 4
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXButton",
+        "AXRoleDescription": "button",
+        "AXSelected": false,
+        "AXTitle": "File",
+        "AXValue": "",
+        "frame": {
+          "height": 28,
+          "width": 48,
+          "x": 248,
+          "y": 69
+        }
+      },
+      "depth": 5,
+      "index": 6,
+      "parent": 4
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Ribbon",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXTabGroup",
+        "AXRoleDescription": "tab group",
+        "AXSelected": false,
+        "AXTitle": "Ribbon",
+        "frame": {
+          "height": 28,
+          "width": 547,
+          "x": 301,
+          "y": 69
+        }
+      },
+      "depth": 5,
+      "index": 7,
+      "parent": 4
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Hide ribbon",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "More room for your document · Ctrl+F1",
+        "AXRole": "AXButton",
+        "AXRoleDescription": "button",
+        "AXSelected": false,
+        "AXTitle": "Hide ribbon",
+        "AXValue": "",
+        "frame": {
+          "height": 28,
+          "width": 38,
+          "x": 1634,
+          "y": 69
+        }
+      },
+      "depth": 5,
+      "index": 8,
+      "parent": 4
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "View",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXGroup",
+        "AXRoleDescription": "tab panel",
+        "AXSelected": false,
+        "AXSubrole": "AXTabPanel",
+        "AXTitle": "View",
+        "AXValue": "",
+        "frame": {
+          "height": 94,
+          "width": 1440,
+          "x": 240,
+          "y": 97
+        }
+      },
+      "depth": 5,
+      "index": 9,
+      "parent": 4
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Open tabs",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXTabGroup",
+        "AXRoleDescription": "tab group",
+        "AXSelected": false,
+        "AXTitle": "Open tabs",
+        "frame": {
+          "height": 28,
+          "width": 232,
+          "x": 244,
+          "y": 192
+        }
+      },
+      "depth": 5,
+      "index": 10,
+      "parent": 4
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Add tab",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "Open Presentation Studio",
+        "AXRole": "AXButton",
+        "AXRoleDescription": "button",
+        "AXSelected": false,
+        "AXTitle": "Add tab",
+        "AXValue": "",
+        "frame": {
+          "height": 24,
+          "width": 25,
+          "x": 478,
+          "y": 194
+        }
+      },
+      "depth": 5,
+      "index": 11,
+      "parent": 4
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "presentation.pptx , unsaved changes Close presentation.pptx",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXGroup",
+        "AXRoleDescription": "tab panel",
+        "AXSelected": false,
+        "AXSubrole": "AXTabPanel",
+        "AXTitle": "presentation.pptx , unsaved changes Close presentation.pptx",
+        "AXValue": "",
+        "frame": {
+          "height": 744,
+          "width": 1440,
+          "x": 240,
+          "y": 221
+        }
+      },
+      "depth": 5,
+      "index": 12,
+      "parent": 4
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Status bar",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXGroup",
+        "AXRoleDescription": "content information",
+        "AXSelected": false,
+        "AXSubrole": "AXLandmarkContentInfo",
+        "AXTitle": "Status bar",
+        "AXValue": "",
+        "frame": {
+          "height": 22,
+          "width": 1440,
+          "x": 240,
+          "y": 965
+        }
+      },
+      "depth": 5,
+      "index": 13,
+      "parent": 4
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Open Presentation Studio",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "Go to Start",
+        "AXRole": "AXButton",
+        "AXRoleDescription": "button",
+        "AXSelected": false,
+        "AXTitle": "Open Presentation Studio",
+        "AXValue": "",
+        "frame": {
+          "height": 27,
+          "width": 26,
+          "x": 246,
+          "y": 39
+        }
+      },
+      "depth": 6,
+      "index": 14,
+      "parent": 5
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Quick access",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXToolbar",
+        "AXRoleDescription": "toolbar",
+        "AXSelected": false,
+        "AXTitle": "Quick access",
+        "AXValue": "",
+        "frame": {
+          "height": 25,
+          "width": 93,
+          "x": 278,
+          "y": 40
+        }
+      },
+      "depth": 6,
+      "index": 15,
+      "parent": 5
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "presentation.pptx • — Open Presentation Studio (Presentation)",
+        "AXRole": "AXGroup",
+        "AXRoleDescription": "group",
+        "AXSelected": false,
+        "AXTitle": "",
+        "AXValue": "",
+        "frame": {
+          "height": 33,
+          "width": 361,
+          "x": 782,
+          "y": 36
+        }
+      },
+      "depth": 6,
+      "index": 16,
+      "parent": 5
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Open documents",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "Open documents · Ctrl+Tab or Ctrl+F6 to switch",
+        "AXRole": "AXPopUpButton",
+        "AXRoleDescription": "pop up button",
+        "AXSelected": false,
+        "AXTitle": "Open documents",
+        "AXValue": "",
+        "frame": {
+          "height": 25,
+          "width": 28,
+          "x": 1452,
+          "y": 40
+        }
+      },
+      "depth": 6,
+      "index": 17,
+      "parent": 5
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Light theme",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "Light theme",
+        "AXRole": "AXButton",
+        "AXRoleDescription": "button",
+        "AXSelected": false,
+        "AXTitle": "Light theme",
+        "AXValue": "",
+        "frame": {
+          "height": 25,
+          "width": 28,
+          "x": 1482,
+          "y": 40
+        }
+      },
+      "depth": 6,
+      "index": 18,
+      "parent": 5
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Settings",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "Settings",
+        "AXRole": "AXButton",
+        "AXRoleDescription": "button",
+        "AXSelected": false,
+        "AXTitle": "Settings",
+        "AXValue": "",
+        "frame": {
+          "height": 25,
+          "width": 28,
+          "x": 1512,
+          "y": 40
+        }
+      },
+      "depth": 6,
+      "index": 19,
+      "parent": 5
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Minimize",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "Minimize",
+        "AXRole": "AXButton",
+        "AXRoleDescription": "button",
+        "AXSelected": false,
+        "AXTitle": "Minimize",
+        "AXValue": "",
+        "frame": {
+          "height": 31,
+          "width": 44,
+          "x": 1548,
+          "y": 37
+        }
+      },
+      "depth": 6,
+      "index": 20,
+      "parent": 5
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Maximize",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "Maximize",
+        "AXRole": "AXButton",
+        "AXRoleDescription": "button",
+        "AXSelected": false,
+        "AXTitle": "Maximize",
+        "AXValue": "",
+        "frame": {
+          "height": 31,
+          "width": 44,
+          "x": 1592,
+          "y": 37
+        }
+      },
+      "depth": 6,
+      "index": 21,
+      "parent": 5
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Close window",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "Close window",
+        "AXRole": "AXButton",
+        "AXRoleDescription": "button",
+        "AXSelected": false,
+        "AXTitle": "Close window",
+        "AXValue": "",
+        "frame": {
+          "height": 31,
+          "width": 44,
+          "x": 1636,
+          "y": 37
+        }
+      },
+      "depth": 6,
+      "index": 22,
+      "parent": 5
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXRadioButton",
+        "AXRoleDescription": "tab",
+        "AXSelected": false,
+        "AXTitle": "Home",
+        "AXValue": false,
+        "frame": {
+          "height": 28,
+          "width": 67,
+          "x": 301,
+          "y": 69
+        }
+      },
+      "depth": 6,
+      "index": 23,
+      "parent": 7
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXRadioButton",
+        "AXRoleDescription": "tab",
+        "AXSelected": false,
+        "AXTitle": "Insert",
+        "AXValue": false,
+        "frame": {
+          "height": 28,
+          "width": 65,
+          "x": 369,
+          "y": 69
+        }
+      },
+      "depth": 6,
+      "index": 24,
+      "parent": 7
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXRadioButton",
+        "AXRoleDescription": "tab",
+        "AXSelected": false,
+        "AXTitle": "Slide",
+        "AXValue": false,
+        "frame": {
+          "height": 28,
+          "width": 61,
+          "x": 435,
+          "y": 69
+        }
+      },
+      "depth": 6,
+      "index": 25,
+      "parent": 7
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXRadioButton",
+        "AXRoleDescription": "tab",
+        "AXSelected": false,
+        "AXTitle": "Shape Format",
+        "AXValue": false,
+        "frame": {
+          "height": 28,
+          "width": 112,
+          "x": 497,
+          "y": 69
+        }
+      },
+      "depth": 6,
+      "index": 26,
+      "parent": 7
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXRadioButton",
+        "AXRoleDescription": "tab",
+        "AXSelected": false,
+        "AXTitle": "Arrange",
+        "AXValue": false,
+        "frame": {
+          "height": 28,
+          "width": 79,
+          "x": 610,
+          "y": 69
+        }
+      },
+      "depth": 6,
+      "index": 27,
+      "parent": 7
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXRadioButton",
+        "AXRoleDescription": "tab",
+        "AXSelected": true,
+        "AXTitle": "View",
+        "AXValue": true,
+        "frame": {
+          "height": 28,
+          "width": 62,
+          "x": 689,
+          "y": 69
+        }
+      },
+      "depth": 6,
+      "index": 28,
+      "parent": 7
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXRadioButton",
+        "AXRoleDescription": "tab",
+        "AXSelected": false,
+        "AXTitle": "Slide Show",
+        "AXValue": false,
+        "frame": {
+          "height": 28,
+          "width": 96,
+          "x": 752,
+          "y": 69
+        }
+      },
+      "depth": 6,
+      "index": 29,
+      "parent": 7
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "View",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXToolbar",
+        "AXRoleDescription": "toolbar",
+        "AXSelected": false,
+        "AXTitle": "View",
+        "AXValue": "",
+        "frame": {
+          "height": 85,
+          "width": 1434,
+          "x": 243,
+          "y": 102
+        }
+      },
+      "depth": 6,
+      "index": 30,
+      "parent": 9
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "Open Presentation Studio",
+        "AXRole": "AXRadioButton",
+        "AXRoleDescription": "tab",
+        "AXSelected": false,
+        "AXTitle": "Start",
+        "AXValue": false,
+        "frame": {
+          "height": 24,
+          "width": 72,
+          "x": 244,
+          "y": 196
+        }
+      },
+      "depth": 6,
+      "index": 31,
+      "parent": 10
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "presentation.pptx · unsaved changes\nDrag outside for a separate window",
+        "AXRole": "AXRadioButton",
+        "AXRoleDescription": "tab",
+        "AXSelected": true,
+        "AXTitle": "presentation.pptx , unsaved changes Close presentation.pptx",
+        "AXValue": true,
+        "frame": {
+          "height": 24,
+          "width": 161,
+          "x": 316,
+          "y": 196
+        }
+      },
+      "depth": 6,
+      "index": 32,
+      "parent": 10
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXGroup",
+        "AXRoleDescription": "group",
+        "AXSelected": false,
+        "AXSubrole": "AXEmptyGroup",
+        "AXTitle": "",
+        "AXValue": "",
+        "frame": {
+          "height": 10,
+          "width": 1440,
+          "x": 240,
+          "y": 221
+        }
+      },
+      "depth": 6,
+      "index": 33,
+      "parent": 12
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Slides",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXGroup",
+        "AXRoleDescription": "complementary",
+        "AXSelected": false,
+        "AXSubrole": "AXLandmarkComplementary",
+        "AXTitle": "Slides",
+        "AXValue": "",
+        "frame": {
+          "height": 499,
+          "width": 184,
+          "x": 240,
+          "y": 231
+        }
+      },
+      "depth": 6,
+      "index": 34,
+      "parent": 12
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Presentation slide editor",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXGroup",
+        "AXRoleDescription": "web application",
+        "AXSelected": false,
+        "AXSubrole": "AXWebApplication",
+        "AXTitle": "Presentation slide editor",
+        "AXValue": "",
+        "frame": {
+          "height": 499,
+          "width": 1256,
+          "x": 424,
+          "y": 231
+        }
+      },
+      "depth": 6,
+      "index": 35,
+      "parent": 12
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Speaker notes",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXGroup",
+        "AXRoleDescription": "region",
+        "AXSelected": false,
+        "AXSubrole": "AXLandmarkRegion",
+        "AXTitle": "Speaker notes",
+        "AXValue": "",
+        "frame": {
+          "height": 235,
+          "width": 1440,
+          "x": 240,
+          "y": 730
+        }
+      },
+      "depth": 6,
+      "index": 36,
+      "parent": 12
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXStaticText",
+        "AXRoleDescription": "text",
+        "AXSelected": false,
+        "AXTitle": "",
+        "AXValue": "Local",
+        "frame": {
+          "height": 13,
+          "width": 26,
+          "x": 282,
+          "y": 970
+        }
+      },
+      "depth": 6,
+      "index": 37,
+      "parent": 13
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXStaticText",
+        "AXRoleDescription": "text",
+        "AXSelected": false,
+        "AXTitle": "",
+        "AXValue": "Open Presentation Studio",
+        "frame": {
+          "height": 13,
+          "width": 122,
+          "x": 323,
+          "y": 970
+        }
+      },
+      "depth": 6,
+      "index": 38,
+      "parent": 13
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXStaticText",
+        "AXRoleDescription": "text",
+        "AXSelected": false,
+        "AXTitle": "",
+        "AXValue": "Slide 1 of 1",
+        "frame": {
+          "height": 13,
+          "width": 55,
+          "x": 460,
+          "y": 970
+        }
+      },
+      "depth": 6,
+      "index": 39,
+      "parent": 13
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "View",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXGroup",
+        "AXRoleDescription": "group",
+        "AXSelected": false,
+        "AXSubrole": "AXApplicationGroup",
+        "AXTitle": "View",
+        "AXValue": "",
+        "frame": {
+          "height": 21,
+          "width": 96,
+          "x": 1181,
+          "y": 966
+        }
+      },
+      "depth": 6,
+      "index": 40,
+      "parent": 13
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Zoom",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXToolbar",
+        "AXRoleDescription": "toolbar",
+        "AXSelected": false,
+        "AXTitle": "Zoom",
+        "AXValue": "",
+        "frame": {
+          "height": 21,
+          "width": 238,
+          "x": 1286,
+          "y": 966
+        }
+      },
+      "depth": 6,
+      "index": 41,
+      "parent": 13
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXGroup",
+        "AXRoleDescription": "application status",
+        "AXSelected": false,
+        "AXSubrole": "AXApplicationStatus",
+        "AXTitle": "",
+        "AXValue": "",
+        "frame": {
+          "height": 13,
+          "width": 86,
+          "x": 1533,
+          "y": 970
+        }
+      },
+      "depth": 6,
+      "index": 42,
+      "parent": 13
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXGroup",
+        "AXRoleDescription": "group",
+        "AXSelected": false,
+        "AXSubrole": "AXKeyboardInputStyleGroup",
+        "AXTitle": "",
+        "AXValue": "",
+        "frame": {
+          "height": 13,
+          "width": 43,
+          "x": 1624,
+          "y": 970
+        }
+      },
+      "depth": 6,
+      "index": 43,
+      "parent": 13
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Save",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "Save · Ctrl+S",
+        "AXRole": "AXButton",
+        "AXRoleDescription": "button",
+        "AXSelected": false,
+        "AXTitle": "Save",
+        "AXValue": "",
+        "frame": {
+          "height": 25,
+          "width": 28,
+          "x": 285,
+          "y": 40
+        }
+      },
+      "depth": 7,
+      "index": 44,
+      "parent": 15
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Open",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "Open a file in a new tab · Ctrl+O",
+        "AXRole": "AXButton",
+        "AXRoleDescription": "button",
+        "AXSelected": false,
+        "AXTitle": "Open",
+        "AXValue": "",
+        "frame": {
+          "height": 25,
+          "width": 28,
+          "x": 314,
+          "y": 40
+        }
+      },
+      "depth": 7,
+      "index": 45,
+      "parent": 15
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Save as",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "Save as · F12 or Ctrl+Shift+S (Ctrl+S saves to the open file)",
+        "AXRole": "AXButton",
+        "AXRoleDescription": "button",
+        "AXSelected": false,
+        "AXTitle": "Save as",
+        "AXValue": "",
+        "frame": {
+          "height": 25,
+          "width": 28,
+          "x": 343,
+          "y": 40
+        }
+      },
+      "depth": 7,
+      "index": 46,
+      "parent": 15
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXStaticText",
+        "AXRoleDescription": "text",
+        "AXSelected": false,
+        "AXTitle": "",
+        "AXValue": "presentation.pptx • — Open Presentation Studio (Presentation)",
+        "frame": {
+          "height": 16,
+          "width": 362,
+          "x": 782,
+          "y": 44
+        }
+      },
+      "depth": 7,
+      "index": 47,
+      "parent": 16
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Presentation Views",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXGroup",
+        "AXRoleDescription": "group",
+        "AXSelected": false,
+        "AXSubrole": "AXApplicationGroup",
+        "AXTitle": "Presentation Views",
+        "AXValue": "",
+        "frame": {
+          "height": 85,
+          "width": 188,
+          "x": 243,
+          "y": 102
+        }
+      },
+      "depth": 7,
+      "index": 48,
+      "parent": 30
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Zoom",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXGroup",
+        "AXRoleDescription": "group",
+        "AXSelected": false,
+        "AXSubrole": "AXApplicationGroup",
+        "AXTitle": "Zoom",
+        "AXValue": "",
+        "frame": {
+          "height": 85,
+          "width": 127,
+          "x": 431,
+          "y": 102
+        }
+      },
+      "depth": 7,
+      "index": 49,
+      "parent": 30
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Workspace",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXGroup",
+        "AXRoleDescription": "group",
+        "AXSelected": false,
+        "AXSubrole": "AXApplicationGroup",
+        "AXTitle": "Workspace",
+        "AXValue": "",
+        "frame": {
+          "height": 85,
+          "width": 193,
+          "x": 557,
+          "y": 102
+        }
+      },
+      "depth": 7,
+      "index": 50,
+      "parent": 30
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Navigate",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXGroup",
+        "AXRoleDescription": "group",
+        "AXSelected": false,
+        "AXSubrole": "AXApplicationGroup",
+        "AXTitle": "Navigate",
+        "AXValue": "",
+        "frame": {
+          "height": 85,
+          "width": 210,
+          "x": 749,
+          "y": 102
+        }
+      },
+      "depth": 7,
+      "index": 51,
+      "parent": 30
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Output",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXGroup",
+        "AXRoleDescription": "group",
+        "AXSelected": false,
+        "AXSubrole": "AXApplicationGroup",
+        "AXTitle": "Output",
+        "AXValue": "",
+        "frame": {
+          "height": 85,
+          "width": 215,
+          "x": 958,
+          "y": 102
+        }
+      },
+      "depth": 7,
+      "index": 52,
+      "parent": 30
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXButton",
+        "AXRoleDescription": "button",
+        "AXSelected": false,
+        "AXTitle": "1",
+        "AXValue": "",
+        "frame": {
+          "height": 83,
+          "width": 163,
+          "x": 250,
+          "y": 245
+        }
+      },
+      "depth": 7,
+      "index": 53,
+      "parent": 34
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Slide 1 of 1",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXImage",
+        "AXRoleDescription": "image",
+        "AXSelected": false,
+        "AXTitle": "Slide 1 of 1",
+        "AXValue": "",
+        "frame": {
+          "height": 459,
+          "width": 816,
+          "x": 644,
+          "y": 251
+        }
+      },
+      "depth": 7,
+      "index": 54,
+      "parent": 35
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXGroup",
+        "AXRoleDescription": "group",
+        "AXSelected": false,
+        "AXSubrole": "AXEmptyGroup",
+        "AXTitle": "",
+        "AXValue": "",
+        "frame": {
+          "height": 459,
+          "width": 816,
+          "x": 644,
+          "y": 251
+        }
+      },
+      "depth": 7,
+      "index": 55,
+      "parent": 35
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXGroup",
+        "AXRoleDescription": "section header",
+        "AXSelected": false,
+        "AXSubrole": "AXSectionHeader",
+        "AXTitle": "",
+        "AXValue": "",
+        "frame": {
+          "height": 32,
+          "width": 1416,
+          "x": 252,
+          "y": 739
+        }
+      },
+      "depth": 7,
+      "index": 56,
+      "parent": 36
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Notes formatting",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXToolbar",
+        "AXRoleDescription": "toolbar",
+        "AXSelected": false,
+        "AXTitle": "Notes formatting",
+        "AXValue": "",
+        "frame": {
+          "height": 32,
+          "width": 1416,
+          "x": 252,
+          "y": 776
+        }
+      },
+      "depth": 7,
+      "index": 57,
+      "parent": 36
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Edit speaker notes",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXTextArea",
+        "AXRoleDescription": "text entry area",
+        "AXSelected": false,
+        "AXTitle": "Edit speaker notes",
+        "AXValue": "\n",
+        "frame": {
+          "height": 85,
+          "width": 1416,
+          "x": 252,
+          "y": 814
+        }
+      },
+      "depth": 7,
+      "index": 58,
+      "parent": 36
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXStaticText",
+        "AXRoleDescription": "text",
+        "AXSelected": false,
+        "AXTitle": "",
+        "AXValue": "Ctrl+S also saves draft notes. Apply reloads the presentation and starts a new slide undo history.",
+        "frame": {
+          "height": 12,
+          "width": 457,
+          "x": 252,
+          "y": 905
+        }
+      },
+      "depth": 7,
+      "index": 59,
+      "parent": 36
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Normal",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "Normal",
+        "AXRole": "AXCheckBox",
+        "AXRoleDescription": "toggle button",
+        "AXSelected": false,
+        "AXSubrole": "AXToggle",
+        "AXTitle": "Normal",
+        "AXValue": 1,
+        "frame": {
+          "height": 21,
+          "width": 21,
+          "x": 1181,
+          "y": 966
+        }
+      },
+      "depth": 7,
+      "index": 60,
+      "parent": 40
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Slide Sorter",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "Slide Sorter",
+        "AXRole": "AXCheckBox",
+        "AXRoleDescription": "toggle button",
+        "AXSelected": false,
+        "AXSubrole": "AXToggle",
+        "AXTitle": "Slide Sorter",
+        "AXValue": 0,
+        "frame": {
+          "height": 21,
+          "width": 21,
+          "x": 1203,
+          "y": 966
+        }
+      },
+      "depth": 7,
+      "index": 61,
+      "parent": 40
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Outline",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "Outline",
+        "AXRole": "AXCheckBox",
+        "AXRoleDescription": "toggle button",
+        "AXSelected": false,
+        "AXSubrole": "AXToggle",
+        "AXTitle": "Outline",
+        "AXValue": 0,
+        "frame": {
+          "height": 21,
+          "width": 21,
+          "x": 1225,
+          "y": 966
+        }
+      },
+      "depth": 7,
+      "index": 62,
+      "parent": 40
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Slide show from this slide",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "Slide show from this slide · Shift+F5",
+        "AXRole": "AXButton",
+        "AXRoleDescription": "button",
+        "AXSelected": false,
+        "AXTitle": "Slide show from this slide",
+        "AXValue": "",
+        "frame": {
+          "height": 21,
+          "width": 21,
+          "x": 1247,
+          "y": 966
+        }
+      },
+      "depth": 7,
+      "index": 63,
+      "parent": 40
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Zoom out",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "Zoom out · Ctrl+−",
+        "AXRole": "AXButton",
+        "AXRoleDescription": "button",
+        "AXSelected": false,
+        "AXTitle": "Zoom out",
+        "AXValue": "",
+        "frame": {
+          "height": 21,
+          "width": 21,
+          "x": 1286,
+          "y": 966
+        }
+      },
+      "depth": 7,
+      "index": 64,
+      "parent": 41
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXShowMenu",
+          "AXScrollToVisible",
+          "AXIncrement",
+          "AXDecrement"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Zoom",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "Ctrl + scroll wheel, or Ctrl + = and Ctrl + −, to zoom",
+        "AXRole": "AXSlider",
+        "AXRoleDescription": "slider",
+        "AXSelected": false,
+        "AXTitle": "Zoom",
+        "AXValue": 30,
+        "frame": {
+          "height": 17,
+          "width": 111,
+          "x": 1310,
+          "y": 968
+        }
+      },
+      "depth": 7,
+      "index": 65,
+      "parent": 41
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Zoom in",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "Zoom in · Ctrl+=",
+        "AXRole": "AXButton",
+        "AXRoleDescription": "button",
+        "AXSelected": false,
+        "AXTitle": "Zoom in",
+        "AXValue": "",
+        "frame": {
+          "height": 21,
+          "width": 21,
+          "x": 1424,
+          "y": 966
+        }
+      },
+      "depth": 7,
+      "index": 66,
+      "parent": 41
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Zoom 64%, back to 100%",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "Back to 100% · Ctrl+0",
+        "AXRole": "AXButton",
+        "AXRoleDescription": "button",
+        "AXSelected": false,
+        "AXTitle": "Zoom 64%, back to 100%",
+        "AXValue": "",
+        "frame": {
+          "height": 21,
+          "width": 45,
+          "x": 1446,
+          "y": 966
+        }
+      },
+      "depth": 7,
+      "index": 67,
+      "parent": 41
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Fit",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "Fit to window",
+        "AXRole": "AXButton",
+        "AXRoleDescription": "button",
+        "AXSelected": false,
+        "AXTitle": "Fit",
+        "AXValue": "",
+        "frame": {
+          "height": 21,
+          "width": 21,
+          "x": 1492,
+          "y": 966
+        }
+      },
+      "depth": 7,
+      "index": 68,
+      "parent": 41
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXStaticText",
+        "AXRoleDescription": "text",
+        "AXSelected": false,
+        "AXTitle": "",
+        "AXValue": "Unsaved changes",
+        "frame": {
+          "height": 13,
+          "width": 86,
+          "x": 1533,
+          "y": 970
+        }
+      },
+      "depth": 7,
+      "index": 69,
+      "parent": 42
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXStaticText",
+        "AXRoleDescription": "text",
+        "AXSelected": false,
+        "AXTitle": "",
+        "AXValue": "Ctrl+S",
+        "frame": {
+          "height": 13,
+          "width": 30,
+          "x": 1636,
+          "y": 970
+        }
+      },
+      "depth": 7,
+      "index": 70,
+      "parent": 43
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Normal",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "Normal",
+        "AXRole": "AXCheckBox",
+        "AXRoleDescription": "toggle button",
+        "AXSelected": false,
+        "AXSubrole": "AXToggle",
+        "AXTitle": "Normal",
+        "AXValue": 1,
+        "frame": {
+          "height": 63,
+          "width": 50,
+          "x": 249,
+          "y": 105
+        }
+      },
+      "depth": 8,
+      "index": 71,
+      "parent": 48
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Slide Sorter",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "Slide Sorter",
+        "AXRole": "AXCheckBox",
+        "AXRoleDescription": "toggle button",
+        "AXSelected": false,
+        "AXSubrole": "AXToggle",
+        "AXTitle": "Slide Sorter",
+        "AXValue": 0,
+        "frame": {
+          "height": 63,
+          "width": 74,
+          "x": 300,
+          "y": 105
+        }
+      },
+      "depth": 8,
+      "index": 72,
+      "parent": 48
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Outline",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "Outline",
+        "AXRole": "AXCheckBox",
+        "AXRoleDescription": "toggle button",
+        "AXSelected": false,
+        "AXSubrole": "AXToggle",
+        "AXTitle": "Outline",
+        "AXValue": 0,
+        "frame": {
+          "height": 63,
+          "width": 50,
+          "x": 375,
+          "y": 105
+        }
+      },
+      "depth": 8,
+      "index": 73,
+      "parent": 48
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Zoom level",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXGroup",
+        "AXRoleDescription": "group",
+        "AXSelected": false,
+        "AXTitle": "",
+        "AXValue": "",
+        "frame": {
+          "height": 30,
+          "width": 114,
+          "x": 437,
+          "y": 134
+        }
+      },
+      "depth": 8,
+      "index": 74,
+      "parent": 49
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Fit to Window",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "Fit to Window",
+        "AXRole": "AXCheckBox",
+        "AXRoleDescription": "toggle button",
+        "AXSelected": false,
+        "AXSubrole": "AXToggle",
+        "AXTitle": "Fit to Window",
+        "AXValue": 1,
+        "frame": {
+          "height": 63,
+          "width": 84,
+          "x": 563,
+          "y": 105
+        }
+      },
+      "depth": 8,
+      "index": 75,
+      "parent": 50
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Notes",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "Notes",
+        "AXRole": "AXCheckBox",
+        "AXRoleDescription": "toggle button",
+        "AXSelected": false,
+        "AXSubrole": "AXToggle",
+        "AXTitle": "Notes",
+        "AXValue": 1,
+        "frame": {
+          "height": 63,
+          "width": 47,
+          "x": 648,
+          "y": 105
+        }
+      },
+      "depth": 8,
+      "index": 76,
+      "parent": 50
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Select",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "Select",
+        "AXRole": "AXCheckBox",
+        "AXRoleDescription": "toggle button",
+        "AXSelected": false,
+        "AXSubrole": "AXToggle",
+        "AXTitle": "Select",
+        "AXValue": 1,
+        "frame": {
+          "height": 63,
+          "width": 47,
+          "x": 696,
+          "y": 105
+        }
+      },
+      "depth": 8,
+      "index": 77,
+      "parent": 50
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "First Slide",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "First Slide · Home",
+        "AXRole": "AXButton",
+        "AXRoleDescription": "button",
+        "AXSelected": false,
+        "AXTitle": "First Slide",
+        "AXValue": "",
+        "frame": {
+          "height": 26,
+          "width": 86,
+          "x": 755,
+          "y": 110
+        }
+      },
+      "depth": 8,
+      "index": 78,
+      "parent": 51
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Previous Slide",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "Previous Slide · Page Up",
+        "AXRole": "AXButton",
+        "AXRoleDescription": "button",
+        "AXSelected": false,
+        "AXTitle": "Previous Slide",
+        "AXValue": "",
+        "frame": {
+          "height": 26,
+          "width": 109,
+          "x": 755,
+          "y": 137
+        }
+      },
+      "depth": 8,
+      "index": 79,
+      "parent": 51
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Next Slide",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "Next Slide · Page Down",
+        "AXRole": "AXButton",
+        "AXRoleDescription": "button",
+        "AXSelected": false,
+        "AXTitle": "Next Slide",
+        "AXValue": "",
+        "frame": {
+          "height": 26,
+          "width": 88,
+          "x": 864,
+          "y": 110
+        }
+      },
+      "depth": 8,
+      "index": 80,
+      "parent": 51
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Last Slide",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "Last Slide · End",
+        "AXRole": "AXButton",
+        "AXRoleDescription": "button",
+        "AXSelected": false,
+        "AXTitle": "Last Slide",
+        "AXValue": "",
+        "frame": {
+          "height": 26,
+          "width": 85,
+          "x": 864,
+          "y": 137
+        }
+      },
+      "depth": 8,
+      "index": 81,
+      "parent": 51
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Export Slide",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "Export Slide",
+        "AXRole": "AXButton",
+        "AXRoleDescription": "button",
+        "AXSelected": false,
+        "AXTitle": "Export Slide",
+        "AXValue": "",
+        "frame": {
+          "height": 63,
+          "width": 76,
+          "x": 964,
+          "y": 105
+        }
+      },
+      "depth": 8,
+      "index": 82,
+      "parent": 52
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Print",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "Print preview: slides, handouts or notes pages (Ctrl+P)",
+        "AXRole": "AXButton",
+        "AXRoleDescription": "button",
+        "AXSelected": false,
+        "AXTitle": "Print",
+        "AXValue": "",
+        "frame": {
+          "height": 63,
+          "width": 47,
+          "x": 1041,
+          "y": 105
+        }
+      },
+      "depth": 8,
+      "index": 83,
+      "parent": 52
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Notes Pages",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "Print notes pages or save them as PDF",
+        "AXRole": "AXButton",
+        "AXRoleDescription": "button",
+        "AXSelected": false,
+        "AXTitle": "Notes Pages",
+        "AXValue": "",
+        "frame": {
+          "height": 63,
+          "width": 79,
+          "x": 1089,
+          "y": 105
+        }
+      },
+      "depth": 8,
+      "index": 84,
+      "parent": 52
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXGroup",
+        "AXRoleDescription": "group",
+        "AXSelected": false,
+        "AXTitle": "",
+        "AXValue": "",
+        "frame": {
+          "height": 16,
+          "width": 88,
+          "x": 252,
+          "y": 747
+        }
+      },
+      "depth": 8,
+      "index": 85,
+      "parent": 56
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "",
+        "AXEnabled": false,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXButton",
+        "AXRoleDescription": "button",
+        "AXSelected": false,
+        "AXTitle": "Discard draft",
+        "AXValue": "",
+        "frame": {
+          "height": 32,
+          "width": 100,
+          "x": 1471,
+          "y": 739
+        }
+      },
+      "depth": 8,
+      "index": 86,
+      "parent": 56
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "",
+        "AXEnabled": false,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXButton",
+        "AXRoleDescription": "button",
+        "AXSelected": false,
+        "AXTitle": "Apply notes",
+        "AXValue": "",
+        "frame": {
+          "height": 32,
+          "width": 94,
+          "x": 1574,
+          "y": 739
+        }
+      },
+      "depth": 8,
+      "index": 87,
+      "parent": 56
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Undo notes",
+        "AXEnabled": false,
+        "AXFocused": false,
+        "AXHelp": "Undo notes",
+        "AXRole": "AXButton",
+        "AXRoleDescription": "button",
+        "AXSelected": false,
+        "AXTitle": "Undo notes",
+        "AXValue": "",
+        "frame": {
+          "height": 28,
+          "width": 27,
+          "x": 252,
+          "y": 778
+        }
+      },
+      "depth": 8,
+      "index": 88,
+      "parent": 57
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Redo notes",
+        "AXEnabled": false,
+        "AXFocused": false,
+        "AXHelp": "Redo notes",
+        "AXRole": "AXButton",
+        "AXRoleDescription": "button",
+        "AXSelected": false,
+        "AXTitle": "Redo notes",
+        "AXValue": "",
+        "frame": {
+          "height": 28,
+          "width": 27,
+          "x": 283,
+          "y": 778
+        }
+      },
+      "depth": 8,
+      "index": 89,
+      "parent": 57
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Bold",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "Bold",
+        "AXRole": "AXCheckBox",
+        "AXRoleDescription": "toggle button",
+        "AXSelected": false,
+        "AXSubrole": "AXToggle",
+        "AXTitle": "Bold",
+        "AXValue": 0,
+        "frame": {
+          "height": 28,
+          "width": 27,
+          "x": 314,
+          "y": 778
+        }
+      },
+      "depth": 8,
+      "index": 90,
+      "parent": 57
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Italic",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "Italic",
+        "AXRole": "AXCheckBox",
+        "AXRoleDescription": "toggle button",
+        "AXSelected": false,
+        "AXSubrole": "AXToggle",
+        "AXTitle": "Italic",
+        "AXValue": 0,
+        "frame": {
+          "height": 28,
+          "width": 27,
+          "x": 345,
+          "y": 778
+        }
+      },
+      "depth": 8,
+      "index": 91,
+      "parent": 57
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Underline",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "Underline",
+        "AXRole": "AXCheckBox",
+        "AXRoleDescription": "toggle button",
+        "AXSelected": false,
+        "AXSubrole": "AXToggle",
+        "AXTitle": "Underline",
+        "AXValue": 0,
+        "frame": {
+          "height": 28,
+          "width": 27,
+          "x": 376,
+          "y": 778
+        }
+      },
+      "depth": 8,
+      "index": 92,
+      "parent": 57
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXGroup",
+        "AXRoleDescription": "group",
+        "AXSelected": false,
+        "AXTitle": "",
+        "AXValue": "",
+        "frame": {
+          "height": 20,
+          "width": 76,
+          "x": 407,
+          "y": 782
+        }
+      },
+      "depth": 8,
+      "index": 93,
+      "parent": 57
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXGroup",
+        "AXRoleDescription": "group",
+        "AXSelected": false,
+        "AXTitle": "",
+        "AXValue": "",
+        "frame": {
+          "height": 26,
+          "width": 73,
+          "x": 487,
+          "y": 779
+        }
+      },
+      "depth": 8,
+      "index": 94,
+      "parent": 57
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Bullets",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "Bullets",
+        "AXRole": "AXButton",
+        "AXRoleDescription": "button",
+        "AXSelected": false,
+        "AXTitle": "Bullets",
+        "AXValue": "",
+        "frame": {
+          "height": 28,
+          "width": 28,
+          "x": 562,
+          "y": 778
+        }
+      },
+      "depth": 8,
+      "index": 95,
+      "parent": 57
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Numbering",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "Numbering",
+        "AXRole": "AXButton",
+        "AXRoleDescription": "button",
+        "AXSelected": false,
+        "AXTitle": "Numbering",
+        "AXValue": "",
+        "frame": {
+          "height": 28,
+          "width": 28,
+          "x": 593,
+          "y": 778
+        }
+      },
+      "depth": 8,
+      "index": 96,
+      "parent": 57
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Align left",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "Align left",
+        "AXRole": "AXButton",
+        "AXRoleDescription": "button",
+        "AXSelected": false,
+        "AXTitle": "Align left",
+        "AXValue": "",
+        "frame": {
+          "height": 28,
+          "width": 28,
+          "x": 624,
+          "y": 778
+        }
+      },
+      "depth": 8,
+      "index": 97,
+      "parent": 57
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Centre",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "Centre",
+        "AXRole": "AXButton",
+        "AXRoleDescription": "button",
+        "AXSelected": false,
+        "AXTitle": "Centre",
+        "AXValue": "",
+        "frame": {
+          "height": 28,
+          "width": 28,
+          "x": 655,
+          "y": 778
+        }
+      },
+      "depth": 8,
+      "index": 98,
+      "parent": 57
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Align right",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "Align right",
+        "AXRole": "AXButton",
+        "AXRoleDescription": "button",
+        "AXSelected": false,
+        "AXTitle": "Align right",
+        "AXValue": "",
+        "frame": {
+          "height": 28,
+          "width": 28,
+          "x": 686,
+          "y": 778
+        }
+      },
+      "depth": 8,
+      "index": 99,
+      "parent": 57
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXButton",
+        "AXRoleDescription": "button",
+        "AXSelected": false,
+        "AXTitle": "No list",
+        "AXValue": "",
+        "frame": {
+          "height": 32,
+          "width": 63,
+          "x": 717,
+          "y": 776
+        }
+      },
+      "depth": 8,
+      "index": 100,
+      "parent": 57
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXGroup",
+        "AXRoleDescription": "group",
+        "AXSelected": false,
+        "AXSubrole": "AXEmptyGroup",
+        "AXTitle": "",
+        "AXValue": "",
+        "frame": {
+          "height": 22,
+          "width": 1394,
+          "x": 263,
+          "y": 823
+        }
+      },
+      "depth": 8,
+      "index": 101,
+      "parent": 58
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXValueIndicator",
+        "AXRoleDescription": "value indicator",
+        "AXSelected": false,
+        "AXTitle": "",
+        "AXValue": 30,
+        "frame": {
+          "height": 17,
+          "width": 25,
+          "x": 1336,
+          "y": 968
+        }
+      },
+      "depth": 8,
+      "index": 102,
+      "parent": 65
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Zoom level",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXPopUpButton",
+        "AXRoleDescription": "pop up button",
+        "AXSelected": false,
+        "AXTitle": "Zoom level",
+        "AXValue": "Fit",
+        "frame": {
+          "height": 30,
+          "width": 114,
+          "x": 437,
+          "y": 134
+        }
+      },
+      "depth": 9,
+      "index": 103,
+      "parent": 74
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXStaticText",
+        "AXRoleDescription": "text",
+        "AXSelected": false,
+        "AXTitle": "",
+        "AXValue": "Notes — slide 1",
+        "frame": {
+          "height": 15,
+          "width": 89,
+          "x": 252,
+          "y": 747
+        }
+      },
+      "depth": 9,
+      "index": 104,
+      "parent": 85
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXStaticText",
+        "AXRoleDescription": "text",
+        "AXSelected": false,
+        "AXTitle": "",
+        "AXValue": "Size",
+        "frame": {
+          "height": 15,
+          "width": 25,
+          "x": 407,
+          "y": 784
+        }
+      },
+      "depth": 9,
+      "index": 105,
+      "parent": 93
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Size",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXPopUpButton",
+        "AXRoleDescription": "pop up button",
+        "AXSelected": false,
+        "AXTitle": "Size",
+        "AXValue": "12",
+        "frame": {
+          "height": 20,
+          "width": 49,
+          "x": 435,
+          "y": 782
+        }
+      },
+      "depth": 9,
+      "index": 106,
+      "parent": 93
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXStaticText",
+        "AXRoleDescription": "text",
+        "AXSelected": false,
+        "AXTitle": "",
+        "AXValue": "Colour",
+        "frame": {
+          "height": 15,
+          "width": 38,
+          "x": 487,
+          "y": 784
+        }
+      },
+      "depth": 9,
+      "index": 107,
+      "parent": 94
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXPress",
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "Colour",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXColorWell",
+        "AXRoleDescription": "color well",
+        "AXSelected": false,
+        "AXTitle": "Colour",
+        "AXValue": "rgb 0.00000 0.00000 0.00000 1",
+        "frame": {
+          "height": 26,
+          "width": 31,
+          "x": 528,
+          "y": 779
+        }
+      },
+      "depth": 9,
+      "index": 108,
+      "parent": 94
+    },
+    {
+      "attributes": {
+        "actions": [
+          "AXShowMenu",
+          "AXScrollToVisible"
+        ],
+        "actionsError": 0,
+        "AXDescription": "",
+        "AXEnabled": true,
+        "AXFocused": false,
+        "AXHelp": "",
+        "AXRole": "AXGroup",
+        "AXRoleDescription": "group",
+        "AXSelected": false,
+        "AXSubrole": "AXEmptyGroup",
+        "AXTitle": "",
+        "AXValue": "",
+        "frame": {
+          "height": 11,
+          "width": 21,
+          "x": 533,
+          "y": 786
+        }
+      },
+      "depth": 10,
+      "index": 109,
+      "parent": 108
+    }
+  ],
+  "screenCaptureAuthorized": true,
+  "status": "input-sent",
+  "traversalLimit": 12000,
+  "traversalQueueCount": 110,
+  "trusted": true,
+  "windowReadinessReadCount": 1
+}

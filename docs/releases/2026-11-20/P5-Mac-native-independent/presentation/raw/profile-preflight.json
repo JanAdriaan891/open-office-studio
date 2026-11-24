@@ -1,0 +1,12 @@
+{
+  "checkedAbsent": [
+    "/Users/runner/Library/Application Support/org.openaec.presentation-studio",
+    "/Users/runner/Library/Caches/org.openaec.presentation-studio",
+    "/Users/runner/Library/WebKit/org.openaec.presentation-studio",
+    "/Users/runner/Library/HTTPStorages/org.openaec.presentation-studio",
+    "/Users/runner/Library/Preferences/org.openaec.presentation-studio.plist",
+    "/Users/runner/Library/Saved Application State/org.openaec.presentation-studio.savedState",
+    "/Users/runner/Library/Containers/org.openaec.presentation-studio"
+  ],
+  "seededPreferencesOnly": "/Users/runner/Library/Application Support/org.openaec.presentation-studio/voorkeuren.json"
+}

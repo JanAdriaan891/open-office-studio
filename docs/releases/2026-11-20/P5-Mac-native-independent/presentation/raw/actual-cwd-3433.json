@@ -1,0 +1,14 @@
+{
+  "argv": [
+    "/usr/sbin/lsof",
+    "-a",
+    "-p",
+    "3433",
+    "-d",
+    "cwd",
+    "-Fn"
+  ],
+  "code": 0,
+  "stdout": "p3433\nfcwd\nn/Users/runner/work/open-office-studio/open-office-studio/receipts/presentation/empty-cwd\n",
+  "stderr": ""
+}

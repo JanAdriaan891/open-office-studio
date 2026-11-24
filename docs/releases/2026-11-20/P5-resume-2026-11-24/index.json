@@ -1,6 +1,11 @@
 {
-  "asOfUTC": "2026-11-24T08:01:19.173973+00:00",
+  "asOfUTC": "2026-11-24T08:16:19.902867+00:00",
   "files": [
+    {
+      "path": "own-docs-only-ci-cancellation.json",
+      "bytes": 7639,
+      "sha256": "64a5ab85e800aefcc04a0d9dc16d6b6e739aafcac4677131fb5808ddb782efc6"
+    },
     {
       "path": "package-verifier-root-review.json",
       "bytes": 2347,

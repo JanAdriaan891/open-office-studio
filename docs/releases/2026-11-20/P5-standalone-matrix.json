@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "asOfUTC": "2026-11-24T08:09:56.077481+00:00",
+  "asOfUTC": "2026-11-24T08:16:19.903881+00:00",
   "applicationCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
   "applicationTree": "e30879fd772871e690847c061ef66e6b81808a05",
   "version": "2026.48.1",
@@ -36,8 +36,8 @@
       "installationWithoutSuite": "suite",
       "ownProfileIdentity": "not-run",
       "nativePreflight": "not-run",
-      "functionalScenarioResult": "not-run",
-      "normalExitAndFreshProcessReopen": "not-run",
+      "functionalScenarioResult": "PASS retained12 corechecks and new actual titleSaveAs/normalquit/newPID owner9d8ab9fa; independent374review pending",
+      "normalExitAndFreshProcessReopen": "PASS original core900→8728 and targeted374952→3308 normal exit0; old missing-path run remainsFAILED",
       "requiredExternalDependencies": "record from actual package and tested host; not yet verified",
       "limitations": [],
       "downloadURL": null,
@@ -186,7 +186,8 @@
       "requiredExternalDependencies": "record from actual package and tested host; not yet verified",
       "limitations": [],
       "downloadURL": null,
-      "finalPackageHashAndReportAudit": "PASS actual bytes; P5-final-package-verification/audit.json"
+      "finalPackageHashAndReportAudit": "PASS actual bytes; P5-final-package-verification/audit.json",
+      "STWSupplement": "PASS independent first-page and source/cache/style/placeholder audit22cdd260, exact different markerMARIGOLD; no fullSTW/Suite374/pagination claim"
     },
     {
       "app": "writer",
@@ -442,7 +443,7 @@
       "installationWithoutSuite": "PASS dedicated app-only host; Suite absent",
       "ownProfileIdentity": "PASS owner-bound actual package/CF/executable/profile",
       "nativePreflight": "PASS actual platform focus/save/reopen",
-      "functionalScenarioResult": "PASS owner-reviewed actual dedicated app edit/save/normalquit/newPID/ODF export; independent content review in progress",
+      "functionalScenarioResult": "PASS independent bounded PPTX/ODP/original-image/native lifecycle audit; P5-Mac-native-independent/presentation/independent-audit.json",
       "normalExitAndFreshProcessReopen": "PASS normal quit and distinct PID, exact saved content checked",
       "requiredExternalDependencies": "record from actual package and tested host; not yet verified",
       "limitations": [],
