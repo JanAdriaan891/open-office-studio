@@ -45,6 +45,11 @@ export interface Instellingen {
     autocorrectie: boolean;
     hoofdletterwoordenNegeren: boolean;
     cijferwoordenNegeren: boolean;
+    /**
+     * Taal van Rekenblad en Presentatie als het bestand er geen noemt:
+     * "auto" volgt de interfacetaal (src/spelling/gedeeld/documenttaal.ts).
+     */
+    standaardTaal: "auto" | "nl" | "en-GB" | "en-US";
   };
   /** Tekst: sneltoetsprofiel (LibreOffice-achtig of Word) en de mini-werkbalk bij selectie. */
   tekst: { sneltoetsprofiel: "standaard" | "word"; miniWerkbalk: boolean; documentWeergave: DocumentWeergave };
@@ -75,6 +80,7 @@ export const standaardInstellingen: Instellingen = {
     autocorrectie: true,
     hoofdletterwoordenNegeren: true,
     cijferwoordenNegeren: true,
+    standaardTaal: "auto",
   },
   tekst: { sneltoetsprofiel: "standaard", miniWerkbalk: true, documentWeergave: "thema" },
   // Alle uitgaven zijn (nog) pre-releases; het ontwikkelkanaal neemt ze mee.
@@ -143,6 +149,7 @@ export function normaliseerInstellingen(ruw: unknown, oudeAuteur = ""): Instelli
       autocorrectie: waarOnwaar(spelling.autocorrectie, true),
       hoofdletterwoordenNegeren: waarOnwaar(spelling.hoofdletterwoordenNegeren, true),
       cijferwoordenNegeren: waarOnwaar(spelling.cijferwoordenNegeren, true),
+      standaardTaal: kies(spelling.standaardTaal, ["auto", "nl", "en-GB", "en-US"] as const, "auto"),
     },
     tekst: {
       sneltoetsprofiel: kies(tekst.sneltoetsprofiel, ["standaard", "word"] as const, "standaard"),

@@ -9,6 +9,7 @@ import { getal, schuifNaarZoom, zoomNaarSchuif } from "./berekening";
 import { focusbare, houdtPijltjes, volgendeIndex } from "../openaec-lint/focus";
 import { TekstStatusExtra, TekstWeergaveKnoppen, useStatusbalkMenu } from "../tekst/info/StatusbalkItems";
 import { PresentatieWeergaveKnoppen } from "../presentatie/WeergaveKnoppen";
+import { StatusbalkSpelling } from "../spelling/gedeeld/StatusbalkSpelling";
 import "./statusbalk.css";
 
 export interface StatusbalkProps {
@@ -26,7 +27,7 @@ export interface StatusbalkProps {
 
 function ModuleInfo({ soort }: { soort: string | null }) {
   const info = useModuleStatus();
-  const { statusbalk, rekenbladStatistiek } = useInstellingen();
+  const { statusbalk } = useInstellingen();
   const { t } = useTranslation("statusbar");
   const { taal } = useOpmaak();
   const g = (n: number) => getal(n, taal);
@@ -70,6 +71,24 @@ function ModuleInfo({ soort }: { soort: string | null }) {
       </span>
     );
   }
+  // Taal en spelfouten (#21) naast de gegevens van Rekenblad en Presentatie.
+  if ((info.soort === "rekenblad" && soort === "xlsx") || (info.soort === "presentatie" && soort === "pptx"))
+    return (
+      <>
+        <ModuleGegevens soort={soort} />
+        <StatusbalkSpelling />
+      </>
+    );
+  return null;
+}
+
+function ModuleGegevens({ soort }: { soort: string | null }) {
+  const info = useModuleStatus();
+  const { statusbalk, rekenbladStatistiek } = useInstellingen();
+  const { t } = useTranslation("statusbar");
+  const { taal } = useOpmaak();
+  const g = (n: number) => getal(n, taal);
+  if (!info) return null;
   if (info.soort === "rekenblad" && soort === "xlsx" && statusbalk.rekenblad) {
     const s = info.statistiek;
     const f = info.filter;
