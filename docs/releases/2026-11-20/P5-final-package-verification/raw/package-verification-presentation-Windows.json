@@ -1,0 +1,19 @@
+{
+  "platform": "windows",
+  "programma": "open-presentation-studio",
+  "versie": "2026.48.1",
+  "pakketten": [
+    {
+      "naam": "Open Presentation Studio_2026.48.1_x64-setup.exe",
+      "bytes": 384562216,
+      "sha256": "bfcd8259fbe929c53bd1ef86a8884d70c838239dc1d98f4fa28c7764fecc1f93",
+      "controles": [
+        "NSIS-archief leesbaar",
+        "programma en WebView2-loader x64",
+        "WebView2-bootstrapper aanwezig",
+        "installer- en programma-iconen bytegelijk aan goedgekeurde bron"
+      ]
+    }
+  ],
+  "installatie_en_native_bediening": "niet_gecontroleerd"
+}

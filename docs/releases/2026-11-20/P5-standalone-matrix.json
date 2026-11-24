@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "asOfUTC": "2026-11-23T14:51:07.124433+00:00",
+  "asOfUTC": "2026-11-24T08:09:56.077481+00:00",
   "applicationCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
   "applicationTree": "e30879fd772871e690847c061ef66e6b81808a05",
   "version": "2026.48.1",
@@ -22,10 +22,17 @@
       "platform": "Windows",
       "packageForm": "EXE",
       "architecture": "x64",
-      "packageSha256": null,
-      "packageBytes": null,
-      "artifactBinding": null,
-      "signatureResult": "pending",
+      "packageSha256": "69a1fa6cd5e5ad84707a3f627ee26cfdefd8a7cc27193a2d543f92f42e2a3334",
+      "packageBytes": 384579648,
+      "artifactBinding": {
+        "artifactId": 14828525724,
+        "member": "dist-installers/office/nsis/Open Office Studio_2026.48.1_x64-setup.exe",
+        "producerRun": 45177730188,
+        "attempt": 1,
+        "jobId": 137703365803,
+        "archiveSha256": "24816ccb20360bbfc976abf38810988dfe4b27a3305c80d5b80b711719587e0d"
+      },
+      "signatureResult": "PASS original producer Authenticode gates; per-host installed identity/signature checks recorded separately",
       "installationWithoutSuite": "suite",
       "ownProfileIdentity": "not-run",
       "nativePreflight": "not-run",
@@ -33,7 +40,8 @@
       "normalExitAndFreshProcessReopen": "not-run",
       "requiredExternalDependencies": "record from actual package and tested host; not yet verified",
       "limitations": [],
-      "downloadURL": null
+      "downloadURL": null,
+      "finalPackageHashAndReportAudit": "PASS actual bytes; P5-final-package-verification/audit.json"
     },
     {
       "app": "office",
@@ -43,10 +51,17 @@
       "platform": "macOS",
       "packageForm": "DMG",
       "architecture": "ARM64",
-      "packageSha256": null,
-      "packageBytes": null,
-      "artifactBinding": null,
-      "signatureResult": "pending",
+      "packageSha256": "1d0cb79f23e1e082d1aa4e32aa1dd3997c297fb0cb2629aa530a3e29e685c4af",
+      "packageBytes": 373215593,
+      "artifactBinding": {
+        "artifactId": 14836145077,
+        "member": "dist-installers/office/dmg/Open Office Studio_2026.48.1_aarch64.dmg",
+        "producerRun": 45195055147,
+        "attempt": 1,
+        "jobId": 137763371873,
+        "archiveSha256": "45a88b40325f516e91b0b4cb557b88fd2a81d62bde2e4be26dc87bd1b55ff015"
+      },
+      "signatureResult": "PASS original producer signing/notarization gates; per-host installed codesign/stapler/Gatekeeper recorded separately",
       "installationWithoutSuite": "suite",
       "ownProfileIdentity": "not-run",
       "nativePreflight": "not-run",
@@ -54,7 +69,8 @@
       "normalExitAndFreshProcessReopen": "not-run",
       "requiredExternalDependencies": "record from actual package and tested host; not yet verified",
       "limitations": [],
-      "downloadURL": null
+      "downloadURL": null,
+      "finalPackageHashAndReportAudit": "PASS actual bytes; P5-final-package-verification/audit.json"
     },
     {
       "app": "office",
@@ -64,18 +80,26 @@
       "platform": "Linux",
       "packageForm": "DEB",
       "architecture": "x64",
-      "packageSha256": null,
-      "packageBytes": null,
-      "artifactBinding": null,
-      "signatureResult": "pending",
+      "packageSha256": "5ab7701c049bef004a1d0c1f691e9f656ab19d39952303f3ec9a3e150062c010",
+      "packageBytes": 383828462,
+      "artifactBinding": {
+        "artifactId": 14824745492,
+        "member": "dist-installers/office/deb/Open Office Studio_2026.48.1_amd64.deb",
+        "producerRun": 45177730188,
+        "attempt": 1,
+        "jobId": 137703365848,
+        "archiveSha256": "c64b0e90e2144d1a5a6d17ad7e4881429a70ade8c48e76f7a22858b54c3928c5"
+      },
+      "signatureResult": "PASS detached OpenPGP actual payload and public-only CI verification; original package-report hash agrees",
       "installationWithoutSuite": "suite",
       "ownProfileIdentity": "not-run",
       "nativePreflight": "not-run",
-      "functionalScenarioResult": "not-run",
-      "normalExitAndFreshProcessReopen": "not-run",
+      "functionalScenarioResult": "PASS bounded Suite core/confirm/save/reopen scopes; full ribbon matrix PARTIAL. See P5-Linux-Suite-final-audit/completed-2026-11-24/final-audit.json",
+      "normalExitAndFreshProcessReopen": "PASS bounded scenarios; six native AltF4 closes and two WebDriver scope closes explicitly distinguished",
       "requiredExternalDependencies": "record from actual package and tested host; not yet verified",
       "limitations": [],
-      "downloadURL": null
+      "downloadURL": null,
+      "finalPackageHashAndReportAudit": "PASS actual bytes; P5-final-package-verification/audit.json"
     },
     {
       "app": "office",
@@ -85,18 +109,26 @@
       "platform": "Linux",
       "packageForm": "AppImage",
       "architecture": "x64",
-      "packageSha256": null,
-      "packageBytes": null,
-      "artifactBinding": null,
-      "signatureResult": "pending",
+      "packageSha256": "346f8130a710e62d080982d6c0fc45ecd610b49e5b7e8495cce691f2d872fdf6",
+      "packageBytes": 429873656,
+      "artifactBinding": {
+        "artifactId": 14824745492,
+        "member": "dist-installers/office/appimage/Open Office Studio_2026.48.1_amd64.AppImage",
+        "producerRun": 45177730188,
+        "attempt": 1,
+        "jobId": 137703365848,
+        "archiveSha256": "c64b0e90e2144d1a5a6d17ad7e4881429a70ade8c48e76f7a22858b54c3928c5"
+      },
+      "signatureResult": "PASS detached OpenPGP actual payload and public-only CI verification; original package-report hash agrees",
       "installationWithoutSuite": "suite",
       "ownProfileIdentity": "not-run",
       "nativePreflight": "not-run",
-      "functionalScenarioResult": "not-run",
-      "normalExitAndFreshProcessReopen": "not-run",
+      "functionalScenarioResult": "PASS bounded Suite core/confirm/save/reopen scopes; full ribbon matrix PARTIAL. See P5-Linux-Suite-final-audit/completed-2026-11-24/final-audit.json",
+      "normalExitAndFreshProcessReopen": "PASS bounded scenarios; six native AltF4 closes and two WebDriver scope closes explicitly distinguished",
       "requiredExternalDependencies": "record from actual package and tested host; not yet verified",
       "limitations": [],
-      "downloadURL": null
+      "downloadURL": null,
+      "finalPackageHashAndReportAudit": "PASS actual bytes; P5-final-package-verification/audit.json"
     },
     {
       "app": "writer",
@@ -106,18 +138,26 @@
       "platform": "Windows",
       "packageForm": "EXE",
       "architecture": "x64",
-      "packageSha256": null,
-      "packageBytes": null,
-      "artifactBinding": null,
-      "signatureResult": "pending",
+      "packageSha256": "2377b3a2b607445ac22842a5e6fdc27b46b8e41eb51319bed8c8e47b390fce42",
+      "packageBytes": 384569152,
+      "artifactBinding": {
+        "artifactId": 14828525724,
+        "member": "dist-installers/writer/nsis/Open Writer Studio_2026.48.1_x64-setup.exe",
+        "producerRun": 45177730188,
+        "attempt": 1,
+        "jobId": 137703365803,
+        "archiveSha256": "24816ccb20360bbfc976abf38810988dfe4b27a3305c80d5b80b711719587e0d"
+      },
+      "signatureResult": "PASS original producer Authenticode gates; per-host installed identity/signature checks recorded separately",
       "installationWithoutSuite": "not-run",
       "ownProfileIdentity": "not-run",
       "nativePreflight": "not-run",
-      "functionalScenarioResult": "not-run",
-      "normalExitAndFreshProcessReopen": "not-run",
+      "functionalScenarioResult": "PASS retained bounded core from45195780472; independent saved output and original images checked;377 separate",
+      "normalExitAndFreshProcessReopen": "PASS retained normal fullquit/distinct process",
       "requiredExternalDependencies": "record from actual package and tested host; not yet verified",
       "limitations": [],
-      "downloadURL": null
+      "downloadURL": null,
+      "finalPackageHashAndReportAudit": "PASS actual bytes; P5-final-package-verification/audit.json"
     },
     {
       "app": "writer",
@@ -127,18 +167,26 @@
       "platform": "macOS",
       "packageForm": "DMG",
       "architecture": "ARM64",
-      "packageSha256": null,
-      "packageBytes": null,
-      "artifactBinding": null,
-      "signatureResult": "pending",
-      "installationWithoutSuite": "not-run",
-      "ownProfileIdentity": "not-run",
-      "nativePreflight": "not-run",
-      "functionalScenarioResult": "not-run",
-      "normalExitAndFreshProcessReopen": "not-run",
+      "packageSha256": "a11c8f090c8ee08fe006340ce7c628c2c297ce4ec51ed68c7f5147200be5251a",
+      "packageBytes": 373096494,
+      "artifactBinding": {
+        "artifactId": 14836145077,
+        "member": "dist-installers/writer/dmg/Open Writer Studio_2026.48.1_aarch64.dmg",
+        "producerRun": 45195055147,
+        "attempt": 1,
+        "jobId": 137763371873,
+        "archiveSha256": "45a88b40325f516e91b0b4cb557b88fd2a81d62bde2e4be26dc87bd1b55ff015"
+      },
+      "signatureResult": "PASS original producer signing/notarization gates; per-host installed codesign/stapler/Gatekeeper recorded separately",
+      "installationWithoutSuite": "PASS dedicated app-only host; Suite absent",
+      "ownProfileIdentity": "PASS owner-bound actual package/CF/executable/profile",
+      "nativePreflight": "PASS actual platform focus/save/reopen",
+      "functionalScenarioResult": "PASS owner-reviewed actual dedicated app edit/save/normalquit/newPID/ODF export; independent content review in progress",
+      "normalExitAndFreshProcessReopen": "PASS normal quit and distinct PID, exact saved content checked",
       "requiredExternalDependencies": "record from actual package and tested host; not yet verified",
       "limitations": [],
-      "downloadURL": null
+      "downloadURL": null,
+      "finalPackageHashAndReportAudit": "PASS actual bytes; P5-final-package-verification/audit.json"
     },
     {
       "app": "writer",
@@ -151,14 +199,14 @@
       "packageSha256": "16728e64e28fa43543fdc19332867aebf310a4bfa7a7ab4b337f102bafae5dbd",
       "packageBytes": 383844254,
       "artifactBinding": {
-        "parentArtifact": 14824745492,
-        "preparationGit": "5d4198b7001c21cac7a03cf752900aac6e4dd91e",
-        "proofRun": 45190082427,
-        "proofJob": 137745921948,
-        "proofArtifact": 14825591637,
-        "proofZIPsha256": "fac7e788a7b73f4a116688d33bbab7db54e11ee452860a4150fe779212559a22"
+        "artifactId": 14824745492,
+        "member": "dist-installers/writer/deb/Open Writer Studio_2026.48.1_amd64.deb",
+        "producerRun": 45177730188,
+        "attempt": 1,
+        "jobId": 137703365848,
+        "archiveSha256": "c64b0e90e2144d1a5a6d17ad7e4881429a70ade8c48e76f7a22858b54c3928c5"
       },
-      "signatureResult": "pending",
+      "signatureResult": "PASS detached OpenPGP actual payload and public-only CI verification; original package-report hash agrees",
       "installationWithoutSuite": "PASS in isolated app-only test host",
       "ownProfileIdentity": "PASS actual app identity/profile and payload-to-running ELF checks",
       "nativePreflight": "PASS actual native focus/input",
@@ -173,7 +221,8 @@
         "Four DEB ancillary zenityDeclaredByDeb flags were wrong due to QA comma-regex; actual control/APT evidence retained, no foreign-confirmation pass inferred."
       ],
       "downloadURL": null,
-      "independentAudit": "P5-Linux-standalone-four-core/independent-audit.json"
+      "independentAudit": "P5-Linux-standalone-four-core/independent-audit.json",
+      "finalPackageHashAndReportAudit": "PASS actual bytes; P5-final-package-verification/audit.json"
     },
     {
       "app": "writer",
@@ -186,14 +235,14 @@
       "packageSha256": "bd800d149bea0a23ea0175fc9b81b9cb7ab381c9baa313f0b4e26a0a34efc5d9",
       "packageBytes": 429861368,
       "artifactBinding": {
-        "parentArtifact": 14824745492,
-        "preparationGit": "5d4198b7001c21cac7a03cf752900aac6e4dd91e",
-        "proofRun": 45190082427,
-        "proofJob": 137745921948,
-        "proofArtifact": 14825591637,
-        "proofZIPsha256": "fac7e788a7b73f4a116688d33bbab7db54e11ee452860a4150fe779212559a22"
+        "artifactId": 14824745492,
+        "member": "dist-installers/writer/appimage/Open Writer Studio_2026.48.1_amd64.AppImage",
+        "producerRun": 45177730188,
+        "attempt": 1,
+        "jobId": 137703365848,
+        "archiveSha256": "c64b0e90e2144d1a5a6d17ad7e4881429a70ade8c48e76f7a22858b54c3928c5"
       },
-      "signatureResult": "pending",
+      "signatureResult": "PASS detached OpenPGP actual payload and public-only CI verification; original package-report hash agrees",
       "installationWithoutSuite": "PASS in isolated app-only test host",
       "ownProfileIdentity": "PASS actual app identity/profile and payload-to-running ELF checks",
       "nativePreflight": "PASS actual native focus/input",
@@ -209,7 +258,8 @@
         "CI uses verified AppImage extraction/AppRun; physical FUSE mounting is not separately certified."
       ],
       "downloadURL": null,
-      "independentAudit": "P5-Linux-standalone-four-core/independent-audit.json"
+      "independentAudit": "P5-Linux-standalone-four-core/independent-audit.json",
+      "finalPackageHashAndReportAudit": "PASS actual bytes; P5-final-package-verification/audit.json"
     },
     {
       "app": "spreadsheet",
@@ -219,18 +269,26 @@
       "platform": "Windows",
       "packageForm": "EXE",
       "architecture": "x64",
-      "packageSha256": null,
-      "packageBytes": null,
-      "artifactBinding": null,
-      "signatureResult": "pending",
+      "packageSha256": "4ea3e47a3945cbd192d55911cf0ad3a7287dbe6c9bba5b33be08e8191a4c84a7",
+      "packageBytes": 384547072,
+      "artifactBinding": {
+        "artifactId": 14828525724,
+        "member": "dist-installers/spreadsheet/nsis/Open Spreadsheet Studio_2026.48.1_x64-setup.exe",
+        "producerRun": 45177730188,
+        "attempt": 1,
+        "jobId": 137703365803,
+        "archiveSha256": "24816ccb20360bbfc976abf38810988dfe4b27a3305c80d5b80b711719587e0d"
+      },
+      "signatureResult": "PASS original producer Authenticode gates; per-host installed identity/signature checks recorded separately",
       "installationWithoutSuite": "not-run",
       "ownProfileIdentity": "not-run",
       "nativePreflight": "not-run",
-      "functionalScenarioResult": "not-run",
-      "normalExitAndFreshProcessReopen": "not-run",
+      "functionalScenarioResult": "PASS retained bounded core from45195780472; independent saved output and original images checked;377 separate",
+      "normalExitAndFreshProcessReopen": "PASS retained normal fullquit/distinct process",
       "requiredExternalDependencies": "record from actual package and tested host; not yet verified",
       "limitations": [],
-      "downloadURL": null
+      "downloadURL": null,
+      "finalPackageHashAndReportAudit": "PASS actual bytes; P5-final-package-verification/audit.json"
     },
     {
       "app": "spreadsheet",
@@ -240,10 +298,17 @@
       "platform": "macOS",
       "packageForm": "DMG",
       "architecture": "ARM64",
-      "packageSha256": null,
-      "packageBytes": null,
-      "artifactBinding": null,
-      "signatureResult": "pending",
+      "packageSha256": "13b2b517646a0aeb5ca1afb53827b4165f1fd3c3778918f988135f7f0f9e7ba0",
+      "packageBytes": 372946956,
+      "artifactBinding": {
+        "artifactId": 14836145077,
+        "member": "dist-installers/spreadsheet/dmg/Open Spreadsheet Studio_2026.48.1_aarch64.dmg",
+        "producerRun": 45195055147,
+        "attempt": 1,
+        "jobId": 137763371873,
+        "archiveSha256": "45a88b40325f516e91b0b4cb557b88fd2a81d62bde2e4be26dc87bd1b55ff015"
+      },
+      "signatureResult": "PASS original producer signing/notarization gates; per-host installed codesign/stapler/Gatekeeper recorded separately",
       "installationWithoutSuite": "not-run",
       "ownProfileIdentity": "not-run",
       "nativePreflight": "not-run",
@@ -251,7 +316,8 @@
       "normalExitAndFreshProcessReopen": "not-run",
       "requiredExternalDependencies": "record from actual package and tested host; not yet verified",
       "limitations": [],
-      "downloadURL": null
+      "downloadURL": null,
+      "finalPackageHashAndReportAudit": "PASS actual bytes; P5-final-package-verification/audit.json"
     },
     {
       "app": "spreadsheet",
@@ -264,13 +330,14 @@
       "packageSha256": "2975d44e7c0a6456aa0bd66c151a83b26ee9b2bd13a775a3c19db051fc15cd11",
       "packageBytes": 383910260,
       "artifactBinding": {
-        "parentArtifact": 14824745492,
-        "childArtifact": 14824139421,
-        "proofRun": 45194487509,
-        "proofArtifact": 14828631845,
-        "proofZIPsha256": "948517759acfc3e4be36aa3436aa6f27b697286860bcdb41524df8c53599611f"
+        "artifactId": 14824745492,
+        "member": "dist-installers/spreadsheet/deb/Open Spreadsheet Studio_2026.48.1_amd64.deb",
+        "producerRun": 45177730188,
+        "attempt": 1,
+        "jobId": 137703365848,
+        "archiveSha256": "c64b0e90e2144d1a5a6d17ad7e4881429a70ade8c48e76f7a22858b54c3928c5"
       },
-      "signatureResult": "pending",
+      "signatureResult": "PASS detached OpenPGP actual payload and public-only CI verification; original package-report hash agrees",
       "installationWithoutSuite": "Core runs on isolated app-only host; no Suite mapped executable and own private XDG environment recorded",
       "ownProfileIdentity": "Actual identity/payload ELF/private XDG checked; AppImage end-of-all-scenarios filesystem profile inventory missing after addon failure",
       "nativePreflight": "PASS actual core input/focus and saved typed cells",
@@ -283,7 +350,10 @@
         "Virtual X11/software rendering; verified AppImage extraction/AppRun, no separate physical FUSE certificate."
       ],
       "downloadURL": null,
-      "independentAudit": "P5-Linux-spreadsheet-core/independent-audit.json"
+      "independentAudit": "P5-Linux-spreadsheet-core/independent-audit.json",
+      "finalPackageHashAndReportAudit": "PASS actual bytes; P5-final-package-verification/audit.json",
+      "supplementalGNM": "PASS latest diagnostic original45197550291/a1/job137772125699, independently auditedfd773333; both.gnm/.gnumeric on AppImage, prior DEB passes retained",
+      "historicalSessionFailure": "Prior45194487509 invalid-session retained, cause unproven; later successful rerun does not prove a cause or fix"
     },
     {
       "app": "spreadsheet",
@@ -296,13 +366,14 @@
       "packageSha256": "950bb92b52af3977dd7f163670418acb72fc6230e20184c1a77a0bc23e2bc59d",
       "packageBytes": 429849080,
       "artifactBinding": {
-        "parentArtifact": 14824745492,
-        "childArtifact": 14824139421,
-        "proofRun": 45194487509,
-        "proofArtifact": 14828631845,
-        "proofZIPsha256": "948517759acfc3e4be36aa3436aa6f27b697286860bcdb41524df8c53599611f"
+        "artifactId": 14824745492,
+        "member": "dist-installers/spreadsheet/appimage/Open Spreadsheet Studio_2026.48.1_amd64.AppImage",
+        "producerRun": 45177730188,
+        "attempt": 1,
+        "jobId": 137703365848,
+        "archiveSha256": "c64b0e90e2144d1a5a6d17ad7e4881429a70ade8c48e76f7a22858b54c3928c5"
       },
-      "signatureResult": "pending",
+      "signatureResult": "PASS detached OpenPGP actual payload and public-only CI verification; original package-report hash agrees",
       "installationWithoutSuite": "Core runs on isolated app-only host; no Suite mapped executable and own private XDG environment recorded",
       "ownProfileIdentity": "Actual identity/payload ELF/private XDG checked; AppImage end-of-all-scenarios filesystem profile inventory missing after addon failure",
       "nativePreflight": "PASS actual core input/focus and saved typed cells",
@@ -315,7 +386,10 @@
         "Virtual X11/software rendering; verified AppImage extraction/AppRun, no separate physical FUSE certificate."
       ],
       "downloadURL": null,
-      "independentAudit": "P5-Linux-spreadsheet-core/independent-audit.json"
+      "independentAudit": "P5-Linux-spreadsheet-core/independent-audit.json",
+      "finalPackageHashAndReportAudit": "PASS actual bytes; P5-final-package-verification/audit.json",
+      "supplementalGNM": "PASS latest diagnostic original45197550291/a1/job137772125699, independently auditedfd773333; both.gnm/.gnumeric on AppImage, prior DEB passes retained",
+      "historicalSessionFailure": "Prior45194487509 invalid-session retained, cause unproven; later successful rerun does not prove a cause or fix"
     },
     {
       "app": "presentation",
@@ -325,10 +399,17 @@
       "platform": "Windows",
       "packageForm": "EXE",
       "architecture": "x64",
-      "packageSha256": null,
-      "packageBytes": null,
-      "artifactBinding": null,
-      "signatureResult": "pending",
+      "packageSha256": "bfcd8259fbe929c53bd1ef86a8884d70c838239dc1d98f4fa28c7764fecc1f93",
+      "packageBytes": 384562216,
+      "artifactBinding": {
+        "artifactId": 14828525724,
+        "member": "dist-installers/presentation/nsis/Open Presentation Studio_2026.48.1_x64-setup.exe",
+        "producerRun": 45177730188,
+        "attempt": 1,
+        "jobId": 137703365803,
+        "archiveSha256": "24816ccb20360bbfc976abf38810988dfe4b27a3305c80d5b80b711719587e0d"
+      },
+      "signatureResult": "PASS original producer Authenticode gates; per-host installed identity/signature checks recorded separately",
       "installationWithoutSuite": "not-run",
       "ownProfileIdentity": "not-run",
       "nativePreflight": "not-run",
@@ -336,7 +417,8 @@
       "normalExitAndFreshProcessReopen": "not-run",
       "requiredExternalDependencies": "record from actual package and tested host; not yet verified",
       "limitations": [],
-      "downloadURL": null
+      "downloadURL": null,
+      "finalPackageHashAndReportAudit": "PASS actual bytes; P5-final-package-verification/audit.json"
     },
     {
       "app": "presentation",
@@ -346,18 +428,26 @@
       "platform": "macOS",
       "packageForm": "DMG",
       "architecture": "ARM64",
-      "packageSha256": null,
-      "packageBytes": null,
-      "artifactBinding": null,
-      "signatureResult": "pending",
-      "installationWithoutSuite": "not-run",
-      "ownProfileIdentity": "not-run",
-      "nativePreflight": "not-run",
-      "functionalScenarioResult": "not-run",
-      "normalExitAndFreshProcessReopen": "not-run",
+      "packageSha256": "544b088148dc9f0ef8bd250427fc2c70883fd28424861bfba50fd66d3664e71f",
+      "packageBytes": 373169095,
+      "artifactBinding": {
+        "artifactId": 14836145077,
+        "member": "dist-installers/presentation/dmg/Open Presentation Studio_2026.48.1_aarch64.dmg",
+        "producerRun": 45195055147,
+        "attempt": 1,
+        "jobId": 137763371873,
+        "archiveSha256": "45a88b40325f516e91b0b4cb557b88fd2a81d62bde2e4be26dc87bd1b55ff015"
+      },
+      "signatureResult": "PASS original producer signing/notarization gates; per-host installed codesign/stapler/Gatekeeper recorded separately",
+      "installationWithoutSuite": "PASS dedicated app-only host; Suite absent",
+      "ownProfileIdentity": "PASS owner-bound actual package/CF/executable/profile",
+      "nativePreflight": "PASS actual platform focus/save/reopen",
+      "functionalScenarioResult": "PASS owner-reviewed actual dedicated app edit/save/normalquit/newPID/ODF export; independent content review in progress",
+      "normalExitAndFreshProcessReopen": "PASS normal quit and distinct PID, exact saved content checked",
       "requiredExternalDependencies": "record from actual package and tested host; not yet verified",
       "limitations": [],
-      "downloadURL": null
+      "downloadURL": null,
+      "finalPackageHashAndReportAudit": "PASS actual bytes; P5-final-package-verification/audit.json"
     },
     {
       "app": "presentation",
@@ -370,14 +460,14 @@
       "packageSha256": "b1ea114547f035804549bed296df0e3a1f33ca582dedc50b573902dd66f6774e",
       "packageBytes": 383929578,
       "artifactBinding": {
-        "parentArtifact": 14824745492,
-        "preparationGit": "5d4198b7001c21cac7a03cf752900aac6e4dd91e",
-        "proofRun": 45190082427,
-        "proofJob": 137745921818,
-        "proofArtifact": 14824614985,
-        "proofZIPsha256": "d7f47c5af33f4268e79ff5af61d2c4e9fb2b4ec8a11cb61fa525379c512ff535"
+        "artifactId": 14824745492,
+        "member": "dist-installers/presentation/deb/Open Presentation Studio_2026.48.1_amd64.deb",
+        "producerRun": 45177730188,
+        "attempt": 1,
+        "jobId": 137703365848,
+        "archiveSha256": "c64b0e90e2144d1a5a6d17ad7e4881429a70ade8c48e76f7a22858b54c3928c5"
       },
-      "signatureResult": "pending",
+      "signatureResult": "PASS detached OpenPGP actual payload and public-only CI verification; original package-report hash agrees",
       "installationWithoutSuite": "PASS in isolated app-only test host",
       "ownProfileIdentity": "PASS actual app identity/profile and payload-to-running ELF checks",
       "nativePreflight": "PASS actual native focus/input",
@@ -392,7 +482,8 @@
         "Four DEB ancillary zenityDeclaredByDeb flags were wrong due to QA comma-regex; actual control/APT evidence retained, no foreign-confirmation pass inferred."
       ],
       "downloadURL": null,
-      "independentAudit": "P5-Linux-standalone-four-core/independent-audit.json"
+      "independentAudit": "P5-Linux-standalone-four-core/independent-audit.json",
+      "finalPackageHashAndReportAudit": "PASS actual bytes; P5-final-package-verification/audit.json"
     },
     {
       "app": "presentation",
@@ -405,14 +496,14 @@
       "packageSha256": "f9b72975725305243660bec067e0cde13d59d39e5eda2ecbacc6ada5fd54d934",
       "packageBytes": 429873656,
       "artifactBinding": {
-        "parentArtifact": 14824745492,
-        "preparationGit": "5d4198b7001c21cac7a03cf752900aac6e4dd91e",
-        "proofRun": 45190082427,
-        "proofJob": 137745921818,
-        "proofArtifact": 14824614985,
-        "proofZIPsha256": "d7f47c5af33f4268e79ff5af61d2c4e9fb2b4ec8a11cb61fa525379c512ff535"
+        "artifactId": 14824745492,
+        "member": "dist-installers/presentation/appimage/Open Presentation Studio_2026.48.1_amd64.AppImage",
+        "producerRun": 45177730188,
+        "attempt": 1,
+        "jobId": 137703365848,
+        "archiveSha256": "c64b0e90e2144d1a5a6d17ad7e4881429a70ade8c48e76f7a22858b54c3928c5"
       },
-      "signatureResult": "pending",
+      "signatureResult": "PASS detached OpenPGP actual payload and public-only CI verification; original package-report hash agrees",
       "installationWithoutSuite": "PASS in isolated app-only test host",
       "ownProfileIdentity": "PASS actual app identity/profile and payload-to-running ELF checks",
       "nativePreflight": "PASS actual native focus/input",
@@ -428,7 +519,8 @@
         "CI uses verified AppImage extraction/AppRun; physical FUSE mounting is not separately certified."
       ],
       "downloadURL": null,
-      "independentAudit": "P5-Linux-standalone-four-core/independent-audit.json"
+      "independentAudit": "P5-Linux-standalone-four-core/independent-audit.json",
+      "finalPackageHashAndReportAudit": "PASS actual bytes; P5-final-package-verification/audit.json"
     },
     {
       "app": "email",
@@ -438,10 +530,17 @@
       "platform": "Windows",
       "packageForm": "EXE",
       "architecture": "x64",
-      "packageSha256": null,
-      "packageBytes": null,
-      "artifactBinding": null,
-      "signatureResult": "pending",
+      "packageSha256": "057d062b783f5ef2bb86e505b22b8d4b99d9ed268343bda35304596641502703",
+      "packageBytes": 384570680,
+      "artifactBinding": {
+        "artifactId": 14828525724,
+        "member": "dist-installers/email/nsis/Open Email Studio_2026.48.1_x64-setup.exe",
+        "producerRun": 45177730188,
+        "attempt": 1,
+        "jobId": 137703365803,
+        "archiveSha256": "24816ccb20360bbfc976abf38810988dfe4b27a3305c80d5b80b711719587e0d"
+      },
+      "signatureResult": "PASS original producer Authenticode gates; per-host installed identity/signature checks recorded separately",
       "installationWithoutSuite": "not-run",
       "ownProfileIdentity": "not-run",
       "nativePreflight": "not-run",
@@ -449,7 +548,8 @@
       "normalExitAndFreshProcessReopen": "not-run",
       "requiredExternalDependencies": "record from actual package and tested host; not yet verified",
       "limitations": [],
-      "downloadURL": null
+      "downloadURL": null,
+      "finalPackageHashAndReportAudit": "PASS actual bytes; P5-final-package-verification/audit.json"
     },
     {
       "app": "email",
@@ -459,10 +559,17 @@
       "platform": "macOS",
       "packageForm": "DMG",
       "architecture": "ARM64",
-      "packageSha256": null,
-      "packageBytes": null,
-      "artifactBinding": null,
-      "signatureResult": "pending",
+      "packageSha256": "db4d930f736b4f0f164d5b615ebee17279a6f7683cb6f2c3fc402c6f1c04e173",
+      "packageBytes": 373215325,
+      "artifactBinding": {
+        "artifactId": 14836145077,
+        "member": "dist-installers/email/dmg/Open Email Studio_2026.48.1_aarch64.dmg",
+        "producerRun": 45195055147,
+        "attempt": 1,
+        "jobId": 137763371873,
+        "archiveSha256": "45a88b40325f516e91b0b4cb557b88fd2a81d62bde2e4be26dc87bd1b55ff015"
+      },
+      "signatureResult": "PASS original producer signing/notarization gates; per-host installed codesign/stapler/Gatekeeper recorded separately",
       "installationWithoutSuite": "not-run",
       "ownProfileIdentity": "not-run",
       "nativePreflight": "not-run",
@@ -470,7 +577,8 @@
       "normalExitAndFreshProcessReopen": "not-run",
       "requiredExternalDependencies": "record from actual package and tested host; not yet verified",
       "limitations": [],
-      "downloadURL": null
+      "downloadURL": null,
+      "finalPackageHashAndReportAudit": "PASS actual bytes; P5-final-package-verification/audit.json"
     },
     {
       "app": "email",
@@ -483,13 +591,14 @@
       "packageSha256": "b3109098a9a78766bb3090badaf4fc1f51454f8e69f6d3730709b667319a9df5",
       "packageBytes": 383844166,
       "artifactBinding": {
-        "parentArtifact": 14824745492,
-        "childArtifact": 14824383776,
-        "proofRun": 45193219423,
-        "proofArtifact": 14827246109,
-        "proofZIPsha256": "6b02f8e9d7dcbc9a6ba6d235479e70130948baa6cde2a0ecff9c3621d6eaa0c1"
+        "artifactId": 14824745492,
+        "member": "dist-installers/email/deb/Open Email Studio_2026.48.1_amd64.deb",
+        "producerRun": 45177730188,
+        "attempt": 1,
+        "jobId": 137703365848,
+        "archiveSha256": "c64b0e90e2144d1a5a6d17ad7e4881429a70ade8c48e76f7a22858b54c3928c5"
       },
-      "signatureResult": "pending",
+      "signatureResult": "PASS detached OpenPGP actual payload and public-only CI verification; original package-report hash agrees",
       "installationWithoutSuite": "PASS isolated app-only test host",
       "ownProfileIdentity": "PASS package/payload/PID-starttime/profile checks",
       "nativePreflight": "PASS actual compose-body focus and Ctrl+S, no draft-button fallback",
@@ -501,7 +610,8 @@
         "Original fixture IMAP5rev1 typo and old Git EML newline representation remain historically retained."
       ],
       "downloadURL": null,
-      "independentAudit": "P5-Linux-email/independent-audit.json"
+      "independentAudit": "P5-Linux-email/independent-audit.json",
+      "finalPackageHashAndReportAudit": "PASS actual bytes; P5-final-package-verification/audit.json"
     },
     {
       "app": "email",
@@ -514,13 +624,14 @@
       "packageSha256": "3819c9a347521d814c95729de6c72f3874552b79e6597fa81c2d8ca5c468d2d4",
       "packageBytes": 429873656,
       "artifactBinding": {
-        "parentArtifact": 14824745492,
-        "childArtifact": 14824383776,
-        "proofRun": 45193219423,
-        "proofArtifact": 14827246109,
-        "proofZIPsha256": "6b02f8e9d7dcbc9a6ba6d235479e70130948baa6cde2a0ecff9c3621d6eaa0c1"
+        "artifactId": 14824745492,
+        "member": "dist-installers/email/appimage/Open Email Studio_2026.48.1_amd64.AppImage",
+        "producerRun": 45177730188,
+        "attempt": 1,
+        "jobId": 137703365848,
+        "archiveSha256": "c64b0e90e2144d1a5a6d17ad7e4881429a70ade8c48e76f7a22858b54c3928c5"
       },
-      "signatureResult": "pending",
+      "signatureResult": "PASS detached OpenPGP actual payload and public-only CI verification; original package-report hash agrees",
       "installationWithoutSuite": "PASS isolated app-only test host",
       "ownProfileIdentity": "PASS package/payload/PID-starttime/profile checks",
       "nativePreflight": "PASS actual compose-body focus and Ctrl+S, no draft-button fallback",
@@ -533,7 +644,8 @@
         "CI uses verified AppImage extraction/AppRun; physical FUSE mounting is not separately certified."
       ],
       "downloadURL": null,
-      "independentAudit": "P5-Linux-email/independent-audit.json"
+      "independentAudit": "P5-Linux-email/independent-audit.json",
+      "finalPackageHashAndReportAudit": "PASS actual bytes; P5-final-package-verification/audit.json"
     },
     {
       "app": "notition",
@@ -543,10 +655,17 @@
       "platform": "Windows",
       "packageForm": "EXE",
       "architecture": "x64",
-      "packageSha256": null,
-      "packageBytes": null,
-      "artifactBinding": null,
-      "signatureResult": "pending",
+      "packageSha256": "01a200d652c22e8bb59f37cba28bfa9694e121ba6cd7e98c9ba5a0c3b20f74b1",
+      "packageBytes": 73570344,
+      "artifactBinding": {
+        "artifactId": 14828525724,
+        "member": "dist-installers/notition/nsis/Open Notition Studio_2026.48.1_x64-setup.exe",
+        "producerRun": 45177730188,
+        "attempt": 1,
+        "jobId": 137703365803,
+        "archiveSha256": "24816ccb20360bbfc976abf38810988dfe4b27a3305c80d5b80b711719587e0d"
+      },
+      "signatureResult": "PASS original producer Authenticode gates; per-host installed identity/signature checks recorded separately",
       "installationWithoutSuite": "not-run",
       "ownProfileIdentity": "not-run",
       "nativePreflight": "not-run",
@@ -554,7 +673,8 @@
       "normalExitAndFreshProcessReopen": "not-run",
       "requiredExternalDependencies": "record from actual package and tested host; not yet verified",
       "limitations": [],
-      "downloadURL": null
+      "downloadURL": null,
+      "finalPackageHashAndReportAudit": "PASS actual bytes; P5-final-package-verification/audit.json"
     },
     {
       "app": "notition",
@@ -564,10 +684,17 @@
       "platform": "macOS",
       "packageForm": "DMG",
       "architecture": "ARM64",
-      "packageSha256": null,
-      "packageBytes": null,
-      "artifactBinding": null,
-      "signatureResult": "pending",
+      "packageSha256": "88261673a7dbc3b15f6e0a54e89356d8911ab8fc4cb29035fee68e009a285346",
+      "packageBytes": 75126797,
+      "artifactBinding": {
+        "artifactId": 14836145077,
+        "member": "dist-installers/notition/dmg/Open Notition Studio_2026.48.1_aarch64.dmg",
+        "producerRun": 45195055147,
+        "attempt": 1,
+        "jobId": 137763371873,
+        "archiveSha256": "45a88b40325f516e91b0b4cb557b88fd2a81d62bde2e4be26dc87bd1b55ff015"
+      },
+      "signatureResult": "PASS original producer signing/notarization gates; per-host installed codesign/stapler/Gatekeeper recorded separately",
       "installationWithoutSuite": "not-run",
       "ownProfileIdentity": "not-run",
       "nativePreflight": "not-run",
@@ -575,7 +702,8 @@
       "normalExitAndFreshProcessReopen": "not-run",
       "requiredExternalDependencies": "record from actual package and tested host; not yet verified",
       "limitations": [],
-      "downloadURL": null
+      "downloadURL": null,
+      "finalPackageHashAndReportAudit": "PASS actual bytes; P5-final-package-verification/audit.json"
     },
     {
       "app": "notition",
@@ -588,14 +716,14 @@
       "packageSha256": "68e8b78913dee415936bf7dc081d257da80bba9f295c66d519353a85433c241a",
       "packageBytes": 76312910,
       "artifactBinding": {
-        "parentArtifact": 14824745492,
-        "preparationGit": "5d4198b7001c21cac7a03cf752900aac6e4dd91e",
-        "proofRun": 45190082427,
-        "proofJob": 137745921942,
-        "proofArtifact": 14826375277,
-        "proofZIPsha256": "fe92e3a501645ad4ffc33f0cd4287793357f0af9284aeb02cd09099ea54ab4f3"
+        "artifactId": 14824745492,
+        "member": "dist-installers/notition/deb/Open Notition Studio_2026.48.1_amd64.deb",
+        "producerRun": 45177730188,
+        "attempt": 1,
+        "jobId": 137703365848,
+        "archiveSha256": "c64b0e90e2144d1a5a6d17ad7e4881429a70ade8c48e76f7a22858b54c3928c5"
       },
-      "signatureResult": "pending",
+      "signatureResult": "PASS detached OpenPGP actual payload and public-only CI verification; original package-report hash agrees",
       "installationWithoutSuite": "PASS in isolated app-only test host",
       "ownProfileIdentity": "PASS actual app identity/profile and payload-to-running ELF checks",
       "nativePreflight": "PASS actual native focus/input",
@@ -610,7 +738,8 @@
         "Four DEB ancillary zenityDeclaredByDeb flags were wrong due to QA comma-regex; actual control/APT evidence retained, no foreign-confirmation pass inferred."
       ],
       "downloadURL": null,
-      "independentAudit": "P5-Linux-standalone-four-core/independent-audit.json"
+      "independentAudit": "P5-Linux-standalone-four-core/independent-audit.json",
+      "finalPackageHashAndReportAudit": "PASS actual bytes; P5-final-package-verification/audit.json"
     },
     {
       "app": "notition",
@@ -623,14 +752,14 @@
       "packageSha256": "08ddb2cb9f1088f69779aec92a48e3ace7b58d605779fd930c2c70345056b83e",
       "packageBytes": 153893368,
       "artifactBinding": {
-        "parentArtifact": 14824745492,
-        "preparationGit": "5d4198b7001c21cac7a03cf752900aac6e4dd91e",
-        "proofRun": 45190082427,
-        "proofJob": 137745921942,
-        "proofArtifact": 14826375277,
-        "proofZIPsha256": "fe92e3a501645ad4ffc33f0cd4287793357f0af9284aeb02cd09099ea54ab4f3"
+        "artifactId": 14824745492,
+        "member": "dist-installers/notition/appimage/Open Notition Studio_2026.48.1_amd64.AppImage",
+        "producerRun": 45177730188,
+        "attempt": 1,
+        "jobId": 137703365848,
+        "archiveSha256": "c64b0e90e2144d1a5a6d17ad7e4881429a70ade8c48e76f7a22858b54c3928c5"
       },
-      "signatureResult": "pending",
+      "signatureResult": "PASS detached OpenPGP actual payload and public-only CI verification; original package-report hash agrees",
       "installationWithoutSuite": "PASS in isolated app-only test host",
       "ownProfileIdentity": "PASS actual app identity/profile and payload-to-running ELF checks",
       "nativePreflight": "PASS actual native focus/input",
@@ -646,7 +775,8 @@
         "CI uses verified AppImage extraction/AppRun; physical FUSE mounting is not separately certified."
       ],
       "downloadURL": null,
-      "independentAudit": "P5-Linux-standalone-four-core/independent-audit.json"
+      "independentAudit": "P5-Linux-standalone-four-core/independent-audit.json",
+      "finalPackageHashAndReportAudit": "PASS actual bytes; P5-final-package-verification/audit.json"
     },
     {
       "app": "database",
@@ -656,10 +786,17 @@
       "platform": "Windows",
       "packageForm": "EXE",
       "architecture": "x64",
-      "packageSha256": null,
-      "packageBytes": null,
-      "artifactBinding": null,
-      "signatureResult": "pending",
+      "packageSha256": "42fb7d23811d53b8ac44638887e42dd150a56b3d01603f3e5185b5a3ecf40130",
+      "packageBytes": 41078608,
+      "artifactBinding": {
+        "artifactId": 14828525724,
+        "member": "dist-installers/database/nsis/Open Database Studio_2026.48.1_x64-setup.exe",
+        "producerRun": 45177730188,
+        "attempt": 1,
+        "jobId": 137703365803,
+        "archiveSha256": "24816ccb20360bbfc976abf38810988dfe4b27a3305c80d5b80b711719587e0d"
+      },
+      "signatureResult": "PASS original producer Authenticode gates; per-host installed identity/signature checks recorded separately",
       "installationWithoutSuite": "not-run",
       "ownProfileIdentity": "not-run",
       "nativePreflight": "not-run",
@@ -667,7 +804,8 @@
       "normalExitAndFreshProcessReopen": "not-run",
       "requiredExternalDependencies": "record from actual package and tested host; not yet verified",
       "limitations": [],
-      "downloadURL": null
+      "downloadURL": null,
+      "finalPackageHashAndReportAudit": "PASS actual bytes; P5-final-package-verification/audit.json"
     },
     {
       "app": "database",
@@ -677,10 +815,17 @@
       "platform": "macOS",
       "packageForm": "DMG",
       "architecture": "ARM64",
-      "packageSha256": null,
-      "packageBytes": null,
-      "artifactBinding": null,
-      "signatureResult": "pending",
+      "packageSha256": "a3ad897b5345f8f8faf96f8e11dda33a25f912ffba8d4acb28b719edd9a0e016",
+      "packageBytes": 39962398,
+      "artifactBinding": {
+        "artifactId": 14836145077,
+        "member": "dist-installers/database/dmg/Open Database Studio_2026.48.1_aarch64.dmg",
+        "producerRun": 45195055147,
+        "attempt": 1,
+        "jobId": 137763371873,
+        "archiveSha256": "45a88b40325f516e91b0b4cb557b88fd2a81d62bde2e4be26dc87bd1b55ff015"
+      },
+      "signatureResult": "PASS original producer signing/notarization gates; per-host installed codesign/stapler/Gatekeeper recorded separately",
       "installationWithoutSuite": "not-run",
       "ownProfileIdentity": "not-run",
       "nativePreflight": "not-run",
@@ -688,7 +833,8 @@
       "normalExitAndFreshProcessReopen": "not-run",
       "requiredExternalDependencies": "record from actual package and tested host; not yet verified",
       "limitations": [],
-      "downloadURL": null
+      "downloadURL": null,
+      "finalPackageHashAndReportAudit": "PASS actual bytes; P5-final-package-verification/audit.json"
     },
     {
       "app": "database",
@@ -701,14 +847,14 @@
       "packageSha256": "847f5486dd0ab3241a66b031dc75d8fd23e91ab8a68986cb4d6cd9ae2db6c26d",
       "packageBytes": 41412256,
       "artifactBinding": {
-        "parentArtifact": 14824745492,
-        "preparationGit": "5d4198b7001c21cac7a03cf752900aac6e4dd91e",
-        "proofRun": 45190082427,
-        "proofJob": 137745922006,
-        "proofArtifact": 14825227335,
-        "proofZIPsha256": "3cc2dfcdbedc40d095dc25813148412680cc7ff6f7324299079dd436fffd8a9e"
+        "artifactId": 14824745492,
+        "member": "dist-installers/database/deb/Open Database Studio_2026.48.1_amd64.deb",
+        "producerRun": 45177730188,
+        "attempt": 1,
+        "jobId": 137703365848,
+        "archiveSha256": "c64b0e90e2144d1a5a6d17ad7e4881429a70ade8c48e76f7a22858b54c3928c5"
       },
-      "signatureResult": "pending",
+      "signatureResult": "PASS detached OpenPGP actual payload and public-only CI verification; original package-report hash agrees",
       "installationWithoutSuite": "PASS in isolated app-only test host",
       "ownProfileIdentity": "PASS actual app identity/profile and payload-to-running ELF checks",
       "nativePreflight": "PASS actual native focus/input",
@@ -723,7 +869,8 @@
         "Four DEB ancillary zenityDeclaredByDeb flags were wrong due to QA comma-regex; actual control/APT evidence retained, no foreign-confirmation pass inferred."
       ],
       "downloadURL": null,
-      "independentAudit": "P5-Linux-standalone-four-core/independent-audit.json"
+      "independentAudit": "P5-Linux-standalone-four-core/independent-audit.json",
+      "finalPackageHashAndReportAudit": "PASS actual bytes; P5-final-package-verification/audit.json"
     },
     {
       "app": "database",
@@ -736,14 +883,14 @@
       "packageSha256": "9a3618b91f1c20c9cf78eed95a2cf7424e9eaa12a97563297d8de4ec6a80417c",
       "packageBytes": 119671288,
       "artifactBinding": {
-        "parentArtifact": 14824745492,
-        "preparationGit": "5d4198b7001c21cac7a03cf752900aac6e4dd91e",
-        "proofRun": 45190082427,
-        "proofJob": 137745922006,
-        "proofArtifact": 14825227335,
-        "proofZIPsha256": "3cc2dfcdbedc40d095dc25813148412680cc7ff6f7324299079dd436fffd8a9e"
+        "artifactId": 14824745492,
+        "member": "dist-installers/database/appimage/Open Database Studio_2026.48.1_amd64.AppImage",
+        "producerRun": 45177730188,
+        "attempt": 1,
+        "jobId": 137703365848,
+        "archiveSha256": "c64b0e90e2144d1a5a6d17ad7e4881429a70ade8c48e76f7a22858b54c3928c5"
       },
-      "signatureResult": "pending",
+      "signatureResult": "PASS detached OpenPGP actual payload and public-only CI verification; original package-report hash agrees",
       "installationWithoutSuite": "PASS in isolated app-only test host",
       "ownProfileIdentity": "PASS actual app identity/profile and payload-to-running ELF checks",
       "nativePreflight": "PASS actual native focus/input",
@@ -759,11 +906,14 @@
         "CI uses verified AppImage extraction/AppRun; physical FUSE mounting is not separately certified."
       ],
       "downloadURL": null,
-      "independentAudit": "P5-Linux-standalone-four-core/independent-audit.json"
+      "independentAudit": "P5-Linux-standalone-four-core/independent-audit.json",
+      "finalPackageHashAndReportAudit": "PASS actual bytes; P5-final-package-verification/audit.json"
     }
   ],
   "supersedesCandidate": "P4",
   "sourceDelta": "Two CI-only apt install commands; all app/core inputs unchanged; actual P5bytes still required.",
   "auditedBoundedCoreRoutesPassed": 12,
-  "stableReleaseReady": false
+  "stableReleaseReady": false,
+  "packageVerifierRun": 45352330223,
+  "packageVerifierReceipt": "P5-final-package-verification/raw/verification-receipt.json"
 }

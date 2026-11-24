@@ -1,0 +1,19 @@
+{
+  "platform": "windows",
+  "programma": "open-spreadsheet-studio",
+  "versie": "2026.48.1",
+  "pakketten": [
+    {
+      "naam": "Open Spreadsheet Studio_2026.48.1_x64-setup.exe",
+      "bytes": 384547072,
+      "sha256": "4ea3e47a3945cbd192d55911cf0ad3a7287dbe6c9bba5b33be08e8191a4c84a7",
+      "controles": [
+        "NSIS-archief leesbaar",
+        "programma en WebView2-loader x64",
+        "WebView2-bootstrapper aanwezig",
+        "installer- en programma-iconen bytegelijk aan goedgekeurde bron"
+      ]
+    }
+  ],
+  "installatie_en_native_bediening": "niet_gecontroleerd"
+}

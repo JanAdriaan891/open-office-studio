@@ -1,0 +1,19 @@
+{
+  "platform": "windows",
+  "programma": "open-writer-studio",
+  "versie": "2026.48.1",
+  "pakketten": [
+    {
+      "naam": "Open Writer Studio_2026.48.1_x64-setup.exe",
+      "bytes": 384569152,
+      "sha256": "2377b3a2b607445ac22842a5e6fdc27b46b8e41eb51319bed8c8e47b390fce42",
+      "controles": [
+        "NSIS-archief leesbaar",
+        "programma en WebView2-loader x64",
+        "WebView2-bootstrapper aanwezig",
+        "installer- en programma-iconen bytegelijk aan goedgekeurde bron"
+      ]
+    }
+  ],
+  "installatie_en_native_bediening": "niet_gecontroleerd"
+}

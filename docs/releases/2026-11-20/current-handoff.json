@@ -1,6 +1,6 @@
 {
   "schemaVersion": 3,
-  "asOfUTC": "2026-11-24T08:07:03.829891+00:00",
+  "asOfUTC": "2026-11-24T08:09:56.077481+00:00",
   "status": "RESUMED by explicit user instruction24November. Exact P5 app frozen; Mac native, targeted Windows and independent Linux/package audits running. Stable release readiness OPEN; no main/tag/publication authorized.",
   "date": "2026-11-24",
   "proposedVersion": "2026.48.1",
@@ -1424,6 +1424,13 @@
       "qa": "48e7de0f5c94a7bb8f5e723be6cfd6c383d8b2ae",
       "job": 138302964907,
       "status": "queued after strict inputreview; no native acceptance yet"
+    },
+    "PackageVerifierStatus": "SUCCESS + independent bounded raw-proof audit;28 actual installers/14 reports/14 Linux signatures/58 sums/15 public-only CI verifies, cleanup confirmed; no publication/native acceptance.",
+    "PackageVerifierArtifact": {
+      "id": 14900089777,
+      "bytes": 26500,
+      "sha256": "b88d02e19168ecb0bb60f0557ac44d643ca61779cfc9fb426c2517aac6218a53",
+      "audit": "P5-final-package-verification/audit.json"
     }
   }
 }
