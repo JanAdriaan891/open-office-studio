@@ -200,6 +200,7 @@ export const vasteSneltoetsen: readonly SneltoetsInfo[] = [
   tekstStandaard("Ctrl+Shift+B", "subscript"),
   tekstStandaard("Ctrl+D", "doubleUnderline"),
   tekstStandaard("Ctrl+M", "clearFormatting"),
+  tekst("F3", "insertAutoText"),
   tekst("Shift+F3", "changeCase"),
   tekst("Ctrl+Enter", "pageBreak"),
   tekst("Ctrl+F12", "insertTable"),

@@ -2023,5 +2023,65 @@
     "team": "Team",
     "groupEdit": "Selecteer een onderdeel om de tekst en opmaak te wijzigen. De groepsmaat schaalt alle onderdelen samen.",
     "unsupported": "Dit object bevat tekengegevens die hier niet veilig bewerkt kunnen worden. Ze blijven bij opslag behouden."
+  },
+  "autoText": {
+    "buildingBlocks": "Bouwstenen",
+    "hint": "Typ de naam en druk op {{key}} om een bouwsteen in te voegen",
+    "general": "Algemeen",
+    "empty": "Nog geen bouwstenen",
+    "emptyHelp": "Selecteer tekst en kies Invoegen › Bouwstenen › Selectie opslaan als bouwsteen.",
+    "saveSelection": "Selectie opslaan als bouwsteen…",
+    "manage": "Bouwstenen beheren…",
+    "saveTitle": "Nieuwe bouwsteen",
+    "name": "Naam",
+    "category": "Categorie",
+    "replace": "Vervangen",
+    "saveHint": "Typ later de naam in het document en druk op {{key}} om deze tekst met opmaak in te voegen.",
+    "exists": "Er is al een bouwsteen met deze naam; opslaan vervangt die.",
+    "skipped": "Afbeeldingen, tabellen en andere objecten in de selectie worden niet opgeslagen; alleen tekst met opmaak.",
+    "insert": "Invoegen",
+    "import": "Importeren…",
+    "export": "Exporteren",
+    "imported": "Geïmporteerd: {{number}}",
+    "fileName": "Bouwstenen",
+    "errors": {
+      "selectText": "Selecteer eerst de tekst die u als bouwsteen wilt bewaren.",
+      "import": "Dit bestand bevat geen geldige lijst.",
+      "noMatch": "Geen bouwsteen met de naam “{{name}}”.",
+      "typeName": "Typ de naam van een bouwsteen en druk dan op F3."
+    }
+  },
+  "autoCorrect": {
+    "button": "AutoCorrectie-opties",
+    "title": "AutoCorrectie",
+    "tabs": {
+      "replace": "Vervangen",
+      "exceptions": "Uitzonderingen",
+      "options": "Opties"
+    },
+    "language": "Taal",
+    "replace": "Vervangen",
+    "with": "Door",
+    "add": "Toevoegen",
+    "reset": "Standaardlijst van deze taal herstellen",
+    "noCapitalAfter": "Geen hoofdletter na",
+    "noCapitalAfterHint": "Afkortingen met een punt, zoals afb. of tel.",
+    "twoCapitals": "TWee HOofdletters toestaan",
+    "twoCapitalsHint": "Woorden die met twee hoofdletters moeten blijven staan.",
+    "removeItem": "{{item}} verwijderen",
+    "enabled": "Autocorrectie tijdens het typen",
+    "whileTyping": "Tijdens het typen",
+    "options": {
+      "tweeHoofdletters": "TWee HOofdletters aan het woordbegin corrigeren",
+      "zinsbegin": "Eerste letter van een zin als hoofdletter",
+      "vervangen": "Tekst vervangen tijdens het typen (vervangingstabel)",
+      "aanhalingstekens": "Slimme aanhalingstekens volgens de documenttaal („…” of “…”)",
+      "streepjes": "Streepjes vervangen (– en —)",
+      "rangtelwoorden": "Rangtelwoorden als superscript (1e, 2e; 1st, 2nd)",
+      "urls": "Internetadressen en e-mailadressen herkennen"
+    },
+    "undoHint": "Ctrl+Z direct na een correctie zet die terug.",
+    "importedHint": "Lijst geïmporteerd; kies OK om te bewaren.",
+    "fileName": "AutoCorrectie"
   }
 }

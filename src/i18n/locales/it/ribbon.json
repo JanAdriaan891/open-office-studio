@@ -335,7 +335,8 @@
       "dataEdge": "Vai al bordo dell'area dati",
       "extendToDataEdge": "Estendi la selezione fino al bordo dell'area dati",
       "lastUsedCell": "Vai all'ultima cella usata",
-      "extendToLastUsedCell": "Estendi la selezione fino all'ultima cella usata"
+      "extendToLastUsedCell": "Estendi la selezione fino all'ultima cella usata",
+      "insertAutoText": "Inserisci blocco predefinito (nome prima del cursore)"
     }
   },
   "spreadsheet": {

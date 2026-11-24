@@ -2037,5 +2037,65 @@
     "team": "Team",
     "groupEdit": "Select a part to edit its text and formatting. The group size scales all parts together.",
     "unsupported": "This object contains drawing features that cannot be safely edited here. They are preserved when saving."
+  },
+  "autoText": {
+    "buildingBlocks": "Blocos de construção",
+    "hint": "Digite o nome e pressione {{key}} para inserir um bloco",
+    "general": "Geral",
+    "empty": "Ainda não há blocos",
+    "emptyHelp": "Selecione o texto e escolha Inserir › Blocos de construção › Salvar seleção.",
+    "saveSelection": "Salvar seleção como bloco…",
+    "manage": "Gerenciar blocos…",
+    "saveTitle": "Novo bloco de construção",
+    "name": "Nome",
+    "category": "Categoria",
+    "replace": "Substituir",
+    "saveHint": "Depois, digite o nome no documento e pressione {{key}} para inserir este texto com a formatação.",
+    "exists": "Já existe um bloco com este nome; salvar o substitui.",
+    "skipped": "Imagens, tabelas e outros objetos da seleção não são salvos; apenas texto formatado.",
+    "insert": "Inserir",
+    "import": "Importar…",
+    "export": "Exportar",
+    "imported": "Importados: {{number}}",
+    "fileName": "Blocos de construção",
+    "errors": {
+      "selectText": "Selecione primeiro o texto que deseja salvar como bloco.",
+      "import": "Este arquivo não contém uma lista válida.",
+      "noMatch": "Nenhum bloco chamado “{{name}}”.",
+      "typeName": "Digite o nome de um bloco e pressione F3."
+    }
+  },
+  "autoCorrect": {
+    "button": "Opções de AutoCorreção",
+    "title": "AutoCorreção",
+    "tabs": {
+      "replace": "Substituir",
+      "exceptions": "Exceções",
+      "options": "Opções"
+    },
+    "language": "Idioma",
+    "replace": "Substituir",
+    "with": "Por",
+    "add": "Adicionar",
+    "reset": "Restaurar a lista padrão deste idioma",
+    "noCapitalAfter": "Sem maiúscula após",
+    "noCapitalAfterHint": "Abreviações com ponto, como fig. ou tel.",
+    "twoCapitals": "Permitir DUas MAiúsculas",
+    "twoCapitalsHint": "Palavras que devem manter duas maiúsculas iniciais.",
+    "removeItem": "Remover {{item}}",
+    "enabled": "AutoCorreção ao digitar",
+    "whileTyping": "Ao digitar",
+    "options": {
+      "tweeHoofdletters": "Corrigir DUas MAiúsculas iniciais",
+      "zinsbegin": "Primeira letra da frase em maiúscula",
+      "vervangen": "Substituir texto ao digitar (tabela de substituição)",
+      "aanhalingstekens": "Aspas inteligentes conforme o idioma do documento",
+      "streepjes": "Substituir travessões (– e —)",
+      "rangtelwoorden": "Ordinais sobrescritos (1st, 2nd)",
+      "urls": "Reconhecer endereços web e de e-mail"
+    },
+    "undoHint": "Ctrl+Z logo após uma correção a desfaz.",
+    "importedHint": "Lista importada; escolha OK para mantê-la.",
+    "fileName": "AutoCorreção"
   }
 }

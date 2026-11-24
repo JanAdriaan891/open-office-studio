@@ -335,7 +335,8 @@
       "dataEdge": "Move to the edge of the data region",
       "extendToDataEdge": "Extend the selection to the edge of the data region",
       "lastUsedCell": "Move to the last used cell",
-      "extendToLastUsedCell": "Extend the selection to the last used cell"
+      "extendToLastUsedCell": "Extend the selection to the last used cell",
+      "insertAutoText": "Insert building block (name before the cursor)"
     }
   },
   "spreadsheet": {

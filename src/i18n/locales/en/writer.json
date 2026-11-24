@@ -2023,5 +2023,65 @@
     "team": "Team",
     "groupEdit": "Select a part to edit its text and formatting. The group size scales all parts together.",
     "unsupported": "This object contains drawing features that cannot be safely edited here. They are preserved when saving."
+  },
+  "autoText": {
+    "buildingBlocks": "Building blocks",
+    "hint": "Type the name and press {{key}} to insert a building block",
+    "general": "General",
+    "empty": "No building blocks yet",
+    "emptyHelp": "Select text and choose Insert › Building blocks › Save selection as building block.",
+    "saveSelection": "Save selection as building block…",
+    "manage": "Manage building blocks…",
+    "saveTitle": "New building block",
+    "name": "Name",
+    "category": "Category",
+    "replace": "Replace",
+    "saveHint": "Later, type the name in the document and press {{key}} to insert this text with its formatting.",
+    "exists": "A building block with this name already exists; saving replaces it.",
+    "skipped": "Images, tables and other objects in the selection are not saved; only formatted text.",
+    "insert": "Insert",
+    "import": "Import…",
+    "export": "Export",
+    "imported": "Imported: {{number}}",
+    "fileName": "Building blocks",
+    "errors": {
+      "selectText": "First select the text you want to keep as a building block.",
+      "import": "This file does not contain a valid list.",
+      "noMatch": "No building block named “{{name}}”.",
+      "typeName": "Type the name of a building block, then press F3."
+    }
+  },
+  "autoCorrect": {
+    "button": "AutoCorrect options",
+    "title": "AutoCorrect",
+    "tabs": {
+      "replace": "Replace",
+      "exceptions": "Exceptions",
+      "options": "Options"
+    },
+    "language": "Language",
+    "replace": "Replace",
+    "with": "With",
+    "add": "Add",
+    "reset": "Restore the default list for this language",
+    "noCapitalAfter": "No capital after",
+    "noCapitalAfterHint": "Abbreviations ending in a full stop, such as fig. or tel.",
+    "twoCapitals": "Allow TWo INitial CApitals",
+    "twoCapitalsHint": "Words that should keep two initial capitals.",
+    "removeItem": "Remove {{item}}",
+    "enabled": "AutoCorrect while typing",
+    "whileTyping": "While typing",
+    "options": {
+      "tweeHoofdletters": "Correct TWo INitial CApitals",
+      "zinsbegin": "Capitalise the first letter of sentences",
+      "vervangen": "Replace text as you type (replacement table)",
+      "aanhalingstekens": "Smart quotes in the document language (“…” or „…”)",
+      "streepjes": "Replace dashes (– and —)",
+      "rangtelwoorden": "Ordinals as superscript (1st, 2nd; 1e, 2e)",
+      "urls": "Recognise web and e-mail addresses"
+    },
+    "undoHint": "Ctrl+Z right after a correction undoes it.",
+    "importedHint": "List imported; choose OK to keep it.",
+    "fileName": "AutoCorrect"
   }
 }

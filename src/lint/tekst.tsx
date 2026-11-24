@@ -100,6 +100,7 @@ import { SamenvoegenKnop } from "../tekst/samenvoegen/SamenvoegenKnop";
 import { VergelijkingKnop } from "../tekst/vergelijking/VergelijkingKnop";
 import { ZoekKnoppen } from "../tekst/zoeken/ZoekPaneel";
 import { WordHost } from "../tekst/WordHost";
+import { AutoCorrectieKnop, BouwsteenHost, BouwsteenMenu } from "../tekst/bouwstenen/Bouwstenen";
 import { Liniaal } from "../tekst/liniaal/Liniaal";
 import { WijzigingenGroepen } from "../tekst/wijzigingen/Wijzigingen";
 import { usePagina } from "../tekst/pagina/ui/usePagina";
@@ -653,6 +654,7 @@ export function TekstRibbon({
                     <DatumTijdKnop />
                   </div>
                   <VeldKnoppen />
+                  <BouwsteenMenu uit={!opdrachten.bewerkbaar} />
                 </Groep>
               </>
             ),
@@ -890,6 +892,7 @@ export function TekstRibbon({
               <>
                 <Groep naam={t("writer.groups.tools")}>
                   <WoordenTellen opdrachten={opdrachten} />
+                  <AutoCorrectieKnop />
                 </Groep>
                 <Groep naam={t("writer.groups.symbols")}>
                   <EigenKnop
@@ -908,6 +911,7 @@ export function TekstRibbon({
       />
       <TekstDialogen opdrachten={opdrachten} />
       <WordHost />
+      <BouwsteenHost />
       <Liniaal aan={liniaal} />
       <TekstStatus opdrachten={opdrachten} />
       <TekstInfo />

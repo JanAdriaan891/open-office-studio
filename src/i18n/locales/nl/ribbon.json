@@ -335,7 +335,8 @@
       "dataEdge": "Naar de rand van het gegevensblok",
       "extendToDataEdge": "Selectie uitbreiden tot de rand van het gegevensblok",
       "lastUsedCell": "Naar de laatst gebruikte cel",
-      "extendToLastUsedCell": "Selectie uitbreiden tot de laatst gebruikte cel"
+      "extendToLastUsedCell": "Selectie uitbreiden tot de laatst gebruikte cel",
+      "insertAutoText": "Bouwsteen invoegen (naam vóór de cursor)"
     }
   },
   "spreadsheet": {

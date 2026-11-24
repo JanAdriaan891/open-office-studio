@@ -335,7 +335,8 @@
       "dataEdge": "移到数据区域边缘",
       "extendToDataEdge": "将所选区域扩展到数据区域边缘",
       "lastUsedCell": "移到最后使用的单元格",
-      "extendToLastUsedCell": "将所选区域扩展到最后使用的单元格"
+      "extendToLastUsedCell": "将所选区域扩展到最后使用的单元格",
+      "insertAutoText": "插入构建基块（光标前的名称）"
     }
   },
   "spreadsheet": {

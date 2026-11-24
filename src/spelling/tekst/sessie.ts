@@ -14,7 +14,8 @@ import type { Controleur, Fout } from "../controleur";
 import { standaardTaal, type Taal, type TaalId } from "../talen";
 import { genegeerd, persoonlijk } from "../woordenlijst";
 import { alineatalenUitDocx, wijsTalenToe, type Alineatalen } from "./taal";
-import { autocorrectie } from "../autocorrectie";
+import { autocorrecties, standaardVervangingen, type Correctie } from "../autocorrectie";
+import { leesAutocorrectie, vervangingenVoor } from "../autocorrectieLijst";
 import { AlineaOffsets } from "./offsets";
 
 export interface PluginStaat {
@@ -618,34 +619,66 @@ export class SpellingSessie {
     const erna = Math.max(0, this.toetsen - volgnummer);
     const plek = cursor.offset - 1 - erna;
     if (plek < 0 || gelezen.tekst[plek] !== teken) return;
-    const c = autocorrectie(gelezen.tekst, plek + 1, {
-      taal: this.perId.get(cursor.paraId)?.taal ?? this.taalVanDocument(),
+    const taal = this.perId.get(cursor.paraId)?.taal ?? this.taalVanDocument();
+    const lijst = leesAutocorrectie();
+    const correcties = autocorrecties(gelezen.tekst, plek + 1, {
+      taal,
       uitzondering: (w) => persoonlijk.bevat(w) || genegeerd.bevat(w),
+      instellingen: lijst.opties,
+      vervangingen: taal === "geen" ? standaardVervangingen(taal) : vervangingenVoor(lijst, taal),
+      geenZinsbegin: lijst.geenZinsbegin,
+      tweeHoofdlettersToegestaan: lijst.tweeHoofdletters,
     });
-    if (!c) return;
+    if (!correcties.length) return;
+    const story = cursor.story;
+    const tekst = correcties.filter((c) => c.nieuw !== c.oud);
+    const opmaak = correcties.filter((c) => c.opmaak);
+    const stappen: DocxEditStep[] = tekst.map((c) => ({
+      op: "replaceText",
+      target: {
+        kind: "range",
+        story,
+        start: { paraId: cursor.paraId, offset: c.start },
+        end: { paraId: cursor.paraId, offset: c.eind },
+        view: "accepted",
+      },
+      text: c.nieuw,
+      expect: { text: c.oud },
+    }));
+    if (opmaak.length) this.pasOpmaakToe(story, cursor.paraId, gelezen.tekst.length, opmaak);
+    if (!stappen.length) return;
+    // Van rechts naar links: de offsets van eerdere stappen blijven kloppen.
     void edits
-      .applyEdits({
-        expectVersion: gelezen.versie,
-        steps: [
-          {
-            op: "replaceText",
-            target: {
-              kind: "range",
-              story: cursor.story,
-              start: { paraId: cursor.paraId, offset: c.start },
-              end: { paraId: cursor.paraId, offset: c.eind },
-              view: "accepted",
-            },
-            text: c.nieuw,
-            expect: { text: c.oud },
-          },
-        ],
-      })
+      .applyEdits({ expectVersion: gelezen.versie, steps: stappen })
       .then((uit) => {
         const code = !uit.ok ? (uit as { failure?: { code?: string } }).failure?.code : null;
         if (code === "stale-version") this.autocorrigeer(teken, volgnummer, poging + 1);
       })
       .catch(() => {});
+  }
+
+  /**
+   * Superscript (1e) of een koppeling (URL) als één ongedaan-maakstap via de
+   * Yrs-sessie. Alleen zonder bijgehouden wijzigingen in de alinea, want dan
+   * zijn geaccepteerde en sessie-offsets gelijk.
+   */
+  private pasOpmaakToe(story: string, paraId: string, lengte: number, correcties: Correctie[]) {
+    const ed = this.editor()?.getEditorRef();
+    const sessie = ed?.getYrsSession();
+    if (!ed || !sessie || this.afwijkendeSegmenten(story, paraId, lengte)) return;
+    try {
+      sessie.beginUndoCapture();
+      sessie.addUndoBoundary();
+      for (const c of correcties) {
+        const bereik = { story, start: { paraId, offset: c.start }, end: { paraId, offset: c.eind } };
+        if (c.opmaak?.soort === "superscript") sessie.formatRange(bereik, { other: { superscript: true } });
+        else if (c.opmaak?.soort === "koppeling") sessie.setHyperlink(bereik, { href: c.opmaak.href });
+      }
+      sessie.addUndoBoundary();
+      ed.syncYrsInputState(true, [story]);
+    } catch {
+      // Opmaak is een gemak; een weigering van de engine laat de tekst staan.
+    }
   }
 
   // --- rechtermuismenu ---

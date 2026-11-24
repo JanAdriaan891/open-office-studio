@@ -335,7 +335,8 @@
       "dataEdge": "Aller au bord de la zone de données",
       "extendToDataEdge": "Étendre la sélection jusqu'au bord de la zone de données",
       "lastUsedCell": "Aller à la dernière cellule utilisée",
-      "extendToLastUsedCell": "Étendre la sélection jusqu'à la dernière cellule utilisée"
+      "extendToLastUsedCell": "Étendre la sélection jusqu'à la dernière cellule utilisée",
+      "insertAutoText": "Insérer un bloc de construction (nom avant le curseur)"
     }
   },
   "spreadsheet": {

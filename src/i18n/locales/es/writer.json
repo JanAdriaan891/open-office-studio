@@ -2037,5 +2037,65 @@
     "team": "Team",
     "groupEdit": "Select a part to edit its text and formatting. The group size scales all parts together.",
     "unsupported": "This object contains drawing features that cannot be safely edited here. They are preserved when saving."
+  },
+  "autoText": {
+    "buildingBlocks": "Bloques de creación",
+    "hint": "Escriba el nombre y pulse {{key}} para insertar un bloque",
+    "general": "General",
+    "empty": "Aún no hay bloques",
+    "emptyHelp": "Seleccione texto y elija Insertar › Bloques de creación › Guardar selección.",
+    "saveSelection": "Guardar selección como bloque…",
+    "manage": "Administrar bloques…",
+    "saveTitle": "Nuevo bloque de creación",
+    "name": "Nombre",
+    "category": "Categoría",
+    "replace": "Reemplazar",
+    "saveHint": "Más tarde, escriba el nombre en el documento y pulse {{key}} para insertar este texto con su formato.",
+    "exists": "Ya existe un bloque con este nombre; guardar lo reemplaza.",
+    "skipped": "Las imágenes, tablas y otros objetos de la selección no se guardan; solo texto con formato.",
+    "insert": "Insertar",
+    "import": "Importar…",
+    "export": "Exportar",
+    "imported": "Importados: {{number}}",
+    "fileName": "Bloques de creación",
+    "errors": {
+      "selectText": "Seleccione primero el texto que desea guardar como bloque.",
+      "import": "Este archivo no contiene una lista válida.",
+      "noMatch": "No hay ningún bloque llamado «{{name}}».",
+      "typeName": "Escriba el nombre de un bloque y pulse F3."
+    }
+  },
+  "autoCorrect": {
+    "button": "Opciones de autocorrección",
+    "title": "Autocorrección",
+    "tabs": {
+      "replace": "Reemplazar",
+      "exceptions": "Excepciones",
+      "options": "Opciones"
+    },
+    "language": "Idioma",
+    "replace": "Reemplazar",
+    "with": "Por",
+    "add": "Agregar",
+    "reset": "Restaurar la lista predeterminada de este idioma",
+    "noCapitalAfter": "Sin mayúscula después de",
+    "noCapitalAfterHint": "Abreviaturas con punto, como fig. o tel.",
+    "twoCapitals": "Permitir DOs MAyúsculas",
+    "twoCapitalsHint": "Palabras que deben conservar dos mayúsculas iniciales.",
+    "removeItem": "Quitar {{item}}",
+    "enabled": "Autocorrección al escribir",
+    "whileTyping": "Al escribir",
+    "options": {
+      "tweeHoofdletters": "Corregir DOs MAyúsculas iniciales",
+      "zinsbegin": "Mayúscula al principio de cada oración",
+      "vervangen": "Reemplazar texto al escribir (tabla de reemplazo)",
+      "aanhalingstekens": "Comillas tipográficas según el idioma del documento",
+      "streepjes": "Reemplazar guiones (– y —)",
+      "rangtelwoorden": "Ordinales en superíndice (1st, 2nd)",
+      "urls": "Reconocer direcciones web y de correo"
+    },
+    "undoHint": "Ctrl+Z justo después de una corrección la deshace.",
+    "importedHint": "Lista importada; elija Aceptar para guardarla.",
+    "fileName": "Autocorrección"
   }
 }

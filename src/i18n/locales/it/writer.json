@@ -2037,5 +2037,65 @@
     "team": "Team",
     "groupEdit": "Select a part to edit its text and formatting. The group size scales all parts together.",
     "unsupported": "This object contains drawing features that cannot be safely edited here. They are preserved when saving."
+  },
+  "autoText": {
+    "buildingBlocks": "Blocchi predefiniti",
+    "hint": "Digita il nome e premi {{key}} per inserire un blocco",
+    "general": "Generale",
+    "empty": "Ancora nessun blocco",
+    "emptyHelp": "Seleziona il testo e scegli Inserisci › Blocchi predefiniti › Salva selezione.",
+    "saveSelection": "Salva selezione come blocco…",
+    "manage": "Gestisci blocchi…",
+    "saveTitle": "Nuovo blocco predefinito",
+    "name": "Nome",
+    "category": "Categoria",
+    "replace": "Sostituisci",
+    "saveHint": "In seguito digita il nome nel documento e premi {{key}} per inserire questo testo con la formattazione.",
+    "exists": "Esiste già un blocco con questo nome; il salvataggio lo sostituisce.",
+    "skipped": "Immagini, tabelle e altri oggetti nella selezione non vengono salvati; solo testo formattato.",
+    "insert": "Inserisci",
+    "import": "Importa…",
+    "export": "Esporta",
+    "imported": "Importati: {{number}}",
+    "fileName": "Blocchi predefiniti",
+    "errors": {
+      "selectText": "Seleziona prima il testo da salvare come blocco.",
+      "import": "Questo file non contiene un elenco valido.",
+      "noMatch": "Nessun blocco denominato «{{name}}».",
+      "typeName": "Digita il nome di un blocco e premi F3."
+    }
+  },
+  "autoCorrect": {
+    "button": "Opzioni di correzione automatica",
+    "title": "Correzione automatica",
+    "tabs": {
+      "replace": "Sostituisci",
+      "exceptions": "Eccezioni",
+      "options": "Opzioni"
+    },
+    "language": "Lingua",
+    "replace": "Sostituisci",
+    "with": "Con",
+    "add": "Aggiungi",
+    "reset": "Ripristina l’elenco predefinito di questa lingua",
+    "noCapitalAfter": "Nessuna maiuscola dopo",
+    "noCapitalAfterHint": "Abbreviazioni con il punto, come fig. o tel.",
+    "twoCapitals": "Consenti DUe MAiuscole",
+    "twoCapitalsHint": "Parole che devono mantenere due maiuscole iniziali.",
+    "removeItem": "Rimuovi {{item}}",
+    "enabled": "Correzione automatica durante la digitazione",
+    "whileTyping": "Durante la digitazione",
+    "options": {
+      "tweeHoofdletters": "Correggi DUe MAiuscole iniziali",
+      "zinsbegin": "Maiuscola a inizio frase",
+      "vervangen": "Sostituisci il testo durante la digitazione (tabella)",
+      "aanhalingstekens": "Virgolette tipografiche secondo la lingua del documento",
+      "streepjes": "Sostituisci trattini (– e —)",
+      "rangtelwoorden": "Ordinali in apice (1st, 2nd)",
+      "urls": "Riconosci indirizzi web ed e-mail"
+    },
+    "undoHint": "Ctrl+Z subito dopo una correzione la annulla.",
+    "importedHint": "Elenco importato; scegli OK per salvarlo.",
+    "fileName": "Correzione automatica"
   }
 }
