@@ -1,8 +1,8 @@
 {
   "schemaVersion": 3,
-  "asOfUTC": "2026-11-23T14:59:24.127842+00:00",
-  "status": "STOPPED by explicit user request before16:00CET23November. All new work and unused go revoked; resume only on new user instruction24November. Stable release NOT ready. Existing remote Mac/375/WRI jobs may finish unattended; exact source/results/limits preserved.",
-  "date": "2026-11-23",
+  "asOfUTC": "2026-11-24T08:01:19.173973+00:00",
+  "status": "RESUMED by explicit user instruction24November. Exact P5 app frozen; Mac native, targeted Windows and independent Linux/package audits running. Stable release readiness OPEN; no main/tag/publication authorized.",
+  "date": "2026-11-24",
   "proposedVersion": "2026.48.1",
   "intermediateWindowsSource": "3a0decac3d45234d4b4d487e431b21cff961ccca",
   "intermediateWindowsTree": "e46b8faed3ca6b468e71a4d0d77b6dc8ce259360",
@@ -1180,10 +1180,16 @@
       "rawBase64": "unchanged original bytes",
       "value": "JSON parsed from those exact bytes"
     },
-    "finalMacArtifact": null,
+    "finalMacArtifact": {
+      "id": 14836145077,
+      "bytes": 1972148013,
+      "sha256": "45a88b40325f516e91b0b4cb557b88fd2a81d62bde2e4be26dc87bd1b55ff015",
+      "sourceWitnessSha256": "236085a316b40b2e5033316a3e3ed45f91cb9a27e83d518117160ba4aff4e7d5"
+    },
     "nativeAccepted": false,
     "noSecondOldMacRetry": true,
-    "automaticFollowupAllowed": false
+    "automaticFollowupAllowed": false,
+    "producerStatus": "completed SUCCESS; no native acceptance inferred"
   },
   "P5LinuxStandaloneAcceptance": {
     "matrix": "P5-standalone-matrix.json",
@@ -1202,7 +1208,13 @@
       "sha256": "9cc7f012da9f63a1d7b9717bad4aef04c4257de0418fb1370d277e12e128411e",
       "expires": "2027-02-21",
       "downloadedAndAuditedAtStop": false,
-      "oldFailuresRemainOpen": true
+      "oldFailuresRemainOpen": true,
+      "audit24November": {
+        "status": "PASS bounded existing scenarios",
+        "commit": "fd7733338433a2803c4f3de7d27041dcf20336b6",
+        "sha256": "372286407d245224c307736a359d64df1aebe4054b3df9ff865a54238b3e2036",
+        "previousFailureCause": "OPEN; success is not a demonstrated cause/fix"
+      }
     }
   },
   "P5LinuxSuiteAcceptance": {
@@ -1363,6 +1375,38 @@
       "FutureWRI": "2fcad26a724b834dc2c4f8e13d881162312abf76"
     },
     "allOwnersReportedStopped": true,
-    "rootNoLocalGuiCaptureOrPersistentWatcherStarted": true
+    "rootNoLocalGuiCaptureOrPersistentWatcherStarted": true,
+    "supersededByNewUserInstruction": "2026-11-24: resume existing release preparation only; historical23November stop and receipts retained."
+  },
+  "userResume20261124": {
+    "authorized": true,
+    "application": {
+      "commit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+      "tree": "e30879fd772871e690847c061ef66e6b81808a05",
+      "version": "2026.48.1"
+    },
+    "newFeaturesAllowed": false,
+    "mainWritesAllowed": false,
+    "publicationAllowed": false,
+    "report": "RESUMED-2026-11-24.md",
+    "MacNativeRun": 45351696628,
+    "MacQA": "03477b0199daeb50ae7b20d552b111630c3271ce",
+    "MacPrepJob": 138299734385,
+    "MacPrep": "SUCCESS whole parent/hash/source witness; actual native results pending",
+    "MacNativeHostsInProgress": [
+      138300391320,
+      138300391279,
+      138300391259
+    ],
+    "WindowsTargetedRun": 45352319983,
+    "WindowsQA": "97710e2ba22d0939ef121fdebb18dec43ed2df9d",
+    "WindowsScope": "Four missing app cores plus short377; child-only reuse, no parent download",
+    "WindowsSuite374": "750b resumed targeted SaveAs; no new run reported yet",
+    "LinuxSpreadsheetLatestAudit": "PASS fd7733338433a2803c4f3de7d27041dcf20336b6; previous invalid-session cause unproven, old failures retained",
+    "LinuxSuiteIndependentAudit": "Resumed from incomplete checkpoint, final result pending",
+    "PackageVerifierRun": 45352330223,
+    "PackageVerifierQA": "618beafb98b060a0fdd6da13f59ada8841425abc",
+    "PackageVerifierSourceReview": "Root accepted exact separate Mac producer, frozen attempt endpoints and platform-specific private runtime gates;24 tests PASS. Actual archive/signature checks in progress.",
+    "stableReleaseReady": false
   }
 }

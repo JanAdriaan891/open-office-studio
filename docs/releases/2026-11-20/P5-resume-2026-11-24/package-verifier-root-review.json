@@ -1,0 +1,62 @@
+{
+  "qaCommit": "d8b0f05698849bdedb1af67f3f2188b0a18de7d5",
+  "tests": 24,
+  "producerBindings": [
+    {
+      "platform": "Windows",
+      "producerRun": 45177730188,
+      "job": 137703365803,
+      "attempt": 1,
+      "artifact": 14828525724,
+      "bytes": 2037941610,
+      "digest": "sha256:24816ccb20360bbfc976abf38810988dfe4b27a3305c80d5b80b711719587e0d",
+      "expires": "2027-02-21T12:48:08Z"
+    },
+    {
+      "platform": "Linux",
+      "producerRun": 45177730188,
+      "job": 137703365848,
+      "attempt": 1,
+      "artifact": 14824745492,
+      "bytes": 4444993178,
+      "digest": "sha256:c64b0e90e2144d1a5a6d17ad7e4881429a70ade8c48e76f7a22858b54c3928c5",
+      "expires": "2027-02-21T12:48:08Z"
+    },
+    {
+      "platform": "macOS",
+      "producerRun": 45195055147,
+      "job": 137763371873,
+      "attempt": 1,
+      "artifact": 14836145077,
+      "bytes": 1972148013,
+      "digest": "sha256:45a88b40325f516e91b0b4cb557b88fd2a81d62bde2e4be26dc87bd1b55ff015",
+      "expires": "2027-02-21T14:31:07Z"
+    }
+  ],
+  "macSourceWitness": {
+    "member": ".local/macos-only-producer-source.json",
+    "sha256": "236085a316b40b2e5033316a3e3ed45f91cb9a27e83d518117160ba4aff4e7d5",
+    "bytes": 820,
+    "witness": {
+      "appHead": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+      "appTree": "e30879fd772871e690847c061ef66e6b81808a05",
+      "appVersion": "2026.48.1",
+      "producerHead": "2af94cdcefa3e88e4980b631d16a88d7d7de5ae8",
+      "producerWorkflowHead": "2af94cdcefa3e88e4980b631d16a88d7d7de5ae8",
+      "producerRef": "refs/heads/codex/p5-macos-only-producer-20261123",
+      "producerWorkflowRef": "OpenAEC-Foundation/open-office-studio/.github/workflows/release.yml@refs/heads/codex/p5-macos-only-producer-20261123",
+      "event": "workflow_dispatch",
+      "runId": "45195055147",
+      "attempt": "1",
+      "job": "bouwen",
+      "checkoutWorkflowSha256": "620e90485493163b87163a8763ffbbfcc2f0af5f03251b592af577721c5a9c64",
+      "publiceren": "false",
+      "nativeAccepted": false,
+      "scope": "Build-only producer/source binding; no native operation or publication"
+    }
+  },
+  "nativeAccepted": false,
+  "publication": false,
+  "mainWrites": false,
+  "scope": "Root source/gate/input review; actual parent bytes and signatures pending CI"
+}

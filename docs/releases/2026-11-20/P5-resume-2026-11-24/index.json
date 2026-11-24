@@ -1,0 +1,42 @@
+{
+  "asOfUTC": "2026-11-24T08:01:19.173973+00:00",
+  "files": [
+    {
+      "path": "package-verifier-root-review.json",
+      "bytes": 2347,
+      "sha256": "8e0cbc5ad7748eac393e480af50fdaf7db19be41e06d7997fd0acff9bb144ed3"
+    },
+    {
+      "path": "parent-receipt-metadata.json",
+      "bytes": 761,
+      "sha256": "f2e3b19a9285e6e865051c12347d7d83beb567337efb7378664711d5facf0732"
+    },
+    {
+      "path": "producer-45177730188-attempt1.json",
+      "bytes": 69525,
+      "sha256": "ef27db3f7054611f267b85924ec1b3d1ff6e21f34b565be8748cb293a7875ea1"
+    },
+    {
+      "path": "producer-45195055147-attempt1.json",
+      "bytes": 36665,
+      "sha256": "0993da4f5f68091f22d7896c0972647e38911dbcb1733be9955915dcdf31f4fb"
+    },
+    {
+      "path": "producer-receipt.json",
+      "bytes": 36350,
+      "sha256": "e847d35112081f101a03d7707903d2cd8dbb550d355b3a841c04b2b7ddd9be07"
+    },
+    {
+      "path": "suite-descriptor-metadata.json",
+      "bytes": 803,
+      "sha256": "0e63a4b0c15ac1f12b9d9890e97958350420f8a229466e2a61e1f7e844e2ff94"
+    },
+    {
+      "path": "suite-support-descriptor.json",
+      "bytes": 5589,
+      "sha256": "d3de8d84f08ad02ba20ee8b757df2b30c2737e6c907d2f9ae2c5c08515cda02c"
+    }
+  ],
+  "nativeAcceptance": false,
+  "publication": false
+}
