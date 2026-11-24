@@ -1,6 +1,6 @@
 {
   "schemaVersion": 3,
-  "asOfUTC": "2026-11-24T08:01:19.173973+00:00",
+  "asOfUTC": "2026-11-24T08:07:03.829891+00:00",
   "status": "RESUMED by explicit user instruction24November. Exact P5 app frozen; Mac native, targeted Windows and independent Linux/package audits running. Stable release readiness OPEN; no main/tag/publication authorized.",
   "date": "2026-11-24",
   "proposedVersion": "2026.48.1",
@@ -34,7 +34,7 @@
     "VersionFreezePipelineIntegrationAndReadiness": "root",
     "LinuxNativeXLSB": "d410;377sourcefixdone, shortnative377retestpreparedawaitingnewpackage",
     "STWVisualTriageAndBrowser": "9d3b; Windows operator750b only",
-    "NextFormatUOT": "e0d7; ETT/DPS/DPT reports completed; exclusive SDW source-oracle QA on P2 outside P5.",
+    "NextFormatUOT": "e0d7: WRI7ba542fa complete; exclusive WPDWordPerfect6/lo-wpd-1 QA on P2 outsideP5, no new other variants.",
     "FuturePresentation78": "0c73; 78/87 retained for future integration; 375 independent bounded source-build witness outside P5"
   },
   "MacCriticalPath": {
@@ -1244,7 +1244,13 @@
     },
     "fullSuiteAllAxesOrOtherPlatformsAccepted": false,
     "finalOwnerProofCommit": "0810c25bc0532e12ab44e87635668faa33ef4ca5",
-    "finalIndependentAudit": "STOPPED INCOMPLETE; P5-Linux-Suite-final-audit/stopped-checkpoint.json. Owner PASS retained separately, no independent whole-suite pass."
+    "finalIndependentAudit": "PASS bounded completed scopes; full ribbon/native matrix PARTIAL. P5-Linux-Suite-final-audit/completed-2026-11-24/final-audit.json SHAa8436cf9237b60785a90ae17650b4de24729739109190f26c302966fd0585c1b.",
+    "independentAuditLimitations": [
+      "Six genuine disabled-Delete states unavailable",
+      "Four horizontal group-clipping observations; strict vertical checks pass",
+      "Six normal native AltF4 closes; two independent scopes close through WebDriver cleanup",
+      "No physicalFUSE/fulltypography/fullSTWroute certification; original failed jobs remain failed"
+    ]
   },
   "P5WindowsNativeProgress": {
     "preparerRun": 45195780472,
@@ -1401,12 +1407,23 @@
     "WindowsTargetedRun": 45352319983,
     "WindowsQA": "97710e2ba22d0939ef121fdebb18dec43ed2df9d",
     "WindowsScope": "Four missing app cores plus short377; child-only reuse, no parent download",
-    "WindowsSuite374": "750b resumed targeted SaveAs; no new run reported yet",
+    "WindowsSuite374": {
+      "run": 45352763316,
+      "qa": "f5363ce8cb0160190b3e4f75a305b8f72fbb239f",
+      "scope": "Targeted SaveAs A/B and actual filename/focus/path diagnostics; no new appbuild/parentdownload",
+      "status": "started, results pending"
+    },
     "LinuxSpreadsheetLatestAudit": "PASS fd7733338433a2803c4f3de7d27041dcf20336b6; previous invalid-session cause unproven, old failures retained",
-    "LinuxSuiteIndependentAudit": "Resumed from incomplete checkpoint, final result pending",
+    "LinuxSuiteIndependentAudit": "Completed PASS bounded; full ribbon matrix PARTIAL, historical failures and limits preserved.",
     "PackageVerifierRun": 45352330223,
     "PackageVerifierQA": "618beafb98b060a0fdd6da13f59ada8841425abc",
     "PackageVerifierSourceReview": "Root accepted exact separate Mac producer, frozen attempt endpoints and platform-specific private runtime gates;24 tests PASS. Actual archive/signature checks in progress.",
-    "stableReleaseReady": false
+    "stableReleaseReady": false,
+    "MacSuite": {
+      "run": 45352741879,
+      "qa": "48e7de0f5c94a7bb8f5e723be6cfd6c383d8b2ae",
+      "job": 138302964907,
+      "status": "queued after strict inputreview; no native acceptance yet"
+    }
   }
 }

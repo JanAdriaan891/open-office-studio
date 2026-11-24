@@ -1,0 +1,77 @@
+{
+  "status": "passed source-consumer/cached-parent-child-API and shared-verifier bindings",
+  "rows": [
+    {
+      "scope": "core",
+      "consumerGit": "e230df9ee4a019db01368d93689893fb2b03d245",
+      "consumerPath": "scripts/linux-suite-native-package.py",
+      "consumerSha256": "72ce91de3fc89c563148a58f6e7839b4ce300d085912b43c18ffc39a9a425c46",
+      "cachedAPIBindingsSHA": "21dca29b8428b55ddb501a8039dfb5432099ae2ad7d1a97965b54565204f948e",
+      "parentRunConclusionAsOriginallyCaptured": null,
+      "linuxProducerJobConclusion": "success",
+      "inputProducerConclusion": "success",
+      "canonicalArtifact": 14824745492,
+      "childArtifact": 14823809980,
+      "sharedVerifierReceiptPresentAndBound": false,
+      "identityAndELFCheckedAgainstBoundReceipt": true
+    },
+    {
+      "scope": "appimage-missing",
+      "consumerGit": "55a651186c35bde2937a1a8c529c4c2c984d0085",
+      "consumerPath": "scripts/linux-suite-native-package.py",
+      "consumerSha256": "5f7c9f0cd54f6593cf939b1eb85a9e1444cde9f47b3da34527b02b28804edb6f",
+      "cachedAPIBindingsSHA": "0789ecb1792100659fe173819f08e3d807326a1a14ac351d13765b7477d02765",
+      "parentRunConclusionAsOriginallyCaptured": null,
+      "linuxProducerJobConclusion": "success",
+      "inputProducerConclusion": "success",
+      "canonicalArtifact": 14824745492,
+      "childArtifact": 14823914781,
+      "sharedVerifierReceiptPresentAndBound": true,
+      "identityAndELFCheckedAgainstBoundReceipt": true
+    },
+    {
+      "scope": "appimage-positive",
+      "consumerGit": "55a651186c35bde2937a1a8c529c4c2c984d0085",
+      "consumerPath": "scripts/linux-suite-native-package.py",
+      "consumerSha256": "5f7c9f0cd54f6593cf939b1eb85a9e1444cde9f47b3da34527b02b28804edb6f",
+      "cachedAPIBindingsSHA": "0789ecb1792100659fe173819f08e3d807326a1a14ac351d13765b7477d02765",
+      "parentRunConclusionAsOriginallyCaptured": null,
+      "linuxProducerJobConclusion": "success",
+      "inputProducerConclusion": "success",
+      "canonicalArtifact": 14824745492,
+      "childArtifact": 14823914781,
+      "sharedVerifierReceiptPresentAndBound": true,
+      "identityAndELFCheckedAgainstBoundReceipt": true
+    },
+    {
+      "scope": "deb-positive",
+      "consumerGit": "80f85a5cb4ae536f1bf7248fbe4cfeeb2653d7d4",
+      "consumerPath": "scripts/linux-suite-native-package.py",
+      "consumerSha256": "5f7c9f0cd54f6593cf939b1eb85a9e1444cde9f47b3da34527b02b28804edb6f",
+      "cachedAPIBindingsSHA": "21dca29b8428b55ddb501a8039dfb5432099ae2ad7d1a97965b54565204f948e",
+      "parentRunConclusionAsOriginallyCaptured": null,
+      "linuxProducerJobConclusion": "success",
+      "inputProducerConclusion": "success",
+      "canonicalArtifact": 14824745492,
+      "childArtifact": 14823809980,
+      "sharedVerifierReceiptPresentAndBound": true,
+      "identityAndELFCheckedAgainstBoundReceipt": true
+    },
+    {
+      "scope": "deb-missing",
+      "consumerGit": "332aa081b7579b39cb39f0499b9d0669b4a3d239",
+      "consumerPath": "scripts/linux-suite-native-package.py",
+      "consumerSha256": "5f7c9f0cd54f6593cf939b1eb85a9e1444cde9f47b3da34527b02b28804edb6f",
+      "cachedAPIBindingsSHA": "0d445091eb2f9ac4804231dc701d83d63e153bff33455b20eac2b6c9c9bac207",
+      "parentRunConclusionAsOriginallyCaptured": "failure",
+      "linuxProducerJobConclusion": "success",
+      "inputProducerConclusion": "success",
+      "canonicalArtifact": 14824745492,
+      "childArtifact": 14823809980,
+      "sharedVerifierReceiptPresentAndBound": true,
+      "identityAndELFCheckedAgainstBoundReceipt": true
+    }
+  ],
+  "noDownloadOrInstallerExecution": true,
+  "coreEarlierConsumerHasNoSeparateSharedVerifierReceipt": true
+}

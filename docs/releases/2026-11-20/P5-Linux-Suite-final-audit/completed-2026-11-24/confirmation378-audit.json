@@ -1,0 +1,174 @@
+[
+  {
+    "scope": "appimage-missing",
+    "status": "passed bounded negative",
+    "error": "ErrorSaving failed: Linux requires Zenity for native confirmation dialogs. Install the zenity package and try again.",
+    "unchangedTargetSha256": "e8622b73654da503d1f273707557d631b0b5b5bcc90eb281d94c235c4fd048f2",
+    "rows": [
+      [
+        "alpha",
+        "external_beta",
+        ""
+      ],
+      [
+        "",
+        "",
+        "omega"
+      ],
+      [
+        "delta",
+        "",
+        ""
+      ]
+    ],
+    "retainedWorkingCells": [
+      "Qalpha",
+      "beta",
+      "",
+      "",
+      "",
+      "omega",
+      "delta",
+      "",
+      ""
+    ],
+    "environment": "Actual host has no Zenity before documented runtime installation",
+    "initialHostHelper": null,
+    "dirtyDocumentClosedThroughActualUI": true
+  },
+  {
+    "scope": "appimage-positive",
+    "status": "passed bounded positive",
+    "originalOverallReportStatus": "passed bounded native confirm378-present",
+    "cancelTargetSHAunchangedAtAction": "e8622b73654da503d1f273707557d631b0b5b5bcc90eb281d94c235c4fd048f2",
+    "savedSHA": "6c08bd0c5d83b1aa825de717111fa0c53a283eac56914c57eb552a8153380827",
+    "rows": [
+      [
+        "Qalpha",
+        "beta",
+        ""
+      ],
+      [
+        "",
+        "",
+        "omega"
+      ],
+      [
+        "delta",
+        "",
+        ""
+      ]
+    ],
+    "originalPid": 5560,
+    "reopenedPid": 5800,
+    "confirmationBindings": [
+      {
+        "officePid": 5560,
+        "zenityPid": 5662,
+        "executableSha256": "6fd084e86c386cd1d5036b490044dee514021e1bc25af7ec83041a7ac59d872d",
+        "startTime": "28703",
+        "xid": "16777224",
+        "sameAppEnvironment": true,
+        "action": "native Escape Cancel",
+        "dialogSha256": "e70d6b424bf3d5d2ec6c7fe61052b62edb61c64be66756e4be592fed844202cd"
+      },
+      {
+        "officePid": 5560,
+        "zenityPid": 5722,
+        "executableSha256": "6fd084e86c386cd1d5036b490044dee514021e1bc25af7ec83041a7ac59d872d",
+        "startTime": "29069",
+        "xid": "16777224",
+        "sameAppEnvironment": true,
+        "action": "native pointer Overwrite",
+        "dialogSha256": "e70d6b424bf3d5d2ec6c7fe61052b62edb61c64be66756e4be592fed844202cd"
+      }
+    ],
+    "cancelCheckLimit": "Cancelled external target hash is a time-of-action receipt in the immutable successful positive trace; final target correctly contains the later confirmed overwrite."
+  },
+  {
+    "scope": "deb-positive",
+    "status": "passed bounded positive",
+    "originalOverallReportStatus": "failed",
+    "cancelTargetSHAunchangedAtAction": "e8622b73654da503d1f273707557d631b0b5b5bcc90eb281d94c235c4fd048f2",
+    "savedSHA": "cd0b01f76412f34c91b9013fb2c2874b9b7b2bec164727ea2b9a522b36b65ffe",
+    "rows": [
+      [
+        "Qalpha",
+        "beta",
+        ""
+      ],
+      [
+        "",
+        "",
+        "omega"
+      ],
+      [
+        "delta",
+        "",
+        ""
+      ]
+    ],
+    "originalPid": 23777,
+    "reopenedPid": 24005,
+    "confirmationBindings": [
+      {
+        "officePid": 23777,
+        "zenityPid": 23870,
+        "executableSha256": "6fd084e86c386cd1d5036b490044dee514021e1bc25af7ec83041a7ac59d872d",
+        "startTime": "104423",
+        "xid": "16777224",
+        "sameAppEnvironment": true,
+        "action": "native Escape Cancel",
+        "dialogSha256": "e70d6b424bf3d5d2ec6c7fe61052b62edb61c64be66756e4be592fed844202cd"
+      },
+      {
+        "officePid": 23777,
+        "zenityPid": 23931,
+        "executableSha256": "6fd084e86c386cd1d5036b490044dee514021e1bc25af7ec83041a7ac59d872d",
+        "startTime": "104887",
+        "xid": "16777224",
+        "sameAppEnvironment": true,
+        "action": "native pointer Overwrite",
+        "dialogSha256": "e70d6b424bf3d5d2ec6c7fe61052b62edb61c64be66756e4be592fed844202cd"
+      }
+    ],
+    "cancelCheckLimit": "Cancelled external target hash is a time-of-action receipt in the immutable successful positive trace; final target correctly contains the later confirmed overwrite."
+  },
+  {
+    "scope": "deb-missing",
+    "status": "passed bounded negative",
+    "error": "ErrorSaving failed: Linux requires Zenity for native confirmation dialogs. Install the zenity package and try again.",
+    "unchangedTargetSha256": "e8622b73654da503d1f273707557d631b0b5b5bcc90eb281d94c235c4fd048f2",
+    "rows": [
+      [
+        "alpha",
+        "external_beta",
+        ""
+      ],
+      [
+        "",
+        "",
+        "omega"
+      ],
+      [
+        "delta",
+        "",
+        ""
+      ]
+    ],
+    "retainedWorkingCells": [
+      "Qalpha",
+      "beta",
+      "",
+      "",
+      "",
+      "omega",
+      "delta",
+      "",
+      ""
+    ],
+    "environment": "Only app child PATH cannot resolve helper; host unchanged",
+    "initialHostHelper": "/usr/bin/zenity",
+    "dirtyDocumentClosedThroughActualUI": true
+  }
+]

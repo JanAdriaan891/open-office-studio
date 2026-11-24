@@ -1,0 +1,60 @@
+{
+  "status": "partial as reported; bounded vertical checks passed",
+  "contentCases": 258,
+  "buttonObservations": 1284,
+  "contentClipped": 0,
+  "groupCases": 24,
+  "groupClippedY": 0,
+  "groupClippedX": 4,
+  "toolbarNavigation": 36,
+  "unavailable": [
+    {
+      "theme": "light",
+      "width": 1600,
+      "group": "Delete",
+      "state": "disabled",
+      "reason": "Real imported table exposes enabled Delete commands; no supported Writer readonly mode was invoked"
+    },
+    {
+      "theme": "light",
+      "width": 923,
+      "group": "Delete",
+      "state": "disabled",
+      "reason": "Real imported table exposes enabled Delete commands; no supported Writer readonly mode was invoked"
+    },
+    {
+      "theme": "light",
+      "width": 800,
+      "group": "Delete",
+      "state": "disabled",
+      "reason": "Real imported table exposes enabled Delete commands; no supported Writer readonly mode was invoked"
+    },
+    {
+      "theme": "forge",
+      "width": 1600,
+      "group": "Delete",
+      "state": "disabled",
+      "reason": "Real imported table exposes enabled Delete commands; no supported Writer readonly mode was invoked"
+    },
+    {
+      "theme": "forge",
+      "width": 923,
+      "group": "Delete",
+      "state": "disabled",
+      "reason": "Real imported table exposes enabled Delete commands; no supported Writer readonly mode was invoked"
+    },
+    {
+      "theme": "forge",
+      "width": 800,
+      "group": "Delete",
+      "state": "disabled",
+      "reason": "Real imported table exposes enabled Delete commands; no supported Writer readonly mode was invoked"
+    }
+  ],
+  "nativePass": false,
+  "bodyPaintAcceptance": false,
+  "ribbonReportSha256": "496e7684b265bc105a92e37c78271ec19060438fbe28464c8b1ab9391a9f04f5",
+  "coreChecks": 64,
+  "normalNativeExits": 6,
+  "independentScopeWebDriverExitChecks": 2
+}

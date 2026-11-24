@@ -1,0 +1,59 @@
+{
+  "status": "passed exact reuse binding only",
+  "reviewGit": "658512c9a1511140e23bde0a81fb194fbac90d03",
+  "canonicalReviewSha256": "a79e269c5cab151435e8c042c73a6fa90f94c5c937cd4f91bef3901f76c823ed",
+  "contentAudits": [
+    {
+      "name": "windows_saved.docx",
+      "inputSha256": "fc9859213ce202fd82c39ceb05354f2acc383e7a2efe6de07395d431be4adf71",
+      "priorAuditSha256": "78ce791c54ff88235459839854b738eddbf122c494086c3f76557003a2637550",
+      "sourceBlocks": 8,
+      "placeholders": 2,
+      "reusedWithoutReexecution": true
+    },
+    {
+      "name": "windows_reopened.docx",
+      "inputSha256": "fc9859213ce202fd82c39ceb05354f2acc383e7a2efe6de07395d431be4adf71",
+      "priorAuditSha256": "3f0cdca90f8547508503833e30a202b90d34b4d47003d229848bff5bba4210e8",
+      "sourceBlocks": 8,
+      "placeholders": 2,
+      "reusedWithoutReexecution": true
+    },
+    {
+      "name": "windows_resaved.docx",
+      "inputSha256": "fc9859213ce202fd82c39ceb05354f2acc383e7a2efe6de07395d431be4adf71",
+      "priorAuditSha256": "6be7107caab199c9f0a06bb2ab427b53567c380ec6cec4e46069f478d9f5f50e",
+      "sourceBlocks": 8,
+      "placeholders": 2,
+      "reusedWithoutReexecution": true
+    },
+    {
+      "name": "converted_saved.docx",
+      "inputSha256": "ea49010ae9e0009ea7c0ae47691d08be93a09d7cd4ddd9967dfa7003cd663dd4",
+      "priorAuditSha256": "3277bc7dbff463863d04e7e6053971950947bcda38c0ffdd5936f55db01446eb",
+      "sourceBlocks": 8,
+      "placeholders": 2,
+      "reusedWithoutReexecution": true
+    },
+    {
+      "name": "converted_reopened.docx",
+      "inputSha256": "ea49010ae9e0009ea7c0ae47691d08be93a09d7cd4ddd9967dfa7003cd663dd4",
+      "priorAuditSha256": "5904b1ce49d5d2e244e1e9cd6f6e211234eff5b3b48df494436938752511a12d",
+      "sourceBlocks": 8,
+      "placeholders": 2,
+      "reusedWithoutReexecution": true
+    },
+    {
+      "name": "converted_resaved.docx",
+      "inputSha256": "ea49010ae9e0009ea7c0ae47691d08be93a09d7cd4ddd9967dfa7003cd663dd4",
+      "priorAuditSha256": "5079324110cdae3196d13e868f849c3a289af8dc8e7593658223e0592e0937e0",
+      "sourceBlocks": 8,
+      "placeholders": 2,
+      "reusedWithoutReexecution": true
+    }
+  ],
+  "originalImageReviewsReused": 7,
+  "allReviewRetainedMemberBindingsMatchAlreadyVerifiedProofZIP": true,
+  "noAuditOrImageReviewRepeated": true,
+  "fullSTWRouteClosed": false
+}

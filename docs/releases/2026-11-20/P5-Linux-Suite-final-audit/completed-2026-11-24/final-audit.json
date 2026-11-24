@@ -1,0 +1,88 @@
+{
+  "status": "PASS for explicitly bounded Linux Suite completed scopes; wider matrix PARTIAL",
+  "recordedAtUTC": "2026-11-24T08:02:12.778964+00:00",
+  "application": {
+    "commit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+    "tree": "e30879fd772871e690847c061ef66e6b81808a05",
+    "version": "2026.48.1"
+  },
+  "ownerFinalGit": "0810c25bc0532e12ab44e87635668faa33ef4ca5",
+  "ownerFinalReceiptSha256": "267ecaa97893e6dbbe8aa8df7b9ff826e78f317cf2fbfdc5cfeb02586a80a3b6",
+  "criteria": [
+    {
+      "scope": "DEB core368/369",
+      "verdict": "PASS bounded",
+      "checks": 64,
+      "savedXMLAssertionsIndependentlyVerified": 4,
+      "normalAltF4Exits": 6,
+      "independentScopeWebDriverCloses": 2,
+      "jobRetainedAsFailure": true
+    },
+    {
+      "scope": "362 ribbon vertical checks",
+      "verdict": "PASS measured vertical scope; full matrix PARTIAL",
+      "contentCases": 258,
+      "buttonObservations": 1284,
+      "groupCases": 24,
+      "clippedContent": 0,
+      "clippedGroupsY": 0,
+      "clippedGroupsX": 4,
+      "unavailableGenuineDisabledDeleteStates": 6,
+      "fullNativePass": false
+    },
+    {
+      "scope": "DEB378 native Cancel/Overwrite/save/newPID",
+      "verdict": "PASS bounded positive",
+      "checks": 16,
+      "originalReportAndJobRetainedAsFailed": true
+    },
+    {
+      "scope": "DEB378 own-child PATH missing helper",
+      "verdict": "PASS bounded negative and necessary preflight",
+      "checks": 13,
+      "hostHelperPreserved": true
+    },
+    {
+      "scope": "AppImage actual executable preflight/missing helper",
+      "verdict": "PASS bounded",
+      "checks": 13,
+      "physicalFUSEAcceptance": false
+    },
+    {
+      "scope": "AppImage native Cancel/Overwrite/save/newPID",
+      "verdict": "PASS bounded",
+      "checks": 7,
+      "sameHostPreflightReceiptReused": true
+    },
+    {
+      "scope": "374 six DOCX/seven title images",
+      "verdict": "PASS exact prior independent evidence binding",
+      "reviewGit": "658512c9a1511140e23bde0a81fb194fbac90d03",
+      "nativeReportChecks": 19,
+      "fullSTWRouteClosed": false
+    }
+  ],
+  "newFailuresFound": [],
+  "openOrUncertified": [
+    "Full ribbon matrix remains partial: six genuine disabled-Delete states unavailable.",
+    "Four horizontal group-clipping observations remain outside the strictly passed vertical criterion.",
+    "Two independent core scopes close through WebDriver cleanup, not native normal Alt+F4; six normal native closes are explicitly recorded.",
+    "Original black/blank core body images provide no body-paint acceptance. Later readable 378 images and prior field374 images have separate bounded evidence.",
+    "Original core session records verify GDK/display/profile environment; software mode is runtime-reported, while later 378 sessions additionally record all three actual process graphics variables.",
+    "No physical FUSE, GPG/signature, full typography/pagination, other platform, standalone-app or full-STW-route certification."
+  ],
+  "remainingAuditTasksWithinAssignedScope": [],
+  "packageIdentityLimit": "Auditor independently hashed existing proof ZIPs/all raw members, source/descriptor/report hashes and receipt/package/ELF consistency. No installer or parent archive download/re-extraction was performed.",
+  "newNativeRunOrGUIOrCIOrDownload": false,
+  "old37EvidenceFilesPreserved": true,
+  "mainTagPublicationOrGitWrite": false,
+  "evidenceReports": [
+    "foundation-audit.json",
+    "session-environment-cleanup-audit.json",
+    "core-and-ribbon-audit.json",
+    "saved-xml-audits.json",
+    "confirmation378-audit.json",
+    "reused-378-image-bindings.json",
+    "field374-reuse-binding.json"
+  ]
+}
