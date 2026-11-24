@@ -969,5 +969,28 @@
       "missingPivot": "This pivot table no longer exists.",
       "unsupportedPivot": "This pivot layout cannot be edited safely."
     }
+  },
+  "boundedGrid": {
+    "group": "网格",
+    "bounded": "有界网格",
+    "unbounded": "无限网格",
+    "boundedHint": "仅显示已使用区域及边距；网格随内容增长。文件本身不会改变。",
+    "statusBounded": "有界网格：{{rows}} 行 × {{columns}} 列。单击切换为无限网格。",
+    "statusUnbounded": "无限网格。单击切换为随内容增长的有界网格。",
+    "fit": "使网格适应内容",
+    "fitHint": "将网格缩小到内容加边距",
+    "addRow": "添加行",
+    "addColumn": "添加列",
+    "addRowHint": "添加行 · Shift+单击：{{amount}} 行 · 拖动：更多行",
+    "addColumnHint": "添加列 · Shift+单击：{{amount}} 列 · 拖动：更多列",
+    "row": "行",
+    "column": "列",
+    "addRows": "+{{amount}} 行",
+    "addColumns": "+{{amount}} 列",
+    "edgeRow": "网格边缘：第 {{row}} 行是最后一行。使用“添加行”扩展网格。",
+    "edgeColumn": "网格边缘：{{column}} 列是最后一列。使用“添加列”扩展网格。",
+    "edgeBoth": "网格边缘：第 {{row}} 行和 {{column}} 列是最后的行和列。",
+    "grown": "网格已扩展到 {{rows}} 行、{{columns}} 列。",
+    "fitted": "网格已适应内容：{{rows}} 行、{{columns}} 列。"
   }
 }

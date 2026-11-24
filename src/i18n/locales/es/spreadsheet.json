@@ -985,5 +985,28 @@
       "missingPivot": "This pivot table no longer exists.",
       "unsupportedPivot": "This pivot layout cannot be edited safely."
     }
+  },
+  "boundedGrid": {
+    "group": "Cuadrícula",
+    "bounded": "Cuadrícula limitada",
+    "unbounded": "Cuadrícula ilimitada",
+    "boundedHint": "Muestra solo el área usada más un margen; la cuadrícula crece con el contenido. El archivo en sí no cambia.",
+    "statusBounded": "Cuadrícula limitada: {{rows}} filas × {{columns}} columnas. Haga clic para una cuadrícula ilimitada.",
+    "statusUnbounded": "Cuadrícula ilimitada. Haga clic para una cuadrícula limitada que crece con el contenido.",
+    "fit": "Ajustar la cuadrícula al contenido",
+    "fitHint": "Reducir la cuadrícula al contenido más el margen",
+    "addRow": "Agregar fila",
+    "addColumn": "Agregar columna",
+    "addRowHint": "Agregar fila · Mayús+clic: {{amount}} filas · arrastrar: más filas",
+    "addColumnHint": "Agregar columna · Mayús+clic: {{amount}} columnas · arrastrar: más columnas",
+    "row": "fila",
+    "column": "columna",
+    "addRows": "+{{amount}} filas",
+    "addColumns": "+{{amount}} columnas",
+    "edgeRow": "Borde de la cuadrícula: la fila {{row}} es la última. Use Agregar fila para ampliar la cuadrícula.",
+    "edgeColumn": "Borde de la cuadrícula: la columna {{column}} es la última. Use Agregar columna para ampliar la cuadrícula.",
+    "edgeBoth": "Borde de la cuadrícula: la fila {{row}} y la columna {{column}} son las últimas.",
+    "grown": "Cuadrícula ampliada a {{rows}} filas y {{columns}} columnas.",
+    "fitted": "Cuadrícula ajustada al contenido: {{rows}} filas y {{columns}} columnas."
   }
 }

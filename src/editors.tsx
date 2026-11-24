@@ -38,6 +38,7 @@ import { intlLocale } from "./i18n/config";
 import { useHerladen } from "./grafieken/ui/herladen";
 import { laadFiltersUitBestand, maakRekenbladLaag } from "./lint/rekenblad-laag";
 import { werkboekBytes } from "./lint/rekenblad-filter";
+import { bereidRasterWeergave } from "./rekenblad/rasterWeergave";
 import { laadCelnotities, metCelnotitieAnkers } from "./rekenblad/celnotitieAnkers";
 import { werkEigenschappenBij } from "./tekst/info/opslaan";
 import { registreerVeldNaam, werkDocumentVeldenBij } from "./tekst/veldenDocument/opdrachten";
@@ -357,6 +358,7 @@ export default function OfficeEditor(props: EditorProps) {
       bereidBladEigenschappen(api.handle, herladenRecent.current.bytes);
       bereidVoorwaardelijkeWeergave(api.handle);
       bereidGroepen(api.handle, herladenRecent.current.bytes);
+      bereidRasterWeergave(api, herladenRecent.current.bytes, recent.current.naam);
       setRekenbladApi(api);
       const stopWijziging = registreerWijziging(api.handle, () =>
         recent.current.gewijzigd(),
@@ -516,7 +518,7 @@ export default function OfficeEditor(props: EditorProps) {
                   />
                 }
               />
-              <RekenbladKoppen host={rekenbladHost} api={rekenbladApi} />
+              <RekenbladKoppen host={rekenbladHost} api={rekenbladApi} laag={rekenbladLaag} />
             </div>
           </EditorZichtbaar.Provider>
           </DocumentLettertypen.Provider>

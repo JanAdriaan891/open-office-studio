@@ -119,7 +119,16 @@
     "removeWord": "{{word}} を削除",
     "remove": "削除",
     "keyboard": "キーボード",
-    "showShortcuts": "キーボード ショートカットを表示 · F1"
+    "showShortcuts": "キーボード ショートカットを表示 · F1",
+    "spreadsheet": "Spreadsheet",
+    "gridDefault": "Default grid",
+    "gridOptions": {
+      "onbeperkt": "Unlimited grid",
+      "begrensd": "Bounded grid (grows with content)"
+    },
+    "gridMarginRows": "Margin in rows",
+    "gridMarginColumns": "Margin in columns",
+    "gridHelp": "Applies to workbooks without a choice of their own; switch per sheet on the View tab or in the status bar. The bounded grid shows the used area plus the margin. The XLSX file does not change because of it."
   },
   "email": {
     "privacy": "プライバシー",

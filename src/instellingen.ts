@@ -37,6 +37,11 @@ export interface Instellingen {
     weergave: boolean;
   };
   rekenbladStatistiek: Record<keyof typeof REKENBLAD_STATISTIEKEN, boolean>;
+  /**
+   * Rekenblad: standaardweergave van het raster voor werkmappen zonder eigen
+   * keuze (#371) en de marge van het begrensde raster rond de inhoud.
+   */
+  rekenblad: { raster: "onbeperkt" | "begrensd"; rastermarge: { rijen: number; kolommen: number } };
   /** E-mail: externe afbeeldingen volgens het account, of nooit automatisch. */
   emailExterneInhoud: "account" | "nooit";
   /** Spellingcontrole en autocorrectie (#21, src/spelling). */
@@ -69,6 +74,7 @@ export const standaardInstellingen: Instellingen = {
     weergave: true,
   },
   rekenbladStatistiek: { gemiddelde: true, aantal: true, som: true, minimum: false, maximum: false },
+  rekenblad: { raster: "onbeperkt", rastermarge: { rijen: 5, kolommen: 3 } },
   emailExterneInhoud: "account",
   spelling: {
     controleren: true,
@@ -91,6 +97,10 @@ const kies = <T extends string>(waarde: unknown, opties: readonly T[], standaard
   opties.includes(waarde as T) ? (waarde as T) : standaard;
 const waarOnwaar = (waarde: unknown, standaard: boolean) =>
   typeof waarde === "boolean" ? waarde : standaard;
+const heelGetal = (waarde: unknown, minimum: number, maximum: number, standaard: number) =>
+  typeof waarde === "number" && Number.isFinite(waarde)
+    ? Math.min(maximum, Math.max(minimum, Math.round(waarde)))
+    : standaard;
 
 /** Maakt van willekeurige (oude of beschadigde) gegevens geldige instellingen. */
 export function normaliseerInstellingen(ruw: unknown, oudeAuteur = ""): Instellingen {
@@ -102,6 +112,8 @@ export function normaliseerInstellingen(ruw: unknown, oudeAuteur = ""): Instelli
   const status = isObject(r.statusbalk) ? r.statusbalk : {};
   const statistiek = isObject(r.rekenbladStatistiek) ? r.rekenbladStatistiek : {};
   const spelling = isObject(r.spelling) ? r.spelling : {};
+  const rekenblad = isObject(r.rekenblad) ? r.rekenblad : {};
+  const rastermarge = isObject(rekenblad.rastermarge) ? rekenblad.rastermarge : {};
   const tekst = isObject(r.tekst) ? r.tekst : {};
   const updates = isObject(r.updates) ? r.updates : {};
   return {
@@ -136,6 +148,13 @@ export function normaliseerInstellingen(ruw: unknown, oudeAuteur = ""): Instelli
       som: waarOnwaar(statistiek.som, true),
       minimum: waarOnwaar(statistiek.minimum, false),
       maximum: waarOnwaar(statistiek.maximum, false),
+    },
+    rekenblad: {
+      raster: kies(rekenblad.raster, ["onbeperkt", "begrensd"] as const, s.rekenblad.raster),
+      rastermarge: {
+        rijen: heelGetal(rastermarge.rijen, 0, 100, s.rekenblad.rastermarge.rijen),
+        kolommen: heelGetal(rastermarge.kolommen, 0, 50, s.rekenblad.rastermarge.kolommen),
+      },
     },
     emailExterneInhoud: kies(r.emailExterneInhoud, ["account", "nooit"] as const, "account"),
     spelling: {

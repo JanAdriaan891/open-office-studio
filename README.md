@@ -54,6 +54,7 @@ All screenshots show version 2026-W44.5 in a local production build, with the pr
 - Edits XLSX directly: formulas, cell formatting, rows, columns and sheets, sorting, fill, AutoSum, freeze panes, find and replace.
 - Dutch-style input such as `1,5`, `12,5%`, `€ 1.234,50` and `26-10-2026` is recognised as a number or date.
 - CSV/TSV import and export.
+- Optionally a **bounded grid** that grows with your content instead of endless empty rows and columns; the XLSX file stays the same. See [the design note](docs/ontwerp/begrensd-raster.md) (Dutch).
 
 ### Presentation (Open Presentatie Studio)
 - Edits PPTX directly: slides, shapes, text, alignment, speaker notes, and a slideshow from the first or current slide.

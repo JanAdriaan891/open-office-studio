@@ -16,6 +16,16 @@ import {
 import { openVenster } from "./rekenblad/vensters";
 import { kopRand, kopRandBreedte } from "./rekenblad/koprand";
 import { volgKopRaster } from "./rekenblad/kopraster";
+import { BegrensdRasterLaag, STROOK, type RasterRand } from "./rekenblad/BegrensdRasterLaag";
+import {
+  abonneerRaster,
+  bewaakRasterSelectie,
+  rasterBlad,
+  registreerRasterEditor,
+} from "./rekenblad/rasterWeergave";
+import type { RekenbladLaag } from "./lint/rekenblad-laag";
+import { volgInstellingen } from "./instellingen";
+import { useEditorZichtbaar } from "./lint/editorApi";
 
 type Spoor = { positie: number; grootte: number; nummer: number };
 type Koppen = {
@@ -27,6 +37,8 @@ type Koppen = {
   rijen: Spoor[];
   actief: string;
   zoom: number;
+  /** De rand van het begrensde raster (#371), of null bij een onbeperkt raster. */
+  rand: RasterRand | null;
 };
 type Soort = "kolom" | "rij";
 /** Een rand die de gebruiker sleept: spoor, beginpunt op het scherm en de huidige verschuiving. */
@@ -87,17 +99,127 @@ function geselecteerdeSporen(api: XlsxEditorApi, soort: Soort, nummer: number) {
   return null;
 }
 
+/** De rand van het begrensde raster binnen de getekende sporen. */
+function rasterRand(
+  api: XlsxEditorApi,
+  kolommen: Spoor[],
+  rijen: Spoor[],
+): { rand: RasterRand; kolommen: Spoor[]; rijen: Spoor[] } | null {
+  const blad = api.handle.sheetInfo().activeSheet;
+  const raster = rasterBlad(api.handle, blad);
+  if (!raster?.begrensd) return null;
+  const { omvang } = raster;
+  const binnen = (sporen: Spoor[], aantal: number) => {
+    const eerste = sporen.findIndex((s) => s.nummer >= aantal);
+    if (eerste < 0) return { sporen, rand: null as number | null };
+    return { sporen: sporen.slice(0, eerste), rand: sporen[eerste].positie };
+  };
+  const k = binnen(kolommen, omvang.kolommen);
+  const r = binnen(rijen, omvang.rijen);
+  return {
+    kolommen: k.sporen,
+    rijen: r.sporen,
+    rand: {
+      omvang,
+      x: k.rand,
+      y: r.rand,
+      kolomPx: k.sporen.at(-1)?.grootte ?? 64,
+      rijPx: r.sporen.at(-1)?.grootte ?? 20,
+    },
+  };
+}
+
+/** De schuifruimte volgt het begrensde raster: tot de rand plus de groeistrook. */
+function begrensSchuifruimte(
+  werkruimte: HTMLElement,
+  scroll: HTMLElement,
+  api: XlsxEditorApi,
+  zoom: number,
+) {
+  const blad = api.handle.sheetInfo().activeSheet;
+  const raster = rasterBlad(api.handle, blad);
+  const zet = (naam: string, waarde: string) => {
+    if (werkruimte.style.getPropertyValue(naam) !== waarde) werkruimte.style.setProperty(naam, waarde);
+  };
+  if (!raster?.begrensd) {
+    if (werkruimte.dataset.rasterBegrensd) {
+      delete werkruimte.dataset.rasterBegrensd;
+      for (const naam of ["--raster-breedte", "--raster-hoogte", "--raster-schuif-x", "--raster-schuif-y"])
+        werkruimte.style.removeProperty(naam);
+    }
+    return;
+  }
+  const { rijen, kolommen } = raster.omvang;
+  const breedte =
+    kolommen < MAX_KOLOMMEN ? Math.ceil(api.handle.cellRect(blad, 0, kolommen).x * zoom) + STROOK + 2 : Infinity;
+  const hoogte =
+    rijen < MAX_RIJEN ? Math.ceil(api.handle.cellRect(blad, rijen, 0).y * zoom) + STROOK + 2 : Infinity;
+  // Past het raster in het venster, dan is er op die as niets te schuiven. De
+  // engine maakt zijn canvas even groot als het venster; zonder deze regel
+  // zou dat canvas zelf een paar pixels schuifruimte en twee balken opleveren.
+  const balk = 16;
+  let schuifX = breedte > scroll.offsetWidth;
+  let schuifY = hoogte > scroll.offsetHeight;
+  if (schuifX && !schuifY) schuifY = hoogte > scroll.offsetHeight - balk;
+  if (schuifY && !schuifX) schuifX = breedte > scroll.offsetWidth - balk;
+  zet("--raster-breedte", Number.isFinite(breedte) ? `${breedte}px` : "");
+  zet("--raster-hoogte", Number.isFinite(hoogte) ? `${hoogte}px` : "");
+  zet("--raster-schuif-x", schuifX ? "auto" : "hidden");
+  zet("--raster-schuif-y", schuifY ? "auto" : "hidden");
+  werkruimte.dataset.rasterBegrensd = "true";
+  if (!schuifX && scroll.scrollLeft) scroll.scrollLeft = 0;
+  if (!schuifY && scroll.scrollTop) scroll.scrollTop = 0;
+}
+
 export function RekenbladKoppen({
   host,
   api,
+  laag,
 }: {
   host: RefObject<HTMLDivElement | null>;
   api: XlsxEditorApi | null;
+  laag?: RekenbladLaag | null;
 }) {
   const { t } = useTranslation("spreadsheet");
   const [koppen, setKoppen] = useState<Koppen | null>(null);
   const [slepen, setSlepen] = useState<Slepen | null>(null);
   const anker = useRef<{ soort: Soort; nummer: number } | null>(null);
+  const randNu = useRef<RasterRand | null>(null);
+  randNu.current = koppen?.rand ?? null;
+  // Begrensd raster (#371): toetsen en de muis blijven binnen het raster.
+  useEffect(() => {
+    if (!api || !laag) return;
+    const bewaak = () => bewaakRasterSelectie(api, laag.selectie());
+    const stop = [laag.abonneer(bewaak), abonneerRaster(api.handle, bewaak)];
+    return () => stop.forEach((s) => s());
+  }, [api, laag]);
+  // Alleen de editor in het zichtbare tabblad bedient de statusbalk.
+  const zichtbaar = useEditorZichtbaar();
+  useEffect(() => (api && zichtbaar ? registreerRasterEditor(api) : undefined), [api, zichtbaar]);
+  useEffect(() => {
+    const scroll = host.current?.querySelector<HTMLElement>('[data-testid="xlsx-scroll"]');
+    if (!scroll || !api) return;
+    // Buiten het raster zijn geen cellen: de engine mag daar niets selecteren.
+    const buiten = (e: MouseEvent) => {
+      const rand = randNu.current;
+      if (!rand) return false;
+      const r = scroll.getBoundingClientRect();
+      const x = e.clientX - r.left;
+      const y = e.clientY - r.top;
+      // De schuifbalken liggen buiten het canvas en blijven bruikbaar.
+      if (x > scroll.clientWidth || y > scroll.clientHeight) return false;
+      return (rand.x !== null && x >= rand.x) || (rand.y !== null && y >= rand.y);
+    };
+    const blokkeer = (e: MouseEvent) => {
+      if (!buiten(e)) return;
+      e.stopPropagation();
+      if (e.type === "mousemove") scroll.style.cursor = "default";
+      else if (e.type !== "mouseup") e.preventDefault();
+    };
+    const soorten = ["mousedown", "click", "dblclick", "contextmenu", "mousemove"] as const;
+    soorten.forEach((s) => scroll.addEventListener(s, blokkeer, true));
+    return () => soorten.forEach((s) => scroll.removeEventListener(s, blokkeer, true));
+  }, [api, host]);
   useEffect(() => {
     const werkruimte = host.current;
     const scroll = werkruimte?.querySelector<HTMLElement>(
@@ -139,13 +261,18 @@ export function RekenbladKoppen({
           grootte: (offsets[index + 1] - positie) * zoom,
           nummer: indices?.[index] ?? start + index,
         }));
+      const alleKolommen = sporen(grid.colOffsets, grid.startCol, grid.colIndices);
+      const alleRijen = sporen(grid.rowOffsets, grid.startRow, grid.rowIndices);
+      const begrensd = rasterRand(api, alleKolommen, alleRijen);
+      begrensSchuifruimte(werkruimte, scroll, api, zoom);
       setKoppen({
         links: gebied.left - buiten.left,
         boven: gebied.top - buiten.top,
         breedte: scroll.clientWidth,
         hoogte: scroll.clientHeight,
-        kolommen: sporen(grid.colOffsets, grid.startCol, grid.colIndices),
-        rijen: sporen(grid.rowOffsets, grid.startRow, grid.rowIndices),
+        kolommen: begrensd?.kolommen ?? alleKolommen,
+        rijen: begrensd?.rijen ?? alleRijen,
+        rand: begrensd?.rand ?? null,
         actief:
           werkruimte.querySelector<HTMLInputElement>(
             '[data-testid="xlsx-name-box"]',
@@ -161,9 +288,21 @@ export function RekenbladKoppen({
     scroll.addEventListener("scroll", plannen, { passive: true });
     const stopOpdrachten = api.commands.subscribe(plannen);
     const stopWijzigingen = api.handle.onUpdate(plannen);
+    // Een andere rasterkeuze of marge tekent de engine niet opnieuw: lees zelf.
+    const opnieuw = () => {
+      heeftGemeten = false;
+      plannen();
+    };
+    const stopRaster = abonneerRaster(api.handle, opnieuw);
+    const stopInstellingen = volgInstellingen(opnieuw);
     plannen();
     return () => {
       gestopt = true;
+      stopRaster();
+      stopInstellingen();
+      delete werkruimte.dataset.rasterBegrensd;
+      for (const naam of ["--raster-breedte", "--raster-hoogte", "--raster-schuif-x", "--raster-schuif-y"])
+        werkruimte.style.removeProperty(naam);
       cancelAnimationFrame(frame);
       grootte.disconnect();
       scroll.removeEventListener("scroll", plannen);
@@ -302,6 +441,7 @@ export function RekenbladKoppen({
       : koppen.rijen.find((r) => r.nummer === slepen.nummer));
 
   return (
+    <>
     <div className="rekenblad-koppen" aria-hidden="true">
       <div
         className="rekenblad-hoek"
@@ -392,5 +532,16 @@ export function RekenbladKoppen({
         />
       )}
     </div>
+    {koppen.rand && (
+      <BegrensdRasterLaag
+        api={api}
+        rand={koppen.rand}
+        links={koppen.links}
+        boven={koppen.boven}
+        breedte={koppen.breedte}
+        hoogte={koppen.hoogte}
+      />
+    )}
+    </>
   );
 }
