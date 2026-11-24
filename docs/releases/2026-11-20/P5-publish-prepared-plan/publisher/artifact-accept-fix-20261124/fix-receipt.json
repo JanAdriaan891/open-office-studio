@@ -1,5 +1,5 @@
 {
-  "scope": "Minimal artifact-download Accept and safe stderr diagnostic correction; no live retry or release action",
+  "scope": "Minimal artifact Accept correction plus bounded public-only GPG error-context follow-up; no live retry or release action",
   "branch": "codex/p5-publisher-artifact-accept-20261124",
   "baseMainCommit": "2660041dfce6c2908dc9056aff9b39e36e211bfa",
   "applicationUnchanged": {
@@ -8,7 +8,7 @@
     "version": "2026.48.1"
   },
   "oldCodeSha256": "4b1f57af23ceedf7f61f5ae17b6c61d5c21991ed6184d106dc04a405e4de09cc",
-  "newCodeSha256": "7131b9f1feb199f94f02a6fe015139e6cd9738aa6efef640d1b76a3464ab1aae",
+  "newCodeSha256": "92b4b978faa5493645710e5646d364d33312d229dbb8394128ac4a8b09ecc3bc",
   "failedRun": {
     "run": 45371601667,
     "attempt": 1,
@@ -49,13 +49,16 @@
     "failureDiagnostic": "Bounded captured gh stderr with configured/token-prefix/Authorization/query credential redaction; streamed stdout/error body is never read into exception text; GH_DEBUG disabled only for download subprocess"
   },
   "validation": {
-    "publisherTestsPassed": 24,
+    "publisherTestsPassed": 27,
     "testCommand": "python -B docs/releases/2026-11-20/P5-publish-prepared-plan/publisher/test_publisher.py",
     "offlineDefaultCheck": "PASS actual final plan,60 assets/58 rows, no backend/network",
     "newTests": [
       "Real backend subprocess command arguments distinguish artifactZIP JSON redirect from releaseasset octet-stream",
       "HTTP415 stderr retained but token/query secret/response body excluded",
-      "Real backend download error message survives into core requiresManualReview state before crypto/mutations"
+      "Real backend download error message survives into core requiresManualReview state before crypto/mutations",
+      "Mocked real GPG backend invalid signature with successful cleanup retains exit/stderr and redacts tokens",
+      "Verification plus gpgconf failure preserves both diagnostics in failed requiresManualReview state",
+      "Cleanup failure after15 successful mocked verifications still rejects and removes temporary home"
     ],
     "diffCheck": "PASS"
   },
@@ -65,16 +68,16 @@
       "sha256": "a623be0e09ed418441ea748792263635c7e3715e5f4235834af16e3619a70a67"
     },
     "gh_backend.py": {
-      "bytes": 11850,
-      "sha256": "0753604d6609bd1b8d3f9a64017ad696f230ed6df5aac8a44b746a3c2dc9e1da"
+      "bytes": 13738,
+      "sha256": "43d89b12404e928104de043a1e3a948ff0a50d0b75155797e7e154395cd0c714"
     },
     "publish_prepared.py": {
       "bytes": 1661,
       "sha256": "63d2e4d76649873f201c91fd7e81c157ed0c5330127f26f8257a36589ad82ce7"
     },
     "test_publisher.py": {
-      "bytes": 23739,
-      "sha256": "cb3c3d24b34f5735aca2a218c64803342d630c58fd578c0707603a420860c1d8"
+      "bytes": 28033,
+      "sha256": "ece2f2a1ed292df2706e219386591e5ce87a20dd8d3fa676f6ae9f547ddc8b39"
     }
   },
   "authorizationBoundary": {
@@ -87,5 +90,14 @@
     "GPGOrNativeExecution": false,
     "mainOrReleaseWrite": false
   },
-  "remainingLimit": "No workflow-jobtoken rerun performed. Root local differential used its existing read credential; local unit tests simulate backend responses, not live GitHub acceptance."
+  "remainingLimit": "No workflow-jobtoken rerun performed. Root local differential used its existing read credential; local unit tests simulate backend responses, not live GitHub acceptance.",
+  "previousArtifactAcceptFixCommit": "bb7aa648a2bff6afd3580ecd78fd99e828946025",
+  "previousArtifactAcceptFixCodeSha256": "7131b9f1feb199f94f02a6fe015139e6cd9738aa6efef640d1b76a3464ab1aae",
+  "followupGPGDiagnosticCorrection": {
+    "policyUnchanged": "Exactly15 signatures, frozen primary fingerprint, public-only isolated home, no secret key import and confirmed scoped cleanup remain mandatory.",
+    "errorContext": "GPG operation/exit/stderr is bounded/redacted. When verify and gpgconf cleanup both fail, the exception/state retains both instead of replacing the primary error. Cleanup failure alone still prevents a positive result.",
+    "actualGPGOrKeyImportPerformed": false,
+    "testBoundary": "All subprocess results are mocked; no crypto execution or new credential check is inferred.",
+    "rootMainRetryApprovalRequired": true
+  }
 }

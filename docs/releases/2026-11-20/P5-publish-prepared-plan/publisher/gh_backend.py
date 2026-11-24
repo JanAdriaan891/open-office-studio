@@ -159,8 +159,22 @@ class GhBackend:
             for key in ('OPENAEC_GPG_PRIVATE_KEY','OPENAEC_GPG_PASSPHRASE','GH_TOKEN','GITHUB_TOKEN','GPG_AGENT_INFO'):
                 env.pop(key,None)
             env['GNUPGHOME'] = str(home)
+            def diagnostic(raw):
+                text = raw.decode(errors='replace') if isinstance(raw,bytes) else str(raw)
+                for name in ('GITHUB_TOKEN','GH_TOKEN','GH_ENTERPRISE_TOKEN','GITHUB_ENTERPRISE_TOKEN'):
+                    token = self.env.get(name)
+                    if token: text = text.replace(token,'[REDACTED]')
+                text = re.sub(r'(?:gh[pousr]_|github_pat_)[A-Za-z0-9_]+','[REDACTED]',text)
+                text = re.sub(r'(?im)(authorization\s*:\s*)[^\r\n]+',r'\1[REDACTED]',text)
+                text = re.sub(r'(?i)([?&](?:token|access_token|signature|sig|x-amz-credential|x-amz-signature)=)[^&\s]+',r'\1[REDACTED]',text)
+                return text[:1200].strip()
             def gpg(*args):
-                return subprocess.run(['gpg','--no-options','--homedir',str(home),'--batch','--no-tty','--no-auto-key-retrieve','--no-auto-key-import',*map(str,args)],stdout=subprocess.PIPE,stderr=subprocess.PIPE,env=env,check=True).stdout
+                result = subprocess.run(['gpg','--no-options','--homedir',str(home),'--batch','--no-tty','--no-auto-key-retrieve','--no-auto-key-import',*map(str,args)],stdout=subprocess.PIPE,stderr=subprocess.PIPE,env=env,check=False)
+                if result.returncode:
+                    operation = next((name for name in ('--verify','--import','--list-secret-keys','--list-keys') if name in args),'command')
+                    raise RuntimeError(f'Public-only GPG {operation} failed (exit {result.returncode}); stderr: '+diagnostic(result.stderr))
+                return result.stdout
+            primary_failure = cleanup_failure = None
             try:
                 gpg('--import',public_key)
                 secret = gpg('--with-colons','--list-secret-keys').decode()
@@ -174,9 +188,21 @@ class GhBackend:
                     need(len(valid)==1 and KEY in (valid[0][2],valid[0][-1]),'Public-only signature verification failed')
                     results.append({'signature':Path(signature).name,'payload':Path(payload).name,'primaryFingerprint':KEY})
                 need(len(results)==15,'Exactly fifteen public-only verifications required')
+            except BaseException as error:
+                primary_failure = error
             finally:
-                result = subprocess.run(['gpgconf','--homedir',str(home),'--kill','gpg-agent'],stdout=subprocess.PIPE,stderr=subprocess.PIPE,env=env,check=False)
-                cleanup = result.returncode
-                need(cleanup==0,'Scoped public-only GPG agent termination failed')
+                try:
+                    result = subprocess.run(['gpgconf','--homedir',str(home),'--kill','gpg-agent'],stdout=subprocess.PIPE,stderr=subprocess.PIPE,env=env,check=False)
+                    cleanup = result.returncode
+                    if cleanup:
+                        cleanup_failure = RuntimeError(f'Scoped public-only GPG agent termination failed (exit {cleanup}); stderr: '+diagnostic(result.stderr))
+                except BaseException as error:
+                    cleanup_failure = RuntimeError('Scoped public-only GPG cleanup invocation failed: '+diagnostic(error))
+            if primary_failure is not None:
+                if cleanup_failure is not None:
+                    raise RuntimeError('Primary GPG failure: '+diagnostic(primary_failure)+'; cleanup failure: '+diagnostic(cleanup_failure)) from primary_failure
+                raise primary_failure
+            if cleanup_failure is not None:
+                raise cleanup_failure
         need(not home.exists(),'Temporary public-only GPG home remains')
         return {'verifiedSignatures':len(results),'primaryFingerprint':KEY,'verifications':results,'scopedAgentStopReturnCode':cleanup,'temporaryHomeRemoved':True}

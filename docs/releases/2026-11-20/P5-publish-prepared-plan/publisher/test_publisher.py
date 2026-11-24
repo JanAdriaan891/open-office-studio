@@ -60,6 +60,21 @@ def fixture():
     return bundle,data,archives
 
 
+def mocked_gpg(verify_exit=2,cleanup_exit=0):
+    calls=[]
+    def run(command,**kwargs):
+        calls.append(command)
+        if command[0] not in ('gpg','gpgconf'):raise AssertionError('No actual GitHub/network command permitted')
+        for secret in ('GH_TOKEN','GITHUB_TOKEN','OPENAEC_GPG_PRIVATE_KEY','OPENAEC_GPG_PASSPHRASE'):
+            if secret in kwargs['env']:raise AssertionError('Secret env leaked to GPG')
+        if command[0]=='gpgconf':return SimpleNamespace(returncode=cleanup_exit,stdout=b'',stderr=b'agent stop failed ghs_SYNTHETIC' if cleanup_exit else b'')
+        if '--list-keys' in command:return SimpleNamespace(returncode=0,stdout=('fpr:::::::::'+core.KEY+':\n').encode(),stderr=b'')
+        if '--verify' in command:
+            return SimpleNamespace(returncode=verify_exit,stdout=('[GNUPG:] VALIDSIG '+core.KEY+'\n').encode() if not verify_exit else b'',stderr=b'gpg: BAD signature ghs_SYNTHETIC' if verify_exit else b'')
+        return SimpleNamespace(returncode=0,stdout=b'',stderr=b'')
+    return run,calls
+
+
 class FakeBackend:
     def __init__(self,bundle,data,archives):
         self.bundle,self.data,self.archives = bundle,data,archives
@@ -203,6 +218,20 @@ class PublisherTests(unittest.TestCase):
         self.assertNotIn('PRIVATE_RESPONSE_BODY',state['failure']['message'])
         self.assertNotIn('create-tag',self.backend.events);self.assertNotIn('public-verify',self.backend.events)
 
+    def test_gpg_verify_and_cleanup_failures_both_survive_in_state(self):
+        actual=GhBackend({'GH_TOKEN':'ghs_SYNTHETIC','OPENAEC_GPG_PRIVATE_KEY':'NOT_A_REAL_KEY'})
+        actual.verified_context={'test':True};actual.allowed={'verifyCrypto'}
+        self.backend.public_verify=actual.public_verify
+        callback,calls=mocked_gpg(verify_exit=2,cleanup_exit=3)
+        with patch('gh_backend.subprocess.run',side_effect=callback),self.assertRaises(RuntimeError):self.run_stage('collect')
+        state=json.loads((self.work/'state.json').read_bytes());message=state['failure']['message']
+        for text in ('BAD signature','exit 2','agent stop failed','exit 3','Primary GPG failure','cleanup failure'):
+            self.assertIn(text,message)
+        self.assertNotIn('ghs_SYNTHETIC',message);self.assertTrue(state['requiresManualReview'])
+        self.assertEqual(sum(c[0]=='gpgconf' for c in calls),1)
+        self.assertFalse(list(self.work.glob('public-only-gpg-*')))
+        self.assertNotIn('create-tag',self.backend.events)
+
     def test_duplicate_canonical_archive_member_rejected(self):
         blob=archive({'a/Open Writer.exe':b'a','b/Open.Writer.exe':b'b'})
         with zipfile.ZipFile(io.BytesIO(blob)) as z,self.assertRaises(ValueError):core.zip_members(z)
@@ -269,6 +298,38 @@ class PublisherTests(unittest.TestCase):
 
 
 class RealBackendWithoutNetworkTests(unittest.TestCase):
+    def gpg_inputs(self,directory):
+        key=Path(directory)/'public.asc';key.write_bytes(b'-----BEGIN PGP PUBLIC KEY BLOCK-----\nSYNTHETIC ONLY\n')
+        pairs=[]
+        for index in range(15):
+            signature=Path(directory)/f'{index}.asc';payload=Path(directory)/f'{index}.bin'
+            signature.write_bytes(b'SYNTHETIC');payload.write_bytes(b'SYNTHETIC');pairs.append((signature,payload))
+        backend=GhBackend({'GH_TOKEN':'ghs_SYNTHETIC'});backend.verified_context={'test':True};backend.allowed={'verifyCrypto'}
+        return backend,key,pairs
+
+    def test_gpg_invalid_signature_has_bounded_redacted_primary_diagnostic(self):
+        callback,calls=mocked_gpg(verify_exit=2,cleanup_exit=0)
+        with tempfile.TemporaryDirectory() as directory:
+            backend,key,pairs=self.gpg_inputs(directory)
+            with patch('gh_backend.subprocess.run',side_effect=callback),self.assertRaises(RuntimeError) as error:
+                backend.public_verify(key,pairs,core.KEY,Path(directory))
+            message=str(error.exception)
+            self.assertIn('BAD signature',message);self.assertIn('exit 2',message);self.assertIn('GPG --verify failed',message)
+            self.assertNotIn('ghs_SYNTHETIC',message);self.assertNotIn('cleanup failure',message)
+            self.assertFalse(list(Path(directory).glob('public-only-gpg-*')))
+        self.assertEqual(sum(c[0]=='gpgconf' for c in calls),1)
+
+    def test_gpg_cleanup_failure_still_blocks_all15_successful_verifications(self):
+        callback,calls=mocked_gpg(verify_exit=0,cleanup_exit=3)
+        with tempfile.TemporaryDirectory() as directory:
+            backend,key,pairs=self.gpg_inputs(directory)
+            with patch('gh_backend.subprocess.run',side_effect=callback),self.assertRaises(RuntimeError) as error:
+                backend.public_verify(key,pairs,core.KEY,Path(directory))
+            self.assertIn('agent stop failed',str(error.exception));self.assertIn('exit 3',str(error.exception))
+            self.assertNotIn('ghs_SYNTHETIC',str(error.exception))
+            self.assertFalse(list(Path(directory).glob('public-only-gpg-*')))
+        self.assertEqual(sum('--verify' in c for c in calls),15)
+
     def download_backend(self):
         backend=GhBackend({'GH_TOKEN':'ghs_SYNTHETIC','GH_DEBUG':'api'})
         backend.verified_context={'test':True}

@@ -1,5 +1,5 @@
 {
-  "scope": "Disabled code-binding snapshot for root review, not an execution approval",
+  "scope": "Disabled updated artifact/GPG-diagnostic code-binding snapshot for root review, not an execution approval",
   "executionEnabled": false,
   "repository": "OpenAEC-Foundation/open-office-studio",
   "application": {
@@ -8,7 +8,7 @@
     "version": "2026.48.1"
   },
   "planSha256": "da0851d59c65ff54c4ec09e5b1dda712a337c71525ee5e517da5ac39a26d16f8",
-  "reviewedCodeSha256": "7131b9f1feb199f94f02a6fe015139e6cd9738aa6efef640d1b76a3464ab1aae",
+  "reviewedCodeSha256": "92b4b978faa5493645710e5646d364d33312d229dbb8394128ac4a8b09ecc3bc",
   "releaseBodySha256": "d4045ac87d963a1e3adf9b7bd2817ee74a42c158847376f29fb808c23ec373b6",
   "assetsSha256": "e03d14548216a82d63c5568202c095845159b59155f15804b63a47080a3496b2",
   "tag": "v2026.48.1",
@@ -34,5 +34,6 @@
     "publish": false
   },
   "publishAuthorized": false,
-  "currentScopeLimit": "New concrete DRAFT-ONLY approval required before any main update or retry; publish remains false."
+  "currentScopeLimit": "New concrete DRAFT-ONLY approval required before any main update or retry; publish remains false.",
+  "priorCorrectionCodeSha256": "7131b9f1feb199f94f02a6fe015139e6cd9738aa6efef640d1b76a3464ab1aae"
 }
