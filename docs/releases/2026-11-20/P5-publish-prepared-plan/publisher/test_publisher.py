@@ -188,6 +188,21 @@ class PublisherTests(unittest.TestCase):
         with self.assertRaises(ValueError):self.run_stage('collect')
         self.assertIsNone(self.backend.tag)
 
+    def test_real_download415_diagnostic_is_preserved_in_failed_state(self):
+        download=GhBackend({'GH_TOKEN':'ghs_SYNTHETIC'})
+        download.verified_context={'test':True};download.allowed={'collect'}
+        self.backend.download_artifact=download.download_artifact
+        def failed(command,**kwargs):
+            kwargs['stdout'].write(b'PRIVATE_RESPONSE_BODY')
+            return SimpleNamespace(returncode=1,stderr=b'gh: Unsupported Accept header (HTTP 415)\nghs_SYNTHETIC\n')
+        with patch('gh_backend.subprocess.run',side_effect=failed),self.assertRaises(RuntimeError):self.run_stage('collect')
+        state=json.loads((self.work/'state.json').read_bytes())
+        self.assertTrue(state['requiresManualReview']);self.assertEqual(state['phase'],'initial')
+        self.assertIn('HTTP 415',state['failure']['message'])
+        self.assertNotIn('ghs_SYNTHETIC',state['failure']['message'])
+        self.assertNotIn('PRIVATE_RESPONSE_BODY',state['failure']['message'])
+        self.assertNotIn('create-tag',self.backend.events);self.assertNotIn('public-verify',self.backend.events)
+
     def test_duplicate_canonical_archive_member_rejected(self):
         blob=archive({'a/Open Writer.exe':b'a','b/Open.Writer.exe':b'b'})
         with zipfile.ZipFile(io.BytesIO(blob)) as z,self.assertRaises(ValueError):core.zip_members(z)
@@ -254,6 +269,46 @@ class PublisherTests(unittest.TestCase):
 
 
 class RealBackendWithoutNetworkTests(unittest.TestCase):
+    def download_backend(self):
+        backend=GhBackend({'GH_TOKEN':'ghs_SYNTHETIC','GH_DEBUG':'api'})
+        backend.verified_context={'test':True}
+        backend.allowed={'collect','readBack'}
+        return backend
+
+    def test_artifact_zip_and_release_asset_use_their_actual_endpoint_accept_headers(self):
+        backend=self.download_backend();commands=[]
+        def completed(command,**kwargs):
+            commands.append(command)
+            self.assertNotIn('GH_DEBUG',kwargs['env'])
+            kwargs['stdout'].write(b'SYNTHETIC BODY')
+            return SimpleNamespace(returncode=0,stderr=b'')
+        with tempfile.TemporaryDirectory() as directory,patch('gh_backend.subprocess.run',side_effect=completed):
+            artifact=Path(directory)/'artifact.zip';asset=Path(directory)/'asset.exe'
+            backend.download_artifact(14900089777,artifact)
+            backend.download_release_asset(123,asset)
+            self.assertEqual(artifact.read_bytes(),b'SYNTHETIC BODY')
+            self.assertEqual(asset.read_bytes(),b'SYNTHETIC BODY')
+        self.assertEqual(commands,[
+            ['gh','api','repos/'+core.REPO+'/actions/artifacts/14900089777/zip','-H','Accept: application/vnd.github+json'],
+            ['gh','api','repos/'+core.REPO+'/releases/assets/123','-H','Accept: application/octet-stream'],
+        ])
+
+    def test_download415_retains_stderr_without_token_or_response_body(self):
+        backend=self.download_backend()
+        diagnostic=b"gh: Unsupported 'Accept' header: 'application/octet-stream'. Must accept 'application/json'. (HTTP 415)\nAuthorization: Bearer ghs_SYNTHETIC\nhttps://example.invalid/?token=SENSITIVE_QUERY\n"
+        def failed(command,**kwargs):
+            kwargs['stdout'].write(b'{"responseBody":"DO_NOT_LOG_BODY"}')
+            return SimpleNamespace(returncode=1,stderr=diagnostic)
+        with tempfile.TemporaryDirectory() as directory,patch('gh_backend.subprocess.run',side_effect=failed):
+            with self.assertRaises(RuntimeError) as error:
+                backend.download_artifact(14900089777,Path(directory)/'partial.zip')
+        message=str(error.exception)
+        self.assertIn('HTTP 415',message);self.assertIn('Unsupported',message)
+        self.assertIn('actions/artifacts/14900089777/zip',message)
+        for secret in ('ghs_SYNTHETIC','SENSITIVE_QUERY','DO_NOT_LOG_BODY'):
+            self.assertNotIn(secret,message)
+        self.assertIn('[REDACTED]',message)
+
     def test_exact_compare_route_allowed_but_traversals_rejected(self):
         backend=GhBackend({'GH_TOKEN':'ghs_SYNTHETIC'})
         response=SimpleNamespace(returncode=0,stdout=b'{"status":"ahead"}',stderr=b'')

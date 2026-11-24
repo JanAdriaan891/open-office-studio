@@ -89,15 +89,28 @@ class GhBackend:
 
     def download_artifact(self,artifact_id,path):
         self.permitted('collect')
-        self._download(f'actions/artifacts/{int(artifact_id)}/zip',path)
+        self._download(f'actions/artifacts/{int(artifact_id)}/zip',path,accept='application/vnd.github+json')
 
     def download_release_asset(self,asset_id,path):
         self.permitted('readBack')
-        self._download(f'releases/assets/{int(asset_id)}',path)
+        self._download(f'releases/assets/{int(asset_id)}',path,accept='application/octet-stream')
 
-    def _download(self,path,target):
+    def _download(self,path,target,accept):
+        # Artifact ZIPs use the JSON redirect endpoint; release asset bodies use
+        # octet-stream. Never log the binary/error response streamed to target.
+        environment = self.child_env()
+        environment.pop('GH_DEBUG',None)
         with Path(target).open('xb') as output:
-            subprocess.run(['gh','api',f'repos/{REPO}/{path}','-H','Accept: application/octet-stream'],stdout=output,stderr=subprocess.PIPE,env=self.child_env(),check=True)
+            result = subprocess.run(['gh','api',f'repos/{REPO}/{path}','-H','Accept: '+accept],stdout=output,stderr=subprocess.PIPE,env=environment,check=False)
+        if result.returncode:
+            diagnostic = result.stderr.decode(errors='replace')
+            for name in ('GITHUB_TOKEN','GH_TOKEN','GH_ENTERPRISE_TOKEN','GITHUB_ENTERPRISE_TOKEN'):
+                token = self.env.get(name)
+                if token: diagnostic = diagnostic.replace(token,'[REDACTED]')
+            diagnostic = re.sub(r'(?:gh[pousr]_|github_pat_)[A-Za-z0-9_]+','[REDACTED]',diagnostic)
+            diagnostic = re.sub(r'(?im)(authorization\s*:\s*)[^\r\n]+',r'\1[REDACTED]',diagnostic)
+            diagnostic = re.sub(r'(?i)([?&](?:token|access_token|signature|sig|x-amz-credential|x-amz-signature)=)[^&\s]+',r'\1[REDACTED]',diagnostic)
+            raise RuntimeError(f'GitHub download failed (exit {result.returncode}): {path}; stderr: '+diagnostic[:1200].strip())
 
     def release_list(self):
         found = []
