@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "go": true,
+  "scope": "Linux Suite core 368/369/vertical362, field374 and native-confirmation378",
+  "publicationAuthorized": false,
+  "candidate": {
+    "commit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+    "tree": "e30879fd772871e690847c061ef66e6b81808a05",
+    "version": "2026.48.1",
+    "producerRun": 45177730188,
+    "linuxJob": 137703365848,
+    "attempt": 1
+  },
+  "inputDescriptors": {
+    "deb": {
+      "commit": "3ea5564105d0b4612ad9d0fd05e9a36af261b679",
+      "sha256": "0c82ca92eaa74a5e631aaf2b8990b40bd24d04830049ed9f48b1cbd3f22e4a03",
+      "path": "qa/linux-suite-final/office-deb-input-descriptor.json",
+      "upstreamPath": "docs/tests/linux-release-input-p5/office-deb-input-descriptor.json"
+    },
+    "appimage": {
+      "commit": "3ea5564105d0b4612ad9d0fd05e9a36af261b679",
+      "sha256": "2ebd84ac4cdb00bb96a9d0617a09a34369cc17333f6941786d69c79e27b61b8a",
+      "path": "qa/linux-suite-final/office-appimage-input-descriptor.json",
+      "upstreamPath": "docs/tests/linux-release-input-p5/office-appimage-input-descriptor.json"
+    }
+  },
+  "supersededCandidates": [
+    {
+      "commit": "04fa6cd43b84e3f59fb9d5055bb2d00dde351a47",
+      "tree": "94fa38c20b51a73e4912964f37f0e1a659b0fb1b",
+      "version": "2026.48.1",
+      "producerRun": 45172070275,
+      "reason": "CI used dpkg --install without a dependency resolver. P5 includes the two CI-only apt resolver corrections. Exact P4 Desktop external-harness mechanism proof remains separate and does not authorize final Suite execution."
+    },
+    {
+      "commit": "98b340429436cf597a569549d043bd75b486e2ab",
+      "tree": "780c0789c8badedc6760a8402a6994154a3bf402",
+      "version": "2026.48.1",
+      "producerRun": 45170708933,
+      "reason": "Full Vitest collected the node:test package test and failed. Coordinator owns the import-only correction and next explicit freeze. No native execution authorized for this source."
+    }
+  ],
+  "field374": {
+    "contractCommit": "3169b09020184e3a98a4d5364ad77b15f38ac063",
+    "contractPath": "qa/field374/contract.mjs",
+    "auditPath": "qa/field374/audit-docx.mjs",
+    "windowsControlSha256": "4dcb51f93bd88f3d4bd3a9956f53cff23613235fe222632734b8090f9ea18310",
+    "convertedControlSha256": "b29d6adc44aec4ee64d25555f0aa5560afb0ad24973f2b491789b6bb08e7c992",
+    "marker": " -- STW30 EDIT 2026-11-23"
+  }
+}

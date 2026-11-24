@@ -1,0 +1,46 @@
+{
+  "asOfUTC": "2026-11-23T13:41:04.721139+00:00",
+  "run": 45183129618,
+  "applicationCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+  "applicationTree": "e30879fd772871e690847c061ef66e6b81808a05",
+  "harnessCommit": "6bff15bf7a4b529e389460b6c0ffa397cfaa1e9a",
+  "platformsAndRoutes": [
+    {
+      "platform": "macOS",
+      "route": "/",
+      "producerJob": 137721777872,
+      "artifactId": 14823150600,
+      "archiveSha256": "4355f4220b22a521f708fa8f3965f42662e7f1f58f326e47426778bb27ab7864",
+      "assetEntriesInReceipt": 727,
+      "issuesPassed": [
+        361,
+        362,
+        363,
+        356
+      ],
+      "OfficeCasesPassed": 9,
+      "savedDOCXIndependentlyChecked": true
+    },
+    {
+      "platform": "macOS",
+      "route": "/office/",
+      "producerJob": 137721777872,
+      "artifactId": 14823150600,
+      "archiveSha256": "4355f4220b22a521f708fa8f3965f42662e7f1f58f326e47426778bb27ab7864",
+      "assetEntriesInReceipt": 727,
+      "issuesPassed": [
+        361,
+        362,
+        363,
+        356
+      ],
+      "OfficeCasesPassed": 9,
+      "savedDOCXIndependentlyChecked": true
+    }
+  ],
+  "nativePackageAcceptance": false,
+  "CIAssetByteRehashByRoot": false,
+  "assetLimit": "Actual archived receipt/report bytes and saved DOCX content independently checked. CI asset directories are absent from archives; root does not claim a separate full asset-byte hash.",
+  "initialPaintLimit": "Browser probes perform document actions before acceptance captures; not untouched native-first-paint certification.",
+  "allAssignedRoutesPassed": true
+}

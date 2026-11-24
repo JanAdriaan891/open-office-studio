@@ -1,0 +1,68 @@
+{
+  "asOfUTC": "2026-11-24T09:49:38.134519+00:00",
+  "status": "Reviewable concrete proposal; no remaining material finding on pinned bytes; user execution approval ABSENT",
+  "applicationCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+  "applicationTree": "e30879fd772871e690847c061ef66e6b81808a05",
+  "version": "2026.48.1",
+  "offlinePublisherCheck": {
+    "stage": "check",
+    "assets": 60,
+    "checksumRows": 58,
+    "planSha256": "da0851d59c65ff54c4ec09e5b1dda712a337c71525ee5e517da5ac39a26d16f8",
+    "reviewedCodeSha256": "4b1f57af23ceedf7f61f5ae17b6c61d5c21991ed6184d106dc04a405e4de09cc",
+    "assetsSha256": "e03d14548216a82d63c5568202c095845159b59155f15804b63a47080a3496b2",
+    "releaseBodySha256": "d4045ac87d963a1e3adf9b7bd2817ee74a42c158847376f29fb808c23ec373b6",
+    "networkOrPublicationPerformed": false
+  },
+  "workflowParser": {
+    "yamlParse": "PASS",
+    "dispatchOnly": true,
+    "defaultExecutionDisabled": true,
+    "checksReadOnly": true,
+    "writeJobConditionalMainOnly": "${{ inputs.execute && inputs.stage != 'check' && github.ref == 'refs/heads/main' }}",
+    "workflowSha256": "f11e0daa4990d8e31b08367097188b3adc667906a3417544f18c5612677a6fef",
+    "noExternalActionPerformed": true
+  },
+  "tests": {
+    "publisherFakeOffline": 21,
+    "publisherSourceReceipt": "publisher/validation.json",
+    "manifestOffline": 8,
+    "actualInlineWorkflowGuardMockTests": 7,
+    "totalNamedTests": 36,
+    "additionalBackendRequestAndGpgCommandMocks": "PASS; reviews/implementation-workflow.json and reviews/api-compatibility.json"
+  },
+  "independentReviews": [
+    {
+      "path": "reviews/implementation-workflow.json",
+      "bytes": 4471,
+      "sha256": "aac961dc5118f40a7eccbb51af4d5e75cc495cc5aa0f3d4969b4f84ddaf93d37"
+    },
+    {
+      "path": "reviews/api-compatibility.json",
+      "bytes": 17387,
+      "sha256": "7c433c00617518fa9bade2dd94dbe228ff401034ac65a3d51ac84b1c340ae6e8"
+    },
+    {
+      "path": "reviews/main-route-before-publisher.json",
+      "bytes": 10246,
+      "sha256": "4077eb9f7f5495eee5ab7741f13285d9d0e8631e3e1871273bc939e5a9952392"
+    },
+    {
+      "path": "reviews/main-route-before-publisher.md",
+      "bytes": 10179,
+      "sha256": "98ba70fab36d3fe334e9418ec3eac67efe9a507b966da40cb733bf1daa1390a0"
+    }
+  ],
+  "finalMergeHeadAndTree": "Must be frozen after this commit and independently rechecked in the final approval envelope; baseline main-route review is explicitly on f208 before added publisher workflow",
+  "onlyAdditionalNonEvidenceInput": ".github/workflows/publish-prepared.yml; dedicated admin workflow, not an app/runtime/compiler change",
+  "liveCollectorUploadGpgAndWorkflowExecution": false,
+  "keyImport": false,
+  "mainMerge": false,
+  "tagDraftUploadPublish": false,
+  "requiredUserApproval": "Exact final prep head/tree; mergecommit PR367 then PR353; derive actual approved main SHA only from verified parents+same tree; specific collect/tag/draft/upload/readback/publish stage permissions and known Mac save risk",
+  "limits": [
+    "Mocks do not prove live GitHub/GPG service behavior, credentials or throughput.",
+    "Old Mac Suite save cause remains open; intermittent product-save problem not excluded.",
+    "No app rebuild, PAT tag push, old publisher invocation, forcepush, overwrite or tag retarget."
+  ]
+}

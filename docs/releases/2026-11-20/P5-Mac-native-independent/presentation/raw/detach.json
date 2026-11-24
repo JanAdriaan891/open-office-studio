@@ -1,0 +1,10 @@
+{
+  "argv": [
+    "/usr/bin/hdiutil",
+    "detach",
+    "/Users/runner/work/open-office-studio/open-office-studio/receipts/presentation/readonly-mount"
+  ],
+  "code": 0,
+  "stdout": "\"disk7\" ejected.\n",
+  "stderr": ""
+}

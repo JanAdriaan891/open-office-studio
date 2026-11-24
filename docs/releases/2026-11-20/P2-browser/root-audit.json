@@ -1,0 +1,110 @@
+{
+  "asOfUTC": "2026-11-23T09:28:34.373283+00:00",
+  "run": 45143624910,
+  "applicationCommit": "dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b",
+  "applicationTree": "5a644e397ecc6af5452a49b6404edf953687d1b2",
+  "harnessCommit": "b306bf9ae3932fa2a888d1dd44268ff9e492e755",
+  "platformsAndRoutes": [
+    {
+      "platform": "Linux",
+      "route": "/",
+      "producerJob": 137587413807,
+      "artifactId": 14802283972,
+      "archiveSha256": "047fbe3f724b7b711898c64e5aafedb3f85e7898f2b72978bc495a7a951c7c84",
+      "assetEntriesInReceipt": 727,
+      "issuesPassed": [
+        361,
+        362,
+        363,
+        356
+      ],
+      "OfficeCasesPassed": 9,
+      "savedDOCXIndependentlyChecked": true
+    },
+    {
+      "platform": "Linux",
+      "route": "/office/",
+      "producerJob": 137587413807,
+      "artifactId": 14802283972,
+      "archiveSha256": "047fbe3f724b7b711898c64e5aafedb3f85e7898f2b72978bc495a7a951c7c84",
+      "assetEntriesInReceipt": 727,
+      "issuesPassed": [
+        361,
+        362,
+        363,
+        356
+      ],
+      "OfficeCasesPassed": 9,
+      "savedDOCXIndependentlyChecked": true
+    },
+    {
+      "platform": "Windows",
+      "route": "/",
+      "producerJob": 137587414320,
+      "artifactId": 14802229922,
+      "archiveSha256": "02400bbc85aa53a4b265590f61d39d0c187e13feb407c223db342d93872ebe21",
+      "assetEntriesInReceipt": 727,
+      "issuesPassed": [
+        361,
+        362,
+        363,
+        356
+      ],
+      "OfficeCasesPassed": 9,
+      "savedDOCXIndependentlyChecked": true
+    },
+    {
+      "platform": "Windows",
+      "route": "/office/",
+      "producerJob": 137587414320,
+      "artifactId": 14802229922,
+      "archiveSha256": "02400bbc85aa53a4b265590f61d39d0c187e13feb407c223db342d93872ebe21",
+      "assetEntriesInReceipt": 727,
+      "issuesPassed": [
+        361,
+        362,
+        363,
+        356
+      ],
+      "OfficeCasesPassed": 9,
+      "savedDOCXIndependentlyChecked": true
+    },
+    {
+      "platform": "macOS",
+      "route": "/",
+      "producerJob": 137587414152,
+      "artifactId": 14803563659,
+      "archiveSha256": "5b1fd292025c6e7350f21a6a7ef957ac07fdb5cff8ce84f2eecd1defe24a7440",
+      "assetEntriesInReceipt": 727,
+      "issuesPassed": [
+        361,
+        362,
+        363,
+        356
+      ],
+      "OfficeCasesPassed": 9,
+      "savedDOCXIndependentlyChecked": true
+    },
+    {
+      "platform": "macOS",
+      "route": "/office/",
+      "producerJob": 137587414152,
+      "artifactId": 14803563659,
+      "archiveSha256": "5b1fd292025c6e7350f21a6a7ef957ac07fdb5cff8ce84f2eecd1defe24a7440",
+      "assetEntriesInReceipt": 727,
+      "issuesPassed": [
+        361,
+        362,
+        363,
+        356
+      ],
+      "OfficeCasesPassed": 9,
+      "savedDOCXIndependentlyChecked": true
+    }
+  ],
+  "allSixPassed": true,
+  "nativePackageAcceptance": false,
+  "CIAssetByteRehashByRoot": false,
+  "assetLimit": "Actual archived receipt/report bytes and saved DOCX content independently checked. CI asset directories are absent from archives; root does not claim a separate full asset-byte hash.",
+  "initialPaintLimit": "Browser probes perform document actions before acceptance captures; not untouched native-first-paint certification."
+}

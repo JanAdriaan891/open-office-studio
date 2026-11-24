@@ -1,0 +1,138 @@
+{
+  "source": "dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b",
+  "tree": "5a644e397ecc6af5452a49b6404edf953687d1b2",
+  "run": 45154167386,
+  "artifact": {
+    "id": 14806409519,
+    "digest": "sha256:6abbe498f364cdf884dfffbf28b4be6ab40fb69949daafcba9b0c7eea70fb716",
+    "bytes": 378389
+  },
+  "ownerProofCommit": "743098cc0eb6ce6f78e323c63ee71626cdb796c9",
+  "copiedGitBytes": [
+    {
+      "path": "render-audit.json",
+      "sha256": "19d915175db6a31d06991fb1555659c8f007f5da21d8c79adba14fcc47d24e82",
+      "bytes": 3430,
+      "copiedBytes": "exactPinnedGit",
+      "ownerWorkingTreeComparison": "CRLF-only"
+    },
+    {
+      "path": "render-diagnostic-audit.json",
+      "sha256": "c0cd8a26c1d87a6964070b25e4f422435700006ce540340f2de9b26bc0f1d7f9",
+      "bytes": 467,
+      "copiedBytes": "exactPinnedGit",
+      "ownerWorkingTreeComparison": "CRLF-only"
+    },
+    {
+      "path": "render-proof/artifact-metadata.json",
+      "sha256": "cf9b52f18862b4861b350a16909d0f120e7ccd673b201ba23497d8f087830d92",
+      "bytes": 840,
+      "copiedBytes": "exactPinnedGit",
+      "ownerWorkingTreeComparison": "exact"
+    },
+    {
+      "path": "render-proof/artifact.zip",
+      "sha256": "6abbe498f364cdf884dfffbf28b4be6ab40fb69949daafcba9b0c7eea70fb716",
+      "bytes": 378389,
+      "copiedBytes": "exactPinnedGit",
+      "ownerWorkingTreeComparison": "exact"
+    },
+    {
+      "path": "render-proof/diagnostic-title-as-text.png",
+      "sha256": "df3ab1eb8858837cf0f0589dcf8d05756f51005dd27a6033e1a95eca1631c3c0",
+      "bytes": 98921,
+      "copiedBytes": "exactPinnedGit",
+      "ownerWorkingTreeComparison": "exact"
+    },
+    {
+      "path": "render-proof/run.json",
+      "sha256": "c695d11e2bcabc92bd2f8480e1bf0c404474b127bc58911df483cf7699bd5551",
+      "bytes": 15484,
+      "copiedBytes": "exactPinnedGit",
+      "ownerWorkingTreeComparison": "exact"
+    },
+    {
+      "path": "render-proof/unmodified-converter-control.png",
+      "sha256": "8f61c33250d3b4013d08453ecba39ca5080bb1bfee0f3a3f33bfdf0548cd9829",
+      "bytes": 89641,
+      "copiedBytes": "exactPinnedGit",
+      "ownerWorkingTreeComparison": "exact"
+    },
+    {
+      "path": "render-proof/windows-native-resaved.png",
+      "sha256": "b3512183dc3df6862040cb6a6c5c2c8aff993d4f5b13f85a80332c49923ffd52",
+      "bytes": 98399,
+      "copiedBytes": "exactPinnedGit",
+      "ownerWorkingTreeComparison": "exact"
+    }
+  ],
+  "archivePayloadHashes": [
+    {
+      "path": "build-receipt.json",
+      "sha256": "0e53f533764af061f800ce96599bcc60fbf927c4678e9e5fa650a26d141b4f3f"
+    },
+    {
+      "path": "diagnostic-title-as-text/environment.json",
+      "sha256": "befc7fb3688f1e6b7b7f51e1b6c413b755af435d67fb3e83703dac16ab4cba35"
+    },
+    {
+      "path": "diagnostic-title-as-text/first-page.png",
+      "sha256": "c2798fc10156cb61a32343156e8f0186a952919800422f5bc1ffb5cc868ba18f"
+    },
+    {
+      "path": "diagnostic-title-as-text/visible-document.png",
+      "sha256": "df3ab1eb8858837cf0f0589dcf8d05756f51005dd27a6033e1a95eca1631c3c0"
+    },
+    {
+      "path": "input-manifest.json",
+      "sha256": "1ddb6c9cab5d0b348e7b6e194d01e47f9304b4b007c60551f5ebc68ef88a2c21"
+    },
+    {
+      "path": "report.json",
+      "sha256": "bfb1b65c2ae3090d7a9cceb7f909dedd08a349ad8b33e9afd1b9290f290bdbbc"
+    },
+    {
+      "path": "unmodified-converter-control/environment.json",
+      "sha256": "0b22818ad56c3b5ae240e9e0d068d5f13d80be1f64695d1b98617e761fccfc9a"
+    },
+    {
+      "path": "unmodified-converter-control/first-page.png",
+      "sha256": "4774f99c87d21da325877b831c347febef6e40c45375cc893d18e0122bf3c5f7"
+    },
+    {
+      "path": "unmodified-converter-control/visible-document.png",
+      "sha256": "8f61c33250d3b4013d08453ecba39ca5080bb1bfee0f3a3f33bfdf0548cd9829"
+    },
+    {
+      "path": "windows-native-resaved/environment.json",
+      "sha256": "3ff5b2257dc7716635fcfd64084d16251d639c08198ddc12736158d4453de586"
+    },
+    {
+      "path": "windows-native-resaved/first-page.png",
+      "sha256": "31dfe5695dc5f9ee87e01496561cf58bd918bd517b11bbfa281da410d83fe497"
+    },
+    {
+      "path": "windows-native-resaved/visible-document.png",
+      "sha256": "b3512183dc3df6862040cb6a6c5c2c8aff993d4f5b13f85a80332c49923ffd52"
+    }
+  ],
+  "rootViewedOriginalImages": [
+    {
+      "copiedPath": "render-proof/windows-native-resaved.png",
+      "originalArchivePaths": [
+        "windows-native-resaved/visible-document.png"
+      ],
+      "sha256": "b3512183dc3df6862040cb6a6c5c2c8aff993d4f5b13f85a80332c49923ffd52"
+    },
+    {
+      "copiedPath": "render-proof/diagnostic-title-as-text.png",
+      "originalArchivePaths": [
+        "diagnostic-title-as-text/visible-document.png"
+      ],
+      "sha256": "df3ab1eb8858837cf0f0589dcf8d05756f51005dd27a6033e1a95eca1631c3c0"
+    }
+  ],
+  "rootObservation": "Original Windows-resaved DOCX in true P2 browser shows cached title overlapping adjacent STW30 EDIT; diagnostic identical cached plain text wraps cleanly into separate lines. Original-artifact review, not a new root GUI reproduction.",
+  "diagnosticIsFixOrAcceptance": false,
+  "P2SourceChanged": false
+}

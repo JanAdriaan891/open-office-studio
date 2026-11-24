@@ -1,0 +1,271 @@
+{
+  "schemaVersion": 1,
+  "createdUTC": "2026-11-23T13:07:22.958422+00:00",
+  "source": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+  "tree": "e30879fd772871e690847c061ef66e6b81808a05",
+  "scope": "Source/catalog/schema audit and draft documentation only",
+  "sourceInputs": [
+    {
+      "path": "AGENTS.md",
+      "gitBlob": "2c6d584931c38cbe15114263d6f58afdcf0effb4",
+      "bytes": 2979,
+      "sha256": "54b2b508eab9bbec5c5da80c5087c0543d34a51f230960b6a3ec648a03f8d9dc",
+      "url": "https://github.com/OpenAEC-Foundation/open-office-studio/blob/b696ab86bd1c128729a079b68c0082e6df3d36a5/AGENTS.md"
+    },
+    {
+      "path": "assets/studios.json",
+      "gitBlob": "5c0d1876bce9aedd84c1676be087f31cc789041f",
+      "bytes": 3510,
+      "sha256": "5f15ccf38443a92e8e48db40a68d233dff89c7852549611f74d64f4f28d76528",
+      "url": "https://github.com/OpenAEC-Foundation/open-office-studio/blob/b696ab86bd1c128729a079b68c0082e6df3d36a5/assets/studios.json"
+    },
+    {
+      "path": "docs/studios.md",
+      "gitBlob": "2a5110cacda3084ec8a746eeeda44b37c62d8422",
+      "bytes": 4683,
+      "sha256": "2603aa83eb988dde707a226603868fd1322263713c5ddaf11bcf0a05ebb03a67",
+      "url": "https://github.com/OpenAEC-Foundation/open-office-studio/blob/b696ab86bd1c128729a079b68c0082e6df3d36a5/docs/studios.md"
+    },
+    {
+      "path": "scripts/studio-config.mjs",
+      "gitBlob": "5d759b7c43ffd888868fd00b82d6a3b6dd02317f",
+      "bytes": 4212,
+      "sha256": "09dd29fdf2c7e7385111ff619ebc8f0495f80993a3042b78bd6a5b58692efdfc",
+      "url": "https://github.com/OpenAEC-Foundation/open-office-studio/blob/b696ab86bd1c128729a079b68c0082e6df3d36a5/scripts/studio-config.mjs"
+    },
+    {
+      "path": "scripts/verzamel-studio.mjs",
+      "gitBlob": "1d3532875f212472d40db3fd16b9b95e24c6e466",
+      "bytes": 2684,
+      "sha256": "fe5888e5ba7fedd7de35029dda24436dde1daf3b0fc11e5d49152df8e53a6256",
+      "url": "https://github.com/OpenAEC-Foundation/open-office-studio/blob/b696ab86bd1c128729a079b68c0082e6df3d36a5/scripts/verzamel-studio.mjs"
+    },
+    {
+      "path": "scripts/controleer-uitgave.mjs",
+      "gitBlob": "5829619bd130be9c3613070778c54658f3b19512",
+      "bytes": 2521,
+      "sha256": "6c70f2c15a5b788b820a98509407113915018a843c262ae8b71567ab6f5d4657",
+      "url": "https://github.com/OpenAEC-Foundation/open-office-studio/blob/b696ab86bd1c128729a079b68c0082e6df3d36a5/scripts/controleer-uitgave.mjs"
+    },
+    {
+      "path": ".github/workflows/release.yml",
+      "gitBlob": "3c22538974c15f3f089ff36bacdcb69b95bbe9ee",
+      "bytes": 25073,
+      "sha256": "620e90485493163b87163a8763ffbbfcc2f0af5f03251b592af577721c5a9c64",
+      "url": "https://github.com/OpenAEC-Foundation/open-office-studio/blob/b696ab86bd1c128729a079b68c0082e6df3d36a5/.github/workflows/release.yml"
+    },
+    {
+      "path": "src-tauri/tauri.conf.json",
+      "gitBlob": "fa482cab8f5c8c2940112b96d02414e874a351e5",
+      "bytes": 2175,
+      "sha256": "790b1ec7a70b9242d4f351a460611e26dd80bdb8f252e66a3b39867a2204b8e3",
+      "url": "https://github.com/OpenAEC-Foundation/open-office-studio/blob/b696ab86bd1c128729a079b68c0082e6df3d36a5/src-tauri/tauri.conf.json"
+    },
+    {
+      "path": "src-tauri/tauri.linux.conf.json",
+      "gitBlob": "bb96eebcb38f56a5d0d565a00010c054bdae55fc",
+      "bytes": 6375,
+      "sha256": "3752aec2c18d72662b236d5d58da004baa323c7aed460d3631ff96580b12429c",
+      "url": "https://github.com/OpenAEC-Foundation/open-office-studio/blob/b696ab86bd1c128729a079b68c0082e6df3d36a5/src-tauri/tauri.linux.conf.json"
+    },
+    {
+      "path": "apps/database-studio/src-tauri/tauri.conf.json",
+      "gitBlob": "23727001a8799a2b7cefa947f385f437735d18f1",
+      "bytes": 1587,
+      "sha256": "2f751b096effd4a1a63b2d4fa2b1d7c2278b557453380b567ea97b517d6b424f",
+      "url": "https://github.com/OpenAEC-Foundation/open-office-studio/blob/b696ab86bd1c128729a079b68c0082e6df3d36a5/apps/database-studio/src-tauri/tauri.conf.json"
+    },
+    {
+      "path": "src/StartScherm.tsx",
+      "gitBlob": "e7329fd04b6508dc1d719661fcf03b8de604558b",
+      "bytes": 14522,
+      "sha256": "c6497299679d98b5016caa2a850ac83403470c8ee69fab93176b85ef70ac02ef",
+      "url": "https://github.com/OpenAEC-Foundation/open-office-studio/blob/b696ab86bd1c128729a079b68c0082e6df3d36a5/src/StartScherm.tsx"
+    },
+    {
+      "path": "src/tabbladen.ts",
+      "gitBlob": "8f136b6de50b3587472131beaf18bb2a3536171f",
+      "bytes": 10253,
+      "sha256": "127b65adaa84179585a85fa34497ca2e7db64b89e651fb5f31f556202de3acea",
+      "url": "https://github.com/OpenAEC-Foundation/open-office-studio/blob/b696ab86bd1c128729a079b68c0082e6df3d36a5/src/tabbladen.ts"
+    },
+    {
+      "path": "versie.json",
+      "gitBlob": "defde69d9264bf14beff9f6f2fbcda5f46db6d0a",
+      "bytes": 102,
+      "sha256": "759aef2d11d88b38592e6f25b663bf8ae0f46f1f405cb80352518af3b04bfcf5",
+      "url": "https://github.com/OpenAEC-Foundation/open-office-studio/blob/b696ab86bd1c128729a079b68c0082e6df3d36a5/versie.json"
+    },
+    {
+      "path": "src/werkbestand.ts",
+      "gitBlob": "9a5d080c8b01e9d61edfefcce9b47b634648f828",
+      "bytes": 6930,
+      "sha256": "292882613921d4a34a6877528973199f98a172b2157aee31882c1bf2b66cb4eb",
+      "url": "https://github.com/OpenAEC-Foundation/open-office-studio/blob/b696ab86bd1c128729a079b68c0082e6df3d36a5/src/werkbestand.ts"
+    },
+    {
+      "path": "src-tauri/src/native_dialog.rs",
+      "gitBlob": "6b9e2ecbcc43ce7bda5ee1ed278a0b0cea123cad",
+      "bytes": 4646,
+      "sha256": "68d465634827ba6bd9e3b4450cbfe383f606d94251246e15dde9c54ed857d125",
+      "url": "https://github.com/OpenAEC-Foundation/open-office-studio/blob/b696ab86bd1c128729a079b68c0082e6df3d36a5/src-tauri/src/native_dialog.rs"
+    },
+    {
+      "path": "packages/email/src/ui/opstel-sneltoetsen.ts",
+      "gitBlob": "a3c5a55858b1326f6ac91ee603dd6b672815bde5",
+      "bytes": 977,
+      "sha256": "61126200ca70ce43bafe2c045e0da39c799ef38759d4a44d480a5c8893264f42",
+      "url": "https://github.com/OpenAEC-Foundation/open-office-studio/blob/b696ab86bd1c128729a079b68c0082e6df3d36a5/packages/email/src/ui/opstel-sneltoetsen.ts"
+    },
+    {
+      "path": "scripts/tekstnavigatie-compatibiliteit.ts",
+      "gitBlob": "3759d27f12ec6a03d60ff205396e31450e973999",
+      "bytes": 3164,
+      "sha256": "0f91f5edbf41e97ce9b8cfdd62c3e8edfe35ae404f3c91724c5665b43375effa",
+      "url": "https://github.com/OpenAEC-Foundation/open-office-studio/blob/b696ab86bd1c128729a079b68c0082e6df3d36a5/scripts/tekstnavigatie-compatibiliteit.ts"
+    },
+    {
+      "path": "scripts/tekstnavigatie-macos.test.ts",
+      "gitBlob": "24a9822ef0c3c6d6e075f0cc31267fce6dcbd78e",
+      "bytes": 3674,
+      "sha256": "3c74da03d00a569722b76cee1eda3a315b616942199fb74cac4d26d34d6ef8ca",
+      "url": "https://github.com/OpenAEC-Foundation/open-office-studio/blob/b696ab86bd1c128729a079b68c0082e6df3d36a5/scripts/tekstnavigatie-macos.test.ts"
+    },
+    {
+      "path": "src/import/sjabloon.ts",
+      "gitBlob": "5bdc10507733892f52243c03cd4bef82286924ee",
+      "bytes": 1892,
+      "sha256": "beffbcbdac35ca70f56fcb80aefa29a40dc4114d1b9029cecfb6c371af1d4a98",
+      "url": "https://github.com/OpenAEC-Foundation/open-office-studio/blob/b696ab86bd1c128729a079b68c0082e6df3d36a5/src/import/sjabloon.ts"
+    }
+  ],
+  "documentationSnapshots": {
+    "docs/releases/2026-11-20/current-handoff.json": {
+      "bytes": 57249,
+      "sha256": "8561e660f5b1ae291285b5ad4e6b22540c041fa359b7ac3b0eed6cdd6c11e113",
+      "kind": "local documentation snapshot; not new binary evidence"
+    },
+    "docs/releases/2026-11-20/README.md": {
+      "bytes": 28880,
+      "sha256": "cd4f8984e7bdf6a3747648332d1bcec60fc7669114bb6446783e5cf46cce9a21",
+      "kind": "local documentation snapshot; not new binary evidence"
+    },
+    "docs/releases/2026-11-20/P5-source/audit.json": {
+      "bytes": 2438,
+      "sha256": "f74daf11f34227dbfeee3621546a6bfba6081624bb45997cbc090f45fcff6689",
+      "kind": "local documentation snapshot; not new binary evidence"
+    },
+    "docs/releases/2026-11-20/P5-standalone-matrix.json": {
+      "bytes": 22557,
+      "sha256": "006560d0c2e3625c33d753234ef8a858dc67518796b50a27ca642f5d7188f308",
+      "kind": "local documentation snapshot; not new binary evidence"
+    },
+    "docs/releases/2026-11-20/standalone-downloads/standalone-download-coverage-2026-11-23.md": {
+      "bytes": 14793,
+      "sha256": "705b50b2c3f59415ffc3e46f67daa8feb2aaab55e9d64864d2f4023b4c8656a1",
+      "kind": "local documentation snapshot; not new binary evidence"
+    },
+    "docs/releases/2026-11-20/standalone-downloads/standalone-download-coverage-2026-11-23.json": {
+      "bytes": 110100,
+      "sha256": "43c54d9c419f85d50a33fe08a84d4a6e7009fe11624cc16952d9e352a2405c0d",
+      "kind": "local documentation snapshot; not new binary evidence"
+    },
+    "docs/releases/2026-11-20/release-notes-2026.48.1-draft.md": {
+      "bytes": 5925,
+      "sha256": "165bcec68e8a3032f30443007137d908706b2b3dbf4e521bf964eb3a429c4c11",
+      "kind": "local documentation snapshot; not new binary evidence"
+    },
+    "docs/studios.md": {
+      "bytes": 4738,
+      "sha256": "d80bc5ee2f2526dbacb7d57868893e9fcd14a69eb60ab33dcc77e871cc0f654b",
+      "kind": "local documentation snapshot; not new binary evidence"
+    }
+  },
+  "checks": {
+    "exactSourceTree": true,
+    "versionsEqual48_1": true,
+    "sevenUniqueIdsBinariesNames": true,
+    "sixDedicatedWorkspaceModules": true,
+    "matrix28UniqueCanonicalNames": true,
+    "fourFormsEachApp": true,
+    "internalSpacesVersusCanonicalDotsVerified": true,
+    "centralPendingMatrixMatchesSourceAnd28Rows": true,
+    "noFinalURLOrHashInvented": true,
+    "P4ToP5OnlyTwoCIExecutableChanges": [
+      "scripts/proef-native-linux-basis.mjs",
+      "scripts/proef-runtime-interface.mjs"
+    ],
+    "integrated28TuplesMatchCentralMatrix": true,
+    "allActualPackageArtifactURLFieldsRemainNull": true,
+    "allSignatureNativeAcceptanceRemainPending": true
+  },
+  "findings": [
+    {
+      "severity": "documentation",
+      "path": "docs/releases/2026-11-20/release-notes-2026.48.1-draft.md",
+      "finding": "Active draft still names P2 and treats #374 as under investigation; use reviewed replacement fragment after coordinator review, not as final acceptance.",
+      "resolution": "Reviewed P5 concept installed in the existing draft; original snapshot hash retained above."
+    }
+  ],
+  "noNetworkInstallerGUIBuildOrPublication": true,
+  "nativeTestsRun": false,
+  "signatureVerificationRun": false,
+  "publicDownloadVerificationRun": false,
+  "actualFinalPackagesAccepted": 0,
+  "publicationAuthorized": false,
+  "limitations": [
+    "Snapshot is not live CI status; coordinator owns later artifact/result insertion.",
+    "Configured profile namespaces are not observations of installed profile isolation.",
+    "Issue-limit summaries for #375/#381/SXC/ET/ETT are coordinator-reported retained evidence; this agent did not rerun fixtures or inspect all native screenshots.",
+    "No software tests repeated for documentation. Only deterministic matrix/source consistency checks ran."
+  ],
+  "integrationUTC": "2026-11-23T13:19:23.326311+00:00",
+  "integrationScope": "Exactly four doc-only files; no git add/commit/push; no product changes or binary/GUI/signature execution.",
+  "draftTransformation": {
+    "sourceFragmentSha256": "0b23c365dfb937c458a819ba224cba671e7145d751cf1e972ff0c7a25d2f8840",
+    "changes": [
+      "Markdown headings and links",
+      "P5 matrix/audit cross-links",
+      "native macOS #358/PR360 retained scope and ancestor binding",
+      "limited #382 filenamepredicate finding; no ETT overwrite/native acceptance claim"
+    ]
+  },
+  "integratedOutputs": {
+    "release-notes-2026.48.1-draft.md": {
+      "bytes": 7842,
+      "sha256": "0d9db3a3b7ad6c629f097b22f2a213c54cea713e3c802efea4fde352cc90969f"
+    },
+    "P5-downloads-pending.md": {
+      "bytes": 6589,
+      "sha256": "cecca9754b4a04af93b70ad80fbb721ca03bd49d5052175f599223bac610db95"
+    },
+    "P5-downloads-pending.json": {
+      "bytes": 57590,
+      "sha256": "c90aa392b24da1ff9fb70cd1552f8d7c26cdb5b636f075366b487ec9476a616e"
+    }
+  },
+  "retainedNavigation": {
+    "issue": 358,
+    "pr": 360,
+    "ancestor": "f1085923653bd6e59982807e16a09c5fa3e3d74e",
+    "productCommit": "7632c090",
+    "scope": "Native macOS document Command+Arrow navigation; no general browser-navigation acceptance"
+  },
+  "ett382Boundary": "Coordinator-reported independently tested production filenamepredicate omission only; qualified ETT fixture and actual native import/save/overwrite proof absent. No fix included in P5.",
+  "preCoordinatorOutputBytes": {
+    "release-notes-2026.48.1-draft.md": {
+      "bytes": 7806,
+      "sha256": "2eecbc6d1b87a96ae241b76be2e24b8c664af03c13fd79585c228f8ff4f65c16"
+    },
+    "P5-downloads-pending.md": {
+      "bytes": 6589,
+      "sha256": "cecca9754b4a04af93b70ad80fbb721ca03bd49d5052175f599223bac610db95"
+    },
+    "P5-downloads-pending.json": {
+      "bytes": 57590,
+      "sha256": "c90aa392b24da1ff9fb70cd1552f8d7c26cdb5b636f075366b487ec9476a616e"
+    }
+  },
+  "coordinatorReviewUTC": "2026-11-23T13:44:01.057758+00:00",
+  "coordinatorRepresentation": "Existing release-notes document retains repository CRLF representation; new draft table and JSON retain their original LF bytes. Original agent-output hashes remain above."
+}

@@ -1,0 +1,45 @@
+{
+  "intervalSeconds": 0.25,
+  "scope": "Sampled descendants, not exhaustive execution audit",
+  "processes": [
+    {
+      "pid": 3433,
+      "ppid": 1741,
+      "executable": "/Users/runner/work/open-office-studio/open-office-studio/receipts/presentation/installed/Open Presentation Studio.app/Contents/MacOS/open-presentation-studio",
+      "resolvedInsideOwnApp": true
+    },
+    {
+      "pid": 3433,
+      "ppid": 1741,
+      "executable": "<defunct>",
+      "resolvedInsideOwnApp": false
+    },
+    {
+      "pid": 4091,
+      "ppid": 1741,
+      "executable": "/Users/runner/work/open-office-studio/open-office-studio/receipts/presentation/installed/Open Presentation Studio.app/Contents/MacOS/open-presentation-studio",
+      "resolvedInsideOwnApp": true
+    },
+    {
+      "pid": 4475,
+      "ppid": 4091,
+      "executable": "/Users/runner/work/open-office-studio/open-office-studio/receipts/presentation/installed/Open Presentation Studio.app/Contents/Helpers/LibreOffice.app/Contents/MacOS/soffice",
+      "resolvedInsideOwnApp": true,
+      "arguments": "/Users/runner/work/open-office-studio/open-office-studio/receipts/presentation/installed/Open Presentation Studio.app/Contents/Helpers/LibreOffice.app/Contents/MacOS/soffice -env:UserInstallation=file:///var/folders/q2/p1t6rgxj5fj32g1dc7dmd49r0000gn/T/.tmpYUihy8/profiel/ --headless --version"
+    },
+    {
+      "pid": 4879,
+      "ppid": 4091,
+      "executable": "/Users/runner/work/open-office-studio/open-office-studio/receipts/presentation/installed/Open Presentation Studio.app/Contents/Helpers/LibreOffice.app/Contents/MacOS/soffice",
+      "resolvedInsideOwnApp": true,
+      "arguments": "/Users/runner/work/open-office-studio/open-office-studio/receipts/presentation/installed/Open Presentation Studio.app/Contents/Helpers/LibreOffice.app/Contents/MacOS/soffice -env:UserInstallation=file:///var/folders/q2/p1t6rgxj5fj32g1dc7dmd49r0000gn/T/.tmpCJdi4k/profiel/ --headless --nologo --nodefault --norestore --nolockcheck --convert-to odp:impress8 --outdir /var/folders/q2/p1t6rgxj5fj32g1dc7dmd49r0000gn/T/.tmpCJdi4k/uit /var/folders/q2/p1t6rgxj5fj32g1dc7dmd49r0000gn/T/.tmpCJdi4k/invoer.pptx"
+    },
+    {
+      "pid": 4091,
+      "ppid": 1741,
+      "executable": "<defunct>",
+      "resolvedInsideOwnApp": false
+    }
+  ],
+  "errors": []
+}

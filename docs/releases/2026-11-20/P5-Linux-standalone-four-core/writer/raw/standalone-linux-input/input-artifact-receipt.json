@@ -1,0 +1,36 @@
+{
+  "qaRun": 45190082427,
+  "qaCommit": "b3d594aaf09a83215bb809bdbcda6305a0af1612",
+  "inputProducerRun": 45188332685,
+  "inputProducerCommit": "86fe2d5c8bde47005fd40b3059d6fa92d98e7b4c",
+  "inputArtifact": {
+    "id": 14823914820,
+    "node_id": "MDg6QXJ0aWZhY3QxNDgyMzkxNDgyMA==",
+    "name": "standalone-input-writer-p5",
+    "size_in_bytes": 813713169,
+    "url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/actions/artifacts/14823914820",
+    "archive_download_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/actions/artifacts/14823914820/zip",
+    "expired": false,
+    "digest": "sha256:2c2b437dda832559fcf4478fd9d7eddeaeef15b18a19f86a21ae9f19854eace8",
+    "created_at": "2026-11-23T13:58:00Z",
+    "updated_at": "2026-11-23T13:58:00Z",
+    "expires_at": "2027-02-21T13:53:00Z",
+    "workflow_run": {
+      "id": 45188332685,
+      "repository_id": 1427673882,
+      "head_repository_id": 1427673882,
+      "head_branch": "codex/linux-release-input-p5-2026-11-23",
+      "head_sha": "86fe2d5c8bde47005fd40b3059d6fa92d98e7b4c"
+    }
+  },
+  "intakeSha256": "7e98e6a712b32eb7311b078295d34885b578327259eb3e09b5a8d589e9b3df74",
+  "archiveLocallyHashVerified": true,
+  "onlyOwnApp": "writer",
+  "sourceCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+  "canonicalParent": {
+    "id": 14824745492,
+    "name": "uitgave-Linux",
+    "bytes": 4444993178,
+    "zipSha256": "c64b0e90e2144d1a5a6d17ad7e4881429a70ade8c48e76f7a22858b54c3928c5"
+  }
+}

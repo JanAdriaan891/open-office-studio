@@ -1,0 +1,1758 @@
+{
+  "status": "passed",
+  "passed": 3657,
+  "failed": 0,
+  "skipped": 10,
+  "total": 3667,
+  "fullRawSha256": "9089c585c3f78ae43bb85a1cd905fd1a2eccf673c6eebec7d12e9d82551822d6",
+  "executionSource": "P3 working tree plus the exact Vitest import correction before commit; all executable/source files equal P4; subsequent difference is release documentation only. Exact P4 CI is running separately.",
+  "skips": [
+    {
+      "file": "versleuteling.test.ts",
+      "test": "Corpus (Apache POI) 71c6b4cb (agile)",
+      "status": "skipped"
+    },
+    {
+      "file": "versleuteling.test.ts",
+      "test": "Corpus (Apache POI) 1f0ea828 (agile)",
+      "status": "skipped"
+    },
+    {
+      "file": "versleuteling.test.ts",
+      "test": "Corpus (Apache POI) a6ae896f (standard)",
+      "status": "skipped"
+    },
+    {
+      "file": "versleuteling.test.ts",
+      "test": "Corpus (Apache POI) 1767b143 (standard)",
+      "status": "skipped"
+    },
+    {
+      "file": "spelling.test.ts",
+      "test": "spellbook met OpenTaal en SCOWL kent Nederlandse samenstellingen, apostrofs en afkortingen",
+      "status": "skipped"
+    },
+    {
+      "file": "spelling.test.ts",
+      "test": "spellbook met OpenTaal en SCOWL geeft goede suggesties (top 5)",
+      "status": "skipped"
+    },
+    {
+      "file": "spelling.test.ts",
+      "test": "spellbook met OpenTaal en SCOWL onderscheidt Brits en Amerikaans Engels",
+      "status": "skipped"
+    },
+    {
+      "file": "structuur.test.ts",
+      "test": "VBA-modules bij de opbouw zet de ge\u00ebxtraheerde modules in _openaec_modules en houdt ze na heropenen",
+      "status": "skipped"
+    },
+    {
+      "file": "werkkopie.test.ts",
+      "test": "werkkopie uit het Access-corpus de 45 Jackcess-query\u2019s uit de vijf queryTest-databases komen over en vertalen of geven een concrete beperking",
+      "status": "skipped"
+    },
+    {
+      "file": "werkkopie.test.ts",
+      "test": "werkkopie uit het Access-corpus neemt rijen, sleutels en relaties over en laat het origineel ongewijzigd",
+      "status": "skipped"
+    }
+  ],
+  "suites": [
+    {
+      "file": "controleer-uitgave.test.mjs",
+      "status": "passed",
+      "assertions": 3
+    },
+    {
+      "file": "kantoorruntime-windows.test.mjs",
+      "status": "passed",
+      "assertions": 4
+    },
+    {
+      "file": "kantoorruntime.test.mjs",
+      "status": "passed",
+      "assertions": 7
+    },
+    {
+      "file": "native-dialog-packages.test.mjs",
+      "status": "passed",
+      "assertions": 9
+    },
+    {
+      "file": "presentatieengine-compatibiliteit.test.ts",
+      "status": "passed",
+      "assertions": 2
+    },
+    {
+      "file": "proef-writer-363-labels.test.mjs",
+      "status": "passed",
+      "assertions": 20
+    },
+    {
+      "file": "runtime317-harness.test.mjs",
+      "status": "passed",
+      "assertions": 3
+    },
+    {
+      "file": "studio-config.test.mjs",
+      "status": "passed",
+      "assertions": 16
+    },
+    {
+      "file": "studio-iconen.test.mjs",
+      "status": "passed",
+      "assertions": 5
+    },
+    {
+      "file": "tekstnavigatie-compatibiliteit.test.ts",
+      "status": "passed",
+      "assertions": 10
+    },
+    {
+      "file": "tekstnavigatie-macos.test.ts",
+      "status": "passed",
+      "assertions": 9
+    },
+    {
+      "file": "verzamel-studio.test.mjs",
+      "status": "passed",
+      "assertions": 3
+    },
+    {
+      "file": "weekversie.test.mjs",
+      "status": "passed",
+      "assertions": 9
+    },
+    {
+      "file": "worker-ingang.test.mjs",
+      "status": "passed",
+      "assertions": 3
+    },
+    {
+      "file": "writer-363-resources.test.mjs",
+      "status": "passed",
+      "assertions": 9
+    },
+    {
+      "file": "writer-proefbuild.test.mjs",
+      "status": "passed",
+      "assertions": 9
+    },
+    {
+      "file": "auteursprofiel.test.ts",
+      "status": "passed",
+      "assertions": 3
+    },
+    {
+      "file": "documentzoom.test.ts",
+      "status": "passed",
+      "assertions": 8
+    },
+    {
+      "file": "formatendekking.test.ts",
+      "status": "passed",
+      "assertions": 1
+    },
+    {
+      "file": "herstel.test.ts",
+      "status": "passed",
+      "assertions": 4
+    },
+    {
+      "file": "instellingen.test.ts",
+      "status": "passed",
+      "assertions": 5
+    },
+    {
+      "file": "klembord-ipc.test.ts",
+      "status": "passed",
+      "assertions": 2
+    },
+    {
+      "file": "klembord-schrijven.test.ts",
+      "status": "passed",
+      "assertions": 8
+    },
+    {
+      "file": "klembord.test.ts",
+      "status": "passed",
+      "assertions": 8
+    },
+    {
+      "file": "markdown.test.ts",
+      "status": "passed",
+      "assertions": 11
+    },
+    {
+      "file": "meldingenWinkel.test.ts",
+      "status": "passed",
+      "assertions": 9
+    },
+    {
+      "file": "nederlands-toegankelijk.test.ts",
+      "status": "passed",
+      "assertions": 5
+    },
+    {
+      "file": "neerzetten.test.ts",
+      "status": "passed",
+      "assertions": 8
+    },
+    {
+      "file": "Neerzetzone.test.ts",
+      "status": "passed",
+      "assertions": 2
+    },
+    {
+      "file": "opslag.test.ts",
+      "status": "passed",
+      "assertions": 17
+    },
+    {
+      "file": "pakketcontrole.test.ts",
+      "status": "passed",
+      "assertions": 23
+    },
+    {
+      "file": "recent.test.ts",
+      "status": "passed",
+      "assertions": 8
+    },
+    {
+      "file": "recente-datums.test.ts",
+      "status": "passed",
+      "assertions": 6
+    },
+    {
+      "file": "rekenbladcontrole.test.ts",
+      "status": "passed",
+      "assertions": 15
+    },
+    {
+      "file": "rekenbladinvoer.test.ts",
+      "status": "passed",
+      "assertions": 6
+    },
+    {
+      "file": "systeembestanden.test.ts",
+      "status": "passed",
+      "assertions": 2
+    },
+    {
+      "file": "tabbladen.test.ts",
+      "status": "passed",
+      "assertions": 14
+    },
+    {
+      "file": "updates.test.ts",
+      "status": "passed",
+      "assertions": 6
+    },
+    {
+      "file": "useTabSneltoetsen.test.ts",
+      "status": "passed",
+      "assertions": 9
+    },
+    {
+      "file": "VensterMenu.test.ts",
+      "status": "passed",
+      "assertions": 3
+    },
+    {
+      "file": "vensteroverdracht.test.ts",
+      "status": "passed",
+      "assertions": 11
+    },
+    {
+      "file": "venstertitel.test.ts",
+      "status": "passed",
+      "assertions": 6
+    },
+    {
+      "file": "wasmGeheugen.test.ts",
+      "status": "passed",
+      "assertions": 1
+    },
+    {
+      "file": "werkbestand.test.ts",
+      "status": "passed",
+      "assertions": 9
+    },
+    {
+      "file": "werkplek.test.ts",
+      "status": "passed",
+      "assertions": 9
+    },
+    {
+      "file": "yapp-opslag.test.ts",
+      "status": "passed",
+      "assertions": 23
+    },
+    {
+      "file": "afdrukken.test.ts",
+      "status": "passed",
+      "assertions": 19
+    },
+    {
+      "file": "celAnnotaties.test.ts",
+      "status": "passed",
+      "assertions": 5
+    },
+    {
+      "file": "tekstKoppelingen-engine.test.ts",
+      "status": "passed",
+      "assertions": 5
+    },
+    {
+      "file": "export.test.ts",
+      "status": "passed",
+      "assertions": 22
+    },
+    {
+      "file": "bron.test.ts",
+      "status": "passed",
+      "assertions": 17
+    },
+    {
+      "file": "grafieken.test.ts",
+      "status": "passed",
+      "assertions": 37
+    },
+    {
+      "file": "kopie.test.ts",
+      "status": "passed",
+      "assertions": 18
+    },
+    {
+      "file": "pakket.test.ts",
+      "status": "passed",
+      "assertions": 4
+    },
+    {
+      "file": "trendlijnen.test.ts",
+      "status": "passed",
+      "assertions": 16
+    },
+    {
+      "file": "desktop.test.ts",
+      "status": "passed",
+      "assertions": 5
+    },
+    {
+      "file": "i18n.test.ts",
+      "status": "passed",
+      "assertions": 17
+    },
+    {
+      "file": "database.test.ts",
+      "status": "passed",
+      "assertions": 2
+    },
+    {
+      "file": "canvasFont.test.ts",
+      "status": "passed",
+      "assertions": 5
+    },
+    {
+      "file": "lettertypen.test.ts",
+      "status": "passed",
+      "assertions": 30
+    },
+    {
+      "file": "dossier.test.ts",
+      "status": "passed",
+      "assertions": 31
+    },
+    {
+      "file": "opslag.test.ts",
+      "status": "passed",
+      "assertions": 5
+    },
+    {
+      "file": "bronmacros.test.ts",
+      "status": "passed",
+      "assertions": 5
+    },
+    {
+      "file": "conversieinhoud.test.ts",
+      "status": "passed",
+      "assertions": 13
+    },
+    {
+      "file": "csvimport.test.ts",
+      "status": "passed",
+      "assertions": 11
+    },
+    {
+      "file": "doc-objectverlies.test.ts",
+      "status": "passed",
+      "assertions": 4
+    },
+    {
+      "file": "epubbestand.test.ts",
+      "status": "passed",
+      "assertions": 17
+    },
+    {
+      "file": "extensiedekking.test.ts",
+      "status": "passed",
+      "assertions": 9
+    },
+    {
+      "file": "formaatfouten.test.ts",
+      "status": "passed",
+      "assertions": 30
+    },
+    {
+      "file": "legeBibliografie.test.ts",
+      "status": "passed",
+      "assertions": 31
+    },
+    {
+      "file": "macros.test.ts",
+      "status": "passed",
+      "assertions": 5
+    },
+    {
+      "file": "rapport.test.ts",
+      "status": "passed",
+      "assertions": 17
+    },
+    {
+      "file": "rekenbladformaten.test.ts",
+      "status": "passed",
+      "assertions": 11
+    },
+    {
+      "file": "sjabloon.test.ts",
+      "status": "passed",
+      "assertions": 15
+    },
+    {
+      "file": "tekstimport.test.ts",
+      "status": "passed",
+      "assertions": 16
+    },
+    {
+      "file": "versleuteling.test.ts",
+      "status": "passed",
+      "assertions": 14
+    },
+    {
+      "file": "werkmapverlies.test.ts",
+      "status": "passed",
+      "assertions": 2
+    },
+    {
+      "file": "historie.test.ts",
+      "status": "passed",
+      "assertions": 2
+    },
+    {
+      "file": "markdown.test.tsx",
+      "status": "passed",
+      "assertions": 14
+    },
+    {
+      "file": "model.test.ts",
+      "status": "passed",
+      "assertions": 24
+    },
+    {
+      "file": "focus.test.ts",
+      "status": "passed",
+      "assertions": 1
+    },
+    {
+      "file": "inklappen.test.ts",
+      "status": "passed",
+      "assertions": 7
+    },
+    {
+      "file": "Lint.test.tsx",
+      "status": "passed",
+      "assertions": 6
+    },
+    {
+      "file": "toetstips.test.ts",
+      "status": "passed",
+      "assertions": 5
+    },
+    {
+      "file": "afbeeldingen.test.ts",
+      "status": "passed",
+      "assertions": 12
+    },
+    {
+      "file": "animatie-logica.test.ts",
+      "status": "passed",
+      "assertions": 4
+    },
+    {
+      "file": "animaties.test.ts",
+      "status": "passed",
+      "assertions": 18
+    },
+    {
+      "file": "bestandsvariant.test.ts",
+      "status": "passed",
+      "assertions": 12
+    },
+    {
+      "file": "diagrammen.test.ts",
+      "status": "passed",
+      "assertions": 22
+    },
+    {
+      "file": "dianummers.test.ts",
+      "status": "passed",
+      "assertions": 11
+    },
+    {
+      "file": "groepen.test.ts",
+      "status": "passed",
+      "assertions": 14
+    },
+    {
+      "file": "hergebruik.test.ts",
+      "status": "passed",
+      "assertions": 9
+    },
+    {
+      "file": "media.test.ts",
+      "status": "passed",
+      "assertions": 16
+    },
+    {
+      "file": "mediaNaam.test.ts",
+      "status": "passed",
+      "assertions": 9
+    },
+    {
+      "file": "notities.test.ts",
+      "status": "passed",
+      "assertions": 20
+    },
+    {
+      "file": "objecten.test.ts",
+      "status": "passed",
+      "assertions": 13
+    },
+    {
+      "file": "odf-medianamen.test.ts",
+      "status": "passed",
+      "assertions": 16
+    },
+    {
+      "file": "odf-mediavolume.test.ts",
+      "status": "passed",
+      "assertions": 21
+    },
+    {
+      "file": "odf-overgangen.test.ts",
+      "status": "passed",
+      "assertions": 30
+    },
+    {
+      "file": "ontwerp.test.ts",
+      "status": "passed",
+      "assertions": 19
+    },
+    {
+      "file": "opmaakKopie.test.ts",
+      "status": "passed",
+      "assertions": 13
+    },
+    {
+      "file": "overgangen.test.ts",
+      "status": "passed",
+      "assertions": 19
+    },
+    {
+      "file": "overzicht.test.ts",
+      "status": "passed",
+      "assertions": 12
+    },
+    {
+      "file": "presentatie.test.ts",
+      "status": "passed",
+      "assertions": 17
+    },
+    {
+      "file": "tabellen.test.ts",
+      "status": "passed",
+      "assertions": 14
+    },
+    {
+      "file": "themaBestand.test.ts",
+      "status": "passed",
+      "assertions": 6
+    },
+    {
+      "file": "voetteksten.test.ts",
+      "status": "passed",
+      "assertions": 16
+    },
+    {
+      "file": "weergaveSnapshot.test.ts",
+      "status": "passed",
+      "assertions": 10
+    },
+    {
+      "file": "altgraph.test.ts",
+      "status": "passed",
+      "assertions": 7
+    },
+    {
+      "file": "lint-i18n.test.ts",
+      "status": "passed",
+      "assertions": 3
+    },
+    {
+      "file": "presentatie-opdrachten.test.ts",
+      "status": "passed",
+      "assertions": 9
+    },
+    {
+      "file": "presentatie-zoeken.test.ts",
+      "status": "passed",
+      "assertions": 17
+    },
+    {
+      "file": "rekenblad-filter.test.ts",
+      "status": "passed",
+      "assertions": 12
+    },
+    {
+      "file": "rekenblad-formulevoorbeeld.test.ts",
+      "status": "passed",
+      "assertions": 12
+    },
+    {
+      "file": "rekenblad-functies.test.ts",
+      "status": "passed",
+      "assertions": 9
+    },
+    {
+      "file": "rekenblad-gegevens.test.ts",
+      "status": "passed",
+      "assertions": 6
+    },
+    {
+      "file": "rekenblad-logica.test.ts",
+      "status": "passed",
+      "assertions": 14
+    },
+    {
+      "file": "rekenblad-namen.test.ts",
+      "status": "passed",
+      "assertions": 16
+    },
+    {
+      "file": "rekenblad-reeks.test.ts",
+      "status": "passed",
+      "assertions": 15
+    },
+    {
+      "file": "rekenblad-sorteren.test.ts",
+      "status": "passed",
+      "assertions": 6
+    },
+    {
+      "file": "rekenblad-verwijzingskleuren.test.ts",
+      "status": "passed",
+      "assertions": 8
+    },
+    {
+      "file": "sneltoetsen.test.ts",
+      "status": "passed",
+      "assertions": 6
+    },
+    {
+      "file": "sneltoetsenlijst.test.ts",
+      "status": "passed",
+      "assertions": 20
+    },
+    {
+      "file": "tekst-kolomfocus.test.ts",
+      "status": "passed",
+      "assertions": 10
+    },
+    {
+      "file": "tekst-logica.test.ts",
+      "status": "passed",
+      "assertions": 12
+    },
+    {
+      "file": "autocorrectie-engine.test.ts",
+      "status": "passed",
+      "assertions": 3
+    },
+    {
+      "file": "spelling.test.ts",
+      "status": "passed",
+      "assertions": 26
+    },
+    {
+      "file": "berekening.test.ts",
+      "status": "passed",
+      "assertions": 3
+    },
+    {
+      "file": "diatelling.test.ts",
+      "status": "passed",
+      "assertions": 5
+    },
+    {
+      "file": "selectiestatistiek.test.ts",
+      "status": "passed",
+      "assertions": 9
+    },
+    {
+      "file": "Statusbalk.test.tsx",
+      "status": "passed",
+      "assertions": 3
+    },
+    {
+      "file": "studios.test.tsx",
+      "status": "passed",
+      "assertions": 11
+    },
+    {
+      "file": "markering-engine.test.ts",
+      "status": "passed",
+      "assertions": 4
+    },
+    {
+      "file": "opmaak.test.ts",
+      "status": "passed",
+      "assertions": 18
+    },
+    {
+      "file": "meten.test.ts",
+      "status": "passed",
+      "assertions": 3
+    },
+    {
+      "file": "positie.test.ts",
+      "status": "passed",
+      "assertions": 6
+    },
+    {
+      "file": "raster.test.ts",
+      "status": "passed",
+      "assertions": 7
+    },
+    {
+      "file": "algemeenPassend.test.ts",
+      "status": "passed",
+      "assertions": 4
+    },
+    {
+      "file": "beeldAfmetingen.test.ts",
+      "status": "passed",
+      "assertions": 3
+    },
+    {
+      "file": "beveiliging.test.ts",
+      "status": "passed",
+      "assertions": 12
+    },
+    {
+      "file": "bladEigenschappen.test.ts",
+      "status": "passed",
+      "assertions": 6
+    },
+    {
+      "file": "bladen-verplaatsen.test.ts",
+      "status": "passed",
+      "assertions": 3
+    },
+    {
+      "file": "bladkopie.test.ts",
+      "status": "passed",
+      "assertions": 10
+    },
+    {
+      "file": "bladzichtbaarheid.test.ts",
+      "status": "passed",
+      "assertions": 8
+    },
+    {
+      "file": "celnotitieAnkers.test.ts",
+      "status": "passed",
+      "assertions": 4
+    },
+    {
+      "file": "celnotities.test.ts",
+      "status": "passed",
+      "assertions": 7
+    },
+    {
+      "file": "celstijlen.test.ts",
+      "status": "passed",
+      "assertions": 8
+    },
+    {
+      "file": "discussies.test.ts",
+      "status": "passed",
+      "assertions": 7
+    },
+    {
+      "file": "draaitabellen.test.ts",
+      "status": "passed",
+      "assertions": 9
+    },
+    {
+      "file": "draaitabelRekenen.test.ts",
+      "status": "passed",
+      "assertions": 9
+    },
+    {
+      "file": "formulefouten.test.ts",
+      "status": "passed",
+      "assertions": 8
+    },
+    {
+      "file": "formuleKoppeling.test.ts",
+      "status": "passed",
+      "assertions": 12
+    },
+    {
+      "file": "formulenotatie.test.ts",
+      "status": "passed",
+      "assertions": 2
+    },
+    {
+      "file": "formuleVerwijzing.test.ts",
+      "status": "passed",
+      "assertions": 11
+    },
+    {
+      "file": "gegevensvalidatie.test.ts",
+      "status": "passed",
+      "assertions": 21
+    },
+    {
+      "file": "getalnotatie-kern.test.ts",
+      "status": "passed",
+      "assertions": 24
+    },
+    {
+      "file": "getalnotatie.test.ts",
+      "status": "passed",
+      "assertions": 9
+    },
+    {
+      "file": "getalopmaak.test.ts",
+      "status": "passed",
+      "assertions": 11
+    },
+    {
+      "file": "groepen.test.ts",
+      "status": "passed",
+      "assertions": 7
+    },
+    {
+      "file": "groepsbediening.test.ts",
+      "status": "passed",
+      "assertions": 6
+    },
+    {
+      "file": "herberekende-opslag.test.ts",
+      "status": "passed",
+      "assertions": 9
+    },
+    {
+      "file": "ingebouwdeTabelstijlen.test.ts",
+      "status": "passed",
+      "assertions": 8
+    },
+    {
+      "file": "iteratie-engine.test.ts",
+      "status": "passed",
+      "assertions": 1
+    },
+    {
+      "file": "klembord-maten.test.ts",
+      "status": "passed",
+      "assertions": 9
+    },
+    {
+      "file": "klembord-tabelgrens.test.ts",
+      "status": "passed",
+      "assertions": 5
+    },
+    {
+      "file": "knippen.test.ts",
+      "status": "passed",
+      "assertions": 14
+    },
+    {
+      "file": "koppelingen.test.ts",
+      "status": "passed",
+      "assertions": 9
+    },
+    {
+      "file": "koprand.test.ts",
+      "status": "passed",
+      "assertions": 6
+    },
+    {
+      "file": "kopraster.test.ts",
+      "status": "passed",
+      "assertions": 3
+    },
+    {
+      "file": "lange-formules.test.ts",
+      "status": "passed",
+      "assertions": 8
+    },
+    {
+      "file": "naamAanvullingen.test.ts",
+      "status": "passed",
+      "assertions": 5
+    },
+    {
+      "file": "namen.test.ts",
+      "status": "passed",
+      "assertions": 45
+    },
+    {
+      "file": "objectGeometrie.test.ts",
+      "status": "passed",
+      "assertions": 3
+    },
+    {
+      "file": "passend.test.ts",
+      "status": "passed",
+      "assertions": 4
+    },
+    {
+      "file": "regionale-invoer.test.ts",
+      "status": "passed",
+      "assertions": 14
+    },
+    {
+      "file": "rekenblad-engine.test.ts",
+      "status": "passed",
+      "assertions": 11
+    },
+    {
+      "file": "renderprojectie.test.ts",
+      "status": "passed",
+      "assertions": 2
+    },
+    {
+      "file": "structuurbeveiliging.test.ts",
+      "status": "passed",
+      "assertions": 8
+    },
+    {
+      "file": "structuurverwijzingen.test.ts",
+      "status": "passed",
+      "assertions": 38
+    },
+    {
+      "file": "tabellen.test.ts",
+      "status": "passed",
+      "assertions": 13
+    },
+    {
+      "file": "tabelstandaard.test.ts",
+      "status": "passed",
+      "assertions": 12
+    },
+    {
+      "file": "tabelweergave.test.ts",
+      "status": "passed",
+      "assertions": 2
+    },
+    {
+      "file": "tekenobject-groepen.test.ts",
+      "status": "passed",
+      "assertions": 6
+    },
+    {
+      "file": "tekenobjecten.test.ts",
+      "status": "passed",
+      "assertions": 7
+    },
+    {
+      "file": "toegankelijkheid.test.ts",
+      "status": "passed",
+      "assertions": 9
+    },
+    {
+      "file": "voorwaardelijke-dxf-parser.test.ts",
+      "status": "passed",
+      "assertions": 4
+    },
+    {
+      "file": "voorwaardelijke-dxf.test.ts",
+      "status": "passed",
+      "assertions": 8
+    },
+    {
+      "file": "voorwaardelijke-opmaak.test.ts",
+      "status": "passed",
+      "assertions": 10
+    },
+    {
+      "file": "voorwaardelijke-visueel.test.ts",
+      "status": "passed",
+      "assertions": 35
+    },
+    {
+      "file": "voorwaardelijke-weergave.test.ts",
+      "status": "passed",
+      "assertions": 10
+    },
+    {
+      "file": "werkmapregio.test.ts",
+      "status": "passed",
+      "assertions": 14
+    },
+    {
+      "file": "zichtbaarheid-maten.test.ts",
+      "status": "passed",
+      "assertions": 6
+    },
+    {
+      "file": "contrast.test.ts",
+      "status": "passed",
+      "assertions": 17
+    },
+    {
+      "file": "dialoogstapel.test.ts",
+      "status": "passed",
+      "assertions": 4
+    },
+    {
+      "file": "werkruimte.test.ts",
+      "status": "passed",
+      "assertions": 4
+    },
+    {
+      "file": "access.test.ts",
+      "status": "passed",
+      "assertions": 18
+    },
+    {
+      "file": "model.test.ts",
+      "status": "passed",
+      "assertions": 4
+    },
+    {
+      "file": "afscherming.test.ts",
+      "status": "passed",
+      "assertions": 27
+    },
+    {
+      "file": "dao.test.ts",
+      "status": "passed",
+      "assertions": 15
+    },
+    {
+      "file": "extern.test.ts",
+      "status": "passed",
+      "assertions": 5
+    },
+    {
+      "file": "ontbrekend.test.ts",
+      "status": "passed",
+      "assertions": 112
+    },
+    {
+      "file": "parser.test.ts",
+      "status": "passed",
+      "assertions": 11
+    },
+    {
+      "file": "semantiek.test.ts",
+      "status": "passed",
+      "assertions": 43
+    },
+    {
+      "file": "vba-client.test.ts",
+      "status": "passed",
+      "assertions": 4
+    },
+    {
+      "file": "werkkopie-integratie.test.ts",
+      "status": "passed",
+      "assertions": 4
+    },
+    {
+      "file": "adapter.test.ts",
+      "status": "passed",
+      "assertions": 3
+    },
+    {
+      "file": "protocol.test.ts",
+      "status": "passed",
+      "assertions": 8
+    },
+    {
+      "file": "accounts-i18n.test.tsx",
+      "status": "passed",
+      "assertions": 2
+    },
+    {
+      "file": "email-i18n.test.ts",
+      "status": "passed",
+      "assertions": 4
+    },
+    {
+      "file": "email.test.ts",
+      "status": "passed",
+      "assertions": 23
+    },
+    {
+      "file": "sanitizer.test.ts",
+      "status": "passed",
+      "assertions": 63
+    },
+    {
+      "file": "zoeken.test.ts",
+      "status": "passed",
+      "assertions": 14
+    },
+    {
+      "file": "bestemmingen.test.ts",
+      "status": "passed",
+      "assertions": 5
+    },
+    {
+      "file": "geheugen.test.ts",
+      "status": "passed",
+      "assertions": 1
+    },
+    {
+      "file": "lettertypebron-beschikbaarheid.test.ts",
+      "status": "passed",
+      "assertions": 6
+    },
+    {
+      "file": "pdf.test.ts",
+      "status": "passed",
+      "assertions": 7
+    },
+    {
+      "file": "vector.test.ts",
+      "status": "passed",
+      "assertions": 10
+    },
+    {
+      "file": "docxHerlaadDoel.test.ts",
+      "status": "passed",
+      "assertions": 4
+    },
+    {
+      "file": "bereiken.test.ts",
+      "status": "passed",
+      "assertions": 3
+    },
+    {
+      "file": "offsets-engine.test.ts",
+      "status": "passed",
+      "assertions": 3
+    },
+    {
+      "file": "offsets.test.ts",
+      "status": "passed",
+      "assertions": 6
+    },
+    {
+      "file": "rechthoeken.test.ts",
+      "status": "passed",
+      "assertions": 11
+    },
+    {
+      "file": "tekst.test.ts",
+      "status": "passed",
+      "assertions": 13
+    },
+    {
+      "file": "afbeelding.test.ts",
+      "status": "passed",
+      "assertions": 11
+    },
+    {
+      "file": "bijsnijgrens.test.ts",
+      "status": "passed",
+      "assertions": 8
+    },
+    {
+      "file": "vervangen-engine.test.ts",
+      "status": "passed",
+      "assertions": 4
+    },
+    {
+      "file": "odt.test.ts",
+      "status": "passed",
+      "assertions": 6
+    },
+    {
+      "file": "datum.test.ts",
+      "status": "passed",
+      "assertions": 4
+    },
+    {
+      "file": "groottereeks.test.ts",
+      "status": "passed",
+      "assertions": 5
+    },
+    {
+      "file": "herhalen.test.ts",
+      "status": "passed",
+      "assertions": 2
+    },
+    {
+      "file": "hoofdletters-engine.test.ts",
+      "status": "passed",
+      "assertions": 7
+    },
+    {
+      "file": "hyperlink-engine.test.ts",
+      "status": "passed",
+      "assertions": 3
+    },
+    {
+      "file": "kwast.test.ts",
+      "status": "passed",
+      "assertions": 8
+    },
+    {
+      "file": "plakopties.test.ts",
+      "status": "passed",
+      "assertions": 12
+    },
+    {
+      "file": "profiel.test.ts",
+      "status": "passed",
+      "assertions": 10
+    },
+    {
+      "file": "vertaling.test.ts",
+      "status": "passed",
+      "assertions": 1
+    },
+    {
+      "file": "editorvolgen.test.ts",
+      "status": "passed",
+      "assertions": 6
+    },
+    {
+      "file": "engine.test.ts",
+      "status": "passed",
+      "assertions": 4
+    },
+    {
+      "file": "enginevenster.test.ts",
+      "status": "passed",
+      "assertions": 3
+    },
+    {
+      "file": "navigatieAlineaTekst.test.ts",
+      "status": "passed",
+      "assertions": 9
+    },
+    {
+      "file": "opslagvoorbereiding.test.ts",
+      "status": "passed",
+      "assertions": 2
+    },
+    {
+      "file": "versiemelding-engine.test.ts",
+      "status": "passed",
+      "assertions": 8
+    },
+    {
+      "file": "workerOpslag.test.ts",
+      "status": "passed",
+      "assertions": 3
+    },
+    {
+      "file": "workerPresentatie.test.ts",
+      "status": "passed",
+      "assertions": 12
+    },
+    {
+      "file": "workerStart.test.ts",
+      "status": "passed",
+      "assertions": 5
+    },
+    {
+      "file": "docprops-naamruimten.test.ts",
+      "status": "passed",
+      "assertions": 8
+    },
+    {
+      "file": "info.test.ts",
+      "status": "passed",
+      "assertions": 9
+    },
+    {
+      "file": "opslaan.test.ts",
+      "status": "passed",
+      "assertions": 4
+    },
+    {
+      "file": "taalvolgen.test.ts",
+      "status": "passed",
+      "assertions": 14
+    },
+    {
+      "file": "herstart-niveau.test.ts",
+      "status": "passed",
+      "assertions": 1
+    },
+    {
+      "file": "lijst.test.ts",
+      "status": "passed",
+      "assertions": 9
+    },
+    {
+      "file": "opsomming-engine.test.ts",
+      "status": "passed",
+      "assertions": 8
+    },
+    {
+      "file": "sjabloon.test.ts",
+      "status": "passed",
+      "assertions": 1
+    },
+    {
+      "file": "liniaal.test.ts",
+      "status": "passed",
+      "assertions": 31
+    },
+    {
+      "file": "tabafstand.test.ts",
+      "status": "passed",
+      "assertions": 3
+    },
+    {
+      "file": "tabelraster.test.ts",
+      "status": "passed",
+      "assertions": 4
+    },
+    {
+      "file": "miniwerkbalk.test.ts",
+      "status": "passed",
+      "assertions": 3
+    },
+    {
+      "file": "initialen.test.ts",
+      "status": "passed",
+      "assertions": 5
+    },
+    {
+      "file": "randen.test.ts",
+      "status": "passed",
+      "assertions": 8
+    },
+    {
+      "file": "bronnen.test.ts",
+      "status": "passed",
+      "assertions": 3
+    },
+    {
+      "file": "documenten.test.ts",
+      "status": "passed",
+      "assertions": 10
+    },
+    {
+      "file": "samenvoegen.test.ts",
+      "status": "passed",
+      "assertions": 5
+    },
+    {
+      "file": "klik-engine.test.ts",
+      "status": "passed",
+      "assertions": 7
+    },
+    {
+      "file": "navigatie-engine.test.ts",
+      "status": "passed",
+      "assertions": 3
+    },
+    {
+      "file": "passend-breedte.test.ts",
+      "status": "passed",
+      "assertions": 6
+    },
+    {
+      "file": "schuifpositie.test.ts",
+      "status": "passed",
+      "assertions": 3
+    },
+    {
+      "file": "selectie-verwijderen-engine.test.ts",
+      "status": "passed",
+      "assertions": 5
+    },
+    {
+      "file": "selectie.test.ts",
+      "status": "passed",
+      "assertions": 3
+    },
+    {
+      "file": "sorteerwaarden-engine.test.ts",
+      "status": "passed",
+      "assertions": 2
+    },
+    {
+      "file": "sorteerwaarden.test.ts",
+      "status": "passed",
+      "assertions": 27
+    },
+    {
+      "file": "splitsen-bronvarianten-engine.test.ts",
+      "status": "passed",
+      "assertions": 30
+    },
+    {
+      "file": "splitsen-dialoog.test.ts",
+      "status": "passed",
+      "assertions": 2
+    },
+    {
+      "file": "splitsen-engine.test.ts",
+      "status": "passed",
+      "assertions": 5
+    },
+    {
+      "file": "splitsen-geometrie-engine.test.ts",
+      "status": "passed",
+      "assertions": 15
+    },
+    {
+      "file": "structuur-engine.test.ts",
+      "status": "passed",
+      "assertions": 1
+    },
+    {
+      "file": "tabel.test.ts",
+      "status": "passed",
+      "assertions": 29
+    },
+    {
+      "file": "voorkeursbreedte-opslag-engine.test.ts",
+      "status": "passed",
+      "assertions": 24
+    },
+    {
+      "file": "worker-verwijdering-engine.test.ts",
+      "status": "passed",
+      "assertions": 3
+    },
+    {
+      "file": "lettertype.test.ts",
+      "status": "passed",
+      "assertions": 5
+    },
+    {
+      "file": "model.test.ts",
+      "status": "passed",
+      "assertions": 3
+    },
+    {
+      "file": "opdrachten.test.ts",
+      "status": "passed",
+      "assertions": 2
+    },
+    {
+      "file": "beheer.test.ts",
+      "status": "passed",
+      "assertions": 6
+    },
+    {
+      "file": "documentvolgen.test.ts",
+      "status": "passed",
+      "assertions": 3
+    },
+    {
+      "file": "model-verhalen.test.ts",
+      "status": "passed",
+      "assertions": 1
+    },
+    {
+      "file": "model.test.ts",
+      "status": "passed",
+      "assertions": 8
+    },
+    {
+      "file": "opmaakvensters.test.ts",
+      "status": "passed",
+      "assertions": 2
+    },
+    {
+      "file": "StijlBeheerGroep.test.tsx",
+      "status": "passed",
+      "assertions": 36
+    },
+    {
+      "file": "stijlenxml.test.ts",
+      "status": "passed",
+      "assertions": 13
+    },
+    {
+      "file": "tekenstijl-verhalen-engine.test.ts",
+      "status": "passed",
+      "assertions": 6
+    },
+    {
+      "file": "toepassen.test.ts",
+      "status": "passed",
+      "assertions": 2
+    },
+    {
+      "file": "vervolg-engine.test.ts",
+      "status": "passed",
+      "assertions": 5
+    },
+    {
+      "file": "inhoudsopgave-paginas.test.ts",
+      "status": "passed",
+      "assertions": 16
+    },
+    {
+      "file": "kolomkeuze.test.ts",
+      "status": "passed",
+      "assertions": 5
+    },
+    {
+      "file": "kolommen-engine.test.ts",
+      "status": "passed",
+      "assertions": 10
+    },
+    {
+      "file": "kopvoet-verwijderen.test.ts",
+      "status": "passed",
+      "assertions": 16
+    },
+    {
+      "file": "kopvoetDoel.test.ts",
+      "status": "passed",
+      "assertions": 4
+    },
+    {
+      "file": "markeringen-engine.test.ts",
+      "status": "passed",
+      "assertions": 7
+    },
+    {
+      "file": "markeringsdelen.test.ts",
+      "status": "passed",
+      "assertions": 10
+    },
+    {
+      "file": "nootherstart-engine.test.ts",
+      "status": "passed",
+      "assertions": 7
+    },
+    {
+      "file": "nootinstellingen-secties.test.ts",
+      "status": "passed",
+      "assertions": 8
+    },
+    {
+      "file": "nootnummering-engine.test.ts",
+      "status": "passed",
+      "assertions": 30
+    },
+    {
+      "file": "nootomzetting.test.ts",
+      "status": "passed",
+      "assertions": 12
+    },
+    {
+      "file": "nootopmaak-engine.test.ts",
+      "status": "passed",
+      "assertions": 23
+    },
+    {
+      "file": "nootstandaard.test.ts",
+      "status": "passed",
+      "assertions": 1
+    },
+    {
+      "file": "nootVervolg-engine.test.ts",
+      "status": "passed",
+      "assertions": 12
+    },
+    {
+      "file": "odtSecties.test.ts",
+      "status": "passed",
+      "assertions": 9
+    },
+    {
+      "file": "pagina.test.ts",
+      "status": "passed",
+      "assertions": 24
+    },
+    {
+      "file": "secties-formaten-engine.test.ts",
+      "status": "passed",
+      "assertions": 8
+    },
+    {
+      "file": "model.test.ts",
+      "status": "passed",
+      "assertions": 10
+    },
+    {
+      "file": "odf-compatibiliteit.test.ts",
+      "status": "passed",
+      "assertions": 1
+    },
+    {
+      "file": "render.test.ts",
+      "status": "passed",
+      "assertions": 13
+    },
+    {
+      "file": "vergelijking-engine.test.ts",
+      "status": "passed",
+      "assertions": 2
+    },
+    {
+      "file": "weergave-engine.test.ts",
+      "status": "passed",
+      "assertions": 1
+    },
+    {
+      "file": "afbeeldingen.test.ts",
+      "status": "passed",
+      "assertions": 4
+    },
+    {
+      "file": "effecten.test.ts",
+      "status": "passed",
+      "assertions": 5
+    },
+    {
+      "file": "vormen-engine.test.ts",
+      "status": "passed",
+      "assertions": 23
+    },
+    {
+      "file": "verwijzingen-engine.test.ts",
+      "status": "passed",
+      "assertions": 21
+    },
+    {
+      "file": "bladwijzers-engine.test.ts",
+      "status": "passed",
+      "assertions": 3
+    },
+    {
+      "file": "ganaar.test.ts",
+      "status": "passed",
+      "assertions": 4
+    },
+    {
+      "file": "linux-invoer-undo.test.ts",
+      "status": "passed",
+      "assertions": 18
+    },
+    {
+      "file": "zoeken.test.ts",
+      "status": "passed",
+      "assertions": 27
+    },
+    {
+      "file": "review-undo-engine.test.ts",
+      "status": "passed",
+      "assertions": 20
+    },
+    {
+      "file": "tekenopmaak-engine.test.ts",
+      "status": "passed",
+      "assertions": 18
+    },
+    {
+      "file": "vergelijken-engine.test.ts",
+      "status": "passed",
+      "assertions": 28
+    },
+    {
+      "file": "vertaling.test.ts",
+      "status": "passed",
+      "assertions": 1
+    },
+    {
+      "file": "wijzigingen.test.ts",
+      "status": "passed",
+      "assertions": 6
+    },
+    {
+      "file": "access-sql.test.ts",
+      "status": "passed",
+      "assertions": 96
+    },
+    {
+      "file": "structuur.test.ts",
+      "status": "passed",
+      "assertions": 18
+    },
+    {
+      "file": "werkkopie.test.ts",
+      "status": "passed",
+      "assertions": 21
+    },
+    {
+      "file": "extern-logica.test.ts",
+      "status": "passed",
+      "assertions": 16
+    },
+    {
+      "file": "logica.test.ts",
+      "status": "passed",
+      "assertions": 13
+    },
+    {
+      "file": "ontwerp-logica.test.ts",
+      "status": "passed",
+      "assertions": 6
+    },
+    {
+      "file": "raster-logica.test.ts",
+      "status": "passed",
+      "assertions": 17
+    },
+    {
+      "file": "voorbeeld.test.ts",
+      "status": "passed",
+      "assertions": 1
+    },
+    {
+      "file": "voorbeeld.test.tsx",
+      "status": "passed",
+      "assertions": 34
+    },
+    {
+      "file": "opstel-sneltoetsen.test.ts",
+      "status": "passed",
+      "assertions": 18
+    },
+    {
+      "file": "actieve-sectie.test.ts",
+      "status": "passed",
+      "assertions": 8
+    },
+    {
+      "file": "herladen.test.ts",
+      "status": "passed",
+      "assertions": 4
+    },
+    {
+      "file": "openbevestiging.test.ts",
+      "status": "passed",
+      "assertions": 6
+    }
+  ]
+}

@@ -1,0 +1,144 @@
+{
+  "issue": 361,
+  "identity": {
+    "sourceCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+    "sourceTree": "e30879fd772871e690847c061ef66e6b81808a05",
+    "declaredVersion": "2026.48.1",
+    "artifactRun": 45195055147,
+    "artifactAttempt": 1,
+    "artifactName": "uitgave-macOS",
+    "artifactId": 14836145077,
+    "archiveSha256": "45a88b40325f516e91b0b4cb557b88fd2a81d62bde2e4be26dc87bd1b55ff015",
+    "successfulPlatformJob": 137763371873,
+    "successfulPlatformJobName": "Bouwen – macOS",
+    "packageMember": "dist-installers/office/dmg/Open Office Studio_2026.48.1_aarch64.dmg",
+    "packageSha256": "1d0cb79f23e1e082d1aa4e32aa1dd3997c297fb0cb2629aa530a3e29e685c4af",
+    "requireExactPackageMember": true,
+    "transferRun": 45351696628,
+    "transferCommit": "03477b0199daeb50ae7b20d552b111630c3271ce",
+    "transferAttempt": 1,
+    "transferArtifactId": 14901001083,
+    "transferArtifactName": "standalone-support-suite",
+    "transferArchiveSha256": "76ad8b48534cec1833954358e0c71195b6dc5e62ab30bbac094f37367b0d8650",
+    "transferProducerJob": 138299734385,
+    "transferProducerJobName": "prepare",
+    "transferDescriptorMember": "provenance.json",
+    "transferDmgMember": "Open Office Studio_2026.48.1_aarch64.dmg",
+    "platform": "macOS",
+    "executionApproved": true,
+    "suiteChildTransferApproved": true,
+    "preparationOnly": false,
+    "derivePackageIdentityFromVerifiedArchive": true,
+    "deriveExecutableFromVerifiedDmg": true,
+    "requireSignedNotarized": true,
+    "nativeBodyAcceptanceApproved": true,
+    "macViewportSetup": {
+      "mode": "native-maximize-once",
+      "executionApproved": true
+    },
+    "nativeControlVisibleAnchors": [
+      "EERSTE",
+      "TWEEDE"
+    ],
+    "remainingBinding": "Exact current signed core45352741879 verified and independently reviewed; execute only the remaining scoped case.",
+    "transferRequestMember": "request.json",
+    "supportDescriptorRequired": true,
+    "supportDescriptorContractQaCommit": "8c4c3b5b441b3e39e2efa711f43d43d9931b1a9d",
+    "supportDescriptorArtifactId": 14901235362,
+    "supportDescriptorArtifactName": "standalone-suite-support-descriptor-03477b0199daeb50ae7b20d552b111630c3271ce",
+    "supportDescriptorArchiveSha256": "c73e2691c61a4dd11f320c65e3ff4541754f6f67eddb47d1ba0294429d3eef8e",
+    "supportDescriptorMember": "suite-support-descriptor.json",
+    "supportDescriptorBindingStatus": "Pinned actual descriptor and child; no native pass yet.",
+    "transferArchiveBytes": 373225524,
+    "supportDescriptorArchiveBytes": 2673,
+    "consumerRequiredSuiteSteps": [
+      "Transfer Suite only to its separate validation owner",
+      "Bind separate Suite child artifact to parent and DMG digests",
+      "Preserve separate Suite-owner descriptor"
+    ],
+    "consumerRequiresRawPreparerLog": true,
+    "separateProducerApproved": true,
+    "producerCommit": "2af94cdcefa3e88e4980b631d16a88d7d7de5ae8",
+    "producerTree": "94340e40228ddcb11aace00e4dd01f614a13273e",
+    "producerRef": "refs/heads/codex/p5-macos-only-producer-20261123",
+    "producerWorkflowPath": ".github/workflows/release.yml",
+    "producerWorkflowSha256": "2ae3b7aa85bb4d4e394e71af43a93da45332e9b5f78fd7ed2151aca732726d62",
+    "checkoutWorkflowSha256": "620e90485493163b87163a8763ffbbfcc2f0af5f03251b592af577721c5a9c64",
+    "sourceWitnessRequired": true,
+    "sourceWitnessMember": ".local/macos-only-producer-source.json",
+    "sourceWitnessSha256": "236085a316b40b2e5033316a3e3ed45f91cb9a27e83d518117160ba4aff4e7d5",
+    "sourceWitnessContract": "Root-approved rawBase64/member/SHA/bytes/value in raw provenance and support envelope",
+    "archiveBytes": 1972148013,
+    "userResume": "Explicit user resumption24Nov; only this own Suite scope. Native execution waits actual child/support/witness binding and all strict gates.",
+    "previous361Core": {
+      "reportPath": "docs/tests/2026-11-23-mac-native-P5/core/report.json",
+      "run": 45352741879,
+      "artifactId": 14902380591,
+      "archiveSha256": "0b63b96d5dfa25b95671c12cb39e32e0164a5f01adbfea161597eafd617e8721",
+      "reportSha256": "ed6409f1f36a8a327056b2806279d405b9fa749ce0de3dda3e9784b60f7d3ccd",
+      "bindingPending": false
+    },
+    "field374NativeApproved": true,
+    "field374SharedCheckout": ".local/shared-field374",
+    "field374SharedQaCommit": "3169b09020184e3a98a4d5364ad77b15f38ac063",
+    "executableSha256": "0c6a58c7438f1ba2b3b9b1e74ea23e29fb9a93523723bc5694bb3727702a9d87",
+    "packagePath": "/Users/runner/work/open-office-studio/open-office-studio/.local/mac-product-input/Open Office Studio_2026.48.1_aarch64.dmg",
+    "executablePath": "/Users/runner/work/_temp/writer361-owned-app-a8p3l8g0/Open Office Studio.app/Contents/MacOS/open-office-studio"
+  },
+  "driverSha256": "2cd86fa796ac65ec787ad9054bc896a54b3325d5eb2466bf018e11e4d29cfd0e",
+  "harnessCommit": "b052808d6fcfed34c7543176f0a827891b02a60d",
+  "helperSourceSha256": "82813e7a2b9509cc1e9238a8eaaadf4b7e281d4535df13a86257f99f4bc06573",
+  "helperBinarySha256": "a5801173ac47104b774547dc22b6a6019a0dec9b53924daae47c116822e944b6",
+  "native": {
+    "action": "type-test-character",
+    "applicationActive": true,
+    "bounded": false,
+    "childListsTruncated": true,
+    "errors": {
+      "-25205": 4,
+      "-25212": 2
+    },
+    "findInputs": [],
+    "focusAfter": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    },
+    "focusBefore": {
+      "description": "Document input",
+      "role": "AXTextArea",
+      "title": "Document input"
+    },
+    "frontmostPid": 2942,
+    "pid": 2942,
+    "status": "input-sent",
+    "tables": [
+      {
+        "cellTexts": [
+          [
+            "Materiaal",
+            "Aantal"
+          ],
+          [
+            "Hout",
+            "42"
+          ]
+        ],
+        "columnEvidenceAvailable": true,
+        "columns": 2,
+        "rowEvidenceAvailable": true,
+        "rows": 2
+      }
+    ],
+    "testCharacter": "Q",
+    "trusted": true,
+    "visited": 539,
+    "window": {
+      "description": "",
+      "role": "AXWindow",
+      "title": "native-preflight-private-copy.docx — Open Office Studio (Text)"
+    }
+  },
+  "acceptance": "observation only; input-sent is not a functional pass",
+  "cleanup": "caller owns app and must close its own app/capture after final checks"
+}

@@ -1,0 +1,171 @@
+{
+  "status": "passed bounded 378/preflight original-image observations",
+  "previousDirectOriginalImagesReviewed": 14,
+  "boundOriginalImagesIncludingExactDuplicates": 18,
+  "newImageViewingPerformed": false,
+  "entries": [
+    {
+      "scope": "appimage-missing",
+      "file": "missing-helper-error.png",
+      "sha256": "31df59473555c7db23774b435b5dd6e99c0e32358d4bf56c10da26ea41a6a856",
+      "reusedOwnDirectReviewFrom23November": "viewed-original-images/appimage-missing/missing-helper-error.png",
+      "hashDeduplicatedEquivalentImage": false,
+      "nativePresentedSampleHashesMayDiffer": true,
+      "acceptanceBasis": "Exact original image bytes plus independently checked native source/process/content receipts; no false identical-sample claim."
+    },
+    {
+      "scope": "appimage-missing",
+      "file": "preflight-reopened.png",
+      "sha256": "7bc0afe6ffbe2c0d770c771c086d4cafba34372ba3a3182c7724a2a07b183624",
+      "reusedOwnDirectReviewFrom23November": "viewed-original-images/appimage-missing/preflight-reopened.png",
+      "hashDeduplicatedEquivalentImage": false,
+      "nativePresentedSampleHashesMayDiffer": true,
+      "acceptanceBasis": "Exact original image bytes plus independently checked native source/process/content receipts; no false identical-sample claim."
+    },
+    {
+      "scope": "appimage-missing",
+      "file": "preflight-saved.png",
+      "sha256": "9b2a6ca663da553c22e151503e5b7e88269f49a6a1eb1a2fa44c56c87af63d3c",
+      "reusedOwnDirectReviewFrom23November": "viewed-original-images/appimage-missing/preflight-saved.png",
+      "hashDeduplicatedEquivalentImage": false,
+      "nativePresentedSampleHashesMayDiffer": true,
+      "acceptanceBasis": "Exact original image bytes plus independently checked native source/process/content receipts; no false identical-sample claim."
+    },
+    {
+      "scope": "appimage-positive",
+      "file": "after-native-cancel.png",
+      "sha256": "d8e560c3806134d3e4fa3b07a414953a6b40b55b5269f74d9d97d65eb6d0347d",
+      "reusedOwnDirectReviewFrom23November": "viewed-original-images/appimage-positive/after-native-cancel.png",
+      "hashDeduplicatedEquivalentImage": false,
+      "nativePresentedSampleHashesMayDiffer": true,
+      "acceptanceBasis": "Exact original image bytes plus independently checked native source/process/content receipts; no false identical-sample claim."
+    },
+    {
+      "scope": "appimage-positive",
+      "file": "after-native-overwrite.png",
+      "sha256": "7ad3dd4c95c8164181bf6aabe6e9b9af787b2f6a8034f1787320b2e0d8eff992",
+      "reusedOwnDirectReviewFrom23November": "viewed-original-images/appimage-positive/after-native-overwrite.png",
+      "hashDeduplicatedEquivalentImage": false,
+      "nativePresentedSampleHashesMayDiffer": true,
+      "acceptanceBasis": "Exact original image bytes plus independently checked native source/process/content receipts; no false identical-sample claim."
+    },
+    {
+      "scope": "appimage-positive",
+      "file": "confirmation-1.png",
+      "sha256": "e70d6b424bf3d5d2ec6c7fe61052b62edb61c64be66756e4be592fed844202cd",
+      "reusedOwnDirectReviewFrom23November": "viewed-original-images/appimage-positive/confirmation-1.png",
+      "hashDeduplicatedEquivalentImage": false,
+      "nativePresentedSampleHashesMayDiffer": true,
+      "acceptanceBasis": "Exact original image bytes plus independently checked native source/process/content receipts; no false identical-sample claim."
+    },
+    {
+      "scope": "appimage-positive",
+      "file": "confirmation-2.png",
+      "sha256": "e70d6b424bf3d5d2ec6c7fe61052b62edb61c64be66756e4be592fed844202cd",
+      "reusedOwnDirectReviewFrom23November": "viewed-original-images/appimage-positive/confirmation-1.png",
+      "hashDeduplicatedEquivalentImage": true,
+      "nativePresentedSampleHashesMayDiffer": true,
+      "acceptanceBasis": "Exact original image bytes plus independently checked native source/process/content receipts; no false identical-sample claim."
+    },
+    {
+      "scope": "appimage-positive",
+      "file": "positive-new-pid-reopen.png",
+      "sha256": "7192cedced726b947efef9ac15a6f5ee657c096eb7e2f5db9628402fb6f3f940",
+      "reusedOwnDirectReviewFrom23November": "viewed-original-images/appimage-positive/positive-new-pid-reopen.png",
+      "hashDeduplicatedEquivalentImage": false,
+      "nativePresentedSampleHashesMayDiffer": true,
+      "acceptanceBasis": "Exact original image bytes plus independently checked native source/process/content receipts; no false identical-sample claim."
+    },
+    {
+      "scope": "deb-positive",
+      "file": "after-native-cancel.png",
+      "sha256": "9c9ca83d30bf729b5f72bbd1e426b4dfbaa5255dadacff7518f2341c8193f238",
+      "reusedOwnDirectReviewFrom23November": "viewed-original-images/deb-positive/after-native-cancel.png",
+      "hashDeduplicatedEquivalentImage": false,
+      "nativePresentedSampleHashesMayDiffer": true,
+      "acceptanceBasis": "Exact original image bytes plus independently checked native source/process/content receipts; no false identical-sample claim."
+    },
+    {
+      "scope": "deb-positive",
+      "file": "after-native-overwrite.png",
+      "sha256": "c59597c5a6bcbd9fc8672a421513a2b72fa3add07ffecf9761dffb5dc1d5d362",
+      "reusedOwnDirectReviewFrom23November": "viewed-original-images/deb-positive/after-native-overwrite.png",
+      "hashDeduplicatedEquivalentImage": false,
+      "nativePresentedSampleHashesMayDiffer": true,
+      "acceptanceBasis": "Exact original image bytes plus independently checked native source/process/content receipts; no false identical-sample claim."
+    },
+    {
+      "scope": "deb-positive",
+      "file": "confirmation-1.png",
+      "sha256": "e70d6b424bf3d5d2ec6c7fe61052b62edb61c64be66756e4be592fed844202cd",
+      "reusedOwnDirectReviewFrom23November": "viewed-original-images/appimage-positive/confirmation-1.png",
+      "hashDeduplicatedEquivalentImage": true,
+      "nativePresentedSampleHashesMayDiffer": true,
+      "acceptanceBasis": "Exact original image bytes plus independently checked native source/process/content receipts; no false identical-sample claim."
+    },
+    {
+      "scope": "deb-positive",
+      "file": "confirmation-2.png",
+      "sha256": "e70d6b424bf3d5d2ec6c7fe61052b62edb61c64be66756e4be592fed844202cd",
+      "reusedOwnDirectReviewFrom23November": "viewed-original-images/appimage-positive/confirmation-1.png",
+      "hashDeduplicatedEquivalentImage": true,
+      "nativePresentedSampleHashesMayDiffer": true,
+      "acceptanceBasis": "Exact original image bytes plus independently checked native source/process/content receipts; no false identical-sample claim."
+    },
+    {
+      "scope": "deb-positive",
+      "file": "positive-new-pid-reopen.png",
+      "sha256": "dde222a8b2e64d287fa5ab392af72b5e153fd91c13308d40acc9243b8e6f435f",
+      "reusedOwnDirectReviewFrom23November": "viewed-original-images/deb-positive/positive-new-pid-reopen.png",
+      "hashDeduplicatedEquivalentImage": false,
+      "nativePresentedSampleHashesMayDiffer": true,
+      "acceptanceBasis": "Exact original image bytes plus independently checked native source/process/content receipts; no false identical-sample claim."
+    },
+    {
+      "scope": "deb-positive",
+      "file": "preflight-reopened.png",
+      "sha256": "c1ebd30335cfd84ccba5c4bdddb3650f6be1ccea10562ccd1edf64a5e39170cc",
+      "reusedOwnDirectReviewFrom23November": "viewed-original-images/deb-positive/preflight-reopened.png",
+      "hashDeduplicatedEquivalentImage": false,
+      "nativePresentedSampleHashesMayDiffer": true,
+      "acceptanceBasis": "Exact original image bytes plus independently checked native source/process/content receipts; no false identical-sample claim."
+    },
+    {
+      "scope": "deb-positive",
+      "file": "preflight-saved.png",
+      "sha256": "94c7480529d8e0e55f4c7afdf77fe0c9a121bb38c53e1b5804db4d12373c2875",
+      "reusedOwnDirectReviewFrom23November": "viewed-original-images/deb-positive/preflight-saved.png",
+      "hashDeduplicatedEquivalentImage": false,
+      "nativePresentedSampleHashesMayDiffer": true,
+      "acceptanceBasis": "Exact original image bytes plus independently checked native source/process/content receipts; no false identical-sample claim."
+    },
+    {
+      "scope": "deb-missing",
+      "file": "missing-helper-error.png",
+      "sha256": "31df59473555c7db23774b435b5dd6e99c0e32358d4bf56c10da26ea41a6a856",
+      "reusedOwnDirectReviewFrom23November": "viewed-original-images/appimage-missing/missing-helper-error.png",
+      "hashDeduplicatedEquivalentImage": true,
+      "nativePresentedSampleHashesMayDiffer": true,
+      "acceptanceBasis": "Exact original image bytes plus independently checked native source/process/content receipts; no false identical-sample claim."
+    },
+    {
+      "scope": "deb-missing",
+      "file": "preflight-reopened.png",
+      "sha256": "ae0637af2bec09418c5feac2e91faf5096f51bb9962c7210c70f1703b4fb0120",
+      "reusedOwnDirectReviewFrom23November": "viewed-original-images/deb-missing/preflight-reopened.png",
+      "hashDeduplicatedEquivalentImage": false,
+      "nativePresentedSampleHashesMayDiffer": true,
+      "acceptanceBasis": "Exact original image bytes plus independently checked native source/process/content receipts; no false identical-sample claim."
+    },
+    {
+      "scope": "deb-missing",
+      "file": "preflight-saved.png",
+      "sha256": "82b3aa871341e476a8c115ad088490cbcad2891297e4796525eb2f67bf984152",
+      "reusedOwnDirectReviewFrom23November": "viewed-original-images/deb-missing/preflight-saved.png",
+      "hashDeduplicatedEquivalentImage": false,
+      "nativePresentedSampleHashesMayDiffer": true,
+      "acceptanceBasis": "Exact original image bytes plus independently checked native source/process/content receipts; no false identical-sample claim."
+    }
+  ],
+  "coreBlankBodyImagesAcceptedAsBodyPaint": false
+}

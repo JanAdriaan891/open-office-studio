@@ -1,0 +1,31 @@
+{
+  "platform": "linux",
+  "programma": "open-database-studio",
+  "versie": "2026.48.1",
+  "pakketten": [
+    {
+      "naam": "Open Database Studio_2026.48.1_amd64.deb",
+      "bytes": 41412256,
+      "sha256": "847f5486dd0ab3241a66b031dc75d8fd23e91ab8a68986cb4d6cd9ae2db6c26d",
+      "controles": [
+        "DEB-versie en architectuur",
+        "runtime-afhankelijkheden opgegeven",
+        "ELF x64 en bibliotheken gevonden",
+        "snelkoppeling en pictogram aanwezig"
+      ]
+    },
+    {
+      "naam": "Open Database Studio_2026.48.1_amd64.AppImage",
+      "bytes": 119671288,
+      "sha256": "9a3618b91f1c20c9cf78eed95a2cf7424e9eaa12a97563297d8de4ec6a80417c",
+      "controles": [
+        "AppImage type 2",
+        "SquashFS volledig uitgepakt",
+        "AppRun uitvoerbaar",
+        "ELF x64 en bibliotheken gevonden",
+        "snelkoppeling en pictogram aanwezig"
+      ]
+    }
+  ],
+  "installatie_en_native_bediening": "niet_gecontroleerd"
+}

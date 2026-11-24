@@ -1,0 +1,123 @@
+{
+  "retainedOfficialJob": {
+    "id": 138320456545,
+    "run_id": 45357794642,
+    "workflow_name": "Standalone macOS independence QA",
+    "head_branch": "codex/standalone-macos-20261123",
+    "run_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/actions/runs/45357794642",
+    "run_attempt": 1,
+    "node_id": "CR_kwDOVRiTGs8AAAAgNIqrYQ",
+    "head_sha": "4c2d7637e61a39d851cccb39d296d13d520a9388",
+    "url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/actions/jobs/138320456545",
+    "html_url": "https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/45357794642/job/138320456545",
+    "status": "completed",
+    "conclusion": "failure",
+    "created_at": "2026-11-24T08:39:01Z",
+    "started_at": "2026-11-24T08:40:23Z",
+    "completed_at": "2026-11-24T08:50:48Z",
+    "name": "native (spreadsheet, xlsb)",
+    "steps": [
+      {
+        "name": "Set up job",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 1,
+        "started_at": "2026-11-24T08:40:25Z",
+        "completed_at": "2026-11-24T08:40:27Z"
+      },
+      {
+        "name": "Run actions/checkout@v4",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 2,
+        "started_at": "2026-11-24T08:40:27Z",
+        "completed_at": "2026-11-24T08:40:34Z"
+      },
+      {
+        "name": "Run actions/setup-python@v5",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 3,
+        "started_at": "2026-11-24T08:40:34Z",
+        "completed_at": "2026-11-24T08:40:34Z"
+      },
+      {
+        "name": "Run actions/download-artifact@v4",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 4,
+        "started_at": "2026-11-24T08:40:34Z",
+        "completed_at": "2026-11-24T08:40:59Z"
+      },
+      {
+        "name": "Verify own transferred DMG, native preflight and standalone core case",
+        "status": "completed",
+        "conclusion": "failure",
+        "number": 5,
+        "started_at": "2026-11-24T08:40:59Z",
+        "completed_at": "2026-11-24T08:50:33Z"
+      },
+      {
+        "name": "Run actions/upload-artifact@v4",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 6,
+        "started_at": "2026-11-24T08:50:33Z",
+        "completed_at": "2026-11-24T08:50:40Z"
+      },
+      {
+        "name": "Post Run actions/setup-python@v5",
+        "status": "completed",
+        "conclusion": "skipped",
+        "number": 11,
+        "started_at": "2026-11-24T08:50:40Z",
+        "completed_at": "2026-11-24T08:50:40Z"
+      },
+      {
+        "name": "Post Run actions/checkout@v4",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 12,
+        "started_at": "2026-11-24T08:50:40Z",
+        "completed_at": "2026-11-24T08:50:41Z"
+      },
+      {
+        "name": "Complete job",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 13,
+        "started_at": "2026-11-24T08:50:41Z",
+        "completed_at": "2026-11-24T08:50:46Z"
+      }
+    ],
+    "check_run_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/check-runs/138320456545",
+    "labels": [
+      "macos-latest"
+    ],
+    "runner_id": 1000136884,
+    "runner_name": "GitHub Actions 1000136884",
+    "runner_group_id": 0,
+    "runner_group_name": "GitHub Actions"
+  },
+  "retainedOfficialArtifact": {
+    "id": 14904041365,
+    "node_id": "MDg6QXJ0aWZhY3QxNDkwNDA0MTM2NQ==",
+    "name": "standalone-native-spreadsheet-xlsb-4c2d7637e61a39d851cccb39d296d13d520a9388",
+    "size_in_bytes": 6053555,
+    "url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/actions/artifacts/14904041365",
+    "archive_download_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/actions/artifacts/14904041365/zip",
+    "expired": false,
+    "digest": "sha256:fa28025fb854905a58643eb6f12b1a084e6569c418e6501d5fc964dd39981acd",
+    "created_at": "2026-11-24T08:50:39Z",
+    "updated_at": "2026-11-24T08:50:39Z",
+    "expires_at": "2027-02-22T08:37:50Z",
+    "workflow_run": {
+      "id": 45357794642,
+      "repository_id": 1427673882,
+      "head_repository_id": 1427673882,
+      "head_branch": "codex/standalone-macos-20261123",
+      "head_sha": "4c2d7637e61a39d851cccb39d296d13d520a9388"
+    }
+  },
+  "watchObservedAt": "2026-11-24T08:51:21.222074+00:00"
+}

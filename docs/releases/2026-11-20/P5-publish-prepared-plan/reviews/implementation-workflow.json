@@ -1,0 +1,60 @@
+{
+  "status": "No remaining material finding on exact reviewed proposal bytes; execution not authorized",
+  "fileSha256": {
+    ".github/workflows/publish-prepared.yml": "f11e0daa4990d8e31b08367097188b3adc667906a3417544f18c5612677a6fef",
+    "docs/releases/2026-11-20/P5-publish-prepared-plan/plan.final-review.json": "da0851d59c65ff54c4ec09e5b1dda712a337c71525ee5e517da5ac39a26d16f8",
+    "docs/releases/2026-11-20/P5-publish-prepared-plan/release-body.final-review.md": "d4045ac87d963a1e3adf9b7bd2817ee74a42c158847376f29fb808c23ec373b6",
+    "docs/releases/2026-11-20/P5-publish-prepared-plan/publisher/core.py": "a623be0e09ed418441ea748792263635c7e3715e5f4235834af16e3619a70a67",
+    "docs/releases/2026-11-20/P5-publish-prepared-plan/publisher/gh_backend.py": "73631e23df5c7e553920aa7d4293182c1c12dcfdc74abdd1866ba4324faad6dd",
+    "docs/releases/2026-11-20/P5-publish-prepared-plan/publisher/publish_prepared.py": "63d2e4d76649873f201c91fd7e81c157ed0c5330127f26f8257a36589ad82ce7",
+    "docs/releases/2026-11-20/P5-publish-prepared-plan/publisher/test_publisher.py": "fce6af21bc2bfbf7f7ee79d866249a33cf5180fd3888327bb24a93b853d7b8a6"
+  },
+  "reviewedCodeSha256": "4b1f57af23ceedf7f61f5ae17b6c61d5c21991ed6184d106dc04a405e4de09cc",
+  "findings": {
+    "diskPeak": {
+      "resolved": true,
+      "oldPeakMinBytes": 25411528977,
+      "newParentExtractionPeakMinBytes": {
+        "Windows": 4075467332,
+        "Linux": 10942496858,
+        "macOS": 10450384351
+      },
+      "newMaxParentExtractionPeakGiB": 10.190994346514344,
+      "correction": "One verified original ZIP at a time, unlink own parent cache after member/witness checks, unlink own assets after exact upload IDs, per-installer streaming readback+15GPG generator with no signature weakening; concrete free-space checks remain"
+    },
+    "compareRoute": {
+      "resolved": true,
+      "correction": "Exact compare/40hex...40hex allowed; traversal/host/relative paths rejected by real backend guard and positive/negative fake test"
+    },
+    "duplicateCliApprovalState": {
+      "resolved": true,
+      "correction": "strict_json used in CLI before backend factory, core state/plan/witness reads; tests cover duplicate approval/state rejection"
+    }
+  },
+  "tests": {
+    "frozenSnapshotTests": 21,
+    "focusedActualBackendWithMocks": "PASS API JSON payloads, main/ref/workflowSHA/PAT context, public-onlyGPG valid/wrongsigner/secretlisting and scoped cleanup",
+    "actualNetworkApiGpgKeyImportCiOrPublicationInvocations": 0,
+    "snapshotPath": "C:\\Users\\alper\\Desktop\\Documents\\ChatGPT\\code slaafjes\\work\\oos-release-prep-2026-11-20-9635\\.local\\p5-publisher-independent-review-20261124\\snapshot-2",
+    "previousSnapshotTests": 16
+  },
+  "reviewedExpectedBehavior": [
+    "Default offline check, explicit separate stage permissions before backend mutations",
+    "Only manual main workflow plus matching actual run/attempt/head/repo/workflow/tree and approvalcode/body/plan/assets hashes",
+    "Tag exact APPb696; source tree e308; separate Macproducer2af and wholeparent hashes/witness preserved",
+    "Exactly60 asset names/bytes/hashes,58manifestrows,15public-onlyverifications before tag/upload and actual60-byte readback beforepublish",
+    "Newdraft only; no tagretarget/releaseoverwrite/clobber; partialmutations retained with requiresManualReview and no automaticretry",
+    "Public release finalbody/tag/assets/actualdownloadURLs rechecked; state-onlyartifact, no caches/approval/key material upload",
+    "Current main commit and tree are checked again immediately before tag creation/publication; changedmain cases reject before writes"
+  ],
+  "referenceUrls": [
+    "https://docs.github.com/en/actions/concepts/security/github_token",
+    "https://docs.github.com/en/actions/reference/runners/github-hosted-runners"
+  ],
+  "limits": [
+    "No main/tag/release/API write, download, livecrypto/keyimport or CI execution. User authorization still absent.",
+    "Token prefixes/environment checks are not independent cryptographic issuer attestation; safety relies on the exact reviewed workflow assigning github.token directly and real run context checks.",
+    "Fake tests verify control flow and payloads, not live GitHub upload/GPG compatibility, throughput or provider behavior.",
+    "Review covers exact hashes only. Any change requires relevant delta review; no unconditional release authorization."
+  ]
+}

@@ -1,0 +1,305 @@
+{
+  "schemaVersion": 1,
+  "applicationCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+  "applicationTree": "e30879fd772871e690847c061ef66e6b81808a05",
+  "version": "2026.48.1",
+  "harnessCommit": "97710e2ba22d0939ef121fdebb18dec43ed2df9d",
+  "package": {
+    "applicationCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+    "applicationTree": "e30879fd772871e690847c061ef66e6b81808a05",
+    "version": "2026.48.1",
+    "artifactRun": 45177730188,
+    "platformJobId": 137703365803,
+    "sourceAttempt": 1,
+    "artifactId": 14828525724,
+    "archiveSha256": "24816ccb20360bbfc976abf38810988dfe4b27a3305c80d5b80b711719587e0d",
+    "archiveBytes": 2037941610,
+    "preparerRun": 45195780472,
+    "preparerHarness": "f88a805beb152d42a22806d135d9af1c912aedcb",
+    "application": {
+      "key": "notition",
+      "title": "Open Notition Studio",
+      "identifier": "org.openaec.notition-studio",
+      "executable": "open-notition-studio.exe",
+      "packagePath": "dist-installers/notition/nsis/Open Notition Studio_2026.48.1_x64-setup.exe",
+      "sha256": "01a200d652c22e8bb59f37cba28bfa9694e121ba6cd7e98c9ba5a0c3b20f74b1",
+      "bytes": 73570344,
+      "signature": "valid",
+      "timestampRequired": true,
+      "payloadExecutable": {
+        "member": "open-notition-studio.exe",
+        "bytes": 88116128,
+        "sha256": "c4d976fd30e76d9413cefedf9917fcdeea986f7f3b224931e4eb795f24bc2af5",
+        "pe": "x64",
+        "derivation": "Independent7-Zip stdout from official whole-ZIP/report-bound NSIS before install"
+      }
+    },
+    "installer": "Open Notition Studio_2026.48.1_x64-setup.exe",
+    "canonicalPackageReport": {
+      "parentMember": ".local/pakketcontrole-notition-Windows.json",
+      "sha256": "80fc09817a2d0245a852c761d9005a64600a92b02a6298250c9e2d32572f17f2",
+      "bytes": 597
+    },
+    "boundary": "Only this unchanged product NSIS, own canonical report and receipt. Six standalone hosts never receive suite bytes."
+  },
+  "scope": "Actual isolated standalone Windows native app; never a browser demo",
+  "status": "passed-scoped-native-function",
+  "steps": [
+    {
+      "action": "Focus",
+      "ownedPid": 4480,
+      "title": "Open Notition Studio (Notes)",
+      "executable": "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\oos-standalone23-GYxJ6M\\installed\\open-notition-studio.exe",
+      "foregroundPid": 4480,
+      "status": "passed",
+      "sessionId": 2,
+      "windowHandle": 197104
+    },
+    {
+      "executable": "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\oos-standalone23-GYxJ6M\\installed\\open-notition-studio.exe",
+      "sessionId": 2,
+      "action": "Focus",
+      "windowHandle": 197104,
+      "foregroundPid": 4480,
+      "status": "passed",
+      "ownedPid": 4480,
+      "title": "Open Notition Studio (Notes)"
+    },
+    {
+      "focus": "notition-note-body",
+      "osAndRenderer": true,
+      "keys": "Windows Control"
+    },
+    {
+      "nativeSaveInvoked": true,
+      "filenameBefore": "Notes-2026-11-24",
+      "filenameHandle": 66194,
+      "ownedPid": 4480,
+      "executable": "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\oos-standalone23-GYxJ6M\\installed\\open-notition-studio.exe",
+      "windowHandle": 197132,
+      "action": "SaveDialog",
+      "saveMethod": "actual-Enter-owned-native-Save-dialog",
+      "ownedTopWindows": [
+        {
+          "title": "Save a copy",
+          "className": "#32770",
+          "handle": 197132
+        },
+        {
+          "title": "Open Notition Studio (Notes)",
+          "className": "Tauri Window",
+          "handle": 197104
+        },
+        {
+          "title": "org.openaec.notition-studio-siw",
+          "className": "org.openaec.notition-studio-sic",
+          "handle": 131466
+        },
+        {
+          "title": "",
+          "className": "Tao Thread Event Target",
+          "handle": 917964
+        }
+      ],
+      "target": "D:\\a\\open-office-studio\\open-office-studio\\.local\\p4-native-notition\\initial.openaec-notities",
+      "pathReadbackMatches": true,
+      "filenameMethod": "physical-keys-owned-native-filename",
+      "status": "passed",
+      "title": "Save a copy",
+      "sessionId": 2
+    },
+    {
+      "title": "Open Notition Studio (Notes)",
+      "wmClosePosted": true,
+      "windowHandle": 197104,
+      "ownedPid": 4480,
+      "action": "Close",
+      "sessionId": 2,
+      "status": "passed",
+      "executable": "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\oos-standalone23-GYxJ6M\\installed\\open-notition-studio.exe"
+    },
+    {
+      "status": "passed",
+      "title": "Open Notition Studio",
+      "sessionId": 2,
+      "ownedPid": 5876,
+      "action": "Focus",
+      "executable": "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\oos-standalone23-GYxJ6M\\installed\\open-notition-studio.exe",
+      "windowHandle": 262514,
+      "foregroundPid": 5876
+    },
+    {
+      "target": "D:\\a\\open-office-studio\\open-office-studio\\.local\\p4-native-notition\\reopened.openaec-notities",
+      "nativeSaveInvoked": true,
+      "sessionId": 2,
+      "saveMethod": "actual-Enter-owned-native-Save-dialog",
+      "filenameMethod": "physical-keys-owned-native-filename",
+      "ownedTopWindows": [
+        {
+          "className": "#32770",
+          "title": "Save a copy",
+          "handle": 262488
+        },
+        {
+          "className": "Tauri Window",
+          "title": "Open Notition Studio",
+          "handle": 262514
+        },
+        {
+          "className": "org.openaec.notition-studio-sic",
+          "title": "org.openaec.notition-studio-siw",
+          "handle": 262508
+        },
+        {
+          "className": "Tao Thread Event Target",
+          "title": "",
+          "handle": 524306
+        }
+      ],
+      "action": "SaveDialog",
+      "filenameHandle": 131664,
+      "status": "passed",
+      "title": "Save a copy",
+      "executable": "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\oos-standalone23-GYxJ6M\\installed\\open-notition-studio.exe",
+      "filenameBefore": "Notes-2026-11-24",
+      "ownedPid": 5876,
+      "windowHandle": 262488,
+      "pathReadbackMatches": true
+    },
+    {
+      "ownedPid": 5876,
+      "windowHandle": 262514,
+      "executable": "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\oos-standalone23-GYxJ6M\\installed\\open-notition-studio.exe",
+      "title": "Open Notition Studio",
+      "sessionId": 2,
+      "status": "passed",
+      "wmClosePosted": true,
+      "action": "Close"
+    }
+  ],
+  "phases": [
+    {
+      "phase": "initial",
+      "pid": 4480,
+      "started": "2026-11-24T08:00:55.950Z",
+      "status": "passed-scoped-function",
+      "pageUrl": "http://tauri.localhost/",
+      "pageErrors": [],
+      "nativeMetadata": {
+        "identifier": "org.openaec.notition-studio",
+        "version": "2026.48.1",
+        "name": "Open Notition Studio"
+      },
+      "ownWebviewProfile": {
+        "path": "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\oos-standalone23-GYxJ6M\\webview-profile",
+        "createdByNativeWebview": true,
+        "entries": [
+          "EBWebView"
+        ]
+      },
+      "process": {
+        "commandLine": "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\oos-standalone23-GYxJ6M\\installed\\open-notition-studio.exe",
+        "parent": 2740,
+        "pid": 4480,
+        "path": "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\oos-standalone23-GYxJ6M\\installed\\open-notition-studio.exe",
+        "windowHandle": 197104
+      },
+      "installCanonicalPath": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\oos-standalone23-GYxJ6M\\installed",
+      "executableCanonicalPath": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\oos-standalone23-GYxJ6M\\installed\\open-notition-studio.exe",
+      "normalFullExit": true,
+      "ownedWebviewsExited": true
+    },
+    {
+      "phase": "reopened",
+      "pid": 5876,
+      "started": "2026-11-24T08:01:18.431Z",
+      "status": "passed-scoped-function",
+      "pageUrl": "http://tauri.localhost/",
+      "pageErrors": [],
+      "nativeMetadata": {
+        "identifier": "org.openaec.notition-studio",
+        "version": "2026.48.1",
+        "name": "Open Notition Studio"
+      },
+      "ownWebviewProfile": {
+        "path": "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\oos-standalone23-GYxJ6M\\webview-profile",
+        "createdByNativeWebview": true,
+        "entries": [
+          "EBWebView"
+        ]
+      },
+      "process": {
+        "pid": 5876,
+        "commandLine": "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\oos-standalone23-GYxJ6M\\installed\\open-notition-studio.exe",
+        "windowHandle": 262514,
+        "path": "C:\\Users\\RUNNER~1\\AppData\\Local\\Temp\\oos-standalone23-GYxJ6M\\installed\\open-notition-studio.exe",
+        "parent": 2740
+      },
+      "installCanonicalPath": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\oos-standalone23-GYxJ6M\\installed",
+      "executableCanonicalPath": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\oos-standalone23-GYxJ6M\\installed\\open-notition-studio.exe",
+      "normalFullExit": true,
+      "ownedWebviewsExited": true
+    }
+  ],
+  "cleanup": {
+    "residualOwnedWebviews": [],
+    "policyRestored": true,
+    "ownedInstallUninstalled": true,
+    "ownedAppExited": true,
+    "ownedNativeProfilesDisposed": true,
+    "ownedTemporaryProfileDisposed": true
+  },
+  "limitations": [],
+  "visualAcceptance": "Requires separate review of actual completed native screenshots",
+  "baseline": {
+    "session": 2,
+    "profiles": [],
+    "suitePaths": [],
+    "apps": [],
+    "os": "Microsoft Windows NT 10.0.26100.0",
+    "webview2": [],
+    "interactive": true
+  },
+  "installer": {
+    "signer": "CN=Impertio Studio B.V., O=Impertio Studio B.V., STREET=Burg de Raadtsingel 31, L=Dordrecht, S=Zuid-Holland, C=NL, PostalCode=3311 JG",
+    "path": "D:\\a\\open-office-studio\\open-office-studio\\.local\\standalone-windows-package\\Open Notition Studio_2026.48.1_x64-setup.exe",
+    "productName": "Open Notition Studio",
+    "signature": "Valid",
+    "bytes": 73570344,
+    "fileVersion": "2026.48.1",
+    "sha256": "01a200d652c22e8bb59f37cba28bfa9694e121ba6cd7e98c9ba5a0c3b20f74b1",
+    "productVersion": "2026.48.1",
+    "timestampSigner": "CN=Microsoft Public RSA Time Stamping Authority, OU=nShield TSS ESN:7A00-05E0-D947, OU=Microsoft America Operations, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+  },
+  "executable": {
+    "productVersion": "2026.48.1",
+    "bytes": 88116128,
+    "sha256": "c4d976fd30e76d9413cefedf9917fcdeea986f7f3b224931e4eb795f24bc2af5",
+    "path": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\oos-standalone23-GYxJ6M\\installed\\open-notition-studio.exe",
+    "signer": "CN=Impertio Studio B.V., O=Impertio Studio B.V., STREET=Burg de Raadtsingel 31, L=Dordrecht, S=Zuid-Holland, C=NL, PostalCode=3311 JG",
+    "fileVersion": "2026.48.1",
+    "productName": "Open Notition Studio",
+    "signature": "Valid",
+    "timestampSigner": "CN=Microsoft Public RSA Time Stamping Authority, OU=nShield TSS ESN:7800-05E0-D947, OU=Microsoft America Operations, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+  },
+  "payloadEqualsInstalled": true,
+  "originalInput": null,
+  "afterNative": {
+    "apps": [],
+    "session": 2,
+    "webview2": [],
+    "interactive": true,
+    "profiles": [
+      "C:\\Users\\runneradmin\\AppData\\Local\\org.openaec.notition-studio"
+    ],
+    "os": "Microsoft Windows NT 10.0.26100.0",
+    "suitePaths": []
+  },
+  "shortPreflight": {
+    "status": "passed-in-bounded-core-case",
+    "focusAndWindowsControl": true,
+    "normalFullQuit": true,
+    "newProcessReopen": true,
+    "scope": "Only this small core case was executed, no broader controls or formats. Database is read/query/reopen, not an unsupported write/save claim."
+  }
+}

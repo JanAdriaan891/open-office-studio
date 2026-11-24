@@ -1,0 +1,20 @@
+{
+  "id": 14826753707,
+  "node_id": "MDg6QXJ0aWZhY3QxNDgyNjc1MzcwNw==",
+  "name": "linux-suite-final-appimage-55a651186c35bde2937a1a8c529c4c2c984d0085",
+  "size_in_bytes": 2257615,
+  "url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/actions/artifacts/14826753707",
+  "archive_download_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/actions/artifacts/14826753707/zip",
+  "expired": false,
+  "digest": "sha256:1d229975a6f2c3863261bc84efe52abaf11b3cc8443a2deaa5a38b4574deddae",
+  "created_at": "2026-11-23T14:24:52Z",
+  "updated_at": "2026-11-23T14:24:52Z",
+  "expires_at": "2027-02-21T14:20:36Z",
+  "workflow_run": {
+    "id": 45193170006,
+    "repository_id": 1427673882,
+    "head_repository_id": 1427673882,
+    "head_branch": "codex/linux-suite-final-acceptance-2026-11-23",
+    "head_sha": "55a651186c35bde2937a1a8c529c4c2c984d0085"
+  }
+}

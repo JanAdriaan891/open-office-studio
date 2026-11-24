@@ -1,0 +1,953 @@
+{
+  "purpose": "P5-frozen-candidate",
+  "app": "notition",
+  "packageType": "deb",
+  "sourceCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+  "sourceTree": "e30879fd772871e690847c061ef66e6b81808a05",
+  "version": "2026.48.1",
+  "package": {
+    "path": "/home/runner/work/open-office-studio/open-office-studio/.local/standalone-linux-input/Open Notition Studio_2026.48.1_amd64.deb",
+    "canonicalMember": "dist-installers/notition/deb/Open Notition Studio_2026.48.1_amd64.deb",
+    "sha256": "68e8b78913dee415936bf7dc081d257da80bba9f295c66d519353a85433c241a",
+    "bytes": 76312910
+  },
+  "identity": "org.openaec.notition-studio",
+  "harnessCommit": "b3d594aaf09a83215bb809bdbcda6305a0af1612",
+  "harnessSha256": "bd967f47ad858256fe654a98ad089a6215b0b877b6e80b4c9c333e7218c93efa",
+  "signatureStatus": "not signature-certified by this QA: detached Linux OpenPGP signing belongs to the publishing job, which is not authorized",
+  "status": "passed",
+  "checks": [
+    "Package checksum, version, own executable/desktop identity and no Office payload verified",
+    "Local notebook title/text typed, Ctrl+S persisted and native backup exported",
+    "Full process exit, fresh-process reopen, own-profile persistence and no suite profile verified"
+  ],
+  "pending": [],
+  "externalRequirements": [
+    "Linux x64, GTK 3, WebKitGTK 4.1 and declared shared OS libraries",
+    "zenity for native message confirmations: declared DEB dependency; external OS helper for AppImage. Foreign-format message confirmation is outside this core scenario"
+  ],
+  "limits": [
+    "Virtual X11/Xvfb, software rendering",
+    "One synthetic core scenario per app; no complete format/conversion or live account certification",
+    "Private conversion runtime presence is inspected where bundled; native format conversion is outside this core scenario",
+    "Where exercised, native file dialogs use the private test desktop's XDG portal and GTK provider; missing-portal behavior is not certified by this core matrix"
+  ],
+  "nativeMessageDependencyObservation": {
+    "zenityCommand": {
+      "status": "not-found",
+      "exitStatus": 1,
+      "error": "Command failed: which zenity"
+    },
+    "zenityPackage": {
+      "status": "observed",
+      "output": "unknown ok not-installed"
+    },
+    "explicitManualTestToolInstallation": false,
+    "installationPolicy": "AppImage precedes DEB; actual DEB dependencies are resolved by apt without manually adding zenity as a test tool",
+    "foreignFormatRfdMessageConfirmationExercised": false,
+    "route": "Own-format Ctrl+S and explicit recommended XLSX Save as; no foreign-original Ctrl+S confirmation test",
+    "zenityDeclaredByDeb": false,
+    "afterNormalDebInstall": {
+      "status": "observed",
+      "output": "/usr/bin/zenity"
+    },
+    "installedThroughDeclaredPackageDependency": true
+  },
+  "cleanHostPackages": [
+    "fuse-overlayfs",
+    "fuse3",
+    "gir1.2-gtk-3.0",
+    "gir1.2-secret-1",
+    "gnome-keyring",
+    "libfuse2",
+    "libfuse3-3",
+    "libgtk-3-0",
+    "libgtk-3-common",
+    "libsecret-1-0",
+    "libsecret-1-dev",
+    "libsecret-common",
+    "libsecret-tools",
+    "libwebkit2gtk-4.1-0",
+    "python3-keyring",
+    "python3-secretstorage",
+    "ubuntu-keyring",
+    "webkit2gtk-driver"
+  ],
+  "declaredDependencies": "zenity, libwebkit2gtk-4.1-0, libgtk-3-0",
+  "afterDependencyInstallNoSuitePackages": [
+    "fuse-overlayfs",
+    "fuse3",
+    "gir1.2-gtk-3.0",
+    "gir1.2-secret-1",
+    "gnome-keyring",
+    "libfuse2",
+    "libfuse3-3",
+    "libgtk-3-0",
+    "libgtk-3-common",
+    "libsecret-1-0",
+    "libsecret-1-dev",
+    "libsecret-common",
+    "libsecret-tools",
+    "libwebkit2gtk-4.0-37",
+    "libwebkit2gtk-4.1-0",
+    "python3-keyring",
+    "python3-secretstorage",
+    "ubuntu-keyring",
+    "webkit2gtk-driver"
+  ],
+  "normalPackageDependencyResolver": true,
+  "payloadExecutableSha256": "a5065fbe7ef53364b06d833f7513430518bf5ff961b4dea17c7beec031649311",
+  "desktopEntry": "[Desktop Entry]\nType=Application\nName=Open Notition Studio\nExec=open-notition-studio\nStartupWMClass=open-notition-studio\nIcon=open-notition-studio\nTerminal=false\nCategories=Office;\n",
+  "resourcePaths": [
+    "<payload>/usr/share/applications/Open Notition Studio.desktop"
+  ],
+  "driver": {
+    "path": "/home/runner/.cargo/bin/tauri-driver",
+    "sha256": "a71b247ca519f3ed02a364cd8692d71d381ffe81279c94c6ed65ec300d217868",
+    "version": "2.1.0"
+  },
+  "nativeMetadata": {
+    "identifier": "org.openaec.notition-studio",
+    "name": "Open Notition Studio",
+    "version": "2026.48.1"
+  },
+  "launches": [
+    {
+      "pid": 5398,
+      "executable": "/usr/bin/open-notition-studio",
+      "executableSha256": "a5065fbe7ef53364b06d833f7513430518bf5ff961b4dea17c7beec031649311",
+      "workingDirectory": "/home/runner/work/open-office-studio/open-office-studio",
+      "environment": [
+        "HOME=/home/runner/work/open-office-studio/open-office-studio/.local/standalone-linux-results/notition/deb/empty-home",
+        "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "XDG_CACHE_HOME=/home/runner/work/open-office-studio/open-office-studio/.local/standalone-linux-results/notition/deb/empty-home/.cache",
+        "XDG_CONFIG_HOME=/home/runner/work/open-office-studio/open-office-studio/.local/standalone-linux-results/notition/deb/empty-home/.config",
+        "XDG_CURRENT_DESKTOP=GNOME",
+        "XDG_DATA_HOME=/home/runner/work/open-office-studio/open-office-studio/.local/standalone-linux-results/notition/deb/empty-home/.local/share",
+        "XDG_RUNTIME_DIR=/home/runner/work/open-office-studio/open-office-studio/.local/standalone-linux-results/notition/deb/empty-home/runtime"
+      ],
+      "mappedResources": [
+        "5602be608000-5602c2ad9000 r--p 00000000 08:01 98272                      /usr/bin/open-notition-studio",
+        "5602c2ad9000-5602c3a5a000 r-xp 044d0000 08:01 98272                      /usr/bin/open-notition-studio",
+        "5602c3a5a000-5602c3ae7000 r--p 05450000 08:01 98272                      /usr/bin/open-notition-studio",
+        "5602c3ae7000-5602c3aeb000 rw-p 054dc000 08:01 98272                      /usr/bin/open-notition-studio",
+        "7f5639829000-7f563982a000 r--s 00000000 08:01 4697037                    /home/runner/work/open-office-studio/open-office-studio/.local/standalone-linux-results/notition/deb/empty-home/runtime/dconf/user"
+      ],
+      "ownedApplicationResources": [
+        {
+          "pid": 5398,
+          "executable": "/usr/bin/open-notition-studio"
+        },
+        {
+          "pid": 5414,
+          "executable": "/usr/lib/x86_64-linux-gnu/webkit2gtk-4.1/WebKitNetworkProcess"
+        },
+        {
+          "pid": 5419,
+          "executable": "/usr/lib/x86_64-linux-gnu/webkit2gtk-4.1/WebKitWebProcess"
+        }
+      ],
+      "x11": {
+        "backend": "x11-xtest",
+        "pid": 5398,
+        "display": ":99",
+        "activationPerformed": false,
+        "checks": [
+          {
+            "stage": "foreground postcondition",
+            "at": "2026-11-23T14:05:09.232Z",
+            "process": {
+              "pid": 5398,
+              "startTime": "11761",
+              "executable": "/usr/bin/open-notition-studio",
+              "identity": "2049:98272:99955712:1795440999000"
+            },
+            "windowFocus": "8388611",
+            "dom": {
+              "hasFocus": true,
+              "visibilityState": "visible",
+              "hidden": false,
+              "activeElement": {
+                "className": "",
+                "focusVisible": false,
+                "role": null,
+                "label": null,
+                "id": "",
+                "tag": "BODY"
+              }
+            }
+          },
+          {
+            "stage": "before native [aria-label=\"Page title\"] click",
+            "at": "2026-11-23T14:05:09.294Z",
+            "process": {
+              "pid": 5398,
+              "startTime": "11761",
+              "executable": "/usr/bin/open-notition-studio",
+              "identity": "2049:98272:99955712:1795440999000"
+            },
+            "windowFocus": "8388611",
+            "dom": {
+              "hasFocus": true,
+              "visibilityState": "visible",
+              "hidden": false,
+              "activeElement": {
+                "className": "",
+                "focusVisible": false,
+                "role": null,
+                "label": null,
+                "id": "",
+                "tag": "BODY"
+              }
+            }
+          },
+          {
+            "stage": "after native [aria-label=\"Page title\"] click",
+            "at": "2026-11-23T14:05:09.377Z",
+            "process": {
+              "pid": 5398,
+              "startTime": "11761",
+              "executable": "/usr/bin/open-notition-studio",
+              "identity": "2049:98272:99955712:1795440999000"
+            },
+            "windowFocus": "8388611",
+            "dom": {
+              "hasFocus": true,
+              "visibilityState": "visible",
+              "hidden": false,
+              "activeElement": {
+                "className": "notities-paginatitel",
+                "focusVisible": true,
+                "role": null,
+                "label": "Page title",
+                "id": "",
+                "tag": "INPUT"
+              }
+            }
+          },
+          {
+            "stage": "before native W3C keyboard actions",
+            "at": "2026-11-23T14:05:09.435Z",
+            "process": {
+              "pid": 5398,
+              "startTime": "11761",
+              "executable": "/usr/bin/open-notition-studio",
+              "identity": "2049:98272:99955712:1795440999000"
+            },
+            "windowFocus": "8388611",
+            "dom": {
+              "hasFocus": true,
+              "visibilityState": "visible",
+              "hidden": false,
+              "activeElement": {
+                "className": "notities-paginatitel",
+                "focusVisible": true,
+                "role": null,
+                "label": "Page title",
+                "id": "",
+                "tag": "INPUT"
+              }
+            }
+          },
+          {
+            "stage": "after native W3C keyboard actions",
+            "at": "2026-11-23T14:05:09.502Z",
+            "process": {
+              "pid": 5398,
+              "startTime": "11761",
+              "executable": "/usr/bin/open-notition-studio",
+              "identity": "2049:98272:99955712:1795440999000"
+            },
+            "windowFocus": "8388611",
+            "dom": {
+              "hasFocus": true,
+              "visibilityState": "visible",
+              "hidden": false,
+              "activeElement": {
+                "className": "notities-paginatitel",
+                "focusVisible": true,
+                "role": null,
+                "label": "Page title",
+                "id": "",
+                "tag": "INPUT"
+              }
+            }
+          },
+          {
+            "stage": "before native W3C keyboard actions",
+            "at": "2026-11-23T14:05:09.561Z",
+            "process": {
+              "pid": 5398,
+              "startTime": "11761",
+              "executable": "/usr/bin/open-notition-studio",
+              "identity": "2049:98272:99955712:1795440999000"
+            },
+            "windowFocus": "8388611",
+            "dom": {
+              "hasFocus": true,
+              "visibilityState": "visible",
+              "hidden": false,
+              "activeElement": {
+                "className": "notities-paginatitel",
+                "focusVisible": true,
+                "role": null,
+                "label": "Page title",
+                "id": "",
+                "tag": "INPUT"
+              }
+            }
+          },
+          {
+            "stage": "after native W3C keyboard actions",
+            "at": "2026-11-23T14:05:10.227Z",
+            "process": {
+              "pid": 5398,
+              "startTime": "11761",
+              "executable": "/usr/bin/open-notition-studio",
+              "identity": "2049:98272:99955712:1795440999000"
+            },
+            "windowFocus": "8388611",
+            "dom": {
+              "hasFocus": true,
+              "visibilityState": "visible",
+              "hidden": false,
+              "activeElement": {
+                "className": "notities-paginatitel",
+                "focusVisible": true,
+                "role": null,
+                "label": "Page title",
+                "id": "",
+                "tag": "INPUT"
+              }
+            }
+          },
+          {
+            "stage": "before native .notities-blok textarea click",
+            "at": "2026-11-23T14:05:10.285Z",
+            "process": {
+              "pid": 5398,
+              "startTime": "11761",
+              "executable": "/usr/bin/open-notition-studio",
+              "identity": "2049:98272:99955712:1795440999000"
+            },
+            "windowFocus": "8388611",
+            "dom": {
+              "hasFocus": true,
+              "visibilityState": "visible",
+              "hidden": false,
+              "activeElement": {
+                "className": "notities-paginatitel",
+                "focusVisible": true,
+                "role": null,
+                "label": "Page title",
+                "id": "",
+                "tag": "INPUT"
+              }
+            }
+          },
+          {
+            "stage": "after native .notities-blok textarea click",
+            "at": "2026-11-23T14:05:10.367Z",
+            "process": {
+              "pid": 5398,
+              "startTime": "11761",
+              "executable": "/usr/bin/open-notition-studio",
+              "identity": "2049:98272:99955712:1795440999000"
+            },
+            "windowFocus": "8388611",
+            "dom": {
+              "hasFocus": true,
+              "visibilityState": "visible",
+              "hidden": false,
+              "activeElement": {
+                "className": "",
+                "focusVisible": true,
+                "role": null,
+                "label": "Heading text",
+                "id": "",
+                "tag": "TEXTAREA"
+              }
+            }
+          },
+          {
+            "stage": "before native W3C keyboard actions",
+            "at": "2026-11-23T14:05:10.426Z",
+            "process": {
+              "pid": 5398,
+              "startTime": "11761",
+              "executable": "/usr/bin/open-notition-studio",
+              "identity": "2049:98272:99955712:1795440999000"
+            },
+            "windowFocus": "8388611",
+            "dom": {
+              "hasFocus": true,
+              "visibilityState": "visible",
+              "hidden": false,
+              "activeElement": {
+                "className": "",
+                "focusVisible": true,
+                "role": null,
+                "label": "Heading text",
+                "id": "",
+                "tag": "TEXTAREA"
+              }
+            }
+          },
+          {
+            "stage": "after native W3C keyboard actions",
+            "at": "2026-11-23T14:05:10.491Z",
+            "process": {
+              "pid": 5398,
+              "startTime": "11761",
+              "executable": "/usr/bin/open-notition-studio",
+              "identity": "2049:98272:99955712:1795440999000"
+            },
+            "windowFocus": "8388611",
+            "dom": {
+              "hasFocus": true,
+              "visibilityState": "visible",
+              "hidden": false,
+              "activeElement": {
+                "className": "",
+                "focusVisible": true,
+                "role": null,
+                "label": "Heading text",
+                "id": "",
+                "tag": "TEXTAREA"
+              }
+            }
+          },
+          {
+            "stage": "before native W3C keyboard actions",
+            "at": "2026-11-23T14:05:10.550Z",
+            "process": {
+              "pid": 5398,
+              "startTime": "11761",
+              "executable": "/usr/bin/open-notition-studio",
+              "identity": "2049:98272:99955712:1795440999000"
+            },
+            "windowFocus": "8388611",
+            "dom": {
+              "hasFocus": true,
+              "visibilityState": "visible",
+              "hidden": false,
+              "activeElement": {
+                "className": "",
+                "focusVisible": true,
+                "role": null,
+                "label": "Heading text",
+                "id": "",
+                "tag": "TEXTAREA"
+              }
+            }
+          },
+          {
+            "stage": "after native W3C keyboard actions",
+            "at": "2026-11-23T14:05:11.131Z",
+            "process": {
+              "pid": 5398,
+              "startTime": "11761",
+              "executable": "/usr/bin/open-notition-studio",
+              "identity": "2049:98272:99955712:1795440999000"
+            },
+            "windowFocus": "8388611",
+            "dom": {
+              "hasFocus": true,
+              "visibilityState": "visible",
+              "hidden": false,
+              "activeElement": {
+                "className": "",
+                "focusVisible": true,
+                "role": null,
+                "label": "Heading text",
+                "id": "",
+                "tag": "TEXTAREA"
+              }
+            }
+          },
+          {
+            "stage": "before native W3C keyboard actions",
+            "at": "2026-11-23T14:05:11.189Z",
+            "process": {
+              "pid": 5398,
+              "startTime": "11761",
+              "executable": "/usr/bin/open-notition-studio",
+              "identity": "2049:98272:99955712:1795440999000"
+            },
+            "windowFocus": "8388611",
+            "dom": {
+              "hasFocus": true,
+              "visibilityState": "visible",
+              "hidden": false,
+              "activeElement": {
+                "className": "",
+                "focusVisible": true,
+                "role": null,
+                "label": "Heading text",
+                "id": "",
+                "tag": "TEXTAREA"
+              }
+            }
+          },
+          {
+            "stage": "after native W3C keyboard actions",
+            "at": "2026-11-23T14:05:11.266Z",
+            "process": {
+              "pid": 5398,
+              "startTime": "11761",
+              "executable": "/usr/bin/open-notition-studio",
+              "identity": "2049:98272:99955712:1795440999000"
+            },
+            "windowFocus": "8388611",
+            "dom": {
+              "hasFocus": true,
+              "visibilityState": "visible",
+              "hidden": false,
+              "activeElement": {
+                "className": "",
+                "focusVisible": true,
+                "role": null,
+                "label": "Heading text",
+                "id": "",
+                "tag": "TEXTAREA"
+              }
+            }
+          },
+          {
+            "stage": "before native control Save",
+            "at": "2026-11-23T14:05:11.414Z",
+            "process": {
+              "pid": 5398,
+              "startTime": "11761",
+              "executable": "/usr/bin/open-notition-studio",
+              "identity": "2049:98272:99955712:1795440999000"
+            },
+            "windowFocus": "8388611",
+            "dom": {
+              "hasFocus": true,
+              "visibilityState": "visible",
+              "hidden": false,
+              "activeElement": {
+                "className": "",
+                "focusVisible": true,
+                "role": null,
+                "label": "Heading text",
+                "id": "",
+                "tag": "TEXTAREA"
+              }
+            }
+          },
+          {
+            "stage": "after native control Save",
+            "at": "2026-11-23T14:05:11.490Z",
+            "process": {
+              "pid": 5398,
+              "startTime": "11761",
+              "executable": "/usr/bin/open-notition-studio",
+              "identity": "2049:98272:99955712:1795440999000"
+            },
+            "windowFocus": "8388611",
+            "dom": {
+              "hasFocus": true,
+              "visibilityState": "visible",
+              "hidden": false,
+              "activeElement": {
+                "className": "",
+                "focusVisible": false,
+                "role": "tab",
+                "label": null,
+                "id": "_r_0_-bewaren",
+                "tag": "BUTTON"
+              }
+            }
+          },
+          {
+            "stage": "before native control Save backup",
+            "at": "2026-11-23T14:05:11.552Z",
+            "process": {
+              "pid": 5398,
+              "startTime": "11761",
+              "executable": "/usr/bin/open-notition-studio",
+              "identity": "2049:98272:99955712:1795440999000"
+            },
+            "windowFocus": "8388611",
+            "dom": {
+              "hasFocus": true,
+              "visibilityState": "visible",
+              "hidden": false,
+              "activeElement": {
+                "className": "",
+                "focusVisible": false,
+                "role": "tab",
+                "label": null,
+                "id": "_r_0_-bewaren",
+                "tag": "BUTTON"
+              }
+            }
+          },
+          {
+            "stage": "after native OS picker",
+            "at": "2026-11-23T14:05:13.076Z",
+            "process": {
+              "pid": 5398,
+              "startTime": "11761",
+              "executable": "/usr/bin/open-notition-studio",
+              "identity": "2049:98272:99955712:1795440999000"
+            },
+            "windowFocus": "8388611",
+            "dom": {
+              "hasFocus": true,
+              "visibilityState": "visible",
+              "hidden": false,
+              "activeElement": {
+                "className": "",
+                "focusVisible": false,
+                "role": null,
+                "label": null,
+                "id": "",
+                "tag": "BODY"
+              }
+            }
+          },
+          {
+            "stage": "before owned native GDK capture saved.png",
+            "at": "2026-11-23T14:05:13.133Z",
+            "process": {
+              "pid": 5398,
+              "startTime": "11761",
+              "executable": "/usr/bin/open-notition-studio",
+              "identity": "2049:98272:99955712:1795440999000"
+            },
+            "windowFocus": "8388611",
+            "dom": {
+              "hasFocus": true,
+              "visibilityState": "visible",
+              "hidden": false,
+              "activeElement": {
+                "className": "",
+                "focusVisible": false,
+                "role": null,
+                "label": null,
+                "id": "",
+                "tag": "BODY"
+              }
+            }
+          },
+          {
+            "stage": "after owned native GDK capture saved.png",
+            "at": "2026-11-23T14:05:13.310Z",
+            "process": {
+              "pid": 5398,
+              "startTime": "11761",
+              "executable": "/usr/bin/open-notition-studio",
+              "identity": "2049:98272:99955712:1795440999000"
+            },
+            "windowFocus": "8388611",
+            "dom": {
+              "hasFocus": true,
+              "visibilityState": "visible",
+              "hidden": false,
+              "activeElement": {
+                "className": "",
+                "focusVisible": false,
+                "role": null,
+                "label": null,
+                "id": "",
+                "tag": "BODY"
+              }
+            }
+          }
+        ],
+        "keys": [],
+        "binding": {
+          "pid": 5398,
+          "startTime": "11761",
+          "executable": "/usr/bin/open-notition-studio",
+          "identity": "2049:98272:99955712:1795440999000",
+          "sha256": "a5065fbe7ef53364b06d833f7513430518bf5ff961b4dea17c7beec031649311"
+        },
+        "xid": "8388611",
+        "pre": {
+          "windowFocus": "8388611",
+          "dom": {
+            "hasFocus": true,
+            "visibilityState": "visible",
+            "hidden": false,
+            "activeElement": {
+              "className": "",
+              "focusVisible": false,
+              "role": null,
+              "label": null,
+              "id": "",
+              "tag": "BODY"
+            }
+          }
+        },
+        "post": {
+          "stage": "foreground postcondition",
+          "at": "2026-11-23T14:05:09.232Z",
+          "process": {
+            "pid": 5398,
+            "startTime": "11761",
+            "executable": "/usr/bin/open-notition-studio",
+            "identity": "2049:98272:99955712:1795440999000"
+          },
+          "windowFocus": "8388611",
+          "dom": {
+            "hasFocus": true,
+            "visibilityState": "visible",
+            "hidden": false,
+            "activeElement": {
+              "className": "",
+              "focusVisible": false,
+              "role": null,
+              "label": null,
+              "id": "",
+              "tag": "BODY"
+            }
+          }
+        }
+      }
+    },
+    {
+      "pid": 5561,
+      "executable": "/usr/bin/open-notition-studio",
+      "executableSha256": "a5065fbe7ef53364b06d833f7513430518bf5ff961b4dea17c7beec031649311",
+      "workingDirectory": "/home/runner/work/open-office-studio/open-office-studio",
+      "environment": [
+        "HOME=/home/runner/work/open-office-studio/open-office-studio/.local/standalone-linux-results/notition/deb/empty-home",
+        "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "XDG_CACHE_HOME=/home/runner/work/open-office-studio/open-office-studio/.local/standalone-linux-results/notition/deb/empty-home/.cache",
+        "XDG_CONFIG_HOME=/home/runner/work/open-office-studio/open-office-studio/.local/standalone-linux-results/notition/deb/empty-home/.config",
+        "XDG_CURRENT_DESKTOP=GNOME",
+        "XDG_DATA_HOME=/home/runner/work/open-office-studio/open-office-studio/.local/standalone-linux-results/notition/deb/empty-home/.local/share",
+        "XDG_RUNTIME_DIR=/home/runner/work/open-office-studio/open-office-studio/.local/standalone-linux-results/notition/deb/empty-home/runtime"
+      ],
+      "mappedResources": [
+        "5577c8f51000-5577cd422000 r--p 00000000 08:01 98272                      /usr/bin/open-notition-studio",
+        "5577cd422000-5577ce3a3000 r-xp 044d0000 08:01 98272                      /usr/bin/open-notition-studio",
+        "5577ce3a3000-5577ce430000 r--p 05450000 08:01 98272                      /usr/bin/open-notition-studio",
+        "5577ce430000-5577ce434000 rw-p 054dc000 08:01 98272                      /usr/bin/open-notition-studio",
+        "7fada03db000-7fada03dc000 r--s 00000000 08:01 4697037                    /home/runner/work/open-office-studio/open-office-studio/.local/standalone-linux-results/notition/deb/empty-home/runtime/dconf/user"
+      ],
+      "ownedApplicationResources": [
+        {
+          "pid": 5561,
+          "executable": "/usr/bin/open-notition-studio"
+        },
+        {
+          "pid": 5574,
+          "executable": "/usr/lib/x86_64-linux-gnu/webkit2gtk-4.1/WebKitNetworkProcess"
+        },
+        {
+          "pid": 5579,
+          "executable": "/usr/lib/x86_64-linux-gnu/webkit2gtk-4.1/WebKitWebProcess"
+        }
+      ],
+      "x11": {
+        "backend": "x11-xtest",
+        "pid": 5561,
+        "display": ":99",
+        "activationPerformed": false,
+        "checks": [
+          {
+            "stage": "foreground postcondition",
+            "at": "2026-11-23T14:05:15.175Z",
+            "process": {
+              "pid": 5561,
+              "startTime": "12361",
+              "executable": "/usr/bin/open-notition-studio",
+              "identity": "2049:98272:99955712:1795440999000"
+            },
+            "windowFocus": "8388611",
+            "dom": {
+              "hasFocus": true,
+              "visibilityState": "visible",
+              "hidden": false,
+              "activeElement": {
+                "className": "",
+                "focusVisible": false,
+                "role": null,
+                "label": null,
+                "id": "",
+                "tag": "BODY"
+              }
+            }
+          },
+          {
+            "stage": "before owned native GDK capture reopened.png",
+            "at": "2026-11-23T14:05:15.237Z",
+            "process": {
+              "pid": 5561,
+              "startTime": "12361",
+              "executable": "/usr/bin/open-notition-studio",
+              "identity": "2049:98272:99955712:1795440999000"
+            },
+            "windowFocus": "8388611",
+            "dom": {
+              "hasFocus": true,
+              "visibilityState": "visible",
+              "hidden": false,
+              "activeElement": {
+                "className": "",
+                "focusVisible": false,
+                "role": null,
+                "label": null,
+                "id": "",
+                "tag": "BODY"
+              }
+            }
+          },
+          {
+            "stage": "after owned native GDK capture reopened.png",
+            "at": "2026-11-23T14:05:15.415Z",
+            "process": {
+              "pid": 5561,
+              "startTime": "12361",
+              "executable": "/usr/bin/open-notition-studio",
+              "identity": "2049:98272:99955712:1795440999000"
+            },
+            "windowFocus": "8388611",
+            "dom": {
+              "hasFocus": true,
+              "visibilityState": "visible",
+              "hidden": false,
+              "activeElement": {
+                "className": "",
+                "focusVisible": false,
+                "role": null,
+                "label": null,
+                "id": "",
+                "tag": "BODY"
+              }
+            }
+          }
+        ],
+        "keys": [],
+        "binding": {
+          "pid": 5561,
+          "startTime": "12361",
+          "executable": "/usr/bin/open-notition-studio",
+          "identity": "2049:98272:99955712:1795440999000",
+          "sha256": "a5065fbe7ef53364b06d833f7513430518bf5ff961b4dea17c7beec031649311"
+        },
+        "xid": "8388611",
+        "pre": {
+          "windowFocus": "8388611",
+          "dom": {
+            "hasFocus": true,
+            "visibilityState": "visible",
+            "hidden": false,
+            "activeElement": {
+              "className": "",
+              "focusVisible": false,
+              "role": null,
+              "label": null,
+              "id": "",
+              "tag": "BODY"
+            }
+          }
+        },
+        "post": {
+          "stage": "foreground postcondition",
+          "at": "2026-11-23T14:05:15.175Z",
+          "process": {
+            "pid": 5561,
+            "startTime": "12361",
+            "executable": "/usr/bin/open-notition-studio",
+            "identity": "2049:98272:99955712:1795440999000"
+          },
+          "windowFocus": "8388611",
+          "dom": {
+            "hasFocus": true,
+            "visibilityState": "visible",
+            "hidden": false,
+            "activeElement": {
+              "className": "",
+              "focusVisible": false,
+              "role": null,
+              "label": null,
+              "id": "",
+              "tag": "BODY"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "savedSha256": "291b04b8b7e2de226c11f0d8010d32c169eb003863185b20d800205c8778f1d9",
+  "osDialogWindows": [
+    "Save a copy"
+  ],
+  "osDialogObservations": [
+    {
+      "xid": "8388611",
+      "title": "Open Notition Studio (Notes)",
+      "pid": "5398"
+    },
+    {
+      "xid": "4196553",
+      "title": "Save a copy",
+      "pid": "4902"
+    }
+  ],
+  "backupSha256": "291b04b8b7e2de226c11f0d8010d32c169eb003863185b20d800205c8778f1d9",
+  "nativeCaptures": [
+    {
+      "pid": 5398,
+      "xid": "8388611",
+      "startTime": "11761",
+      "width": 1600,
+      "height": 1000,
+      "sha256": "4ef07df45f046119a1c5bbfa44ab26be00fe1bfd9f0ea16ffede53ed18306064",
+      "backend": "owned X11 window pixels",
+      "name": "saved.png"
+    },
+    {
+      "pid": 5561,
+      "xid": "8388611",
+      "startTime": "12361",
+      "width": 1600,
+      "height": 1000,
+      "sha256": "bcb18a075643cc36624e2e8f280f6ee5717b9926e923d541fd7d437e7353de62",
+      "backend": "owned X11 window pixels",
+      "name": "reopened.png"
+    }
+  ],
+  "profilePaths": [
+    "<own-home>",
+    "<own-home>/runtime",
+    "<own-home>/runtime/dconf",
+    "<own-home>/runtime/dconf/user",
+    "<own-home>/.local",
+    "<own-home>/.local/share",
+    "<own-home>/.local/share/org.openaec.notition-studio",
+    "<own-home>/.local/share/org.openaec.notition-studio/CacheStorage",
+    "<own-home>/.local/share/org.openaec.notition-studio/CacheStorage/salt",
+    "<own-home>/.local/share/org.openaec.notition-studio/localstorage",
+    "<own-home>/.local/share/org.openaec.notition-studio/localstorage/tauri_localhost_0.localstorage",
+    "<own-home>/.local/share/org.openaec.notition-studio/localstorage/tauri_localhost_0.localstorage-shm",
+    "<own-home>/.local/share/org.openaec.notition-studio/localstorage/tauri_localhost_0.localstorage-wal",
+    "<own-home>/.local/share/org.openaec.notition-studio/storage",
+    "<own-home>/.local/share/org.openaec.notition-studio/storage/aX4nvKomGc17fBb2odl6VriTOPlR88YI0KQoBoTS830",
+    "<own-home>/.local/share/org.openaec.notition-studio/storage/aX4nvKomGc17fBb2odl6VriTOPlR88YI0KQoBoTS830/aX4nvKomGc17fBb2odl6VriTOPlR88YI0KQoBoTS830",
+    "<own-home>/.local/share/org.openaec.notition-studio/storage/aX4nvKomGc17fBb2odl6VriTOPlR88YI0KQoBoTS830/aX4nvKomGc17fBb2odl6VriTOPlR88YI0KQoBoTS830/origin",
+    "<own-home>/.local/share/org.openaec.notition-studio/storage/salt",
+    "<own-home>/.local/share/org.openaec.notition-studio/mediakeys",
+    "<own-home>/.local/share/org.openaec.notition-studio/mediakeys/v1",
+    "<own-home>/.local/share/org.openaec.notition-studio/mediakeys/v1/salt",
+    "<own-home>/.local/share/org.openaec.notition-studio/hsts-storage.sqlite",
+    "<own-home>/.local/share/org.openaec.notition-studio/WebKitCache",
+    "<own-home>/.local/share/org.openaec.notition-studio/WebKitCache/Version 17",
+    "<own-home>/.local/share/org.openaec.notition-studio/WebKitCache/Version 17/salt",
+    "<own-home>/.local/share/org.openaec.notition-studio/WebKitCache/Version 17/Blobs",
+    "<own-home>/.cache",
+    "<own-home>/.config",
+    "<own-home>/.config/org.openaec.notition-studio",
+    "<own-home>/.config/org.openaec.notition-studio/voorkeuren.json"
+  ],
+  "ownedApplicationClosed": true,
+  "ownedDriverClosed": true,
+  "ownedKeyringClosed": true,
+  "ownedProfilesRemoved": true
+}

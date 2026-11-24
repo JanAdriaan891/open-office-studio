@@ -1,0 +1,67 @@
+{
+  "status": "passed",
+  "app": "/Users/runner/work/_temp/writer361-owned-app-e4x400nt/Open Office Studio.app",
+  "checks": [
+    {
+      "name": "codesign-verify",
+      "command": [
+        "codesign",
+        "--verify",
+        "--deep",
+        "--strict",
+        "--verbose=2",
+        "/Users/runner/work/_temp/writer361-owned-app-e4x400nt/Open Office Studio.app"
+      ],
+      "returncode": 0,
+      "log": "/Users/runner/work/open-office-studio/open-office-studio/.local/mac361-tab-history-native/signed-package-preflight/codesign-verify.log",
+      "logSha256": "9eacf9f2eb662e784f50d6fe417d542a84fe1203f1f66b7546d9f366b2466393"
+    },
+    {
+      "name": "codesign-display",
+      "command": [
+        "codesign",
+        "--display",
+        "--verbose=4",
+        "/Users/runner/work/_temp/writer361-owned-app-e4x400nt/Open Office Studio.app"
+      ],
+      "returncode": 0,
+      "log": "/Users/runner/work/open-office-studio/open-office-studio/.local/mac361-tab-history-native/signed-package-preflight/codesign-display.log",
+      "logSha256": "7e3c52403bade40ea20e83ff10785c5b16360140aed8a21492a2d65e3fccbaf9"
+    },
+    {
+      "name": "gatekeeper",
+      "command": [
+        "spctl",
+        "--assess",
+        "--type",
+        "execute",
+        "--verbose=4",
+        "/Users/runner/work/_temp/writer361-owned-app-e4x400nt/Open Office Studio.app"
+      ],
+      "returncode": 0,
+      "log": "/Users/runner/work/open-office-studio/open-office-studio/.local/mac361-tab-history-native/signed-package-preflight/gatekeeper.log",
+      "logSha256": "56ec5184466b4870cc055d5314386524e0d220e9539ebbf4ef6e278d85a48503"
+    },
+    {
+      "name": "stapled-ticket",
+      "command": [
+        "xcrun",
+        "stapler",
+        "validate",
+        "/Users/runner/work/_temp/writer361-owned-app-e4x400nt/Open Office Studio.app"
+      ],
+      "returncode": 0,
+      "log": "/Users/runner/work/open-office-studio/open-office-studio/.local/mac361-tab-history-native/signed-package-preflight/stapled-ticket.log",
+      "logSha256": "b1401be9821bc0bd029f8e6f99021aa242ca7cbe3b37a920e099fe31b3b6106d"
+    }
+  ],
+  "appModified": false,
+  "policy": "codesign strict verification, Developer ID identity, Gatekeeper notarization and stapled ticket before launch",
+  "identifier": "org.openaec.office-studio",
+  "teamIdentifier": "7KFV4QY98M",
+  "authorities": [
+    "Developer ID Application: Maarten Vroegindeweij (7KFV4QY98M)",
+    "Developer ID Certification Authority",
+    "Apple Root CA"
+  ]
+}

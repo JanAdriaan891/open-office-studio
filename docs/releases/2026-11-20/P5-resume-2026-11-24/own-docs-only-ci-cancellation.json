@@ -1,0 +1,234 @@
+{
+  "reason": "Own PR367 documentation-only pushes, exact app input diff empty; valid originalP5 source CI reused",
+  "allowedHeads": [
+    "46a80cdcf1fde47d5cf517b084b5c2b4c8951e9d",
+    "c5204734d417671e85de9e424481c3befbd82d48",
+    "a0cff1ea5f9477ee0b4e22d03da3fd786aefb9b8"
+  ],
+  "results": [
+    {
+      "run": {
+        "conclusion": "",
+        "databaseId": 45353771226,
+        "event": "pull_request",
+        "headSha": "a0cff1ea5f9477ee0b4e22d03da3fd786aefb9b8",
+        "name": "Preserve presentation ODF data",
+        "status": "queued",
+        "url": "https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/45353771226"
+      },
+      "response": "{}",
+      "stderr": "",
+      "exitCode": 0
+    },
+    {
+      "run": {
+        "conclusion": "",
+        "databaseId": 45353771196,
+        "event": "pull_request",
+        "headSha": "a0cff1ea5f9477ee0b4e22d03da3fd786aefb9b8",
+        "name": "Kantooromgeving controleren en bouwen",
+        "status": "queued",
+        "url": "https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/45353771196"
+      },
+      "response": "{}",
+      "stderr": "",
+      "exitCode": 0
+    },
+    {
+      "run": {
+        "conclusion": "",
+        "databaseId": 45353771343,
+        "event": "pull_request",
+        "headSha": "a0cff1ea5f9477ee0b4e22d03da3fd786aefb9b8",
+        "name": "Office browser regressions",
+        "status": "queued",
+        "url": "https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/45353771343"
+      },
+      "response": "{}",
+      "stderr": "",
+      "exitCode": 0
+    },
+    {
+      "run": {
+        "conclusion": "",
+        "databaseId": 45353771406,
+        "event": "pull_request",
+        "headSha": "a0cff1ea5f9477ee0b4e22d03da3fd786aefb9b8",
+        "name": "Zelfstandige databasebrowser controleren en bouwen",
+        "status": "queued",
+        "url": "https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/45353771406"
+      },
+      "response": "{}",
+      "stderr": "",
+      "exitCode": 0
+    },
+    {
+      "run": {
+        "conclusion": "",
+        "databaseId": 45353771208,
+        "event": "pull_request",
+        "headSha": "a0cff1ea5f9477ee0b4e22d03da3fd786aefb9b8",
+        "name": "Writer format round trips",
+        "status": "in_progress",
+        "url": "https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/45353771208"
+      },
+      "response": "{}",
+      "stderr": "",
+      "exitCode": 0
+    },
+    {
+      "run": {
+        "conclusion": "",
+        "databaseId": 45353771241,
+        "event": "pull_request",
+        "headSha": "a0cff1ea5f9477ee0b4e22d03da3fd786aefb9b8",
+        "name": "Tekstkern uit vastgezette bron bouwen",
+        "status": "in_progress",
+        "url": "https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/45353771241"
+      },
+      "response": "{}",
+      "stderr": "",
+      "exitCode": 0
+    },
+    {
+      "run": {
+        "conclusion": "",
+        "databaseId": 45353771200,
+        "event": "pull_request",
+        "headSha": "a0cff1ea5f9477ee0b4e22d03da3fd786aefb9b8",
+        "name": "Private runtime macro fixture control",
+        "status": "in_progress",
+        "url": "https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/45353771200"
+      },
+      "response": "{}",
+      "stderr": "",
+      "exitCode": 0
+    },
+    {
+      "run": {
+        "conclusion": "",
+        "databaseId": 45353771181,
+        "event": "pull_request",
+        "headSha": "a0cff1ea5f9477ee0b4e22d03da3fd786aefb9b8",
+        "name": "Rekenbladmatrix onafhankelijk controleren",
+        "status": "in_progress",
+        "url": "https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/45353771181"
+      },
+      "response": "{}",
+      "stderr": "",
+      "exitCode": 0
+    },
+    {
+      "run": {
+        "conclusion": "",
+        "databaseId": 45353360519,
+        "event": "pull_request",
+        "headSha": "c5204734d417671e85de9e424481c3befbd82d48",
+        "name": "Zelfstandige databasebrowser controleren en bouwen",
+        "status": "queued",
+        "url": "https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/45353360519"
+      },
+      "response": "{}",
+      "stderr": "",
+      "exitCode": 0
+    },
+    {
+      "run": {
+        "conclusion": "",
+        "databaseId": 45353360535,
+        "event": "pull_request",
+        "headSha": "c5204734d417671e85de9e424481c3befbd82d48",
+        "name": "Office browser regressions",
+        "status": "queued",
+        "url": "https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/45353360535"
+      },
+      "response": "{}",
+      "stderr": "",
+      "exitCode": 0
+    },
+    {
+      "run": {
+        "conclusion": "",
+        "databaseId": 45353360506,
+        "event": "pull_request",
+        "headSha": "c5204734d417671e85de9e424481c3befbd82d48",
+        "name": "Tekstkern uit vastgezette bron bouwen",
+        "status": "in_progress",
+        "url": "https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/45353360506"
+      },
+      "response": "{}",
+      "stderr": "",
+      "exitCode": 0
+    },
+    {
+      "run": {
+        "conclusion": "",
+        "databaseId": 45353360512,
+        "event": "pull_request",
+        "headSha": "c5204734d417671e85de9e424481c3befbd82d48",
+        "name": "Kantooromgeving controleren en bouwen",
+        "status": "queued",
+        "url": "https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/45353360512"
+      },
+      "response": "{}",
+      "stderr": "",
+      "exitCode": 0
+    },
+    {
+      "run": {
+        "conclusion": "",
+        "databaseId": 45353360451,
+        "event": "pull_request",
+        "headSha": "c5204734d417671e85de9e424481c3befbd82d48",
+        "name": "Preserve presentation ODF data",
+        "status": "in_progress",
+        "url": "https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/45353360451"
+      },
+      "response": "{}",
+      "stderr": "",
+      "exitCode": 0
+    },
+    {
+      "run": {
+        "conclusion": "",
+        "databaseId": 45352560534,
+        "event": "pull_request",
+        "headSha": "46a80cdcf1fde47d5cf517b084b5c2b4c8951e9d",
+        "name": "Office browser regressions",
+        "status": "in_progress",
+        "url": "https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/45352560534"
+      },
+      "response": "{}",
+      "stderr": "",
+      "exitCode": 0
+    },
+    {
+      "run": {
+        "conclusion": "",
+        "databaseId": 45352560506,
+        "event": "pull_request",
+        "headSha": "46a80cdcf1fde47d5cf517b084b5c2b4c8951e9d",
+        "name": "Zelfstandige databasebrowser controleren en bouwen",
+        "status": "in_progress",
+        "url": "https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/45352560506"
+      },
+      "response": "{}",
+      "stderr": "",
+      "exitCode": 0
+    },
+    {
+      "run": {
+        "conclusion": "",
+        "databaseId": 45352560702,
+        "event": "pull_request",
+        "headSha": "46a80cdcf1fde47d5cf517b084b5c2b4c8951e9d",
+        "name": "Kantooromgeving controleren en bouwen",
+        "status": "in_progress",
+        "url": "https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/45352560702"
+      },
+      "response": "{}",
+      "stderr": "",
+      "exitCode": 0
+    }
+  ]
+}

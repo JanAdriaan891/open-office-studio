@@ -1,0 +1,91 @@
+{
+  "status": "stable-original-PNG-captured",
+  "doubleAnimationFramesPerSample": true,
+  "extraInterSampleDelayMs": 0,
+  "requiredConsecutive": 3,
+  "requiredStableMs": 200,
+  "samples": [
+    {
+      "at": "2026-11-23T13:28:46.218Z",
+      "pngSha256": "5af705d27a33175e0cdd9ff333d84e7266544e4263a59ac3c865e1ac4f6462fc",
+      "completePaintUnchangedDuringCapture": true,
+      "consecutive": 1,
+      "stableForMs": 0,
+      "paintSignature": "[\"worker0\",1,6,[50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75]]"
+    },
+    {
+      "at": "2026-11-23T13:28:46.301Z",
+      "pngSha256": "5af705d27a33175e0cdd9ff333d84e7266544e4263a59ac3c865e1ac4f6462fc",
+      "completePaintUnchangedDuringCapture": true,
+      "consecutive": 2,
+      "stableForMs": 83,
+      "paintSignature": "[\"worker0\",1,6,[50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75]]"
+    },
+    {
+      "at": "2026-11-23T13:28:46.402Z",
+      "pngSha256": "88a4c0bb6072cdf07dd6c0ceef368536f5a7eba44b912a9d4dfcc528327acfe9",
+      "completePaintUnchangedDuringCapture": true,
+      "consecutive": 1,
+      "stableForMs": 0,
+      "paintSignature": "[\"worker0\",1,6,[50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75]]"
+    },
+    {
+      "at": "2026-11-23T13:28:46.504Z",
+      "pngSha256": "c8ca00bf568cf7384c53c344b9035319c2916982d46770f28717f1ac9e4355ad",
+      "completePaintUnchangedDuringCapture": true,
+      "consecutive": 1,
+      "stableForMs": 0,
+      "paintSignature": "[\"worker0\",1,6,[50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75]]"
+    },
+    {
+      "at": "2026-11-23T13:28:46.622Z",
+      "pngSha256": "c1688e3b3bc7d60ab94fe8e5dd03a93e15c584bde06ef8b2c06f1b345fc50e8a",
+      "completePaintUnchangedDuringCapture": true,
+      "consecutive": 1,
+      "stableForMs": 0,
+      "paintSignature": "[\"worker0\",1,6,[50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75]]"
+    },
+    {
+      "at": "2026-11-23T13:28:46.722Z",
+      "pngSha256": "9d7f16dd4b5eb4a3071e5fa9a983f2be3baed1b3d8b21840fe1057cdfffe5a27",
+      "completePaintUnchangedDuringCapture": true,
+      "consecutive": 1,
+      "stableForMs": 0,
+      "paintSignature": "[\"worker0\",1,6,[50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75]]"
+    },
+    {
+      "at": "2026-11-23T13:28:46.801Z",
+      "pngSha256": "ceaafda14eeb91547e6e6b2be68fe3e9e7fb36fa3c9e8ea75cae952ceefeaf94",
+      "completePaintUnchangedDuringCapture": true,
+      "consecutive": 1,
+      "stableForMs": 0,
+      "paintSignature": "[\"worker0\",1,6,[50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75]]"
+    },
+    {
+      "at": "2026-11-23T13:28:46.901Z",
+      "pngSha256": "ceaafda14eeb91547e6e6b2be68fe3e9e7fb36fa3c9e8ea75cae952ceefeaf94",
+      "completePaintUnchangedDuringCapture": true,
+      "consecutive": 2,
+      "stableForMs": 100,
+      "paintSignature": "[\"worker0\",1,6,[50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75]]"
+    },
+    {
+      "at": "2026-11-23T13:28:46.985Z",
+      "pngSha256": "ceaafda14eeb91547e6e6b2be68fe3e9e7fb36fa3c9e8ea75cae952ceefeaf94",
+      "completePaintUnchangedDuringCapture": true,
+      "consecutive": 3,
+      "stableForMs": 184,
+      "paintSignature": "[\"worker0\",1,6,[50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75]]"
+    },
+    {
+      "at": "2026-11-23T13:28:47.217Z",
+      "pngSha256": "ceaafda14eeb91547e6e6b2be68fe3e9e7fb36fa3c9e8ea75cae952ceefeaf94",
+      "completePaintUnchangedDuringCapture": true,
+      "consecutive": 4,
+      "stableForMs": 416,
+      "paintSignature": "[\"worker0\",1,6,[50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75]]"
+    }
+  ],
+  "acceptedPngSha256": "ceaafda14eeb91547e6e6b2be68fe3e9e7fb36fa3c9e8ea75cae952ceefeaf94",
+  "markerReview": "Review the original PNG; worker glyph records and pixel stability alone do not establish visible marker text."
+}

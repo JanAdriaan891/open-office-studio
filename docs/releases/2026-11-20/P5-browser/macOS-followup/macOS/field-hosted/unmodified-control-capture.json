@@ -1,0 +1,51 @@
+{
+  "status": "stable-original-PNG-captured",
+  "doubleAnimationFramesPerSample": true,
+  "extraInterSampleDelayMs": 0,
+  "requiredConsecutive": 3,
+  "requiredStableMs": 200,
+  "samples": [
+    {
+      "at": "2026-11-23T13:28:45.278Z",
+      "pngSha256": "ea472cc28d2d101ff4b661e0bd0dcba295863d6bba4d5df64d17861b64ac79b7",
+      "completePaintUnchangedDuringCapture": true,
+      "consecutive": 1,
+      "stableForMs": 0,
+      "paintSignature": "[\"worker0\",1,1,[1]]"
+    },
+    {
+      "at": "2026-11-23T13:28:45.357Z",
+      "pngSha256": "98e5fa4ff942719a822cf1cd59ec31112e8cb7179e035860eee30d1ca4a3ff2d",
+      "completePaintUnchangedDuringCapture": true,
+      "consecutive": 1,
+      "stableForMs": 0,
+      "paintSignature": "[\"worker0\",1,1,[1]]"
+    },
+    {
+      "at": "2026-11-23T13:28:45.457Z",
+      "pngSha256": "98e5fa4ff942719a822cf1cd59ec31112e8cb7179e035860eee30d1ca4a3ff2d",
+      "completePaintUnchangedDuringCapture": true,
+      "consecutive": 2,
+      "stableForMs": 100,
+      "paintSignature": "[\"worker0\",1,1,[1]]"
+    },
+    {
+      "at": "2026-11-23T13:28:45.547Z",
+      "pngSha256": "98e5fa4ff942719a822cf1cd59ec31112e8cb7179e035860eee30d1ca4a3ff2d",
+      "completePaintUnchangedDuringCapture": true,
+      "consecutive": 3,
+      "stableForMs": 190,
+      "paintSignature": "[\"worker0\",1,1,[1]]"
+    },
+    {
+      "at": "2026-11-23T13:28:45.626Z",
+      "pngSha256": "98e5fa4ff942719a822cf1cd59ec31112e8cb7179e035860eee30d1ca4a3ff2d",
+      "completePaintUnchangedDuringCapture": true,
+      "consecutive": 4,
+      "stableForMs": 269,
+      "paintSignature": "[\"worker0\",1,1,[1]]"
+    }
+  ],
+  "acceptedPngSha256": "98e5fa4ff942719a822cf1cd59ec31112e8cb7179e035860eee30d1ca4a3ff2d",
+  "markerReview": "Review the original PNG; worker glyph records and pixel stability alone do not establish visible marker text."
+}

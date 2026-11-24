@@ -1,0 +1,56 @@
+{
+  "asOfUTC": "2026-11-23T14:01:33.558216+00:00",
+  "source": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+  "tree": "e30879fd772871e690847c061ef66e6b81808a05",
+  "version": "2026.48.1",
+  "preparerRun": 45188332685,
+  "preparerJob": 137739713476,
+  "preparerCommit": "86fe2d5c8bde47005fd40b3059d6fa92d98e7b4c",
+  "preparerConclusion": "success",
+  "metadataArtifact": 14824463159,
+  "metadataZIPBytes": 7773,
+  "metadataZIPsha256": "180cb913a418f59df3df67aed2f00a1e6ec2020390b7e5342341d94953392f17",
+  "rootVerifiedMetadataZIPBytes": true,
+  "rootVerifiedActualParentOrInstallerBytes": false,
+  "actualPackageVerification": "Native consumers independently hash child ZIP/package and inspect actual payload ELF, using approved canonical verifier before installation/app start. Final independent end-package/signature audit remains separate.",
+  "sevenDEBControlsDeclareZenity": true,
+  "originalMetadataFiles": [
+    {
+      "file": "all-seven-deb-controls.json",
+      "bytes": 6777,
+      "sha256": "4f21e40f5606aa5731f0717b13baf234014e6d78a58fb66d8a3ba3de81523333"
+    },
+    {
+      "file": "canonical-signatures.json",
+      "bytes": 3,
+      "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    },
+    {
+      "file": "office-appimage-descriptor.json",
+      "bytes": 2108,
+      "sha256": "2ebd84ac4cdb00bb96a9d0617a09a34369cc17333f6941786d69c79e27b61b8a"
+    },
+    {
+      "file": "office-deb-descriptor.json",
+      "bytes": 2245,
+      "sha256": "0c82ca92eaa74a5e631aaf2b8990b40bd24d04830049ed9f48b1cbd3f22e4a03"
+    },
+    {
+      "file": "office-origin.json",
+      "bytes": 5971,
+      "sha256": "bf0a47da2301cb87df0a88dd9add50deae52632f9a4d6f9260db126bdf1d7f60"
+    },
+    {
+      "file": "pakketcontrole-Linux.json",
+      "bytes": 1013,
+      "sha256": "488ac82490f09b8e66b19215b28c452362e0b9730ca8eca27e25bd4bee9e0c78"
+    },
+    {
+      "file": "suite-transfers.json",
+      "bytes": 2457,
+      "sha256": "75842c4dc7eac6622e7d8a5991505a6a8c632643a14b882e0070796c1873c60d"
+    }
+  ],
+  "nativeAcceptance": false,
+  "publicationAllowed": false
+}

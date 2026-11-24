@@ -1,6 +1,6 @@
 {
   "name": "@openaec/office-studio",
-  "version": "2026.46.2",
+  "version": "2026.48.1",
   "private": true,
   "license": "Apache-2.0",
   "type": "module",
@@ -46,6 +46,7 @@
     "@fontsource/space-grotesk": "^5.2.0",
     "@tauri-apps/api": "^2.9.0",
     "@tauri-apps/plugin-clipboard-manager": "2.3.2",
+    "@xmldom/xmldom": "0.9.12",
     "buffer": "6.0.3",
     "events": "3.3.0",
     "fflate": "0.8.3",

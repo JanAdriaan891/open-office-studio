@@ -1,0 +1,76 @@
+{
+  "source": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+  "tree": "e30879fd772871e690847c061ef66e6b81808a05",
+  "harness": "7be704895534c3095f697292af07dc10d2e5860b",
+  "run": 45179944903,
+  "rows": [
+    {
+      "platform": "Linux",
+      "scope": "field-sdk",
+      "source": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+      "status": "passed",
+      "sdkChecks": 44,
+      "paintObservations": null,
+      "savedDocumentsIndependentlyAudited": 2,
+      "originalPNGVisualReview": "not applicable: SDK content checks",
+      "nativeAcceptance": false
+    },
+    {
+      "platform": "Linux",
+      "scope": "field-normal",
+      "source": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+      "status": "passed",
+      "sdkChecks": null,
+      "paintObservations": 4,
+      "savedDocumentsIndependentlyAudited": 3,
+      "originalPNGVisualReview": "passed: original-png-review.json, 4 original final images directly viewed",
+      "nativeAcceptance": false
+    },
+    {
+      "platform": "Linux",
+      "scope": "field-hosted",
+      "source": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+      "status": "passed",
+      "sdkChecks": null,
+      "paintObservations": 4,
+      "savedDocumentsIndependentlyAudited": 3,
+      "originalPNGVisualReview": "passed: original-png-review.json, 4 original final images directly viewed",
+      "nativeAcceptance": false
+    },
+    {
+      "platform": "Windows",
+      "scope": "field-sdk",
+      "source": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+      "status": "passed",
+      "sdkChecks": 44,
+      "paintObservations": null,
+      "savedDocumentsIndependentlyAudited": 2,
+      "originalPNGVisualReview": "not applicable: SDK content checks",
+      "nativeAcceptance": false
+    },
+    {
+      "platform": "Windows",
+      "scope": "field-normal",
+      "source": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+      "status": "passed",
+      "sdkChecks": null,
+      "paintObservations": 4,
+      "savedDocumentsIndependentlyAudited": 3,
+      "originalPNGVisualReview": "passed: original-png-review.json, 4 original final images directly viewed",
+      "nativeAcceptance": false
+    },
+    {
+      "platform": "Windows",
+      "scope": "field-hosted",
+      "source": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+      "status": "passed",
+      "sdkChecks": null,
+      "paintObservations": 4,
+      "savedDocumentsIndependentlyAudited": 3,
+      "originalPNGVisualReview": "passed: original-png-review.json, 4 original final images directly viewed",
+      "nativeAcceptance": false
+    }
+  ],
+  "allAssignedPlatformsPassed": true,
+  "nativeAcceptance": false
+}

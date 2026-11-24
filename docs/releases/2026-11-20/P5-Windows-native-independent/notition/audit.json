@@ -1,0 +1,192 @@
+{
+  "auditDate": "2026-11-24",
+  "auditor": "standalone_linux, independent existing-artifact review only",
+  "verdict": "PASS scoped standalone Windows Notition create/edit/persist/backup/fullquit/newPID core; no stable-release or OS-crypto certification",
+  "applicationCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+  "applicationTree": "e30879fd772871e690847c061ef66e6b81808a05",
+  "version": "2026.48.1",
+  "qaCommit": "97710e2ba22d0939ef121fdebb18dec43ed2df9d",
+  "executionRun": 45352319983,
+  "executionAttempt": 1,
+  "executionJob": 138301685144,
+  "executionJobConclusion": "success",
+  "overallRunConclusion": "failure",
+  "proofArtifact": {
+    "id": 14900238584,
+    "node_id": "MDg6QXJ0aWZhY3QxNDkwMDIzODU4NA==",
+    "name": "standalone-windows-p5-notition-proof",
+    "size_in_bytes": 435241,
+    "url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/actions/artifacts/14900238584",
+    "archive_download_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/actions/artifacts/14900238584/zip",
+    "expired": false,
+    "digest": "sha256:dbf968829e258890e713173056507614e88b3065ba4027962c8baceabcb95695",
+    "created_at": "2026-11-24T08:01:31Z",
+    "updated_at": "2026-11-24T08:01:31Z",
+    "expires_at": "2027-02-22T07:59:54Z",
+    "workflow_run": {
+      "id": 45352319983,
+      "repository_id": 1427673882,
+      "head_repository_id": 1427673882,
+      "head_branch": "codex/standalone-windows-p4-2026-11-23",
+      "head_sha": "97710e2ba22d0939ef121fdebb18dec43ed2df9d"
+    }
+  },
+  "archiveDigestMatchedRetainedOfficialMetadata": true,
+  "safeUniqueZipMembersCrcAndAllExistingExtractedBytesVerified": 31,
+  "signatureScope": "Retained native Windows Valid Authenticode + timestamp signer and original successful release Authenticode gate are audited as attestations. No fresh OS signature or PE extraction is claimed; no installer download or execution occurred.",
+  "installer": {
+    "signer": "CN=Impertio Studio B.V., O=Impertio Studio B.V., STREET=Burg de Raadtsingel 31, L=Dordrecht, S=Zuid-Holland, C=NL, PostalCode=3311 JG",
+    "path": "D:\\a\\open-office-studio\\open-office-studio\\.local\\standalone-windows-package\\Open Notition Studio_2026.48.1_x64-setup.exe",
+    "productName": "Open Notition Studio",
+    "signature": "Valid",
+    "bytes": 73570344,
+    "fileVersion": "2026.48.1",
+    "sha256": "01a200d652c22e8bb59f37cba28bfa9694e121ba6cd7e98c9ba5a0c3b20f74b1",
+    "productVersion": "2026.48.1",
+    "timestampSigner": "CN=Microsoft Public RSA Time Stamping Authority, OU=nShield TSS ESN:7A00-05E0-D947, OU=Microsoft America Operations, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+  },
+  "installedExecutable": {
+    "productVersion": "2026.48.1",
+    "bytes": 88116128,
+    "sha256": "c4d976fd30e76d9413cefedf9917fcdeea986f7f3b224931e4eb795f24bc2af5",
+    "path": "C:\\Users\\runneradmin\\AppData\\Local\\Temp\\oos-standalone23-GYxJ6M\\installed\\open-notition-studio.exe",
+    "signer": "CN=Impertio Studio B.V., O=Impertio Studio B.V., STREET=Burg de Raadtsingel 31, L=Dordrecht, S=Zuid-Holland, C=NL, PostalCode=3311 JG",
+    "fileVersion": "2026.48.1",
+    "productName": "Open Notition Studio",
+    "signature": "Valid",
+    "timestampSigner": "CN=Microsoft Public RSA Time Stamping Authority, OU=nShield TSS ESN:7800-05E0-D947, OU=Microsoft America Operations, O=Microsoft Corporation, L=Redmond, S=Washington, C=US"
+  },
+  "payloadEqualsInstalledAttestedAndHashBound": true,
+  "receiptSha256": "7ed14d06e99862893079f7785774ccc64551ce57eb5cc7ff62f35195eedb8b08",
+  "ownInputChild": {
+    "id": 14829370514,
+    "node_id": "MDg6QXJ0aWZhY3QxNDgyOTM3MDUxNA==",
+    "name": "standalone-windows-p5-notition-package",
+    "size_in_bytes": 73573039,
+    "url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/actions/artifacts/14829370514",
+    "archive_download_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/actions/artifacts/14829370514/zip",
+    "expired": false,
+    "digest": "sha256:df4a90656a3b7e2a60782c1fc5a9bcd7266eba40f2c3ae9f32130c4fd4039914",
+    "created_at": "2026-11-23T14:38:18Z",
+    "updated_at": "2026-11-23T14:38:18Z",
+    "expires_at": "2027-02-21T14:35:11Z",
+    "workflow_run": {
+      "id": 45195780472,
+      "repository_id": 1427673882,
+      "head_repository_id": 1427673882,
+      "head_branch": "codex/standalone-windows-p4-2026-11-23",
+      "head_sha": "f88a805beb152d42a22806d135d9af1c912aedcb"
+    }
+  },
+  "identity": {
+    "identifier": "org.openaec.notition-studio",
+    "version": "2026.48.1",
+    "name": "Open Notition Studio"
+  },
+  "independentNotesJson": {
+    "schema": "openaec-notities",
+    "version": 3,
+    "bytesEach": 2081,
+    "sha256Each": "c48dd1bcd2fc8da76bf2b043b4cdd5a66b3575fbc2cb878fd49b52f7dd9b972a",
+    "byteIdenticalInitialAndReopened": true,
+    "notebookName": "STANDALONE23 NOTEBOOK",
+    "pageTitle": "STANDALONE23 NOTE",
+    "body": "STANDALONE23 NOTE BODY",
+    "bookId": "370bf66b-a176-4577-9905-c68802c8ef55",
+    "pageId": "67b1cca6-ce3b-4de3-ad39-b803c4a002ce",
+    "textBlockId": "edd5796c-a011-474b-b162-8b6300e623bf",
+    "scope": "Own local persisted notebook was selected after normal full close/relaunch, then exported through a real native Save a copy dialog. Backup-file reimport was not tested."
+  },
+  "lifecycle": {
+    "initialPid": 4480,
+    "reopenedPid": 5876,
+    "initialNormalFullExit": true,
+    "oldOwnedWebviewsExitedBeforeRelaunch": true,
+    "reopenedNormalFullExit": true,
+    "reopenedOwnedWebviewsExited": true,
+    "ownWebviewProfileCreatedAndReused": true,
+    "baselineNoProfilesAppsOrSuitePaths": true,
+    "afterNativeNoAppsWebviewsOrSuitePaths": true,
+    "nativeAppProfilePresentUntilSeparateFinalCleanup": [
+      "C:\\Users\\runneradmin\\AppData\\Local\\org.openaec.notition-studio"
+    ],
+    "finalProfileCleanupPassed": true,
+    "cleanup": {
+      "residualOwnedWebviews": [],
+      "policyRestored": true,
+      "ownedInstallUninstalled": true,
+      "ownedAppExited": true,
+      "ownedNativeProfilesDisposed": true,
+      "ownedTemporaryProfileDisposed": true
+    }
+  },
+  "visualReview": {
+    "initialCompletedPngViewed": true,
+    "reopenedCompletedPngViewed": true,
+    "observed": "Both original completed native images visibly show notebook breadcrumb, page title, body marker and respective Saved backup paths."
+  },
+  "qaSource": {
+    "commit": "97710e2ba22d0939ef121fdebb18dec43ed2df9d",
+    "files": {
+      "native.mjs": "31884fc4f7294e36bbda11663b1146c5cfcb522da8c0b6cc587f2d2fb1fe6ab8",
+      "cases.mjs": "a6c4affd74c07fee296b167a0bdbe664d2dfd726c1c5e673d003a9acb98b696f",
+      "consume.py": "c886954b6aecfec6dbcdd1deb723aacebe437e377a58825374b93793d1257897",
+      "inspect.ps1": "6a27f31b1a729f0343ab103947ed22dcd73d6c38dda55b1ef5c28f15137570be",
+      "windows-actions.ps1": "2f18830a08facfea33e585bf4e37e6f5f09d7ef792a2f81424b7c0dd086420d4",
+      "cleanup-profile.ps1": "2e58fd8b8ca04a38d7fb6798a80ca90ff74ec3fb72275e4c8124bb2452c3cc2e"
+    }
+  },
+  "limits": [
+    "Only the bounded local notebook create/edit/backup/persist/restart scenario; no all-notebook/import/export/Markdown/formats coverage.",
+    "Windows hosted CI with native installed PE and WebView2. Native keyboard/OS SaveDialog/focus and process evidence audited; no new local GUI session.",
+    "Overall run FAILURE retained; the exact Notition job and scoped artifacts are SUCCESS/PASS. No verdict about other apps derives from it.",
+    "No fresh Authenticode cryptography, new download, CI, build, installer execution, source fix, main/tag/publication."
+  ],
+  "files": [
+    {
+      "path": "proof.zip",
+      "bytes": 435241,
+      "sha256": "dbf968829e258890e713173056507614e88b3065ba4027962c8baceabcb95695"
+    },
+    {
+      "path": "report.json",
+      "bytes": 11673,
+      "sha256": "3349426915541dfc7016739bef66826fa6a39ea15d352a3e76afc6273d7d7052"
+    },
+    {
+      "path": "initial.openaec-notities",
+      "bytes": 2081,
+      "sha256": "c48dd1bcd2fc8da76bf2b043b4cdd5a66b3575fbc2cb878fd49b52f7dd9b972a"
+    },
+    {
+      "path": "reopened.openaec-notities",
+      "bytes": 2081,
+      "sha256": "c48dd1bcd2fc8da76bf2b043b4cdd5a66b3575fbc2cb878fd49b52f7dd9b972a"
+    },
+    {
+      "path": "initial-completed.png",
+      "bytes": 83401,
+      "sha256": "fecf007f3b7a944d33996f5d41fa30ad5b4187fe92c96f5e738c2d3954d7d7a7"
+    },
+    {
+      "path": "reopened-completed.png",
+      "bytes": 83507,
+      "sha256": "188a3ec763086e1c4bb88ccf56faf13231e6fa3c7a5cb7d8616babfa528ae366"
+    },
+    {
+      "path": "profile-cleanup.json",
+      "bytes": 173,
+      "sha256": "c364cb22f2f7b180126e62c24267b10b2b4331f7fecd8ee504bdd8aa24da7ec8"
+    },
+    {
+      "path": "provenance.json",
+      "bytes": 63368,
+      "sha256": "a954f78ae77eb7d8b083fec273a3343f61a2fd355efb80fb6be3809d75a88cc0"
+    },
+    {
+      "path": "member-manifest.json",
+      "bytes": 5119,
+      "sha256": "81cf002cee2a84e61b75869517ffcdc3e99e0b1af107d9f96fe28deae2562a43"
+    }
+  ]
+}

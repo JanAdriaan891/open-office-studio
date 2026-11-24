@@ -1,0 +1,133 @@
+{
+  "method": "Independent offline stdlib ZIP/XML read of actual saved output",
+  "sha256": "0eb60817b210e6e9261764b32f97971d69e9d9ee911f3a012072c91632defdee",
+  "bytes": 6476,
+  "byteIdenticalToOriginalNativeEditedOutput": true,
+  "sheets": [
+    "Sheet1"
+  ],
+  "formulaCount": 30,
+  "cells": {
+    "A1": {
+      "formula": "1+2",
+      "cached": "3"
+    },
+    "A2": {
+      "formula": "1+2",
+      "cached": "3"
+    },
+    "A3": {
+      "formula": "1+2",
+      "cached": "3"
+    },
+    "A4": {
+      "formula": "1+2",
+      "cached": "3"
+    },
+    "A5": {
+      "formula": "1+2",
+      "cached": "3"
+    },
+    "A6": {
+      "formula": "1+2",
+      "cached": "3"
+    },
+    "A7": {
+      "formula": "1+2",
+      "cached": "3"
+    },
+    "A8": {
+      "formula": "1+2",
+      "cached": "3"
+    },
+    "A9": {
+      "formula": "1+2",
+      "cached": "3"
+    },
+    "A10": {
+      "formula": "1+2",
+      "cached": "3"
+    },
+    "A11": {
+      "formula": "1+2",
+      "cached": "3"
+    },
+    "A12": {
+      "formula": "1+2",
+      "cached": "3"
+    },
+    "A13": {
+      "formula": "1+2",
+      "cached": "3"
+    },
+    "A14": {
+      "formula": "1+2",
+      "cached": "3"
+    },
+    "A15": {
+      "formula": "40+2",
+      "cached": "42"
+    },
+    "A16": {
+      "formula": "1+2",
+      "cached": "3"
+    },
+    "A17": {
+      "formula": "1+2",
+      "cached": "3"
+    },
+    "A18": {
+      "formula": "1+2",
+      "cached": "3"
+    },
+    "A19": {
+      "formula": "1+2",
+      "cached": "3"
+    },
+    "A20": {
+      "formula": "1+2",
+      "cached": "3"
+    },
+    "A21": {
+      "formula": "1+2",
+      "cached": "3"
+    },
+    "A22": {
+      "formula": "1+2",
+      "cached": "3"
+    },
+    "A23": {
+      "formula": "1+2",
+      "cached": "3"
+    },
+    "A24": {
+      "formula": "1+2",
+      "cached": "3"
+    },
+    "A25": {
+      "formula": "1+2",
+      "cached": "3"
+    },
+    "A26": {
+      "formula": "1+2",
+      "cached": "3"
+    },
+    "A27": {
+      "formula": "1+2",
+      "cached": "3"
+    },
+    "A28": {
+      "formula": "1+2",
+      "cached": "3"
+    },
+    "A29": {
+      "formula": "1+2",
+      "cached": "3"
+    },
+    "A30": {
+      "formula": "1+2",
+      "cached": "3"
+    }
+  },
+  "sourceXlsbSha256": "e06ae79ed345495eee0bf5e7fd7a32638af0b646c5819f7d83a4f6fb97a151a3"
+}

@@ -1,0 +1,765 @@
+{
+  "endpoint": "actions/runs/45195055147/attempts/1",
+  "producer": {
+    "id": 45195055147,
+    "name": "Build and sign P5 macOS only \u2014 no publication",
+    "node_id": "WFR_kwLOVRiTGs8AAAAKhdXQKw",
+    "head_branch": "codex/p5-macos-only-producer-20261123",
+    "head_sha": "2af94cdcefa3e88e4980b631d16a88d7d7de5ae8",
+    "path": ".github/workflows/release.yml",
+    "display_title": "Build, sign and publish release",
+    "run_number": 69,
+    "event": "workflow_dispatch",
+    "status": "completed",
+    "conclusion": "success",
+    "workflow_id": 395396058,
+    "check_suite_id": 122299605092,
+    "check_suite_node_id": "CS_kwDOVRiTGs8AAAAceZ_gZA",
+    "url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/actions/runs/45195055147",
+    "html_url": "https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/45195055147",
+    "pull_requests": [],
+    "created_at": "2026-11-23T14:31:05Z",
+    "updated_at": "2026-11-23T15:49:09Z",
+    "actor": {
+      "login": "jungle-diff",
+      "id": 351891053,
+      "node_id": "U_kgDOFPlubQ",
+      "avatar_url": "https://avatars.githubusercontent.com/u/351891053?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/jungle-diff",
+      "html_url": "https://github.com/jungle-diff",
+      "followers_url": "https://api.github.com/users/jungle-diff/followers",
+      "following_url": "https://api.github.com/users/jungle-diff/following{/other_user}",
+      "gists_url": "https://api.github.com/users/jungle-diff/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/jungle-diff/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/jungle-diff/subscriptions",
+      "organizations_url": "https://api.github.com/users/jungle-diff/orgs",
+      "repos_url": "https://api.github.com/users/jungle-diff/repos",
+      "events_url": "https://api.github.com/users/jungle-diff/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/jungle-diff/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "run_attempt": 1,
+    "referenced_workflows": [],
+    "run_started_at": "2026-11-23T14:31:05Z",
+    "triggering_actor": {
+      "login": "jungle-diff",
+      "id": 351891053,
+      "node_id": "U_kgDOFPlubQ",
+      "avatar_url": "https://avatars.githubusercontent.com/u/351891053?v=4",
+      "gravatar_id": "",
+      "url": "https://api.github.com/users/jungle-diff",
+      "html_url": "https://github.com/jungle-diff",
+      "followers_url": "https://api.github.com/users/jungle-diff/followers",
+      "following_url": "https://api.github.com/users/jungle-diff/following{/other_user}",
+      "gists_url": "https://api.github.com/users/jungle-diff/gists{/gist_id}",
+      "starred_url": "https://api.github.com/users/jungle-diff/starred{/owner}{/repo}",
+      "subscriptions_url": "https://api.github.com/users/jungle-diff/subscriptions",
+      "organizations_url": "https://api.github.com/users/jungle-diff/orgs",
+      "repos_url": "https://api.github.com/users/jungle-diff/repos",
+      "events_url": "https://api.github.com/users/jungle-diff/events{/privacy}",
+      "received_events_url": "https://api.github.com/users/jungle-diff/received_events",
+      "type": "User",
+      "user_view_type": "public",
+      "site_admin": false
+    },
+    "jobs_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/actions/runs/45195055147/attempts/1/jobs",
+    "logs_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/actions/runs/45195055147/attempts/1/logs",
+    "check_suite_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/check-suites/122299605092",
+    "artifacts_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/actions/runs/45195055147/artifacts",
+    "cancel_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/actions/runs/45195055147/cancel",
+    "rerun_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/actions/runs/45195055147/rerun",
+    "previous_attempt_url": null,
+    "workflow_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/actions/workflows/395396058",
+    "head_commit": {
+      "id": "2af94cdcefa3e88e4980b631d16a88d7d7de5ae8",
+      "tree_id": "94340e40228ddcb11aace00e4dd01f614a13273e",
+      "message": "ci(mac): require signing explicitly for build-only producer",
+      "timestamp": "2026-11-23T14:28:29Z",
+      "author": {
+        "name": "jungle-diff",
+        "email": "alper@open-aec.com"
+      },
+      "committer": {
+        "name": "jungle-diff",
+        "email": "alper@open-aec.com"
+      }
+    },
+    "repository": {
+      "id": 1427673882,
+      "node_id": "R_kgDOVRiTGg",
+      "name": "open-office-studio",
+      "full_name": "OpenAEC-Foundation/open-office-studio",
+      "private": false,
+      "owner": {
+        "login": "OpenAEC-Foundation",
+        "id": 251322089,
+        "node_id": "O_kgDODvre6Q",
+        "avatar_url": "https://avatars.githubusercontent.com/u/251322089?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/OpenAEC-Foundation",
+        "html_url": "https://github.com/OpenAEC-Foundation",
+        "followers_url": "https://api.github.com/users/OpenAEC-Foundation/followers",
+        "following_url": "https://api.github.com/users/OpenAEC-Foundation/following{/other_user}",
+        "gists_url": "https://api.github.com/users/OpenAEC-Foundation/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/OpenAEC-Foundation/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/OpenAEC-Foundation/subscriptions",
+        "organizations_url": "https://api.github.com/users/OpenAEC-Foundation/orgs",
+        "repos_url": "https://api.github.com/users/OpenAEC-Foundation/repos",
+        "events_url": "https://api.github.com/users/OpenAEC-Foundation/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/OpenAEC-Foundation/received_events",
+        "type": "Organization",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "html_url": "https://github.com/OpenAEC-Foundation/open-office-studio",
+      "description": "Open Office Studio \u2014 open-source kantoortoepassingen van het OpenAEC-ecosysteem",
+      "fork": false,
+      "url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio",
+      "forks_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/forks",
+      "keys_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/keys{/key_id}",
+      "collaborators_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/collaborators{/collaborator}",
+      "teams_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/teams",
+      "hooks_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/hooks",
+      "issue_events_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/issues/events{/number}",
+      "events_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/events",
+      "assignees_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/assignees{/user}",
+      "branches_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/branches{/branch}",
+      "tags_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/tags",
+      "blobs_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/git/blobs{/sha}",
+      "git_tags_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/git/tags{/sha}",
+      "git_refs_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/git/refs{/sha}",
+      "trees_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/git/trees{/sha}",
+      "statuses_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/statuses/{sha}",
+      "languages_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/languages",
+      "stargazers_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/stargazers",
+      "contributors_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/contributors",
+      "subscribers_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/subscribers",
+      "subscription_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/subscription",
+      "commits_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/commits{/sha}",
+      "git_commits_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/git/commits{/sha}",
+      "comments_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/comments{/number}",
+      "issue_comment_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/issues/comments{/number}",
+      "contents_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/contents/{+path}",
+      "compare_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/compare/{base}...{head}",
+      "merges_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/merges",
+      "archive_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/{archive_format}{/ref}",
+      "downloads_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/downloads",
+      "issues_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/issues{/number}",
+      "pulls_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/pulls{/number}",
+      "milestones_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/milestones{/number}",
+      "notifications_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/notifications{?since,all,participating}",
+      "labels_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/labels{/name}",
+      "releases_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/releases{/id}",
+      "deployments_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/deployments"
+    },
+    "head_repository": {
+      "id": 1427673882,
+      "node_id": "R_kgDOVRiTGg",
+      "name": "open-office-studio",
+      "full_name": "OpenAEC-Foundation/open-office-studio",
+      "private": false,
+      "owner": {
+        "login": "OpenAEC-Foundation",
+        "id": 251322089,
+        "node_id": "O_kgDODvre6Q",
+        "avatar_url": "https://avatars.githubusercontent.com/u/251322089?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/OpenAEC-Foundation",
+        "html_url": "https://github.com/OpenAEC-Foundation",
+        "followers_url": "https://api.github.com/users/OpenAEC-Foundation/followers",
+        "following_url": "https://api.github.com/users/OpenAEC-Foundation/following{/other_user}",
+        "gists_url": "https://api.github.com/users/OpenAEC-Foundation/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/OpenAEC-Foundation/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/OpenAEC-Foundation/subscriptions",
+        "organizations_url": "https://api.github.com/users/OpenAEC-Foundation/orgs",
+        "repos_url": "https://api.github.com/users/OpenAEC-Foundation/repos",
+        "events_url": "https://api.github.com/users/OpenAEC-Foundation/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/OpenAEC-Foundation/received_events",
+        "type": "Organization",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "html_url": "https://github.com/OpenAEC-Foundation/open-office-studio",
+      "description": "Open Office Studio \u2014 open-source kantoortoepassingen van het OpenAEC-ecosysteem",
+      "fork": false,
+      "url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio",
+      "forks_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/forks",
+      "keys_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/keys{/key_id}",
+      "collaborators_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/collaborators{/collaborator}",
+      "teams_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/teams",
+      "hooks_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/hooks",
+      "issue_events_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/issues/events{/number}",
+      "events_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/events",
+      "assignees_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/assignees{/user}",
+      "branches_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/branches{/branch}",
+      "tags_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/tags",
+      "blobs_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/git/blobs{/sha}",
+      "git_tags_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/git/tags{/sha}",
+      "git_refs_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/git/refs{/sha}",
+      "trees_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/git/trees{/sha}",
+      "statuses_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/statuses/{sha}",
+      "languages_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/languages",
+      "stargazers_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/stargazers",
+      "contributors_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/contributors",
+      "subscribers_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/subscribers",
+      "subscription_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/subscription",
+      "commits_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/commits{/sha}",
+      "git_commits_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/git/commits{/sha}",
+      "comments_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/comments{/number}",
+      "issue_comment_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/issues/comments{/number}",
+      "contents_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/contents/{+path}",
+      "compare_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/compare/{base}...{head}",
+      "merges_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/merges",
+      "archive_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/{archive_format}{/ref}",
+      "downloads_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/downloads",
+      "issues_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/issues{/number}",
+      "pulls_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/pulls{/number}",
+      "milestones_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/milestones{/number}",
+      "notifications_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/notifications{?since,all,participating}",
+      "labels_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/labels{/name}",
+      "releases_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/releases{/id}",
+      "deployments_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/deployments"
+    }
+  },
+  "jobs": {
+    "total_count": 2,
+    "jobs": [
+      {
+        "id": 137763168266,
+        "run_id": 45195055147,
+        "workflow_name": "Build and sign P5 macOS only \u2014 no publication",
+        "head_branch": "codex/p5-macos-only-producer-20261123",
+        "run_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/actions/runs/45195055147",
+        "run_attempt": 1,
+        "node_id": "CR_kwDOVRiTGs8AAAAgE1MgCg",
+        "head_sha": "2af94cdcefa3e88e4980b631d16a88d7d7de5ae8",
+        "url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/actions/jobs/137763168266",
+        "html_url": "https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/45195055147/job/137763168266",
+        "status": "completed",
+        "conclusion": "success",
+        "created_at": "2026-11-23T14:31:07Z",
+        "started_at": "2026-11-23T14:31:09Z",
+        "completed_at": "2026-11-23T14:31:26Z",
+        "name": "versie",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-11-23T14:31:10Z",
+            "completed_at": "2026-11-23T14:31:12Z"
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-11-23T14:31:12Z",
+            "completed_at": "2026-11-23T14:31:21Z"
+          },
+          {
+            "name": "Exacte P5-appbron en afzonderlijke producerhead bewijzen",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-11-23T14:31:21Z",
+            "completed_at": "2026-11-23T14:31:24Z"
+          },
+          {
+            "name": "Versie en tag vergelijken",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4,
+            "started_at": "2026-11-23T14:31:24Z",
+            "completed_at": "2026-11-23T14:31:24Z"
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8,
+            "started_at": "2026-11-23T14:31:24Z",
+            "completed_at": "2026-11-23T14:31:24Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9,
+            "started_at": "2026-11-23T14:31:24Z",
+            "completed_at": "2026-11-23T14:31:24Z"
+          }
+        ],
+        "check_run_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/check-runs/137763168266",
+        "labels": [
+          "ubuntu-latest"
+        ],
+        "runner_id": 1000129875,
+        "runner_name": "GitHub Actions 1000129875",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions"
+      },
+      {
+        "id": 137763371873,
+        "run_id": 45195055147,
+        "workflow_name": "Build and sign P5 macOS only \u2014 no publication",
+        "head_branch": "codex/p5-macos-only-producer-20261123",
+        "run_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/actions/runs/45195055147",
+        "run_attempt": 1,
+        "node_id": "CR_kwDOVRiTGs8AAAAgE1Y7YQ",
+        "head_sha": "2af94cdcefa3e88e4980b631d16a88d7d7de5ae8",
+        "url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/actions/jobs/137763371873",
+        "html_url": "https://github.com/OpenAEC-Foundation/open-office-studio/actions/runs/45195055147/job/137763371873",
+        "status": "completed",
+        "conclusion": "success",
+        "created_at": "2026-11-23T14:31:27Z",
+        "started_at": "2026-11-23T14:31:29Z",
+        "completed_at": "2026-11-23T15:49:08Z",
+        "name": "Bouwen \u2013 macOS",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-11-23T14:31:29Z",
+            "completed_at": "2026-11-23T14:31:32Z"
+          },
+          {
+            "name": "Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-11-23T14:31:32Z",
+            "completed_at": "2026-11-23T14:31:37Z"
+          },
+          {
+            "name": "Exacte P5-appbron en afzonderlijke producerhead bewijzen",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-11-23T14:31:37Z",
+            "completed_at": "2026-11-23T14:31:38Z"
+          },
+          {
+            "name": "Ondertekening beschikbaar",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4,
+            "started_at": "2026-11-23T14:31:38Z",
+            "completed_at": "2026-11-23T14:31:38Z"
+          },
+          {
+            "name": "Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5,
+            "started_at": "2026-11-23T14:31:38Z",
+            "completed_at": "2026-11-23T14:31:39Z"
+          },
+          {
+            "name": "Run pnpm/action-setup@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6,
+            "started_at": "2026-11-23T14:31:39Z",
+            "completed_at": "2026-11-23T14:31:48Z"
+          },
+          {
+            "name": "Run dtolnay/rust-toolchain@stable",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7,
+            "started_at": "2026-11-23T14:31:48Z",
+            "completed_at": "2026-11-23T14:31:51Z"
+          },
+          {
+            "name": "Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8,
+            "started_at": "2026-11-23T14:31:51Z",
+            "completed_at": "2026-11-23T14:31:51Z"
+          },
+          {
+            "name": "Updater-artefacten (alleen met geheim en publieke sleutel)",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9,
+            "started_at": "2026-11-23T14:31:51Z",
+            "completed_at": "2026-11-23T14:31:51Z"
+          },
+          {
+            "name": "Linux-bouwafhankelijkheden",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 10,
+            "started_at": "2026-11-23T14:31:51Z",
+            "completed_at": "2026-11-23T14:31:51Z"
+          },
+          {
+            "name": "Run pnpm install --frozen-lockfile",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11,
+            "started_at": "2026-11-23T14:31:51Z",
+            "completed_at": "2026-11-23T14:31:55Z"
+          },
+          {
+            "name": "Cache van de vastgepinde kantoorruntime",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 12,
+            "started_at": "2026-11-23T14:31:55Z",
+            "completed_at": "2026-11-23T14:31:55Z"
+          },
+          {
+            "name": "Lettertypencache",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 13,
+            "started_at": "2026-11-23T14:31:55Z",
+            "completed_at": "2026-11-23T14:31:55Z"
+          },
+          {
+            "name": "Run node scripts/haal-lettertypen.mjs",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 14,
+            "started_at": "2026-11-23T14:31:55Z",
+            "completed_at": "2026-11-23T14:31:56Z"
+          },
+          {
+            "name": "Woordenboekencache",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 15,
+            "started_at": "2026-11-23T14:31:56Z",
+            "completed_at": "2026-11-23T14:31:56Z"
+          },
+          {
+            "name": "Run node scripts/haal-woordenboeken.mjs",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 16,
+            "started_at": "2026-11-23T14:31:56Z",
+            "completed_at": "2026-11-23T14:31:56Z"
+          },
+          {
+            "name": "Run pnpm versie:check",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 17,
+            "started_at": "2026-11-23T14:31:56Z",
+            "completed_at": "2026-11-23T14:31:56Z"
+          },
+          {
+            "name": "Vastgelegde versleutelde proefbestanden ophalen",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 18,
+            "started_at": "2026-11-23T14:31:56Z",
+            "completed_at": "2026-11-23T14:31:57Z"
+          },
+          {
+            "name": "Run pnpm test",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 19,
+            "started_at": "2026-11-23T14:31:57Z",
+            "completed_at": "2026-11-23T14:34:05Z"
+          },
+          {
+            "name": "Run python -m unittest discover -s tests -v",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 20,
+            "started_at": "2026-11-23T14:34:05Z",
+            "completed_at": "2026-11-23T14:34:06Z"
+          },
+          {
+            "name": "Run node scripts/test-kantoor-engines.mjs",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 21,
+            "started_at": "2026-11-23T14:34:06Z",
+            "completed_at": "2026-11-23T14:34:06Z"
+          },
+          {
+            "name": "Run pnpm test:opdrachten",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 22,
+            "started_at": "2026-11-23T14:34:06Z",
+            "completed_at": "2026-11-23T14:34:11Z"
+          },
+          {
+            "name": "Windows-loader voorbereiden",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 23,
+            "started_at": "2026-11-23T14:34:11Z",
+            "completed_at": "2026-11-23T14:34:11Z"
+          },
+          {
+            "name": "Run cargo test --manifest-path src-tauri/Cargo.toml --locked",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 24,
+            "started_at": "2026-11-23T14:34:11Z",
+            "completed_at": "2026-11-23T14:35:11Z"
+          },
+          {
+            "name": "Run cargo test --manifest-path apps/database-studio/src-tauri/Cargo.toml --locked",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 25,
+            "started_at": "2026-11-23T14:35:11Z",
+            "completed_at": "2026-11-23T14:35:43Z"
+          },
+          {
+            "name": ".NET 8 voor de signeerclient",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 26,
+            "started_at": "2026-11-23T14:35:43Z",
+            "completed_at": "2026-11-23T14:35:43Z"
+          },
+          {
+            "name": "Authenticode voorbereiden",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 27,
+            "started_at": "2026-11-23T14:35:43Z",
+            "completed_at": "2026-11-23T14:35:43Z"
+          },
+          {
+            "name": "App Store Connect-sleutel klaarzetten",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 28,
+            "started_at": "2026-11-23T14:35:43Z",
+            "completed_at": "2026-11-23T14:35:43Z"
+          },
+          {
+            "name": "Pakket bouwen (onondertekend)",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 29,
+            "started_at": "2026-11-23T14:35:43Z",
+            "completed_at": "2026-11-23T14:35:43Z"
+          },
+          {
+            "name": "Pakket bouwen (Windows, ondertekend)",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 30,
+            "started_at": "2026-11-23T14:35:43Z",
+            "completed_at": "2026-11-23T14:35:43Z"
+          },
+          {
+            "name": "Pakket bouwen (macOS, ondertekend en genotariseerd)",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 31,
+            "started_at": "2026-11-23T14:35:43Z",
+            "completed_at": "2026-11-23T15:43:36Z"
+          },
+          {
+            "name": "Authenticode controleren (installer, programma en uninstaller)",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 32,
+            "started_at": "2026-11-23T15:43:36Z",
+            "completed_at": "2026-11-23T15:43:36Z"
+          },
+          {
+            "name": "Handtekening en notarisatie controleren (macOS)",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 33,
+            "started_at": "2026-11-23T15:43:36Z",
+            "completed_at": "2026-11-23T15:45:28Z"
+          },
+          {
+            "name": "Linux-installers werkelijk uitpakken en controleren",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 34,
+            "started_at": "2026-11-23T15:45:28Z",
+            "completed_at": "2026-11-23T15:45:28Z"
+          },
+          {
+            "name": "Windows-installer werkelijk uitpakken en controleren",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 35,
+            "started_at": "2026-11-23T15:45:28Z",
+            "completed_at": "2026-11-23T15:45:28Z"
+          },
+          {
+            "name": "Meet- en inhoudscontrole voor de meegeleverde runtime",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 36,
+            "started_at": "2026-11-23T15:45:28Z",
+            "completed_at": "2026-11-23T15:45:30Z"
+          },
+          {
+            "name": "Standaardinstaller controleren met uitsluitend de private runtime",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 37,
+            "started_at": "2026-11-23T15:45:30Z",
+            "completed_at": "2026-11-23T15:48:08Z"
+          },
+          {
+            "name": "Linux native WebKit-interface en private installer controleren",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 38,
+            "started_at": "2026-11-23T15:48:08Z",
+            "completed_at": "2026-11-23T15:48:08Z"
+          },
+          {
+            "name": "Runtimebewijs bewaren",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 39,
+            "started_at": "2026-11-23T15:48:08Z",
+            "completed_at": "2026-11-23T15:48:10Z"
+          },
+          {
+            "name": "Run actions/upload-artifact@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 40,
+            "started_at": "2026-11-23T15:48:10Z",
+            "completed_at": "2026-11-23T15:48:56Z"
+          },
+          {
+            "name": "Post Woordenboekencache",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 74,
+            "started_at": "2026-11-23T15:48:56Z",
+            "completed_at": "2026-11-23T15:48:56Z"
+          },
+          {
+            "name": "Post Lettertypencache",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 75,
+            "started_at": "2026-11-23T15:48:56Z",
+            "completed_at": "2026-11-23T15:48:56Z"
+          },
+          {
+            "name": "Post Cache van de vastgepinde kantoorruntime",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 76,
+            "started_at": "2026-11-23T15:48:56Z",
+            "completed_at": "2026-11-23T15:48:59Z"
+          },
+          {
+            "name": "Post Run actions/setup-python@v5",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 77,
+            "started_at": "2026-11-23T15:48:59Z",
+            "completed_at": "2026-11-23T15:48:59Z"
+          },
+          {
+            "name": "Post Run pnpm/action-setup@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 78,
+            "started_at": "2026-11-23T15:48:59Z",
+            "completed_at": "2026-11-23T15:48:59Z"
+          },
+          {
+            "name": "Post Run actions/setup-node@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 79,
+            "started_at": "2026-11-23T15:48:59Z",
+            "completed_at": "2026-11-23T15:48:59Z"
+          },
+          {
+            "name": "Post Run actions/checkout@v4",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 80,
+            "started_at": "2026-11-23T15:48:59Z",
+            "completed_at": "2026-11-23T15:49:00Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 81,
+            "started_at": "2026-11-23T15:49:00Z",
+            "completed_at": "2026-11-23T15:49:02Z"
+          }
+        ],
+        "check_run_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/check-runs/137763371873",
+        "labels": [
+          "macos-latest"
+        ],
+        "runner_id": 1000129876,
+        "runner_name": "GitHub Actions 1000129876",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions"
+      }
+    ]
+  },
+  "artifacts": {
+    "total_count": 2,
+    "artifacts": [
+      {
+        "id": 14836145077,
+        "node_id": "MDg6QXJ0aWZhY3QxNDgzNjE0NTA3Nw==",
+        "name": "uitgave-macOS",
+        "size_in_bytes": 1972148013,
+        "url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/actions/artifacts/14836145077",
+        "archive_download_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/actions/artifacts/14836145077/zip",
+        "expired": false,
+        "digest": "sha256:45a88b40325f516e91b0b4cb557b88fd2a81d62bde2e4be26dc87bd1b55ff015",
+        "created_at": "2026-11-23T15:48:56Z",
+        "updated_at": "2026-11-23T15:48:56Z",
+        "expires_at": "2027-02-21T14:31:07Z",
+        "workflow_run": {
+          "id": 45195055147,
+          "repository_id": 1427673882,
+          "head_repository_id": 1427673882,
+          "head_branch": "codex/p5-macos-only-producer-20261123",
+          "head_sha": "2af94cdcefa3e88e4980b631d16a88d7d7de5ae8"
+        }
+      },
+      {
+        "id": 14833789852,
+        "node_id": "MDg6QXJ0aWZhY3QxNDgzMzc4OTg1Mg==",
+        "name": "gebundelde-runtime-uitgave-macOS",
+        "size_in_bytes": 1268289,
+        "url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/actions/artifacts/14833789852",
+        "archive_download_url": "https://api.github.com/repos/OpenAEC-Foundation/open-office-studio/actions/artifacts/14833789852/zip",
+        "expired": false,
+        "digest": "sha256:53f7fc501cdc1fdcaa6e7175333074655c4b442b5837754eb4a10b15636013ce",
+        "created_at": "2026-11-23T15:48:10Z",
+        "updated_at": "2026-11-23T15:48:10Z",
+        "expires_at": "2027-02-21T14:31:07Z",
+        "workflow_run": {
+          "id": 45195055147,
+          "repository_id": 1427673882,
+          "head_repository_id": 1427673882,
+          "head_branch": "codex/p5-macos-only-producer-20261123",
+          "head_sha": "2af94cdcefa3e88e4980b631d16a88d7d7de5ae8"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,1512 @@
+{
+  "schemaVersion": 3,
+  "asOfUTC": "2026-11-24T08:56:41.616801+00:00",
+  "status": "READY for stable-release preparation within agreed bounded P5 acceptance, all planned platform/native/package audits completed. One old Mac save incident remains causally unexplained and is explicitly disclosed. No main/tag/release/publication authorized.",
+  "date": "2026-11-24",
+  "proposedVersion": "2026.48.1",
+  "intermediateWindowsSource": "3a0decac3d45234d4b4d487e431b21cff961ccca",
+  "intermediateWindowsTree": "e46b8faed3ca6b468e71a4d0d77b6dc8ce259360",
+  "versionOnlySource": "82e1b94f9edfcdde1913f7068a28d17156d117cd",
+  "lastJointlyTestedApplication": "dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b",
+  "lastJointlyTestedTree": "5a644e397ecc6af5452a49b6404edf953687d1b2",
+  "branch": "codex/release-prep-2026-11-20",
+  "PR": 367,
+  "PRbase": "codex/integratie-2026-11-16",
+  "mainWritesAllowed": false,
+  "tagOrReleaseCreationAllowed": false,
+  "publicationAllowed": false,
+  "newUserApprovalNeededForConcreteMainAndRelease": true,
+  "FridayDeadlineAppliesToday": false,
+  "deadlineToday": null,
+  "finalCombinedFreeze": "b696ab86bd1c128729a079b68c0082e6df3d36a5 / tree e30879fd772871e690847c061ef66e6b81808a05 /2026.48.1; immutableP5. EarlierP2/P3/P4 proofs retain ownsource/limits/failures.",
+  "historicalHandoff": {
+    "file": "historical-handoff-2026-11-20.json",
+    "sourceCommit": "0dff40895e600e5716d6a72ba2791987d107825b",
+    "sha256": "3615935edefe948c1387b55289daa26c274381bb079994642c81d0ad575172ea"
+  },
+  "owners": {
+    "WindowsRuntime372AndOfficeNative": "750b; P5 signed Suite/Writer core and374 title regression, separate verified Suite child and actual Authenticode/NSIS payload checks",
+    "MacBody359": "mac_native_release_blocker; historical359/361 accepted in scope, P5 signed Suite core+374 waits own verified child",
+    "LinuxCurrent420368369": "writer_362; P5 Suite DEB/AppImage,368/369/362/378/374 native plan ready, canonical children pending",
+    "LinuxStandaloneSixApps": "standalone_linux; P5 one-parent preparation and six app-only hosts, separate Suite DEB/AppImage transfers; actual final packages pending",
+    "MacStandaloneSixAppsAndDownloads": "6f92; bounded P2 driver validation; P5 six-app native and separate Suite transfer await final Mac package",
+    "WindowsStandaloneSixApps": "8020;final6appQAreserved, future380chordrender separate",
+    "VersionFreezePipelineIntegrationAndReadiness": "root",
+    "LinuxNativeXLSB": "d410;377sourcefixdone, shortnative377retestpreparedawaitingnewpackage",
+    "STWVisualTriageAndBrowser": "9d3b; Windows operator750b only",
+    "NextFormatUOT": "e0d7: exclusive ABWlo-abw-1 QA onP2; HWPf9f9/LWP8ce4/WPD084/WRI7ba complete. 8020 independently owns nativeWindowsWRI onP5.",
+    "FuturePresentation78": "0c73; 78/87 retained for future integration; 375 independent bounded source-build witness outside P5"
+  },
+  "MacCriticalPath": {
+    "current420NativeBaselineRun": 45136241393,
+    "result": "Body blank untouched/maximized for original361; savedEPUB control readable. Current420 confirmed, owned apps closed.",
+    "browserRendererBoundaryRun": 45136610926,
+    "nativeDiagnosticWorkerOffRun": 45137361883,
+    "hypothesis": "Confirmed native worker-presentation boundary: image-containing pages skip SDK worker replay. P2 selects existing DOM presenter only on Tauri/macOS; no underlying WebKit defect attribution.",
+    "productCorrectionProven": true,
+    "browserRendererBoundaryStatus": "Cancelled while queued to prioritize native diagnostic; no pass/failure inferred.",
+    "nativeDiagnosticWorkerOffStatus": "Passed causal observation: original alpha/beta/omega/delta readable untouched and after maximize with worker presentation disabled; image control remains readable. Diagnostic only, no product/native functional approval.",
+    "diagnosticPackageArtifact": {
+      "id": 14803065522,
+      "archiveSha256": "8d7f0cc91b2103af2963146177fbe8c53b6344b499242bb3195f6bb3bd4385d5",
+      "scope": "New APP420-derived package with explicit diagnostic URL query, not canonical source420 package or final production correction."
+    },
+    "productCorrection": {
+      "originalCommit": "5f6f5ae3871daaae2db6bc5ede80974c821fd683",
+      "intakeCommit": "dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b",
+      "scope": "Shared SDK presentation memo uses existing DOM canvas only on native Tauri/macOS; worker open/layout intact, browser/Windows/Linux presenter unchanged. Guarded source anchor fails closed on SDK drift. Office/Writer/Email share renderer.",
+      "nativeAcceptance": "PASS bounded body/table core on actual ordinary P2 Mac package; final signed Suite and standalone variants remain separate."
+    },
+    "rootCausalAudit": "Mac359-causal/root-hash-audit.json",
+    "P2NativeCore": {
+      "run": 45151872444,
+      "qaSource": "f5eddfd2a95aa931f0646a97b151a8eca22abfb2",
+      "ownerProofCommit": "d3b0ece6ec4652e8a99f7fb8008e973e1658616d",
+      "artifact": 14806508110,
+      "archiveSha256": "82aa18ab0f85bff812cf808520ad4e49c86bd2cc2eb73ac4c123b1f33165ccfd",
+      "rootAudit": "P2-Mac-native/root-audit.json",
+      "result": "Untouched original body readable, native Q/CommandS/Undo control, both column insert/Undo/Redo, independent saved XML, normal full quit/new PID reopen PASS.",
+      "remaining": "Full361 Tab/Find/two-document controls active on same P2; final signed Suite/standalone acceptance not inferred.",
+      "preservedDriverFailures": [
+        45148679849,
+        45150062617,
+        45150982621
+      ]
+    },
+    "remaining361": {
+      "proofCommit": "fd2edc4e5b2f058adf4d9897bbb7c9fc0951ad38",
+      "scopedAcceptance": "YES for agreed P2Tab/Find/two-document scope; not finalsignedSuite/newsource",
+      "findTwoDocRun": 45165715341,
+      "findArtifact": 14813629072,
+      "findArchiveSha256": "1ebbd602018702cd3333f647a2cbf5c71ca3c47d771aee404f7bf1ccda43c0e9",
+      "tabModelOracleRun": 45164433686,
+      "tabModelArtifact": 14813093059,
+      "tabModelArchiveSha256": "eaf722dc6197685b2c908d5c04d4e3f0e67886308743ef2f181eb81a5cbd416e",
+      "tabHistoryRun": 45166342456,
+      "tabHistoryArtifact": 14815380479,
+      "tabHistoryArchiveSha256": "849901dc28b589dfe52d5031eadded2b048568ea585d2917eed74cf5ae3bd659",
+      "result": "Actual3HIDTabs+newrow+CmdS gives4x3 independentXML; earlyAX3x3 wasstale. Undo1 removesnewrow,Undo2 removesrow;Redo1 emptyrow4,Redo2 newrow; alloriginalcells intact. FindinputUndo/Redo isolatedfromtable,Escape/documentUndo and A/BsamePIDhistories+saveoraclesPASS. OriginalAX/acquisition failures retainedunchanged."
+    }
+  },
+  "Windows372": {
+    "officialRuntimeAndHelperRun": 45136505294,
+    "result": "Old Expand-Archive route fails on runner PS5.1 loading Archive module from PowerShell7; compatible2argument framework extraction passes pinned lessmsi/MSI, offline and headless runtime checks.",
+    "rootIntakeTests": 11,
+    "OfficePackageAndNativeAcceptance": "W1 ordinary unsigned Office build/native accepted; actual P2 Windows STW/GNM native core routes pass with separate STW visual observation. Final signed Suite pending release package.",
+    "intermediateOfficeBuildRun": 45138607445,
+    "intermediateOfficeBuildStatus": "Passed ordinary unsigned Office installer build and package gates; root independently verified small source/tree/helper-blob and package receipts. No final signed-package acceptance.",
+    "intermediateOfficeBuildRootAudit": "W1-Windows-build/root-audit.json",
+    "nativeUITest": {
+      "run": 45142138608,
+      "result": "Stopped before app execution: installed NSIS payload differs from post-bundle target/release executable. Immutable installer/source/provenance valid; independently extracted installer PE identity and precise difference being investigated. No native pass or product failure inferred; owned installation cleaned."
+    },
+    "correctedNativeUITest": {
+      "run": 45142942295,
+      "qaSource": "5afeb7b7a9616d500c5a41cc11b43a58e7839651",
+      "result": "PASS12 real installed native WebView2 checks on the same immutable W1 installer. Root verified archive/report, checkout-CRLF-only harness identity, all9 saved DOCX cells, two original screenshots, two normal distinct-PID exits and cleanup. Pinned Tauri bundler token patch/restoration fully explained; independent NSIS-payload identity and exact one-token in-memory equivalence gate retained. No PE mutation, installer rebuild or product change. Not P2/final signed acceptance.",
+      "artifact": 14802533340,
+      "archiveSha256": "12f024732d82be0f439d553b930f1ee95e9f9a2ff7802b6744f5fadb52b56da3",
+      "rootAudit": "W1-Windows-native/root-audit.json"
+    }
+  },
+  "Linux": {
+    "canonical420DesktopRun": 44753496663,
+    "packageArtifact": 14639121545,
+    "packageSource": "420af640c10ab9ada6c66c844c0098caea87c493",
+    "nativeFixedInputAndRibbonAcceptance": "Historical420 and currentP2 are retained separately; actual P2 DEB368/369 accepted in tested native scopes.",
+    "nativeAttempts": [
+      {
+        "run": 45138542777,
+        "artifact": 14800842616,
+        "zipSha256": "6552192989043bd541a7533f1d2997a1167e589c7ba85a197c415cf65ead2768",
+        "result": "36 positive real-package native checks, then fourth app startup GTK initialization failure before W3C session; Replace/ribbon unexecuted; overall not passed."
+      },
+      {
+        "run": 45139459966,
+        "artifact": 14801483141,
+        "zipSha256": "eecd229049b0bb0880c4a2d279ee57127c9f8123f514c9dabc488f0b1043d5e4",
+        "result": "34 positive native checks, then partial typed save marker; driver ownership/key acknowledgement being investigated. Overall not passed; no GTK-cause or product correction claimed."
+      }
+    ],
+    "nextNativeAttempt": {
+      "run": 45141968924,
+      "qaSource": "e6381d13b95fdd3a8b7e2f7a17772cee1e83ff6f",
+      "result": "In progress: real per-character XTest with readonly acknowledgement/ownership, explicit X display/auth metadata, independent Replace/ribbon outcomes; no product edits or softened assertions."
+    },
+    "inputAcceptanceOnActual420Package": {
+      "run": 45143046662,
+      "artifact": 14803855126,
+      "zipSha256": "f0d12748714614f1a630ff3a18934219c957df856b5888b56be7f509c60b2835",
+      "result": "Owner reports Find and Replace scopes PASS including Undo/both Redos/empty history/search/document isolation/final save and fresh-PID reopen. Root raw audit pending. Does not certify new P2/release package."
+    },
+    "ribbonRemaining": "Historical420 matrix retained; current P2 receipt records tested vertical scope PASS, six disabled-Delete variants unreachable and four horizontal Text-trigger observations. No blanket ribbon pass.",
+    "completed420OwnerDelivery": {
+      "proofCommit": "45ccd7840414c99610511a31d9f40061c01f40e7",
+      "receiptSha256": "f1945183d64c06ea58b2f51052d46b4ee58fc852e68636329a922116f7fdc077",
+      "result": "Find+Replace PASS;258ribbon+24collapsed+24keyboard+36HomeEnd plus keyboard-command-return/save/reopen PASS. Imported-active and actual disabledSplitTable exercised. DisabledDelete unavailable because engine keeps table commands enabled and context disappears outside table; no injected state or blanket full-ribbon pass. Four horizontal Text trigger observations at800 retained; vertical scope passes. Root raw audit pending; not P2 package claim."
+    },
+    "P2SuiteNativePreparation": {
+      "run": 45148819548,
+      "qaSource": "b15892cd491b5bfef6b765f6f9af43d62873a0d5",
+      "ownerProofCommit": "6bb8d6fa",
+      "artifact": 14805173075,
+      "archiveSha256": "55a62c612872f94aa6ed1883d9b00174220a8d40f89e9f83389bf9005d2c9202",
+      "rootAudit": "P2-Linux-native/root-audit.json",
+      "result": "63 functional checks PASS,258 ribbon cases/24groups/24keyboard/36HomeEnd assessed; root verified official ZIP, all131payload hashes and3 saved DOCX XML oracles. Six disabled-Delete states unavailable; four horizontal observations retained. Full process exit via WebDriver session deletion, not menu Quit. No AppImage/finalrelease claim."
+    },
+    "P2CanonicalProducer": {
+      "run": 45143305147,
+      "job": 137586343061,
+      "result": "Linux SUCCESS independently of pending Mac/Windows",
+      "artifact": 14804062140,
+      "archiveSha256": "4704f7fdfe85a711a1c3f8a1da6114461bf17edde090d18f1665397ad23abbc6",
+      "bytes": 811809091,
+      "packageReportArtifact": 14804805305,
+      "packageReportArchiveSha256": "3dffb92f7b2cc418c154d48fc2574f155e912113ec0265fc870ffcba8d0b5576"
+    }
+  },
+  "standaloneRequirement": {
+    "apps": [
+      "Writer",
+      "Spreadsheet",
+      "Presentation",
+      "Email",
+      "Notition",
+      "Database"
+    ],
+    "packageForms": [
+      "Windows x64 NSIS",
+      "macOS arm64 DMG",
+      "Linux x64 DEB",
+      "Linux x64 AppImage"
+    ],
+    "suiteIsSeventhProduct": true,
+    "expectedInstallerCountIncludingSuite": 28,
+    "coverageAudit": "All six registered workspaces have standalone identities/products. Published v2026.46.2 download links checked; no new-version native approval inferred.",
+    "functionalMatrix": "Real P2 Linux appcases underway: perapp/DEB/AppImage results and open failures kept separate. Mac ownartifact pending; Windows finalsource/pkgs pending. No complete standaloneapproval.",
+    "finalPackageSource": "dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b",
+    "noRealMailOrUserProfileMutation": true,
+    "downloadAudit": "standalone-downloads/standalone-download-coverage-2026-11-23.md",
+    "rootDownloadAudit": "standalone-downloads/root-audit.json",
+    "WindowsHostCapability": {
+      "run": 45138671226,
+      "result": "Native keyboard/focus/OS save dialog/file/full exit/new-PID reopen capability passed; not a standalone app acceptance."
+    },
+    "MacHarnessPreparation": {
+      "source": "845c4fff",
+      "localChecks": 41,
+      "hostCapabilityRun": 45143067807,
+      "historicalMacChecks": 23,
+      "newNativeHelpersMacCompiled": false,
+      "result": "Fresh Mac15 host capabilities proven, new code compiles/checks before finalappstart; final sixDMGs pending."
+    },
+    "matrix": "P2-standalone-matrix.json",
+    "conditionalStartAuthorization": {
+      "Linux": {
+        "source": "dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b",
+        "run": 45150438420,
+        "job": 137610274931,
+        "attempt": 1,
+        "artifactName": "uitgave-Linux",
+        "owner": "standalone_linux"
+      },
+      "macOS": {
+        "source": "dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b",
+        "run": 45150438420,
+        "job": 137610274868,
+        "attempt": 1,
+        "artifactName": "uitgave-macOS",
+        "owner": "6f92"
+      },
+      "gates": "Owner may start after own successful package/signature gates and unique official artifact upload, independently verifies source/tree/version/attempt/job/time/parent/API ZIPdigest before full hashdownload and selective app-only preparation. Memberhashes derive from verified parent. Send concrete intake atstart, no extra rootACK/unrelatedOSwait. This is P2baseline; no unknownP3 or stableapproval."
+    },
+    "LinuxExecution": {
+      "qaRun": 45159559656,
+      "qaCode": "bc1f1348",
+      "intakeCommit": "f326520c54b519640c2473aedf724eb4bfc6d568",
+      "intakeSha256": "22e66e34c7376a01a73c58e6c3bc0bc79ce045f207ebd9084a692f28030daed9",
+      "goCommit": "3637ddddfe4cbc01ec4418257dc40ce9e9532632",
+      "status": "Initial45159559656 completedFAILURE: Writer/Presentation/Notition bothforms jobsSUCCESS, reportaudits pending; SpreadsheetDEBPASS/AppImageGnumericintermittent; EmailfixturethenCtrlSrouteunderdiagnosis; DatabasemetadataACLdriverfailurebeforeUI. Nooverallpass.",
+      "preparedCommit": "926f7e649d50fb436e305c3f2793393da500bdd1",
+      "preparedGitSha256": "1ab08cf2ca0b41fb553ec845e17871dc3034506bff925f4971a24fbed41e6b84",
+      "preparedOwnerCRLFSha256": "a7a58c0efb3892685e3ae06f3f8cdf6a7b078998753394875cf08daf1628af95",
+      "rootPreparedAudit": "P2-Linux-standalone-input/root-audit.json"
+    },
+    "LinuxOpenFindings": {
+      "SpreadsheetAppImage": {
+        "first": "Second.gnumericimport showed actualCouldntOpen; DEBbothaliasesPASS andAppImagefirst.gnmPASS. NoZenityconfirm reached.",
+        "focusedRetryRun": 45162569158,
+        "focusedRetryArtifact": 14813071228,
+        "focusedRetryArchiveSha256": "2826bf8f076595df9d41eb2ae69cf55a4aec93d10c368a6109db7552cf6322cd",
+        "status": "Sameimmutableappimage bothaliases/core/save/reopenPASS onretry;1failure/1pass remains unexplainedintermittent. Boundedrepeat/relevantfinalsourcecheck stillneeded, nofixedproductclaim. Zenitynotinstalled/probedonretry."
+      },
+      "Email": {
+        "firstFailure": "Credentialfixture fedsecret-toolstdinignore; productnotimplicated, bothroutesnoStoredPassword/0IMAPcommands.",
+        "fixtureCorrection": "Explicitstdinpipe+nonemptySecretServiceroundtripPASS; actualLOGIN/CAPABILITY/LIST/STATUS/EXAMINE nowobserved.",
+        "nextRun": 45164206640,
+        "nextArtifact": 14814821763,
+        "nextArchiveSha256": "b3da7a47d48f412788117699c94dfb196b0c5a6f80f5e1442fc8cf4482540834",
+        "nextFailure": "AdvertisedCtrlSinsidearia-modalcomposer causesnoAPPEND/no status/error; globalshortcuthookexcludesdialogs andlocalhandlerhasnoSave. NativeDraftbuttondifferentialpending; boundedlocalfixallowedonlyifconfirmed."
+      },
+      "Database": {
+        "firstFailure": "plugin:app|version notallowedbyACL beforePID/focus/picker; testdriverassumedSuitecapability. Notproductbug.",
+        "next": "Capabilityawarepreflight usingstrictpackage/runningELF/ownprofileidentity, noextraACLgrant; thenactualCtrlO/SQLite/query/save/reopen sameinput.",
+        "auditSha256": "df09e98b784865e26291f4ed304774339b0d7d5dc64f55cf5f72b4ad66db51c8"
+      }
+    }
+  },
+  "deferred366": "Explicitly deferred user-reported stale page count; no fix in this task.",
+  "reuseRule": "Old evidence keeps exact source/tree/host/package scope; changed production/version inputs require matching new builds and applicable checks. Platforms start independently after own package identity/preflight, not on unrelated platform success.",
+  "readyForStableRelease": true,
+  "activeWorkMayResumeToday": true,
+  "automaticPublication": false,
+  "signingCapabilityPreflight": {
+    "firstRun": 45140372759,
+    "firstResult": "OpenPGP synthetic receipt signed and verified using expected primary public key. Windows failed before signing at synthetic compiler relative-path handling; no signer failure inferred.",
+    "correctedRun": 45140566799,
+    "qaSource": "1b6983357e017bc0cd915ec3cfe2dcc63e3d3882",
+    "result": "Passed OpenPGP and timestamped Authenticode on inert synthetic payloads. Root verified both artifact digests and the downloaded executable signature; OpenPGP public-key-only verification ran on CI. Not final package/signature acceptance; no publication capability granted.",
+    "rootAudit": "signing-capability/root-audit.json"
+  },
+  "nonpublishingPackageVerifierPreparation": {
+    "branch": "codex/release-signing-preflight-2026-11-23",
+    "qaSourcePrefix": "d6538616",
+    "target": "one final source/run with 28 actual installer hashes, 14 byte-bound reports, 14 OpenPGP package signatures and signed checksum manifest",
+    "checks": "12 rejection/metadata tests PASS; independent reviewer750b PASS, including explicit per-platform producer attempt/job/window/after-signature binding and scoped GPG cleanup failure rejection.",
+    "execution": "No final request or final signing run yet; no keys imported by root audit, read-only workflow, no main/tag/publication operations."
+  },
+  "candidateP2": {
+    "source": "dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b",
+    "tree": "5a644e397ecc6af5452a49b6404edf953687d1b2",
+    "version": "2026.48.1",
+    "originalMacProductCommit": "5f6f5ae3871daaae2db6bc5ede80974c821fd683",
+    "rootIntakeTests": {
+      "passedAssertions": 25,
+      "failed": 0,
+      "scopes": {
+        "realSdkPresentationMemo": 12,
+        "officialWeekVersion": 9,
+        "realWindowsPowerShellZip": 4
+      },
+      "nonincrementalTypeScript": "PASS"
+    },
+    "desktopRun": 45143305147,
+    "MacProducerJob": 137586342524,
+    "browserRun": 45143624910,
+    "browserQaSource": "b306bf9ae3932fa2a888d1dd44268ff9e492e755",
+    "nativeAndSignedReleaseAccepted": false,
+    "immutableBuildBranch": "codex/release-candidate-2026-11-23-p2",
+    "sourceAudit": "P2-source-audit.json",
+    "browserRootAudit": "P2-browser/root-audit.json",
+    "browserVerifiedScope": "All three OS and both routes independently audited:3archive digests,6receipts/summary pairs,24issue reports,54Office cases,6savedDOCX files;48 original payloads. CI asset directories absent from artifact, so no separate root asset-body rehash or untouched-native-paint claim.",
+    "desktopStatus": "All three OS SUCCESS; build success is separate from native acceptance.",
+    "otherRequiredWorkflows": {
+      "database": 45143305092,
+      "writerFormats": 45143305194,
+      "example": 45143305098,
+      "privateRuntimeFixture": 45143305168,
+      "spreadsheet": 45143305144,
+      "presentationODF": 45143305293,
+      "document": 45143304964,
+      "status": "All8workflow/14job successes now centrally audited from completed job logs: actual checkoutP2 or PRmergecb2587f48; bothfulltrees exactly5a644e39. SeeP2-ci-checkouts.json."
+    },
+    "checkoutAudit": "P2-ci-checkouts.json"
+  },
+  "parallelFormat30Work": {
+    "authorized": "Explicit user request relayed23November through issues chat to run30 in parallel; new bounded tasks in existing idle chats, without reviving old stopped PRs.",
+    "source": "dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b",
+    "productionIntake": "Closed P2 remains unchanged; source fixtures/oracles/QA initially, new bugs/fixes require separate scoped registration and intake decision.",
+    "owners": {
+      "01a1bf9c-8020-7953-84ff-ac467a399694": "Historical bounded Windows format proofs and future380 complete; now exclusive P5 parent preparation and six standalone native apps.",
+      "01a1bf84-d410-7383-b369-f055b021c20c": "377 integrated; exclusive short P5 native CtrlS/Save XLSX/cancel/source-fingerprint test awaiting canonical Suite DEB child.",
+      "01a1bf84-e0d7-71f2-b6f4-7658c0cb40da": "DPT qualification gap and matching382 variant complete; next exclusive SDW source-oracle/QA on P2, outside P5.",
+      "01a1bf84-0c73-7170-b0b9-6d54748fca7d": "STI373explained;87/78futurecomplete;375runtimewitness own bounded build ininitialization",
+      "01a1bf9c-9d3b-7463-8a79-dfa9d88eee5c": "374 integrated; Mac browser original-image review complete; independent new-P5 native STW export audits only, no second GUI operator."
+    },
+    "resourceScope": "Own worktrees/QA/Linux CI; no extra Mac build, local GUI/capture, shared source edits, main/tag/publication. No full4GB release download per format.",
+    "WindowsStandaloneOwnerSequence": "Completed bounded-format/chord scopes retained; 8020 now performs P5 six-app acceptance only after own official Windows package verification.",
+    "sharedRuntimePreparation": {
+      "producerRun": 45147346793,
+      "qaSource": "22a8577d215911976400adca4c541f2636212918",
+      "artifact": 14805600515,
+      "archiveSha256": "bac1a37b55deff80cabd4670c1bf65d76266285275c0552436dcc13fcdafa487",
+      "tarSha256": "f3308bea282aedc444a10a039ec2c4e3904915d4c6c0b5607b088108407fb2e3",
+      "GitDescriptorSha256": "1c0e508276b37fbd5b92e55bf113446d7e8522fc1d9e1817bb7722d5b5dd53c6",
+      "baseArtifactDescriptorSha256": "9497f67c9c9e4f30b11c85f32cf3d3254a3f857ad6d53a40ab2f9a01d0f3adb5",
+      "rootAudit": "P2-runtime-input/root-metadata-audit.json",
+      "result": "Runtime-only shared input delivered and consumed with15082entry/mode/link/launcher/ELF/source/parentDEB checks. Root independently hashed the305MB runtime ZIP and read smallmetadata; no runtime TAR extraction/execution by root."
+    },
+    "UOT": {
+      "proofCommit": "232a10af3966774a49a3c5052bb4a32c6a4ecb14",
+      "sourceImportAcceptance": false,
+      "overallFormatAcceptance": false,
+      "result": "StrictsourceCR-reference preservation failed: convertedspaces,202→201chars. No explicitlinebreakelement/normativesemanticproof; no unprovennewlinebugissue. DownstreamoriginalconverterDOCXengineeditUndoRedo/savefreshreopen passes separately. No productpatch."
+    },
+    "UOP": {
+      "proofCommit": "e280e9521cfad3b2c61c26d19fbb5df8b5b74a42",
+      "overallFormatAcceptance": false,
+      "bug": 375,
+      "result": "AuthenticindependentUOF1fixture;3slides/8objects/Chinese/bullets/notes andengineeditUndoRedo/savefreshreopen retained; strictfillfidelityFAIL."
+    },
+    "SXCWindows": {
+      "proof": "d74ff7a8fa29a1109b2a0f6b8290615a0899a3f2",
+      "nativeRun": 45164747391,
+      "converterControl": 45166523239,
+      "overallAcceptance": false,
+      "result": "ActualnativeIO/celleditUndoRedo/save/3normalexits/2newPIDsPASS; strictpreservationFAIL3vectorwidths+0.009cm andtypedradio/textboxcontrolslossalreadyinconverter. Annotation/bitmap/vectorpresets/group/startanchorsretained; allobjectpartsbyteidenticalthrough4nativeexports. Nofullvisualpass/productfix/issueclaimed."
+    },
+    "SDD": {
+      "proof": "fe66bec9a7ec9b5242fcc8a72646bee00b79b573",
+      "run": 45163525359,
+      "boundedCoreRoute": "PASS; authenticCFB/nativepage/string/boundsoracle33x3outputchecks; actualconverter/PPTXengineeditUndoRedo/savefresh",
+      "fullFormatAcceptance": false,
+      "limits": "OpaqueOLE/bitmap/pattern/handoutnotes/StarBASIC/font/renderingnotcertified; no nativeGUI."
+    },
+    "WB2": {
+      "owner": "e0d7",
+      "proof": "0ddb6106bd991873cbcab6338755497a570c1d65",
+      "strictSourceImportAcceptance": false,
+      "overallFormatAcceptance": false,
+      "result": "NoexplicitnameRecord; inferrednativeA vsconverterSheet1 remainsnormativelyuncertain. Downstream33cells/10formulas,editC2=10→70,UndoRedo/savefresh3XML PASS separately. No unprovenbugissue."
+    },
+    "WQ2": {
+      "owner": "e0d7",
+      "proof": "c8f1f648dbf94fa0c15b76fdb639dd0205c5a46d",
+      "run": 45170944200,
+      "artifact": 14817860054,
+      "archiveSha256": "4fc2da77b1e52eaa9ddc97ba8c8b4e3f119b9f9b9a16f9b3747fe98dd1a8711b",
+      "strictSourceImportAcceptance": false,
+      "overallFormatAcceptance": false,
+      "issue": 381,
+      "result": "Real native61cell/fourRPNVLOOKUP oracle: missing zero→one-based indextranslation beforeengine; wrongformularesults reproduced after engine/recalculation/edit/UndoRedo/savefresh.57othercells correct. Separate importlimitation outsideP4; noHLOOKUP/cacheproblem bundled.",
+      "rootIndependentAudit": "pending; bounded delivery coordinator-recorded, not rootGUI/nativeacceptance"
+    },
+    "ET": {
+      "proof": "f51228f4bdf4d40a6aad92ea5f611823b3c8c880",
+      "sourceGatePassed": false,
+      "sourceImportAcceptance": false,
+      "fullFormatAcceptance": false,
+      "run": 45176643338,
+      "result": "CandidateWPSBIFF8+ETExtData fromSayi attachment test lacks independentnativeETSaveAsprovenance; samepublicXLS Workbook/ExtDatabyteidentical. No renaming claimed, no runtimeconversion/engine/nativepass."
+    },
+    "ETT": {
+      "proof": "3940dbfb51877dbe790be8ebc2779b24f803fc87",
+      "run": 45179206300,
+      "bug": 382,
+      "result": "Source qualification gap plus actual production filename-template predicate omission; no genuine import/save/overwrite claim.",
+      "sourceGatePassed": false,
+      "sourceImportAcceptance": false,
+      "fullFormatAcceptance": false,
+      "rootIndependentAudit": "Coordinator records bounded owner delivery; no root conversion or native reproduction claimed."
+    },
+    "DPS": {
+      "proof": "3facfd5acbcab7ca1c4c0a5d6cc588207f1af415",
+      "run": 45183381288,
+      "result": "Source qualification gap: specific Spire sample license unresolved, alternative native-producer provenance insufficient; no conversion or positive format acceptance.",
+      "sourceGatePassed": false,
+      "sourceImportAcceptance": false,
+      "fullFormatAcceptance": false,
+      "rootIndependentAudit": "Coordinator records bounded owner delivery; no root conversion or native reproduction claimed."
+    },
+    "DPT": {
+      "proof": "2c533adf51e9469554dd27ce5259583b61ab6c38",
+      "run": 45185797593,
+      "bug": 382,
+      "result": "Source qualification gap plus independently tested DPT/uppercase filename-template omission, added as same bounded cause/criteria to382. No duplicate issue, actual import/save/overwrite or P5 correction.",
+      "sourceGatePassed": false,
+      "sourceImportAcceptance": false,
+      "fullFormatAcceptance": false,
+      "rootIndependentAudit": "Coordinator records bounded owner delivery; no root conversion or native reproduction claimed."
+    }
+  },
+  "completenessRecheck": {
+    "main93fccAncestorOfP2": true,
+    "olderProduct344OriginalE19AncestorOfP2": true,
+    "olderProduct346HeadC195AncestorOfP2": true,
+    "explanation": "Specific completed historical deliveries found while assigning idle format workers are retained despite old CLOSED-without-merge PR metadata. No old stopped experiments resumed or blindly cherry-picked. Separate proof-only SYLK retains historical scope."
+  },
+  "finalSevenProductBuild": {
+    "run": 45177730188,
+    "source": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+    "tree": "e30879fd772871e690847c061ef66e6b81808a05",
+    "version": "2026.48.1",
+    "publiceren": false,
+    "attempt": 1,
+    "jobs": {
+      "Windows": 137703365803,
+      "macOS": 137703365843,
+      "Linux": 137703365848
+    },
+    "status": "in_progress",
+    "finalNativeOrSigningAcceptance": false
+  },
+  "additionalNativeFormats": {
+    "GNM": {
+      "Windows": {
+        "run": 45151594168,
+        "proofCommit": "436ee5b79562d7c9ef0292d45665bd9976f7e848",
+        "status": "Owner reports actual native both aliases/RustIPC/import/edit/save/fullquit/newPID/4XML oraclesPASS; root raw audit pending."
+      },
+      "Linux": {
+        "run": 45155198992,
+        "qaSource": "c576379059fa819ac64017f9c84e1e519ce135fa",
+        "proofCommit": "0f7c505ec4c66e72fe038da991a944d7af3ba28d",
+        "artifact": 14807469215,
+        "archiveSha256": "af6201d1238c34efd5f41926322563cd4075115b11215a218904097a0a007ee5",
+        "status": "Owner reports actualP2DEB bothaliases picker/RustIPC/8cells4formulas/Sheet2edit/XLSXsave/fullquit/newPIDreopen and independentXMLPASS,58checks/23captures; root raw audit pending. AppImage/standalone not covered."
+      },
+      "macOS": "6f92 pending own finalSpreadsheet DMG"
+    },
+    "STW": {
+      "Windows": {
+        "run": 45152204418,
+        "artifact": 14807501063,
+        "archiveSha256": "ce7616c7c1fbeaf4fd7c76e7466c3bdc22d8d16bdcda055f6553ea431ae7831d",
+        "status": "Actual native I/O/XML/style/placeholder/save/fullquit/newPID PASS; visual title/DOCVARIABLE overlap after append remains unresolved. No unconditional GUI pass."
+      },
+      "Linux": {
+        "run": 45157371765,
+        "qaSource": "2c18bccb",
+        "artifact": 14809896182,
+        "archiveSha256": "9f1a31198c7f7e46e846ca902a15620b80d657bf7eef48d173bcf2ed5e32a886",
+        "status": "OwnerfinalauditPASS13nativecontrols/3XMLaudits/OpenFile+SaveFile/privateconverter/normalexit/newPID; allownprocessesclosed. Longmarker no374titleGUIclaim; bottomimages stillpage1, no paginationclaim.",
+        "proofCommit": "5622eeb0148111c2da08b5eb3060784519f6bc39",
+        "receiptSha256": "12f5b76dfd84e13f90294627b32e605eab74360ddb63fc088fab360b442c684a"
+      },
+      "macOS": "6f92 pending ownWriterDMG"
+    },
+    "XLSB": {
+      "Windows": {
+        "run": 45154252404,
+        "proofCommit": "a31542eb9af5af9583c82d8ea42c24835be15f88",
+        "artifact": 14807757665,
+        "archiveSha256": "4dc73ee03e4d4557c0a8ac43b8bfe10accc20d413dfbae2c10dfef28e91f67d4",
+        "status": "Owner reports native filepicker/RustIPC/30formulas/editA15=42/XLSXsave/normalfullquit/newPIDreopen and3independentXML oraclesPASS; root raw audit pending."
+      },
+      "Linux": {
+        "saveEditReopenRun": 45157164075,
+        "saveProofCommit": "3a740f0d65938af76e633a672116172173b4157d",
+        "saveArtifact": 14808249573,
+        "saveArchiveSha256": "62dab9aeafe98fb3a4825152fcab4f3cc215bcee9b5614abad13522a4d7010f6",
+        "openFileRun": 45158544195,
+        "openProofCommit": "1208537ddeab3c8510d24c05cb617c3affbea8e9",
+        "openArtifact": 14810500641,
+        "openArchiveSha256": "48d4fb5cb1ad2609a3656c326bb2371a902347f9ec9f75f328a0f32249c7094a",
+        "status": "Owner reports actualOpenFile andSaveFile independentlyPASS; nativeA15=42/all30formula/caches/save/fullquit/newPIDPASS. NoCLI fallback credited as picker. First importedcopyCtrlS observation remainsunclassified. ActualP2DEB only, noAppImage/finalstandaloneclaim; root rawauditpending."
+      },
+      "macOS": "6f92 pending ownSpreadsheetDMG"
+    },
+    "UOS": {
+      "Windows": {
+        "run": 45157740183,
+        "proofCommit": "1881c38cc6188d2a25c59cf31581e214db9e2170",
+        "artifact": 14809801710,
+        "archiveSha256": "a526e268692c9e3c02aa4b0694c856d0a5e6dc34446ae214b03949a352455966",
+        "status": "Owner reports nativepicker/RustIPC/source156cells/3sheets/newSUMUndoRedo2→9/save/fullquit/newPID/nativepickerreopen and5independentXLSXoraclesPASS. Nooriginalformulaimport/UOF2/export/opmaak/finalstandaloneclaim."
+      },
+      "otherPlatforms": "No new native UOS claims; CLI/engineproof retained, not universal formatcoverage"
+    }
+  },
+  "newObservedProblems": [
+    {
+      "scope": "STW title overlap after append/save/reopen",
+      "evidenceType": "Two owners independently viewed original Windows testartifact screenshots; no independently established cause yet.",
+      "triageOwner": "9d3b",
+      "WindowsOperator": "750b",
+      "status": "Product85ac155f integrated inP4 with identical5blobs, SDK44/browserproof; newP4native/visual regression still pendingactualpackages.",
+      "issue": 374,
+      "proofCommit": "77f4cba0",
+      "browserRun": 45154167386,
+      "artifact": 14806409519,
+      "archiveSha256": "6abbe498f364cdf884dfffbf28b4be6ab40fb69949daafcba9b0c7eea70fb716",
+      "rootBaselineAudit": "P2-field374-baseline/root-audit.json",
+      "rootImageReview": "Root verified officialartifact/Gitproofbytes/all12payloadhashes and viewed original overlap vs diagnostic cleanwrapping PNGs. Not a new rootGUIrepro; flatteneddiagnostic not fix."
+    },
+    {
+      "issue": 375,
+      "scope": "OneauthenticUOF1UOPfixture loses two explicit rectanglefillcolors duringprivateconverterimport",
+      "owner": "e0d7",
+      "proofCommit": "e280e9521cfad3b2c61c26d19fbb5df8b5b74a42",
+      "result": "Source#14213d/#046eff bothbecomeaccent1 resolving#18a303 beforeengine andremainafteredit/save/freshreopen. Source/object/themeXML independentlyverified; noownvisual/nativeclaim.",
+      "releaseIntake": "Notincluded innecessary374/CIround; documentasconcreteimportlimitation, noformatpass. Stroke/sizeobservationsnotbundled."
+    }
+  ],
+  "research373": {
+    "status": "Closed as explained scoped research, not productfix",
+    "proofCommit": "9471a4be447c0176e050b3b36dc1662b770da0c5",
+    "decision": "Only authenticSTI fixture/pinnedruntime accepts exact predicted1/576inch master-unit quantization and zero additional engine drift. No generic tolerance or bit-exact-size claim; original3pass/1strictfail preserved."
+  },
+  "futureProductRounds": [
+    {
+      "issue": 87,
+      "product": "d96aec716b15bc0a0072993b7772b21727f460fd",
+      "proof": "c605f51255ae84ba2137c2744bb9cd43a3348fe1",
+      "remaining": "macOS/nativepackageacceptance; outsideP4"
+    },
+    {
+      "issue": 78,
+      "product": "33711565a4dde5a0c81c34f9bc4a8bcfd9d655b2",
+      "proof": "d4ae6682745a3c27d07026508f3f582b454e6bac",
+      "checks": "29Win/Linux+realnormal/hostedbrowserPASS; unsupportedthemeOverridechoicecorrectlydisabled, SDKthemeoverridecolorlimitationseparate",
+      "remaining": "macOS/nativepackageacceptance; outsideP4"
+    },
+    {
+      "issue": 375,
+      "proof": "d63e150f5c4a53e7cf948ede329bf99e0cf2d72b",
+      "result": "Readonlynamespace causalUNO run45167757305 SUCCESS/all15082entries unchanged. Bounded importerpatch+realUOP/inheritancefixtures prepared; no activated productruntime.",
+      "next": "One conditional270mintotal/210mincompiler witness approved, resourcegates everynewVM. Initial45172855782 failed13.34s beforeAPT/checkout/build; sameoriginaldeadline retained. No paidrunner/secondcoldbuild/portableUbuntu22runtimeclaim or P4intake.",
+      "remaining": ""
+    },
+    {
+      "issue": 380,
+      "owner": "8020",
+      "product": "cbaebf81",
+      "proof": "3df5ec0314c8af95da4bc35324baa55a136e0b85",
+      "testedHarness": "42d161a3d494fb56fa159501a510a34ac95f6fd0",
+      "run": 45171202941,
+      "artifact": 14817341148,
+      "archiveSha256": "8598a2e4bf252395f86c8d6e6a4317a4a65161dc0805fc0e3998ca051137af55",
+      "checks": "Ownerreports25Win/Linux+TSC;realVitedevnormal/hostedroutes/editUndoRedo/savefreshXML;4printcanvases156880nonedgepixels0mismatch.",
+      "remaining": "Separate future source review/integration and nativeWin/Linux/Mac/optimizedhosted/packageacceptance. No rawSXCbrowser/nativePDF/standaloneclaim; SXCcontrols/widths and GIFpreviewobservation remain separate."
+    }
+  ],
+  "plannedNecessaryNextIntake": {
+    "frozen": false,
+    "source": null,
+    "scope": [
+      "374 allCapsfieldwidth/tracking/horizontalscale preservingoriginalfield/cache; product85ac155f",
+      "377 import-onlyXLSB mustuseexistingXLSXSaveAs, productcbacb7d1",
+      "378 preserveportalbackend, explicitZenitydependency+visiblemissinghelper/failclosed, product82b047fb",
+      "OnlypositivePowerShellrealZIPtestbudget30s, prepared9988aceb",
+      "PotentialEmailcomposeCtrlSlocalfix after nativeDraftbuttondifferential; notyetacceptedproduct"
+    ],
+    "exclude": [
+      "87automaticdate enhancement",
+      "78schemeClrbackground enhancement",
+      "375UOPRGB/runtimework",
+      "allotherlateformatfeatures/experiments"
+    ],
+    "rule": "Review/fuse necessarycode in internalstaging andrun directedchecks; not a finalpin. Closeonlywhen necessaryfixesready, then oneimmutablecommonpoint+newpackages/3OSbrowser/native/standalone. NeverrelabeloldP2results.",
+    "zipTestBudget": {
+      "branch": "codex/release-481-zip-test-budget-20261123",
+      "commit": "9988aceb278aeafaf03a529163099f2d8fa2902f",
+      "files": [
+        "scripts/kantoorruntime-windows.test.mjs"
+      ],
+      "delta": "Only positive external-process ZIP test gets30s budget plus explanatory comment; all4 original assertions/cases and producthelper unchanged.",
+      "localWindowsTests": {
+        "passed": 4,
+        "failed": 0,
+        "positiveDurationMs": 581.7493
+      },
+      "intaken": false,
+      "ciResultClaimed": false
+    },
+    "stagingBranch": "codex/release-481-p3-staging-20261123",
+    "product374Review": {
+      "product": "85ac155f1e7dc2c7d2469fcebf647f6a7fe34823",
+      "rootAudit": "next-intake-field374/root-audit.json",
+      "rootWindowsSDK": "44PASS onexactproduct/defaultvendor modules, notnative",
+      "sourceBinaryReview": "5files exactparentP2/equaltestedblobs, realkernelZIPmembers==Gitvendor bytes; patch/meta hashesmatch; Linuxbrowserorig/freshimages titlepixelsidentical andcorrect. Initialrootvisualmisinterpretationcorrected, noactualcapturebugreproduced."
+    },
+    "product377": {
+      "product": "cbacb7d1396aeeca9a0da72c5739def75c036a73",
+      "files": [
+        "src/werkbestand.ts",
+        "src/werkbestand.test.ts"
+      ],
+      "ownerChecks": "46directedtests+TSC Windows/Linux45163780721PASS; newnativefixedpackagepending",
+      "nativeRetestQA": "201344545cfe01816daa9b8260baf92431651760",
+      "nativeRetestOwner": "d410; noP2 or4GBparentredownloadcredit"
+    },
+    "product378": {
+      "product": "82b047fbced83acf421597df903c5f4c6c20dea9",
+      "proofCommit": "e161d5f4aac25d423494dfc8cd05e6b1910d6ef3",
+      "sourceCI": 45164983592,
+      "checks": "4LinuxstdRust+9config/callsite checks,31existingVitests,TSC/i18nPASS; nativehelpernotexecuted byavailabilityprobe",
+      "remaining": "FullRust/Tauritypewiring andrealnewDEBDepends/AppImageerror/YesCancel/save/focus/nativechecks onnewpoint. Cargo/lock/portal unchanged."
+    },
+    "status": "CLOSED asP5; no lateenhancements",
+    "closedApplicationCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5"
+  },
+  "candidateP3": {
+    "schemaVersion": 1,
+    "asOfUTC": "2026-11-23T12:06:41.707933+00:00",
+    "applicationCommit": "98b340429436cf597a569549d043bd75b486e2ab",
+    "applicationTree": "780c0789c8badedc6760a8402a6994154a3bf402",
+    "version": "2026.48.1",
+    "immutableBranch": "codex/release-candidate-2026-11-23-p3",
+    "productionIntake": "closed",
+    "sourceReview": {
+      "374": {
+        "originalCommit": "85ac155f1e7dc2c7d2469fcebf647f6a7fe34823",
+        "allProductBlobsEqualOriginal": true,
+        "files": [
+          {
+            "path": "patches/tekstengine-nootnummering.json",
+            "blob": "02091056a92d988e462fb3a100b1e0c1960a9de8"
+          },
+          {
+            "path": "patches/tekstengine-nootnummering.patch",
+            "blob": "5a123a422ecad3f1d9a5d56c8501de10ae1c93d7"
+          },
+          {
+            "path": "scripts/bouw-tekstkern.py",
+            "blob": "788e8109bdeeda4feaf4c58877f52009c8a30a7d"
+          },
+          {
+            "path": "vendor/tekstengine/docx_edit_bg.wasm",
+            "blob": "fff7218c341c3be1cf19873c33fc08882a577424"
+          },
+          {
+            "path": "vendor/tekstengine/docx_layout_bg.wasm",
+            "blob": "cbeef2be18dce6acb2df856c50291981f1c28f63"
+          }
+        ]
+      },
+      "377": {
+        "originalCommit": "cbacb7d1396aeeca9a0da72c5739def75c036a73",
+        "allProductBlobsEqualOriginal": true,
+        "files": [
+          {
+            "path": "src/werkbestand.test.ts",
+            "blob": "63f25a1d68f2291ca70db64914f1fe7e7c5fda8e"
+          },
+          {
+            "path": "src/werkbestand.ts",
+            "blob": "9a5d080c8b01e9d61edfefcce9b47b634648f828"
+          }
+        ]
+      },
+      "378": {
+        "originalCommit": "82b047fbced83acf421597df903c5f4c6c20dea9",
+        "allProductBlobsEqualOriginal": true,
+        "files": [
+          {
+            "path": "README.md",
+            "blob": "4a85be560fce3003b2c9ef730785aa52f5ea60d9"
+          },
+          {
+            "path": "apps/database-studio/src-tauri/src/main.rs",
+            "blob": "35365f820099b5d1ff0504bdbe42992f88f127f4"
+          },
+          {
+            "path": "apps/database-studio/src-tauri/tauri.conf.json",
+            "blob": "23727001a8799a2b7cefa947f385f437735d18f1"
+          },
+          {
+            "path": "scripts/controleer-installers.py",
+            "blob": "803ee1ca4146bc86af70b6860f75bcd92be51258"
+          },
+          {
+            "path": "scripts/native-dialog-packages.test.mjs",
+            "blob": "95057326a40015b6f997dd2f14cb53ffa4b78d92"
+          },
+          {
+            "path": "src-tauri/src/database_export.rs",
+            "blob": "0f8abb36b4f181b60382aa3d5bc03aff1d495dfb"
+          },
+          {
+            "path": "src-tauri/src/email/bestanden.rs",
+            "blob": "6d64de50c4bee501b7a3f901c1a063266693b615"
+          },
+          {
+            "path": "src-tauri/src/main.rs",
+            "blob": "8e647a248d357c69659da1533f56a9ded8e9d827"
+          },
+          {
+            "path": "src-tauri/src/native_dialog.rs",
+            "blob": "6b9e2ecbcc43ce7bda5ee1ed278a0b0cea123cad"
+          },
+          {
+            "path": "src-tauri/src/vensters.rs",
+            "blob": "1b3b337de405b0b8220d60cb610f57640d65ecc7"
+          },
+          {
+            "path": "src-tauri/src/werkbestanden.rs",
+            "blob": "e6efcc2ca03107a2c4b171357ec1f4b685b590b9"
+          },
+          {
+            "path": "src-tauri/tauri.linux.conf.json",
+            "blob": "bb96eebcb38f56a5d0d565a00010c054bdae55fc"
+          },
+          {
+            "path": "src/OfficeStudio.tsx",
+            "blob": "0efa64cdcaea0d036c25f8e6087109294d91b3ee"
+          },
+          {
+            "path": "src/i18n/locales/de/desktop.json",
+            "blob": "665f5dcf22df47f783d210a24362df5733252f77"
+          },
+          {
+            "path": "src/i18n/locales/en/desktop.json",
+            "blob": "cd4ed5b6f8eb32af5545690df5c383c8ad2f4515"
+          },
+          {
+            "path": "src/i18n/locales/es/desktop.json",
+            "blob": "913e6cbb16fb3ef77d5927ccbd972d974a8c3de6"
+          },
+          {
+            "path": "src/i18n/locales/fr/desktop.json",
+            "blob": "893c4aa7fbce36604ca85184bc61835522497360"
+          },
+          {
+            "path": "src/i18n/locales/it/desktop.json",
+            "blob": "3ce949b2f525e3e0c525ecf5ae83079c352fca9a"
+          },
+          {
+            "path": "src/i18n/locales/lo/desktop.json",
+            "blob": "21b4085e5b1184558b4e3d38b974a7aa7da67102"
+          },
+          {
+            "path": "src/i18n/locales/nl/desktop.json",
+            "blob": "97081952cfe84d015854d43519eeacfa9707cf5d"
+          },
+          {
+            "path": "src/i18n/locales/pt-BR/desktop.json",
+            "blob": "055003341cf28136c8b70e6c6458a39521299dc1"
+          },
+          {
+            "path": "src/i18n/locales/zh-CN/desktop.json",
+            "blob": "36ab20abc4cd7eacfb5194927f3c33c0b89f1b1c"
+          }
+        ]
+      },
+      "379": {
+        "originalCommit": "de0ad083ef01878bd907792e747d7843efb421ae",
+        "allProductBlobsEqualOriginal": true,
+        "files": [
+          {
+            "path": "packages/email/src/ui/Opstelvenster.tsx",
+            "blob": "1ec5e15b2cbd4cfebcd905dde77e803199e4a3fc"
+          },
+          {
+            "path": "packages/email/src/ui/opstel-sneltoetsen.test.ts",
+            "blob": "7d092933f28739dc377f25389bab5c8a5f8e0f85"
+          },
+          {
+            "path": "packages/email/src/ui/opstel-sneltoetsen.ts",
+            "blob": "a3c5a55858b1326f6ac91ee603dd6b672815bde5"
+          }
+        ]
+      },
+      "zipBudget": {
+        "originalCommit": "9988aceb278aeafaf03a529163099f2d8fa2902f",
+        "allProductBlobsEqualOriginal": true,
+        "files": [
+          {
+            "path": "scripts/kantoorruntime-windows.test.mjs",
+            "blob": "fadb0191d792e70ef116c0532995c508ee165312"
+          }
+        ]
+      }
+    },
+    "localChecks": {
+      "vitestPassed": 229,
+      "vitestFailed": 0,
+      "sdkPassed": 44,
+      "effectiveNativeDialogConfigTestsPassed": 9,
+      "nonincrementalTypeScriptExitCode": 0,
+      "weekVersionCheckExitCode": 0,
+      "diffCheckExitCode": 0
+    },
+    "evidence": {
+      "directed-tests.json": {
+        "rawSha256": "4b43af590e98bde29a94f7f741ea49a7a5fdabe3a87b7f583d83fcc9b3af5c09",
+        "retainedSha256": "64be0e4ab444f3867cf6d05b927bd2d03a355d9f63c5470224b8d21d55667777",
+        "sanitizedLocalPaths": true
+      },
+      "sdk-windows.json": {
+        "rawSha256": "e09ae47bb8658fdfc530d5c97efae04c2af51e1945302c7c9c3893e6244ce39d",
+        "retainedSha256": "3ad05be9bde35a49d7cd4f187a63e21d0df1f704510dab3d7e65807feb48da60",
+        "sanitizedLocalPaths": true
+      }
+    },
+    "limits": [
+      "Local directed checks only; full CI, same-source native/platform and standalone/package/signature acceptance pending.",
+      "No main merge/push, tag, release creation or publication authorized."
+    ],
+    "releaseRun": 45170708933,
+    "publiceren": false,
+    "browserRun": 45170997055,
+    "browserHarness": "49df8893d08404268b549aefdbdf63758d0a6724",
+    "superseded": "Full-CI test runner mismatch; original failure preserved in P4-source/audit.json. No final P3packages."
+  },
+  "historicalP2SevenProductBuild": {
+    "run": 45150438420,
+    "source": "dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b",
+    "tree": "5a644e397ecc6af5452a49b6404edf953687d1b2",
+    "version": "2026.48.1",
+    "publiceren": false,
+    "runAttempt": 1,
+    "startPolicy": "Started after P2 body presentation was established while bounded Mac HID driver correction/native acceptance used a separate runner; not conditional on other OS completion.",
+    "Windows": {
+      "job": 137610274798,
+      "status": "FAILURE before signing/build",
+      "failure": "Positive real ZIP PowerShell test exceeded default5000ms;17272ms measured; other3 negative ZIP tests pass, no byte assertion mismatch reported.",
+      "rawLogSha256": "78e00164c0945cdbffd3bd1c0cae2f75a10327e1b9244963f924644fd681965f",
+      "rerun": "Initially planned unchangedP2retry; now explicitly postponed because independently reproduced374 needs bounded textkernel fix review. Avoid redundant complete7appWindowsbuild followed immediately by necessarynewpin. No retry executed. Existing rawfailure preserved.",
+      "timingReview": "750b independently verified only Vitest default5s external-process budget failed; time is whole fixture/ZIP/PS/extract/read path, not proven PSstartup-only. Same P2Desktop4cases total1860ms. If one unchanged retry repeats, propose only positive real-process test30s and newexplicitpin; no globaltimeout/retry/skip/producthelper change.",
+      "skippedCoverage": "Release6skips vsDesktop3: common3 DB corpus skips; release extra3 spellingWASM-tests because units precede assetprebuild. SameP2Desktop spelling26/26PASS; release beforeBuild prebuild builds required WASM with failclosed non-dev gate. No claim release ran those3 nor missinginstallerresource inferred."
+    },
+    "macOS": {
+      "job": 137610274868,
+      "status": "in_progress signed/notarized seven-product build"
+    },
+    "Linux": {
+      "job": 137610274931,
+      "status": "SUCCESS",
+      "attempt": 1,
+      "artifact": 14808939009,
+      "name": "uitgave-Linux",
+      "bytes": 4444678701,
+      "archiveSha256": "904a128efa87e73b6fb58072c208c348a043f86553d614c5d39fb9de83ea3f09",
+      "rootProducerAudit": "P2-Linux-release-producer.json",
+      "rootRuntimeProofAudit": "P2-Linux-release-runtime/root-audit.json",
+      "scope": "Seven-product build and installer gates passed; Suite native-runtime proof covers actualDEB/AppImage and32legacyfixtures. Sixapp independence still separate; root hashed small proof, not4.44GB installerparent."
+    },
+    "finalPackageAcceptance": false,
+    "tagReleaseOrPublicationPerformed": false
+  },
+  "currentMacStandaloneBaseline": {
+    "run": 45170301076,
+    "source": "dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b",
+    "status": "driver-corrected repeat in progress; initial six jobs failed before functional acceptance",
+    "observed": "1024x768 host with offscreen1440x950 windows; latest fresh host supports1920x1080, actual native mode before appstart; keep originals and strict focus/uniqueness/content/save/reopen criteria",
+    "finalP3Acceptance": false,
+    "independentReview": {
+      "source": "dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b",
+      "run": 45170301076,
+      "reviewer": "mac_native_release_blocker read-only;6f92 soleoperator",
+      "reviewSha256": "db3c1707a43c8c1591eec5f9471c4a721d72dcdc3cdf3f8871a8bd98fc842e2c",
+      "payloadHashesVerified": 242,
+      "findings": [
+        "Maximize-once succeeds to1024x677; logged1920x1080 beforeappstart reverts in laterhelperprocesses.",
+        "Writer actualinput/saveXML; sentenceautocorrect changesvelvet→Velvet, requires explicitly repinnedneutralfixture andstrictoracle.",
+        "Spreadsheet selectedAXCell isvalidselection but drivertextfocuscheck rejects it; use nativeformulaBarAXTextField with actualfocus.",
+        "PresentationOutline isAXCheckBox insideViewtoolbar; target correctrole/context."
+      ],
+      "limits": "No independentnewappoperation/productbug; originalfailures retained. No finalP4functionalpass."
+    }
+  },
+  "historicalP3SevenProductBuild": {
+    "run": 45170708933,
+    "source": "98b340429436cf597a569549d043bd75b486e2ab",
+    "tree": "780c0789c8badedc6760a8402a6994154a3bf402",
+    "version": "2026.48.1",
+    "publiceren": false,
+    "status": "cancelled after preserved Windows test-registration failure; no final native/signing acceptance",
+    "jobs": {
+      "Linux": 137679288372,
+      "Windows": 137679288429,
+      "macOS": 137679288433
+    },
+    "finalNativeOrSigningAcceptance": false
+  },
+  "candidateP4": {
+    "schemaVersion": 1,
+    "asOfUTC": "2026-11-23T12:15:06.839457+00:00",
+    "source": "04fa6cd43b84e3f59fb9d5055bb2d00dde351a47",
+    "tree": "94fa38c20b51a73e4912964f37f0e1a659b0fb1b",
+    "version": "2026.48.1",
+    "immutableBranch": "codex/release-candidate-2026-11-23-p4",
+    "intake": "closed",
+    "sourceChangeFromP3": "Exactly one test import node:test -> vitest; all nine configuration/source guards retained. No runtime/product behavior changes. Other changed files are P3 release evidence/documentation.",
+    "localChecks": {
+      "fullVitest": 3657,
+      "fullVitestFailed": 0,
+      "fullVitestSkipped": 10,
+      "exactSourceSDK": 44,
+      "exactSourceConfigVitest": 9,
+      "nonincrementalTSCExitCode": 0
+    },
+    "P3RetainedFailure": {
+      "releaseRun": 45170708933,
+      "WindowsJob": 137679288429,
+      "attempt": 1,
+      "rawLogSha256": "a059035a658d829593b4cdf5778509ff739746408da5b6f6dd29e19f6e1cd575",
+      "reason": "No test suite found: node:test tests were discovered by project Vitest. All3652 ordinary tests passed,6skipped. ZIP4cases passed.",
+      "releaseAndBrowserCancelledBeforeFinalPackages": true,
+      "browserRun": 45170997055
+    },
+    "releaseRun": 45172070275,
+    "releaseAttempt": 1,
+    "releaseJobs": {
+      "Windows": 137683944804,
+      "macOS": 137683944827,
+      "Linux": 137683944835
+    },
+    "browserRun": 45172148763,
+    "browserHarness": "22b82fda992632976ca1b84a78f8335bad7ee14b",
+    "publication": false,
+    "mainWritesAllowed": false,
+    "stableReady": false,
+    "superseded": "Two CI DEB-install routes did not resolve correctly declared zenity; legacyfailedsource/run retained, P5fixes only these testcommands."
+  },
+  "P4BrowserAcceptance": {
+    "source": "04fa6cd43b84e3f59fb9d5055bb2d00dde351a47",
+    "tree": "94fa38c20b51a73e4912964f37f0e1a659b0fb1b",
+    "initialRun": 45172148763,
+    "LinuxWindows": "4platformroutesPASS; rootZIP/receipt/Office36cases/16downloadedfieldDOCX/SDK44perOS+paint/capture/original16PNGboundedindependentreview; seeP4-browseraudits",
+    "Mac": "Initial marker-position driver failure retained. Mac-only follow-up45175445760 failed before typing on incorrect QA ink-edge assumption; superseded by bounded successful P5 follow-up, no historical pass relabelled.",
+    "mainAudit": "P4-browser/root-audit.json",
+    "fieldAudit": "P4-browser/field-root-audit.json",
+    "initialMacFailure": "P4-browser/macOS-initial-failure/root-audit.json",
+    "nativeAcceptance": false
+  },
+  "P4ProjectCI": {
+    "audit": "P4-ci-checkouts.json",
+    "completedJobsAudited": 15,
+    "pendingRun": 45172076803,
+    "actualSourceTreesMatchP4": true,
+    "supersededDesktopStatus": "Linuxfailedoldtestinstall; correctedexact-byteP4recheck45177760596 ownerreportsPASS; otherremainingP4Desktopjobs cancelled afterP5started. OriginalpartialCIaudit not relabelled allgreen."
+  },
+  "P4KernelRebuild": {
+    "audit": "P4-source/kernel-rebuild-audit.json",
+    "run": 45172076770,
+    "builtEditAndLayoutByteIdenticalToCommittedP4": true
+  },
+  "historicalP4SevenProductBuild": {
+    "run": 45172070275,
+    "source": "04fa6cd43b84e3f59fb9d5055bb2d00dde351a47",
+    "tree": "94fa38c20b51a73e4912964f37f0e1a659b0fb1b",
+    "version": "2026.48.1",
+    "publiceren": false,
+    "attempt": 1,
+    "jobs": {
+      "Windows": 137683944804,
+      "macOS": 137683944827,
+      "Linux": 137683944835
+    },
+    "status": "cancelled before finalacceptance; noP4finalparentprep/nativego",
+    "finalNativeOrSigningAcceptance": false
+  },
+  "candidateP5": {
+    "schemaVersion": 1,
+    "asOfUTC": "2026-11-23T13:41:53.532936+00:00",
+    "source": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+    "tree": "e30879fd772871e690847c061ef66e6b81808a05",
+    "version": "2026.48.1",
+    "immutableBranch": "codex/release-candidate-2026-11-23-p5",
+    "intake": "closed",
+    "onlyExecutableChangesFromP4": [
+      "scripts/proef-native-linux-basis.mjs",
+      "scripts/proef-runtime-interface.mjs"
+    ],
+    "change": "Both CI DEB installers use apt-get install -y --no-install-recommends exactAbsolutePackagePath; checksum/report/installedELF and all native criteria preserved. No app/runtime/editor/Cargo/versionchanges.",
+    "reviewedOriginalCommits": [
+      "77cb9be47bc0aaff4a8cb91059514605893a110b",
+      "77fe314e87dc07b3912ba2c3b60ef388dac5974a"
+    ],
+    "rootIntakeCommits": [
+      "8827e94b",
+      "b696ab86"
+    ],
+    "localChecks": {
+      "nodeSyntaxTwoScripts": true,
+      "diffCheck": true,
+      "exactP5SDKPassed": 44,
+      "exactP5ConfigTestsPassed": 9,
+      "fullLocalVitestNotRepeated": "P4 full3657pass/0fail/10skips retained historically; two CI-only external install commands do not change tested runtime. New P5 project CI runs standard checks on exact newsource."
+    },
+    "P4DesktopFailure": {
+      "run": 45172076803,
+      "job": 137683860055,
+      "rawLogSha256": "6472417080231c6a63c3dd57dd20403c7fc0c006bd8ab79a26f09ff2aedb891e",
+      "reason": "Correctly declared zenity dependency not resolved by old dpkg testinstall; noappstarted.",
+      "packageSha256": "c666690b091d5a4548c7e6d3f3157f9b3c77cb10b534ba2b0d1cbf02b297b3a0"
+    },
+    "P4SameByteHarnessRecheck": {
+      "run": 45177760596,
+      "job": 137703334912,
+      "qa": "5fe310d3ae40bbd8c453f6944d571c21030762b3",
+      "status": "owner-reportedSUCCESS, independent evidence audit pending",
+      "artifact": 14819358469,
+      "archiveSha256": "44ba3d32e9b771c61f2f4b77d387707fa650880e6586f1e230454a9459a06890",
+      "limit": "Old P4exactDEB and corrected external testharness; not P5package/nativeacceptance."
+    },
+    "releaseRun": 45177730188,
+    "releaseAttempt": 1,
+    "releaseJobs": {
+      "Windows": 137703365803,
+      "macOS": 137703365843,
+      "Linux": 137703365848
+    },
+    "browserRun": 45179944903,
+    "browserStatus": "PASS on all three OS and both supported routes; exact source, receipts, SDK44 per OS, saved documents, original title images and cleanup independently audited. Earlier driver/capture failures remain retained.",
+    "publication": false,
+    "mainWritesAllowed": false,
+    "readyForStableRelease": false,
+    "projectCIAudit": "P5-ci-checkouts.json",
+    "macProducerRun": 45195055147,
+    "macProducerWorkflowHead": "2af94cdcefa3e88e4980b631d16a88d7d7de5ae8"
+  },
+  "P5BrowserAcceptance": {
+    "applicationSource": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+    "applicationTree": "e30879fd772871e690847c061ef66e6b81808a05",
+    "initialRun": 45179944903,
+    "LinuxWindowsHarness": "7be704895534c3095f697292af07dc10d2e5860b",
+    "LinuxWindows": "PASS independent complete ZIP/source/receipts, 36 Office cases, prior Writer checks, SDK44 per OS, sixteen field DOCX and sixteen original final title PNGs.",
+    "audit": "P5-browser/root-audit.json",
+    "MacFollowupRun": 45183129618,
+    "MacFollowupJob": 137721777872,
+    "MacFollowupHarness": "6bff15bf7a4b529e389460b6c0ffa397cfaa1e9a",
+    "MacArtifact": 14823150600,
+    "MacArchiveSha256": "4355f4220b22a521f708fa8f3965f42662e7f1f58f326e47426778bb27ab7864",
+    "MacOriginalPNGReview": "8a53e729b5bf6d52daf78e2286dc20e85f29e8a6:qa/field374/evidence/p5-mac-original-png-review.json",
+    "Mac": "PASS independent complete original ZIP/source/tree/receipts, eighteen Office cases, eight prior Writer issue-route checks, SDK44, eight field DOCX audits and matching eight original final title PNG reviews.",
+    "MacQABoundary": "Only extra post-screenshot delay removed on darwin; double rAF, complete current paint, three identical original PNGs, minimum 200 ms and 15 s deadline unchanged. Model-end projection guard retained; ink-edge mismatch remains a separate observation, no broad caret correctness claim.",
+    "retainedFailedRuns": [
+      45172148763,
+      45175445760,
+      45179944903
+    ],
+    "status": "PASS: three OS, two routes; browser scopes only",
+    "nativeAcceptance": false,
+    "MacAudit": "P5-browser/macOS-followup/independent-mac-audit.json",
+    "aggregateOfficeCases": 54,
+    "aggregatePriorWriterIssueRouteChecks": 24,
+    "aggregateSDKChecks": 132,
+    "aggregateIndependentFieldDOCXAudits": 24,
+    "aggregateOriginalFinalTitlePNGReviews": 24
+  },
+  "P5ProjectCI": {
+    "audit": "P5-ci-checkouts.json",
+    "workflowsPassed": 10,
+    "jobsAudited": 18,
+    "allActualCheckoutTreesMatchP5": true,
+    "actualCheckoutCommits": [
+      "9e129b82afce50123407e24348e687bf03af3386",
+      "b696ab86bd1c128729a079b68c0082e6df3d36a5"
+    ],
+    "limit": "Project source/build checks include native Linux basis; no full final Suite or standalone acceptance inferred."
+  },
+  "extraReleaseCapacity": {
+    "packageSignatureAcceptance": "Reviewed unchanged verifier and concrete disabled P5 request; independent final parent-byte/signature audit after all producer packages are available.",
+    "releaseNotesDownloadMatrix": "Four source-checked draft files; nineteen Git source inputs and twenty-eight product/platform rows checked, no fabricated final links or hashes.",
+    "macStandaloneDriverReview": "Two initial focused-modal/cleanup defects and a later incomplete-tree-readiness cleanup gap independently reviewed. Owner fixes preserve actual focus/unknown-modal/hard traversal guards; latest QA c43259ee has75 directed tests PASS. Fresh final Mac preflight/native effectiveness remains required.",
+    "browserEvidenceAudit": "Browser3OS/two routes and four Linux standalone apps/eight forms independently audited; all original bytes/outputs/PNG hashes preserved.",
+    "readinessEstimateCET": "Superseded: user ordered safe shutdown before16:00; no final release ETA promised.",
+    "LinuxEmailIndependentAudit": "d410: actual805B multipart MIME/exact APPEND/UIDFETCH and lifecycle identity checked independently; final corrected raw Git EMLs verified. Next readonly Spreadsheet core/supplement audit on existing proof, no new download/run."
+  },
+  "P5PackageProgress": {
+    "asOfUTC": "2026-11-23T14:47:28.760948+00:00",
+    "run": 45177730188,
+    "attempt": 1,
+    "Linux": "Official producer and corrected one-parent preparation SUCCESS. Suite DEB/AppImage metadata and child ZIP bindings delivered to native owners; actual consumer package/ELF validation and native tests next.",
+    "Windows": "Official original attempt1 job137703365803 SUCCESS14:34:04Z. Archive14828525724/2037941610B/SHA24816ccb... verified by own one-parent preparer; six fresh app-only native hosts and separate signed Suite consumer started.",
+    "macOS": "Original attempt1 job failed DMG creation. Separate Mac-only run45195055147/job137763371873 actually in progress; application source remains exactP5, separate workflow head explicit. No final Mac artifact/native acceptance yet.",
+    "officialArtifactListEmpty": false,
+    "finalNativeGoIssued": false,
+    "LinuxArtifact": {
+      "id": 14824745492,
+      "bytes": 4444993178,
+      "sha256": "c64b0e90e2144d1a5a6d17ad7e4881429a70ade8c48e76f7a22858b54c3928c5"
+    },
+    "producerAudit": "P5-package-intake/audit.json",
+    "nativeGoIssuedForVerifiedPackage": {
+      "Linux": true,
+      "Windows": true,
+      "macOS": false
+    },
+    "conditionalStartAuthorizedForOwnedPackage": {
+      "Linux": true,
+      "Windows": true,
+      "macOS": true
+    },
+    "WindowsArtifact": {
+      "id": 14828525724,
+      "bytes": 2037941610,
+      "sha256": "24816ccb20360bbfc976abf38810988dfe4b27a3305c80d5b80b711719587e0d"
+    }
+  },
+  "future375Witness": {
+    "run": 45182719759,
+    "job": 137720371933,
+    "qa": "73653c134cf6a049e273b975ab9b8452b2f45af3",
+    "startCET": "2026-11-23 14:19:03",
+    "prefixDeadlineCET": "2026-11-23 15:04:03",
+    "controllerDeadlineCET": "2026-11-23 18:39:03",
+    "hardDeadlineCET": "2026-11-23 18:49:03",
+    "maximumCompilerAndTestMinutes": 210,
+    "automaticRetryAllowed": false,
+    "P5Intake": false,
+    "newRuntimeAcceptance": false,
+    "limit": "Separate explicitly allocated first compilation witness after preserved preparation-only failures. No mixed P2 binaries, application build or runtime pin change."
+  },
+  "P5LinuxPreparation": {
+    "owner": "standalone_linux",
+    "failedRun": 45187253554,
+    "failedQA": "b5f2fbf0531ca080609a11778bb7474bf3a8441c",
+    "failureScope": "QA binder hashed Windows CRLF intake bytes while Git checkout carried LF. Consumer rejected rawhash before archive creation/download; JSON metadata unchanged. No package/product failure inferred.",
+    "originalParentBytesDownloaded": 0,
+    "correction": "Producer writes and hashes exact canonical Git bytes; consumer raw-byte hash and all original source/job/attempt/time/ZIP/package/ELF gates remain strict.",
+    "SuiteTransferPriority": "Suite DEB and AppImage first, separate from six app-only hosts; d410 short377 and writer_362 Suite/378/374 share canonical verifier/input identity.",
+    "nativeAcceptance": false,
+    "successfulRun": 45188332685,
+    "successfulJob": 137739713476,
+    "qa": "86fe2d5c8bde47005fd40b3059d6fa92d98e7b4c",
+    "status": "One canonical parent successfully hashed/split by native preparer; no second parent download. Small original metadata ZIP independently hashed/safely extracted by root.",
+    "metadataAudit": "P5-package-intake/Linux-Suite-children/root-metadata-audit.json",
+    "canonicalVerifierGit": "67d95a1c27bc597ca8c6be62528db21789ebceb6",
+    "SuiteDEBDescriptor": "P5-package-intake/Linux-Suite-children/office-deb-descriptor.json",
+    "SuiteAppImageDescriptor": "P5-package-intake/Linux-Suite-children/office-appimage-descriptor.json",
+    "SuiteDEBConsumer": "writer_362 Suite/378/374; d410 only short377 on separate own host",
+    "SuiteAppImageConsumer": "writer_362 Suite/AppImage scope"
+  },
+  "P5MacIndependentProducer": {
+    "run": 45195055147,
+    "job": 137763371873,
+    "attempt": 1,
+    "startedUTC": "2026-11-23T14:31:29Z",
+    "signedBuildStepStartedUTC": "2026-11-23T14:35:43Z",
+    "producerCommit": "2af94cdcefa3e88e4980b631d16a88d7d7de5ae8",
+    "producerTree": "94340e40228ddcb11aace00e4dd01f614a13273e",
+    "producerBranch": "codex/p5-macos-only-producer-20261123",
+    "applicationCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+    "applicationTree": "e30879fd772871e690847c061ef66e6b81808a05",
+    "version": "2026.48.1",
+    "explicitAppCheckouts": 2,
+    "originalBuildStepsRetained": 38,
+    "signingRequired": true,
+    "publisherAbsent": true,
+    "onlyWorkflowDispatch": true,
+    "rootReview": "P5-Mac-recovery/root-review.json",
+    "sourceWitnessMember": ".local/macos-only-producer-source.json",
+    "sourceWitnessContract": {
+      "member": "literal above",
+      "sha256": "freeze actual original bytes only after parent verification",
+      "bytes": "actual count",
+      "rawBase64": "unchanged original bytes",
+      "value": "JSON parsed from those exact bytes"
+    },
+    "finalMacArtifact": {
+      "id": 14836145077,
+      "bytes": 1972148013,
+      "sha256": "45a88b40325f516e91b0b4cb557b88fd2a81d62bde2e4be26dc87bd1b55ff015",
+      "sourceWitnessSha256": "236085a316b40b2e5033316a3e3ed45f91cb9a27e83d518117160ba4aff4e7d5"
+    },
+    "nativeAccepted": false,
+    "noSecondOldMacRetry": true,
+    "automaticFollowupAllowed": false,
+    "producerStatus": "completed SUCCESS; no native acceptance inferred"
+  },
+  "P5LinuxStandaloneAcceptance": {
+    "matrix": "P5-standalone-matrix.json",
+    "coreFourAudit": "P5-Linux-standalone-four-core/independent-audit.json",
+    "EmailAudit": "P5-Linux-email/independent-audit.json",
+    "boundedCoreFormsIndependentlyPassed": 12,
+    "Spreadsheet": "Both core XLSX forms independently audited PASS. DEB both GNM formats and AppImage.gnm passed; AppImage.gnumeric remains failed/unclassified, diagnostic45197550291 in progress. AppImage final inventory missing explicitly retained; no blanket/full-format pass.",
+    "Email": "Both package forms native CtrlS/exact one APPEND/MIME/fullquit/newPID/UIDFETCH/body/cleanup PASS independently; no real provider or SMTP claim.",
+    "SpreadsheetCoreAudit": "P5-Linux-spreadsheet-core/independent-audit.json",
+    "latestAppImageDiagnostic": {
+      "run": 45197550291,
+      "job": 137772125699,
+      "CI": "success",
+      "artifact": 14829826268,
+      "bytes": 3355358,
+      "sha256": "9cc7f012da9f63a1d7b9717bad4aef04c4257de0418fb1370d277e12e128411e",
+      "expires": "2027-02-21",
+      "downloadedAndAuditedAtStop": false,
+      "oldFailuresRemainOpen": true,
+      "audit24November": {
+        "status": "PASS bounded existing scenarios",
+        "commit": "fd7733338433a2803c4f3de7d27041dcf20336b6",
+        "sha256": "372286407d245224c307736a359d64df1aebe4054b3df9ff865a54238b3e2036",
+        "previousFailureCause": "OPEN; success is not a demonstrated cause/fix"
+      }
+    }
+  },
+  "P5LinuxSuiteAcceptance": {
+    "owner": "writer_362",
+    "coreRun": 45189806911,
+    "coreJob": 137745078121,
+    "coreScope": "64 functional checks, 258 ribbon content and24 group observations, explicit partial/disabled-control limits; initial bodypaint unsupported retained.",
+    "AppImageRun": 45193170006,
+    "AppImageJob": 137756775739,
+    "AppImageScopedTestsPassed": "13 preflight/negative +7 positive checks, actual missing-helper error and Cancel/Overwrite/save/newPID, original images readable; no broad matrix/GPG claim.",
+    "DEB374Run": 45193639082,
+    "DEB374Job": 137758403838,
+    "DEB374Scope": "19 native checks/eight source XML checks, actual converted-control edit/save/newPID and retained Windows route; six exports and seven original title PNGs independently reviewed PASS by9d3b, no title overlap/clipping.",
+    "DEB374IndependentReviewGit": "658512c9a1511140e23bde0a81fb194fbac90d03",
+    "DEB378Positive": "16 checks including genuine Cancel/Overwrite and new process; historical process-scan failure retained separately.",
+    "DEBMissingOnlyRun": 45196900595,
+    "DEBMissingOnlyJob": 137769907340,
+    "DEBMissingOnly": "SUCCESS13 checks and cleanup; original-image/hash audit and final receipt completed by owner0810c25b, final-receiptSHA267ecaa97893e6dbbe8aa8df7b9ff826e78f317cf2fbfdc5cfeb02586a80a3b6. Extra independent Suite final audit underway.",
+    "issue377": {
+      "status": "PASS bounded CtrlS/Save XLSX proposal/cancel/original unchanged/dirty",
+      "run": 45190827271,
+      "job": 137748390686,
+      "harness": "f312038536ba5ca05aa31226918e9bd80735efbf",
+      "proofCommit": "497c27eba01f9c3985c8a68af75b5629e7df7db1",
+      "artifact": 14826475945,
+      "zipSha256": "ae2ed056c652d9e64391d0aed706d0b93aef8869ba867ef4219d15c61cf19067"
+    },
+    "fullSuiteAllAxesOrOtherPlatformsAccepted": false,
+    "finalOwnerProofCommit": "0810c25bc0532e12ab44e87635668faa33ef4ca5",
+    "finalIndependentAudit": "PASS bounded completed scopes; full ribbon/native matrix PARTIAL. P5-Linux-Suite-final-audit/completed-2026-11-24/final-audit.json SHAa8436cf9237b60785a90ae17650b4de24729739109190f26c302966fd0585c1b.",
+    "independentAuditLimitations": [
+      "Six genuine disabled-Delete states unavailable",
+      "Four horizontal group-clipping observations; strict vertical checks pass",
+      "Six normal native AltF4 closes; two independent scopes close through WebDriver cleanup",
+      "No physicalFUSE/fulltypography/fullSTWroute certification; original failed jobs remain failed"
+    ]
+  },
+  "P5WindowsNativeProgress": {
+    "preparerRun": 45195780472,
+    "preparerCommit": "f88a805beb152d42a22806d135d9af1c912aedcb",
+    "preparerJob": 137765723008,
+    "parentDownloads": 1,
+    "sixFreshAppOnlyHostsActuallyStarted": true,
+    "SuiteNativeRun": 45196601365,
+    "SuiteQA": "3bb2641cd37785a1893e11bd4b0fb3172e9f25d0",
+    "SuiteNativeJob": 137768600967,
+    "SuiteCore": "Owner reports12 native core checks PASS after actual signed installer/payload/installed PE/identity/timestamp validation; short title SaveAs output missing, overall failed, targeted driver-versus-product diagnosis pending.",
+    "SuiteDescriptorArtifact": 14828970973,
+    "SuiteChildArtifact": 14828676560,
+    "NotitionDatabase": "Initial native jobs failed on Save filename selector and read-only app-identifier ACL respectively; owner investigating QA with original failures retained. Other four app hosts continue independently.",
+    "WindowsIssue377": "Short Spreadsheet-only follow-up planned with same approved child; not accepted yet.",
+    "signatureEndAudit": "Independent final OpenPGP/checksum job not started; awaiting actual Mac package plus reviewed separate-producer adapter.",
+    "stateAtStop": "Original six-job run finished: Writer/Spreadsheet scoped core PASS, other four initial driver FAIL/BLOCKED. Corrections/377 WIP unexecuted; both ready flags false.",
+    "stopCommit": "Historical23November865952e5; superseded by currentowner3f27ae6d7c46429c60c141add4011aa27ebc980c",
+    "SuiteStopCommit": "2dc4a0c49accc69ccadd170945b590dcc8d8c602",
+    "SuiteNative": "Run45196601365 overallFAIL retained; strict actual signed identities and12corechecksPASS, titleSaveAsfilemissing/WIPnotexecuted. No new job after stop.",
+    "stateAt24November": "Six bounded native standalone cores+short377+separate directcanvasPASS; all earlierfailuresretained; no productchange/parentdownload."
+  },
+  "deadline17CET": {
+    "requested": true,
+    "stableReadyBy17Realistic": false,
+    "reason": "Final Mac installer absent; new signed/notarized seven-product build and mandatory native/installer/end-signature acceptance remain. More agents cannot make missing package evidence green.",
+    "checkpointBefore17Required": true,
+    "mainWritesAllowed": false,
+    "publicationAllowed": false,
+    "supersededByHardStop16": true
+  },
+  "userStop": {
+    "date": "2026-11-23",
+    "stopRequestedBeforeCET": "16:00",
+    "recordedUTC": "2026-11-23T14:58:06.400188+00:00",
+    "resumeDate": "2026-11-24",
+    "resumeRequiresNewUserInstruction": true,
+    "newWorkAllowed": false,
+    "allUnstartedGoRevoked": true,
+    "mainWritesAllowed": false,
+    "tagReleaseOrPublicationAllowed": false,
+    "stableReleaseReady": false,
+    "application": {
+      "commit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+      "tree": "e30879fd772871e690847c061ef66e6b81808a05",
+      "version": "2026.48.1"
+    },
+    "resumePlan": "RESUME-2026-11-24.md",
+    "ownerReceipts": [
+      {
+        "file": "Mac-standalone.json",
+        "originalLocalPath": "C:\\Users\\alper\\Desktop\\Documents\\ChatGPT\\code slaafjes\\work\\oos-standalone-macos-20261123-6f92\\.local\\mac-standalone-stop-handoff-2026-11-23.json",
+        "bytes": 19332,
+        "sha256": "7a5883b37d949f02be118042efa4fed15e88a59f729e3778fe38f0e9182e4c7f"
+      },
+      {
+        "file": "Mac-Suite-WIP.json",
+        "originalLocalPath": "C:\\Users\\alper\\Desktop\\Documents\\ChatGPT\\code slaafjes\\work\\oos-mac-native-blocker-20261120\\docs\\tests\\2026-11-23-mac-native-P5\\STOP-2026-11-23-dual-source-WIP.json",
+        "bytes": 2668,
+        "sha256": "21dfd45a41f79226af5266bb50673a4ad86c836bcd005dd6a7fdf9eb3a09b24b"
+      },
+      {
+        "file": "Linux-standalone.json",
+        "originalLocalPath": "C:\\Users\\alper\\Desktop\\Documents\\ChatGPT\\code slaafjes\\work\\oos-linux-release-input-p5-2026-11-23\\docs\\tests\\linux-release-input-p5\\STOP-2026-11-23.json",
+        "bytes": 6409,
+        "sha256": "19a6277e9542de780464a37d5a84a52ca45e667da2711aa83fd5c1a4cf4210a2"
+      },
+      {
+        "file": "Windows-Suite.json",
+        "originalLocalPath": "C:\\Users\\alper\\Desktop\\Documents\\ChatGPT\\code slaafjes\\work\\oos-windows-final-native-20261123\\docs\\tests\\windows-final-native-20261123-stop-handoff.json",
+        "bytes": 8663,
+        "sha256": "056b73e9e4384b81c6e60e02d5730ab9272392bbb022bad1695cab29d656b03d"
+      },
+      {
+        "file": "Linux377-and-independent-audits.json",
+        "originalLocalPath": "C:\\Users\\alper\\Desktop\\Documents\\ChatGPT\\code slaafjes\\work\\oos-xlsb377-native-retest-d410\\qa\\xlsb377-native\\shutdown-2026-11-23.json",
+        "bytes": 5158,
+        "sha256": "e6fc5e5f6da6e77d5575b2e6caa7871ef0954c011fde332736df7ce8f15fc64a"
+      },
+      {
+        "file": "Future375.json",
+        "originalLocalPath": "C:\\Users\\alper\\Desktop\\Documents\\ChatGPT\\code slaafjes\\work\\oos-presentation-375-uop-rectangle-fills-2026-11-23-0c73\\docs\\tests\\presentation-375\\stop-2026-11-23.json",
+        "copied": false,
+        "note": "Owner final delivery preserved in chat; use its exact worktree stop file tomorrow."
+      }
+    ],
+    "externalJobsMayFinishWithoutLocalSession": [
+      {
+        "run": 45195055147,
+        "job": 137763371873,
+        "attempt": 1,
+        "scope": "Mac-only producer; no auto prep/native",
+        "workflowHead": "2af94cdcefa3e88e4980b631d16a88d7d7de5ae8"
+      },
+      {
+        "run": 45197419347,
+        "job": 137771513436,
+        "attempt": 1,
+        "scope": "Separate375 source witness outsideP5; absolute limit20:14:23CET"
+      },
+      {
+        "run": 45198852740,
+        "job": 137776546305,
+        "attempt": 1,
+        "scope": "SeparateWRI QA outsideP5; result not yet assessed"
+      }
+    ],
+    "localCleanup": "Root started no local GUI/capture/server/app; own foreground CLI commands finish before close. Owners report their own watcher/process cleanup; user/shared apps not touched.",
+    "unreviewedSavedCryptoAdapter": {
+      "commit": "af2ca505004450cd83c8d1008a6b9a7e849899fa",
+      "branch": "codex/qa-package-mac-producer-binding-20261123",
+      "worktree": "C:\\Users\\alper\\Desktop\\Documents\\ChatGPT\\code slaafjes\\work\\oos-package-mac-producer-binding-20261123",
+      "pushed": false,
+      "testsBeforeStop": 22,
+      "rootReview": "OPEN",
+      "triggerCreated": false,
+      "keysUsed": false
+    },
+    "finalOwnerStopCommits": {
+      "WindowsStandalone": "865952e5a680a0b3b892f328f505ca1cec78da4f",
+      "WindowsSuite": "2dc4a0c49accc69ccadd170945b590dcc8d8c602",
+      "STWIndependentReview": "3fa75ce0a6817655a06e0a052eacb72c9f66047d",
+      "LinuxStandalone": "41f7bd4df8c1fc9a992c9e007d2e380af345eae0",
+      "LinuxSuite": "0810c25bc0532e12ab44e87635668faa33ef4ca5",
+      "MacStandalone": "b4c42b78a9936c6aeb154ee2a4c7fb7bdba1c022",
+      "MacSuiteWIP": "9577eeb7cda6943839b408d7dd6dd4738f1b2c45",
+      "Linux377AndReadonlyAudits": "aaccb5468277cee9d27f481d727d3ca90103a44a",
+      "Future375": "e6987b287b11f6d5d2b2275a419077f1bbf8b802",
+      "FutureWRI": "2fcad26a724b834dc2c4f8e13d881162312abf76"
+    },
+    "allOwnersReportedStopped": true,
+    "rootNoLocalGuiCaptureOrPersistentWatcherStarted": true,
+    "supersededByNewUserInstruction": "2026-11-24: resume existing release preparation only; historical23November stop and receipts retained."
+  },
+  "userResume20261124": {
+    "authorized": true,
+    "application": {
+      "commit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+      "tree": "e30879fd772871e690847c061ef66e6b81808a05",
+      "version": "2026.48.1"
+    },
+    "newFeaturesAllowed": false,
+    "mainWritesAllowed": false,
+    "publicationAllowed": false,
+    "report": "P5-native-completion-2026-11-24/completion.json",
+    "MacNativeRun": 45351696628,
+    "MacQA": "03477b0199daeb50ae7b20d552b111630c3271ce",
+    "MacPrepJob": 138299734385,
+    "MacPrep": "SUCCESS full parent/hash/source witness; all assigned bounded native routes now completed",
+    "MacNativeHostsInProgress": [],
+    "WindowsTargetedRun": 45352319983,
+    "WindowsQA": "97710e2ba22d0939ef121fdebb18dec43ed2df9d",
+    "WindowsScope": "Four missing app cores plus short377; child-only reuse, no parent download",
+    "WindowsSuite374": {
+      "run": 45352763316,
+      "job": 138303038323,
+      "qa": "f5363ce8cb0160190b3e4f75a305b8f72fbb239f",
+      "proofGit": "9d8ab9fa0a979112d16faeaab7c24b64d570c6c3",
+      "status": "PASS owner9d8ab9fa plus independentc895437b on actual final DOCX and original images",
+      "finalDocxSha256": "39cfd2c1e236c945f79d675b5973a10f37db60dc9bf6e08a00aa773cb6c57f77",
+      "originalFailureRetained": true
+    },
+    "LinuxSpreadsheetLatestAudit": "PASS fd7733338433a2803c4f3de7d27041dcf20336b6; previous invalid-session cause unproven, old failures retained",
+    "LinuxSuiteIndependentAudit": "Completed PASS bounded; full ribbon matrix PARTIAL, historical failures and limits preserved.",
+    "PackageVerifierRun": 45352330223,
+    "PackageVerifierQA": "618beafb98b060a0fdd6da13f59ada8841425abc",
+    "PackageVerifierSourceReview": "Completed actual archives/signatures plus independent raw-proof audit; no publication",
+    "stableReleaseReady": true,
+    "MacSuite": {
+      "run": 45352741879,
+      "qa": "48e7de0f5c94a7bb8f5e723be6cfd6c383d8b2ae",
+      "job": 138302964907,
+      "status": "PASS bounded core, Find/Tab and final exact374; no blanket renderer/full-format acceptance",
+      "field374Run": 45358252518,
+      "field374IndependentCommit": "0261063d08ea803dcd8be8e4a571a85163b61539"
+    },
+    "PackageVerifierStatus": "SUCCESS + independent bounded raw-proof audit;28 actual installers/14 reports/14 Linux signatures/58 sums/15 public-only CI verifies, cleanup confirmed; no publication/native acceptance.",
+    "PackageVerifierArtifact": {
+      "id": 14900089777,
+      "bytes": 26500,
+      "sha256": "b88d02e19168ecb0bb60f0557ac44d643ca61779cfc9fb426c2517aac6218a53",
+      "audit": "P5-final-package-verification/audit.json"
+    },
+    "MacPresentationIndependentAudit": {
+      "status": "PASS bounded actual PPTX/ODP/native lifecycle and two original images",
+      "report": "P5-Mac-native-independent/presentation/independent-audit.json",
+      "sha256": "3f72258190f41b09892b4903b6c0420178b1700a806c00b9f7d5ded4f6879d19"
+    },
+    "MacWriterSTWIndependentReview": {
+      "status": "PASS bounded actual originalSTW→DOCX/edit/normalquit/newPID route; firstpageimages only",
+      "commit": "22cdd260fcc2372daec082c78789891424c5df98",
+      "marker": " STANDALONE_STW_EDIT MARIGOLD",
+      "fullSuite374OrFullSTWApproval": false
+    },
+    "OwnRedundantDocsCI": {
+      "cancelledRequests": 16,
+      "reason": "Own PR367 exact doc-only application diff; valid P5 source checks reused",
+      "receipt": "P5-resume-2026-11-24/own-docs-only-ci-cancellation.json",
+      "nativePackageOrOtherOwnerRunsCancelled": false,
+      "futureDocsCommits": "[skip ci]"
+    },
+    "WindowsTargetedSecondRun": 45353530654,
+    "WindowsTargetedSecondRunResult": "Database and377 PASS; later Presentation core and direct canvas PASS, original failures retained",
+    "WindowsSixCores": "PASS bounded6 + separate genuine direct-canvas supplement3f27ae6d",
+    "Windows377": "PASS independent ebfc0c57 audit on45353530654/138305718627",
+    "MacEmail": "PASS independent6e7704d5 audit on45355392623/138313473395; exact1APPEND/MIME/body/coldreopen/cleanup",
+    "MacNotition": "PASS independent9733563f audit; one completed-edit originalimage, no second invented",
+    "MacDatabase": "PASS independent68ea79ac audit; SQLite read/query/export/reopen only",
+    "MacSuiteCore": "PASS independent61b72d0d; Find/Tab separateboundedpositiveaudits",
+    "MacSuiteSaveObservation": "Causally OPEN, acceptance gate SATISFIED by same-P5 strict positive save/reopen cases. Old45355259350 remains FAIL; six45358252707 diagnostics do not prove cause/fix. Independent gate363d0dcd adopted; intermittent product-save risk not excluded.",
+    "MacSpreadsheetFollowup": "ACCEPTED combined evidence: retained functional core, fresh GNM/Gnumeric routes, XLSB30-formula+377 and exact-output200% readback45361373078; old failed runs/timeoutcleanup retained",
+    "MacSuite374": "PASS independently0261063d; STW374 bounded route CLOSED; post-save Done-toast image remainsLIMITED",
+    "asOfUTC": "2026-11-24T09:22:59.760862+00:00",
+    "allPlannedBoundedChecksCompleted": true
+  },
+  "currentFinalAcceptance": {
+    "asOfUTC": "2026-11-24T09:22:59.760862+00:00",
+    "application": {
+      "commit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+      "tree": "e30879fd772871e690847c061ef66e6b81808a05",
+      "version": "2026.48.1"
+    },
+    "stableReleasePreparationReady": true,
+    "boundedScope": true,
+    "report": "P5-native-completion-2026-11-24/README.md",
+    "receipt": "P5-native-completion-2026-11-24/completion.json",
+    "saveGateReviewSha256": "363d0dcd03b95ffecd47dc015424bba449c69a2490c1328b9e39272d08554256",
+    "historicalSectionsAreNotCurrentStatus": true,
+    "mainMergeAllowed": false,
+    "publicationAllowed": false,
+    "rawFailuresNotRewritten": true
+  },
+  "publicationPreparation20261124": {
+    "asOfUTC": "2026-11-24T09:50:45.934006+00:00",
+    "status": "Concrete collector/uploader/workflow and releasebody independently reviewed; execution approval absent",
+    "plan": "P5-publish-prepared-plan/EXECUTION-REVIEW-2026-11-24.md",
+    "manifest": "P5-publish-prepared-plan/plan.final-review.json",
+    "planSha256": "da0851d59c65ff54c4ec09e5b1dda712a337c71525ee5e517da5ac39a26d16f8",
+    "codeSha256": "4b1f57af23ceedf7f61f5ae17b6c61d5c21991ed6184d106dc04a405e4de09cc",
+    "workflowSha256": "f11e0daa4990d8e31b08367097188b3adc667906a3417544f18c5612677a6fef",
+    "bodySha256": "d4045ac87d963a1e3adf9b7bd2817ee74a42c158847376f29fb808c23ec373b6",
+    "reviewReceipt": "P5-publish-prepared-plan/final-review-receipt.json",
+    "tests": "21publisher +8manifest +7actual-inline-workflowguard tests PASS; additional API/GPG mocks and source metadata replay PASS",
+    "onlyExtraNonEvidenceInput": ".github/workflows/publish-prepared.yml; no app/runtime/compiler input modified",
+    "mergeRoute": "PR367 mergecommit into integration771fd66e, then PR353 mergecommit into main93fcc619; re-pin exact final reviewed head/tree and actual verified merge parents",
+    "tag": "v2026.48.1",
+    "tagTarget": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+    "tagActor": "Only dedicated reviewed Actions GITHUB_TOKEN job; no PAT/local v-tag push triggering original rebuild",
+    "executionEnabled": false,
+    "mainMergeAuthorized": false,
+    "tagAuthorized": false,
+    "draftOrUploadAuthorized": false,
+    "publishAuthorized": false,
+    "liveCollectorApiGpgAndPublicationTested": false,
+    "assetPayloadsUnchanged": 60,
+    "sourceApprovalEnvelope": "Final exact head/tree and proposed permissions will be recorded outside the commit after final source pin, no self-referential commit hash",
+    "risk": "Old automated Mac save cause remains unknown; intermittent product-save problem not excluded. Bounded native gate accepted with this disclosure."
+  }
+}

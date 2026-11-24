@@ -1,0 +1,78 @@
+{
+  "asOfUTC": "2026-11-23T09:20:15.357985+00:00",
+  "applicationCommit": "dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b",
+  "applicationTree": "5a644e397ecc6af5452a49b6404edf953687d1b2",
+  "version": "2026.48.1",
+  "immutableBuildBranch": "codex/release-candidate-2026-11-23-p2",
+  "base420": "420af640c10ab9ada6c66c844c0098caea87c493",
+  "changesOutsideCentralReleaseEvidence": [
+    "apps/database-studio/src-tauri/Cargo.lock",
+    "apps/database-studio/src-tauri/Cargo.toml",
+    "apps/database-studio/src-tauri/tauri.conf.json",
+    "package.json",
+    "scripts/kantoorruntime-windows.test.mjs",
+    "scripts/tekstengine-compatibiliteit.ts",
+    "scripts/voorbereiden-kantoorruntime.mjs",
+    "src-tauri/Cargo.lock",
+    "src-tauri/Cargo.toml",
+    "src-tauri/tauri.conf.json",
+    "src/tekst/gedeeld/workerPresentatie.test.ts",
+    "src/tekst/gedeeld/workerPresentatie.ts",
+    "versie.json"
+  ],
+  "intakenProductBlobs": [
+    {
+      "path": "scripts/voorbereiden-kantoorruntime.mjs",
+      "originalProductCommit": "30f35dcf0d16b3304624f6c45424c1b0619a2f2a",
+      "sha256": "8f517e1c0e6571a5a87aed96bbcb3703cc2662c1411768247d88d45107ee3a41"
+    },
+    {
+      "path": "scripts/kantoorruntime-windows.test.mjs",
+      "originalProductCommit": "30f35dcf0d16b3304624f6c45424c1b0619a2f2a",
+      "sha256": "ee37398bc4160644d9dc0a3a38f6ee3d80f694636f43d8a28e0e997c0ea94639"
+    },
+    {
+      "path": "scripts/tekstengine-compatibiliteit.ts",
+      "originalProductCommit": "5f6f5ae3871daaae2db6bc5ede80974c821fd683",
+      "sha256": "374edb5edd0b83edc556c4cab7d8981da142528ead5143723f3595d7c4b402f0"
+    },
+    {
+      "path": "src/tekst/gedeeld/workerPresentatie.ts",
+      "originalProductCommit": "5f6f5ae3871daaae2db6bc5ede80974c821fd683",
+      "sha256": "9781d88b8f0c60cca7e257e246f97f749adc56dde4479ee5d3413e05cfee926f"
+    },
+    {
+      "path": "src/tekst/gedeeld/workerPresentatie.test.ts",
+      "originalProductCommit": "5f6f5ae3871daaae2db6bc5ede80974c821fd683",
+      "sha256": "1370311a1c1c076a8b00cf26bfb70b0a0cbb5f63039b1903b7a6bcc2f10a2a4a"
+    }
+  ],
+  "rootTargetedTests": {
+    "passedAssertions": 25,
+    "failedAssertions": 0,
+    "originalPrivateJsonSha256": "4afaaa364852df3f922110e4df688464a50b1a009f4b0d894c3482d85a0b3eb5",
+    "files": [
+      {
+        "name": "kantoorruntime-windows.test.mjs",
+        "assertions": 4,
+        "status": "passed"
+      },
+      {
+        "name": "weekversie.test.mjs",
+        "assertions": 9,
+        "status": "passed"
+      },
+      {
+        "name": "workerPresentatie.test.ts",
+        "assertions": 12,
+        "status": "passed"
+      }
+    ]
+  },
+  "nonincrementalTypeScript": {
+    "command": "node node_modules/typescript/bin/tsc --noEmit --incremental false",
+    "exitCode": 0
+  },
+  "nativeAndFinalPackageAcceptance": false,
+  "laterDiscoveries": "Outside this closed production intake unless explicitly recorded on a new source with required reruns."
+}

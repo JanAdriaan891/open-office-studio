@@ -1,0 +1,31 @@
+{
+  "platform": "linux",
+  "programma": "open-email-studio",
+  "versie": "2026.48.1",
+  "pakketten": [
+    {
+      "naam": "Open Email Studio_2026.48.1_amd64.deb",
+      "bytes": 383844166,
+      "sha256": "b3109098a9a78766bb3090badaf4fc1f51454f8e69f6d3730709b667319a9df5",
+      "controles": [
+        "DEB-versie en architectuur",
+        "runtime-afhankelijkheden opgegeven",
+        "ELF x64 en bibliotheken gevonden",
+        "snelkoppeling en pictogram aanwezig"
+      ]
+    },
+    {
+      "naam": "Open Email Studio_2026.48.1_amd64.AppImage",
+      "bytes": 429873656,
+      "sha256": "3819c9a347521d814c95729de6c72f3874552b79e6597fa81c2d8ca5c468d2d4",
+      "controles": [
+        "AppImage type 2",
+        "SquashFS volledig uitgepakt",
+        "AppRun uitvoerbaar",
+        "ELF x64 en bibliotheken gevonden",
+        "snelkoppeling en pictogram aanwezig"
+      ]
+    }
+  ],
+  "installatie_en_native_bediening": "niet_gecontroleerd"
+}

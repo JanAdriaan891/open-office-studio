@@ -1,0 +1,508 @@
+{
+  "application": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+  "tree": "e30879fd772871e690847c061ef66e6b81808a05",
+  "qa": "6bff15bf7a4b529e389460b6c0ffa397cfaa1e9a",
+  "run": 45183129618,
+  "entries": [
+    {
+      "file": "audit-tools/audit-P5-mac-browser-independent.py",
+      "bytes": 5903,
+      "sha256": "ab9409a0f1c6cbfc6a52a68f1b7c5bf96a0078126333c4d2e64ac96ca852b456"
+    },
+    {
+      "file": "audit-tools/audit-P5-mac-field-independent.py",
+      "bytes": 5198,
+      "sha256": "6eef911001b7f5094367b690d5590d62ea1882294a5e5f3fc07a923f1ce6f166"
+    },
+    {
+      "file": "audit-tools/finalize-P5-mac-independent.py",
+      "bytes": 8227,
+      "sha256": "5a00f7bb9b526959c0693ab2e962788e1d7838f4463b1405bca5d5f7c93ea3eb"
+    },
+    {
+      "file": "audit-tools/prepare-P5-mac-independent.py",
+      "bytes": 2756,
+      "sha256": "ea2672d05a5787ec649186ed1b14efde5e91604952a74e41c68e53df35c338c4"
+    },
+    {
+      "file": "evidence-index.json",
+      "bytes": 5053,
+      "sha256": "721b039c1e17e0bd6091bfffb610b9c9c3497fc7307579ef6245424e80af503b"
+    },
+    {
+      "file": "field-evidence-index.json",
+      "bytes": 11508,
+      "sha256": "6f910171e74858d114e65397e683360a33e2e655607ea70df76aede2720cd416"
+    },
+    {
+      "file": "field-root-audit.json",
+      "bytes": 1518,
+      "sha256": "1b7976a23e3643a550db81c7faf4c464f8e72d62481c8934c1bb4a5d607c19cb"
+    },
+    {
+      "file": "independent-content-audits/macOS/field-hosted/after-edit-save.json",
+      "bytes": 4709,
+      "sha256": "2559ad8ee879c2bbea8bcf123303f579f9bfa820357333d72ad2f2f7bf62008b"
+    },
+    {
+      "file": "independent-content-audits/macOS/field-hosted/reopened-save.json",
+      "bytes": 4707,
+      "sha256": "8b970913b85baac1fa1d3adb330b5a7334ce1eaff71efb2f8300348313770c62"
+    },
+    {
+      "file": "independent-content-audits/macOS/field-hosted/windows-source-save.json",
+      "bytes": 4713,
+      "sha256": "20f9dd615806946ffdab212d19a3ed1f9bfd5e3ed89f045c24d795f7c3481b0f"
+    },
+    {
+      "file": "independent-content-audits/macOS/field-normal/after-edit-save.json",
+      "bytes": 4709,
+      "sha256": "dba825306379e8345f51dd335a42c188360c2007ed788d7d416d139eebb64d13"
+    },
+    {
+      "file": "independent-content-audits/macOS/field-normal/reopened-save.json",
+      "bytes": 4707,
+      "sha256": "aa308fe9c90a56c5bd95169c8d009f2e9664b1e70935c0672a9b95e523e622ff"
+    },
+    {
+      "file": "independent-content-audits/macOS/field-normal/windows-source-save.json",
+      "bytes": 4713,
+      "sha256": "732e987823385455017ae1d5df9d8b762700d08b28e7cf5d038ffaeeeb8a4ead"
+    },
+    {
+      "file": "independent-content-audits/macOS/field-sdk/reopened.json",
+      "bytes": 4699,
+      "sha256": "dd04306634f99bffa36c0575719fe638121983019bb70237bdd4dc166ceb1016"
+    },
+    {
+      "file": "independent-content-audits/macOS/field-sdk/saved.json",
+      "bytes": 4696,
+      "sha256": "26d20dedc17d63c7958a3306c45d029cb37e56d6706f2824ccbc1cc0e01ed905"
+    },
+    {
+      "file": "independent-mac-audit.json",
+      "bytes": 14443,
+      "sha256": "70b39ce577f27aadcf23d5dfe465874156013e360d4d3b829a1ea543b95efad9"
+    },
+    {
+      "file": "macOS/field-hosted/after-edit-save-oracle.json",
+      "bytes": 3413,
+      "sha256": "7b72cea4c321f6c67a7d0af319dbd1769dbd54f4a88706d523fc3c1c30199a59"
+    },
+    {
+      "file": "macOS/field-hosted/after-edit-save.docx",
+      "bytes": 14767,
+      "sha256": "9b074f7a7bb2eb451ceeedd3e6939e0dff3217ed40a2a898e73457a0a8772a2e"
+    },
+    {
+      "file": "macOS/field-hosted/after-real-edit-capture-first.png",
+      "bytes": 118769,
+      "sha256": "5af705d27a33175e0cdd9ff333d84e7266544e4263a59ac3c865e1ac4f6462fc"
+    },
+    {
+      "file": "macOS/field-hosted/after-real-edit-capture.json",
+      "bytes": 4053,
+      "sha256": "f0cbb60f9983467b77dbffe3189bd1c12275f04b323a9c476dec26b7adc46ff5"
+    },
+    {
+      "file": "macOS/field-hosted/after-real-edit-paint.json",
+      "bytes": 14160,
+      "sha256": "3ecb6580a0b2ad904b12460c9b0cbe49e42534ea4ba2843d59f4645c3480dad0"
+    },
+    {
+      "file": "macOS/field-hosted/after-real-edit.png",
+      "bytes": 117680,
+      "sha256": "ceaafda14eeb91547e6e6b2be68fe3e9e7fb36fa3c9e8ea75cae952ceefeaf94"
+    },
+    {
+      "file": "macOS/field-hosted/build-receipt.json",
+      "bytes": 78655,
+      "sha256": "9236bf8920f998e165d71b71f03f2098615764262877e45f6978cc862600c4f2"
+    },
+    {
+      "file": "macOS/field-hosted/fresh-context-reopen-capture-first.png",
+      "bytes": 116002,
+      "sha256": "f10cf1a7be83d3d091a42d65b57c6c813d78af0aeaac21e949c527649e653c92"
+    },
+    {
+      "file": "macOS/field-hosted/fresh-context-reopen-capture.json",
+      "bytes": 2191,
+      "sha256": "d986d7cb66b30450c85ed481b173128dc6d70c8e731e9f217b4f4fef2eb7de15"
+    },
+    {
+      "file": "macOS/field-hosted/fresh-context-reopen-paint.json",
+      "bytes": 14148,
+      "sha256": "a2a251f75b5c26f86ccb12d890c12fb4b492675d540873302e451e067c72560f"
+    },
+    {
+      "file": "macOS/field-hosted/fresh-context-reopen.png",
+      "bytes": 117077,
+      "sha256": "83913205ab1f36ac4a4153b1efc2487392964faf3bf92d127f2f517be58c0a1b"
+    },
+    {
+      "file": "macOS/field-hosted/mac-caret-preflight.json",
+      "bytes": 2434,
+      "sha256": "c2d588b1f5d29725d58a5f7f86fa40a99784a04277d8748ca67cb1d80b16b9f6"
+    },
+    {
+      "file": "macOS/field-hosted/mac-caret-preflight.png",
+      "bytes": 109321,
+      "sha256": "20e90364ff8711a2a0f93c682b9e05d37da4bdbd31a83196543e2b85db00e1ea"
+    },
+    {
+      "file": "macOS/field-hosted/reopened-save-oracle.json",
+      "bytes": 3413,
+      "sha256": "a52fa302fb660af6977198fc063896a164bcbc18241ad4cb4a088e0979c2bb22"
+    },
+    {
+      "file": "macOS/field-hosted/reopened-save.docx",
+      "bytes": 14765,
+      "sha256": "40a850892e44837734a1aa816c576358a2454b4a9f2fabf801060bfa3372e99a"
+    },
+    {
+      "file": "macOS/field-hosted/report.json",
+      "bytes": 18221,
+      "sha256": "dcb754686856ae9766aefc1796436bc73259af4f6b645f5c4659c011fdb3dfcd"
+    },
+    {
+      "file": "macOS/field-hosted/source-oracle.json",
+      "bytes": 4668,
+      "sha256": "c9d10469bedf07e2a6645d7631419ffefd2595024859a39b299a83e3fc2a1882"
+    },
+    {
+      "file": "macOS/field-hosted/unchanged-windows-source-capture-first.png",
+      "bytes": 117919,
+      "sha256": "9991760dea5b0ce5d0014d1695600a80aa2f8ff549fcae64d4ba12edd4bc512a"
+    },
+    {
+      "file": "macOS/field-hosted/unchanged-windows-source-capture.json",
+      "bytes": 1837,
+      "sha256": "bbb979a1a843e4044cd6848ac15908fba448e3c6b3b771fae836657d3494db9e"
+    },
+    {
+      "file": "macOS/field-hosted/unchanged-windows-source-paint.json",
+      "bytes": 14148,
+      "sha256": "a2a251f75b5c26f86ccb12d890c12fb4b492675d540873302e451e067c72560f"
+    },
+    {
+      "file": "macOS/field-hosted/unchanged-windows-source.png",
+      "bytes": 117919,
+      "sha256": "9991760dea5b0ce5d0014d1695600a80aa2f8ff549fcae64d4ba12edd4bc512a"
+    },
+    {
+      "file": "macOS/field-hosted/unmodified-control-capture-first.png",
+      "bytes": 107233,
+      "sha256": "ea472cc28d2d101ff4b661e0bd0dcba295863d6bba4d5df64d17861b64ac79b7"
+    },
+    {
+      "file": "macOS/field-hosted/unmodified-control-capture.json",
+      "bytes": 1857,
+      "sha256": "5fe63b89730120e446e780fbd03b384e54391bd4f79e700472da32975f70be8c"
+    },
+    {
+      "file": "macOS/field-hosted/unmodified-control-paint.json",
+      "bytes": 1045,
+      "sha256": "4d0dab9d12b8a747a2be2fb6a14e7abde05f0cffdf127379cc3c7390a78ca0fb"
+    },
+    {
+      "file": "macOS/field-hosted/unmodified-control.png",
+      "bytes": 108477,
+      "sha256": "98e5fa4ff942719a822cf1cd59ec31112e8cb7179e035860eee30d1ca4a3ff2d"
+    },
+    {
+      "file": "macOS/field-hosted/windows-source-save-oracle.json",
+      "bytes": 3413,
+      "sha256": "710393aed9193dd46ca616ed14912386b05c5b6be687e5112d60879021eb5fbe"
+    },
+    {
+      "file": "macOS/field-hosted/windows-source-save.docx",
+      "bytes": 14764,
+      "sha256": "d8ce707b5699f6aa50ef6a2500da6c16f381424ee4946218c9a7aebfa81ac565"
+    },
+    {
+      "file": "macOS/field-normal/after-edit-save-oracle.json",
+      "bytes": 3413,
+      "sha256": "d94ce611401c489032b42fcc7764b4688390d9d17ab2ba8490d841638867a899"
+    },
+    {
+      "file": "macOS/field-normal/after-edit-save.docx",
+      "bytes": 14765,
+      "sha256": "3072de210ec5874b8b43f4cd1dda22cf7bf1a3534844e055d4d5a65c97038dec"
+    },
+    {
+      "file": "macOS/field-normal/after-real-edit-capture-first.png",
+      "bytes": 113864,
+      "sha256": "5988db4392b302f3a50aae4e99580214ece9dc19a66d39abfff87ca7df457510"
+    },
+    {
+      "file": "macOS/field-normal/after-real-edit-capture.json",
+      "bytes": 3689,
+      "sha256": "1fa9b80d43e38c34247387c4ecb87112e1671eaedd5f4673d325c5a45ee69711"
+    },
+    {
+      "file": "macOS/field-normal/after-real-edit-paint.json",
+      "bytes": 14160,
+      "sha256": "93131b4555ca77240af3f6a97b24ecc5a42650d54648965d6ecec91a15940a09"
+    },
+    {
+      "file": "macOS/field-normal/after-real-edit.png",
+      "bytes": 117680,
+      "sha256": "ceaafda14eeb91547e6e6b2be68fe3e9e7fb36fa3c9e8ea75cae952ceefeaf94"
+    },
+    {
+      "file": "macOS/field-normal/build-receipt.json",
+      "bytes": 78647,
+      "sha256": "00f622399e28774ca1bd9371829260521a1dd1a97677b6dbd51bc0028d8b2eef"
+    },
+    {
+      "file": "macOS/field-normal/fresh-context-reopen-capture-first.png",
+      "bytes": 116002,
+      "sha256": "f10cf1a7be83d3d091a42d65b57c6c813d78af0aeaac21e949c527649e653c92"
+    },
+    {
+      "file": "macOS/field-normal/fresh-context-reopen-capture.json",
+      "bytes": 3256,
+      "sha256": "dc552527b21727c49d01b08cae93acc44e8533f289896f30f7ce554cde6fab8c"
+    },
+    {
+      "file": "macOS/field-normal/fresh-context-reopen-paint.json",
+      "bytes": 14148,
+      "sha256": "a2a251f75b5c26f86ccb12d890c12fb4b492675d540873302e451e067c72560f"
+    },
+    {
+      "file": "macOS/field-normal/fresh-context-reopen.png",
+      "bytes": 117108,
+      "sha256": "257930df6b1f37276c252d53c988d2d4ed40a4989a23d33f8479f0769e4a08c5"
+    },
+    {
+      "file": "macOS/field-normal/mac-caret-preflight.json",
+      "bytes": 2434,
+      "sha256": "c2d588b1f5d29725d58a5f7f86fa40a99784a04277d8748ca67cb1d80b16b9f6"
+    },
+    {
+      "file": "macOS/field-normal/mac-caret-preflight.png",
+      "bytes": 109350,
+      "sha256": "751d013b0699ba9de178f3cc873de503b7691cb267574aae34993eeb2088370d"
+    },
+    {
+      "file": "macOS/field-normal/reopened-save-oracle.json",
+      "bytes": 3413,
+      "sha256": "4524e3e1462c263b15a04c2365bfed69d9edfdd8876caa5a6b099cf0fc2d0d50"
+    },
+    {
+      "file": "macOS/field-normal/reopened-save.docx",
+      "bytes": 14765,
+      "sha256": "e7c9a6cd4e1116d7e0dd5e75e94037c82160552779e6aa9fada06329d1d76186"
+    },
+    {
+      "file": "macOS/field-normal/report.json",
+      "bytes": 18214,
+      "sha256": "786cf4299c54903b0d64707ed5ae5cb6f6af25e9068beccd9c13f50c995e2b26"
+    },
+    {
+      "file": "macOS/field-normal/source-oracle.json",
+      "bytes": 4668,
+      "sha256": "c9d10469bedf07e2a6645d7631419ffefd2595024859a39b299a83e3fc2a1882"
+    },
+    {
+      "file": "macOS/field-normal/unchanged-windows-source-capture-first.png",
+      "bytes": 116843,
+      "sha256": "00172bc447d6640c4a5c3a9a2e90aba422975e9d394f57a9ff7b140f209e0096"
+    },
+    {
+      "file": "macOS/field-normal/unchanged-windows-source-capture.json",
+      "bytes": 2191,
+      "sha256": "d8fc7d3552eecd4420493305779d950a41d5bb874e1e98d4857dea67c19dbd10"
+    },
+    {
+      "file": "macOS/field-normal/unchanged-windows-source-paint.json",
+      "bytes": 14148,
+      "sha256": "a2a251f75b5c26f86ccb12d890c12fb4b492675d540873302e451e067c72560f"
+    },
+    {
+      "file": "macOS/field-normal/unchanged-windows-source.png",
+      "bytes": 117919,
+      "sha256": "9991760dea5b0ce5d0014d1695600a80aa2f8ff549fcae64d4ba12edd4bc512a"
+    },
+    {
+      "file": "macOS/field-normal/unmodified-control-capture-first.png",
+      "bytes": 108477,
+      "sha256": "98e5fa4ff942719a822cf1cd59ec31112e8cb7179e035860eee30d1ca4a3ff2d"
+    },
+    {
+      "file": "macOS/field-normal/unmodified-control-capture.json",
+      "bytes": 1281,
+      "sha256": "00b8bfc5efd69c2cd1855c79e9df3a9788f718b6fa34663815e23fe6872b7aaf"
+    },
+    {
+      "file": "macOS/field-normal/unmodified-control-paint.json",
+      "bytes": 1045,
+      "sha256": "4d0dab9d12b8a747a2be2fb6a14e7abde05f0cffdf127379cc3c7390a78ca0fb"
+    },
+    {
+      "file": "macOS/field-normal/unmodified-control.png",
+      "bytes": 108477,
+      "sha256": "98e5fa4ff942719a822cf1cd59ec31112e8cb7179e035860eee30d1ca4a3ff2d"
+    },
+    {
+      "file": "macOS/field-normal/windows-source-save-oracle.json",
+      "bytes": 3413,
+      "sha256": "cf97a863666c9993ecb920c8645b7b00447d485ba4344b6867c5ac65d239aabc"
+    },
+    {
+      "file": "macOS/field-normal/windows-source-save.docx",
+      "bytes": 14764,
+      "sha256": "ce4ac61cf598903a6d0567631cc60f04fd986b4070f6256a684d6e47831a6156"
+    },
+    {
+      "file": "macOS/field-sdk/before-display.json",
+      "bytes": 75797,
+      "sha256": "b21b029956c60102c693a30a0b1c0924067edb47ace85a218874c1b76faa0f10"
+    },
+    {
+      "file": "macOS/field-sdk/reopened-display.json",
+      "bytes": 91097,
+      "sha256": "002cd81741b8add7286cd01286f4cc7ccaf49171bad840768537ebcb16715616"
+    },
+    {
+      "file": "macOS/field-sdk/reopened-oracle.json",
+      "bytes": 3413,
+      "sha256": "88204eb92a0f4343da89fbf24be24ed459c8035b45b4592c82e89f7545abb8f8"
+    },
+    {
+      "file": "macOS/field-sdk/reopened.docx",
+      "bytes": 14798,
+      "sha256": "6e5189c6d4351081d6649beb36dfe365bc8ad0b27569792cf8e8e542fa3cdecf"
+    },
+    {
+      "file": "macOS/field-sdk/report.json",
+      "bytes": 56072,
+      "sha256": "fbf634f2f0902a5878c991c1acb0b07b7a227d99eadcca815dac90dd073c7268"
+    },
+    {
+      "file": "macOS/field-sdk/saved-oracle.json",
+      "bytes": 3413,
+      "sha256": "8e76d88f8ce31f9dd7ff0e12b0a12e9323c785b896de1f91b3335a3e44a94057"
+    },
+    {
+      "file": "macOS/field-sdk/saved.docx",
+      "bytes": 14797,
+      "sha256": "98018ca225cad370976886fb8304a18e7c5dc8d0ba6cef32d685bb34005bc723"
+    },
+    {
+      "file": "macOS/field-sdk/source-oracle.json",
+      "bytes": 4668,
+      "sha256": "c9d10469bedf07e2a6645d7631419ffefd2595024859a39b299a83e3fc2a1882"
+    },
+    {
+      "file": "macOS/hosted/356-report.json",
+      "bytes": 755,
+      "sha256": "ed7084704e51e2f8a5c9e0bc0c23c45b367dede20c0e281e0c46dc972b730dac"
+    },
+    {
+      "file": "macOS/hosted/356-saved.docx",
+      "bytes": 7472,
+      "sha256": "352b9ef8f4d23020656c774bc8cb9f7dd403275a24b6d1635a98c4f43261d4f2"
+    },
+    {
+      "file": "macOS/hosted/361-report.json",
+      "bytes": 94126,
+      "sha256": "fcf4ffc82b2a417ec1fe1b77608c98b560b3cc0777dac604a067aff96c0aa3c6"
+    },
+    {
+      "file": "macOS/hosted/362-report.json",
+      "bytes": 482245,
+      "sha256": "b9082dc901d3ba308961607c1ec583fec742bbb39f506d2e1a036310934aeb2f"
+    },
+    {
+      "file": "macOS/hosted/363-report.json",
+      "bytes": 84636,
+      "sha256": "a50884698fae5dc2b82bb2407c787587cf9914f2a5fec9db7e7b9c99a60cbb49"
+    },
+    {
+      "file": "macOS/hosted/build-receipt.json",
+      "bytes": 78655,
+      "sha256": "9236bf8920f998e165d71b71f03f2098615764262877e45f6978cc862600c4f2"
+    },
+    {
+      "file": "macOS/hosted/office-report.json",
+      "bytes": 1674,
+      "sha256": "666b9c320eb0e80e1db8771c4031ccf094cbc60d706b39277e6f720784af7e02"
+    },
+    {
+      "file": "macOS/hosted/summary.json",
+      "bytes": 1883,
+      "sha256": "2548446ba64f769631e07338f56d28c3651429b3599392e851a0c1c9df372878"
+    },
+    {
+      "file": "macOS/normal/356-report.json",
+      "bytes": 748,
+      "sha256": "3cfe77c06b6c9b6976f77acbb87d9a893fd19f1938309ac7855898df2fc0e0a8"
+    },
+    {
+      "file": "macOS/normal/356-saved.docx",
+      "bytes": 7472,
+      "sha256": "ed8d8b7209a23ad1caed6d298584aad1dcf4cc05fb9f3dc6372312d81033de46"
+    },
+    {
+      "file": "macOS/normal/361-report.json",
+      "bytes": 94104,
+      "sha256": "7da8f17a3d518ba72896ee44926deb868c9a3f31c5d080a170cf331f35909253"
+    },
+    {
+      "file": "macOS/normal/362-report.json",
+      "bytes": 482226,
+      "sha256": "339a3ba0f02802e848277d3719d8720973b3fea7f6bee6c39dd75baf6ff74ff8"
+    },
+    {
+      "file": "macOS/normal/363-report.json",
+      "bytes": 84621,
+      "sha256": "7d00a16f47067bc3cb7305c61898ba34b944c97852d3025672c4f1e8688481b7"
+    },
+    {
+      "file": "macOS/normal/build-receipt.json",
+      "bytes": 78647,
+      "sha256": "00f622399e28774ca1bd9371829260521a1dd1a97677b6dbd51bc0028d8b2eef"
+    },
+    {
+      "file": "macOS/normal/office-report.json",
+      "bytes": 1667,
+      "sha256": "76277798d6c5f3e29b0bc74863895018645dc6738d50920afa8199b23821faa7"
+    },
+    {
+      "file": "macOS/normal/summary.json",
+      "bytes": 1876,
+      "sha256": "6b0f027cb83ea2e5fd8c5eea907243755b4ceede2eb4a644252d8fee2466333b"
+    },
+    {
+      "file": "official-artifact-metadata.json",
+      "bytes": 762,
+      "sha256": "a67b92a6596c75f712d20d06d23cdaed6959c1994e6f041a3bfc2890fbdd6b61"
+    },
+    {
+      "file": "provenance/jobs.json",
+      "bytes": 3972,
+      "sha256": "3b86f841e02048abfc77d0721bf3bd524ea8f7ac19246d4aca97e9a4eea0a384"
+    },
+    {
+      "file": "provenance/run.json",
+      "bytes": 14143,
+      "sha256": "19eb07d34f689b85daff1081087a5cfd99290c1719d1dc6b0d902ec45944083f"
+    },
+    {
+      "file": "README.md",
+      "bytes": 2796,
+      "sha256": "74ef94adfb1702c030424c8a648a97292e727eb869221abf4a15d8afa25630b2"
+    },
+    {
+      "file": "reused-original-png-review.json",
+      "bytes": 10097,
+      "sha256": "088b808724365fb3024ba2bff090c28794dd2c6e63d573745f66d75ba8e17a91"
+    },
+    {
+      "file": "root-audit.json",
+      "bytes": 1629,
+      "sha256": "bd5707f3e4650ed4bb7566cc89b5266eec73affa9e514e3c95532b8a9c641395"
+    }
+  ]
+}

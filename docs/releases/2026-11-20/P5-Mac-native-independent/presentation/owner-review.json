@@ -1,0 +1,129 @@
+{
+  "scope": "One synthetic Presentation PPTX native Outline edit/save/fullquit/newPID/reopen and own-runtime ODP export on a dedicated app-only Mac",
+  "functionalCorePass": true,
+  "source": {
+    "commit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+    "tree": "e30879fd772871e690847c061ef66e6b81808a05",
+    "version": "2026.48.1"
+  },
+  "provenance": {
+    "schemaVersion": 1,
+    "app": "presentation",
+    "source": {
+      "commit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+      "tree": "e30879fd772871e690847c061ef66e6b81808a05",
+      "version": "2026.48.1"
+    },
+    "parentArtifact": {
+      "id": 14836145077,
+      "run": 45195055147,
+      "producerJobId": 137763371873,
+      "attempt": 1,
+      "name": "uitgave-macOS",
+      "sha256": "45a88b40325f516e91b0b4cb557b88fd2a81d62bde2e4be26dc87bd1b55ff015",
+      "bytes": 1972148013
+    },
+    "member": "dist-installers/presentation/dmg/Open Presentation Studio_2026.48.1_aarch64.dmg",
+    "package": {
+      "filename": "Open Presentation Studio_2026.48.1_aarch64.dmg",
+      "sha256": "544b088148dc9f0ef8bd250427fc2c70883fd28424861bfba50fd66d3664e71f",
+      "bytes": 373169095
+    },
+    "memberSHA256DerivedFromVerifiedParent": true,
+    "nativeAccepted": false,
+    "producerWorkflow": {
+      "commit": "2af94cdcefa3e88e4980b631d16a88d7d7de5ae8",
+      "tree": "94340e40228ddcb11aace00e4dd01f614a13273e",
+      "run": 45195055147,
+      "attempt": 1,
+      "job": 137763371873,
+      "branch": "codex/p5-macos-only-producer-20261123",
+      "path": ".github/workflows/release.yml",
+      "event": "workflow_dispatch",
+      "workflowSha256": "2ae3b7aa85bb4d4e394e71af43a93da45332e9b5f78fd7ed2151aca732726d62",
+      "checkoutWorkflowSha256": "620e90485493163b87163a8763ffbbfcc2f0af5f03251b592af577721c5a9c64",
+      "witnessMember": ".local/macos-only-producer-source.json"
+    },
+    "sourceWitness": {
+      "member": ".local/macos-only-producer-source.json",
+      "bytes": 820,
+      "sha256": "236085a316b40b2e5033316a3e3ed45f91cb9a27e83d518117160ba4aff4e7d5",
+      "rawBase64": "ewogICJhcHBIZWFkIjogImI2OTZhYjg2YmQxYzEyODcyOWEwNzliNjhjMDA4MmU2ZGYzZDM2YTUiLAogICJhcHBUcmVlIjogImUzMDg3OWZkNzcyODcxZTY5MDg0N2MwNjFlZjY2ZTZiODE4MDhhMDUiLAogICJhcHBWZXJzaW9uIjogIjIwMjYuNDguMSIsCiAgInByb2R1Y2VySGVhZCI6ICIyYWY5NGNkY2VmYTNlODhlNDk4MGI2MzFkMTZhODhkN2Q3ZGU1YWU4IiwKICAicHJvZHVjZXJXb3JrZmxvd0hlYWQiOiAiMmFmOTRjZGNlZmEzZTg4ZTQ5ODBiNjMxZDE2YTg4ZDdkN2RlNWFlOCIsCiAgInByb2R1Y2VyUmVmIjogInJlZnMvaGVhZHMvY29kZXgvcDUtbWFjb3Mtb25seS1wcm9kdWNlci0yMDI2MTEyMyIsCiAgInByb2R1Y2VyV29ya2Zsb3dSZWYiOiAiT3BlbkFFQy1Gb3VuZGF0aW9uL29wZW4tb2ZmaWNlLXN0dWRpby8uZ2l0aHViL3dvcmtmbG93cy9yZWxlYXNlLnltbEByZWZzL2hlYWRzL2NvZGV4L3A1LW1hY29zLW9ubHktcHJvZHVjZXItMjAyNjExMjMiLAogICJldmVudCI6ICJ3b3JrZmxvd19kaXNwYXRjaCIsCiAgInJ1bklkIjogIjQ1MTk1MDU1MTQ3IiwKICAiYXR0ZW1wdCI6ICIxIiwKICAiam9iIjogImJvdXdlbiIsCiAgImNoZWNrb3V0V29ya2Zsb3dTaGEyNTYiOiAiNjIwZTkwNDg1NDkzMTYzYjg3MTYzYTg3NjNmZmJiZmNjMmYwYWY1ZjAzMjUxYjU5MmFmNTc3NzIxYzVhOWM2NCIsCiAgInB1YmxpY2VyZW4iOiAiZmFsc2UiLAogICJuYXRpdmVBY2NlcHRlZCI6IGZhbHNlLAogICJzY29wZSI6ICJCdWlsZC1vbmx5IHByb2R1Y2VyL3NvdXJjZSBiaW5kaW5nOyBubyBuYXRpdmUgb3BlcmF0aW9uIG9yIHB1YmxpY2F0aW9uIgp9Cg==",
+      "value": {
+        "appHead": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+        "appTree": "e30879fd772871e690847c061ef66e6b81808a05",
+        "appVersion": "2026.48.1",
+        "producerHead": "2af94cdcefa3e88e4980b631d16a88d7d7de5ae8",
+        "producerWorkflowHead": "2af94cdcefa3e88e4980b631d16a88d7d7de5ae8",
+        "producerRef": "refs/heads/codex/p5-macos-only-producer-20261123",
+        "producerWorkflowRef": "OpenAEC-Foundation/open-office-studio/.github/workflows/release.yml@refs/heads/codex/p5-macos-only-producer-20261123",
+        "event": "workflow_dispatch",
+        "runId": "45195055147",
+        "attempt": "1",
+        "job": "bouwen",
+        "checkoutWorkflowSha256": "620e90485493163b87163a8763ffbbfcc2f0af5f03251b592af577721c5a9c64",
+        "publiceren": "false",
+        "nativeAccepted": false,
+        "scope": "Build-only producer/source binding; no native operation or publication"
+      }
+    }
+  },
+  "checks": {
+    "identityVerified": true,
+    "installedSignatureGatesVerified": true,
+    "suiteAbsent": true,
+    "freshProfileVerified": true,
+    "ownCwdEnvironmentVerified": true,
+    "nativeFocusVerified": true,
+    "nativeSaveVerified": true,
+    "outputOraclePassed": true,
+    "fullQuitVerified": true,
+    "newPidReopenVerified": true,
+    "ownConverterChildObserved": true,
+    "functionalCaseCompleted": true,
+    "cleanupPassed": true
+  },
+  "independentPPTXOracleRecheck": {
+    "app": "presentation",
+    "path": "C:\\Users\\alper\\Desktop\\Documents\\ChatGPT\\code slaafjes\\work\\oos-standalone-macos-20261123-6f92\\.local\\native-45351696628-2026-11-24\\presentation\\raw\\presentation-documents\\synthetic-inputs\\presentation.pptx",
+    "method": "Independent stdlib file parsing; no editor/model API",
+    "text": "STANDALONE_PRESENTATION_SEED STANDALONE_PRESENTATION_EDIT\nSTANDALONE_UNCHANGED_CONTROL",
+    "passed": true,
+    "nativeAcceptance": false
+  },
+  "independentODFRecheck": {
+    "passed": true,
+    "sha256": "aa3812b3e3f93c0a67913466f1baebf1d5dbd1f62c399875e624863157e4eba1"
+  },
+  "reviewedOriginalScreenshots": [
+    {
+      "file": "45-reopened-0.png",
+      "sha256": "e5ad7ef913a7cff03e24f9dada2e6216ad2c182c2392639f1d9ed913e1efa655"
+    },
+    {
+      "file": "94-runtime-exported-0.png",
+      "sha256": "dac5050a34c8e7b81ac4434256f9aface93790f9697851ea20f907ff1f8a8350"
+    }
+  ],
+  "visualObservations": [
+    "Cold reopened Outline visibly contains seed, actual edit and unchanged control.",
+    "Normal canvas after ODP export visibly contains the preserved text and edit.",
+    "Earliest startup captures are white/loading fonts; no cold-start latency or immediate paint acceptance inferred.",
+    "Calibri substitution to bundled-compatible Carlito is disclosed by visible UI; no exact layout/all-document fidelity claim."
+  ],
+  "observedConverterChildren": [
+    {
+      "pid": 4879,
+      "ppid": 4091,
+      "executable": "/Users/runner/work/open-office-studio/open-office-studio/receipts/presentation/installed/Open Presentation Studio.app/Contents/Helpers/LibreOffice.app/Contents/MacOS/soffice",
+      "resolvedInsideOwnApp": true,
+      "arguments": "/Users/runner/work/open-office-studio/open-office-studio/receipts/presentation/installed/Open Presentation Studio.app/Contents/Helpers/LibreOffice.app/Contents/MacOS/soffice -env:UserInstallation=file:///var/folders/q2/p1t6rgxj5fj32g1dc7dmd49r0000gn/T/.tmpCJdi4k/profiel/ --headless --nologo --nodefault --norestore --nolockcheck --convert-to odp:impress8 --outdir /var/folders/q2/p1t6rgxj5fj32g1dc7dmd49r0000gn/T/.tmpCJdi4k/uit /var/folders/q2/p1t6rgxj5fj32g1dc7dmd49r0000gn/T/.tmpCJdi4k/invoer.pptx"
+    }
+  ],
+  "limitations": [
+    "Sampled process/open-file evidence is not exhaustive dependency closure.",
+    "Bounded synthetic route only; no stable release or all-formats approval."
+  ],
+  "rawNativeAcceptedUnchanged": false,
+  "normalCleanupVerified": true
+}

@@ -1,0 +1,81 @@
+{
+  "asOfUTC": "2026-11-24T09:22:59.760862+00:00",
+  "applicationCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+  "applicationTree": "e30879fd772871e690847c061ef66e6b81808a05",
+  "version": "2026.48.1",
+  "plannedBoundedNativeAndPackageChecksCompleted": true,
+  "WindowsSixDedicatedCores": "PASS; 3f27ae6d includes separately proven direct canvas supplement",
+  "LinuxTwelveDedicatedCoreRoutes": "PASS bounded DEB/AppImage; original failures and virtual-host limits retained",
+  "MacSixDedicatedCores": "ACCEPTED within the combined bounded evidence; no full-format or resource-exhaustiveness claim",
+  "MacSpreadsheetCombination": [
+    "Original functional coreReceipt1c9be0c276c4a3a8a1de15eb4afad4c1842f8ba68dc9c6b8d89e7cd125dd4591; old timeout-host finalcleanup NOT accepted",
+    "45357794642 fresh GNM and Gnumeric routes including own normal exit/newPID/cleanup",
+    "45357794642 XLSB import/edit/save/30formulas and short377 evidence; original late100% OCR FAIL unchanged",
+    "45361373078 exact-output readback with two own PIDs2471/6783, genuine200% UI, original bodyOCR42 confidence1, normal exit/cleanup; independent audit6052605c47e21967184b691f42ed8535621ae5208064489ee5bf496415f7e5c1"
+  ],
+  "STW374BoundedRoute": "CLOSED: Linux658512c9, Windowsc895437b, MacWriter22cdd260, MacSuite0261063d and existing P5 browser evidence",
+  "short377": "PASS independently on Windows/Linux/macOS; black Mac captures remain without visual approval",
+  "packageAudit": "PASS 28 installers,14 reports,14 Linux detached signatures,58 checksum rows; P5-final-package-verification/audit.json",
+  "remainingGateDisposition": {
+    "status": "SATISFIED by current strict positive save/reopen evidence; old negative observation remains causally OPEN",
+    "observation": "45355259350: real Q and dirty UI before legacy CmdS, DOCX stayed without Q",
+    "counterEvidence": "45358252707 six private copies all saved Q correctly: legacyPID2/2, PID-releaseflags2/2, HID2/2; current core and374 also pass",
+    "unknown": "Old event delivery/handler acknowledgement, direct pre-save load/save state and filesystem permissions were not captured; no proved driver/product cause or fix",
+    "owner": "root; independent gate reviewer final_package_evidence_review",
+    "noNewTestDispatched": true,
+    "independentReview": "save-gate-disposition.json",
+    "independentReviewSha256": "363d0dcd03b95ffecd47dc015424bba449c69a2490c1328b9e39272d08554256",
+    "coordinatorDecision": "Adopted: bounded stable-release preparation ready; no new test loop solely to explain the old failure",
+    "concreteResidualRisk": "An intermittent product-save problem is not excluded: one earlier automated native save request did not persist the visible edit. No receiver/handler acknowledgment or complete pre-save OS context was recorded."
+  },
+  "stableReleaseReady": true,
+  "mainMergeAuthorized": false,
+  "publicationAuthorized": false,
+  "rawFailuresPreserved": true,
+  "newFormatsAnd382OutsideP5": true,
+  "retainedReceipts": [
+    {
+      "path": "mac-standalone-owner-acceptance.json",
+      "sourceLocalPath": "C:\\Users\\alper\\Desktop\\Documents\\ChatGPT\\code slaafjes\\work\\oos-standalone-macos-20261123-6f92\\.local\\mac-standalone-native-acceptance-2026-11-24.json",
+      "bytes": 9281,
+      "sha256": "6d5963b975d3fe0cd26746594d465682bddc1509ddf7c84f33705d94aa3ed32d"
+    },
+    {
+      "path": "mac-suite374-independent.json",
+      "sourceLocalPath": "C:\\Users\\alper\\Desktop\\Documents\\ChatGPT\\code slaafjes\\work\\oos-writer-field-layout-374-9d3b\\qa\\field374\\evidence\\p5-mac-suite-field374-review-20261124.json",
+      "bytes": 17442,
+      "sha256": "e247176a861585b75844cb085663e4bbd23946d3f66e8955344c8d47ef0938f9"
+    },
+    {
+      "path": "windows-suite374-independent.json",
+      "sourceLocalPath": "C:\\Users\\alper\\Desktop\\Documents\\ChatGPT\\code slaafjes\\work\\oos-writer-field-layout-374-9d3b\\qa\\field374\\evidence\\p5-windows-stw-review-20261124.json",
+      "bytes": 26836,
+      "sha256": "0a779d28aa029fa50ec4aeb24416e26c28bcaf0305df118e97e3fbfb71f8c970"
+    },
+    {
+      "path": "mac-suite-save-differential-independent.json",
+      "sourceLocalPath": "C:\\Users\\alper\\Desktop\\Documents\\ChatGPT\\code slaafjes\\work\\oos-xlsb377-native-retest-d410\\.local\\mac-suite-save-differential-audit-2026-11-24.json",
+      "bytes": 12856,
+      "sha256": "0a82816902de097133825b6a6255616b7aeb229070f7f4b4806cb26a34dd9861"
+    },
+    {
+      "path": "mac377-independent.json",
+      "sourceLocalPath": "C:\\Users\\alper\\Desktop\\Documents\\ChatGPT\\code slaafjes\\work\\oos-xlsb377-native-retest-d410\\.local\\macos-xlsb377-audit-2026-11-24.json",
+      "bytes": 13897,
+      "sha256": "44a37c924506bb3e8887c62fc00cf7c7fe860218524d21e208414d73209bde78"
+    },
+    {
+      "path": "save-gate-disposition.json",
+      "sourceLocalPath": "C:\\Users\\alper\\Desktop\\Documents\\ChatGPT\\code slaafjes\\work\\oos-release-prep-2026-11-20-9635\\.local\\p5-save-gate-disposition-2026-11-24\\review.json",
+      "bytes": 9035,
+      "sha256": "363d0dcd03b95ffecd47dc015424bba449c69a2490c1328b9e39272d08554256"
+    },
+    {
+      "path": "save-gate-disposition.md",
+      "sourceLocalPath": "C:\\Users\\alper\\Desktop\\Documents\\ChatGPT\\code slaafjes\\work\\oos-release-prep-2026-11-20-9635\\.local\\p5-save-gate-disposition-2026-11-24\\review.md",
+      "bytes": 2777,
+      "sha256": "b26924c5dad05cf05080c01205d4ab61b631a60d4d494b7c6587652a05d5d374"
+    }
+  ],
+  "readinessMeaning": "Ready within agreed bounded platform/native/package acceptance; no blanket format/reliability guarantee and no main/tag/publication approval"
+}

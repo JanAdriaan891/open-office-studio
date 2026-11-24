@@ -1,0 +1,200 @@
+{
+  "schemaVersion": 1,
+  "application": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+  "tree": "e30879fd772871e690847c061ef66e6b81808a05",
+  "qaSource": "7be704895534c3095f697292af07dc10d2e5860b",
+  "entries": [
+    {
+      "file": "P5-browser/Linux/hosted/356-report.json",
+      "bytes": 755,
+      "sha256": "ed7084704e51e2f8a5c9e0bc0c23c45b367dede20c0e281e0c46dc972b730dac",
+      "kind": "Original P5 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P5-browser/Linux/hosted/356-saved.docx",
+      "bytes": 7472,
+      "sha256": "3da85718e8029be4c7a5d9680c5a8f6a4e734e8acd39238e769716dce249821d",
+      "kind": "Original P5 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P5-browser/Linux/hosted/361-report.json",
+      "bytes": 94108,
+      "sha256": "48f1f903a1fb12b74ff9f62eacef0c4d07753d99068f1fa95860be6809db4332",
+      "kind": "Original P5 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P5-browser/Linux/hosted/362-report.json",
+      "bytes": 474393,
+      "sha256": "d5d73d4a40ac5ed0b97c1738fa78487d03049f616b02e40e7cf78a8e029e4509",
+      "kind": "Original P5 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P5-browser/Linux/hosted/363-report.json",
+      "bytes": 84635,
+      "sha256": "5baada35df819f9298d9c88c3d8d494a9ce128cdec3ab1f9ec5b19abc0172f06",
+      "kind": "Original P5 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P5-browser/Linux/hosted/build-receipt.json",
+      "bytes": 78655,
+      "sha256": "562c74a5fce943cbb36c3ec07075b89187ec7fca9d4874bd4c8bd4a89d9edf8a",
+      "kind": "Original P5 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P5-browser/Linux/hosted/office-report.json",
+      "bytes": 1673,
+      "sha256": "cb8512ddb241d840e366e135200662af84c39c4bdfc28044fc6ea318e0660fba",
+      "kind": "Original P5 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P5-browser/Linux/hosted/summary.json",
+      "bytes": 1882,
+      "sha256": "4c7c27cab7ffbb8d267a2f55752921a0fa198a42327e6bdc672f57c83a08cefb",
+      "kind": "Original P5 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P5-browser/Linux/normal/356-report.json",
+      "bytes": 748,
+      "sha256": "3cfe77c06b6c9b6976f77acbb87d9a893fd19f1938309ac7855898df2fc0e0a8",
+      "kind": "Original P5 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P5-browser/Linux/normal/356-saved.docx",
+      "bytes": 7472,
+      "sha256": "349fcaca40cfe6c7284ac80a1c8185a17af98995e4590f44658b640c8a4df6e6",
+      "kind": "Original P5 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P5-browser/Linux/normal/361-report.json",
+      "bytes": 94086,
+      "sha256": "de73a3c8f7a552b552e39ea392f4c590a016ca3247fcb590919bb45db5789a9d",
+      "kind": "Original P5 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P5-browser/Linux/normal/362-report.json",
+      "bytes": 474369,
+      "sha256": "909151f59030f66b0e42341a9b339091c0b4dee4c9af829221200476e381d190",
+      "kind": "Original P5 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P5-browser/Linux/normal/363-report.json",
+      "bytes": 84620,
+      "sha256": "7be30c971dd6d6ad212bbf155c57a94863158136d631ed250d7e42c65b369790",
+      "kind": "Original P5 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P5-browser/Linux/normal/build-receipt.json",
+      "bytes": 78647,
+      "sha256": "6a9e9150b14548468e884fd4a68d7e6ac1706932d93effbb9aa33ac56c3b593e",
+      "kind": "Original P5 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P5-browser/Linux/normal/office-report.json",
+      "bytes": 1666,
+      "sha256": "f09862268ca5168bca465287d7cedcf64526036f14ae34d163cf2d7e7cdf4c01",
+      "kind": "Original P5 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P5-browser/Linux/normal/summary.json",
+      "bytes": 1875,
+      "sha256": "c5867a0d7283a5c0bf3a1fd575a77a4fd0047eebf53f783983762e836de0929d",
+      "kind": "Original P5 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P5-browser/Windows/hosted/356-report.json",
+      "bytes": 755,
+      "sha256": "ed7084704e51e2f8a5c9e0bc0c23c45b367dede20c0e281e0c46dc972b730dac",
+      "kind": "Original P5 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P5-browser/Windows/hosted/356-saved.docx",
+      "bytes": 7472,
+      "sha256": "f11616bb1f516abc45283c4bc9d25474abd40a7254f757f5f3b7a5ae5bb39743",
+      "kind": "Original P5 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P5-browser/Windows/hosted/361-report.json",
+      "bytes": 94101,
+      "sha256": "7251ec9069f6224d0708e23b807c070322ff492720fc66f958116604aaafcc3a",
+      "kind": "Original P5 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P5-browser/Windows/hosted/362-report.json",
+      "bytes": 482226,
+      "sha256": "ae0fa95bb0789fa233917ed3746c5f337a31881e867bc5dea8edb22f96eb292b",
+      "kind": "Original P5 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P5-browser/Windows/hosted/363-report.json",
+      "bytes": 84635,
+      "sha256": "4ffa99b0a972c888dc609444a1000c198042e1003a3a621d887e89da0404927d",
+      "kind": "Original P5 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P5-browser/Windows/hosted/build-receipt.json",
+      "bytes": 78655,
+      "sha256": "d1a4ef707005507b4a7f51218a3dcb571e587a9d8f42787f4eff4201230cb9bd",
+      "kind": "Original P5 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P5-browser/Windows/hosted/office-report.json",
+      "bytes": 1673,
+      "sha256": "b50926d6566f815afbc16d6e88cb5e239cd85b3c23cdf783b27c1f43e85a8e20",
+      "kind": "Original P5 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P5-browser/Windows/hosted/summary.json",
+      "bytes": 1882,
+      "sha256": "785e824ca730fb4c8bab2105f6bf98916ce65fd5f7ceadb47ed1d1bee85303f9",
+      "kind": "Original P5 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P5-browser/Windows/normal/356-report.json",
+      "bytes": 748,
+      "sha256": "3cfe77c06b6c9b6976f77acbb87d9a893fd19f1938309ac7855898df2fc0e0a8",
+      "kind": "Original P5 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P5-browser/Windows/normal/356-saved.docx",
+      "bytes": 7473,
+      "sha256": "446ac811b5707fd58bcdcbcf15e0cd3347793ebf975ccb846cc2247ab4160c60",
+      "kind": "Original P5 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P5-browser/Windows/normal/361-report.json",
+      "bytes": 94079,
+      "sha256": "1587f7d339b5c6195d573bec50852565200eab385599aa1d7b58ef717488b93b",
+      "kind": "Original P5 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P5-browser/Windows/normal/362-report.json",
+      "bytes": 482206,
+      "sha256": "bedcb0a004150725347e09b4b4a116ba1b53a339e30fa4b142751861414dd8fc",
+      "kind": "Original P5 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P5-browser/Windows/normal/363-report.json",
+      "bytes": 84620,
+      "sha256": "14616db0e25392a1225342c17f7711fa8fdcf5bed145fa76e7819926f1668bdb",
+      "kind": "Original P5 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P5-browser/Windows/normal/build-receipt.json",
+      "bytes": 78647,
+      "sha256": "171434573255113f80aa93c63d6c792d21cc63cc791850810abf1783e0179ff2",
+      "kind": "Original P5 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P5-browser/Windows/normal/office-report.json",
+      "bytes": 1666,
+      "sha256": "8966f5976d0eb9e04fb8216977e614513f2279621163b6b3a268991be795aa39",
+      "kind": "Original P5 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    },
+    {
+      "file": "P5-browser/Windows/normal/summary.json",
+      "bytes": 1875,
+      "sha256": "2287a0d37d5d6cc682ca8fbdd1b1a4b048a26ccc8629a6204af5ab627fb6c445",
+      "kind": "Original P5 browser receipt/report/DOCX bytes; not native or signed-installer acceptance"
+    }
+  ]
+}

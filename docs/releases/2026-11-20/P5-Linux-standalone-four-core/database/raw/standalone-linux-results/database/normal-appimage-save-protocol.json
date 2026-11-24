@@ -1,0 +1,3108 @@
+{
+  "status": "passed-credential-bound-native-save",
+  "protocolPin": "9f321450ce9002dfd2bfbd8ed7baed63a212067e",
+  "correctedCallerPin": "3f4ddecd383e6a9fcb6a5f78ff456c08d772797a",
+  "appPid": 4964,
+  "appStartTime": "32616",
+  "expectedAppElfSha256": "b9779e48e1836e25568701ad679341bfa677726d9395e4f0e4a172d986f95864",
+  "target": "/home/runner/work/open-office-studio/open-office-studio/.local/standalone-linux-results/database/normal-appimage-saved.sqlite",
+  "attribution": {
+    "status": "attributed",
+    "ownedPid": 4964,
+    "busId": "5bc778590b9fe9f4422241326b044805",
+    "privateBusAddress": "unix:abstract=/tmp/dbus-xf3cmcwzs6,guid=ff8c6381c01e7f2333ef3bdd6b044805",
+    "display": ":99",
+    "member": "SaveFile",
+    "calls": [
+      {
+        "sender": ":1.24",
+        "destination": "org.freedesktop.portal.Desktop",
+        "serial": 12,
+        "interface": "org.freedesktop.portal.FileChooser",
+        "member": "SaveFile",
+        "token": "ashpd_DGpjOQETLc",
+        "currentName": "normal-appimage-input.sqlite",
+        "handle": null
+      },
+      {
+        "sender": ":1.3",
+        "destination": ":1.8",
+        "serial": 122,
+        "interface": "org.freedesktop.impl.portal.FileChooser",
+        "member": "SaveFile",
+        "token": null,
+        "currentName": "normal-appimage-input.sqlite",
+        "handle": "/org/freedesktop/portal/desktop/request/1_24/ashpd_DGpjOQETLc"
+      }
+    ],
+    "readyBeforeSave": true,
+    "protocolBaseCommit": "75ca3dfe836f58a54c0bde5c1006a24b85b5ec3d",
+    "observerPid": 5175,
+    "ownedProcessGroup": 5175,
+    "monitorPid": 5180,
+    "correlation": {
+      "ownedPid": 4964,
+      "requestHandle": "/org/freedesktop/portal/desktop/request/1_24/ashpd_DGpjOQETLc",
+      "frontend": {
+        "sender": ":1.24",
+        "destination": "org.freedesktop.portal.Desktop",
+        "serial": 12,
+        "interface": "org.freedesktop.portal.FileChooser",
+        "member": "SaveFile",
+        "token": "ashpd_DGpjOQETLc",
+        "currentName": "normal-appimage-input.sqlite",
+        "handle": null
+      },
+      "backend": {
+        "sender": ":1.3",
+        "destination": ":1.8",
+        "serial": 122,
+        "interface": "org.freedesktop.impl.portal.FileChooser",
+        "member": "SaveFile",
+        "token": null,
+        "currentName": "normal-appimage-input.sqlite",
+        "handle": "/org/freedesktop/portal/desktop/request/1_24/ashpd_DGpjOQETLc"
+      },
+      "brokerUniqueName": ":1.3",
+      "backendUniqueName": ":1.8",
+      "backendPid": 4860
+    },
+    "backendExecutable": "/usr/libexec/xdg-desktop-portal-gtk"
+  },
+  "input": {
+    "binding": {
+      "pid": 4860,
+      "executable": "/usr/libexec/xdg-desktop-portal-gtk",
+      "startTime": "32363",
+      "sha256": "a69aa09fa21ed197e8888c70516b6cec615f89ca4ba970ec89de2f76281f618a",
+      "environment": {
+        "DISPLAY": ":99",
+        "HOME": "/home/runner",
+        "XAUTHORITY": "/tmp/xvfb-run.GbRj74/Xauthority",
+        "GDK_BACKEND": null,
+        "XDG_CONFIG_HOME": "/home/runner/.config",
+        "XDG_DATA_HOME": null,
+        "DBUS_SESSION_BUS_ADDRESS": "unix:abstract=/tmp/dbus-xf3cmcwzs6,guid=ff8c6381c01e7f2333ef3bdd6b044805"
+      }
+    },
+    "xid": "4194311",
+    "activationPerformed": false,
+    "checks": [
+      {
+        "stage": "dialog foreground postcondition",
+        "at": "2026-11-23T14:05:10.053Z"
+      },
+      {
+        "stage": "before ctrl+l",
+        "at": "2026-11-23T14:05:10.339Z"
+      },
+      {
+        "stage": "after ctrl+l",
+        "at": "2026-11-23T14:05:10.656Z"
+      },
+      {
+        "stage": "before ctrl+a",
+        "at": "2026-11-23T14:05:10.848Z"
+      },
+      {
+        "stage": "after ctrl+a",
+        "at": "2026-11-23T14:05:11.155Z"
+      },
+      {
+        "stage": "before slash",
+        "at": "2026-11-23T14:05:11.350Z"
+      },
+      {
+        "stage": "after slash",
+        "at": "2026-11-23T14:05:11.647Z"
+      },
+      {
+        "stage": "before h",
+        "at": "2026-11-23T14:05:11.842Z"
+      },
+      {
+        "stage": "after h",
+        "at": "2026-11-23T14:05:12.148Z"
+      },
+      {
+        "stage": "before o",
+        "at": "2026-11-23T14:05:12.333Z"
+      },
+      {
+        "stage": "after o",
+        "at": "2026-11-23T14:05:12.630Z"
+      },
+      {
+        "stage": "before m",
+        "at": "2026-11-23T14:05:12.825Z"
+      },
+      {
+        "stage": "after m",
+        "at": "2026-11-23T14:05:13.131Z"
+      },
+      {
+        "stage": "before e",
+        "at": "2026-11-23T14:05:13.325Z"
+      },
+      {
+        "stage": "after e",
+        "at": "2026-11-23T14:05:13.623Z"
+      },
+      {
+        "stage": "before slash",
+        "at": "2026-11-23T14:05:13.814Z"
+      },
+      {
+        "stage": "after slash",
+        "at": "2026-11-23T14:05:14.122Z"
+      },
+      {
+        "stage": "before r",
+        "at": "2026-11-23T14:05:14.321Z"
+      },
+      {
+        "stage": "after r",
+        "at": "2026-11-23T14:05:14.619Z"
+      },
+      {
+        "stage": "before u",
+        "at": "2026-11-23T14:05:14.808Z"
+      },
+      {
+        "stage": "after u",
+        "at": "2026-11-23T14:05:15.110Z"
+      },
+      {
+        "stage": "before n",
+        "at": "2026-11-23T14:05:15.307Z"
+      },
+      {
+        "stage": "after n",
+        "at": "2026-11-23T14:05:15.612Z"
+      },
+      {
+        "stage": "before n",
+        "at": "2026-11-23T14:05:15.803Z"
+      },
+      {
+        "stage": "after n",
+        "at": "2026-11-23T14:05:16.109Z"
+      },
+      {
+        "stage": "before e",
+        "at": "2026-11-23T14:05:16.301Z"
+      },
+      {
+        "stage": "after e",
+        "at": "2026-11-23T14:05:16.600Z"
+      },
+      {
+        "stage": "before r",
+        "at": "2026-11-23T14:05:16.793Z"
+      },
+      {
+        "stage": "after r",
+        "at": "2026-11-23T14:05:17.092Z"
+      },
+      {
+        "stage": "before slash",
+        "at": "2026-11-23T14:05:17.281Z"
+      },
+      {
+        "stage": "after slash",
+        "at": "2026-11-23T14:05:17.582Z"
+      },
+      {
+        "stage": "before w",
+        "at": "2026-11-23T14:05:17.776Z"
+      },
+      {
+        "stage": "after w",
+        "at": "2026-11-23T14:05:18.078Z"
+      },
+      {
+        "stage": "before o",
+        "at": "2026-11-23T14:05:18.268Z"
+      },
+      {
+        "stage": "after o",
+        "at": "2026-11-23T14:05:18.563Z"
+      },
+      {
+        "stage": "before r",
+        "at": "2026-11-23T14:05:18.755Z"
+      },
+      {
+        "stage": "after r",
+        "at": "2026-11-23T14:05:19.069Z"
+      },
+      {
+        "stage": "before k",
+        "at": "2026-11-23T14:05:19.262Z"
+      },
+      {
+        "stage": "after k",
+        "at": "2026-11-23T14:05:19.558Z"
+      },
+      {
+        "stage": "before slash",
+        "at": "2026-11-23T14:05:19.748Z"
+      },
+      {
+        "stage": "after slash",
+        "at": "2026-11-23T14:05:20.048Z"
+      },
+      {
+        "stage": "before o",
+        "at": "2026-11-23T14:05:20.244Z"
+      },
+      {
+        "stage": "after o",
+        "at": "2026-11-23T14:05:20.542Z"
+      },
+      {
+        "stage": "before p",
+        "at": "2026-11-23T14:05:20.730Z"
+      },
+      {
+        "stage": "after p",
+        "at": "2026-11-23T14:05:21.026Z"
+      },
+      {
+        "stage": "before e",
+        "at": "2026-11-23T14:05:21.216Z"
+      },
+      {
+        "stage": "after e",
+        "at": "2026-11-23T14:05:21.516Z"
+      },
+      {
+        "stage": "before n",
+        "at": "2026-11-23T14:05:21.707Z"
+      },
+      {
+        "stage": "after n",
+        "at": "2026-11-23T14:05:22.012Z"
+      },
+      {
+        "stage": "before minus",
+        "at": "2026-11-23T14:05:22.199Z"
+      },
+      {
+        "stage": "after minus",
+        "at": "2026-11-23T14:05:22.492Z"
+      },
+      {
+        "stage": "before o",
+        "at": "2026-11-23T14:05:22.682Z"
+      },
+      {
+        "stage": "after o",
+        "at": "2026-11-23T14:05:22.979Z"
+      },
+      {
+        "stage": "before f",
+        "at": "2026-11-23T14:05:23.173Z"
+      },
+      {
+        "stage": "after f",
+        "at": "2026-11-23T14:05:23.469Z"
+      },
+      {
+        "stage": "before f",
+        "at": "2026-11-23T14:05:23.656Z"
+      },
+      {
+        "stage": "after f",
+        "at": "2026-11-23T14:05:23.958Z"
+      },
+      {
+        "stage": "before i",
+        "at": "2026-11-23T14:05:24.152Z"
+      },
+      {
+        "stage": "after i",
+        "at": "2026-11-23T14:05:24.449Z"
+      },
+      {
+        "stage": "before c",
+        "at": "2026-11-23T14:05:24.642Z"
+      },
+      {
+        "stage": "after c",
+        "at": "2026-11-23T14:05:24.940Z"
+      },
+      {
+        "stage": "before e",
+        "at": "2026-11-23T14:05:25.130Z"
+      },
+      {
+        "stage": "after e",
+        "at": "2026-11-23T14:05:25.432Z"
+      },
+      {
+        "stage": "before minus",
+        "at": "2026-11-23T14:05:25.628Z"
+      },
+      {
+        "stage": "after minus",
+        "at": "2026-11-23T14:05:25.928Z"
+      },
+      {
+        "stage": "before s",
+        "at": "2026-11-23T14:05:26.121Z"
+      },
+      {
+        "stage": "after s",
+        "at": "2026-11-23T14:05:26.413Z"
+      },
+      {
+        "stage": "before t",
+        "at": "2026-11-23T14:05:26.602Z"
+      },
+      {
+        "stage": "after t",
+        "at": "2026-11-23T14:05:26.900Z"
+      },
+      {
+        "stage": "before u",
+        "at": "2026-11-23T14:05:27.092Z"
+      },
+      {
+        "stage": "after u",
+        "at": "2026-11-23T14:05:27.389Z"
+      },
+      {
+        "stage": "before d",
+        "at": "2026-11-23T14:05:27.582Z"
+      },
+      {
+        "stage": "after d",
+        "at": "2026-11-23T14:05:27.894Z"
+      },
+      {
+        "stage": "before i",
+        "at": "2026-11-23T14:05:28.086Z"
+      },
+      {
+        "stage": "after i",
+        "at": "2026-11-23T14:05:28.383Z"
+      },
+      {
+        "stage": "before o",
+        "at": "2026-11-23T14:05:28.574Z"
+      },
+      {
+        "stage": "after o",
+        "at": "2026-11-23T14:05:28.876Z"
+      },
+      {
+        "stage": "before slash",
+        "at": "2026-11-23T14:05:29.072Z"
+      },
+      {
+        "stage": "after slash",
+        "at": "2026-11-23T14:05:29.377Z"
+      },
+      {
+        "stage": "before o",
+        "at": "2026-11-23T14:05:29.565Z"
+      },
+      {
+        "stage": "after o",
+        "at": "2026-11-23T14:05:29.862Z"
+      },
+      {
+        "stage": "before p",
+        "at": "2026-11-23T14:05:30.053Z"
+      },
+      {
+        "stage": "after p",
+        "at": "2026-11-23T14:05:30.349Z"
+      },
+      {
+        "stage": "before e",
+        "at": "2026-11-23T14:05:30.544Z"
+      },
+      {
+        "stage": "after e",
+        "at": "2026-11-23T14:05:30.846Z"
+      },
+      {
+        "stage": "before n",
+        "at": "2026-11-23T14:05:31.032Z"
+      },
+      {
+        "stage": "after n",
+        "at": "2026-11-23T14:05:31.329Z"
+      },
+      {
+        "stage": "before minus",
+        "at": "2026-11-23T14:05:31.520Z"
+      },
+      {
+        "stage": "after minus",
+        "at": "2026-11-23T14:05:31.817Z"
+      },
+      {
+        "stage": "before o",
+        "at": "2026-11-23T14:05:32.014Z"
+      },
+      {
+        "stage": "after o",
+        "at": "2026-11-23T14:05:32.311Z"
+      },
+      {
+        "stage": "before f",
+        "at": "2026-11-23T14:05:32.502Z"
+      },
+      {
+        "stage": "after f",
+        "at": "2026-11-23T14:05:32.807Z"
+      },
+      {
+        "stage": "before f",
+        "at": "2026-11-23T14:05:32.998Z"
+      },
+      {
+        "stage": "after f",
+        "at": "2026-11-23T14:05:33.294Z"
+      },
+      {
+        "stage": "before i",
+        "at": "2026-11-23T14:05:33.485Z"
+      },
+      {
+        "stage": "after i",
+        "at": "2026-11-23T14:05:33.784Z"
+      },
+      {
+        "stage": "before c",
+        "at": "2026-11-23T14:05:33.973Z"
+      },
+      {
+        "stage": "after c",
+        "at": "2026-11-23T14:05:34.272Z"
+      },
+      {
+        "stage": "before e",
+        "at": "2026-11-23T14:05:34.466Z"
+      },
+      {
+        "stage": "after e",
+        "at": "2026-11-23T14:05:34.762Z"
+      },
+      {
+        "stage": "before minus",
+        "at": "2026-11-23T14:05:34.953Z"
+      },
+      {
+        "stage": "after minus",
+        "at": "2026-11-23T14:05:35.250Z"
+      },
+      {
+        "stage": "before s",
+        "at": "2026-11-23T14:05:35.441Z"
+      },
+      {
+        "stage": "after s",
+        "at": "2026-11-23T14:05:35.748Z"
+      },
+      {
+        "stage": "before t",
+        "at": "2026-11-23T14:05:35.938Z"
+      },
+      {
+        "stage": "after t",
+        "at": "2026-11-23T14:05:36.235Z"
+      },
+      {
+        "stage": "before u",
+        "at": "2026-11-23T14:05:36.426Z"
+      },
+      {
+        "stage": "after u",
+        "at": "2026-11-23T14:05:36.731Z"
+      },
+      {
+        "stage": "before d",
+        "at": "2026-11-23T14:05:36.925Z"
+      },
+      {
+        "stage": "after d",
+        "at": "2026-11-23T14:05:37.223Z"
+      },
+      {
+        "stage": "before i",
+        "at": "2026-11-23T14:05:37.414Z"
+      },
+      {
+        "stage": "after i",
+        "at": "2026-11-23T14:05:37.716Z"
+      },
+      {
+        "stage": "before o",
+        "at": "2026-11-23T14:05:37.907Z"
+      },
+      {
+        "stage": "after o",
+        "at": "2026-11-23T14:05:38.201Z"
+      },
+      {
+        "stage": "before slash",
+        "at": "2026-11-23T14:05:38.393Z"
+      },
+      {
+        "stage": "after slash",
+        "at": "2026-11-23T14:05:38.694Z"
+      },
+      {
+        "stage": "before period",
+        "at": "2026-11-23T14:05:38.883Z"
+      },
+      {
+        "stage": "after period",
+        "at": "2026-11-23T14:05:39.188Z"
+      },
+      {
+        "stage": "before l",
+        "at": "2026-11-23T14:05:39.381Z"
+      },
+      {
+        "stage": "after l",
+        "at": "2026-11-23T14:05:39.682Z"
+      },
+      {
+        "stage": "before o",
+        "at": "2026-11-23T14:05:39.872Z"
+      },
+      {
+        "stage": "after o",
+        "at": "2026-11-23T14:05:40.170Z"
+      },
+      {
+        "stage": "before c",
+        "at": "2026-11-23T14:05:40.358Z"
+      },
+      {
+        "stage": "after c",
+        "at": "2026-11-23T14:05:40.664Z"
+      },
+      {
+        "stage": "before a",
+        "at": "2026-11-23T14:05:40.855Z"
+      },
+      {
+        "stage": "after a",
+        "at": "2026-11-23T14:05:41.153Z"
+      },
+      {
+        "stage": "before l",
+        "at": "2026-11-23T14:05:41.341Z"
+      },
+      {
+        "stage": "after l",
+        "at": "2026-11-23T14:05:41.642Z"
+      },
+      {
+        "stage": "before slash",
+        "at": "2026-11-23T14:05:41.833Z"
+      },
+      {
+        "stage": "after slash",
+        "at": "2026-11-23T14:05:42.130Z"
+      },
+      {
+        "stage": "before s",
+        "at": "2026-11-23T14:05:42.319Z"
+      },
+      {
+        "stage": "after s",
+        "at": "2026-11-23T14:05:42.617Z"
+      },
+      {
+        "stage": "before t",
+        "at": "2026-11-23T14:05:42.811Z"
+      },
+      {
+        "stage": "after t",
+        "at": "2026-11-23T14:05:43.113Z"
+      },
+      {
+        "stage": "before a",
+        "at": "2026-11-23T14:05:43.306Z"
+      },
+      {
+        "stage": "after a",
+        "at": "2026-11-23T14:05:43.603Z"
+      },
+      {
+        "stage": "before n",
+        "at": "2026-11-23T14:05:43.790Z"
+      },
+      {
+        "stage": "after n",
+        "at": "2026-11-23T14:05:44.091Z"
+      },
+      {
+        "stage": "before d",
+        "at": "2026-11-23T14:05:44.283Z"
+      },
+      {
+        "stage": "after d",
+        "at": "2026-11-23T14:05:44.584Z"
+      },
+      {
+        "stage": "before a",
+        "at": "2026-11-23T14:05:44.772Z"
+      },
+      {
+        "stage": "after a",
+        "at": "2026-11-23T14:05:45.064Z"
+      },
+      {
+        "stage": "before l",
+        "at": "2026-11-23T14:05:45.256Z"
+      },
+      {
+        "stage": "after l",
+        "at": "2026-11-23T14:05:45.563Z"
+      },
+      {
+        "stage": "before o",
+        "at": "2026-11-23T14:05:45.756Z"
+      },
+      {
+        "stage": "after o",
+        "at": "2026-11-23T14:05:46.052Z"
+      },
+      {
+        "stage": "before n",
+        "at": "2026-11-23T14:05:46.242Z"
+      },
+      {
+        "stage": "after n",
+        "at": "2026-11-23T14:05:46.543Z"
+      },
+      {
+        "stage": "before e",
+        "at": "2026-11-23T14:05:46.737Z"
+      },
+      {
+        "stage": "after e",
+        "at": "2026-11-23T14:05:47.037Z"
+      },
+      {
+        "stage": "before minus",
+        "at": "2026-11-23T14:05:47.226Z"
+      },
+      {
+        "stage": "after minus",
+        "at": "2026-11-23T14:05:47.526Z"
+      },
+      {
+        "stage": "before l",
+        "at": "2026-11-23T14:05:47.717Z"
+      },
+      {
+        "stage": "after l",
+        "at": "2026-11-23T14:05:48.013Z"
+      },
+      {
+        "stage": "before i",
+        "at": "2026-11-23T14:05:48.206Z"
+      },
+      {
+        "stage": "after i",
+        "at": "2026-11-23T14:05:48.507Z"
+      },
+      {
+        "stage": "before n",
+        "at": "2026-11-23T14:05:48.695Z"
+      },
+      {
+        "stage": "after n",
+        "at": "2026-11-23T14:05:48.988Z"
+      },
+      {
+        "stage": "before u",
+        "at": "2026-11-23T14:05:49.177Z"
+      },
+      {
+        "stage": "after u",
+        "at": "2026-11-23T14:05:49.473Z"
+      },
+      {
+        "stage": "before x",
+        "at": "2026-11-23T14:05:49.666Z"
+      },
+      {
+        "stage": "after x",
+        "at": "2026-11-23T14:05:49.961Z"
+      },
+      {
+        "stage": "before minus",
+        "at": "2026-11-23T14:05:50.149Z"
+      },
+      {
+        "stage": "after minus",
+        "at": "2026-11-23T14:05:50.446Z"
+      },
+      {
+        "stage": "before r",
+        "at": "2026-11-23T14:05:50.636Z"
+      },
+      {
+        "stage": "after r",
+        "at": "2026-11-23T14:05:50.937Z"
+      },
+      {
+        "stage": "before e",
+        "at": "2026-11-23T14:05:51.126Z"
+      },
+      {
+        "stage": "after e",
+        "at": "2026-11-23T14:05:51.421Z"
+      },
+      {
+        "stage": "before s",
+        "at": "2026-11-23T14:05:51.609Z"
+      },
+      {
+        "stage": "after s",
+        "at": "2026-11-23T14:05:51.907Z"
+      },
+      {
+        "stage": "before u",
+        "at": "2026-11-23T14:05:52.098Z"
+      },
+      {
+        "stage": "after u",
+        "at": "2026-11-23T14:05:52.396Z"
+      },
+      {
+        "stage": "before l",
+        "at": "2026-11-23T14:05:52.588Z"
+      },
+      {
+        "stage": "after l",
+        "at": "2026-11-23T14:05:52.908Z"
+      },
+      {
+        "stage": "before t",
+        "at": "2026-11-23T14:05:53.103Z"
+      },
+      {
+        "stage": "after t",
+        "at": "2026-11-23T14:05:53.411Z"
+      },
+      {
+        "stage": "before s",
+        "at": "2026-11-23T14:05:53.598Z"
+      },
+      {
+        "stage": "after s",
+        "at": "2026-11-23T14:05:53.893Z"
+      },
+      {
+        "stage": "before slash",
+        "at": "2026-11-23T14:05:54.088Z"
+      },
+      {
+        "stage": "after slash",
+        "at": "2026-11-23T14:05:54.387Z"
+      },
+      {
+        "stage": "before d",
+        "at": "2026-11-23T14:05:54.584Z"
+      },
+      {
+        "stage": "after d",
+        "at": "2026-11-23T14:05:54.878Z"
+      },
+      {
+        "stage": "before a",
+        "at": "2026-11-23T14:05:55.071Z"
+      },
+      {
+        "stage": "after a",
+        "at": "2026-11-23T14:05:55.381Z"
+      },
+      {
+        "stage": "before t",
+        "at": "2026-11-23T14:05:55.575Z"
+      },
+      {
+        "stage": "after t",
+        "at": "2026-11-23T14:05:55.868Z"
+      },
+      {
+        "stage": "before a",
+        "at": "2026-11-23T14:05:56.058Z"
+      },
+      {
+        "stage": "after a",
+        "at": "2026-11-23T14:05:56.360Z"
+      },
+      {
+        "stage": "before b",
+        "at": "2026-11-23T14:05:56.549Z"
+      },
+      {
+        "stage": "after b",
+        "at": "2026-11-23T14:05:56.848Z"
+      },
+      {
+        "stage": "before a",
+        "at": "2026-11-23T14:05:57.038Z"
+      },
+      {
+        "stage": "after a",
+        "at": "2026-11-23T14:05:57.336Z"
+      },
+      {
+        "stage": "before s",
+        "at": "2026-11-23T14:05:57.526Z"
+      },
+      {
+        "stage": "after s",
+        "at": "2026-11-23T14:05:57.822Z"
+      },
+      {
+        "stage": "before e",
+        "at": "2026-11-23T14:05:58.016Z"
+      },
+      {
+        "stage": "after e",
+        "at": "2026-11-23T14:05:58.319Z"
+      },
+      {
+        "stage": "before slash",
+        "at": "2026-11-23T14:05:58.507Z"
+      },
+      {
+        "stage": "after slash",
+        "at": "2026-11-23T14:05:58.800Z"
+      },
+      {
+        "stage": "before n",
+        "at": "2026-11-23T14:05:58.992Z"
+      },
+      {
+        "stage": "after n",
+        "at": "2026-11-23T14:05:59.291Z"
+      },
+      {
+        "stage": "before o",
+        "at": "2026-11-23T14:05:59.488Z"
+      },
+      {
+        "stage": "after o",
+        "at": "2026-11-23T14:05:59.787Z"
+      },
+      {
+        "stage": "before r",
+        "at": "2026-11-23T14:05:59.978Z"
+      },
+      {
+        "stage": "after r",
+        "at": "2026-11-23T14:06:00.282Z"
+      },
+      {
+        "stage": "before m",
+        "at": "2026-11-23T14:06:00.473Z"
+      },
+      {
+        "stage": "after m",
+        "at": "2026-11-23T14:06:00.773Z"
+      },
+      {
+        "stage": "before a",
+        "at": "2026-11-23T14:06:00.965Z"
+      },
+      {
+        "stage": "after a",
+        "at": "2026-11-23T14:06:01.260Z"
+      },
+      {
+        "stage": "before l",
+        "at": "2026-11-23T14:06:01.451Z"
+      },
+      {
+        "stage": "after l",
+        "at": "2026-11-23T14:06:01.749Z"
+      },
+      {
+        "stage": "before minus",
+        "at": "2026-11-23T14:06:01.939Z"
+      },
+      {
+        "stage": "after minus",
+        "at": "2026-11-23T14:06:02.234Z"
+      },
+      {
+        "stage": "before a",
+        "at": "2026-11-23T14:06:02.420Z"
+      },
+      {
+        "stage": "after a",
+        "at": "2026-11-23T14:06:02.716Z"
+      },
+      {
+        "stage": "before p",
+        "at": "2026-11-23T14:06:02.907Z"
+      },
+      {
+        "stage": "after p",
+        "at": "2026-11-23T14:06:03.214Z"
+      },
+      {
+        "stage": "before p",
+        "at": "2026-11-23T14:06:03.406Z"
+      },
+      {
+        "stage": "after p",
+        "at": "2026-11-23T14:06:03.705Z"
+      },
+      {
+        "stage": "before i",
+        "at": "2026-11-23T14:06:03.897Z"
+      },
+      {
+        "stage": "after i",
+        "at": "2026-11-23T14:06:04.196Z"
+      },
+      {
+        "stage": "before m",
+        "at": "2026-11-23T14:06:04.388Z"
+      },
+      {
+        "stage": "after m",
+        "at": "2026-11-23T14:06:04.691Z"
+      },
+      {
+        "stage": "before a",
+        "at": "2026-11-23T14:06:04.877Z"
+      },
+      {
+        "stage": "after a",
+        "at": "2026-11-23T14:06:05.181Z"
+      },
+      {
+        "stage": "before g",
+        "at": "2026-11-23T14:06:05.371Z"
+      },
+      {
+        "stage": "after g",
+        "at": "2026-11-23T14:06:05.666Z"
+      },
+      {
+        "stage": "before e",
+        "at": "2026-11-23T14:06:05.859Z"
+      },
+      {
+        "stage": "after e",
+        "at": "2026-11-23T14:06:06.157Z"
+      },
+      {
+        "stage": "before minus",
+        "at": "2026-11-23T14:06:06.345Z"
+      },
+      {
+        "stage": "after minus",
+        "at": "2026-11-23T14:06:06.644Z"
+      },
+      {
+        "stage": "before s",
+        "at": "2026-11-23T14:06:06.834Z"
+      },
+      {
+        "stage": "after s",
+        "at": "2026-11-23T14:06:07.133Z"
+      },
+      {
+        "stage": "before a",
+        "at": "2026-11-23T14:06:07.321Z"
+      },
+      {
+        "stage": "after a",
+        "at": "2026-11-23T14:06:07.617Z"
+      },
+      {
+        "stage": "before v",
+        "at": "2026-11-23T14:06:07.815Z"
+      },
+      {
+        "stage": "after v",
+        "at": "2026-11-23T14:06:08.119Z"
+      },
+      {
+        "stage": "before e",
+        "at": "2026-11-23T14:06:08.309Z"
+      },
+      {
+        "stage": "after e",
+        "at": "2026-11-23T14:06:08.606Z"
+      },
+      {
+        "stage": "before d",
+        "at": "2026-11-23T14:06:08.799Z"
+      },
+      {
+        "stage": "after d",
+        "at": "2026-11-23T14:06:09.099Z"
+      },
+      {
+        "stage": "before period",
+        "at": "2026-11-23T14:06:09.295Z"
+      },
+      {
+        "stage": "after period",
+        "at": "2026-11-23T14:06:09.592Z"
+      },
+      {
+        "stage": "before s",
+        "at": "2026-11-23T14:06:09.785Z"
+      },
+      {
+        "stage": "after s",
+        "at": "2026-11-23T14:06:10.086Z"
+      },
+      {
+        "stage": "before q",
+        "at": "2026-11-23T14:06:10.282Z"
+      },
+      {
+        "stage": "after q",
+        "at": "2026-11-23T14:06:10.581Z"
+      },
+      {
+        "stage": "before l",
+        "at": "2026-11-23T14:06:10.776Z"
+      },
+      {
+        "stage": "after l",
+        "at": "2026-11-23T14:06:11.074Z"
+      },
+      {
+        "stage": "before i",
+        "at": "2026-11-23T14:06:11.269Z"
+      },
+      {
+        "stage": "after i",
+        "at": "2026-11-23T14:06:11.572Z"
+      },
+      {
+        "stage": "before t",
+        "at": "2026-11-23T14:06:11.760Z"
+      },
+      {
+        "stage": "after t",
+        "at": "2026-11-23T14:06:12.067Z"
+      },
+      {
+        "stage": "before e",
+        "at": "2026-11-23T14:06:12.261Z"
+      },
+      {
+        "stage": "after e",
+        "at": "2026-11-23T14:06:12.566Z"
+      },
+      {
+        "stage": "before native Return",
+        "at": "2026-11-23T14:06:13.066Z"
+      }
+    ],
+    "keys": [
+      {
+        "chord": "ctrl+l",
+        "at": "2026-11-23T14:05:10.339Z"
+      },
+      {
+        "chord": "ctrl+a",
+        "at": "2026-11-23T14:05:10.848Z"
+      },
+      {
+        "chord": "slash",
+        "at": "2026-11-23T14:05:11.350Z"
+      },
+      {
+        "chord": "h",
+        "at": "2026-11-23T14:05:11.842Z"
+      },
+      {
+        "chord": "o",
+        "at": "2026-11-23T14:05:12.333Z"
+      },
+      {
+        "chord": "m",
+        "at": "2026-11-23T14:05:12.825Z"
+      },
+      {
+        "chord": "e",
+        "at": "2026-11-23T14:05:13.325Z"
+      },
+      {
+        "chord": "slash",
+        "at": "2026-11-23T14:05:13.814Z"
+      },
+      {
+        "chord": "r",
+        "at": "2026-11-23T14:05:14.321Z"
+      },
+      {
+        "chord": "u",
+        "at": "2026-11-23T14:05:14.808Z"
+      },
+      {
+        "chord": "n",
+        "at": "2026-11-23T14:05:15.307Z"
+      },
+      {
+        "chord": "n",
+        "at": "2026-11-23T14:05:15.803Z"
+      },
+      {
+        "chord": "e",
+        "at": "2026-11-23T14:05:16.302Z"
+      },
+      {
+        "chord": "r",
+        "at": "2026-11-23T14:05:16.793Z"
+      },
+      {
+        "chord": "slash",
+        "at": "2026-11-23T14:05:17.281Z"
+      },
+      {
+        "chord": "w",
+        "at": "2026-11-23T14:05:17.776Z"
+      },
+      {
+        "chord": "o",
+        "at": "2026-11-23T14:05:18.268Z"
+      },
+      {
+        "chord": "r",
+        "at": "2026-11-23T14:05:18.755Z"
+      },
+      {
+        "chord": "k",
+        "at": "2026-11-23T14:05:19.262Z"
+      },
+      {
+        "chord": "slash",
+        "at": "2026-11-23T14:05:19.748Z"
+      },
+      {
+        "chord": "o",
+        "at": "2026-11-23T14:05:20.244Z"
+      },
+      {
+        "chord": "p",
+        "at": "2026-11-23T14:05:20.730Z"
+      },
+      {
+        "chord": "e",
+        "at": "2026-11-23T14:05:21.216Z"
+      },
+      {
+        "chord": "n",
+        "at": "2026-11-23T14:05:21.707Z"
+      },
+      {
+        "chord": "minus",
+        "at": "2026-11-23T14:05:22.199Z"
+      },
+      {
+        "chord": "o",
+        "at": "2026-11-23T14:05:22.682Z"
+      },
+      {
+        "chord": "f",
+        "at": "2026-11-23T14:05:23.173Z"
+      },
+      {
+        "chord": "f",
+        "at": "2026-11-23T14:05:23.656Z"
+      },
+      {
+        "chord": "i",
+        "at": "2026-11-23T14:05:24.152Z"
+      },
+      {
+        "chord": "c",
+        "at": "2026-11-23T14:05:24.642Z"
+      },
+      {
+        "chord": "e",
+        "at": "2026-11-23T14:05:25.130Z"
+      },
+      {
+        "chord": "minus",
+        "at": "2026-11-23T14:05:25.628Z"
+      },
+      {
+        "chord": "s",
+        "at": "2026-11-23T14:05:26.121Z"
+      },
+      {
+        "chord": "t",
+        "at": "2026-11-23T14:05:26.602Z"
+      },
+      {
+        "chord": "u",
+        "at": "2026-11-23T14:05:27.092Z"
+      },
+      {
+        "chord": "d",
+        "at": "2026-11-23T14:05:27.582Z"
+      },
+      {
+        "chord": "i",
+        "at": "2026-11-23T14:05:28.086Z"
+      },
+      {
+        "chord": "o",
+        "at": "2026-11-23T14:05:28.574Z"
+      },
+      {
+        "chord": "slash",
+        "at": "2026-11-23T14:05:29.072Z"
+      },
+      {
+        "chord": "o",
+        "at": "2026-11-23T14:05:29.565Z"
+      },
+      {
+        "chord": "p",
+        "at": "2026-11-23T14:05:30.053Z"
+      },
+      {
+        "chord": "e",
+        "at": "2026-11-23T14:05:30.544Z"
+      },
+      {
+        "chord": "n",
+        "at": "2026-11-23T14:05:31.032Z"
+      },
+      {
+        "chord": "minus",
+        "at": "2026-11-23T14:05:31.520Z"
+      },
+      {
+        "chord": "o",
+        "at": "2026-11-23T14:05:32.014Z"
+      },
+      {
+        "chord": "f",
+        "at": "2026-11-23T14:05:32.502Z"
+      },
+      {
+        "chord": "f",
+        "at": "2026-11-23T14:05:32.998Z"
+      },
+      {
+        "chord": "i",
+        "at": "2026-11-23T14:05:33.485Z"
+      },
+      {
+        "chord": "c",
+        "at": "2026-11-23T14:05:33.973Z"
+      },
+      {
+        "chord": "e",
+        "at": "2026-11-23T14:05:34.466Z"
+      },
+      {
+        "chord": "minus",
+        "at": "2026-11-23T14:05:34.953Z"
+      },
+      {
+        "chord": "s",
+        "at": "2026-11-23T14:05:35.441Z"
+      },
+      {
+        "chord": "t",
+        "at": "2026-11-23T14:05:35.938Z"
+      },
+      {
+        "chord": "u",
+        "at": "2026-11-23T14:05:36.426Z"
+      },
+      {
+        "chord": "d",
+        "at": "2026-11-23T14:05:36.925Z"
+      },
+      {
+        "chord": "i",
+        "at": "2026-11-23T14:05:37.414Z"
+      },
+      {
+        "chord": "o",
+        "at": "2026-11-23T14:05:37.907Z"
+      },
+      {
+        "chord": "slash",
+        "at": "2026-11-23T14:05:38.393Z"
+      },
+      {
+        "chord": "period",
+        "at": "2026-11-23T14:05:38.883Z"
+      },
+      {
+        "chord": "l",
+        "at": "2026-11-23T14:05:39.381Z"
+      },
+      {
+        "chord": "o",
+        "at": "2026-11-23T14:05:39.872Z"
+      },
+      {
+        "chord": "c",
+        "at": "2026-11-23T14:05:40.358Z"
+      },
+      {
+        "chord": "a",
+        "at": "2026-11-23T14:05:40.855Z"
+      },
+      {
+        "chord": "l",
+        "at": "2026-11-23T14:05:41.341Z"
+      },
+      {
+        "chord": "slash",
+        "at": "2026-11-23T14:05:41.833Z"
+      },
+      {
+        "chord": "s",
+        "at": "2026-11-23T14:05:42.319Z"
+      },
+      {
+        "chord": "t",
+        "at": "2026-11-23T14:05:42.811Z"
+      },
+      {
+        "chord": "a",
+        "at": "2026-11-23T14:05:43.306Z"
+      },
+      {
+        "chord": "n",
+        "at": "2026-11-23T14:05:43.790Z"
+      },
+      {
+        "chord": "d",
+        "at": "2026-11-23T14:05:44.283Z"
+      },
+      {
+        "chord": "a",
+        "at": "2026-11-23T14:05:44.772Z"
+      },
+      {
+        "chord": "l",
+        "at": "2026-11-23T14:05:45.256Z"
+      },
+      {
+        "chord": "o",
+        "at": "2026-11-23T14:05:45.756Z"
+      },
+      {
+        "chord": "n",
+        "at": "2026-11-23T14:05:46.242Z"
+      },
+      {
+        "chord": "e",
+        "at": "2026-11-23T14:05:46.737Z"
+      },
+      {
+        "chord": "minus",
+        "at": "2026-11-23T14:05:47.227Z"
+      },
+      {
+        "chord": "l",
+        "at": "2026-11-23T14:05:47.717Z"
+      },
+      {
+        "chord": "i",
+        "at": "2026-11-23T14:05:48.206Z"
+      },
+      {
+        "chord": "n",
+        "at": "2026-11-23T14:05:48.695Z"
+      },
+      {
+        "chord": "u",
+        "at": "2026-11-23T14:05:49.177Z"
+      },
+      {
+        "chord": "x",
+        "at": "2026-11-23T14:05:49.666Z"
+      },
+      {
+        "chord": "minus",
+        "at": "2026-11-23T14:05:50.149Z"
+      },
+      {
+        "chord": "r",
+        "at": "2026-11-23T14:05:50.636Z"
+      },
+      {
+        "chord": "e",
+        "at": "2026-11-23T14:05:51.126Z"
+      },
+      {
+        "chord": "s",
+        "at": "2026-11-23T14:05:51.610Z"
+      },
+      {
+        "chord": "u",
+        "at": "2026-11-23T14:05:52.098Z"
+      },
+      {
+        "chord": "l",
+        "at": "2026-11-23T14:05:52.588Z"
+      },
+      {
+        "chord": "t",
+        "at": "2026-11-23T14:05:53.103Z"
+      },
+      {
+        "chord": "s",
+        "at": "2026-11-23T14:05:53.598Z"
+      },
+      {
+        "chord": "slash",
+        "at": "2026-11-23T14:05:54.088Z"
+      },
+      {
+        "chord": "d",
+        "at": "2026-11-23T14:05:54.584Z"
+      },
+      {
+        "chord": "a",
+        "at": "2026-11-23T14:05:55.071Z"
+      },
+      {
+        "chord": "t",
+        "at": "2026-11-23T14:05:55.575Z"
+      },
+      {
+        "chord": "a",
+        "at": "2026-11-23T14:05:56.058Z"
+      },
+      {
+        "chord": "b",
+        "at": "2026-11-23T14:05:56.549Z"
+      },
+      {
+        "chord": "a",
+        "at": "2026-11-23T14:05:57.039Z"
+      },
+      {
+        "chord": "s",
+        "at": "2026-11-23T14:05:57.526Z"
+      },
+      {
+        "chord": "e",
+        "at": "2026-11-23T14:05:58.016Z"
+      },
+      {
+        "chord": "slash",
+        "at": "2026-11-23T14:05:58.507Z"
+      },
+      {
+        "chord": "n",
+        "at": "2026-11-23T14:05:58.992Z"
+      },
+      {
+        "chord": "o",
+        "at": "2026-11-23T14:05:59.488Z"
+      },
+      {
+        "chord": "r",
+        "at": "2026-11-23T14:05:59.978Z"
+      },
+      {
+        "chord": "m",
+        "at": "2026-11-23T14:06:00.473Z"
+      },
+      {
+        "chord": "a",
+        "at": "2026-11-23T14:06:00.965Z"
+      },
+      {
+        "chord": "l",
+        "at": "2026-11-23T14:06:01.451Z"
+      },
+      {
+        "chord": "minus",
+        "at": "2026-11-23T14:06:01.939Z"
+      },
+      {
+        "chord": "a",
+        "at": "2026-11-23T14:06:02.420Z"
+      },
+      {
+        "chord": "p",
+        "at": "2026-11-23T14:06:02.907Z"
+      },
+      {
+        "chord": "p",
+        "at": "2026-11-23T14:06:03.406Z"
+      },
+      {
+        "chord": "i",
+        "at": "2026-11-23T14:06:03.897Z"
+      },
+      {
+        "chord": "m",
+        "at": "2026-11-23T14:06:04.388Z"
+      },
+      {
+        "chord": "a",
+        "at": "2026-11-23T14:06:04.877Z"
+      },
+      {
+        "chord": "g",
+        "at": "2026-11-23T14:06:05.371Z"
+      },
+      {
+        "chord": "e",
+        "at": "2026-11-23T14:06:05.859Z"
+      },
+      {
+        "chord": "minus",
+        "at": "2026-11-23T14:06:06.345Z"
+      },
+      {
+        "chord": "s",
+        "at": "2026-11-23T14:06:06.834Z"
+      },
+      {
+        "chord": "a",
+        "at": "2026-11-23T14:06:07.321Z"
+      },
+      {
+        "chord": "v",
+        "at": "2026-11-23T14:06:07.815Z"
+      },
+      {
+        "chord": "e",
+        "at": "2026-11-23T14:06:08.309Z"
+      },
+      {
+        "chord": "d",
+        "at": "2026-11-23T14:06:08.799Z"
+      },
+      {
+        "chord": "period",
+        "at": "2026-11-23T14:06:09.295Z"
+      },
+      {
+        "chord": "s",
+        "at": "2026-11-23T14:06:09.785Z"
+      },
+      {
+        "chord": "q",
+        "at": "2026-11-23T14:06:10.282Z"
+      },
+      {
+        "chord": "l",
+        "at": "2026-11-23T14:06:10.776Z"
+      },
+      {
+        "chord": "i",
+        "at": "2026-11-23T14:06:11.269Z"
+      },
+      {
+        "chord": "t",
+        "at": "2026-11-23T14:06:11.760Z"
+      },
+      {
+        "chord": "e",
+        "at": "2026-11-23T14:06:12.261Z"
+      },
+      {
+        "chord": "Return",
+        "at": "2026-11-23T14:06:13.066Z",
+        "transition": "Expected owned dialog closes; caller verifies exact response URI and document"
+      }
+    ]
+  },
+  "dialogTitle": "Save database export",
+  "anatomy": {
+    "pid": 4860,
+    "nodes": [
+      {
+        "name": "xdg-desktop-portal-gtk",
+        "role": "application",
+        "focused": false,
+        "showing": false
+      },
+      {
+        "name": "Save database export",
+        "role": "file chooser",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "filler",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "panel",
+        "focused": false,
+        "showing": false
+      },
+      {
+        "name": "",
+        "role": "panel",
+        "focused": false,
+        "showing": false
+      },
+      {
+        "name": "",
+        "role": "panel",
+        "focused": false,
+        "showing": false
+      },
+      {
+        "name": "",
+        "role": "panel",
+        "focused": false,
+        "showing": false
+      },
+      {
+        "name": "File Chooser Widget",
+        "role": "file chooser",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "filler",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "panel",
+        "focused": false,
+        "showing": false
+      },
+      {
+        "name": "",
+        "role": "panel",
+        "focused": false,
+        "showing": false
+      },
+      {
+        "name": "",
+        "role": "filler",
+        "focused": false,
+        "showing": false
+      },
+      {
+        "name": "",
+        "role": "panel",
+        "focused": false,
+        "showing": false
+      },
+      {
+        "name": "",
+        "role": "filler",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "filler",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "panel",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "filler",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "label",
+        "focused": false,
+        "showing": false,
+        "text": ""
+      },
+      {
+        "name": "Create",
+        "role": "push button",
+        "focused": false,
+        "showing": false
+      },
+      {
+        "name": "",
+        "role": "text",
+        "focused": false,
+        "showing": false,
+        "text": ""
+      },
+      {
+        "name": "Folder Name",
+        "role": "label",
+        "focused": false,
+        "showing": false,
+        "text": "Folder Name"
+      },
+      {
+        "name": "",
+        "role": "label",
+        "focused": false,
+        "showing": false,
+        "text": ""
+      },
+      {
+        "name": "Rename",
+        "role": "push button",
+        "focused": false,
+        "showing": false
+      },
+      {
+        "name": "",
+        "role": "text",
+        "focused": false,
+        "showing": false,
+        "text": ""
+      },
+      {
+        "name": "Name",
+        "role": "label",
+        "focused": false,
+        "showing": false,
+        "text": "Name"
+      },
+      {
+        "name": "Server Addresses",
+        "role": "label",
+        "focused": false,
+        "showing": false,
+        "text": "Server Addresses"
+      },
+      {
+        "name": "Server addresses are made up of a protocol prefix and an address. Examples:",
+        "role": "label",
+        "focused": false,
+        "showing": false,
+        "text": "Server addresses are made up of a protocol prefix and an address. Examples:"
+      },
+      {
+        "name": "smb://gnome.org, ssh://192.168.0.1, ftp://[2001:db8::1]",
+        "role": "label",
+        "focused": false,
+        "showing": false,
+        "text": "smb://gnome.org, ssh://192.168.0.1, ftp://[2001:db8::1]"
+      },
+      {
+        "name": "",
+        "role": "panel",
+        "focused": false,
+        "showing": false
+      },
+      {
+        "name": "",
+        "role": "filler",
+        "focused": false,
+        "showing": false
+      },
+      {
+        "name": "",
+        "role": "panel",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "split pane",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "filler",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "filler",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "Cancel",
+        "role": "push button",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "Save",
+        "role": "push button",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "Prefix",
+        "role": "label",
+        "focused": false,
+        "showing": false,
+        "text": "Prefix"
+      },
+      {
+        "name": "Available Protocols",
+        "role": "label",
+        "focused": false,
+        "showing": false,
+        "text": "Available Protocols"
+      },
+      {
+        "name": "",
+        "role": "icon",
+        "focused": false,
+        "showing": false
+      },
+      {
+        "name": "No recent servers found",
+        "role": "label",
+        "focused": false,
+        "showing": false,
+        "text": "No recent servers found"
+      },
+      {
+        "name": "",
+        "role": "text",
+        "focused": true,
+        "showing": true,
+        "text": "/home/runner/work/open-office-studio/open-office-studio/.local/standalone-linux-results/database/normal-appimage-saved.sqlite"
+      },
+      {
+        "name": "Name:",
+        "role": "label",
+        "focused": false,
+        "showing": true,
+        "text": "Name:"
+      },
+      {
+        "name": "Places",
+        "role": "scroll pane",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "filler",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "SQLite working copy",
+        "role": "combo box",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "viewport",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "scroll bar",
+        "focused": false,
+        "showing": false
+      },
+      {
+        "name": "",
+        "role": "scroll bar",
+        "focused": false,
+        "showing": false
+      },
+      {
+        "name": "Browse Header Revealer",
+        "role": "panel",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "filler",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "menu",
+        "focused": false,
+        "showing": false
+      },
+      {
+        "name": "",
+        "role": "list box",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "filler",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "panel",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "filler",
+        "focused": false,
+        "showing": false
+      },
+      {
+        "name": "SQLite working copy",
+        "role": "menu item",
+        "focused": false,
+        "showing": false
+      },
+      {
+        "name": "",
+        "role": "list item",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "list item",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "list item",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "list item",
+        "focused": false,
+        "showing": false
+      },
+      {
+        "name": "",
+        "role": "list item",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "Browse Header Stack",
+        "role": "panel",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "filler",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "icon",
+        "focused": false,
+        "showing": false
+      },
+      {
+        "name": "",
+        "role": "panel",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "panel",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "panel",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "panel",
+        "focused": false,
+        "showing": false
+      },
+      {
+        "name": "",
+        "role": "panel",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "PathBar Layer",
+        "role": "filler",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "scroll pane",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "panel",
+        "focused": false,
+        "showing": false
+      },
+      {
+        "name": "",
+        "role": "panel",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "panel",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "panel",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "panel",
+        "focused": false,
+        "showing": false
+      },
+      {
+        "name": "",
+        "role": "panel",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "panel",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "Create Folder",
+        "role": "toggle button",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "Files",
+        "role": "table",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "scroll bar",
+        "focused": false,
+        "showing": false
+      },
+      {
+        "name": "",
+        "role": "scroll bar",
+        "focused": false,
+        "showing": false
+      },
+      {
+        "name": "Remote location — only searching the current folder",
+        "role": "label",
+        "focused": false,
+        "showing": false,
+        "text": "Remote location — only searching the current folder"
+      },
+      {
+        "name": "",
+        "role": "filler",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "filler",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "filler",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "filler",
+        "focused": false,
+        "showing": false
+      },
+      {
+        "name": "",
+        "role": "filler",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "open-office-studio",
+        "role": "toggle button",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "open-office-studio",
+        "role": "toggle button",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "work",
+        "role": "toggle button",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "runner",
+        "role": "toggle button",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "home",
+        "role": "toggle button",
+        "focused": false,
+        "showing": false
+      },
+      {
+        "name": "File System Root",
+        "role": "toggle button",
+        "focused": false,
+        "showing": false
+      },
+      {
+        "name": "Up Path",
+        "role": "push button",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "Down Path",
+        "role": "push button",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "Name",
+        "role": "table column header",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "Size",
+        "role": "table column header",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "Type",
+        "role": "table column header",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "Modified",
+        "role": "table column header",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": ""
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": ""
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": ""
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": ""
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": ""
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": ""
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": ""
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": ""
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": ""
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": ""
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": ""
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": ""
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": ""
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": ""
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": ""
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": ""
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": ""
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": ""
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": ""
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": ""
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": ""
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": ""
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": ""
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": ""
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": ""
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": ""
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "",
+        "role": "icon",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "Home",
+        "role": "label",
+        "focused": false,
+        "showing": true,
+        "text": "Home"
+      },
+      {
+        "name": "",
+        "role": "icon",
+        "focused": false,
+        "showing": false
+      },
+      {
+        "name": "",
+        "role": "push button",
+        "focused": false,
+        "showing": false
+      },
+      {
+        "name": "Spinner",
+        "role": "animation",
+        "focused": false,
+        "showing": false
+      },
+      {
+        "name": "",
+        "role": "icon",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "Desktop",
+        "role": "label",
+        "focused": false,
+        "showing": true,
+        "text": "Desktop"
+      },
+      {
+        "name": "",
+        "role": "icon",
+        "focused": false,
+        "showing": false
+      },
+      {
+        "name": "",
+        "role": "push button",
+        "focused": false,
+        "showing": false
+      },
+      {
+        "name": "Spinner",
+        "role": "animation",
+        "focused": false,
+        "showing": false
+      },
+      {
+        "name": "",
+        "role": "icon",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "open-office-studio",
+        "role": "label",
+        "focused": false,
+        "showing": true,
+        "text": "open-office-studio"
+      },
+      {
+        "name": "",
+        "role": "icon",
+        "focused": false,
+        "showing": false
+      },
+      {
+        "name": "",
+        "role": "push button",
+        "focused": false,
+        "showing": false
+      },
+      {
+        "name": "Spinner",
+        "role": "animation",
+        "focused": false,
+        "showing": false
+      },
+      {
+        "name": "",
+        "role": "icon",
+        "focused": false,
+        "showing": false
+      },
+      {
+        "name": "New bookmark",
+        "role": "label",
+        "focused": false,
+        "showing": false,
+        "text": "New bookmark"
+      },
+      {
+        "name": "",
+        "role": "icon",
+        "focused": false,
+        "showing": false
+      },
+      {
+        "name": "",
+        "role": "push button",
+        "focused": false,
+        "showing": false
+      },
+      {
+        "name": "Spinner",
+        "role": "animation",
+        "focused": false,
+        "showing": false
+      },
+      {
+        "name": "Add",
+        "role": "icon",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "Other Locations",
+        "role": "label",
+        "focused": false,
+        "showing": true,
+        "text": "Other Locations"
+      },
+      {
+        "name": "",
+        "role": "icon",
+        "focused": false,
+        "showing": false
+      },
+      {
+        "name": "",
+        "role": "push button",
+        "focused": false,
+        "showing": false
+      },
+      {
+        "name": "Spinner",
+        "role": "animation",
+        "focused": false,
+        "showing": false
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "apps",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": "apps"
+      },
+      {
+        "name": "14‎∶03",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": "14‎∶03"
+      },
+      {
+        "name": "14‎∶03",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": "14‎∶03"
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "assets",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": "assets"
+      },
+      {
+        "name": "14‎∶03",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": "14‎∶03"
+      },
+      {
+        "name": "14‎∶03",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": "14‎∶03"
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "docs",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": "docs"
+      },
+      {
+        "name": "14‎∶03",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": "14‎∶03"
+      },
+      {
+        "name": "14‎∶03",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": "14‎∶03"
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "experiments",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": "experiments"
+      },
+      {
+        "name": "14‎∶03",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": "14‎∶03"
+      },
+      {
+        "name": "14‎∶03",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": "14‎∶03"
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "packages",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": "packages"
+      },
+      {
+        "name": "14‎∶03",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": "14‎∶03"
+      },
+      {
+        "name": "14‎∶03",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": "14‎∶03"
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "patches",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": "patches"
+      },
+      {
+        "name": "14‎∶03",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": "14‎∶03"
+      },
+      {
+        "name": "14‎∶03",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": "14‎∶03"
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "public",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": "public"
+      },
+      {
+        "name": "14‎∶03",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": "14‎∶03"
+      },
+      {
+        "name": "14‎∶03",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": "14‎∶03"
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "scripts",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": "scripts"
+      },
+      {
+        "name": "14‎∶03",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": "14‎∶03"
+      },
+      {
+        "name": "14‎∶03",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": "14‎∶03"
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "snap",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": "snap"
+      },
+      {
+        "name": "14‎∶03",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": "14‎∶03"
+      },
+      {
+        "name": "14‎∶03",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": "14‎∶03"
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "src",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": "src"
+      },
+      {
+        "name": "14‎∶03",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": "14‎∶03"
+      },
+      {
+        "name": "14‎∶03",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": "14‎∶03"
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "src-tauri",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": "src-tauri"
+      },
+      {
+        "name": "14‎∶03",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": "14‎∶03"
+      },
+      {
+        "name": "14‎∶03",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": "14‎∶03"
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "tests",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": "tests"
+      },
+      {
+        "name": "14‎∶03",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": "14‎∶03"
+      },
+      {
+        "name": "14‎∶03",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": "14‎∶03"
+      },
+      {
+        "name": "",
+        "role": "table cell",
+        "focused": false,
+        "showing": true
+      },
+      {
+        "name": "vendor",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": "vendor"
+      },
+      {
+        "name": "14‎∶03",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": "14‎∶03"
+      },
+      {
+        "name": "14‎∶03",
+        "role": "table cell",
+        "focused": false,
+        "showing": true,
+        "text": "14‎∶03"
+      }
+    ],
+    "truncated": false
+  },
+  "capture": {
+    "pid": 4860,
+    "xid": "4194311",
+    "startTime": "32363",
+    "width": 1096,
+    "height": 822,
+    "sha256": "48f4cc53a147285864a06efe4cfd5e10529bbd99694118944b91a46e95edd7db",
+    "backend": "owned X11 window pixels"
+  },
+  "ownedDialogClosed": true
+}

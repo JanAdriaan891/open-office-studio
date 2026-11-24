@@ -6,6 +6,7 @@ mod documentkoppeling;
 mod email;
 mod herstel;
 mod lettertypen;
+mod native_dialog;
 mod recent;
 mod systeembestanden;
 mod taal;
@@ -55,14 +56,16 @@ async fn converteer_document(
         Err(_) => conversie::Opties::default(),
     };
     let instelling = conversie::lees_instelling(&app);
+    let resources = conversie::appresources(&app);
     tauri::async_runtime::spawn_blocking(move || {
-        conversie::converteer_met(
+        conversie::converteer_met_bundel(
             &bytes,
             &bron,
             &doel,
             &module,
             &opties,
             instelling.as_deref(),
+            resources.as_deref(),
         )
         .map(tauri::ipc::Response::new)
     })
@@ -145,15 +148,18 @@ async fn kies_opslagpad(
         return Err(taal::t("errors.file.extensionMismatch"));
     }
     if pad.exists() {
-        let bevestiging = rfd::AsyncMessageDialog::new()
-            .set_title(taal::t("dialogs.replaceFile.title"))
-            .set_description(taal::t_met(
-                "dialogs.replaceFile.message",
-                &[("path", &pad.display().to_string())],
-            ))
-            .set_buttons(rfd::MessageButtons::YesNo)
-            .show()
-            .await;
+        let bevestiging = native_dialog::toon(
+            rfd::AsyncMessageDialog::new()
+                .set_title(taal::t("dialogs.replaceFile.title"))
+                .set_description(taal::t_met(
+                    "dialogs.replaceFile.message",
+                    &[("path", &pad.display().to_string())],
+                ))
+                .set_buttons(rfd::MessageButtons::YesNo)
+                .show(),
+            taal::t("errors.nativeDialogMissing"),
+        )
+        .await?;
         if bevestiging != rfd::MessageDialogResult::Yes {
             return Ok(None);
         }

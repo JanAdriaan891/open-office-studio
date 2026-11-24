@@ -1,0 +1,121 @@
+{
+  "scope": "Independent final gate disposition for the one retained Mac Suite save-preflight failure; read-only existing evidence, no new testing or root-cause experiment",
+  "asOfUTC": "2026-11-24T09:21:26.064273+00:00",
+  "application": {
+    "commit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+    "tree": "e30879fd772871e690847c061ef66e6b81808a05",
+    "version": "2026.48.1",
+    "suiteDMGSha256": "1d0cb79f23e1e082d1aa4e32aa1dd3997c297fb0cb2629aa530a3e29e685c4af",
+    "executableSha256": "0c6a58c7438f1ba2b3b9b1e74ea23e29fb9a93523723bc5694bb3727702a9d87"
+  },
+  "gateDisposition": "SATISFIED: no still-unperformed mandatory native-save criterion is established by this incident",
+  "stableReadinessAdvice": "YES for the frozen bounded release-readiness assessment, with the concrete unresolved historical save incident disclosed. This is not main/tag/publication permission or a claim of exhaustive reliability.",
+  "overallScopeLimit": "All other planned platform/native/package/#374/#377 criteria are stated complete by the integration coordinator; this review does not repeat their full audits. It checks the remaining save-incident disposition and reads the existing same-source core and latest native-readback audit.",
+  "evidence": {
+    "negative": {
+      "run": 45355259350,
+      "attempt": 1,
+      "job": 138311374273,
+      "qaCommit": "b052808d6fcfed34c7543176f0a827891b02a60d",
+      "artifact": 14902571239,
+      "bytes": 1381370,
+      "proofSha256": "505cdc29339ee220ffb27c86ccff4ea9d177f4731720b368e13b87e2dd9d2308",
+      "rawReportSha256": "c68c412d47db8e37910429bb76bce34196e06b9bc1847ee4392b3fef378b5e63",
+      "actualObservation": "Q visible and dirty before the legacy postToPid CmdS request; test file remained exact original bytes with noQ after polling. Original run remains FAILED, forced cleanup retained.",
+      "notRecorded": [
+        "Receiver/key-handler acknowledgement",
+        "Immediate pre-CmdS Save-enabled/busy/modal/load state",
+        "Per-copy OS permission/lock context",
+        "Actual input/handler monotonic timestamps"
+      ]
+    },
+    "positiveSixCopyDiagnostic": {
+      "run": 45358252707,
+      "attempt": 1,
+      "job": 138321421929,
+      "qaCommit": "8ecc16d09ff523ee2622882b4ce0ce52c9ed832f",
+      "artifact": 14903673521,
+      "bytes": 9732636,
+      "proofSha256": "09894d8ea1ee01349d88c26245450f88c03c86d09675bab75f2f5e7c7c1a11aa",
+      "rawReportSha256": "090c70bb5fdf7a693677d43680ceef950036cb6939e8cdb8d3954e83243bbe2e",
+      "independentAuditSha256": "0a82816902de097133825b6a6255616b7aeb229070f7f4b4806cb26a34dd9861",
+      "cases": 6,
+      "conditions": [
+        "Legacy postToPid flags twice",
+        "Released Command flag postToPid twice",
+        "Released Command flag HID twice"
+      ],
+      "actualResult": "Each fresh private original source copy/PID receives exactly oneQ and oneCmdS without retries. Save-enabled/no-modal/dirty observed; saved XML has exactly oneQ and otherwise original text/table/media, clean state afterward and normal CmdQ.",
+      "importantBoundary": "The added common dirty-wait/read-only AX/PNG snapshot barrier changes context. Six successes do not prove a transport/root-cause fix. Raw diagnosticOnly/nativePassfalse is retained and is not relabelled as a whole native acceptance pass. The six diagnostics alone do not claim six cold-reopen tests."
+    },
+    "independentExistingNativeSaveAndReopen": {
+      "run": 45352741879,
+      "job": 138302964907,
+      "qaCommit": "48e7de0f5c94a7bb8f5e723be6cfd6c383d8b2ae",
+      "artifact": 14902380591,
+      "proofSha256": "0b63b96d5dfa25b95671c12cb39e32e0164a5f01adbfea161597eafd617e8721",
+      "scope": "PASS bounded Mac Suite body/table core only",
+      "actualResult": "Same-source signed Suite core has actual saved content plus normal full exit/new-PID reopens; control and table lifecycle evidence are independently retained. Mandatory cold-reopen evidence is reused from these scoped native acceptance cases, not invented from the six diagnostic copies."
+    },
+    "latestSupplementalNativeReadback": {
+      "run": 45361373078,
+      "job": 138332599919,
+      "qaCommit": "749c80e4fa41b036c71f72685f132428609fc488",
+      "artifact": 14905680506,
+      "proofSha256": "6b8ea5d2d683a6c6d2ddd3e0ba6bde2d8543bd13aa21ba28455f365c8c0150cb",
+      "scope": "PASS supplemental exact-output native visible readback at real UI200%; closes only missing reopened-body check",
+      "boundary": "Closes only its missing visible saved-output readback at ordinary UI200%; no raw import/edit/save repetition or explanation of oldSuiteQ failure inferred."
+    }
+  },
+  "judgment": [
+    "The mandatory criterion is observable native editing and actual saved-byte preservation with the required normal quit/new-process reopen evidence on the frozen package. It is not a requirement that every historical failed automation run acquire a proven cause before a later strict positive case can satisfy that criterion.",
+    "Current retained positive cases meet those observable criteria without product changes, relaxed content oracles, repeated input or replacement of the original negative proof. Waiting for actual readiness and taking read-only snapshots do not weaken the save-result criterion.",
+    "The old failed attempt is valid negative evidence and cannot be called harmless or falsely green. Missing receiver/handler and immediate pre-save context prevents proving that the same ready-save action failed in the product. The new common barrier prevents proving a QA fix or a timing cause.",
+    "Accordingly there is no identified missing mandatory save case to execute again merely to explain the old failure. Its causal investigation is a separate unresolved observation, not an invented new release gate."
+  ],
+  "uncertaintyAndDisclosure": {
+    "unresolved": true,
+    "classification": "Failure occurred during automated native operation; causal QA-versus-product classification is OPEN, not a proven harmless QA failure or confirmed/repaired product bug.",
+    "releaseRiskText": "In one earlier automated Mac Suite save preflight, an edit was visible and dirty but the requested CmdS did not update the private test file. Six later fresh-copy controls and the regular same-package native save/reopen cases succeeded. The original cause is unknown; an intermittent product-save problem is not excluded by these results. Original failed proof and forced cleanup remain preserved.",
+    "noGeneralReliabilityClaim": true
+  },
+  "necessaryNextAction": "No new build/test loop is required by this remaining item under the fixed bounded criteria. Root should close the pending acceptance item by reference to the existing positive evidence, keep the old runFAILED/causeOPEN, include the concrete risk in the final YES/NO readiness explanation and seek the already required separate specific user approval before any main/tag/release/publication step. New causal work is only a separately scoped follow-up if requested or a reproducible/new observation supplies a concrete trigger.",
+  "forbiddenConclusions": [
+    "Old failure was fixed by changing Command key-up flags",
+    "Old failure was definitely an early-clean save no-op",
+    "Input delivery/handler execution was acknowledged in the failed run",
+    "All six diagnostic cases were full native save/reopen acceptance runs",
+    "A stable-readinessYES grants main/tag/publication permission"
+  ],
+  "filesRead": [
+    {
+      "path": "C:\\Users\\alper\\Desktop\\Documents\\ChatGPT\\code slaafjes\\work\\oos-release-prep-2026-11-20-9635\\docs\\releases\\2026-11-20\\P5-Mac-Suite-save-readiness-review\\review.json",
+      "bytes": 6319,
+      "sha256": "89323f4822bbe0684c1c3982869bd6a48b98ae4c532ac219130a81faf223fcb5"
+    },
+    {
+      "path": "C:\\Users\\alper\\Desktop\\Documents\\ChatGPT\\code slaafjes\\work\\oos-xlsb377-native-retest-d410\\.local\\mac-suite-save-differential-audit-2026-11-24.json",
+      "bytes": 12856,
+      "sha256": "0a82816902de097133825b6a6255616b7aeb229070f7f4b4806cb26a34dd9861"
+    },
+    {
+      "path": "C:\\Users\\alper\\Desktop\\Documents\\ChatGPT\\code slaafjes\\work\\oos-release-prep-2026-11-20-9635\\docs\\releases\\2026-11-20\\P5-Mac-Suite-core-independent\\audit.json",
+      "bytes": 8444,
+      "sha256": "61b72d0d2647a8e2e5e23832e1f0ad6b92bfe7235c3b74db604b1afe8ce7fbbd"
+    },
+    {
+      "path": "C:\\Users\\alper\\Desktop\\Documents\\ChatGPT\\code slaafjes\\work\\oos-release-prep-2026-11-20-9635\\docs\\releases\\2026-11-20\\P5-Mac-native-independent\\spreadsheet-xlsb-readback\\audit.json",
+      "bytes": 10431,
+      "sha256": "6052605c47e21967184b691f42ed8535621ae5208064489ee5bf496415f7e5c1"
+    }
+  ],
+  "sideEffects": {
+    "newRuntimeOrNativeTest": false,
+    "newCI": false,
+    "download": false,
+    "centralDocEdit": false,
+    "productEdit": false,
+    "gitWrite": false,
+    "publication": false
+  }
+}

@@ -1,0 +1,112 @@
+[
+  {
+    "kind": "source",
+    "readOnlyUriMode": "mode=ro&immutable=1",
+    "fileSha256BeforeAndAfter": "b8c474f0ef6f6addce743b7870346eb2243c888dcee093371c3d6dcc93646732",
+    "bytes": 8192,
+    "integrity": [
+      [
+        "ok"
+      ]
+    ],
+    "schema": [
+      [
+        "table",
+        "standalone_data",
+        "CREATE TABLE standalone_data(id INTEGER PRIMARY KEY, label TEXT NOT NULL, amount INTEGER NOT NULL)"
+      ]
+    ],
+    "rows": [
+      [
+        1,
+        "STANDALONE_DATABASE_SEED",
+        10,
+        "integer"
+      ],
+      [
+        2,
+        "beta",
+        20,
+        "integer"
+      ],
+      [
+        3,
+        "STANDALONE_UNCHANGED_CONTROL",
+        30,
+        "integer"
+      ]
+    ],
+    "sumAmount": 60,
+    "fileBytesUnchangedByAudit": true
+  },
+  {
+    "kind": "export",
+    "readOnlyUriMode": "mode=ro&immutable=1",
+    "fileSha256BeforeAndAfter": "d8e2f0935eb5f3ea8957fd35d7dfb937a6e0655b9b67f69c2dfafa339943fcca",
+    "bytes": 53248,
+    "integrity": [
+      [
+        "ok"
+      ]
+    ],
+    "schema": [
+      [
+        "table",
+        "_openaec_bijlagen",
+        "CREATE TABLE _openaec_bijlagen (tabel TEXT NOT NULL, rij INTEGER NOT NULL, veld TEXT NOT NULL, naam TEXT, type TEXT, data BLOB)"
+      ],
+      [
+        "table",
+        "_openaec_meta",
+        "CREATE TABLE _openaec_meta (sleutel TEXT PRIMARY KEY, waarde TEXT)"
+      ],
+      [
+        "table",
+        "_openaec_modules",
+        "CREATE TABLE _openaec_modules (naam TEXT PRIMARY KEY COLLATE NOCASE, soort TEXT NOT NULL CHECK (soort IN ('module', 'klasse', 'formulier')), bron TEXT NOT NULL, herkomst TEXT NOT NULL CHECK (herkomst IN ('access', 'werkkopie')), gewijzigd TEXT)"
+      ],
+      [
+        "table",
+        "_openaec_ontwerpen",
+        "CREATE TABLE _openaec_ontwerpen (soort TEXT NOT NULL CHECK (soort IN ('formulier', 'rapport')), naam TEXT NOT NULL COLLATE NOCASE, bron TEXT NOT NULL, definitie TEXT NOT NULL, PRIMARY KEY (soort, naam))"
+      ],
+      [
+        "table",
+        "_openaec_querys",
+        "CREATE TABLE _openaec_querys (naam TEXT PRIMARY KEY COLLATE NOCASE, sql TEXT NOT NULL, soort TEXT NOT NULL)"
+      ],
+      [
+        "table",
+        "_openaec_relaties",
+        "CREATE TABLE _openaec_relaties (naam TEXT PRIMARY KEY, tabel TEXT NOT NULL, velden TEXT NOT NULL, naarTabel TEXT NOT NULL, naarVelden TEXT NOT NULL, integriteit INTEGER NOT NULL, toegangIntegriteit INTEGER NOT NULL, trapsBijwerken INTEGER NOT NULL, trapsVerwijderen INTEGER NOT NULL)"
+      ],
+      [
+        "table",
+        "standalone_data",
+        "CREATE TABLE standalone_data(id INTEGER PRIMARY KEY, label TEXT NOT NULL, amount INTEGER NOT NULL)"
+      ]
+    ],
+    "rows": [
+      [
+        1,
+        "STANDALONE_DATABASE_SEED",
+        10,
+        "integer"
+      ],
+      [
+        2,
+        "beta",
+        20,
+        "integer"
+      ],
+      [
+        3,
+        "STANDALONE_UNCHANGED_CONTROL",
+        30,
+        "integer"
+      ]
+    ],
+    "sumAmount": 60,
+    "fileBytesUnchangedByAudit": true
+  }
+]

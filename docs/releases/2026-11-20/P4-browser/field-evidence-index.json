@@ -1,0 +1,584 @@
+{
+  "entries": [
+    {
+      "file": "Linux/field-sdk/before-display.json",
+      "bytes": 75797,
+      "sha256": "b21b029956c60102c693a30a0b1c0924067edb47ace85a218874c1b76faa0f10"
+    },
+    {
+      "file": "Linux/field-sdk/reopened-display.json",
+      "bytes": 91097,
+      "sha256": "002cd81741b8add7286cd01286f4cc7ccaf49171bad840768537ebcb16715616"
+    },
+    {
+      "file": "Linux/field-sdk/reopened-oracle.json",
+      "bytes": 3413,
+      "sha256": "258c6a801c5de80d9d19d3f3ac51fa0aac252941756091f181f37b1fb0f9085f"
+    },
+    {
+      "file": "Linux/field-sdk/reopened.docx",
+      "bytes": 14796,
+      "sha256": "4dfa72437f4b53a2144eeb8268df3c3d4414f63c3e3d568c10f5da3f2fa03f2c"
+    },
+    {
+      "file": "Linux/field-sdk/report.json",
+      "bytes": 56071,
+      "sha256": "ca6ae773b669263bb876a916309d84f1e480f33047affbd2de27cce04cb4138e"
+    },
+    {
+      "file": "Linux/field-sdk/saved-oracle.json",
+      "bytes": 3413,
+      "sha256": "29148c05fc62bedc2bb21a66f45ba2923597a0fd8ba1dc730bdebb86226ea4a9"
+    },
+    {
+      "file": "Linux/field-sdk/saved.docx",
+      "bytes": 14797,
+      "sha256": "1045f921e12c9b67bc0df3d248effb378d45c7d19255780085638749589ddc3a"
+    },
+    {
+      "file": "Linux/field-sdk/source-oracle.json",
+      "bytes": 4668,
+      "sha256": "c9d10469bedf07e2a6645d7631419ffefd2595024859a39b299a83e3fc2a1882"
+    },
+    {
+      "file": "Linux/field-normal/after-edit-save-oracle.json",
+      "bytes": 3413,
+      "sha256": "543ff6a3748bda10e7f08ed4c4195d7b6461100b2476ea3493f49beb28f1f820"
+    },
+    {
+      "file": "Linux/field-normal/after-edit-save.docx",
+      "bytes": 14764,
+      "sha256": "d282d80772f050cd193cf25d2b5c632dc5373fc74fbb9fe3ea9747ee7a158f61"
+    },
+    {
+      "file": "Linux/field-normal/after-real-edit-capture-first.png",
+      "bytes": 96109,
+      "sha256": "8ca0cdb3d9b11acd046cd4fc96364d065c207e3bf4fc7361228c33c231870a99"
+    },
+    {
+      "file": "Linux/field-normal/after-real-edit-capture.json",
+      "bytes": 2203,
+      "sha256": "c311a41516dabc9928db15229304c24196897622fc9b619f46c2d5a98e2d4d4b"
+    },
+    {
+      "file": "Linux/field-normal/after-real-edit-paint.json",
+      "bytes": 10077,
+      "sha256": "74b4a83624209d58784fca6413a7cc745da69562bc3e49d074ba61e612db8b94"
+    },
+    {
+      "file": "Linux/field-normal/after-real-edit.png",
+      "bytes": 99440,
+      "sha256": "5e5371df423d947c49e8aa49f9b9a0b15d98210b5339706da04c4f61cad69513"
+    },
+    {
+      "file": "Linux/field-normal/build-receipt.json",
+      "bytes": 78647,
+      "sha256": "cbc6803f48af252f9c77d48b116fc0578927dd3478efb51becb5b23d23f1320e"
+    },
+    {
+      "file": "Linux/field-normal/fresh-context-reopen-capture-first.png",
+      "bytes": 98295,
+      "sha256": "9a9d8ccb2ac556ee78a80a5fef61d8b9292a94bb58f1284f06f869a522544c4a"
+    },
+    {
+      "file": "Linux/field-normal/fresh-context-reopen-capture.json",
+      "bytes": 2158,
+      "sha256": "f6de5c897c28ef4bd575146fd28cbbb6863bf4ad8c0e6eb47916e6a43a27dbe5"
+    },
+    {
+      "file": "Linux/field-normal/fresh-context-reopen-paint.json",
+      "bytes": 10065,
+      "sha256": "65bcf783434fa9026328ff7053a1fa25d8dc3ec9c25261848192ed36827625ff"
+    },
+    {
+      "file": "Linux/field-normal/fresh-context-reopen.png",
+      "bytes": 99039,
+      "sha256": "511e85947e9cffd07346c21e29c2fb98c1a3132c38e41a2a80e86a54ac054d8b"
+    },
+    {
+      "file": "Linux/field-normal/reopened-save-oracle.json",
+      "bytes": 3413,
+      "sha256": "9bd4c81ea98909fef9647131a1840e3f637bcc5758fa410a73b3c3cfa0ee6da2"
+    },
+    {
+      "file": "Linux/field-normal/reopened-save.docx",
+      "bytes": 14765,
+      "sha256": "dfe3475bd91bd267addad3b6779a5d545f1ab2dd9fd47ef45f29d9d53e4eb0ea"
+    },
+    {
+      "file": "Linux/field-normal/report.json",
+      "bytes": 15586,
+      "sha256": "a32dc77965eaedc6719e8bb3eb71eff28540ca3088b92cdf2ee7040fefc4bd9c"
+    },
+    {
+      "file": "Linux/field-normal/source-oracle.json",
+      "bytes": 4668,
+      "sha256": "c9d10469bedf07e2a6645d7631419ffefd2595024859a39b299a83e3fc2a1882"
+    },
+    {
+      "file": "Linux/field-normal/unchanged-windows-source-capture-first.png",
+      "bytes": 99156,
+      "sha256": "a1823a99efd76c42c7bb5bfee30922c83b519f3ffde94a61f98f976a186d4916"
+    },
+    {
+      "file": "Linux/field-normal/unchanged-windows-source-capture.json",
+      "bytes": 2868,
+      "sha256": "4a8bf681efee93f72f9cbe6896ecfbdcd77ef0aa10caf7994611a8f2397b22f9"
+    },
+    {
+      "file": "Linux/field-normal/unchanged-windows-source-paint.json",
+      "bytes": 10065,
+      "sha256": "65bcf783434fa9026328ff7053a1fa25d8dc3ec9c25261848192ed36827625ff"
+    },
+    {
+      "file": "Linux/field-normal/unchanged-windows-source.png",
+      "bytes": 99859,
+      "sha256": "531fe44d0431b24ceb70218cad122c17565305644728af6af87c115cb37ce21f"
+    },
+    {
+      "file": "Linux/field-normal/unmodified-control-capture-first.png",
+      "bytes": 89635,
+      "sha256": "52b374401abaa24b33151b9918410ccaecdea64fe385ba1a210849bddeb6e66c"
+    },
+    {
+      "file": "Linux/field-normal/unmodified-control-capture.json",
+      "bytes": 2399,
+      "sha256": "1b0e3d9ae2f895ec8ad46d70019ea12605ef78f6eaad77b11b599d859ede2a8d"
+    },
+    {
+      "file": "Linux/field-normal/unmodified-control-paint.json",
+      "bytes": 785,
+      "sha256": "8a792386c35c0b2d93569e1612650e7eaabd78a83fd9693f6ef53be4b0da368f"
+    },
+    {
+      "file": "Linux/field-normal/unmodified-control.png",
+      "bytes": 90333,
+      "sha256": "18bd481f3d42b7b081ed47e06745979f01841e6d5cb0c4d950b918cd5500853a"
+    },
+    {
+      "file": "Linux/field-normal/windows-source-save-oracle.json",
+      "bytes": 3413,
+      "sha256": "c14985733f02fdbc7962b9906c66fe49d911cb0cb449c39e715d9b610c704e7a"
+    },
+    {
+      "file": "Linux/field-normal/windows-source-save.docx",
+      "bytes": 14764,
+      "sha256": "fd79036571ad99dc1acf3d1a5e5e5d016dc64e39ecc5f15e540ffcd83f3d03ef"
+    },
+    {
+      "file": "Linux/field-hosted/after-edit-save-oracle.json",
+      "bytes": 3413,
+      "sha256": "1180494b3942b2595b04f2bd4ab7ec4059e11c0c11eb5ece1047da0a675833fb"
+    },
+    {
+      "file": "Linux/field-hosted/after-edit-save.docx",
+      "bytes": 14766,
+      "sha256": "5bf7b1a7bda0d391bb61a584c35b0039348e72e30cc9ee0fc47abe2ed8aebc38"
+    },
+    {
+      "file": "Linux/field-hosted/after-real-edit-capture-first.png",
+      "bytes": 96114,
+      "sha256": "8e1a17e74c45f1dbe75b862b0edbf4874bcd4b68aecdd6b7a2505b4ed7399551"
+    },
+    {
+      "file": "Linux/field-hosted/after-real-edit-capture.json",
+      "bytes": 2566,
+      "sha256": "0042f2197b90126f02c576fa0f1fd55573d8f19366e8f5cfc40eb0e67dc28815"
+    },
+    {
+      "file": "Linux/field-hosted/after-real-edit-paint.json",
+      "bytes": 10077,
+      "sha256": "912cd89754e01278e2e1aa1f167aa3fefec78af79729eb073b8c53e84d6e41d7"
+    },
+    {
+      "file": "Linux/field-hosted/after-real-edit.png",
+      "bytes": 99440,
+      "sha256": "5e5371df423d947c49e8aa49f9b9a0b15d98210b5339706da04c4f61cad69513"
+    },
+    {
+      "file": "Linux/field-hosted/build-receipt.json",
+      "bytes": 78655,
+      "sha256": "6a56d446340b1c5a8167cd05b43830b81155e89b7829023521e8a42c485dc2e8"
+    },
+    {
+      "file": "Linux/field-hosted/fresh-context-reopen-capture-first.png",
+      "bytes": 98295,
+      "sha256": "9a9d8ccb2ac556ee78a80a5fef61d8b9292a94bb58f1284f06f869a522544c4a"
+    },
+    {
+      "file": "Linux/field-hosted/fresh-context-reopen-capture.json",
+      "bytes": 3224,
+      "sha256": "36c2cc095e4b836505747d6eda5e31f0d5fe1ac64593ad525e888963039a4cc1"
+    },
+    {
+      "file": "Linux/field-hosted/fresh-context-reopen-paint.json",
+      "bytes": 10065,
+      "sha256": "65bcf783434fa9026328ff7053a1fa25d8dc3ec9c25261848192ed36827625ff"
+    },
+    {
+      "file": "Linux/field-hosted/fresh-context-reopen.png",
+      "bytes": 99012,
+      "sha256": "e6f926818bd2a8d98e4c8fa19100c9a5a3773603b2df4609548ec742a927b1ba"
+    },
+    {
+      "file": "Linux/field-hosted/reopened-save-oracle.json",
+      "bytes": 3413,
+      "sha256": "1f2f6705bc6ddcfafec843a1ff56e480b759817dcbb16b9052d42ded121d674f"
+    },
+    {
+      "file": "Linux/field-hosted/reopened-save.docx",
+      "bytes": 14766,
+      "sha256": "7ca5ea3aa336278fbfa95ca5a74f5c68fc4968e0262a734606ce690dce7387ca"
+    },
+    {
+      "file": "Linux/field-hosted/report.json",
+      "bytes": 15593,
+      "sha256": "bce8cb5d59cd2ff6c9372aaf40c270ecf99b951f27bf164494dcf7db05c803da"
+    },
+    {
+      "file": "Linux/field-hosted/source-oracle.json",
+      "bytes": 4668,
+      "sha256": "c9d10469bedf07e2a6645d7631419ffefd2595024859a39b299a83e3fc2a1882"
+    },
+    {
+      "file": "Linux/field-hosted/unchanged-windows-source-capture-first.png",
+      "bytes": 99156,
+      "sha256": "a1823a99efd76c42c7bb5bfee30922c83b519f3ffde94a61f98f976a186d4916"
+    },
+    {
+      "file": "Linux/field-hosted/unchanged-windows-source-capture.json",
+      "bytes": 2868,
+      "sha256": "0d0de1dc8da5808aa2bc4a9524930a40134bb3d1691e42a014d105edc12af790"
+    },
+    {
+      "file": "Linux/field-hosted/unchanged-windows-source-paint.json",
+      "bytes": 10065,
+      "sha256": "65bcf783434fa9026328ff7053a1fa25d8dc3ec9c25261848192ed36827625ff"
+    },
+    {
+      "file": "Linux/field-hosted/unchanged-windows-source.png",
+      "bytes": 99859,
+      "sha256": "531fe44d0431b24ceb70218cad122c17565305644728af6af87c115cb37ce21f"
+    },
+    {
+      "file": "Linux/field-hosted/unmodified-control-capture-first.png",
+      "bytes": 89635,
+      "sha256": "52b374401abaa24b33151b9918410ccaecdea64fe385ba1a210849bddeb6e66c"
+    },
+    {
+      "file": "Linux/field-hosted/unmodified-control-capture.json",
+      "bytes": 4414,
+      "sha256": "e61abf0c024f6b1d361bf63295c860b73cb70cef4d4bc1c079a3675191106ba4"
+    },
+    {
+      "file": "Linux/field-hosted/unmodified-control-paint.json",
+      "bytes": 785,
+      "sha256": "8a792386c35c0b2d93569e1612650e7eaabd78a83fd9693f6ef53be4b0da368f"
+    },
+    {
+      "file": "Linux/field-hosted/unmodified-control.png",
+      "bytes": 90365,
+      "sha256": "4359dbd858e4428cdedba8a8dcba3c9c92e6fb58da3a4949e95b2694cdb90a5f"
+    },
+    {
+      "file": "Linux/field-hosted/windows-source-save-oracle.json",
+      "bytes": 3413,
+      "sha256": "5b6bb36461357389f81d3c2db6070cb3a0e4b4e494fa68be7f5041f2589b8689"
+    },
+    {
+      "file": "Linux/field-hosted/windows-source-save.docx",
+      "bytes": 14764,
+      "sha256": "a231e66eb99d9d026cfee1db29b4946e346cf73a6d5be8f874b2417f0e0cb281"
+    },
+    {
+      "file": "Windows/field-sdk/before-display.json",
+      "bytes": 75797,
+      "sha256": "b21b029956c60102c693a30a0b1c0924067edb47ace85a218874c1b76faa0f10"
+    },
+    {
+      "file": "Windows/field-sdk/reopened-display.json",
+      "bytes": 91097,
+      "sha256": "002cd81741b8add7286cd01286f4cc7ccaf49171bad840768537ebcb16715616"
+    },
+    {
+      "file": "Windows/field-sdk/reopened-oracle.json",
+      "bytes": 3552,
+      "sha256": "6cd33d4e23932901722de25e6569599f3f821bc70a067db4ba703bbb9a1e70b5"
+    },
+    {
+      "file": "Windows/field-sdk/reopened.docx",
+      "bytes": 14796,
+      "sha256": "df26668b85f8740c4e75af88452012bbd1f04b49d2db37d84eb55703d7d8edc3"
+    },
+    {
+      "file": "Windows/field-sdk/report.json",
+      "bytes": 56071,
+      "sha256": "140ec5219f9ac7bc4dba2d4422edc795b4bd09ab0bdba622cf41054a31eae107"
+    },
+    {
+      "file": "Windows/field-sdk/saved-oracle.json",
+      "bytes": 3552,
+      "sha256": "2b6c062caa1eb221868f78a6ca5985c09e17a0ab934db7612e718d6d275c421c"
+    },
+    {
+      "file": "Windows/field-sdk/saved.docx",
+      "bytes": 14795,
+      "sha256": "32a846d6a3fe9e74ba03ad28b99de54a5d9c1582c97668fbc216143dfa4d469f"
+    },
+    {
+      "file": "Windows/field-sdk/source-oracle.json",
+      "bytes": 4833,
+      "sha256": "73608ffb0d269098da747407866b79969f0a22965a5d7f819e33f76b71e19639"
+    },
+    {
+      "file": "Windows/field-normal/after-edit-save-oracle.json",
+      "bytes": 3552,
+      "sha256": "e6eb3ab6d76eb155839f6997a82bddbcafdd21fce8733b44267b7d0384644f23"
+    },
+    {
+      "file": "Windows/field-normal/after-edit-save.docx",
+      "bytes": 14766,
+      "sha256": "52164fae6de2488df2df259045e0c2d4c2423931aaf7803b5fd91b983cb9a0f4"
+    },
+    {
+      "file": "Windows/field-normal/after-real-edit-capture-first.png",
+      "bytes": 107198,
+      "sha256": "5eb5a2f1b28f787828410971e71b932129cda3f06c2bab8836aab40e16295f15"
+    },
+    {
+      "file": "Windows/field-normal/after-real-edit-capture.json",
+      "bytes": 4748,
+      "sha256": "78699bd281519443f71b317c06bea2ca3b8f457152f67ce573b9bc3e7c2b0646"
+    },
+    {
+      "file": "Windows/field-normal/after-real-edit-paint.json",
+      "bytes": 10061,
+      "sha256": "261dd7092fb41e5cd6c035f53e4558bf8b5486c3b3c947485c6e949a72a60c72"
+    },
+    {
+      "file": "Windows/field-normal/after-real-edit.png",
+      "bytes": 110559,
+      "sha256": "8db20d2449a125e61b0f44bb55910255045600510770e7749861730f2f60f151"
+    },
+    {
+      "file": "Windows/field-normal/build-receipt.json",
+      "bytes": 78647,
+      "sha256": "7ef65fbcdfd399bb9d7e20eceed55497205836020a758fc5bd9e7456488cc080"
+    },
+    {
+      "file": "Windows/field-normal/fresh-context-reopen-capture-first.png",
+      "bytes": 109337,
+      "sha256": "0df3fdd780e4c8d777b8ce2f1cc420212f7824cacf21f9d603377d5810ad9934"
+    },
+    {
+      "file": "Windows/field-normal/fresh-context-reopen-capture.json",
+      "bytes": 2160,
+      "sha256": "181a91d739b957fe70ea3b3154cc9aafdcd719a2d85586afc5cc67b79f7cd934"
+    },
+    {
+      "file": "Windows/field-normal/fresh-context-reopen-paint.json",
+      "bytes": 10049,
+      "sha256": "c115ebc1e44a5445b163111cbd4254023895f4519b545f1bd5eb7dc4015be034"
+    },
+    {
+      "file": "Windows/field-normal/fresh-context-reopen.png",
+      "bytes": 110246,
+      "sha256": "600cf527ca8634dbe34ca92c1c1bf46e7bf43d5b6b3c889ff3a1655aecbc2bd6"
+    },
+    {
+      "file": "Windows/field-normal/reopened-save-oracle.json",
+      "bytes": 3552,
+      "sha256": "65041e4c4a3a7d2f17f6d802d0a31c0ccf06fbcb7d51155cf81e39d3dc44621a"
+    },
+    {
+      "file": "Windows/field-normal/reopened-save.docx",
+      "bytes": 14765,
+      "sha256": "f1d0b19907154264abab64b91294aa84cc4683dd461c6d5526bae9a01f6b2017"
+    },
+    {
+      "file": "Windows/field-normal/report.json",
+      "bytes": 15586,
+      "sha256": "1d44f85bbf1efaec24192475af775031201ddf58a35965062e620f9a5c8dbae0"
+    },
+    {
+      "file": "Windows/field-normal/source-oracle.json",
+      "bytes": 4833,
+      "sha256": "73608ffb0d269098da747407866b79969f0a22965a5d7f819e33f76b71e19639"
+    },
+    {
+      "file": "Windows/field-normal/unchanged-windows-source-capture-first.png",
+      "bytes": 110077,
+      "sha256": "e262f9ef384b524d273284779d04427039e2849692bd5b0c4edef71b3af20211"
+    },
+    {
+      "file": "Windows/field-normal/unchanged-windows-source-capture.json",
+      "bytes": 2514,
+      "sha256": "9aae89ba0ed2a529f2271977c1ee6bf2fd68b485a6c90773e8873d5362ec3f55"
+    },
+    {
+      "file": "Windows/field-normal/unchanged-windows-source-paint.json",
+      "bytes": 10049,
+      "sha256": "c115ebc1e44a5445b163111cbd4254023895f4519b545f1bd5eb7dc4015be034"
+    },
+    {
+      "file": "Windows/field-normal/unchanged-windows-source.png",
+      "bytes": 111312,
+      "sha256": "8627c8b6cde260e9624335388c33d8f428db694707155833bcde26ab825738ab"
+    },
+    {
+      "file": "Windows/field-normal/unmodified-control-capture-first.png",
+      "bytes": 99968,
+      "sha256": "060b529cafaf58548793b57ad9e95c062105cd016ee4497e140e0dd03067b239"
+    },
+    {
+      "file": "Windows/field-normal/unmodified-control-capture.json",
+      "bytes": 2112,
+      "sha256": "a22648ff590c1e265e3556e56623295b24b3638110fdd1409936a11375240647"
+    },
+    {
+      "file": "Windows/field-normal/unmodified-control-paint.json",
+      "bytes": 785,
+      "sha256": "b8bef591b67de3402ba6b1e3f4d38917bc3d502725848cbf192eefaf39222f19"
+    },
+    {
+      "file": "Windows/field-normal/unmodified-control.png",
+      "bytes": 101371,
+      "sha256": "cf6e61e348dcc87d3416f38132ca2f0f2dabc112f42e4eea6f0a818d0f40b742"
+    },
+    {
+      "file": "Windows/field-normal/windows-source-save-oracle.json",
+      "bytes": 3552,
+      "sha256": "190681a616f55e7c9c1089a550c2c93e0689fbb39dfbed34f821d2c4c86d5490"
+    },
+    {
+      "file": "Windows/field-normal/windows-source-save.docx",
+      "bytes": 14762,
+      "sha256": "38278b20b16f5aa1a24b4908e946937441395a24cefc223e94bc81bbde750a7b"
+    },
+    {
+      "file": "Windows/field-hosted/after-edit-save-oracle.json",
+      "bytes": 3552,
+      "sha256": "41d2660e962785ae50ccd191c672682f2671d5b004217ad713d0bd78c89cfc18"
+    },
+    {
+      "file": "Windows/field-hosted/after-edit-save.docx",
+      "bytes": 14766,
+      "sha256": "629351213bef0d24c0dd49a00b2da8d04189920f42ceefaa83c94bef791d0a52"
+    },
+    {
+      "file": "Windows/field-hosted/after-real-edit-capture-first.png",
+      "bytes": 107198,
+      "sha256": "8f27f0cf6d0846e32f955d16538d8af9dbc0e01f64941f618c8e712e08c8ae64"
+    },
+    {
+      "file": "Windows/field-hosted/after-real-edit-capture.json",
+      "bytes": 2929,
+      "sha256": "2661ed9b24ec4aff6c7a611f6b8a757c38a5339107dec7fe429711ba7e545824"
+    },
+    {
+      "file": "Windows/field-hosted/after-real-edit-paint.json",
+      "bytes": 10061,
+      "sha256": "95ea1c5c3d9c62355d24b6b0368f730fdea8fe4ad09c7bace4269c06c19ced79"
+    },
+    {
+      "file": "Windows/field-hosted/after-real-edit.png",
+      "bytes": 110559,
+      "sha256": "9827e63c505bf08836be268d5975cd0d476aaf5be0293b8e01c369a6e1ed2efe"
+    },
+    {
+      "file": "Windows/field-hosted/build-receipt.json",
+      "bytes": 78655,
+      "sha256": "b4cb1ef8e862d710b6318408dd867c72f22c6642ac2ec3a0391a010f2ad20c82"
+    },
+    {
+      "file": "Windows/field-hosted/fresh-context-reopen-capture-first.png",
+      "bytes": 109016,
+      "sha256": "84e89c2677666dc5070377daf65b422bea31d01594d70ec9a5c17ebde9ad4845"
+    },
+    {
+      "file": "Windows/field-hosted/fresh-context-reopen-capture.json",
+      "bytes": 2514,
+      "sha256": "30baf19650284cb9875b966dbdd4ae75374fba9786ca1aa87bf4738a77b937ce"
+    },
+    {
+      "file": "Windows/field-hosted/fresh-context-reopen-paint.json",
+      "bytes": 10049,
+      "sha256": "c115ebc1e44a5445b163111cbd4254023895f4519b545f1bd5eb7dc4015be034"
+    },
+    {
+      "file": "Windows/field-hosted/fresh-context-reopen.png",
+      "bytes": 110246,
+      "sha256": "600cf527ca8634dbe34ca92c1c1bf46e7bf43d5b6b3c889ff3a1655aecbc2bd6"
+    },
+    {
+      "file": "Windows/field-hosted/reopened-save-oracle.json",
+      "bytes": 3552,
+      "sha256": "2d7f73eb993dd75ade5482437011743d1f4bd30e0e08084ef379a113a2034b1a"
+    },
+    {
+      "file": "Windows/field-hosted/reopened-save.docx",
+      "bytes": 14766,
+      "sha256": "c35bdbc33fcda5d3f76dc281de5d8a140a9052cf2bb097341720ed400363949b"
+    },
+    {
+      "file": "Windows/field-hosted/report.json",
+      "bytes": 15593,
+      "sha256": "f90e3bbe866bb8e9401c1dd01b2d047aa16e323595b4d43c19f6ee7bf1a311d4"
+    },
+    {
+      "file": "Windows/field-hosted/source-oracle.json",
+      "bytes": 4833,
+      "sha256": "73608ffb0d269098da747407866b79969f0a22965a5d7f819e33f76b71e19639"
+    },
+    {
+      "file": "Windows/field-hosted/unchanged-windows-source-capture-first.png",
+      "bytes": 111287,
+      "sha256": "ef603aa7520ae8abffb2b7abeaab597cd663a5949527298692bdeb6ae50b78ae"
+    },
+    {
+      "file": "Windows/field-hosted/unchanged-windows-source-capture.json",
+      "bytes": 1450,
+      "sha256": "319b239834d14e8a56cae977313a55a51c12d7b7017731f109e79b9817b1af0c"
+    },
+    {
+      "file": "Windows/field-hosted/unchanged-windows-source-paint.json",
+      "bytes": 10049,
+      "sha256": "c115ebc1e44a5445b163111cbd4254023895f4519b545f1bd5eb7dc4015be034"
+    },
+    {
+      "file": "Windows/field-hosted/unchanged-windows-source.png",
+      "bytes": 111287,
+      "sha256": "ef603aa7520ae8abffb2b7abeaab597cd663a5949527298692bdeb6ae50b78ae"
+    },
+    {
+      "file": "Windows/field-hosted/unmodified-control-capture-first.png",
+      "bytes": 99968,
+      "sha256": "060b529cafaf58548793b57ad9e95c062105cd016ee4497e140e0dd03067b239"
+    },
+    {
+      "file": "Windows/field-hosted/unmodified-control-capture.json",
+      "bytes": 2112,
+      "sha256": "69839625bf33ae8018c28f946bc4400a41583e0b36089f78642910e24df6ea6c"
+    },
+    {
+      "file": "Windows/field-hosted/unmodified-control-paint.json",
+      "bytes": 785,
+      "sha256": "b8bef591b67de3402ba6b1e3f4d38917bc3d502725848cbf192eefaf39222f19"
+    },
+    {
+      "file": "Windows/field-hosted/unmodified-control.png",
+      "bytes": 101371,
+      "sha256": "cf6e61e348dcc87d3416f38132ca2f0f2dabc112f42e4eea6f0a818d0f40b742"
+    },
+    {
+      "file": "Windows/field-hosted/windows-source-save-oracle.json",
+      "bytes": 3552,
+      "sha256": "0568ae865316c554b988197d6046d001735b0891e48c05a6981fbebe5652e45b"
+    },
+    {
+      "file": "Windows/field-hosted/windows-source-save.docx",
+      "bytes": 14764,
+      "sha256": "7cdaf36909079f79bfe9c807cbf62caa1b13444fadcc35bf2c82f8a86e877e4d"
+    }
+  ]
+}

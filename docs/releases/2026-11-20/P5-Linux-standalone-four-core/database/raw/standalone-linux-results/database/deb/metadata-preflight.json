@@ -1,0 +1,302 @@
+{
+  "purpose": "P5-frozen-candidate",
+  "app": "database",
+  "packageType": "deb",
+  "sourceCommit": "b696ab86bd1c128729a079b68c0082e6df3d36a5",
+  "sourceTree": "e30879fd772871e690847c061ef66e6b81808a05",
+  "version": "2026.48.1",
+  "package": {
+    "path": "/home/runner/work/open-office-studio/open-office-studio/.local/standalone-linux-input/Open Database Studio_2026.48.1_amd64.deb",
+    "canonicalMember": "dist-installers/database/deb/Open Database Studio_2026.48.1_amd64.deb",
+    "sha256": "847f5486dd0ab3241a66b031dc75d8fd23e91ab8a68986cb4d6cd9ae2db6c26d",
+    "bytes": 41412256
+  },
+  "identity": "org.openaec.database-studio",
+  "harnessCommit": "b3d594aaf09a83215bb809bdbcda6305a0af1612",
+  "harnessSha256": "bd967f47ad858256fe654a98ad089a6215b0b877b6e80b4c9c333e7218c93efa",
+  "signatureStatus": "not signature-certified by this QA: detached Linux OpenPGP signing belongs to the publishing job, which is not authorized",
+  "status": "metadata-preflight-only",
+  "checks": [
+    "Package checksum, version, own executable/desktop identity and no Office payload verified"
+  ],
+  "pending": [],
+  "externalRequirements": [
+    "Linux x64, GTK 3, WebKitGTK 4.1 and declared shared OS libraries",
+    "zenity for native message confirmations: declared DEB dependency; external OS helper for AppImage. Foreign-format message confirmation is outside this core scenario"
+  ],
+  "limits": [
+    "Virtual X11/Xvfb, software rendering",
+    "One synthetic core scenario per app; no complete format/conversion or live account certification",
+    "Private conversion runtime presence is inspected where bundled; native format conversion is outside this core scenario",
+    "Where exercised, native file dialogs use the private test desktop's XDG portal and GTK provider; missing-portal behavior is not certified by this core matrix"
+  ],
+  "nativeMessageDependencyObservation": {
+    "zenityCommand": {
+      "status": "not-found",
+      "exitStatus": 1,
+      "error": "Command failed: which zenity"
+    },
+    "zenityPackage": {
+      "status": "observed",
+      "output": "unknown ok not-installed"
+    },
+    "explicitManualTestToolInstallation": false,
+    "installationPolicy": "AppImage precedes DEB; actual DEB dependencies are resolved by apt without manually adding zenity as a test tool",
+    "foreignFormatRfdMessageConfirmationExercised": false,
+    "route": "Own-format Ctrl+S and explicit recommended XLSX Save as; no foreign-original Ctrl+S confirmation test",
+    "zenityDeclaredByDeb": false,
+    "afterNormalDebInstall": {
+      "status": "observed",
+      "output": "/usr/bin/zenity"
+    },
+    "installedThroughDeclaredPackageDependency": true
+  },
+  "cleanHostPackages": [
+    "fuse-overlayfs",
+    "fuse3",
+    "gir1.2-gtk-3.0",
+    "gir1.2-secret-1",
+    "gnome-keyring",
+    "libfuse2",
+    "libfuse3-3",
+    "libgtk-3-0",
+    "libgtk-3-common",
+    "libsecret-1-0",
+    "libsecret-1-dev",
+    "libsecret-common",
+    "libsecret-tools",
+    "libwebkit2gtk-4.1-0",
+    "python3-keyring",
+    "python3-secretstorage",
+    "ubuntu-keyring",
+    "webkit2gtk-driver"
+  ],
+  "declaredDependencies": "zenity, libwebkit2gtk-4.1-0, libgtk-3-0",
+  "afterDependencyInstallNoSuitePackages": [
+    "fuse-overlayfs",
+    "fuse3",
+    "gir1.2-gtk-3.0",
+    "gir1.2-secret-1",
+    "gnome-keyring",
+    "libfuse2",
+    "libfuse3-3",
+    "libgtk-3-0",
+    "libgtk-3-common",
+    "libsecret-1-0",
+    "libsecret-1-dev",
+    "libsecret-common",
+    "libsecret-tools",
+    "libwebkit2gtk-4.0-37",
+    "libwebkit2gtk-4.1-0",
+    "python3-keyring",
+    "python3-secretstorage",
+    "ubuntu-keyring",
+    "webkit2gtk-driver"
+  ],
+  "normalPackageDependencyResolver": true,
+  "payloadExecutableSha256": "a6087e8ea5ce37fefc698328aca9322eebaf0774954bf1daef7232ce074c2b30",
+  "desktopEntry": "[Desktop Entry]\n# Gemaakt door scripts/maak-desktopbestanden.mjs uit src/i18n/locales/*/desktop.json; niet met de hand bewerken.\n# Tauri vult de Handlebars-variabelen in (bundle.linux.deb/rpm.desktopTemplate in tauri.conf.json).\nType=Application\nName=Open Database Studio\nGenericName=Database viewer\nGenericName[nl]=Databaseviewer\nGenericName[de]=Datenbankbetrachter\nGenericName[fr]=Visionneuse de bases de données\nGenericName[es]=Visor de bases de datos\nGenericName[it]=Visualizzatore di database\nGenericName[pt_BR]=Visualizador de banco de dados\nGenericName[zh_CN]=数据库查看器\nComment=Open old MDB and ACCDB databases locally\nComment[nl]=Open oude MDB- en ACCDB-databases lokaal\nComment[de]=Alte MDB- und ACCDB-Datenbanken lokal öffnen\nComment[fr]=Ouvrir localement d’anciennes bases de données MDB et ACCDB\nComment[es]=Abrir localmente bases de datos MDB y ACCDB antiguas\nComment[it]=Apri localmente vecchi database MDB e ACCDB\nComment[pt_BR]=Abra localmente bancos de dados MDB e ACCDB antigos\nComment[zh_CN]=在本地打开旧的 MDB 和 ACCDB 数据库\nKeywords=database;table;query;access;\nKeywords[nl]=database;databank;tabel;query;\nKeywords[de]=Datenbank;Tabelle;Abfrage;Access;\nKeywords[fr]=base de données;table;requête;Access;\nKeywords[es]=base de datos;tabla;consulta;Access;\nKeywords[it]=database;tabella;query;Access;\nKeywords[pt_BR]=banco de dados;tabela;consulta;Access;\nKeywords[zh_CN]=数据库;表;查询;access;database;\nExec=open-database-studio\nStartupWMClass=open-database-studio\nIcon=open-database-studio\nTerminal=false\nCategories=Office;\n",
+  "resourcePaths": [
+    "<payload>/usr/share/applications/Open Database Studio.desktop"
+  ],
+  "databaseFixtureMode": "Normal native driver creates and opens the supported synthetic SQLite; WebDriver is metadata-only",
+  "driver": {
+    "path": "/home/runner/.cargo/bin/tauri-driver",
+    "sha256": "a71b247ca519f3ed02a364cd8692d71d381ffe81279c94c6ed65ec300d217868",
+    "version": "2.1.0"
+  },
+  "nativeMetadata": {
+    "status": "not requested: deliberately unavailable by Database ACL",
+    "apiExecuted": false
+  },
+  "databaseIdentityEvidence": {
+    "sourceConfigPath": "apps/database-studio/src-tauri/tauri.conf.json",
+    "sourceConfigSha256": "2f751b096effd4a1a63b2d4fa2b1d7c2278b557453380b567ea97b517d6b424f",
+    "identifier": "org.openaec.database-studio",
+    "productName": "Open Database Studio",
+    "version": "2026.48.1",
+    "nativeUiVersion": "Version 2026.48.1",
+    "binding": "Pinned source/config and exact package/running ELF; actual own WebKit profile and absence of suite profile checked after native scenario",
+    "publicOpenReady": true
+  },
+  "launches": [
+    {
+      "pid": 12786,
+      "executable": "/usr/bin/open-database-studio",
+      "executableSha256": "a6087e8ea5ce37fefc698328aca9322eebaf0774954bf1daef7232ce074c2b30",
+      "workingDirectory": "/home/runner/work/open-office-studio/open-office-studio",
+      "environment": [
+        "HOME=/home/runner/work/open-office-studio/open-office-studio/.local/standalone-linux-results/database/deb/empty-home",
+        "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "XDG_CACHE_HOME=/home/runner/work/open-office-studio/open-office-studio/.local/standalone-linux-results/database/deb/empty-home/.cache",
+        "XDG_CONFIG_HOME=/home/runner/work/open-office-studio/open-office-studio/.local/standalone-linux-results/database/deb/empty-home/.config",
+        "XDG_CURRENT_DESKTOP=GNOME",
+        "XDG_DATA_HOME=/home/runner/work/open-office-studio/open-office-studio/.local/standalone-linux-results/database/deb/empty-home/.local/share",
+        "XDG_RUNTIME_DIR=/home/runner/work/open-office-studio/open-office-studio/.local/standalone-linux-results/database/deb/empty-home/runtime"
+      ],
+      "mappedResources": [
+        "55a39a2e2000-55a39c92e000 r--p 00000000 08:01 98338                      /usr/bin/open-database-studio",
+        "55a39c92e000-55a39cfd7000 r-xp 0264b000 08:01 98338                      /usr/bin/open-database-studio",
+        "55a39cfd7000-55a39d011000 r--p 02cf3000 08:01 98338                      /usr/bin/open-database-studio",
+        "55a39d011000-55a39d013000 rw-p 02d2c000 08:01 98338                      /usr/bin/open-database-studio",
+        "7f95d36f1000-7f95d36f2000 r--s 00000000 08:01 7741456                    /home/runner/work/open-office-studio/open-office-studio/.local/standalone-linux-results/database/deb/empty-home/runtime/dconf/user"
+      ],
+      "ownedApplicationResources": [
+        {
+          "pid": 12786,
+          "executable": "/usr/bin/open-database-studio"
+        },
+        {
+          "pid": 12804,
+          "executable": "/usr/lib/x86_64-linux-gnu/webkit2gtk-4.1/WebKitNetworkProcess"
+        },
+        {
+          "pid": 12809,
+          "executable": "/usr/lib/x86_64-linux-gnu/webkit2gtk-4.1/WebKitWebProcess"
+        }
+      ],
+      "x11": {
+        "backend": "x11-xtest",
+        "pid": 12786,
+        "display": ":99",
+        "activationPerformed": false,
+        "checks": [
+          {
+            "stage": "foreground postcondition",
+            "at": "2026-11-23T14:06:28.693Z",
+            "process": {
+              "pid": 12786,
+              "startTime": "41498",
+              "executable": "/usr/bin/open-database-studio",
+              "identity": "2049:98338:52992360:1795439672000"
+            },
+            "windowFocus": "4194307",
+            "dom": {
+              "hasFocus": true,
+              "visibilityState": "visible",
+              "hidden": false,
+              "activeElement": {
+                "className": "",
+                "focusVisible": false,
+                "role": null,
+                "label": null,
+                "id": "",
+                "tag": "BODY"
+              }
+            }
+          },
+          {
+            "stage": "before owned native GDK capture metadata-preflight.png",
+            "at": "2026-11-23T14:06:28.755Z",
+            "process": {
+              "pid": 12786,
+              "startTime": "41498",
+              "executable": "/usr/bin/open-database-studio",
+              "identity": "2049:98338:52992360:1795439672000"
+            },
+            "windowFocus": "4194307",
+            "dom": {
+              "hasFocus": true,
+              "visibilityState": "visible",
+              "hidden": false,
+              "activeElement": {
+                "className": "",
+                "focusVisible": false,
+                "role": null,
+                "label": null,
+                "id": "",
+                "tag": "BODY"
+              }
+            }
+          },
+          {
+            "stage": "after owned native GDK capture metadata-preflight.png",
+            "at": "2026-11-23T14:06:28.932Z",
+            "process": {
+              "pid": 12786,
+              "startTime": "41498",
+              "executable": "/usr/bin/open-database-studio",
+              "identity": "2049:98338:52992360:1795439672000"
+            },
+            "windowFocus": "4194307",
+            "dom": {
+              "hasFocus": true,
+              "visibilityState": "visible",
+              "hidden": false,
+              "activeElement": {
+                "className": "",
+                "focusVisible": false,
+                "role": null,
+                "label": null,
+                "id": "",
+                "tag": "BODY"
+              }
+            }
+          }
+        ],
+        "keys": [],
+        "binding": {
+          "pid": 12786,
+          "startTime": "41498",
+          "executable": "/usr/bin/open-database-studio",
+          "identity": "2049:98338:52992360:1795439672000",
+          "sha256": "a6087e8ea5ce37fefc698328aca9322eebaf0774954bf1daef7232ce074c2b30"
+        },
+        "xid": "4194307",
+        "pre": {
+          "windowFocus": "4194307",
+          "dom": {
+            "hasFocus": true,
+            "visibilityState": "visible",
+            "hidden": false,
+            "activeElement": {
+              "className": "",
+              "focusVisible": false,
+              "role": null,
+              "label": null,
+              "id": "",
+              "tag": "BODY"
+            }
+          }
+        },
+        "post": {
+          "stage": "foreground postcondition",
+          "at": "2026-11-23T14:06:28.693Z",
+          "process": {
+            "pid": 12786,
+            "startTime": "41498",
+            "executable": "/usr/bin/open-database-studio",
+            "identity": "2049:98338:52992360:1795439672000"
+          },
+          "windowFocus": "4194307",
+          "dom": {
+            "hasFocus": true,
+            "visibilityState": "visible",
+            "hidden": false,
+            "activeElement": {
+              "className": "",
+              "focusVisible": false,
+              "role": null,
+              "label": null,
+              "id": "",
+              "tag": "BODY"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "nativeCaptures": [
+    {
+      "pid": 12786,
+      "xid": "4194307",
+      "startTime": "41498",
+      "width": 1600,
+      "height": 1000,
+      "sha256": "006a00c3ec5d0f6b6b70617a6a1a8c02eb23012c8d5c68970343fae81b3be993",
+      "backend": "owned X11 window pixels",
+      "name": "metadata-preflight.png"
+    }
+  ],
+  "functionalInputMode": "Normal native binary, readonly AT-SPI, real XTest and credential-bound OS portal; no WebDriver functional mutation"
+}

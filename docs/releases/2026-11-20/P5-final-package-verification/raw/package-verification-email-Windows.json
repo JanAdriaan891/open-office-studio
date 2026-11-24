@@ -1,0 +1,19 @@
+{
+  "platform": "windows",
+  "programma": "open-email-studio",
+  "versie": "2026.48.1",
+  "pakketten": [
+    {
+      "naam": "Open Email Studio_2026.48.1_x64-setup.exe",
+      "bytes": 384570680,
+      "sha256": "057d062b783f5ef2bb86e505b22b8d4b99d9ed268343bda35304596641502703",
+      "controles": [
+        "NSIS-archief leesbaar",
+        "programma en WebView2-loader x64",
+        "WebView2-bootstrapper aanwezig",
+        "installer- en programma-iconen bytegelijk aan goedgekeurde bron"
+      ]
+    }
+  ],
+  "installatie_en_native_bediening": "niet_gecontroleerd"
+}

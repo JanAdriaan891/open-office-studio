@@ -1,0 +1,264 @@
+{
+  "expectedApplication": "dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b",
+  "expectedTree": "5a644e397ecc6af5452a49b6404edf953687d1b2",
+  "actualCheckoutTrees": {
+    "cb2587f48f0f7f7cc198866f420b58573a98522e": "5a644e397ecc6af5452a49b6404edf953687d1b2",
+    "dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b": "5a644e397ecc6af5452a49b6404edf953687d1b2"
+  },
+  "jobs": [
+    {
+      "run": 45143305147,
+      "workflow": "Kantooromgeving controleren en bouwen",
+      "attempt": 1,
+      "job": 137586342524,
+      "name": "desktop (macos-latest)",
+      "conclusion": "success",
+      "rawLogSha256": "8aaf5d9e896e0a85a941ba3d8c98e5bdc64a3bf5dbae19115f630298feaad023",
+      "rawLogBytes": 523051,
+      "checkout": {
+        "commit": "dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b",
+        "excerpt": [
+          "2026-11-23T09:09:34.7282540Z [command]/opt/homebrew/bin/git log -1 --format=%H",
+          "2026-11-23T09:09:34.7299470Z dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b"
+        ],
+        "tree": "5a644e397ecc6af5452a49b6404edf953687d1b2"
+      }
+    },
+    {
+      "run": 45143305147,
+      "workflow": "Kantooromgeving controleren en bouwen",
+      "attempt": 1,
+      "job": 137586342967,
+      "name": "desktop (windows-latest)",
+      "conclusion": "success",
+      "rawLogSha256": "b24d31cd015fdac1b49c6b871c14dd379e2a9bab536867a9f4188705f71ceb90",
+      "rawLogBytes": 520742,
+      "checkout": {
+        "commit": "dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b",
+        "excerpt": [
+          "2026-11-23T09:01:20.2993599Z [command]\"C:\\Program Files\\Git\\bin\\git.exe\" log -1 --format=%H",
+          "2026-11-23T09:01:20.3274206Z dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b"
+        ],
+        "tree": "5a644e397ecc6af5452a49b6404edf953687d1b2"
+      }
+    },
+    {
+      "run": 45143305147,
+      "workflow": "Kantooromgeving controleren en bouwen",
+      "attempt": 1,
+      "job": 137586343061,
+      "name": "desktop (ubuntu-22.04)",
+      "conclusion": "success",
+      "rawLogSha256": "2eb04efd5b4db8ad457187ab602ed0931421a321cd35eaa3033c11e97e669e42",
+      "rawLogBytes": 662512,
+      "checkout": {
+        "commit": "dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b",
+        "excerpt": [
+          "2026-11-23T09:01:15.1578357Z [command]/usr/bin/git log -1 --format=%H",
+          "2026-11-23T09:01:15.1600753Z dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b"
+        ],
+        "tree": "5a644e397ecc6af5452a49b6404edf953687d1b2"
+      }
+    },
+    {
+      "run": 45143305092,
+      "workflow": "Zelfstandige databasebrowser controleren en bouwen",
+      "attempt": 1,
+      "job": 137586342630,
+      "name": "database (ubuntu-22.04)",
+      "conclusion": "success",
+      "rawLogSha256": "80c529af1de7e33db942186c46823ecfa6a00c541b00e0f3f9a0aeee01908e42",
+      "rawLogBytes": 478908,
+      "checkout": {
+        "commit": "cb2587f48f0f7f7cc198866f420b58573a98522e",
+        "excerpt": [
+          "2026-11-23T09:01:16.8976366Z [command]/usr/bin/git log -1 --format=%H",
+          "2026-11-23T09:01:16.9006933Z cb2587f48f0f7f7cc198866f420b58573a98522e"
+        ],
+        "tree": "5a644e397ecc6af5452a49b6404edf953687d1b2"
+      }
+    },
+    {
+      "run": 45143305092,
+      "workflow": "Zelfstandige databasebrowser controleren en bouwen",
+      "attempt": 1,
+      "job": 137586342976,
+      "name": "database (macos-latest)",
+      "conclusion": "success",
+      "rawLogSha256": "ddd2644ac2eff9475537f32477105bdc99044919549cab97e1a501f4a1c7683e",
+      "rawLogBytes": 338460,
+      "checkout": {
+        "commit": "cb2587f48f0f7f7cc198866f420b58573a98522e",
+        "excerpt": [
+          "2026-11-23T09:02:54.5124420Z [command]/opt/homebrew/bin/git log -1 --format=%H",
+          "2026-11-23T09:02:54.5179990Z cb2587f48f0f7f7cc198866f420b58573a98522e"
+        ],
+        "tree": "5a644e397ecc6af5452a49b6404edf953687d1b2"
+      }
+    },
+    {
+      "run": 45143305092,
+      "workflow": "Zelfstandige databasebrowser controleren en bouwen",
+      "attempt": 1,
+      "job": 137586343044,
+      "name": "database (windows-latest)",
+      "conclusion": "success",
+      "rawLogSha256": "88c7cc8b588d022b3ccc0bef212056b2d90e3a7904729a53f031853e69ee8c86",
+      "rawLogBytes": 381318,
+      "checkout": {
+        "commit": "cb2587f48f0f7f7cc198866f420b58573a98522e",
+        "excerpt": [
+          "2026-11-23T09:01:15.7749181Z [command]\"C:\\Program Files\\Git\\bin\\git.exe\" log -1 --format=%H",
+          "2026-11-23T09:01:15.8016875Z cb2587f48f0f7f7cc198866f420b58573a98522e"
+        ],
+        "tree": "5a644e397ecc6af5452a49b6404edf953687d1b2"
+      }
+    },
+    {
+      "run": 45143305194,
+      "workflow": "Writer format round trips",
+      "attempt": 1,
+      "job": 137586342995,
+      "name": "writer",
+      "conclusion": "success",
+      "rawLogSha256": "b2b9deeaa4c00872ef9b522088951e604cf3c5102a7c992a1ea1712b5747a9f6",
+      "rawLogBytes": 64069,
+      "checkout": {
+        "commit": "cb2587f48f0f7f7cc198866f420b58573a98522e",
+        "excerpt": [
+          "2026-11-23T09:01:13.8286192Z [command]/usr/bin/git log -1 --format=%H",
+          "2026-11-23T09:01:13.8297999Z cb2587f48f0f7f7cc198866f420b58573a98522e"
+        ],
+        "tree": "5a644e397ecc6af5452a49b6404edf953687d1b2"
+      }
+    },
+    {
+      "run": 45143305098,
+      "workflow": "Zelfstandig kantoorvoorbeeld controleren",
+      "attempt": 1,
+      "job": 137586342104,
+      "name": "voorbeeld",
+      "conclusion": "success",
+      "rawLogSha256": "b9cb58a524fb883b90b9fb128540c3338d6ea3cc93078406c8da2d005f65f3c6",
+      "rawLogBytes": 95538,
+      "checkout": {
+        "commit": "cb2587f48f0f7f7cc198866f420b58573a98522e",
+        "excerpt": [
+          "2026-11-23T09:01:13.6503251Z [command]/usr/bin/git log -1 --format=%H",
+          "2026-11-23T09:01:13.6525345Z cb2587f48f0f7f7cc198866f420b58573a98522e"
+        ],
+        "tree": "5a644e397ecc6af5452a49b6404edf953687d1b2"
+      }
+    },
+    {
+      "run": 45143305168,
+      "workflow": "Private runtime macro fixture control",
+      "attempt": 1,
+      "job": 137586342785,
+      "name": "macro-fixture",
+      "conclusion": "success",
+      "rawLogSha256": "4f8f0cddfc4edaabd8df7e9f9e6c82a32eff6345eab1b3ec9e3939cc5c359367",
+      "rawLogBytes": 34124,
+      "checkout": {
+        "commit": "cb2587f48f0f7f7cc198866f420b58573a98522e",
+        "excerpt": [
+          "2026-11-23T09:01:19.5704865Z [command]\"C:\\Program Files\\Git\\bin\\git.exe\" log -1 --format=%H",
+          "2026-11-23T09:01:19.6200095Z cb2587f48f0f7f7cc198866f420b58573a98522e"
+        ],
+        "tree": "5a644e397ecc6af5452a49b6404edf953687d1b2"
+      }
+    },
+    {
+      "run": 45143305144,
+      "workflow": "Rekenbladmatrix onafhankelijk controleren",
+      "attempt": 1,
+      "job": 137586343867,
+      "name": "matrix",
+      "conclusion": "success",
+      "rawLogSha256": "a3c3d181d25bf8b7d04577c8c04fe918f7d26ea99762615970aeb174cb275b8d",
+      "rawLogBytes": 68967,
+      "checkout": {
+        "commit": "cb2587f48f0f7f7cc198866f420b58573a98522e",
+        "excerpt": [
+          "2026-11-23T09:01:14.9190339Z [command]/usr/bin/git log -1 --format=%H",
+          "2026-11-23T09:01:14.9218121Z cb2587f48f0f7f7cc198866f420b58573a98522e"
+        ],
+        "tree": "5a644e397ecc6af5452a49b6404edf953687d1b2"
+      }
+    },
+    {
+      "run": 45143305293,
+      "workflow": "Preserve presentation ODF data",
+      "attempt": 1,
+      "job": 137586342969,
+      "name": "presentation (Linux)",
+      "conclusion": "success",
+      "rawLogSha256": "fd4ea1f5e4b940361e1c4bf1996a026346d3effa2b3f9e355648d1e9f8406a0f",
+      "rawLogBytes": 223313,
+      "checkout": {
+        "commit": "dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b",
+        "excerpt": [
+          "2026-11-23T09:01:14.2378918Z [command]/usr/bin/git log -1 --format=%H",
+          "2026-11-23T09:01:14.2402149Z dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b"
+        ],
+        "tree": "5a644e397ecc6af5452a49b6404edf953687d1b2"
+      }
+    },
+    {
+      "run": 45143305293,
+      "workflow": "Preserve presentation ODF data",
+      "attempt": 1,
+      "job": 137586343354,
+      "name": "presentation (Windows)",
+      "conclusion": "success",
+      "rawLogSha256": "758989103bbaf61bcaa3fac191ea058d6b4ad6965c3916c88eb752deddd6de4c",
+      "rawLogBytes": 166694,
+      "checkout": {
+        "commit": "dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b",
+        "excerpt": [
+          "2026-11-23T09:01:26.9928506Z [command]\"C:\\Program Files\\Git\\bin\\git.exe\" log -1 --format=%H",
+          "2026-11-23T09:01:27.0161656Z dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b"
+        ],
+        "tree": "5a644e397ecc6af5452a49b6404edf953687d1b2"
+      }
+    },
+    {
+      "run": 45143305293,
+      "workflow": "Preserve presentation ODF data",
+      "attempt": 1,
+      "job": 137586343361,
+      "name": "presentation (macOS)",
+      "conclusion": "success",
+      "rawLogSha256": "7f3cbb0ff043c4296e1f68fa17308d83e73ea1cb98289770166c48e05c83fe39",
+      "rawLogBytes": 169451,
+      "checkout": {
+        "commit": "dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b",
+        "excerpt": [
+          "2026-11-23T09:36:31.8348910Z [command]/opt/homebrew/bin/git log -1 --format=%H",
+          "2026-11-23T09:36:31.8488370Z dc3f8d5d6e8fdffaaec82caa4ab93b579e075e6b"
+        ],
+        "tree": "5a644e397ecc6af5452a49b6404edf953687d1b2"
+      }
+    },
+    {
+      "run": 45143304964,
+      "workflow": "Documentmatrix op de productiekern controleren",
+      "attempt": 1,
+      "job": 137586342108,
+      "name": "matrix",
+      "conclusion": "success",
+      "rawLogSha256": "e7ddcd36a7ad5ce36a4750d8b1df21f1c29c97c91f7bfe5f0cf36511d6e12ea7",
+      "rawLogBytes": 27350,
+      "checkout": {
+        "commit": "cb2587f48f0f7f7cc198866f420b58573a98522e",
+        "excerpt": [
+          "2026-11-23T09:01:14.9261227Z [command]/usr/bin/git log -1 --format=%H",
+          "2026-11-23T09:01:14.9288026Z cb2587f48f0f7f7cc198866f420b58573a98522e"
+        ],
+        "tree": "5a644e397ecc6af5452a49b6404edf953687d1b2"
+      }
+    }
+  ],
+  "allExactTreeMatches": true,
+  "scope": "Completed project CI; PR merge checkout witnesses are retained as actual commits, never relabelled as head source. Native standalone/signing acceptance remains separate."
+}

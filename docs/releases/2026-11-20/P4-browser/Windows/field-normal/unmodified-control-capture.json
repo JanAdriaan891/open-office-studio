@@ -1,0 +1,58 @@
+{
+  "status": "stable-original-PNG-captured",
+  "doubleAnimationFramesPerSample": true,
+  "requiredConsecutive": 3,
+  "requiredStableMs": 200,
+  "samples": [
+    {
+      "at": "2026-11-23T12:18:29.536Z",
+      "pngSha256": "060b529cafaf58548793b57ad9e95c062105cd016ee4497e140e0dd03067b239",
+      "completePaintUnchangedDuringCapture": true,
+      "consecutive": 1,
+      "stableForMs": 0,
+      "paintSignature": "[\"worker0\",1,1,[1]]"
+    },
+    {
+      "at": "2026-11-23T12:18:29.701Z",
+      "pngSha256": "1d3be564fe1eb02d9561b96322b5bb3a7973846748cea0c1d87e0d573069ffd1",
+      "completePaintUnchangedDuringCapture": true,
+      "consecutive": 1,
+      "stableForMs": 0,
+      "paintSignature": "[\"worker0\",1,1,[1]]"
+    },
+    {
+      "at": "2026-11-23T12:18:29.876Z",
+      "pngSha256": "1d3be564fe1eb02d9561b96322b5bb3a7973846748cea0c1d87e0d573069ffd1",
+      "completePaintUnchangedDuringCapture": true,
+      "consecutive": 2,
+      "stableForMs": 175,
+      "paintSignature": "[\"worker0\",1,1,[1]]"
+    },
+    {
+      "at": "2026-11-23T12:18:30.052Z",
+      "pngSha256": "cf6e61e348dcc87d3416f38132ca2f0f2dabc112f42e4eea6f0a818d0f40b742",
+      "completePaintUnchangedDuringCapture": true,
+      "consecutive": 1,
+      "stableForMs": 0,
+      "paintSignature": "[\"worker0\",1,1,[1]]"
+    },
+    {
+      "at": "2026-11-23T12:18:30.218Z",
+      "pngSha256": "cf6e61e348dcc87d3416f38132ca2f0f2dabc112f42e4eea6f0a818d0f40b742",
+      "completePaintUnchangedDuringCapture": true,
+      "consecutive": 2,
+      "stableForMs": 166,
+      "paintSignature": "[\"worker0\",1,1,[1]]"
+    },
+    {
+      "at": "2026-11-23T12:18:30.388Z",
+      "pngSha256": "cf6e61e348dcc87d3416f38132ca2f0f2dabc112f42e4eea6f0a818d0f40b742",
+      "completePaintUnchangedDuringCapture": true,
+      "consecutive": 3,
+      "stableForMs": 336,
+      "paintSignature": "[\"worker0\",1,1,[1]]"
+    }
+  ],
+  "acceptedPngSha256": "cf6e61e348dcc87d3416f38132ca2f0f2dabc112f42e4eea6f0a818d0f40b742",
+  "markerReview": "Review the original PNG; worker glyph records and pixel stability alone do not establish visible marker text."
+}

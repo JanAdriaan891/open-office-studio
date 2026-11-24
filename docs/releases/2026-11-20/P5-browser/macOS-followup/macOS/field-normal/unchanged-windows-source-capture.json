@@ -1,0 +1,51 @@
+{
+  "status": "stable-original-PNG-captured",
+  "doubleAnimationFramesPerSample": true,
+  "extraInterSampleDelayMs": 0,
+  "requiredConsecutive": 3,
+  "requiredStableMs": 200,
+  "samples": [
+    {
+      "at": "2026-11-23T13:26:41.052Z",
+      "pngSha256": "00172bc447d6640c4a5c3a9a2e90aba422975e9d394f57a9ff7b140f209e0096",
+      "completePaintUnchangedDuringCapture": true,
+      "consecutive": 1,
+      "stableForMs": 0,
+      "paintSignature": "[\"worker0\",1,1,[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26]]"
+    },
+    {
+      "at": "2026-11-23T13:26:41.156Z",
+      "pngSha256": "9991760dea5b0ce5d0014d1695600a80aa2f8ff549fcae64d4ba12edd4bc512a",
+      "completePaintUnchangedDuringCapture": true,
+      "consecutive": 1,
+      "stableForMs": 0,
+      "paintSignature": "[\"worker0\",1,1,[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26]]"
+    },
+    {
+      "at": "2026-11-23T13:26:41.236Z",
+      "pngSha256": "9991760dea5b0ce5d0014d1695600a80aa2f8ff549fcae64d4ba12edd4bc512a",
+      "completePaintUnchangedDuringCapture": true,
+      "consecutive": 2,
+      "stableForMs": 80,
+      "paintSignature": "[\"worker0\",1,1,[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26]]"
+    },
+    {
+      "at": "2026-11-23T13:26:41.349Z",
+      "pngSha256": "9991760dea5b0ce5d0014d1695600a80aa2f8ff549fcae64d4ba12edd4bc512a",
+      "completePaintUnchangedDuringCapture": true,
+      "consecutive": 3,
+      "stableForMs": 193,
+      "paintSignature": "[\"worker0\",1,1,[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26]]"
+    },
+    {
+      "at": "2026-11-23T13:26:41.453Z",
+      "pngSha256": "9991760dea5b0ce5d0014d1695600a80aa2f8ff549fcae64d4ba12edd4bc512a",
+      "completePaintUnchangedDuringCapture": true,
+      "consecutive": 4,
+      "stableForMs": 297,
+      "paintSignature": "[\"worker0\",1,1,[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26]]"
+    }
+  ],
+  "acceptedPngSha256": "9991760dea5b0ce5d0014d1695600a80aa2f8ff549fcae64d4ba12edd4bc512a",
+  "markerReview": "Review the original PNG; worker glyph records and pixel stability alone do not establish visible marker text."
+}

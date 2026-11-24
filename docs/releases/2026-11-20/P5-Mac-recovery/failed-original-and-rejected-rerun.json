@@ -1,0 +1,17 @@
+{
+  "originalRun": 45177730188,
+  "originalMacJob": 137703365843,
+  "attempt": 1,
+  "result": "failure in DMG create after notarization Accepted",
+  "originalRawLogSha256": "66d2dde648bab898c30e02f565ff6d6e1a0002244c8a048fb7818244b92cc7fc",
+  "exactError": "hdiutil: create failed - Resource busy",
+  "acceptedAppNotarizationBeforeFailure": "2026-11-23T14:04:03Z",
+  "failedDMGCreate": "2026-11-23T14:04:34Z",
+  "rootCauseOfEBUSYProven": false,
+  "selectedJobRerunAttemptedUTC": "2026-11-23T14:13:52Z",
+  "selectedJobRerunHTTP": 403,
+  "selectedJobRerunMessage": "The workflow run containing this job is already running",
+  "selectedRerunCreatedNewAttempt": false,
+  "replacement": "One separate Mac-only build, run45195055147; never also retry the original Mac job",
+  "oldMacNativeOrPackageAcceptance": false
+}
