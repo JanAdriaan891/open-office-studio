@@ -62,3 +62,16 @@ describe("instellingen", () => {
       .toEqual({ gemiddelde: true, aantal: true, som: true, minimum: false, maximum: true });
   });
 });
+
+describe("rekenblad: standaardraster (#371)", () => {
+  it("is standaard onbeperkt met een marge van 5 rijen en 3 kolommen", () => {
+    expect(normaliseerInstellingen({}).rekenblad).toEqual({ raster: "onbeperkt", rastermarge: { rijen: 5, kolommen: 3 } });
+  });
+  it("herstelt ongeldige waarden en voegt een gedeeltelijke wijziging samen", () => {
+    expect(
+      normaliseerInstellingen({ rekenblad: { raster: "eindeloos", rastermarge: { rijen: -2, kolommen: 400 } } }).rekenblad,
+    ).toEqual({ raster: "onbeperkt", rastermarge: { rijen: 0, kolommen: 50 } });
+    const begrensd = pasToe(normaliseerInstellingen({}), { rekenblad: { raster: "begrensd" } });
+    expect(begrensd.rekenblad).toEqual({ raster: "begrensd", rastermarge: { rijen: 5, kolommen: 3 } });
+  });
+});

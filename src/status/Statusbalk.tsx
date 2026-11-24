@@ -9,6 +9,7 @@ import { getal, schuifNaarZoom, zoomNaarSchuif } from "./berekening";
 import { focusbare, houdtPijltjes, volgendeIndex } from "../openaec-lint/focus";
 import { TekstStatusExtra, TekstWeergaveKnoppen, useStatusbalkMenu } from "../tekst/info/StatusbalkItems";
 import { PresentatieWeergaveKnoppen } from "../presentatie/WeergaveKnoppen";
+import { RasterStatusKnop } from "../rekenblad/RasterWeergaveUi";
 import "./statusbalk.css";
 
 export interface StatusbalkProps {
@@ -235,6 +236,7 @@ export function Statusbalk({
       <span className="office-statusrechts">
         {soort === "docx" && document?.gereed && <TekstWeergaveKnoppen />}
         {soort === "pptx" && document?.gereed && <PresentatieWeergaveKnoppen />}
+        {soort === "xlsx" && document?.gereed && <RasterStatusKnop />}
         {document && document.zoom !== null && statusbalk.zoom && (
           <Zoomschuif zoom={document.zoom} />
         )}

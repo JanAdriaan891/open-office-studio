@@ -11,6 +11,7 @@ import type { XlsxCellValue } from "@betteroffice/xlsx";
 import { bewaarCelnotitieAnkers } from "../rekenblad/celnotitieAnkers";
 import { Pakket } from "../grafieken/pakket";
 import { bewaarTekenAnkers } from "../rekenblad/tekenAnkers";
+import { bewaarRasterKeuze } from "../rekenblad/rasterWeergave";
 import {
   attr,
   attrTekst,
@@ -652,5 +653,6 @@ export function werkboekBytes(api: { save(): Uint8Array; handle: object & { shee
   } catch {
     // Liever opslaan zonder bijgewerkt filter dan niet opslaan.
   }
-  return bewaarTekenAnkers(api.handle, bewaarCelnotitieAnkers(api.handle, gefilterd));
+  // De weergavekeuze van het begrensde raster (#371) reist mee als documenteigenschap.
+  return bewaarRasterKeuze(api.handle, bewaarTekenAnkers(api.handle, bewaarCelnotitieAnkers(api.handle, gefilterd)));
 }

@@ -127,7 +127,16 @@
     "removeWord": "{{word}} entfernen",
     "remove": "Entfernen",
     "keyboard": "Tastatur",
-    "showShortcuts": "Tastenkombinationen anzeigen · F1"
+    "showShortcuts": "Tastenkombinationen anzeigen · F1",
+    "spreadsheet": "Tabellenkalkulation",
+    "gridDefault": "Standardraster",
+    "gridOptions": {
+      "onbeperkt": "Unbegrenztes Raster",
+      "begrensd": "Begrenztes Raster (wächst mit)"
+    },
+    "gridMarginRows": "Rand in Zeilen",
+    "gridMarginColumns": "Rand in Spalten",
+    "gridHelp": "Gilt für Arbeitsmappen ohne eigene Auswahl; pro Blatt umschaltbar über Ansicht oder die Statusleiste. Das begrenzte Raster zeigt den verwendeten Bereich plus den Rand. Die XLSX-Datei ändert sich dadurch nicht."
   },
   "email": {
     "privacy": "Datenschutz",

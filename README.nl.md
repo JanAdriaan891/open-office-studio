@@ -54,6 +54,7 @@ Alle beelden tonen versie 2026-W44.5 in een lokale productiebuild, met de eigen 
 - Bewerkt XLSX rechtstreeks: formules, celopmaak, rijen, kolommen en bladen, sorteren, doorvoeren, AutoSom, vensters fixeren, zoeken en vervangen.
 - Nederlandse invoer zoals `1,5`, `12,5%`, `€ 1.234,50` en `26-10-2026` wordt als getal of datum herkend.
 - CSV/TSV importeren en exporteren.
+- Naar keuze een **begrensd raster** dat met de inhoud meegroeit in plaats van eindeloze lege rijen en kolommen; het XLSX-bestand blijft gelijk. Zie [het ontwerp](docs/ontwerp/begrensd-raster.md).
 
 ### Presentatie (Open Presentatie Studio)
 - Bewerkt PPTX rechtstreeks: dia's, vormen, tekst, uitlijnen, sprekersnotities en een diavoorstelling vanaf de eerste of huidige dia.

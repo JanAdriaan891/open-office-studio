@@ -510,6 +510,47 @@ function Bewerken({ instellingen, wijzig }: { instellingen: Instellingen; wijzig
           {t("editing.miniToolbar")}
         </Vink>
       </Sectie>
+      <Sectie titel={t("editing.spreadsheet")}>
+        <Rij label={t("editing.gridDefault")}>
+          <ThemedSelect
+            label={t("editing.gridDefault")}
+            waarde={instellingen.rekenblad.raster}
+            keuzes={(["onbeperkt", "begrensd"] as const).map((waarde) => ({
+              waarde,
+              label: t(`editing.gridOptions.${waarde}`),
+            }))}
+            onChange={(raster) => wijzig({ rekenblad: { raster } })}
+            stijl={{ width: 260 }}
+          />
+        </Rij>
+        <Rij label={t("editing.gridMarginRows")} id="instelling-rastermarge-rijen">
+          <input
+            id="instelling-rastermarge-rijen"
+            type="number"
+            min={0}
+            max={100}
+            value={instellingen.rekenblad.rastermarge.rijen}
+            onChange={(e) =>
+              wijzig({ rekenblad: { rastermarge: { ...instellingen.rekenblad.rastermarge, rijen: Number(e.target.value) } } })
+            }
+            style={{ width: 80 }}
+          />
+        </Rij>
+        <Rij label={t("editing.gridMarginColumns")} id="instelling-rastermarge-kolommen">
+          <input
+            id="instelling-rastermarge-kolommen"
+            type="number"
+            min={0}
+            max={50}
+            value={instellingen.rekenblad.rastermarge.kolommen}
+            onChange={(e) =>
+              wijzig({ rekenblad: { rastermarge: { ...instellingen.rekenblad.rastermarge, kolommen: Number(e.target.value) } } })
+            }
+            style={{ width: 80 }}
+          />
+        </Rij>
+        <p className="instellingen-uitleg">{t("editing.gridHelp")}</p>
+      </Sectie>
       <Sectie titel={t("editing.spelling")}>
         {SPELLING.map((sleutel) => (
           <Vink

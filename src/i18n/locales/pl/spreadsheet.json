@@ -608,5 +608,28 @@
       "missingPivot": "This pivot table no longer exists.",
       "unsupportedPivot": "This pivot layout cannot be edited safely."
     }
+  },
+  "boundedGrid": {
+    "group": "Grid",
+    "bounded": "Bounded grid",
+    "unbounded": "Unlimited grid",
+    "boundedHint": "Shows only the used area plus a margin; the grid grows with your content. The file itself does not change.",
+    "statusBounded": "Bounded grid: {{rows}} rows × {{columns}} columns. Click for an unlimited grid.",
+    "statusUnbounded": "Unlimited grid. Click for a bounded grid that grows with your content.",
+    "fit": "Fit grid to content",
+    "fitHint": "Shrink the grid to the content plus the margin",
+    "addRow": "Add row",
+    "addColumn": "Add column",
+    "addRowHint": "Add row · Shift+click: {{amount}} rows · drag: more rows",
+    "addColumnHint": "Add column · Shift+click: {{amount}} columns · drag: more columns",
+    "row": "row",
+    "column": "column",
+    "addRows": "+{{amount}} rows",
+    "addColumns": "+{{amount}} columns",
+    "edgeRow": "Edge of the grid: row {{row}} is the last row. Use Add row to extend the grid.",
+    "edgeColumn": "Edge of the grid: column {{column}} is the last column. Use Add column to extend the grid.",
+    "edgeBoth": "Edge of the grid: row {{row}} and column {{column}} are the last.",
+    "grown": "Grid extended to {{rows}} rows and {{columns}} columns.",
+    "fitted": "Grid fitted to content: {{rows}} rows and {{columns}} columns."
   }
 }

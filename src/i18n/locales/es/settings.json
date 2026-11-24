@@ -128,7 +128,16 @@
     "removeWord": "Quitar {{word}}",
     "remove": "Quitar",
     "keyboard": "Teclado",
-    "showShortcuts": "Ver métodos abreviados de teclado · F1"
+    "showShortcuts": "Ver métodos abreviados de teclado · F1",
+    "spreadsheet": "Hoja de cálculo",
+    "gridDefault": "Cuadrícula predeterminada",
+    "gridOptions": {
+      "onbeperkt": "Cuadrícula ilimitada",
+      "begrensd": "Cuadrícula limitada (crece con el contenido)"
+    },
+    "gridMarginRows": "Margen en filas",
+    "gridMarginColumns": "Margen en columnas",
+    "gridHelp": "Se aplica a los libros sin elección propia; se cambia por hoja en Vista o en la barra de estado. La cuadrícula limitada muestra el área usada más el margen. El archivo XLSX no cambia por ello."
   },
   "email": {
     "privacy": "Privacidad",

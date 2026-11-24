@@ -128,7 +128,16 @@
     "removeWord": "Remover {{word}}",
     "remove": "Remover",
     "keyboard": "Teclado",
-    "showShortcuts": "Exibir atalhos de teclado · F1"
+    "showShortcuts": "Exibir atalhos de teclado · F1",
+    "spreadsheet": "Planilha",
+    "gridDefault": "Grade padrão",
+    "gridOptions": {
+      "onbeperkt": "Grade ilimitada",
+      "begrensd": "Grade limitada (cresce com o conteúdo)"
+    },
+    "gridMarginRows": "Margem em linhas",
+    "gridMarginColumns": "Margem em colunas",
+    "gridHelp": "Vale para pastas de trabalho sem escolha própria; altere por planilha em Exibir ou na barra de status. A grade limitada mostra a área usada mais a margem. O arquivo XLSX não muda por causa disso."
   },
   "email": {
     "privacy": "Privacidade",

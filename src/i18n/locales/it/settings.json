@@ -128,7 +128,16 @@
     "removeWord": "Rimuovi {{word}}",
     "remove": "Rimuovi",
     "keyboard": "Tastiera",
-    "showShortcuts": "Visualizza scelte rapide da tastiera · F1"
+    "showShortcuts": "Visualizza scelte rapide da tastiera · F1",
+    "spreadsheet": "Foglio di calcolo",
+    "gridDefault": "Griglia predefinita",
+    "gridOptions": {
+      "onbeperkt": "Griglia illimitata",
+      "begrensd": "Griglia limitata (cresce con il contenuto)"
+    },
+    "gridMarginRows": "Margine in righe",
+    "gridMarginColumns": "Margine in colonne",
+    "gridHelp": "Vale per le cartelle di lavoro senza una scelta propria; si cambia per foglio in Visualizza o nella barra di stato. La griglia limitata mostra l’area utilizzata più il margine. Il file XLSX non cambia per questo."
   },
   "email": {
     "privacy": "Privacy",

@@ -985,5 +985,28 @@
       "missingPivot": "This pivot table no longer exists.",
       "unsupportedPivot": "This pivot layout cannot be edited safely."
     }
+  },
+  "boundedGrid": {
+    "group": "Grade",
+    "bounded": "Grade limitada",
+    "unbounded": "Grade ilimitada",
+    "boundedHint": "Mostra apenas a área usada mais uma margem; a grade cresce com o conteúdo. O arquivo em si não muda.",
+    "statusBounded": "Grade limitada: {{rows}} linhas × {{columns}} colunas. Clique para uma grade ilimitada.",
+    "statusUnbounded": "Grade ilimitada. Clique para uma grade limitada que cresce com o conteúdo.",
+    "fit": "Ajustar a grade ao conteúdo",
+    "fitHint": "Reduzir a grade ao conteúdo mais a margem",
+    "addRow": "Adicionar linha",
+    "addColumn": "Adicionar coluna",
+    "addRowHint": "Adicionar linha · Shift+clique: {{amount}} linhas · arrastar: mais linhas",
+    "addColumnHint": "Adicionar coluna · Shift+clique: {{amount}} colunas · arrastar: mais colunas",
+    "row": "linha",
+    "column": "coluna",
+    "addRows": "+{{amount}} linhas",
+    "addColumns": "+{{amount}} colunas",
+    "edgeRow": "Borda da grade: a linha {{row}} é a última. Use Adicionar linha para ampliar a grade.",
+    "edgeColumn": "Borda da grade: a coluna {{column}} é a última. Use Adicionar coluna para ampliar a grade.",
+    "edgeBoth": "Borda da grade: a linha {{row}} e a coluna {{column}} são as últimas.",
+    "grown": "Grade ampliada para {{rows}} linhas e {{columns}} colunas.",
+    "fitted": "Grade ajustada ao conteúdo: {{rows}} linhas e {{columns}} colunas."
   }
 }
