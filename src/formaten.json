@@ -72,7 +72,7 @@
       "dotx": {
         "naam": "Word-sjabloon",
         "groep": "sjablonen",
-        "route": "runtime",
+        "route": "engine",
         "behoud": "bewerkbaar; opmaak kan afwijken",
         "filter": "MS Word 2007 XML Template"
       },
@@ -233,7 +233,7 @@
       "xltx": {
         "naam": "Excel-sjabloon",
         "groep": "sjablonen",
-        "route": "runtime",
+        "route": "engine",
         "behoud": "bewerkbaar; opmaak kan afwijken",
         "filter": "Calc MS Excel 2007 XML Template"
       },
@@ -390,7 +390,7 @@
       "potx": {
         "naam": "PowerPoint-sjabloon",
         "groep": "sjablonen",
-        "route": "runtime",
+        "route": "engine",
         "behoud": "bewerkbaar; opmaak kan afwijken",
         "filter": "Impress MS PowerPoint 2007 XML Template"
       },

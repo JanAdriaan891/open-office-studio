@@ -17,6 +17,7 @@ import {
   Save,
   Printer,
 } from "lucide-react";
+import type { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import type { Soort } from "./editors";
 import { toonInstellingen, toonSneltoetsen } from "./werkruimte/gebeurtenissen";
@@ -128,6 +129,7 @@ export function StartScherm({
   notitiesActief = false,
   emailActief = false,
   emailOngelezen = null,
+  galerij,
 }: {
   bezig: boolean;
   terug?: () => void;
@@ -151,6 +153,8 @@ export function StartScherm({
   emailActief?: boolean;
   /** Ongelezen in de inbox; null = geen e-mailaccount ingesteld. */
   emailOngelezen?: number | null;
+  /** Sjablonengalerij (#27), onder "Nieuw bestand". */
+  galerij?: ReactNode;
 }) {
   const { t } = useTranslation(["backstage", "common"]);
   return (
@@ -336,6 +340,7 @@ export function StartScherm({
             ))}
           </div>
         </section>
+        {galerij}
         <button
           className="start-notities"
           disabled={bezig}

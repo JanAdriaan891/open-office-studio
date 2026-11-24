@@ -1,0 +1,191 @@
+{
+  "versie": 1,
+  "talen": [
+    "nl",
+    "en"
+  ],
+  "sjablonen": [
+    {
+      "id": "brief",
+      "soort": "docx",
+      "naam": {
+        "nl": "Brief",
+        "en": "Letter"
+      },
+      "omschrijving": {
+        "nl": "Adresvak voor vensterenvelop (NEN 1026)",
+        "en": "Address block for window envelopes"
+      },
+      "miniatuur": true
+    },
+    {
+      "id": "rapport",
+      "soort": "docx",
+      "naam": {
+        "nl": "Rapport",
+        "en": "Report"
+      },
+      "omschrijving": {
+        "nl": "Voorblad, inhoudsopgave en koppen",
+        "en": "Cover, table of contents and headings"
+      },
+      "miniatuur": true
+    },
+    {
+      "id": "memo",
+      "soort": "docx",
+      "naam": {
+        "nl": "Memo",
+        "en": "Memo"
+      },
+      "omschrijving": {
+        "nl": "Kort en zakelijk, met besluitpunt",
+        "en": "Short and businesslike, with decision"
+      },
+      "miniatuur": true
+    },
+    {
+      "id": "factuur",
+      "soort": "docx",
+      "naam": {
+        "nl": "Factuur",
+        "en": "Invoice"
+      },
+      "omschrijving": {
+        "nl": "Klantgegevens, regels en totalen",
+        "en": "Customer details, lines and totals"
+      },
+      "miniatuur": true
+    },
+    {
+      "id": "notulen",
+      "soort": "docx",
+      "naam": {
+        "nl": "Notulen",
+        "en": "Minutes"
+      },
+      "omschrijving": {
+        "nl": "Agenda, besluiten en actiepunten",
+        "en": "Agenda, decisions and action items"
+      },
+      "miniatuur": true
+    },
+    {
+      "id": "cv",
+      "soort": "docx",
+      "naam": {
+        "nl": "Cv",
+        "en": "CV"
+      },
+      "omschrijving": {
+        "nl": "Profiel, ervaring en opleiding",
+        "en": "Profile, experience and education"
+      },
+      "miniatuur": true
+    },
+    {
+      "id": "begroting",
+      "soort": "xlsx",
+      "naam": {
+        "nl": "Begroting",
+        "en": "Budget"
+      },
+      "omschrijving": {
+        "nl": "Begroot, werkelijk en verschil",
+        "en": "Budget, actual and difference"
+      },
+      "miniatuur": true
+    },
+    {
+      "id": "factuur-berekend",
+      "soort": "xlsx",
+      "naam": {
+        "nl": "Factuur met berekeningen",
+        "en": "Invoice with calculations"
+      },
+      "omschrijving": {
+        "nl": "Regels, btw en totaal rekenen mee",
+        "en": "Lines, VAT and total are calculated"
+      },
+      "miniatuur": true
+    },
+    {
+      "id": "urenstaat",
+      "soort": "xlsx",
+      "naam": {
+        "nl": "Urenstaat",
+        "en": "Timesheet"
+      },
+      "omschrijving": {
+        "nl": "Begin, einde en pauze per dag",
+        "en": "Start, end and break per day"
+      },
+      "miniatuur": true
+    },
+    {
+      "id": "planning",
+      "soort": "xlsx",
+      "naam": {
+        "nl": "Planning",
+        "en": "Project plan"
+      },
+      "omschrijving": {
+        "nl": "Taken met eenvoudige Gantt-balken",
+        "en": "Tasks with simple Gantt bars"
+      },
+      "miniatuur": true
+    },
+    {
+      "id": "materiaalstaat",
+      "soort": "xlsx",
+      "naam": {
+        "nl": "Materiaalstaat",
+        "en": "Bill of materials"
+      },
+      "omschrijving": {
+        "nl": "Hoeveelheden, prijzen en totalen",
+        "en": "Quantities, prices and totals"
+      },
+      "miniatuur": true
+    },
+    {
+      "id": "thema-licht",
+      "soort": "pptx",
+      "naam": {
+        "nl": "Thema licht",
+        "en": "Light theme"
+      },
+      "omschrijving": {
+        "nl": "Wit met blauw accent",
+        "en": "White with a blue accent"
+      },
+      "miniatuur": true
+    },
+    {
+      "id": "thema-donker",
+      "soort": "pptx",
+      "naam": {
+        "nl": "Thema donker",
+        "en": "Dark theme"
+      },
+      "omschrijving": {
+        "nl": "Donker met amber accent",
+        "en": "Dark with an amber accent"
+      },
+      "miniatuur": true
+    },
+    {
+      "id": "thema-openaec",
+      "soort": "pptx",
+      "naam": {
+        "nl": "Thema OpenAEC",
+        "en": "OpenAEC theme"
+      },
+      "omschrijving": {
+        "nl": "Deep Forge en Construction Amber",
+        "en": "Deep Forge and Construction Amber"
+      },
+      "miniatuur": true
+    }
+  ]
+}

@@ -487,5 +487,22 @@
     "commentsNone": "Niet afdrukken",
     "commentsAtEnd": "Aan het einde van het blad",
     "commentsDisplayed": "Zichtbare notities zoals op het blad"
+  },
+  "templates": {
+    "title": "Sjablonen",
+    "hint": "Een sjabloon opent als nieuw, naamloos document",
+    "all": "Alle",
+    "mine": "Mijn sjablonen",
+    "mineEmpty": "Nog geen eigen sjablonen. Bewaar het huidige document als sjabloon of voeg een DOTX-, XLTX- of POTX-bestand toe.",
+    "saveCurrent": "Huidig document als sjabloon",
+    "saveCurrentTitle": "Bewaar het open document onder Mijn sjablonen (als {{format}})",
+    "add": "Sjabloon toevoegen…",
+    "nameLabel": "Naam van het sjabloon",
+    "openTitle": "Nieuw document op basis van “{{name}}”",
+    "delete": "“{{name}}” verwijderen",
+    "saved": "Sjabloon “{{name}}” bewaard onder Mijn sjablonen.",
+    "saveFailed": "Sjabloon bewaren mislukt: {{error}}",
+    "openFailed": "Sjabloon openen mislukt: {{error}}",
+    "unsupported": "{{name}} is geen ondersteund sjabloon (DOTX, XLTX, POTX, DOCX, XLSX of PPTX tot 50 MB)."
   }
 }

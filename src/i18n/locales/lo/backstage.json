@@ -484,5 +484,22 @@
     "commentsNone": "Do not print",
     "commentsAtEnd": "At the end of the sheet",
     "commentsDisplayed": "Visible notes as displayed on the sheet"
+  },
+  "templates": {
+    "title": "ແມ່ແບບ",
+    "hint": "ແມ່ແບບຈະເປີດເປັນເອກະສານໃໝ່ທີ່ຍັງບໍ່ມີຊື່",
+    "all": "ທັງໝົດ",
+    "mine": "ແມ່ແບບຂອງຂ້ອຍ",
+    "mineEmpty": "ຍັງບໍ່ມີແມ່ແບບຂອງທ່ານເອງ. ບັນທຶກເອກະສານປັດຈຸບັນເປັນແມ່ແບບ ຫຼື ເພີ່ມໄຟລ໌ DOTX, XLTX ຫຼື POTX.",
+    "saveCurrent": "ເອກະສານປັດຈຸບັນເປັນແມ່ແບບ",
+    "saveCurrentTitle": "ບັນທຶກເອກະສານທີ່ເປີດຢູ່ໄວ້ໃນ ແມ່ແບບຂອງຂ້ອຍ (ເປັນ {{format}})",
+    "add": "ເພີ່ມແມ່ແບບ…",
+    "nameLabel": "ຊື່ແມ່ແບບ",
+    "openTitle": "ເອກະສານໃໝ່ຈາກ “{{name}}”",
+    "delete": "ລຶບ “{{name}}”",
+    "saved": "ບັນທຶກແມ່ແບບ “{{name}}” ໄວ້ໃນ ແມ່ແບບຂອງຂ້ອຍ ແລ້ວ.",
+    "saveFailed": "ການບັນທຶກແມ່ແບບລົ້ມເຫຼວ: {{error}}",
+    "openFailed": "ການເປີດແມ່ແບບລົ້ມເຫຼວ: {{error}}",
+    "unsupported": "{{name}} ບໍ່ແມ່ນແມ່ແບບທີ່ຮອງຮັບ (DOTX, XLTX, POTX, DOCX, XLSX ຫຼື PPTX ສູງສຸດ 50 MB)."
   }
 }

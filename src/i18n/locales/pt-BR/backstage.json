@@ -490,5 +490,22 @@
     "commentsNone": "Do not print",
     "commentsAtEnd": "At the end of the sheet",
     "commentsDisplayed": "Visible notes as displayed on the sheet"
+  },
+  "templates": {
+    "title": "Modelos",
+    "hint": "Um modelo abre como um documento novo, sem título",
+    "all": "Todos",
+    "mine": "Meus modelos",
+    "mineEmpty": "Ainda não há modelos próprios. Salve o documento atual como modelo ou adicione um arquivo DOTX, XLTX ou POTX.",
+    "saveCurrent": "Documento atual como modelo",
+    "saveCurrentTitle": "Salvar o documento aberto em Meus modelos (como {{format}})",
+    "add": "Adicionar modelo…",
+    "nameLabel": "Nome do modelo",
+    "openTitle": "Novo documento com base em “{{name}}”",
+    "delete": "Excluir “{{name}}”",
+    "saved": "Modelo “{{name}}” salvo em Meus modelos.",
+    "saveFailed": "Falha ao salvar o modelo: {{error}}",
+    "openFailed": "Falha ao abrir o modelo: {{error}}",
+    "unsupported": "{{name}} não é um modelo compatível (DOTX, XLTX, POTX, DOCX, XLSX ou PPTX até 50 MB)."
   }
 }

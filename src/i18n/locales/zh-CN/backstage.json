@@ -484,5 +484,22 @@
     "commentsNone": "Do not print",
     "commentsAtEnd": "At the end of the sheet",
     "commentsDisplayed": "Visible notes as displayed on the sheet"
+  },
+  "templates": {
+    "title": "模板",
+    "hint": "模板会作为新的未命名文档打开",
+    "all": "全部",
+    "mine": "我的模板",
+    "mineEmpty": "还没有自己的模板。可将当前文档另存为模板，或添加 DOTX、XLTX 或 POTX 文件。",
+    "saveCurrent": "将当前文档存为模板",
+    "saveCurrentTitle": "将打开的文档保存到“我的模板”（{{format}} 格式）",
+    "add": "添加模板…",
+    "nameLabel": "模板名称",
+    "openTitle": "基于“{{name}}”新建文档",
+    "delete": "删除“{{name}}”",
+    "saved": "模板“{{name}}”已保存到“我的模板”。",
+    "saveFailed": "保存模板失败：{{error}}",
+    "openFailed": "打开模板失败：{{error}}",
+    "unsupported": "{{name}} 不是受支持的模板（DOTX、XLTX、POTX、DOCX、XLSX 或 PPTX，最大 50 MB）。"
   }
 }
