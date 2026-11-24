@@ -2023,5 +2023,106 @@
     "team": "Team",
     "groupEdit": "Select a part to edit its text and formatting. The group size scales all parts together.",
     "unsupported": "This object contains drawing features that cannot be safely edited here. They are preserved when saving."
+  },
+  "autoText": {
+    "buildingBlocks": "Bausteine",
+    "hint": "Namen eingeben und {{key}} drücken, um einen Baustein einzufügen",
+    "general": "Allgemein",
+    "empty": "Noch keine Bausteine",
+    "emptyHelp": "Text markieren und Einfügen › Bausteine › Auswahl als Baustein speichern wählen.",
+    "saveSelection": "Auswahl als Baustein speichern…",
+    "manage": "Bausteine verwalten…",
+    "saveTitle": "Neuer Baustein",
+    "name": "Name",
+    "category": "Kategorie",
+    "replace": "Ersetzen",
+    "saveHint": "Geben Sie später den Namen im Dokument ein und drücken Sie {{key}}, um diesen Text mit Formatierung einzufügen.",
+    "exists": "Ein Baustein mit diesem Namen existiert bereits; Speichern ersetzt ihn.",
+    "skipped": "Bilder, Tabellen und andere Objekte in der Auswahl werden nicht gespeichert, nur formatierter Text.",
+    "insert": "Einfügen",
+    "import": "Importieren…",
+    "export": "Exportieren",
+    "imported": "Importiert: {{number}}",
+    "fileName": "Bausteine",
+    "errors": {
+      "selectText": "Markieren Sie zuerst den Text, den Sie als Baustein speichern möchten.",
+      "import": "Diese Datei enthält keine gültige Liste.",
+      "noMatch": "Kein Baustein mit dem Namen „{{name}}“.",
+      "typeName": "Geben Sie den Namen eines Bausteins ein und drücken Sie dann F3."
+    }
+  },
+  "autoCorrect": {
+    "button": "AutoKorrektur-Optionen",
+    "title": "AutoKorrektur",
+    "tabs": {
+      "replace": "Ersetzen",
+      "exceptions": "Ausnahmen",
+      "options": "Optionen"
+    },
+    "language": "Sprache",
+    "replace": "Ersetzen",
+    "with": "Durch",
+    "add": "Hinzufügen",
+    "reset": "Standardliste dieser Sprache wiederherstellen",
+    "noCapitalAfter": "Keine Großschreibung nach",
+    "noCapitalAfterHint": "Abkürzungen mit Punkt, etwa Abb. oder Tel.",
+    "twoCapitals": "ZWei GRoßbuchstaben erlauben",
+    "twoCapitalsHint": "Wörter, die mit zwei Großbuchstaben bleiben sollen.",
+    "removeItem": "{{item}} entfernen",
+    "enabled": "AutoKorrektur während der Eingabe",
+    "whileTyping": "Während der Eingabe",
+    "options": {
+      "tweeHoofdletters": "ZWei GRoßbuchstaben am Wortanfang korrigieren",
+      "zinsbegin": "Jeden Satz mit einem Großbuchstaben beginnen",
+      "vervangen": "Während der Eingabe ersetzen (Ersetzungstabelle)",
+      "aanhalingstekens": "Typografische Anführungszeichen nach Dokumentsprache",
+      "streepjes": "Bindestriche ersetzen (– und —)",
+      "rangtelwoorden": "Ordnungszahlen hochgestellt (1st, 2nd)",
+      "urls": "Internet- und E-Mail-Adressen erkennen"
+    },
+    "undoHint": "Strg+Z direkt nach einer Korrektur macht sie rückgängig.",
+    "importedHint": "Liste importiert; zum Übernehmen OK wählen.",
+    "fileName": "AutoKorrektur"
+  },
+  "navigator": {
+    "title": "Navigator",
+    "search": "Im Navigator suchen",
+    "headingTools": "Überschriften bearbeiten",
+    "expand": "Erweitern",
+    "collapse": "Reduzieren",
+    "dropAtEnd": "Hier ablegen: ans Ende",
+    "loading": "Wird geladen…",
+    "none": "Keine",
+    "noMatches": "Keine Treffer",
+    "noHeadings": "Keine Überschriften. Weisen Sie Absätzen eine Überschriftenformatvorlage zu, um sie hier zu sehen.",
+    "footnote": "Fußnote {{n}}: {{text}}",
+    "page": "Seite {{n}}",
+    "categories": {
+      "koppen": "Überschriften",
+      "tabellen": "Tabellen",
+      "afbeeldingen": "Bilder",
+      "bladwijzers": "Textmarken",
+      "opmerkingen": "Kommentare",
+      "voetnoten": "Fußnoten",
+      "secties": "Abschnitte",
+      "koppelingen": "Hyperlinks"
+    },
+    "menu": {
+      "chapterUp": "Kapitel nach oben",
+      "chapterDown": "Kapitel nach unten",
+      "promoteChapter": "Kapitel heraufstufen",
+      "demoteChapter": "Kapitel herabstufen",
+      "promoteLevel": "Nur diese Überschrift heraufstufen",
+      "demoteLevel": "Nur diese Überschrift herabstufen",
+      "rename": "Umbenennen",
+      "deleteChapter": "Kapitel löschen",
+      "delete": "Löschen",
+      "removeLink": "Link entfernen"
+    },
+    "errors": {
+      "notFound": "Dieses Element ist nicht mehr im Dokument.",
+      "level": "Überschriften reichen von Ebene 1 bis 9.",
+      "bookmarkExists": "Es gibt bereits eine Textmarke namens {{name}}."
+    }
   }
 }

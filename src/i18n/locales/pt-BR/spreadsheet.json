@@ -991,6 +991,189 @@
       "unsupportedPivot": "This pivot layout cannot be edited safely."
     }
   },
+  "dataTools": {
+    "group": "Ferramentas de dados",
+    "ok": "OK",
+    "range": "Intervalo: {{range}}",
+    "header": "Meus dados contêm cabeçalhos",
+    "selectAll": "Selecionar tudo",
+    "selectNone": "Desmarcar tudo",
+    "messages": {
+      "needRows": "O intervalo não contém linhas de dados.",
+      "needColumns": "Escolha pelo menos uma coluna."
+    },
+    "duplicates": {
+      "button": "Remover duplicatas",
+      "title": "Remover duplicatas",
+      "action": "Ação",
+      "actions": {
+        "verwijderen": "Remover duplicatas",
+        "markerenDubbel": "Realçar valores duplicados",
+        "markerenUniek": "Realçar valores exclusivos",
+        "filteren": "Mostrar só linhas exclusivas (filtro)"
+      },
+      "run": {
+        "verwijderen": "Remover",
+        "markerenDubbel": "Realçar",
+        "markerenUniek": "Realçar",
+        "filteren": "Filtrar"
+      },
+      "columns": "Colunas a comparar",
+      "none": "Nenhuma duplicata encontrada. Linhas exclusivas: {{rows}}.",
+      "result": {
+        "verwijderen_one": "{{number}} duplicata removida; linhas exclusivas restantes: {{rows}}.",
+        "verwijderen_other": "{{number}} duplicatas removidas; linhas exclusivas restantes: {{rows}}.",
+        "verwijderen_many": "{{number}} duplicatas removidas; linhas exclusivas restantes: {{rows}}.",
+        "markerenDubbel_one": "{{number}} linha com valores duplicados realçada (de {{rows}}).",
+        "markerenDubbel_other": "{{number}} linhas com valores duplicados realçadas (de {{rows}}).",
+        "markerenDubbel_many": "{{number}} linhas com valores duplicados realçadas (de {{rows}}).",
+        "markerenUniek_one": "{{number}} linha exclusiva realçada (de {{rows}}).",
+        "markerenUniek_other": "{{number}} linhas exclusivas realçadas (de {{rows}}).",
+        "markerenUniek_many": "{{number}} linhas exclusivas realçadas (de {{rows}}).",
+        "filteren_one": "{{number}} linha duplicada oculta; linhas exclusivas visíveis: {{rows}}. Mostrar linhas a torna visível de novo.",
+        "filteren_other": "{{number}} linhas duplicadas ocultas; linhas exclusivas visíveis: {{rows}}. Mostrar linhas as torna visíveis de novo.",
+        "filteren_many": "{{number}} linhas duplicadas ocultas; linhas exclusivas visíveis: {{rows}}. Mostrar linhas as torna visíveis de novo."
+      }
+    },
+    "apply": "Aplicar",
+    "textToColumns": {
+      "button": "Texto para colunas",
+      "title": "Texto para colunas",
+      "source_one": "Origem: {{range}} ({{rows}} linha)",
+      "source_other": "Origem: {{range}} ({{rows}} linhas)",
+      "source_many": "Origem: {{range}} ({{rows}} linhas)",
+      "kind": "Dividir por",
+      "delimited": "Delimitadores",
+      "fixedWidth": "Largura fixa",
+      "space": "Espaço",
+      "mergeDelimiters": "Considerar delimitadores consecutivos como um só",
+      "breaks": "Quebras de coluna",
+      "breaksHint": "Clique na visualização para inserir ou remover uma quebra de coluna, ou digite as posições dos caracteres.",
+      "breakPositions": "Posições das quebras de coluna",
+      "destination": "Célula de destino",
+      "preview": "Visualização do resultado",
+      "dmy": "DMA",
+      "mdy": "MDA",
+      "ymd": "AMD",
+      "replace": "Substituir",
+      "messages": {
+        "oneColumn": "Selecione células de uma única coluna.",
+        "badDestination": "Informe uma célula de destino válida, por exemplo B1.",
+        "allSkipped": "Todas as colunas são ignoradas.",
+        "overwrite_one": "{{number}} célula preenchida será substituída. Escolha Substituir para continuar.",
+        "overwrite_other": "{{number}} células preenchidas serão substituídas. Escolha Substituir para continuar.",
+        "overwrite_many": "{{number}} células preenchidas serão substituídas. Escolha Substituir para continuar."
+      }
+    },
+    "analysisGroup": "Análise",
+    "goalSeek": {
+      "button": "Atingir meta",
+      "title": "Atingir meta",
+      "formulaCell": "Definir célula",
+      "target": "Para valor",
+      "variableCell": "Alternando célula",
+      "solve": "Resolver",
+      "busy": "Procurando…",
+      "hint": "O cálculo é feito em uma cópia; a planilha só muda ao escolher Aplicar.",
+      "found": "Solução encontrada: {{cell}} = {{value}} (fórmula {{formula}} = {{result}}).",
+      "notFound": "Nenhuma solução exata encontrada. Mais próxima: {{cell}} = {{value}} dá {{result}}.",
+      "messages": {
+        "needFormula": "A célula definida deve conter uma fórmula.",
+        "needValue": "A célula alternada deve conter um número (não fórmula nem texto).",
+        "badFormulaCell": "Informe uma célula válida, por exemplo B5.",
+        "badTarget": "Informe um número como valor da meta.",
+        "badVariableCell": "Informe uma célula alternada válida, por exemplo B1.",
+        "noNumber": "A fórmula não retorna um número; nenhuma solução foi encontrada."
+      }
+    },
+    "statistics": {
+      "button": "Estatística",
+      "title": "Estatística",
+      "run": "Executar",
+      "analysis": "Análise",
+      "analyses": {
+        "beschrijvend": "Estatística descritiva",
+        "correlatie": "Correlação",
+        "regressie": "Regressão linear",
+        "histogram": "Histograma (frequência)",
+        "steekproef": "Amostragem"
+      },
+      "explain": {
+        "beschrijvend": "Média, mediana, moda, desvio padrão, variância, mínimo, máximo, intervalo, soma, contagem, assimetria e curtose por variável.",
+        "correlatie": "Coeficiente de correlação (Pearson) entre cada par de variáveis.",
+        "regressie": "Inclinação, interseção, R² e correlação, com valores previstos e resíduos por observação.",
+        "histogram": "Número de valores por classe e percentual acumulado. Sem intervalo de classes, são escolhidas classes de largura igual.",
+        "steekproef": "Valores aleatórios sem reposição, ou cada n-ésimo valor."
+      },
+      "inputRange": "Intervalo de entrada",
+      "yRange": "Intervalo Y (dependente)",
+      "xRange": "Intervalo X (independente)",
+      "binRange": "Intervalo de classes (limites superiores)",
+      "automatic": "Automático",
+      "sampleSize": "Número de valores",
+      "period": "Cada n-ésimo valor",
+      "groupedBy": "Variáveis por",
+      "columns": "Coluna",
+      "rows": "Linha",
+      "method": "Método",
+      "random": "Aleatório",
+      "periodic": "Periódico",
+      "labelsRow": "Rótulos na primeira linha",
+      "labelsColumn": "Rótulos na primeira coluna",
+      "formulas": "Usar fórmulas (acompanham os dados)",
+      "chart": "Gráfico de dispersão com linha de tendência",
+      "chartHint": "Inserir um gráfico recarrega a pasta de trabalho; as etapas anteriores não poderão mais ser desfeitas.",
+      "output": "Saída",
+      "newSheet": "Nova planilha",
+      "outputCell": "A partir da célula",
+      "sheetName": "Estatística {{number}}",
+      "trendline": "Linha de tendência",
+      "column": "Coluna {{column}}",
+      "row": "Linha {{row}}",
+      "measures": {
+        "mean": "Média",
+        "median": "Mediana",
+        "mode": "Moda",
+        "stdev": "Desvio padrão",
+        "variance": "Variância",
+        "min": "Mínimo",
+        "max": "Máximo",
+        "range": "Intervalo",
+        "sum": "Soma",
+        "count": "Contagem",
+        "skewness": "Assimetria",
+        "kurtosis": "Curtose"
+      },
+      "regression": {
+        "title": "Regressão",
+        "slope": "Inclinação",
+        "intercept": "Interseção",
+        "r2": "R²",
+        "r": "Correlação (r)",
+        "observations": "Observações",
+        "predicted": "Y previsto",
+        "residual": "Resíduo"
+      },
+      "histogram": {
+        "bin": "Classe (até)",
+        "frequency": "Frequência",
+        "cumulative": "% acumulado",
+        "more": "Mais"
+      },
+      "messages": {
+        "badRange": "Informe um intervalo válido, por exemplo A1:B20.",
+        "badDestination": "Informe uma célula de saída válida, por exemplo E1.",
+        "badSize": "Informe um número inteiro positivo.",
+        "noNumbers": "O intervalo não contém números.",
+        "needTwoVariables": "A correlação precisa de pelo menos duas variáveis.",
+        "needX": "Informe um intervalo X.",
+        "oneVariable": "Escolha uma única coluna de dados para esta análise.",
+        "sameLength": "Os intervalos X e Y devem ter o mesmo comprimento.",
+        "noBins": "O intervalo de classes não contém números.",
+        "emptySample": "A amostra está vazia."
+      }
+    }
+  },
   "boundedGrid": {
     "group": "Grade",
     "bounded": "Grade limitada",

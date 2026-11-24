@@ -14,6 +14,7 @@
     "onlyIn": "dans {{modules}}",
     "notIn": "pas dans {{modules}}",
     "footnote": "Sur macOS, utilisez ⌘ au lieu de Ctrl. Appuyez sur Alt ou F10 pour afficher les touches d'accès du ruban.",
-    "unavailable": "pas encore disponible"
+    "unavailable": "pas encore disponible",
+    "excelConventions": "comme dans Excel : Ctrl+Entrée remplit la sélection, Alt+Entrée insère une nouvelle ligne, Retour arrière efface sans boîte de dialogue"
   }
 }

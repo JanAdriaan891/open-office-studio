@@ -13,6 +13,7 @@
     "onlyIn": "in {{modules}}",
     "notIn": "niet in {{modules}}",
     "footnote": "Op macOS gebruik je ⌘ in plaats van Ctrl. Druk op Alt of F10 voor toetstips in het lint.",
-    "unavailable": "nog niet beschikbaar"
+    "unavailable": "nog niet beschikbaar",
+    "excelConventions": "zoals Excel: Ctrl+Enter vult de selectie, Alt+Enter is een nieuwe regel, Backspace wist zonder dialoog"
   }
 }

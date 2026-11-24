@@ -13,6 +13,7 @@
     "onlyIn": "in {{modules}}",
     "notIn": "nicht in {{modules}}",
     "footnote": "Unter macOS verwenden Sie ⌘ statt Ctrl. Drücken Sie Alt oder F10, um die Zugriffstasten im Menüband anzuzeigen.",
-    "unavailable": "noch nicht verfügbar"
+    "unavailable": "noch nicht verfügbar",
+    "excelConventions": "wie in Excel: Strg+Eingabe füllt die Auswahl, Alt+Eingabe ist eine neue Zeile, Rücktaste löscht ohne Dialog"
   }
 }

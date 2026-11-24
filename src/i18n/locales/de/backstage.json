@@ -487,5 +487,22 @@
     "commentsNone": "Do not print",
     "commentsAtEnd": "At the end of the sheet",
     "commentsDisplayed": "Visible notes as displayed on the sheet"
+  },
+  "templates": {
+    "title": "Vorlagen",
+    "hint": "Eine Vorlage öffnet sich als neues, unbenanntes Dokument",
+    "all": "Alle",
+    "mine": "Meine Vorlagen",
+    "mineEmpty": "Noch keine eigenen Vorlagen. Speichern Sie das aktuelle Dokument als Vorlage oder fügen Sie eine DOTX-, XLTX- oder POTX-Datei hinzu.",
+    "saveCurrent": "Aktuelles Dokument als Vorlage",
+    "saveCurrentTitle": "Das geöffnete Dokument unter Meine Vorlagen speichern (als {{format}})",
+    "add": "Vorlage hinzufügen…",
+    "nameLabel": "Name der Vorlage",
+    "openTitle": "Neues Dokument auf Basis von „{{name}}“",
+    "delete": "„{{name}}“ löschen",
+    "saved": "Vorlage „{{name}}“ unter Meine Vorlagen gespeichert.",
+    "saveFailed": "Speichern der Vorlage fehlgeschlagen: {{error}}",
+    "openFailed": "Öffnen der Vorlage fehlgeschlagen: {{error}}",
+    "unsupported": "{{name}} ist keine unterstützte Vorlage (DOTX, XLTX, POTX, DOCX, XLSX oder PPTX bis 50 MB)."
   }
 }

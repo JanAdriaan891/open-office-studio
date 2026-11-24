@@ -1,0 +1,62 @@
+.bouwsteen-voorbeeld {
+  margin: 8px 0;
+  padding: 8px 10px;
+  max-height: 160px;
+  overflow: auto;
+  white-space: pre-wrap;
+  border-inline-start: 3px solid var(--w-rand);
+  color: var(--w-tekst-zacht);
+  font-size: 12px;
+}
+.bouwsteen-beheer {
+  display: grid;
+  grid-template-columns: minmax(160px, 1fr) 2fr;
+  gap: 12px;
+}
+.bouwsteen-beheer select {
+  width: 100%;
+  border: 1px solid var(--w-rand);
+  border-radius: 6px;
+  background: var(--w-bg);
+  color: inherit;
+}
+.autocorrectie-invoer {
+  display: flex;
+  gap: 6px;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+.autocorrectie-tabel {
+  max-height: 240px;
+  overflow: auto;
+  margin-block: 8px;
+  border: 1px solid var(--w-rand);
+  border-radius: 4px;
+}
+.autocorrectie-tabel table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+.autocorrectie-tabel td {
+  padding: 3px 8px;
+  border-bottom: 1px solid var(--w-rand);
+  cursor: pointer;
+}
+.autocorrectie-tabel tr.is-gekozen td {
+  background: rgba(127, 127, 127, 0.2);
+}
+.autocorrectie-lijst {
+  list-style: none;
+  margin: 6px 0 0;
+  padding: 0;
+  max-height: 200px;
+  overflow: auto;
+}
+.autocorrectie-lijst li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  padding: 2px 0;
+}

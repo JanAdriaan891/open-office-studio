@@ -51,6 +51,8 @@ import { DocumentLettertypen } from "./lettertypen/context";
 import { tekstSelectiePlugin } from "./lettertypen/koppeling";
 import { installeerFontCitering } from "./lettertypen/canvasFont";
 import { useTekstSpelling } from "./spelling/tekst/useTekstSpelling";
+import { useRekenbladSpelling } from "./spelling/rekenblad/useRekenbladSpelling";
+import { usePresentatieSpelling } from "./spelling/presentatie/usePresentatieSpelling";
 import { TEKST_PLUGINS } from "./tekst/gedeeld/markering";
 import { useAuteur } from "./auteursprofiel";
 import { useDocumentWeergave } from "./tekst/info/documentWeergave";
@@ -169,9 +171,26 @@ export default function OfficeEditor(props: EditorProps) {
   });
   // Filterpijlen, vulgreep en formulehulp boven het raster (#58, #62, #63).
   const rekenbladLaag = useMemo(maakRekenbladLaag, []);
-  const xlsxPlugins = useMemo(() => [...herladen.plugins, rekenbladLaag.plugin], [herladen.plugins, rekenbladLaag]);
   const herladenRecent = useRef(herladen);
   herladenRecent.current = herladen;
+  // Spellingcontrole in tekstcellen, celeditor en F7 (#21).
+  const rekenbladSpelling = useRekenbladSpelling(
+    props.soort === "xlsx" ? rekenbladApi : null,
+    rekenbladHost,
+    props.soort === "xlsx" && props.zichtbaar !== false,
+    () => (props.soort === "xlsx" ? herladenRecent.current.bytes : null),
+  );
+  // Spellingcontrole op de dia's en in de notities (#21).
+  const presentatieSpelling = usePresentatieSpelling(
+    props.soort === "pptx" ? presentatieApi : null,
+    props.soort === "pptx" && props.zichtbaar !== false,
+    () => (props.soort === "pptx" ? herladenRecent.current.bytes : null),
+  );
+  const pptxPlugins = useMemo(() => [...PRESENTATIE_PLUGINS, presentatieSpelling.plugin], [presentatieSpelling.plugin]);
+  const xlsxPlugins = useMemo(
+    () => [...herladen.plugins, rekenbladLaag.plugin, rekenbladSpelling.plugin],
+    [herladen.plugins, rekenbladLaag, rekenbladSpelling.plugin],
+  );
   const apis = useMemo(
     () => ({
       tekst: () => docx.current,
@@ -467,7 +486,8 @@ export default function OfficeEditor(props: EditorProps) {
               }
               // Eigen liniaal (src/tekst/liniaal) in plaats van die van de engine.
               showRuler={false}
-              showOutline={navigatie}
+              // Eigen Navigator (src/tekst/navigator) in plaats van de overzichtsbalk van de engine.
+              showOutline={false}
               showOutlineButton={false}
               colorMode={documentWeergave.thema === "forge" ? "dark" : "light"}
               i18n={engineTaal.tekst}
@@ -519,6 +539,7 @@ export default function OfficeEditor(props: EditorProps) {
                 }
               />
               <RekenbladKoppen host={rekenbladHost} api={rekenbladApi} laag={rekenbladLaag} />
+              {rekenbladSpelling.element}
             </div>
           </EditorZichtbaar.Provider>
           </DocumentLettertypen.Provider>
@@ -539,7 +560,7 @@ export default function OfficeEditor(props: EditorProps) {
             initialSlide={herladen.dia}
             fileName={props.naam}
             fonts={fontFaces}
-            plugins={PRESENTATIE_PLUGINS}
+            plugins={pptxPlugins}
             onReady={gereedPptx}
             onChange={(snapshot) => {
               noteerDiaAantal(presentatieApi?.handle, snapshot.slides.length);
@@ -574,6 +595,7 @@ export default function OfficeEditor(props: EditorProps) {
               klaar={props.voorstellingKeuzeGedaan}
             />
           )}
+          {presentatieSpelling.element}
         </EditorZichtbaar.Provider>
         </DocumentLettertypen.Provider>
         </EditorApi.Provider>

@@ -114,6 +114,10 @@ function reeksXml(model: GrafiekModel, r: Reeks, i: number, groep: "bar" | "line
       : `<c:marker>${v("symbol", "none")}</c:marker>`;
   if (groep === "scatter")
     opmaak = `<c:spPr><a:ln w="19050"><a:noFill/></a:ln></c:spPr>`;
+  if (groep === "scatter" && r.lijn) {
+    opmaak = `<c:spPr><a:ln w="22225" cap="rnd">${vulling(kleur)}<a:round/></a:ln></c:spPr>`;
+    extra = `<c:marker>${v("symbol", "none")}</c:marker>`;
+  }
   if (groep === "pie") {
     opmaak = `<c:spPr>${lijn("FFFFFF", 19050)}</c:spPr>`;
     extra = model.categorieen

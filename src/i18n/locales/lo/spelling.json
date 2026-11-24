@@ -23,7 +23,9 @@
     "short": {
       "enGB": "ພາສາອັງກິດ (ສະຫະລາຊະອານາຈັກ)",
       "enUS": "ພາສາອັງກິດ (ສະຫະລັດອາເມຣິກາ)"
-    }
+    },
+    "workbook": "ພາສາຂອງສະໝຸດວຽກ",
+    "presentation": "ພາສາຂອງການນຳສະເໜີ"
   },
   "menu": {
     "label": "ການສະກົດ: {{word}}",
@@ -40,12 +42,20 @@
     "personalListButton": "ວັດຈະນານຸກົມສ່ວນຕົວ ({{number}})…",
     "personalList": "ວັດຈະນານຸກົມສ່ວນຕົວ",
     "noWords": "ຍັງບໍ່ທັນໄດ້ເພີ່ມຄຳສັບໃດໆ.",
-    "removeWord": "ລຶບ {{word}}"
+    "removeWord": "ລຶບ {{word}}",
+    "defaultLanguage": "ພາສາຂອງສະໝຸດວຽກ ແລະ ການນຳສະເໜີທີ່ບໍ່ມີພາສາ",
+    "defaultLanguageAuto": "ອັດຕະໂນມັດ (ພາສາຂອງສ່ວນຕິດຕໍ່)"
   },
   "status": {
     "unavailable": "ການກວດສອບການສະກົດຄຳບໍ່ພ້ອມໃຊ້ງານ",
     "checking": "ກຳລັງກວດສອບການສະກົດຄຳ…",
     "noErrors": "ບໍ່ມີຂໍ້ຜິດພາດການສະກົດຄຳ",
-    "errors_other": "ຂໍ້ຜິດພາດການສະກົດຄຳ {{errors}} ຈຸດ"
+    "errors_other": "ຂໍ້ຜິດພາດການສະກົດຄຳ {{errors}} ຈຸດ",
+    "languageTip": "ພາສາກວດສອບ: {{language}}. ຄລິກເພື່ອປ່ຽນ.",
+    "chooseLanguage": "ພາສາກວດສອບ"
+  },
+  "place": {
+    "slide": "ສະໄລ້ {{slide}}",
+    "slideNotes": "ສະໄລ້ {{slide}} · ບັນທຶກ"
   }
 }

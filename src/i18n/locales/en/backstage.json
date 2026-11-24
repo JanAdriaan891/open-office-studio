@@ -487,5 +487,22 @@
     "commentsNone": "Do not print",
     "commentsAtEnd": "At the end of the sheet",
     "commentsDisplayed": "Visible notes as displayed on the sheet"
+  },
+  "templates": {
+    "title": "Templates",
+    "hint": "A template opens as a new, untitled document",
+    "all": "All",
+    "mine": "My templates",
+    "mineEmpty": "No templates of your own yet. Save the current document as a template or add a DOTX, XLTX or POTX file.",
+    "saveCurrent": "Current document as template",
+    "saveCurrentTitle": "Save the open document under My templates (as {{format}})",
+    "add": "Add template…",
+    "nameLabel": "Template name",
+    "openTitle": "New document based on “{{name}}”",
+    "delete": "Delete “{{name}}”",
+    "saved": "Template “{{name}}” saved under My templates.",
+    "saveFailed": "Saving the template failed: {{error}}",
+    "openFailed": "Opening the template failed: {{error}}",
+    "unsupported": "{{name}} is not a supported template (DOTX, XLTX, POTX, DOCX, XLSX or PPTX up to 50 MB)."
   }
 }
